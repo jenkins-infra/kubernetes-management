@@ -2,6 +2,7 @@ RELEASE=sandbox
 HELM=bin/helm
 HELM_VERSION=2.7.2
 MINIKUBE_VERSION=0.23.0
+KUBERNETES_VERSION=1.7.5
 ROOT=$(shell pwd)
 
 init: 
@@ -36,3 +37,13 @@ init_bin:
 		&& tar  -C $(ROOT)/bin --strip=1 -xvzf $(ROOT)/bin/helm.tgz linux-amd64/helm \
 		&& chmod +x $(ROOT)/bin/helm \
 		&& rm $(ROOT)/bin/helm.tgz
+
+purge:
+	$(HELM) delete --purge $(RELEASE)
+
+
+minikube_start:
+	$(ROOT)/bin/minikube start --kubernetes-version v$(KUBERNETES_VERSION)
+
+minikube_delete:
+	$(ROOT)/bin/minikube delete
