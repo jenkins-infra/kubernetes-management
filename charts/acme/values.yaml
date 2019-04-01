@@ -1,0 +1,8 @@
+# Default values for acme.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+#
+acme:
+  id: "letsencrypt-prod"
+  email: ""
+  server: "https://acme-staging.api.letsencrypt.org/directory"

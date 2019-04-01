@@ -1,0 +1,10 @@
+releases:
+    - name: nginx-ingress
+      chart: stable/nginx-ingress
+      namespace: kube-system
+      version: 1.4.0
+      wait: true
+      timeout: 600
+      recreatePods: true
+      force: true
+      atomic: true

@@ -1,0 +1,13 @@
+clusterAgent:
+    enabled: true
+datadog:
+    collectEvents: true
+    leaderElection: true
+    leaderLeaseDuration: 60
+    #    apmEnabled: true
+    #    confd:
+    #        - {{- (.Files.Glob "./conf.d/*.yaml").AsConfig } nindent 2}}
+    #    checkd:
+    #        - {{- (.Files.Glob "./check.d/*.py").AsConfig } nindent 2}}
+rbac:
+    create: true

@@ -1,4 +1,0 @@
-apiVersion: v1
-description: A Datadog Helm chart for Kubernetes
-name: datadog
-version: 0.1.0
