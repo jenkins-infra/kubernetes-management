@@ -8,5 +8,7 @@ releases:
       recreatePods: true
       force: true
       atomic: true
+      values:
+        - "../config/datadog/values.yaml"
       secrets:
         - "../config/datadog/secrets.yaml"
