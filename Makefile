@@ -2,6 +2,9 @@
 # docker pull quay.io/roboll/helmfile:v0.48.0
 
 #sops -e -i values/datadog/secrets.yaml
+init:
+	kubectl apply -f helm/rbac.yaml
+	helm init --service-account tiller
 
 lint:
 	helmfile -f helmfile.d lint
