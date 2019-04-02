@@ -1,5 +1,5 @@
 releases:
-    - name: nginx-ingress
+    - name: public-nginx-ingress
       chart: stable/nginx-ingress
       namespace: kube-system
       version: 1.4.0
@@ -8,3 +8,28 @@ releases:
       recreatePods: true
       force: true
       atomic: true
+      values:
+        - controller:
+            ingressClass: public-ingress
+            service:
+                annotations:
+                  service.beta.kubernetes.io/azure-load-balancer-internal: false
+                  service.beta.kubernetes.io/azure-load-balancer-internal-subnet: app-tier
+                loadBalancerIP: 40.70.215.138
+
+    - name: private-nginx-ingress
+      chart: stable/nginx-ingress
+      namespace: kube-system
+      version: 1.4.0
+      wait: true
+      timeout: 600
+      recreatePods: true
+      force: true
+      atomic: true
+      values:
+        - controller:
+            ingressClass: private-ingress
+            service:
+                annotations:
+                  service.beta.kubernetes.io/azure-load-balancer-internal: true
+                  service.beta.kubernetes.io/azure-load-balancer-internal-subnet: data-tier
