@@ -16,5 +16,6 @@ releases:
       force: true
       atomic: true
       values:
-          - acme:
-              email: "jenkins-infra@olblak.com"
+        - "../config/acme/values.yaml"
+      secrets:
+        - "../config/acme/secrets.yaml"

@@ -10,4 +10,20 @@ spec:
       # Secret resource used to store the account's private key.
       name: {{ .Values.acme.id }}
     # Enable the HTTP01 challenge mechanism for this Issuer
-    http01: {}
+    #http01: {}
+    dns01:
+      providers:
+        - name: azure
+          azuredns:
+            clientID: {{ .Values.acme.dns01.azure.clientID }}
+            # A secretKeyRef to a service principal ClientSecret (password)
+            # # ref: https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-service-principal
+            clientSecretSecretRef:
+              name: azuredns-config-{{ .Values.acme.id }}
+              key: CLIENT_SECRET
+            subscriptionID: {{ .Values.acme.dns01.azure.subscriptionID }}
+            # Azure AD tenant Id
+            tenantID: {{ .Values.acme.dns01.azure.tenantID }}
+            # ResourceGroup name where dns zone is provisioned
+            resourceGroupName: {{ .Values.acme.dns01.azure.resourceGroupName }}
+            hostedZoneName: {{ .Values.acme.dns01.azure.hostedZoneName }}
