@@ -28,7 +28,7 @@ releases:
       atomic: true
       values:
         - controller:
-            ingressClass: private-ingress
+            ingressClass: nginx
             service:
                 annotations:
                   service.beta.kubernetes.io/azure-load-balancer-internal: true
