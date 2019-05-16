@@ -1,0 +1,6 @@
+name: jenkins/release
+version: 0.0.1
+description: Jenkins Core Release Environment 
+maintainers:
+  - name: Olblak
+icon: https://jenkins.io/images/logos/plumber/256.png

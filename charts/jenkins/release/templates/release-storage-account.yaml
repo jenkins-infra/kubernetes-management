@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  # Jenkins ID
+  name: "release-storage-account-key"
+  labels:
+      # Credential Type
+    "jenkins.io/credentials-type": "secretText"
+  annotations:
+      # Credential Descriptionn
+      # Remark: It can not be a label as spaces are not allowed
+    "jenkins.io/credentials-description" : "Password used by maven release to upload war files"
+type: Opaque
+data:
+  # UTF-8 base64 encoded
+  text: {{ .Values.release_storage_accountkey | b64enc }}
