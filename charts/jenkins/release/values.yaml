@@ -1,3 +1,4 @@
+# Defautl helm value https://github.com/helm/charts/blob/master/stable/jenkins/values.yaml
 jenkins:
     master:
         runAsUser: 1000
@@ -41,10 +42,10 @@ jenkins:
                   securityRealm:
                     ldap:
                       configurations:
-                          - server: ldap.jenkins.io
-                            rootDN: dc=jenkins-ci,dc=org
-                            managerDN: "cn=admin,dc=jenkins-ci,dc=org"
-                            managerPasswordSecret: "${LDAP_DN_PASSWORD}"
+                          - server: "${LDAP_SERVER}"
+                            rootDN: "${LDAP_ROOT_DN}"
+                            managerDN: "${LDAP_MANAGER_DN}"
+                            managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
                             userSearch: cn={0}
                       cache:
                           size: 100
@@ -139,6 +140,34 @@ jenkins:
             - metrics
     agent:
         enabled: true
+        podName: 'jnlp'
+        podRetention: 'OnFailure'
+        podName: 'jenkins-release'
+        yamlTemplate: |
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              labels:
+                label: jenkins-release
+            spec:
+              containers:
+              - name: maven
+                image: olblak/maven:3-jdk-8
+                imagePullPolicy: Always
+                workdir: /home/jenkins
+                env:
+                  - name: HOME
+                    value: "/home/jenkins/workspace"
+                command:
+                - cat
+                tty: true
+              - name: azure-cli
+                image: microsoft/azure-cli:2.0.59
+                workdir: /home/jenkins
+                command:
+                - cat
+                tty: true
+
     serviceAccount:
         create: true
         name: jenkins-master
