@@ -1,14 +1,14 @@
 releases:
     - name: jenkins
       namespace: release
-      chart: ../charts/jenkins/release
+      chart: ../charts/release/jenkins
       wait: true
       timeout: 600 
       recreatePods: true
       force: true
       atomic: true
       values:
-        - "../config/jenkins/release/values.yaml"
+        - "../config/release/jenkins/values.yaml"
       secrets:
-        - "../config/jenkins/release/secrets.yaml"
+        - "../config/release/jenkins/secrets.yaml"
 
