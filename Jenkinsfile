@@ -1,8 +1,30 @@
 pipeline {
-  agent none
   agent {
-    docker { image 'quay.io/roboll/helmfile:v0.48.0' }
+    kubernetes {
+      label 'helmfile'
+      defaultContainer 'jnlp'
+      yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    role: helmfile
+spec:
+  containers:
+  - name: helmfile
+    image 'quay.io/roboll/helmfile:v0.48.0'
+    imagePullPolicy: Always
+    workdir: /home/jenkins
+    env:
+      - name: HOME
+        value: "/home/jenkins/workspace"
+    command:
+    - cat
+    tty: true
+'''
+    }
   }
+
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 30, unit: 'MINUTES')
@@ -16,10 +38,6 @@ pipeline {
       }
     }
     stage('Apply'){
-      when {
-        branch 'master'
-        environment name: 'JENKINS_URL', value: 'https://trusted.ci.jenkins.io:1443/'
-      }
       steps {
         sh 'helmfile -f helmfile.d apply --suppress-secrets'
       }
