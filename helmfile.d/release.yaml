@@ -3,12 +3,21 @@ releases:
       namespace: release
       chart: ../charts/release/jenkins
       wait: true
-      timeout: 600 
-      recreatePods: true
-      force: true
+      timeout: 600
       atomic: true
       values:
         - "../config/release/jenkins/values.yaml"
       secrets:
         - "../config/release/jenkins/secrets.yaml"
 
+    - name: nexus
+      namespace: release
+      chart: ../charts/nexus
+      wait: true
+      timeout: 600
+      force: true
+      atomic: true
+      values:
+        - "../config/release/nexus/values.yaml"
+      secrets:
+        - "../config/release/nexus/secrets.yaml"
