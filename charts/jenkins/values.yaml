@@ -16,7 +16,7 @@ jenkins:
                 jobs:
                   - script: >
                       multibranchPipelineJob('release-jenkins-core') {
-                        displayName "Jenkins Core Releases"
+                        displayName "Release"
                         description "Jenkins Core Releases"
                         branchSources {
                           github {

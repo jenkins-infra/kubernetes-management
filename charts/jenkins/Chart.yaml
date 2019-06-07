@@ -1,6 +1,8 @@
-name: jenkins
-version: 0.0.1
+apiVersion: v1
+appVersion: "1.0"
 description: Jenkins Core Release Environment 
 maintainers:
   - name: Olblak
 icon: https://jenkins.io/images/logos/plumber/256.png
+name: jenkins
+version: 0.0.1
