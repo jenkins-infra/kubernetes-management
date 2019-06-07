@@ -1,7 +1,7 @@
 releases:
     - name: jenkins
       namespace: release
-      chart: ../charts/release/jenkins
+      chart: ../charts/jenkins
       wait: true
       timeout: 600
       atomic: true
