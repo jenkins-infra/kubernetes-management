@@ -37,6 +37,11 @@ spec:
         sh 'helmfile -f helmfile.d lint'
       }
     }
+    stage('Diff'){
+      steps {
+        sh 'helmfile -f helmfile.d diff --suppress-secrets'
+      }
+    }
     stage('Apply'){
       steps {
         sh 'helmfile -f helmfile.d apply --suppress-secrets'
