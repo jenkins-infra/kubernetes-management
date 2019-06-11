@@ -1,10 +1,59 @@
 jenkins:
     master:
+        configScripts:
+          jobs-settings: |
+              jobs:
+                - script: >
+                    multibranchPipelineJob('release-jenkins-core') {
+                      displayName "Release"
+                      description "Jenkins Core Releases"
+                      branchSources {
+                        github {
+                          scanCredentialsId('github')
+                          repoOwner('olblak')
+                          repository('jenkins')
+                          includes('master')
+                        }
+                      }
+                      orphanedItemStrategy {
+                        discardOldItems {
+                          numToKeep(10)
+                        }
+                      }
+                      triggers {
+                        // Release every Sunday
+                        cron('*/15 * * * 0')
+                      }
+                    }
+
+          ldap-settings: |
+              jenkins:
+                securityRealm:
+                  ldap:
+                    configurations:
+                        - server: "${LDAP_SERVER}"
+                          rootDN: "${LDAP_ROOT_DN}"
+                          managerDN: "${LDAP_MANAGER_DN}"
+                          managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                          userSearch: cn={0}
+                    cache:
+                        size: 100
+                        ttl: 300
+
+          matrix-settings: |
+              jenkins:
+                authorizationStrategy:
+                  globalMatrix:
+                    grantedPermissions:
+                      - "Overall/Administer:release-core"
+                      - "Overall/Read:release-core-dev"
+                      - "Job/Build:release-core-dev"
+                      - "Run/Replay:release-core-dev"
         image: jenkins/jenkins
         imageTag: 2.164.3-jdk11
         ingress:
             enabled: true
-            hostName: jenkins.jx.release.alpha.jenkins.io
+            hostName: release.ci.jenkins.io
             annotations:
               "certmanager.k8s.io/acme-challenge-type": "dns01"
               "certmanager.k8s.io/acme-dns01-provider": "azure"
@@ -13,5 +62,6 @@ jenkins:
               "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
             tls:
               - hosts:
-                  - jenkins.jx.release.alpha.jenkins.io
-                secretName: jenkins.jx.release.alpha.jenkins.io-cert
+                  - release.ci.jenkins.io
+                secretName: release.ci.jenkins.io-cert
+
