@@ -94,6 +94,7 @@ jenkins:
             - github-api
             - github-branch-source
             - github
+            - inline-pipeline
             - jira
             - job-dsl
             - junit
