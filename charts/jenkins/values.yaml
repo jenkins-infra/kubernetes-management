@@ -141,6 +141,7 @@ jenkins:
             - metrics
     agent:
         enabled: true
+        imageTag: 3.29-1
         podName: 'jnlp'
         podRetention: 'OnFailure'
         podName: 'jenkins-release'
