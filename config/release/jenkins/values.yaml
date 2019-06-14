@@ -51,7 +51,7 @@ jenkins:
                             - "Job/Build:release-core-dev"
                             - "Run/Replay:release-core-dev"
         image: jenkins/jenkins
-        imageTag: 2.164.3-jdk11
+        imageTag: 2.176.1
         ingress:
             enabled: true
             hostName: release.ci.jenkins.io
