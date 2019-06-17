@@ -1,3 +1,5 @@
 creation_rules:
-    - pgp: 56D8342434B84E2D1CCF53D96E9A025D52210D3D
-    - azure_kv: 'https://prodjenkinsinfra.vault.azure.net/keys/sops/252fc7e646ac40f184ab4a6016484725'
+    # By default allow following keys to encrypt/decrypt secrets
+    # Specific path can be configured as explained here https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files
+    - azure_keyvault: 'https://prodjenkinsinfra.vault.azure.net/keys/sops/252fc7e646ac40f184ab4a6016484725'
+      pgp: '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
