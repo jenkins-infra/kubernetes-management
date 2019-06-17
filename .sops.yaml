@@ -1,2 +1,3 @@
 creation_rules:
     - pgp: 56D8342434B84E2D1CCF53D96E9A025D52210D3D
+    - azure_kv: 'https://prodjenkinsinfra.vault.azure.net/keys/sops/252fc7e646ac40f184ab4a6016484725'
