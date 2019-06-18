@@ -24,6 +24,11 @@ spec:
 '''
     }
   }
+  environment {
+    AZURE_TENANT_ID=credentials('sops-azure-tenant-id')
+    AZURE_CLIENT_ID=credentials('sops-azure-client-id')
+    AZURE_CLIENT_SECRET=credentials('sops-azure-client-secret')
+  }
 
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
