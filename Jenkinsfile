@@ -21,6 +21,7 @@ spec:
     command:
     - cat
     tty: true
+  serviceAccountName: cluster-admin
 '''
     }
   }
