@@ -26,9 +26,9 @@ spec:
     }
   }
   environment {
-    AZURE_TENANT_ID=credentials('sops-tenant-id')
-    AZURE_CLIENT_ID=credentials('sops-client-id')
-    AZURE_CLIENT_SECRET=credentials('sops-client-secret')
+    AZURE_TENANT_ID       = credentials('sops-tenant-id')
+    AZURE_CLIENT_ID       = credentials('sops-client-id')
+    AZURE_CLIENT_SECRET   = credentials('sops-client-secret')
   }
 
   options {
@@ -65,6 +65,14 @@ spec:
         container('helmfile'){
           sh 'helmfile -f helmfile.d/release.yaml apply --suppress-secrets'
         }
+      }
+    }
+  }
+  post {
+    failure {
+      input '''Pipeline failed.
+We will keep the build pod around to help you diagnose any failures.
+Select Proceed or Abort to terminate the build pod'''
       }
     }
   }
