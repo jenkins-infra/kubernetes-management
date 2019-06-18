@@ -26,6 +26,28 @@ jenkins:
                                 cron('*/15 * * * 0')
                               }
                             }
+                        - script: >
+                            multibranchPipelineJob('k8smgmt') {
+                              displayName "Cluster Management"
+                              description "Kubernetes Cluster Management"
+                              branchSources {
+                                github {
+                                  scanCredentialsId('github')
+                                  repoOwner('olblak')
+                                  repository('charts')
+                                  includes('master')
+                                }
+                              }
+                              orphanedItemStrategy {
+                                discardOldItems {
+                                  numToKeep(10)
+                                }
+                              }
+                              triggers {
+                                // Release every Sunday
+                                cron('*/15 * * * *')
+                              }
+                            }
 
                 ldap-settings: |
                     jenkins:
