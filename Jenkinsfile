@@ -25,9 +25,9 @@ spec:
     }
   }
   environment {
-    AZURE_TENANT_ID=credentials('sops-azure-tenant-id')
-    AZURE_CLIENT_ID=credentials('sops-azure-client-id')
-    AZURE_CLIENT_SECRET=credentials('sops-azure-client-secret')
+    AZURE_TENANT_ID=credentials('sops-tenant-id')
+    AZURE_CLIENT_ID=credentials('sops-client-id')
+    AZURE_CLIENT_SECRET=credentials('sops-client-secret')
   }
 
   options {
