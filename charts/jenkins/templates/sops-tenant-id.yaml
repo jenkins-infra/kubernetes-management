@@ -1,0 +1,20 @@
+---
+{{ if .Values.sops_tenant_id }}
+apiVersion: v1
+kind: Secret
+metadata:
+  # Jenkins ID
+  name: "sops-tenant-id"
+  labels:
+      # Credential Type
+    "jenkins.io/credentials-type": "secretText"
+  annotations:
+      # Credential Descriptionn
+      # Remark: It can not be a label as spaces are not allowed
+    "jenkins.io/credentials-description" : "Azure Tenant id used by sops to decrypt secrets"
+type: Opaque
+data:
+  # UTF-8 base64 encoded
+  text: {{ .Values.sops_tenant_id | b64enc }}
+
+{{ end }}
