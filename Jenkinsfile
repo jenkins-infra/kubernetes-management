@@ -40,6 +40,8 @@ spec:
       steps {
         container('helmfile'){
           sh 'helm init --client-only'
+          sh 'helm plugin install https://github.com/futuresimple/helm-secrets'
+          sh 'helm plugin install https://github.com/databus23/helm-diff --version master'
         }
       }
     }
