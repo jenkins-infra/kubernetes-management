@@ -48,21 +48,21 @@ spec:
     stage('Test Lint'){
       steps {
         container('helmfile'){
-          sh 'helmfile -f helmfile.d lint'
+          sh 'helmfile -f helmfile.d/release.yaml lint'
         }
       }
     }
     stage('Diff'){
       steps {
         container('helmfile'){
-          sh 'helmfile -f helmfile.d diff --suppress-secrets'
+          sh 'helmfile -f helmfile.d/release.yaml diff --suppress-secrets'
         }
       }
     }
     stage('Apply'){
       steps {
         container('helmfile'){
-          sh 'helmfile -f helmfile.d apply --suppress-secrets'
+          sh 'helmfile -f helmfile.d/release.yaml apply --suppress-secrets'
         }
       }
     }
