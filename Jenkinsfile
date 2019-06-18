@@ -12,7 +12,7 @@ metadata:
 spec:
   containers:
   - name: helmfile
-    image: quay.io/roboll/helmfile:v0.48.0
+    image: quay.io/roboll/helmfile:v0.78.0
     imagePullPolicy: IfNotPresent
     workdir: /home/jenkins
     env:
