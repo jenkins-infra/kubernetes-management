@@ -36,19 +36,23 @@ spec:
   }
 
   stages {
-    container('helmfile'){
-      stage('Test Lint'){
-        steps {
+    stage('Test Lint'){
+      steps {
+        container('helmfile'){
           sh 'helmfile -f helmfile.d lint'
         }
       }
-      stage('Diff'){
-        steps {
+    }
+    stage('Diff'){
+      steps {
+        container('helmfile'){
           sh 'helmfile -f helmfile.d diff --suppress-secrets'
         }
       }
-      stage('Apply'){
-        steps {
+    }
+    stage('Apply'){
+      steps {
+        container('helmfile'){
           sh 'helmfile -f helmfile.d apply --suppress-secrets'
         }
       }
