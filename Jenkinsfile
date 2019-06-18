@@ -36,6 +36,13 @@ spec:
   }
 
   stages {
+    stage('Helm Client Init'){
+      steps {
+        container('helmfile'){
+          sh 'helm init --client-only'
+        }
+      }
+    }
     stage('Test Lint'){
       steps {
         container('helmfile'){
