@@ -9,6 +9,13 @@ releases:
       force: true
       atomic: true
       values:
+        - defaultBackend:
+            enabled: true
+            image:
+              repository: jenkinsciinfra/404
+              tag: 2-buildb403fe
+            port: 80
+            replicaCount: 3
         - controller:
             ingressClass: public-ingress
             service:
@@ -27,6 +34,13 @@ releases:
       force: true
       atomic: true
       values:
+        - defaultBackend:
+            enabled: true
+            image:
+              repository: jenkinsciinfra/404
+              tag: 2-buildb403fe
+            port: 80
+            replicaCount: 3
         - controller:
             ingressClass: nginx
             service:
