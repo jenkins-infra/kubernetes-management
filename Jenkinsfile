@@ -34,6 +34,11 @@ spec:
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 30, unit: 'MINUTES')
+    disableConcurrentBuilds()
+  }
+
+  triggers {
+    cron 'H/15 * * * *'
   }
 
   stages {
