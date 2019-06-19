@@ -16,14 +16,10 @@ jenkins:
                                   includes('master')
                                 }
                               }
-                              orphanedItemStrategy {
-                                discardOldItems {
-                                  numToKeep(10)
+                              factory {
+                                workflowMultiBranchProjectFactory {
+                                  scriptPath('Jenkinsfile.release')
                                 }
-                              }
-                              triggers {
-                                // Release every Sunday
-                                cron('*/15 * * * 0')
                               }
                             }
                         - script: >
@@ -37,15 +33,6 @@ jenkins:
                                   repository('charts')
                                   includes('master')
                                 }
-                              }
-                              orphanedItemStrategy {
-                                discardOldItems {
-                                  numToKeep(10)
-                                }
-                              }
-                              triggers {
-                                // Release every Sunday
-                                cron('*/15 * * * *')
                               }
                             }
 
