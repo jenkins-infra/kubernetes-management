@@ -17,7 +17,7 @@ jenkins:
                                 }
                               }
                               factory {
-                                workflowMultiBranchProjectFactory {
+                                workflowBranchProjectFactory {
                                   scriptPath('Jenkinsfile.release')
                                 }
                               }
