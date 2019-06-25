@@ -25,12 +25,12 @@ jenkins:
                             }
                         - script: >
                             multibranchPipelineJob('k8smgmt') {
-                              displayName "Cluster Management"
-                              description "Kubernetes Cluster Management"
+                              displayName "K8s Cluster Management"
+                              description "Current K8s Cluster Management"
                               branchSources {
                                 github {
                                   scanCredentialsId('github')
-                                  repoOwner('olblak')
+                                  repoOwner('jenkins-infra')
                                   repository('charts')
                                   includes('master')
                                 }
