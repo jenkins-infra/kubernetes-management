@@ -8,9 +8,9 @@ nexus:
   nexusProxy:
       enabled: false
       env:
-          nexusHttpHost: "repo.private.jenkins.io"
+          nexusHttpHost: repo.private.jenkins.io
       port: 80
-      svcName: 'nexus'
+      svcName: nexus
   ingress:
       enabled: true
       annotations:
@@ -23,7 +23,7 @@ nexus:
           enabled: true
           secretName: "nexus-cert"
   persistence:
-      storageClass: default 
+      storageClass: default
       storageSize: 100Gi
   nexus:
       service:
@@ -50,7 +50,7 @@ nexus:
               memory: 1024Mi
   deployment:
       postStart:
-          command: 
+          command:
             - '/opt/sonatype/nexus/postStart.sh'
   secret:
       enabled: true
