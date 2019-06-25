@@ -26,6 +26,9 @@ releases:
     - name: {{ .Environment.Name }}-{{ .Environment.Values.namespace }}-nexus
       chart: ../charts/nexus
       namespace: {{ .Environment.Values.namespace }}
+      set:
+        - name: nexus.service.name
+          value: {{ .Environment.Name }}-{{ .Environment.Values.namespace }}-nexus
       values:
         - "../config/release/nexus/values.yaml"
       secrets:
