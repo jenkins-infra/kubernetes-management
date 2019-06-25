@@ -31,6 +31,9 @@ This folder defines a custom Dockerfile in order to build a custom image to orch
 
 * We need one jenkins instance per cluster so we should split cluster orchestration tasks outside release.ci.jenkins.io
 
+* If RBAC is enabled on the cluster, before being able to use helm, we need to create a service acccount for helm with the right cluster role binding.
+we can run following command: ```kubectl apply -f helm/rbac.yaml```
+
 ## Links
 * [Helmfile](https://github.com/roboll/helmfile)
 * [Helm Charts](https://github.com/helm/charts)
