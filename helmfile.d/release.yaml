@@ -1,7 +1,6 @@
 helmDefaults:
   atomic: true
   force: true
-  recreatePods: true
   timeout: 600
   wait: true
 
