@@ -1,6 +1,8 @@
 # Defautl helm value https://github.com/helm/charts/blob/master/stable/jenkins/values.yaml
 jenkins:
     master:
+        image: jenkins/jenkins
+        imageTag: 2.176.1
         runAsUser: 1000
         fsGroup: 1000
         containerEnv:
@@ -9,56 +11,6 @@ jenkins:
         overwritePlugins: true
         secretsFilesSecret: 'jenkins-secrets'
         serviceType: "ClusterIP"
-        JCasC:
-          enabled: true
-          configScripts:
-            jobs-settings: |
-                jobs:
-                  - script: >
-                      multibranchPipelineJob('release-jenkins-core') {
-                        displayName "Release"
-                        description "Jenkins Core Releases"
-                        branchSources {
-                          github {
-                            scanCredentialsId('github')
-                            repoOwner('olblak')
-                            repository('jenkins')
-                            includes('master')
-                          }
-                        }
-                        orphanedItemStrategy {
-                          discardOldItems {
-                            numToKeep(10)
-                          }
-                        }
-                        triggers {
-                          // Release every Sunday
-                          cron('*/15 * * * 0')
-                        }
-                      }
-
-            ldap-settings: |
-                jenkins:
-                  securityRealm:
-                    ldap:
-                      configurations:
-                          - server: "${LDAP_SERVER}"
-                            rootDN: "${LDAP_ROOT_DN}"
-                            managerDN: "${LDAP_MANAGER_DN}"
-                            managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
-                            userSearch: cn={0}
-                      cache:
-                          size: 100
-                          ttl: 300
-
-            matrix-settings: |
-                jenkins:
-                  authorizationStrategy:
-                    globalMatrix:
-                      grantedPermissions:
-                        - "Overall/Read:release"
-                        - "Overall/Administer:jenkins-admins"
-                        - "Overall/Administer:admins"
         installPlugins:
             - antisamy-markup-formatter
             - authentication-tokens

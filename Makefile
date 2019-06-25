@@ -17,3 +17,6 @@ delete:
 
 diff:
 	helmfile -f helmfile.d diff --suppress-secrets
+
+release:
+	helmfile -f helmfile.d/release.yaml apply --suppress-secrets

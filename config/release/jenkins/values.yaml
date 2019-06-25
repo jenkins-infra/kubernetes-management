@@ -1,6 +1,7 @@
 jenkins:
     master:
         JCasC:
+            enabled: true
             configScripts:
                 jobs-settings: |
                     jobs:
@@ -59,8 +60,6 @@ jenkins:
                             - "Overall/Read:release-core-dev"
                             - "Job/Build:release-core-dev"
                             - "Run/Replay:release-core-dev"
-        image: jenkins/jenkins
-        imageTag: 2.176.1
         ingress:
             enabled: true
             hostName: release.ci.jenkins.io
@@ -74,4 +73,3 @@ jenkins:
               - hosts:
                   - release.ci.jenkins.io
                 secretName: release.ci.jenkins.io-cert
-

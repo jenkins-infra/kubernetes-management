@@ -1,5 +1,5 @@
 releases:
-    - name: jenkins
+    - name: release-jenkins
       namespace: release
       chart: ../charts/jenkins
       wait: true
@@ -10,7 +10,16 @@ releases:
       secrets:
         - "../config/release/jenkins/secrets.yaml"
 
-    - name: nexus
+    - name: release-jenkins-env
+      namespace: release
+      chart: ../charts/env-jenkins-release
+      wait: true
+      timeout: 600
+      atomic: true
+      secrets:
+        - "../config/release/env-jenkins/secrets.yaml"
+
+    - name: release-nexus
       namespace: release
       chart: ../charts/nexus
       wait: true
