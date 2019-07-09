@@ -13,7 +13,7 @@ releases:
             enabled: true
             image:
               repository: jenkinsciinfra/404
-              tag: 2-buildb403fe
+              tag: 5-build19b813
             port: 80
             replicaCount: 3
         - controller:
@@ -38,7 +38,7 @@ releases:
             enabled: true
             image:
               repository: jenkinsciinfra/404
-              tag: 2-buildb403fe
+              tag: 5-build19b813
             port: 80
             replicaCount: 3
         - controller:
