@@ -11,6 +11,7 @@ jenkins:
                               description "Jenkins Core Releases"
                               branchSources {
                                 github {
+                                  id('2019081601')
                                   scanCredentialsId('github')
                                   repoOwner('olblak')
                                   repository('jenkins')
@@ -29,6 +30,7 @@ jenkins:
                               description "Current K8s Cluster Management"
                               branchSources {
                                 github {
+                                  id('2019081602')
                                   scanCredentialsId('github')
                                   repoOwner('jenkins-infra')
                                   repository('charts')
