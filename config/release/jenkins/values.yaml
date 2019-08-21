@@ -25,6 +25,25 @@ jenkins:
                               }
                             }
                         - script: >
+                            multibranchPipelineJob('core-packaging') {
+                              displayName "Packaging"
+                              description "Jenkins Core Packaging"
+                              branchSources {
+                                github {
+                                  id('2019082101')
+                                  scanCredentialsId('github')
+                                  repoOwner('olblak')
+                                  repository('packaging')
+                                  includes('master')
+                                }
+                              }
+                              factory {
+                                workflowBranchProjectFactory {
+                                  scriptPath('Jenkinsfile')
+                                }
+                              }
+                            }
+                        - script: >
                             multibranchPipelineJob('k8smgmt') {
                               displayName "K8s Cluster Management"
                               description "Current K8s Cluster Management"
