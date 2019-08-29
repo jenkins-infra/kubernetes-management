@@ -1,13 +1,4 @@
 releases:
-    - name: cert-manager
-      chart: stable/cert-manager
-      namespace: cert-manager
-      wait: true
-      timeout: 600
-      recreatePods: true
-      force: true
-      atomic: true
-
     - name: acme
       chart: ../charts/acme
       namespace: cert-manager

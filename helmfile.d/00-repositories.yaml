@@ -1,0 +1,8 @@
+repositories:
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+  # To use official "incubator" charts a.k.a https://github.com/helm/charts/tree/master/incubator
+  - name: incubator
+    url: https://kubernetes-charts-incubator.storage.googleapis.com
