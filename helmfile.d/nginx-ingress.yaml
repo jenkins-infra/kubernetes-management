@@ -22,7 +22,8 @@ releases:
                 annotations:
                   service.beta.kubernetes.io/azure-load-balancer-internal: false
                   service.beta.kubernetes.io/azure-load-balancer-internal-subnet: app-tier
-                loadBalancerIP: 40.70.215.138
+                  service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
+                loadBalancerIP: 52.147.174.4
 
     - name: private-nginx-ingress
       chart: stable/nginx-ingress
