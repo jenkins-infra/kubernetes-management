@@ -80,7 +80,8 @@ jenkins:
                             - "Overall/Administer:release-core"
                             - "Overall/Read:release-core-dev"
                             - "Job/Build:release-core-dev"
-                            - "Run/Replay:release-core-dev"
+                            - "Job/Cancel:release-core-dev"
+                            - "Job/Read:release-core-dev"
         ingress:
             enabled: true
             hostName: release.ci.jenkins.io
