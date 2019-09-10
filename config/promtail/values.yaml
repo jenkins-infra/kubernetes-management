@@ -1,0 +1,13 @@
+# https://github.com/grafana/loki/blob/master/production/helm/promtail/values.yaml
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+loki:
+  serviceName: "loki"
+  servicePort: 3100
+  serviceScheme: http
