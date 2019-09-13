@@ -1,29 +1,6 @@
 pipeline {
   agent {
-    kubernetes {
-      label 'helmfile'
-      defaultContainer 'jnlp'
-      yaml '''
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    role: helmfile
-spec:
-  containers:
-  - name: helmfile
-    image: olblak/helmfile:abc2e4
-    imagePullPolicy: IfNotPresent
-    workdir: /home/jenkins
-    env:
-      - name: HOME
-        value: "/home/jenkins/workspace"
-    command:
-    - cat
-    tty: true
-  serviceAccountName: cluster-admin
-'''
-    }
+    label 'helmfile'
   }
   environment {
     AZURE_TENANT_ID       = credentials('sops-tenant-id')
