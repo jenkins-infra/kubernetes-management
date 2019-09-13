@@ -18,6 +18,7 @@ jenkins:
                         templates:
                           - name: jnlp
                             activeDeadlineSeconds: 360
+                            nodeSelector: "kubernetes.io/os=linux"
                             idleMinutes: 1
                             containers:
                               - name: jnlp
@@ -35,9 +36,30 @@ jenkins:
                             nodeUsageMode: NORMAL
                             serviceAccount: "jenkins-agent"
                             slaveConnectTimeoutStr: "0"
+                          - name: jnlp-windows
+                            activeDeadlineSeconds: 360
+                            nodeSelector: "kubernetes.io/os=windows"
+                            idleMinutes: 1
+                            containers:
+                              - name: jnlp
+                                args: "^${computer.jnlpmac} ^${computer.name}"
+                                envVars:
+                                  - containerEnvVar:
+                                      key: "JENKINS_URL"
+                                      value: "http://default-release-jenkins.release.svc.cluster.local:8080"
+                                image: "jenkins4eval/jnlp-agent:latest-windows"
+                                resourceLimitCpu: "200m"
+                                resourceLimitMemory: "256Mi"
+                                resourceRequestCpu: "200m"
+                                resourceRequestMemory: "256Mi"
+                            label: "jnlp-windows"
+                            nodeUsageMode: NORMAL
+                            serviceAccount: "jenkins-agent"
+                            slaveConnectTimeoutStr: "0"
                           - name: jenkins-release-linux
                             inheritFrom: "jnlp"
                             label: "jenkins-release-linux "
+                            nodeSelector: "kubernetes.io/os=linux"
                             nodeUsageMode: NORMAL
                             yamlMergeStrategy: "override"
                             containers:
@@ -55,6 +77,38 @@ jenkins:
                                 resourceRequestMemory: "256Mi"
                                 ttyEnabled: true
                                 workingDir: "/home/jenkins"
+                          - name: jenkins-release-windows
+                            inheritFrom: "jnlp-windows"
+                            label: "jenkins-release-windows"
+                            nodeUsageMode: NORMAL
+                            yamlMergeStrategy: "override"
+                            containers:
+                              - name: maven
+                                command: "sleep"
+                                args: "99d"
+                                envVars:
+                                  - containerEnvVar:
+                                      key: "HOME"
+                                      value: "/home/jenkins/workspace"
+                                image: "jenkins4eval/maven-windows-jdk-8:latest"
+                                alwaysPullImage: true
+                                resourceLimitCpu: "200m"
+                                resourceLimitMemory: "256Mi"
+                                resourceRequestCpu: "200m"
+                                resourceRequestMemory: "256Mi"
+                                ttyEnabled: true
+                                workingDir: "/home/jenkins"
+                            nodeSelector: "kubernetes.io/os=windows"
+                            workspaceVolume:
+                              emptyDirWorkspaceVolume:
+                                memory: false
+                            yaml: |-
+                              spec:
+                                tolerations:
+                                - key: "sku"
+                                  operator: "Equal"
+                                  value: "windows"
+                                  effect: "NoSchedule"
                           - name: "helmfile"
                             inheritFrom: "jnlp"
                             containers:
