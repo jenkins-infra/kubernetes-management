@@ -3,93 +3,164 @@ jenkins:
         JCasC:
             enabled: true
             configScripts:
-                jobs-settings: |
-                    jobs:
-                        - script: >
-                            multibranchPipelineJob('release-jenkins-core') {
-                              displayName "Release"
-                              description "Jenkins Core Releases"
-                              branchSources {
-                                github {
-                                  id('2019081601')
-                                  scanCredentialsId('github')
-                                  repoOwner('olblak')
-                                  repository('jenkins')
-                                  includes('master')
-                                }
-                              }
-                              factory {
-                                workflowBranchProjectFactory {
-                                  scriptPath('Jenkinsfile.release')
-                                }
-                              }
-                            }
-                        - script: >
-                            multibranchPipelineJob('core-packaging') {
-                              displayName "Packaging"
-                              description "Jenkins Core Packaging"
-                              branchSources {
-                                github {
-                                  id('2019082101')
-                                  scanCredentialsId('github')
-                                  repoOwner('olblak')
-                                  repository('packaging')
-                                  includes('master')
-                                }
-                              }
-                              factory {
-                                workflowBranchProjectFactory {
-                                  scriptPath('Jenkinsfile')
-                                }
-                              }
-                            }
-                        - script: >
-                            multibranchPipelineJob('k8smgmt') {
-                              displayName "K8s Cluster Management"
-                              description "Current K8s Cluster Management"
-                              branchSources {
-                                github {
-                                  id('2019081602')
-                                  scanCredentialsId('github')
-                                  repoOwner('jenkins-infra')
-                                  repository('charts')
-                                  includes('master')
-                                }
-                              }
-                            }
-
-                ldap-settings: |
-                    jenkins:
-                      securityRealm:
-                        ldap:
-                          configurations:
-                              - server: "${LDAP_SERVER}"
-                                rootDN: "${LDAP_ROOT_DN}"
-                                managerDN: "${LDAP_MANAGER_DN}"
-                                managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
-                                userSearch: cn={0}
-                          cache:
-                              size: 100
-                              ttl: 300
-
-                matrix-settings: |
-                    jenkins:
-                      authorizationStrategy:
-                        globalMatrix:
-                          grantedPermissions:
-                            - "Overall/Administer:release-core"
-                            - "Overall/Read:release-core-dev"
-                            - "Job/Build:release-core-dev"
-                            - "Job/Cancel:release-core-dev"
-                            - "Job/Read:release-core-dev"
+              k8s-settings: |
+                jenkins:
+                  clouds:
+                    - kubernetes:
+                        containerCapStr: "100"
+                        jenkinsTunnel: "default-release-jenkins-agent:50000"
+                        jenkinsUrl: "http://default-release-jenkins:8080"
+                        maxRequestsPerHostStr: "32"
+                        name: "kubernetes"
+                        namespace: "release"
+                        podRetention: "onFailure"
+                        serverUrl: "https://kubernetes.default"
+                        templates:
+                          - name: jnlp
+                            activeDeadlineSeconds: 360
+                            idleMinutes: 1
+                            containers:
+                              - name: jnlp
+                                args: "^${computer.jnlpmac} ^${computer.name}"
+                                envVars:
+                                  - containerEnvVar:
+                                      key: "JENKINS_URL"
+                                      value: "http://default-release-jenkins.release.svc.cluster.local:8080"
+                                image: "jenkins/jnlp-slave:3.29-1"
+                                resourceLimitCpu: "200m"
+                                resourceLimitMemory: "256Mi"
+                                resourceRequestCpu: "200m"
+                                resourceRequestMemory: "256Mi"
+                                command: "sleep 99d"
+                            label: "jnlp"
+                            nodeUsageMode: NORMAL
+                            serviceAccount: "jenkins-agent"
+                            slaveConnectTimeoutStr: "0"
+                          - name: jenkins-release-linux
+                            inheritFrom: "jnlp"
+                            label: "jenkins-release-linux "
+                            nodeUsageMode: NORMAL
+                            yamlMergeStrategy: "override"
+                            containers:
+                              - name: maven
+                                command: "sleep"
+                                args: "99d"
+                                envVars:
+                                  - containerEnvVar:
+                                      key: "HOME"
+                                      value: "/home/jenkins/workspace"
+                                image: "olblak/maven:3-jdk-8"
+                                resourceLimitCpu: "200m"
+                                resourceLimitMemory: "256Mi"
+                                resourceRequestCpu: "200m"
+                                resourceRequestMemory: "256Mi"
+                                ttyEnabled: true
+                                workingDir: "/home/jenkins"
+                          - name: "helmfile"
+                            inheritFrom: "jnlp"
+                            containers:
+                              - name: "helmfile"
+                                command: "sleep"
+                                args: "99d"
+                                envVars:
+                                  - containerEnvVar:
+                                      key: "HOME"
+                                      value: "/home/jenkins/workspace"
+                                image: "olblak/helmfile:abc2e4"
+                                resourceLimitCpu: "200m"
+                                resourceLimitMemory: "256Mi"
+                                resourceRequestCpu: "200m"
+                                resourceRequestMemory: "256Mi"
+                            serviceAccount: "cluster-admin"
+                            label: "helmfile"
+                            namespace: "release"
+                            podRetention: "onFailure"
+                            yamlMergeStrategy: "override"
+              jobs-settings: |
+                jobs:
+                  - script: >
+                      multibranchPipelineJob('release-jenkins-core') {
+                        displayName "Release"
+                        description "Jenkins Core Releases"
+                        branchSources {
+                          github {
+                            id('2019081601')
+                            scanCredentialsId('github')
+                            repoOwner('olblak')
+                            repository('jenkins')
+                            includes('master')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile.release')
+                          }
+                        }
+                      }
+                  - script: >
+                      multibranchPipelineJob('core-packaging') {
+                        displayName "Packaging"
+                        description "Jenkins Core Packaging"
+                        branchSources {
+                          github {
+                            id('2019082101')
+                            scanCredentialsId('github')
+                            repoOwner('olblak')
+                            repository('packaging')
+                            includes('master')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile')
+                          }
+                        }
+                      }
+                  - script: >
+                      multibranchPipelineJob('k8smgmt') {
+                        displayName "K8s Cluster Management"
+                        description "Current K8s Cluster Management"
+                        branchSources {
+                          github {
+                            id('2019081602')
+                            scanCredentialsId('github')
+                            repoOwner('jenkins-infra')
+                            repository('charts')
+                            includes('master')
+                          }
+                        }
+                      }
+              ldap-settings: |
+                jenkins:
+                  securityRealm:
+                    ldap:
+                      configurations:
+                        - server: "${LDAP_SERVER}"
+                          rootDN: "${LDAP_ROOT_DN}"
+                          managerDN: "${LDAP_MANAGER_DN}"
+                          managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                          userSearch: cn={0}
+                      cache:
+                        size: 100
+                        ttl: 300
+              matrix-settings: |
+                jenkins:
+                  authorizationStrategy:
+                    globalMatrix:
+                      grantedPermissions:
+                        - "Overall/Administer:release-core"
+                        - "Overall/Read:release-core-dev"
+                        - "Job/Build:release-core-dev"
+                        - "Job/Cancel:release-core-dev"
+                        - "Job/Read:release-core-dev"
         ingress:
-            enabled: true
-            hostName: release.ci.jenkins.io
-            annotations:
-              "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
-              "kubernetes.io/ingress.class": "nginx"
-              "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-            tls:
-              - hosts:
-                  - release.ci.jenkins.io
-                secretName: release.ci.jenkins.io-cert
+          enabled: true
+          hostName: release.ci.jenkins.io
+          annotations:
+            "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+            "kubernetes.io/ingress.class": "nginx"
+            "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+          tls:
+            - hosts:
+                - release.ci.jenkins.io
+              secretName: release.ci.jenkins.io-cert

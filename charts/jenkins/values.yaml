@@ -91,37 +91,6 @@ jenkins:
             - workflow-support
             - javadoc
             - metrics
-    agent:
-        enabled: true
-        imageTag: 3.29-1
-        podName: 'jnlp'
-        podRetention: 'OnFailure'
-        podName: 'jenkins-release'
-        yamlTemplate: |
-            apiVersion: v1
-            kind: Pod
-            metadata:
-              labels:
-                label: jenkins-release
-            spec:
-              containers:
-              - name: maven
-                image: olblak/maven:3-jdk-8
-                imagePullPolicy: Always
-                workdir: /home/jenkins
-                env:
-                  - name: HOME
-                    value: "/home/jenkins/workspace"
-                command:
-                - cat
-                tty: true
-              - name: azure-cli
-                image: microsoft/azure-cli:2.0.59
-                workdir: /home/jenkins
-                command:
-                - cat
-                tty: true
-
     serviceAccount:
         create: true
         name: jenkins-master
