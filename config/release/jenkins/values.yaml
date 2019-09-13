@@ -31,7 +31,6 @@ jenkins:
                                 resourceLimitMemory: "256Mi"
                                 resourceRequestCpu: "200m"
                                 resourceRequestMemory: "256Mi"
-                                command: "sleep 99d"
                             label: "jnlp"
                             nodeUsageMode: NORMAL
                             serviceAccount: "jenkins-agent"
