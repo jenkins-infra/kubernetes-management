@@ -17,9 +17,7 @@ jenkins:
                         serverUrl: "https://kubernetes.default"
                         templates:
                           - name: jnlp
-                            activeDeadlineSeconds: 360
                             nodeSelector: "kubernetes.io/os=linux"
-                            idleMinutes: 1
                             containers:
                               - name: jnlp
                                 args: "^${computer.jnlpmac} ^${computer.name}"
@@ -37,9 +35,7 @@ jenkins:
                             serviceAccount: "jenkins-agent"
                             slaveConnectTimeoutStr: "0"
                           - name: jnlp-windows
-                            activeDeadlineSeconds: 360
                             nodeSelector: "kubernetes.io/os=windows"
-                            idleMinutes: 1
                             containers:
                               - name: jnlp
                                 args: "^${computer.jnlpmac} ^${computer.name}"
