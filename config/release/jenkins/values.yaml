@@ -3,6 +3,78 @@ jenkins:
         JCasC:
             enabled: true
             configScripts:
+                clouds:
+                    - kubernetes:
+                        containerCapStr: "100"
+                        jenkinsTunnel: "default-release-jenkins-agent:50000"
+                        jenkinsUrl: "http://default-release-jenkins:8080"
+                        maxRequestsPerHostStr: "32"
+                        name: "kubernetes"
+                        namespace: "release"
+                        podRetention: "onFailure"
+                        serverUrl: "https://kubernetes.default"
+                        templates:
+                        - name: jnlp
+                          activeDeadlineSeconds: 360
+                          idleMinutes: 1
+                          containers:
+                          - name: jnlp
+                            args: "^${computer.jnlpmac} ^${computer.name}"
+                            envVars:
+                            - containerEnvVar:
+                                key: "JENKINS_URL"
+                                value: "http://default-release-jenkins.release.svc.cluster.local:8080"
+                            image: "jenkins/jnlp-slave:3.29-1"
+                            name: "jnlp"
+                            resourceLimitCpu: "200m"
+                            resourceLimitMemory: "256Mi"
+                            resourceRequestCpu: "200m"
+                            resourceRequestMemory: "256Mi"
+                                - command: "sleep 99d"
+                          label: "jnlp"
+                          nodeUsageMode: NORMAL
+                          serviceAccount: "jenkins-agent"
+                          slaveConnectTimeoutStr: "0"
+                        - name: jenkins-release-linux
+                          inheritFrom: "jnlp"
+                          label: "jenkins-release-linux "
+                          nodeUsageMode: NORMAL
+                          yamlMergeStrategy: "override"
+                          containers:
+                          - name: maven
+                            command: "sleep"
+                            args: "99d"
+                            envVars:
+                            - envVar:
+                                key: "HOME"
+                                value: "/home/jenkins/workspace"
+                            image: "olblak/maven:3-jdk-8"
+                            resourceLimitCpu: "200m"
+                            resourceLimitMemory: "256Mi"
+                            resourceRequestCpu: "200m"
+                            resourceRequestMemory: "256Mi"
+                            ttyEnabled: true
+                            workingDir: "/home/jenkins"
+                        - name: "helmfile"
+                          inheritFrom: "jnlp"
+                          containers:
+                          - name: "helmfile"
+                            command: "sleep"
+                            args: "99d"
+                            envVars:
+                            - containerEnvVar:
+                                key: "HOME"
+                                value: "/home/jenkins/workspace"
+                            image: "olblak/helmfile:abc2e4"
+                            resourceLimitCpu: "200m"
+                            resourceLimitMemory: "256Mi"
+                            resourceRequestCpu: "200m"
+                            resourceRequestMemory: "256Mi"
+                          serviceAccount: "cluster-admin"
+                          label: "helmfile"
+                          namespace: "release"
+                          podRetention: "onFailure"
+                          yamlMergeStrategy: "override"
                 jobs-settings: |
                     jobs:
                         - script: >
