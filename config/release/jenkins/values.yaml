@@ -26,10 +26,10 @@ jenkins:
                                       key: "JENKINS_URL"
                                       value: "http://default-release-jenkins.release.svc.cluster.local:8080"
                                 image: "jenkins/jnlp-slave:3.29-1"
-                                resourceLimitCpu: "200m"
-                                resourceLimitMemory: "256Mi"
-                                resourceRequestCpu: "200m"
-                                resourceRequestMemory: "256Mi"
+                                resourceLimitCpu: "400m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "400m"
+                                resourceRequestMemory: "512Mi"
                             label: "jnlp"
                             nodeUsageMode: NORMAL
                             serviceAccount: "jenkins-agent"
@@ -44,10 +44,10 @@ jenkins:
                                       key: "JENKINS_URL"
                                       value: "http://default-release-jenkins.release.svc.cluster.local:8080"
                                 image: "jenkins4eval/jnlp-agent:latest-windows"
-                                resourceLimitCpu: "200m"
-                                resourceLimitMemory: "256Mi"
-                                resourceRequestCpu: "200m"
-                                resourceRequestMemory: "256Mi"
+                                resourceLimitCpu: "400m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "400m"
+                                resourceRequestMemory: "512Mi"
                             label: "jnlp-windows"
                             nodeUsageMode: NORMAL
                             serviceAccount: "jenkins-agent"
@@ -65,35 +65,42 @@ jenkins:
                                 envVars:
                                   - containerEnvVar:
                                       key: "HOME"
-                                      value: "/home/jenkins/workspace"
+                                      value: "/home/jenkins"
                                 image: "olblak/maven:3-jdk-8"
-                                resourceLimitCpu: "200m"
-                                resourceLimitMemory: "256Mi"
-                                resourceRequestCpu: "200m"
-                                resourceRequestMemory: "256Mi"
+                                resourceLimitCpu: "400m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "400m"
+                                resourceRequestMemory: "512Mi"
                                 ttyEnabled: true
-                                workingDir: "/home/jenkins"
-                          - name: jenkins-release-windows
+                                workingDir: "/home/jenkins/agents"
+                              - name: azure-cli
+                                image: microsoft/azure-cli:2.0.59
+                                alwaysPullImage: true
+                                workingDir: "/home/jenkins/agents"
+                                command: "sleep"
+                                args: "99d"
+                                ttyEnabled: true
+                          - name: maven-windows
                             inheritFrom: "jnlp-windows"
                             label: "jenkins-release-windows"
                             nodeUsageMode: NORMAL
                             yamlMergeStrategy: "override"
                             containers:
                               - name: maven
+                                image: "jenkins4eval/maven-windows-jdk-8:latest"
                                 command: "sleep"
                                 args: "99d"
                                 envVars:
                                   - containerEnvVar:
                                       key: "HOME"
-                                      value: "/home/jenkins/workspace"
-                                image: "jenkins4eval/maven-windows-jdk-8:latest"
+                                      value: "/home/jenkins"
                                 alwaysPullImage: true
-                                resourceLimitCpu: "200m"
-                                resourceLimitMemory: "256Mi"
-                                resourceRequestCpu: "200m"
-                                resourceRequestMemory: "256Mi"
+                                resourceLimitCpu: "400m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "400m"
+                                resourceRequestMemory: "512Mi"
                                 ttyEnabled: true
-                                workingDir: "/home/jenkins"
+                                workingDir: "/home/jenkins/agents"
                             nodeSelector: "kubernetes.io/os=windows"
                             workspaceVolume:
                               emptyDirWorkspaceVolume:
@@ -115,11 +122,12 @@ jenkins:
                                   - containerEnvVar:
                                       key: "HOME"
                                       value: "/home/jenkins/workspace"
-                                image: "olblak/helmfile:abc2e4"
-                                resourceLimitCpu: "200m"
-                                resourceLimitMemory: "256Mi"
-                                resourceRequestCpu: "200m"
-                                resourceRequestMemory: "256Mi"
+                                image: "olblak/helmfile:b18357"
+                                resourceLimitCpu: "400m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "400m"
+                                resourceRequestMemory: "512Mi"
+                                ttyEnabled: true
                             serviceAccount: "cluster-admin"
                             label: "helmfile"
                             namespace: "release"
