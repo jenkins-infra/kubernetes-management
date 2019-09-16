@@ -75,11 +75,10 @@ jenkins:
                                 workingDir: "/home/jenkins"
                               - name: azure-cli
                                 image: microsoft/azure-cli:2.0.59
-                                workdir: /home/jenkins
-                                command:
-                                  - sleep
-                                args:
-                                  - 99d
+                                alwaysPullImage: true
+                                workingDir: /home/jenkins
+                                command: "sleep"
+                                args: "99d"
                                 ttyEnabled: true
                           - name: maven-windows
                             inheritFrom: "jnlp-windows"
