@@ -65,7 +65,7 @@ jenkins:
                                 envVars:
                                   - containerEnvVar:
                                       key: "HOME"
-                                      value: "/home/jenkins/workspace"
+                                      value: "/home/jenkins"
                                 image: "olblak/maven:3-jdk-8"
                                 resourceLimitCpu: "200m"
                                 resourceLimitMemory: "256Mi"
@@ -93,7 +93,7 @@ jenkins:
                                 envVars:
                                   - containerEnvVar:
                                       key: "HOME"
-                                      value: "/home/jenkins/workspace"
+                                      value: "/home/jenkins"
                                 alwaysPullImage: true
                                 resourceLimitCpu: "200m"
                                 resourceLimitMemory: "256Mi"
