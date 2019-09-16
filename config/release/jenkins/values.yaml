@@ -115,7 +115,7 @@ jenkins:
                                   - containerEnvVar:
                                       key: "HOME"
                                       value: "/home/jenkins/workspace"
-                                image: "olblak/helmfile:abc2e4"
+                                image: "quay.io/roboll/helmfile:v0.85.0"
                                 resourceLimitCpu: "200m"
                                 resourceLimitMemory: "256Mi"
                                 resourceRequestCpu: "200m"
