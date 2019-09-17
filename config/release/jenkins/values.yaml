@@ -36,6 +36,13 @@ jenkins:
                                 resourceRequestCpu: "400m"
                                 resourceRequestMemory: "512Mi"
                             label: "jnlp-windows"
+                            yaml: |-
+                              spec:
+                                tolerations:
+                                - key: "sku"
+                                  operator: "Equal"
+                                  value: "windows"
+                                  effect: "NoSchedule"
                           - name: jenkins-release-linux
                             inheritFrom: "jnlp-linux"
                             label: "jenkins-release-linux "
@@ -74,9 +81,9 @@ jenkins:
                                 command: "sleep"
                                 args: "99d"
                                 alwaysPullImage: true
-                                resourceLimitCpu: "400m"
+                                resourceLimitCpu: "1"
                                 resourceLimitMemory: "512Mi"
-                                resourceRequestCpu: "400m"
+                                resourceRequestCpu: "0.5"
                                 resourceRequestMemory: "512Mi"
                             nodeSelector: "kubernetes.io/os=windows"
                             yaml: |-
