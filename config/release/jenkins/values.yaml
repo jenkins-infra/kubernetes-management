@@ -95,7 +95,7 @@ jenkins:
                                 envVars:
                                   - containerEnvVar:
                                       key: "HOME"
-                                      value: "/home/jenkins/workspace"
+                                      value: "/home/jenkins"
                                 image: "olblak/helmfile:b18357"
                                 resourceLimitCpu: "400m"
                                 resourceLimitMemory: "512Mi"
@@ -116,7 +116,7 @@ jenkins:
                                 envVars:
                                   - containerEnvVar:
                                       key: "HOME"
-                                      value: "/home/jenkins/workspace"
+                                      value: "/home/jenkins"
                                 image: "microsoft/azure-cli:2.0.59"
                                 resourceLimitCpu: "400m"
                                 resourceLimitMemory: "512Mi"
@@ -136,7 +136,7 @@ jenkins:
                                 envVars:
                                   - containerEnvVar:
                                       key: "HOME"
-                                      value: "/home/jenkins/workspace"
+                                      value: "/home/jenkins"
                                 image: "olblak/packaging:0543e8"
                                 resourceLimitCpu: "400m"
                                 resourceLimitMemory: "512Mi"
