@@ -57,11 +57,14 @@ jenkins:
                                   - containerEnvVar:
                                       key: "HOME"
                                       value: "/home/jenkins"
+                                  - containerEnvVar:
+                                      key: "MAVEN_OPTS"
+                                      value: "-Xmx1g -Xms1g -XX:MaxPermSize=512m -Djava.awt.headless=true"
                                 image: "olblak/maven:3-jdk-8"
                                 resourceLimitCpu: "1"
-                                resourceLimitMemory: "512Mi"
+                                resourceLimitMemory: "1Gi"
                                 resourceRequestCpu: "0.5"
-                                resourceRequestMemory: "512Mi"
+                                resourceRequestMemory: "1Gi"
                                 ttyEnabled: true
                                 workingDir: "/home/jenkins/agent"
                               - name: azure-cli
