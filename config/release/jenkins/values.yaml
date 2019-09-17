@@ -20,7 +20,7 @@ jenkins:
                             nodeSelector: "kubernetes.io/os=linux"
                             containers:
                               - name: jnlp
-                                image: "jenkins/jnlp-slave:3.29-1"
+                                image: "jenkins/jnlp-slave:3.29.1"
                                 resourceLimitCpu: "400m"
                                 resourceLimitMemory: "512Mi"
                                 resourceRequestCpu: "400m"
@@ -102,6 +102,7 @@ jenkins:
                                 resourceRequestCpu: "400m"
                                 resourceRequestMemory: "512Mi"
                                 ttyEnabled: true
+                                workingDir: "/home/jenkins/agent"
                             serviceAccount: "cluster-admin"
                             label: "helmfile"
                             podRetention: "onFailure"
@@ -122,10 +123,10 @@ jenkins:
                                 resourceRequestCpu: "400m"
                                 resourceRequestMemory: "512Mi"
                                 ttyEnabled: true
+                                workingDir: "/home/jenkins/agent"
                             label: "azure-cli"
                             podRetention: "onFailure"
                             yamlMergeStrategy: "override"
-                                workingDir: "/home/jenkins/agent"
                           - name: "packaging"
                             inheritFrom: "jnlp-linux"
                             containers:
