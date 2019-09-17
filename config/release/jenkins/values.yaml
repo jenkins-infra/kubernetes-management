@@ -39,7 +39,7 @@ jenkins:
                             yaml: |-
                               spec:
                                 tolerations:
-                                - key: "sku"
+                                - key: "os"
                                   operator: "Equal"
                                   value: "windows"
                                   effect: "NoSchedule"
@@ -85,14 +85,6 @@ jenkins:
                                 resourceLimitMemory: "512Mi"
                                 resourceRequestCpu: "0.5"
                                 resourceRequestMemory: "512Mi"
-                            nodeSelector: "kubernetes.io/os=windows"
-                            yaml: |-
-                              spec:
-                                tolerations:
-                                - key: "sku"
-                                  operator: "Equal"
-                                  value: "windows"
-                                  effect: "NoSchedule"
                           - name: "helmfile"
                             inheritFrom: "jnlp-linux"
                             containers:
