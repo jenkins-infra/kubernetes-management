@@ -104,7 +104,46 @@ jenkins:
                                 ttyEnabled: true
                             serviceAccount: "cluster-admin"
                             label: "helmfile"
-                            namespace: "release"
+                            podRetention: "onFailure"
+                            yamlMergeStrategy: "override"
+                          - name: "azure-cli"
+                            inheritFrom: "jnlp-linux"
+                            containers:
+                              - name: "azure-cli"
+                                command: "sleep"
+                                args: "99d"
+                                envVars:
+                                  - containerEnvVar:
+                                      key: "HOME"
+                                      value: "/home/jenkins/workspace"
+                                image: "microsoft/azure-cli:2.0.59"
+                                resourceLimitCpu: "400m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "400m"
+                                resourceRequestMemory: "512Mi"
+                                ttyEnabled: true
+                            label: "azure-cli"
+                            podRetention: "onFailure"
+                            yamlMergeStrategy: "override"
+                                workingDir: "/home/jenkins/agent"
+                          - name: "packaging"
+                            inheritFrom: "jnlp-linux"
+                            containers:
+                              - name: "packaging"
+                                command: "sleep"
+                                args: "99d"
+                                envVars:
+                                  - containerEnvVar:
+                                      key: "HOME"
+                                      value: "/home/jenkins/workspace"
+                                image: "olblak/packaging:0543e8"
+                                resourceLimitCpu: "400m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "400m"
+                                resourceRequestMemory: "512Mi"
+                                ttyEnabled: true
+                                workingDir: "/home/jenkins/agent"
+                            label: "packaging"
                             podRetention: "onFailure"
                             yamlMergeStrategy: "override"
               jobs-settings: |
