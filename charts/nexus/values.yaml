@@ -27,7 +27,7 @@ nexus:
       service:
           type: 'ClusterIP'
       imageName: olblak/nexus
-      imageTag: 3.16.2-94c066b
+      imageTag: 3.18.1-81a7c07
       imagePullPolicy: Always
       env: 
         - name: 'LDAP_URL'
