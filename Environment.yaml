@@ -1,0 +1,33 @@
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  labels:
+    jenkins: "slave"
+    job: "helmfile"
+spec:
+  containers:
+  - args:
+    - "99d"
+    command:
+    - "sleep"
+    env:
+    - name: "HOME"
+      value: "/home/jenkins"
+    image: "olblak/helmfile:b18357"
+    imagePullPolicy: "IfNotPresent"
+    name: "helmfile"
+    resources:
+      limits:
+        memory: "512Mi"
+        cpu: "400m"
+      requests:
+        memory: "512Mi"
+        cpu: "400m"
+    securityContext:
+      privileged: false
+    tty: true
+  nodeSelector:
+    kubernetes.io/os: "linux"
+  restartPolicy: "Never"
+  serviceAccount: "cluster-admin"
