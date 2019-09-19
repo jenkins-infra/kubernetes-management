@@ -1,6 +1,10 @@
 pipeline {
   agent {
-    label 'helmfile'
+    kubernetes {
+      label 'helmfile'
+      yamlFile 'Environment.yaml'
+      inheritFrom 'jnlp-linux'
+    }
   }
   environment {
     AZURE_TENANT_ID       = credentials('sops-tenant-id')
