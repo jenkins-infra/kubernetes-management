@@ -2,7 +2,7 @@
 jenkins:
     master:
         image: jenkins/jenkins
-        imageTag: 2.176.3
+        imageTag: 2.176.3-jdk11
         runAsUser: 1000
         fsGroup: 1000
         containerEnv:

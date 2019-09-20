@@ -21,20 +21,20 @@ jenkins:
                             containers:
                               - name: jnlp
                                 image: "jenkins/jnlp-slave:3.29-1"
-                                resourceLimitCpu: "400m"
-                                resourceLimitMemory: "512Mi"
-                                resourceRequestCpu: "400m"
-                                resourceRequestMemory: "512Mi"
+                                resourceLimitCpu: "500m"
+                                resourceLimitMemory: "1Gi"
+                                resourceRequestCpu: "500m"
+                                resourceRequestMemory: "1Gi"
                           - name: jnlp-windows
                             nodeSelector: "kubernetes.io/os=windows"
                             containers:
                               - name: jnlp
                                 args: "^${computer.jnlpmac} ^${computer.name}"
                                 image: "jenkins4eval/jnlp-agent:latest-windows"
-                                resourceLimitCpu: "400m"
-                                resourceLimitMemory: "512Mi"
-                                resourceRequestCpu: "400m"
-                                resourceRequestMemory: "512Mi"
+                                resourceLimitCpu: "500m"
+                                resourceLimitMemory: "1Gi"
+                                resourceRequestCpu: "500m"
+                                resourceRequestMemory: "1Gi"
                             label: "jnlp-windows"
                             yaml: |-
                               spec:
