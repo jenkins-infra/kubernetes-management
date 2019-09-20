@@ -20,7 +20,7 @@ jenkins:
                             nodeSelector: "kubernetes.io/os=linux"
                             containers:
                               - name: jnlp
-                                image: "jenkins/jnlp-slave:latest-jdk11"
+                                image: "jenkins/jnlp-slave:3.35-1-jdk11"
                                 resourceLimitCpu: "500m"
                                 resourceLimitMemory: "1Gi"
                                 resourceRequestCpu: "500m"
