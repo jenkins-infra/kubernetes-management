@@ -25,6 +25,8 @@ jenkins:
                                 resourceLimitMemory: "1Gi"
                                 resourceRequestCpu: "500m"
                                 resourceRequestMemory: "1Gi"
+                                args: "${computer.jnlpmac} ${computer.name}"
+                                alwaysPullImage: true
                           - name: jnlp-windows
                             nodeSelector: "kubernetes.io/os=windows"
                             containers:
@@ -34,6 +36,8 @@ jenkins:
                                 resourceLimitMemory: "1Gi"
                                 resourceRequestCpu: "500m"
                                 resourceRequestMemory: "1Gi"
+                                args: "${computer.jnlpmac} ${computer.name}"
+                                alwaysPullImage: true
                             label: "jnlp-windows"
                             yaml: |-
                               spec:
