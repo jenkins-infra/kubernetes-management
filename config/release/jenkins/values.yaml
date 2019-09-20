@@ -20,11 +20,13 @@ jenkins:
                             nodeSelector: "kubernetes.io/os=linux"
                             containers:
                               - name: jnlp
-                                image: "jenkins/jnlp-slave:3.29-1"
+                                image: "jenkins/jnlp-slave:latest-jdk11"
                                 resourceLimitCpu: "500m"
                                 resourceLimitMemory: "1Gi"
                                 resourceRequestCpu: "500m"
                                 resourceRequestMemory: "1Gi"
+                                args: "^${computer.jnlpmac} ^${computer.name}"
+                                command: "/bin/sh -c"
                           - name: jnlp-windows
                             nodeSelector: "kubernetes.io/os=windows"
                             containers:
