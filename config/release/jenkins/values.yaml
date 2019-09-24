@@ -49,40 +49,40 @@ jenkins:
               jobs-settings: |
                 jobs:
                   - script: >
-                      multibranchPipelineJob('release-jenkins-core') {
-                        displayName "Release"
-                        description "Jenkins Core Releases"
+                      multibranchPipelineJob('core-package') {
+                        displayName "Core Package"
+                        description "Jenkins Core Packaging"
                         branchSources {
                           github {
-                            id('2019081601')
+                            id('2019092401')
                             scanCredentialsId('github')
                             repoOwner('olblak')
-                            repository('jenkins')
+                            repository('release')
                             includes('master')
                           }
                         }
                         factory {
                           workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile.release')
+                            scriptPath('Jenkinsfile.d/package')
                           }
                         }
                       }
                   - script: >
-                      multibranchPipelineJob('core-packaging') {
-                        displayName "Packaging"
-                        description "Jenkins Core Packaging"
+                      multibranchPipelineJob('core-release') {
+                        displayName "Core Release"
+                        description "Jenkins Core Release"
                         branchSources {
                           github {
-                            id('2019082101')
+                            id('2019092402')
                             scanCredentialsId('github')
                             repoOwner('olblak')
-                            repository('packaging')
+                            repository('release')
                             includes('master')
                           }
                         }
                         factory {
                           workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile')
+                            scriptPath('Jenkinsfile.d/release')
                           }
                         }
                       }
