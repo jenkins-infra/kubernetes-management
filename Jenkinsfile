@@ -19,7 +19,7 @@ pipeline {
   }
 
   triggers {
-    cron 'H/15 * * * *'
+    cron 'H/30 * * * *'
   }
 
   stages {
