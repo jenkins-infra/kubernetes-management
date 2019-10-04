@@ -1,3 +1,5 @@
 server:
   persistentVolume:
     enabled: true
+    size: 200Gi
+  retention: "90d"
