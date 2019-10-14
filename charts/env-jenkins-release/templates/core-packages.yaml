@@ -21,7 +21,7 @@ spec:
     - ReadWriteMany
   storageClassName: azurefile
   azureFile:
-    secretName: corePackages
+    secretName: core-packages
     shareName: {{ .Values.corePackages.shareName }}
     readOnly: false
   mountOptions:
