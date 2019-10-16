@@ -1,6 +1,7 @@
 # Defautl helm value https://github.com/helm/charts/blob/master/stable/jenkins/values.yaml
 jenkins:
     master:
+        testEnabled: false
         image: jenkins/jenkins
         imageTag: 2.197-jdk11
         runAsUser: 1000
