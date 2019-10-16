@@ -71,6 +71,7 @@ jenkins:
             - pipeline-stage-tags-metadata
             - pipeline-stage-view
             - plain-credentials
+            - prometheus
             - scm-api
             - script-security
             - ssh-agent
