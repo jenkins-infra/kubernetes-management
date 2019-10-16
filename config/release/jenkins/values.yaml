@@ -10,7 +10,7 @@ jenkins:
                         containerCapStr: "100"
                         jenkinsTunnel: "default-release-jenkins-agent:50000"
                         jenkinsUrl: "http://default-release-jenkins:8080"
-                        maxRequestsPerHostStr: "32"
+                        maxRequestsPerHostStr: "300"
                         name: "kubernetes"
                         namespace: "release"
                         podRetention: "onFailure"
