@@ -19,6 +19,7 @@ releases:
     - name: {{ .Environment.Name }}-{{ .Environment.Values.namespace }}-jenkins-env
       chart: ../charts/env-jenkins-release
       namespace: {{ .Environment.Values.namespace }}
+      force: true
       secrets:
         - "../config/release/env-jenkins/secrets.yaml"
 
