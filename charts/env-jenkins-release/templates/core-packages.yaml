@@ -13,7 +13,7 @@ data:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: core-packages
+  name: binary-core-packages
 spec:
   capacity:
     storage: 100Gi
@@ -22,13 +22,13 @@ spec:
   storageClassName: azurefile
   azureFile:
     secretName: core-packages
-    shareName: {{ .Values.corePackages.shareName }}
+    shareName: binary-{{ .Values.corePackages.shareName }}
     readOnly: false
   mountOptions:
   - dir_mode=0777
   - file_mode=0777
-  - uid=1000
-  - gid=1000
+  - uid=101
+  - gid=101
   - mfsymlinks
   - nobrl
 
@@ -36,7 +36,43 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: core-packages
+  name: binary-core-packages
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  resources:
+    requests:
+      storage: 100Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: website-core-packages
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  azureFile:
+    secretName: core-packages
+    shareName: website-{{ .Values.corePackages.shareName }}
+    readOnly: false
+  mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=101
+  - gid=101
+  - mfsymlinks
+  - nobrl
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: website-core-packages
 spec:
   accessModes:
     - ReadWriteMany
