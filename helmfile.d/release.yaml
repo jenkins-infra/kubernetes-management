@@ -31,6 +31,13 @@ releases:
         - "../config/release/nexus/values.yaml"
       secrets:
         - "../config/release/nexus/secrets.yaml"
+    - name: {{ .Environment.Name }}-{{ .Environment.Values.namespace }}-pkg
+      chart: ../charts/pkg
+      namespace: {{ .Environment.Values.namespace }}
+      values:
+        - "../config/release/pkg/values.yaml"
+      secrets:
+        - "../config/release/pkg/secrets.yaml"
 {{ end }}
 
 environments:
