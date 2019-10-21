@@ -5,8 +5,8 @@
 replicaCount: 2
 
 image:
-  repository: nginx
-  tag: stable
+  repository: halkeye/jenkins-wiki-exporter
+  tag: 901072793ff6f1f569e52dad7dd66fc362ebcf28
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -20,22 +20,22 @@ service:
 # Please define ingress settings into environment variable
 #ingress:
 #  enabled: true
-#  annotations: 
+#  annotations:
 #    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
 #    "kubernetes.io/ingress.class": "public-ingress"
 #    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
 #
 #  hosts:
 #    - host: wiki2md.jenkins.io
-#      paths: 
+#      paths:
 #        - /
 #
-#  tls: []
+#  tls:
 #    - secretName: wiki2md-tls
 #      hosts:
 #        - wiki2md.jenkins.io
 
-resources: {}
+resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
