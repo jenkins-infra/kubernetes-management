@@ -27,8 +27,8 @@ spec:
   mountOptions:
   - dir_mode=0777
   - file_mode=0777
-  - uid=101
-  - gid=101
+  - uid=1000
+  - gid=1000
   - mfsymlinks
   - nobrl
 
@@ -63,8 +63,8 @@ spec:
   mountOptions:
   - dir_mode=0777
   - file_mode=0777
-  - uid=101
-  - gid=101
+  - uid=1000
+  - gid=1000
   - mfsymlinks
   - nobrl
 
