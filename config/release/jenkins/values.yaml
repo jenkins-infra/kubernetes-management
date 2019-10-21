@@ -10,7 +10,7 @@ jenkins:
                         containerCapStr: "100"
                         jenkinsTunnel: "default-release-jenkins-agent:50000"
                         jenkinsUrl: "http://default-release-jenkins:8080"
-                        maxRequestsPerHostStr: "32"
+                        maxRequestsPerHostStr: "300"
                         name: "kubernetes"
                         namespace: "release"
                         podRetention: "onFailure"
@@ -20,23 +20,22 @@ jenkins:
                             nodeSelector: "kubernetes.io/os=linux"
                             containers:
                               - name: jnlp
-                                image: "jenkins/jnlp-slave:3.35-4-jdk11"
-                                resourceLimitCpu: "1"
-                                resourceLimitMemory: "1Gi"
-                                resourceRequestCpu: "1"
-                                resourceRequestMemory: "1Gi"
+                                image: "jenkins/jnlp-slave:latest-jdk11"
+                                resourceLimitCpu: "500m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "500m"
+                                resourceRequestMemory: "512Mi"
                                 args: "^${computer.jnlpmac} ^${computer.name}"
                                 alwaysPullImage: true
-                                activeDeadlineSeconds: '86400'
                           - name: jnlp-windows
                             nodeSelector: "kubernetes.io/os=windows"
                             containers:
                               - name: jnlp
                                 image: "jenkins4eval/jnlp-agent:latest-windows"
-                                resourceLimitCpu: "1"
-                                resourceLimitMemory: "1Gi"
-                                resourceRequestCpu: "1"
-                                resourceRequestMemory: "1Gi"
+                                resourceLimitCpu: "500m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "500m"
+                                resourceRequestMemory: "512Mi"
                                 args: "^${computer.jnlpmac} ^${computer.name}"
                                 alwaysPullImage: true
                             label: "jnlp-windows"

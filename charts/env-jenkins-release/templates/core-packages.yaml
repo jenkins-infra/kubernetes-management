@@ -1,0 +1,83 @@
+{{ if .Values.corePackages.enabled }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: core-packages
+type: Opaque
+data:
+  azurestorageaccountname: {{ .Values.corePackages.storageAccountName }}
+  azurestorageaccountkey: {{ .Values.corePackages.storageAccountKey }}
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: binary-core-packages
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  azureFile:
+    secretName: core-packages
+    shareName: binary-{{ .Values.corePackages.shareName }}
+    readOnly: false
+  mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=101
+  - gid=101
+  - mfsymlinks
+  - nobrl
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: binary-core-packages
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  resources:
+    requests:
+      storage: 100Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: website-core-packages
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  azureFile:
+    secretName: core-packages
+    shareName: website-{{ .Values.corePackages.shareName }}
+    readOnly: false
+  mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=101
+  - gid=101
+  - mfsymlinks
+  - nobrl
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: website-core-packages
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  resources:
+    requests:
+      storage: 100Gi
+{{ end }}

@@ -1,8 +1,9 @@
 # Defautl helm value https://github.com/helm/charts/blob/master/stable/jenkins/values.yaml
 jenkins:
     master:
+        testEnabled: false
         image: jenkins/jenkins
-        imageTag: 2.197-jdk11
+        imageTag: 2.200-jdk11
         runAsUser: 1000
         fsGroup: 1000
         containerEnv:
@@ -71,6 +72,7 @@ jenkins:
             - pipeline-stage-tags-metadata
             - pipeline-stage-view
             - plain-credentials
+            - prometheus
             - scm-api
             - script-security
             - ssh-agent

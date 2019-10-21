@@ -3,3 +3,15 @@ server:
     enabled: true
     size: 200Gi
   retention: "90d"
+extraScrapeConfigs: |
+  - job_name: 'release-jenkins'
+    metrics_path: /prometheus
+    scheme: http
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['default-release-jenkins.release:8080']
+    # Current placeholder and must be configured especially for public jenkins instances
+    #basic_auth:
+    #  username:
+    #  password:
