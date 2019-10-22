@@ -8,3 +8,5 @@ dependencies:
             parent: master
           - child: jenkins.agent
             parent: agent
+          - child: jenkins.persistence
+            parent: persistence
