@@ -1,0 +1,10 @@
+releases:
+    - name: jenkins-wiki-exporter
+      namespace: jenkins-wiki-exporter
+      chart: ../charts/jenkins-wiki-exporter
+      wait: true
+      timeout: 300
+      force: true
+      atomic: true
+      values:
+        - "../config/jenkins-wiki-exporter/values.yaml"

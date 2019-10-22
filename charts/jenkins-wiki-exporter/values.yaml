@@ -1,4 +1,4 @@
-# Default values for wiki2md.
+# Default values for jenkins-wiki-exporter.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: halkeye/jenkins-wiki-exporter
-  tag: 901072793ff6f1f569e52dad7dd66fc362ebcf28
+  tag: 0d74ef4dab19d3b55931f79c63c905b0078705d4
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -26,14 +26,14 @@ service:
 #    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
 #
 #  hosts:
-#    - host: wiki2md.jenkins.io
+#    - host: jenkins-wiki-exporter.jenkins.io
 #      paths:
 #        - /
 #
 #  tls:
-#    - secretName: wiki2md-tls
+#    - secretName: jenkins-wiki-exporter-tls
 #      hosts:
-#        - wiki2md.jenkins.io
+#        - jenkins-wiki-exporter.jenkins.io
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious

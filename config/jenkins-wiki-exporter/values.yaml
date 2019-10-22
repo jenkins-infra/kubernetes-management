@@ -6,11 +6,11 @@ ingress:
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
 
   hosts:
-    - host: wiki2md.jenkins.io
+    - host: jenkins-wiki-exporter.jenkins.io
       paths:
         - /
 
   tls:
-    - secretName: wiki2md-tls
+    - secretName: jenkins-wiki-exporter-tls
       hosts:
-        - wiki2md.jenkins.io
+        - jenkins-wiki-exporter.jenkins.io
