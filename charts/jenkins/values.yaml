@@ -1,5 +1,8 @@
 # Defautl helm value https://github.com/helm/charts/blob/master/stable/jenkins/values.yaml
 jenkins:
+    persistence:
+        enabled: true
+        size: 50Gi
     master:
         testEnabled: false
         image: jenkins/jenkins
