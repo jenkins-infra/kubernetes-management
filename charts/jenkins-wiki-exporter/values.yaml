@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: halkeye/jenkins-wiki-exporter
-  tag: 0d74ef4dab19d3b55931f79c63c905b0078705d4
+  tag: f2634e1f1b790cbeffce7ca56d0fdf8ca1e8010a
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -52,3 +52,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+confluence:
+  username: ""
+  password: ""

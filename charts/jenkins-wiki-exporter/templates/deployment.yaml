@@ -24,6 +24,17 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CONFLUENCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "jenkins-wiki-exporter.fullname" . }}
+                  key: confluence_username
+            - name: CONFLUENCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "jenkins-wiki-exporter.fullname" . }}
+                  key: confluence_password
           ports:
             - name: http
               containerPort: 3000
