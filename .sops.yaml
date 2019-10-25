@@ -1,5 +1,21 @@
 creation_rules:
     # By default allow following keys to encrypt/decrypt secrets
     # Specific path can be configured as explained here https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files
-    - azure_keyvault: 'https://prodjenkinsinfra.vault.azure.net/keys/sops/252fc7e646ac40f184ab4a6016484725'
-      pgp: '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
+    # !  The first regex that matches is selected
+    - path_regex: config/jenkins-wiki-exporter/secrets.yaml
+      key_groups:
+        - azure_keyvault:
+          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
+            key: 'sops'
+            version: '252fc7e646ac40f184ab4a6016484725'
+          pgp:
+            - '88FABF5F307FB5870B6AD2E8A266F2D3F9D60C45' # Halkeye
+            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
+
+    - key_groups:
+        - azure_keyvault:
+          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
+            key: 'sops'
+            version: '252fc7e646ac40f184ab4a6016484725'
+          pgp:
+            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
