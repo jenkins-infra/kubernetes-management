@@ -8,3 +8,5 @@ releases:
       atomic: true
       values:
         - "../config/jenkins-wiki-exporter/values.yaml"
+      secrets:
+        - "../config/jenkins-wiki-exporter/secrets.yaml"
