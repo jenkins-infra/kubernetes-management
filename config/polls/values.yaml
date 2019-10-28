@@ -4,8 +4,6 @@ ingress:
     "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-    "ingress.kubernetes.io/auth-url": "https://private.dex.jenkins.io/oauth2/auth"
-    "ingress.kubernetes.io/auth-signin": "https://private.dex.jenkins.io/oauth2/start?rd=https://$host$request_uri$is_args$args"
   hosts:
     - host: polls.jenkins.io
       paths: 
@@ -22,6 +20,8 @@ admin_ingress:
     "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
     "kubernetes.io/ingress.class": "nginx"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+    "nginx.ingress.kubernetes.io/auth-url": "https://$host/oauth2/auth"
+    "nginx.ingress.kubernetes.io/auth-signin": "https://$host/oauth2/start?rd=$escaped_request_uri"
   hosts:
     - host: admin.polls.jenkins.io
       paths: 
