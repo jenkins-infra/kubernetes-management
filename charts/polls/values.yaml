@@ -1,0 +1,73 @@
+# Default values for polls.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 0
+
+image:
+  repository: olblak/polls
+  tag: cf0e6c
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+  hosts:
+    - host: polls.example.com
+      paths: 
+        - /participate
+
+  tls:
+    - secretName: polls-tls
+      hosts:
+        - polls.example.com
+
+admin_ingress:
+  enabled: false
+  annotations: "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "nginx"
+    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+  hosts:
+    - host: admin.polls.example.com
+      paths: 
+        - /
+  tls:
+    - secretName: admin-polls-tls
+      hosts:
+        - admin.polls.example.com
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  #limits:
+  #  cpu: 200m
+  #  memory: 256Mi
+  #requests:
+  #  cpu: 200m
+  #  memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+ldap:
+  url: "ldap.example.com"
+  port: "636"
+  protocol: "ldaps"
+  group_base_dn: "ou=groups,dc=example,dc=com"
+
