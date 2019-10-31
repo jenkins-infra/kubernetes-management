@@ -2,12 +2,17 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 0
+replicaCount: 1
 
 image:
   repository: olblak/polls
-  tag: cf0e6c
+  tag: 579b39
   pullPolicy: Always
+
+  frontend:
+    repository: olblak/polls-frontend
+    tag: 29284e
+    pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
@@ -25,8 +30,6 @@ ingress:
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   hosts:
     - host: polls.example.com
-      paths:
-        - /participate
 
   tls:
     - secretName: polls-tls

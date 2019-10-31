@@ -70,11 +70,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /status
+              path: /api/status
               port: 8080
           readinessProbe:
             httpGet:
-              path: /status
+              path: /api/status
               port: 8080
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

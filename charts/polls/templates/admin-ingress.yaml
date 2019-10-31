@@ -26,11 +26,13 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-        {{- range .paths }}
-          - path: {{ . }}
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}-frontend
+              servicePort: http
+          - path: /api
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
-        {{- end }}
   {{- end }}
 {{- end }}
