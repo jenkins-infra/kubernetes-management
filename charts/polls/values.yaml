@@ -11,7 +11,7 @@ image:
 
   frontend:
     repository: olblak/polls-frontend
-    tag: 29284e
+    tag: 35aa54
     pullPolicy: Always
 
 imagePullSecrets: []
