@@ -9,6 +9,7 @@ data:
       server_name  localhost;
   
       location / {
+          autoindex on;
           root   /usr/share/nginx/html;
           index  index.html index.htm;
       }
