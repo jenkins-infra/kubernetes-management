@@ -1,0 +1,13 @@
+releases:
+    - name: private-dex
+      chart: stable/dex
+      namespace: dex
+      wait: true
+      timeout: 300
+      recreatePods: true
+      force: true
+      atomic: true
+      values:
+        - "../config/dex/values.yaml"
+      secrets:
+        - "../config/dex/secrets.yaml"
