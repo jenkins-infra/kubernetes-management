@@ -7,7 +7,7 @@ ingress:
   hosts:
     - host: polls.jenkins.io
       paths: 
-        - /participate
+        - /
 
   tls:
     - secretName: polls-tls
