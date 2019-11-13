@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "polls.fullname" . }}:{{ .Values.service.port }}/participate']
+      args:  ['{{ include "polls.fullname" . }}:{{ .Values.service.port }}/api/participate']
   restartPolicy: Never
