@@ -1,0 +1,14 @@
+helmDefaults:
+  atomic: true
+  force: true
+  timeout: 600
+  wait: true
+
+releases:
+    - name: polls
+      chart: ../charts/polls
+      namespace: polls
+      secrets:
+        - "../config/polls/secrets.yaml"
+      values:
+        - "../config/polls/values.yaml"

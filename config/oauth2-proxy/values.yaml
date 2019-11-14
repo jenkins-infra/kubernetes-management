@@ -1,0 +1,32 @@
+# Oauth client configuration specifics  
+# https://github.com/pusher/oauth2_proxy/blob/master/docs/configuration/configuration.md
+config:  
+  # OAuth client ID  
+  # clientID: yyy
+  # OAuth client secret  
+  # clientSecret: xxxx
+  # Create a new secret with the following command  
+  # cookieSecret: `openssl rand -base64 32`
+  # Custom configuration file see https://github.com/bitly/oauth2_proxy/blob/master/contrib/oauth2_proxy.cfg.example
+  configFile: |-  
+    ## Pass OAuth Access token to upstream via "X-Forwarded-Access-Token"
+    provider = "oidc"
+    oidc_issuer_url = 'https://private.dex.jenkins.io'
+    pass_access_token = true
+    email_domains = [ "*" ]
+    scope = 'openid profile email groups'
+    whitelist-domain = ''
+
+ingress:
+  enabled: true
+  annotations:
+    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "nginx"
+
+  path: /oauth2
+  hosts:
+    - 'admin.polls.jenkins.io'
+  tls:
+    - secretName: admin-polls-tls
+      hosts:
+        - admin.polls.jenkins.io
