@@ -85,8 +85,8 @@ config:
    #   config:
    #     host: ldap.jenkins.io:636
    #     # rootCA: /etc/dex/ldap.ca
-   #     bindDN: cn=release-admin,dc=jenkins-ci,dc=org
-   #     bindPW: 8cGmpm2jNRjDlLvPuiwg7qmB0
+   #     bindDN: cn=XXX,dc=jenkins-ci,dc=org
+   #     bindPW: password
    #     usernamePrompt: Jenkins Account
    #     userSearch:
    #       baseDN: ou=people,dc=jenkins-ci,dc=org
@@ -100,10 +100,4 @@ config:
    #       userAttr: DN # 
    #       groupAttr: member
    #       nameAttr: cn
-  staticClients:
-    - id: polls
-      redirectURIs:
-        - 'https://admin.polls.jenkins.io/oauth2/callback'
-      name: 'admin.polls.jenkins.io'
-      secret: Q1hMdVdnRmd2cEtSVnFHWlhEU3Jydz09
   enablePasswordDB: false
