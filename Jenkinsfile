@@ -2,7 +2,7 @@ pipeline {
   agent {
     kubernetes {
       label 'helmfile'
-      yamlFile 'Environment.yaml'
+      yamlFile 'PodTemplates.yaml'
       inheritFrom 'jnlp-linux'
     }
   }
