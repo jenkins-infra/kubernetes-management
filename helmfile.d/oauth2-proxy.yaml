@@ -10,4 +10,4 @@ releases:
       values:
         - "../config/oauth2-proxy/values.yaml"
       secrets:
-        - "../config/oauth2-proxy/secrets.yaml"
+        - "../secrets/config/oauth2-proxy/secrets.yaml"

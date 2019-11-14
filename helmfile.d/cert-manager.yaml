@@ -9,4 +9,4 @@ releases:
       values:
         - "../config/acme/values.yaml"
       secrets:
-        - "../config/acme/secrets.yaml"
+        - "../secrets/config/acme/secrets.yaml"

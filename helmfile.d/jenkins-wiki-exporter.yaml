@@ -9,4 +9,4 @@ releases:
       values:
         - "../config/jenkins-wiki-exporter/values.yaml"
       secrets:
-        - "../config/jenkins-wiki-exporter/secrets.yaml"
+        - "../secrets/config/jenkins-wiki-exporter/secrets.yaml"

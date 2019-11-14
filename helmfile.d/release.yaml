@@ -11,7 +11,7 @@ releases:
       values:
         - "../config/release/jenkins/values.yaml"
       secrets:
-        - "../config/release/jenkins/secrets.yaml"
+        - "../secrets/config/release/jenkins/secrets.yaml"
       set:
         - name: namespace
           value: {{ .Environment.Values.namespace }}
@@ -21,7 +21,7 @@ releases:
       namespace: {{ .Environment.Values.namespace }}
       force: true
       secrets:
-        - "../config/release/env-jenkins/secrets.yaml"
+        - "../secrets/config/release/env-jenkins/secrets.yaml"
 
 {{ if eq .Environment.Name "default" }}
     - name: {{ .Environment.Name }}-{{ .Environment.Values.namespace }}-nexus
@@ -30,14 +30,14 @@ releases:
       values:
         - "../config/release/nexus/values.yaml"
       secrets:
-        - "../config/release/nexus/secrets.yaml"
+        - "../secrets/config/release/nexus/secrets.yaml"
     - name: {{ .Environment.Name }}-{{ .Environment.Values.namespace }}-pkg
       chart: ../charts/pkg
       namespace: {{ .Environment.Values.namespace }}
       values:
         - "../config/release/pkg/values.yaml"
       secrets:
-        - "../config/release/pkg/secrets.yaml"
+        - "../secrets/config/release/pkg/secrets.yaml"
 {{ end }}
 
 environments:

@@ -2,7 +2,7 @@ creation_rules:
     # By default allow following keys to encrypt/decrypt secrets
     # Specific path can be configured as explained here https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files
     # !  The first regex that matches is selected
-    - path_regex: config/jenkins-wiki-exporter/secrets.yaml
+    - path_regex: secrets/config/jenkins-wiki-exporter/secrets.yaml
       key_groups:
         - azure_keyvault:
           - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'

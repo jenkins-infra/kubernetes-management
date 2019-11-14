@@ -9,6 +9,6 @@ releases:
       chart: ../charts/polls
       namespace: polls
       secrets:
-        - "../config/polls/secrets.yaml"
+        - "../secrets/config/polls/secrets.yaml"
       values:
         - "../config/polls/values.yaml"

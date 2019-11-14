@@ -10,4 +10,4 @@ releases:
       values:
         - "../config/grafana/values.yaml"
       secrets:
-        - "../config/grafana/secrets.yaml"
+        - "../secrets/config/grafana/secrets.yaml"

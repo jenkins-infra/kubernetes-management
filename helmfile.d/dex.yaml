@@ -10,4 +10,4 @@ releases:
       values:
         - "../config/dex/values.yaml"
       secrets:
-        - "../config/dex/secrets.yaml"
+        - "../secrets/config/dex/secrets.yaml"
