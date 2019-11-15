@@ -1,0 +1,10 @@
+releases:
+    - name: falco
+      namespace: falco
+      chart: stable/falco
+      version: 1.0.9
+      wait: true
+      timeout: 100
+      atomic: true
+      values:
+        - "../config/default/falco.yaml"

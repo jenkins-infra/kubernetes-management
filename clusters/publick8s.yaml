@@ -1,18 +1,18 @@
 helmfiles:
   # ! Order matter
-  - ../helmfile.d/00-repositories.yaml
+  - path: "../helmfile.d/00-repositories.yaml"
   - path: "../helmfile.d/datadog.yaml"
     values: 
       - "../../config/publick8s/environment.yaml"
-  - ../helmfile.d/nginx-ingress.yaml
-  - ../helmfile.d/prometheus.yaml
-  - ../helmfile.d/cert-manager.yaml
-  - ../helmfile.d/loki.yaml
-  - ../helmfile.d/nexus.yaml
-  - ../helmfile.d/grafana.yaml
-  - ../helmfile.d/pkg.yaml
-  - ../helmfile.d/jenkins-wiki-exporter.yaml
-  - ../helmfile.d/polls.yaml
-  - ../helmfile.d/dex.yaml
-  - ../helmfile.d/oauth2-proxy.yaml
-
+  - path: "../helmfile.d/nginx-ingress.yaml"
+  - path: "../helmfile.d/prometheus.yaml"
+  - path: "../helmfile.d/cert-manager.yaml"
+  - path: "../helmfile.d/falco.yaml"
+  - path: "../helmfile.d/loki.yaml"
+  - path: "../helmfile.d/nexus.yaml"
+  - path: "../helmfile.d/grafana.yaml"
+  - path: "../helmfile.d/pkg.yaml"
+  - path: "../helmfile.d/jenkins-wiki-exporter.yaml"
+  - path: "../helmfile.d/polls.yaml"
+  - path: "../helmfile.d/dex.yaml"
+  - path: "../helmfile.d/oauth2-proxy.yaml"
