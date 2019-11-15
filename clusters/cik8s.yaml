@@ -3,6 +3,7 @@ helmfiles:
   - path: "../helmfile.d/00-repositories.yaml"
   - path: "../helmfile.d/cert-manager.yaml"
   - path: "../helmfile.d/loki.yaml"
+  - path: "../helmfile.d/falco.yaml"
   - path: "../helmfile.d/datadog.yaml"
     values: 
       - "../../config/publick8s/environment.yaml"
