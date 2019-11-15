@@ -4,10 +4,8 @@ releases:
       namespace: proxy
       wait: true
       timeout: 300
-      recreatePods: true
-      force: true
       atomic: true
       values:
-        - "../config/oauth2-proxy/values.yaml"
+        - "../config/default/oauth2-proxy.yaml"
       secrets:
-        - "../config/oauth2-proxy/secrets.yaml"
+        - "../secrets/config/oauth2-proxy/secrets.yaml"

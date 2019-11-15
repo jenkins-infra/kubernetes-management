@@ -3,11 +3,9 @@ releases:
       namespace: grafana
       chart: stable/grafana
       wait: true
-      timeout: 600
-      recreatePods: true
-      force: true
+      timeout: 300
       atomic: true
       values:
-        - "../config/grafana/values.yaml"
+        - "../config/default/grafana.yaml"
       secrets:
-        - "../config/grafana/secrets.yaml"
+        - "../secrets/config/grafana/secrets.yaml"

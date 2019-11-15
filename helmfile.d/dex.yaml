@@ -8,6 +8,6 @@ releases:
       force: true
       atomic: true
       values:
-        - "../config/dex/values.yaml"
+        - "../config/default/dex.yaml"
       secrets:
-        - "../config/dex/secrets.yaml"
+        - "../secrets/config/dex/secrets.yaml"

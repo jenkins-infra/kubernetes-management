@@ -1,0 +1,14 @@
+helmDefaults:
+  atomic: true
+  force: true
+  timeout: 600
+  wait: true
+
+releases:
+    - name: default-release-pkg
+      chart: ../charts/pkg
+      namespace: release
+      values:
+        - "../config/default/pkg.yaml"
+      secrets:
+        - "../secrets/config/release/pkg/secrets.yaml"

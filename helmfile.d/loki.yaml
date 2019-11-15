@@ -8,7 +8,7 @@ releases:
       force: true
       atomic: true
       values:
-        - "../config/loki/values.yaml"
+        - "../config/default/loki.yaml"
     - name: promtail
       namespace: loki
       chart: loki/promtail
@@ -18,4 +18,4 @@ releases:
       force: true
       atomic: true
       values:
-        - "../config/promtail/values.yaml"
+        - "../config/default/promtail.yaml"

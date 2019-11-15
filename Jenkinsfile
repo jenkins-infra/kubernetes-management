@@ -2,7 +2,7 @@ pipeline {
   agent {
     kubernetes {
       label 'helmfile'
-      yamlFile 'Environment.yaml'
+      yamlFile 'PodTemplates.yaml'
       inheritFrom 'jnlp-linux'
     }
   }
@@ -34,21 +34,21 @@ pipeline {
     stage('Test Lint'){
       steps {
         container('helmfile'){
-          sh 'helmfile -f helmfile.d lint'
+          sh 'helmfile -f clusters/publick8s.yaml lint'
         }
       }
     }
     stage('Diff'){
       steps {
         container('helmfile'){
-          sh 'helmfile -f helmfile.d diff --suppress-secrets'
+          sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets'
         }
       }
     }
     stage('Apply'){
       steps {
         container('helmfile'){
-          sh 'helmfile -f helmfile.d apply --suppress-secrets'
+          sh 'helmfile -f clusters/publick8s.yaml apply --suppress-secrets'
         }
       }
     }

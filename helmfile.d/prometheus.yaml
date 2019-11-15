@@ -7,4 +7,4 @@ releases:
       force: true
       atomic: true
       values:
-        - "../config/prometheus/values.yaml"
+        - "../config/default/prometheus.yaml"

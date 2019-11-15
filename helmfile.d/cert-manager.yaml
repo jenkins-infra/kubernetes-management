@@ -7,6 +7,6 @@ releases:
       force: true
       atomic: true
       values:
-        - "../config/acme/values.yaml"
+        - "../config/default/acme.yaml"
       secrets:
-        - "../config/acme/secrets.yaml"
+        - "../secrets/config/acme/secrets.yaml"
