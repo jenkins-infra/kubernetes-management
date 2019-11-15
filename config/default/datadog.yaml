@@ -1,5 +1,4 @@
 datadog:
-    clusterName: publicK8s
     collectEvents: true
     leaderElection: true
     leaderLeaseDuration: 60

@@ -60,44 +60,4 @@ config:
     logoURL: https://jenkins.io/images/logos/sherlock/sherlock.png
   oauth2:
     skipApprovalScreen: true
-  connectors:
-    - type: github
-      # Required field for connector id.
-      id: github
-      # Required field for connector name.
-      name: GitHub
-      config:
-        # Credentials can be string literals or pulled from the environment.
-        clientID: bbe2a968494fa5e5ae80
-        clientSecret: 8b896613a4899d0e3fc3df16d40b74919226f331
-        redirectURI: "https://private.dex.jenkins.io/callback"
-        orgs:
-          # Include all teams as claims.
-          - name: jenkins-infra
-            # A white list of teams. Only include group claims for these teams.
-            teams:
-              - Core
-            # Flag which indicates that all user groups and teams should be loaded.
-            # loadAllGroups: false
-   # - type: ldap
-   #   id: ldap
-   #   name: LDAP
-   #   config:
-   #     host: ldap.jenkins.io:636
-   #     # rootCA: /etc/dex/ldap.ca
-   #     bindDN: cn=XXX,dc=jenkins-ci,dc=org
-   #     bindPW: password
-   #     usernamePrompt: Jenkins Account
-   #     userSearch:
-   #       baseDN: ou=people,dc=jenkins-ci,dc=org
-   #       username: cn
-   #       idAttr: cn
-   #       emailAttr: mail
-   #       nameAttr: givenName
-   #     groupSearch:
-   #       baseDN: "ou=groups,dc=jenkins-ci,dc=org"
-   #       filter: "(objectClass=groupOfNames)"
-   #       userAttr: DN # 
-   #       groupAttr: member
-   #       nameAttr: cn
   enablePasswordDB: false
