@@ -2,7 +2,7 @@ releases:
     - name: public-nginx-ingress
       chart: stable/nginx-ingress
       namespace: kube-system
-      version: 1.4.0
+      version: 1.25.0
       wait: true
       timeout: 600
       recreatePods: true
@@ -33,7 +33,7 @@ releases:
     - name: private-nginx-ingress
       chart: stable/nginx-ingress
       namespace: kube-system
-      version: 1.4.0
+      version: 1.25.0
       wait: true
       timeout: 600
       recreatePods: true
