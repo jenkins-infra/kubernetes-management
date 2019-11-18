@@ -4,21 +4,28 @@ releases:
       namespace: kube-system
       version: 1.25.0
       wait: true
-      timeout: 600
-      recreatePods: true
-      force: true
+      timeout: 300
       atomic: true
       values:
         - defaultBackend:
             enabled: true
             image:
               repository: jenkinsciinfra/404
-              tag: 5-build19b813
+              tag: 25-builde5532f
+              runAsUser: 0 # This container needs to be run as root user at the moment
+            podSecurityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - NET_BIND_SERVICE
+              privileged: false
             port: 80
             replicaCount: 3
         - controller:
             config:
-              log-format-upstream: '[$proxy_add_x_forwarded_for] - [$the_real_ip] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
+              log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
               use-geoip2: "true"
             ingressClass: public-ingress
             service:
@@ -35,21 +42,28 @@ releases:
       namespace: kube-system
       version: 1.25.0
       wait: true
-      timeout: 600
-      recreatePods: true
-      force: true
+      timeout: 300
       atomic: true
       values:
         - defaultBackend:
             enabled: true
             image:
               repository: jenkinsciinfra/404
-              tag: 5-build19b813
+              tag: 25-builde5532f
+              runAsUser: 0 # This container needs to be run as root user at the moment
+            podSecurityContext:
+              privileged: false
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - NET_BIND_SERVICE
+              allowPrivilegeEscalation: false
             port: 80
-            replicaCount: 3
+            replicaCount: 1
         - controller:
             config:
-              log-format-upstream: '[$proxy_add_x_forwarded_for] - [$the_real_ip] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
+              log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
               use-geoip2: "true"
             ingressClass: nginx
             service:
