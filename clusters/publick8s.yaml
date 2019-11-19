@@ -16,3 +16,4 @@ helmfiles:
   - path: "../helmfile.d/polls.yaml"
   - path: "../helmfile.d/dex.yaml"
   - path: "../helmfile.d/oauth2-proxy.yaml"
+  - path: "../helmfile.d/release-jenkins.yaml"
