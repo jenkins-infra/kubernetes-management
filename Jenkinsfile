@@ -23,6 +23,15 @@ pipeline {
   }
 
   stages {
+    stage('Init Secrets') {
+      steps {
+        container('jnlp') {
+          dir ('secrets'){
+            git branch: 'master', credentialsId: 'release-key', url: 'git@github.com:jenkins-infra/charts-secrets.git'
+          }
+        }
+      }
+    }
     stage('Helm Client Init'){
       steps {
         container('helmfile'){
