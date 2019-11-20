@@ -27,7 +27,7 @@ pipeline {
       steps {
         container('jnlp') {
           dir ('secrets'){
-            git branch: 'master', credentialsId: 'release-key', url: 'git@github.com:jenkins-infra/charts-secrets.git'
+            git branch: 'master', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
           }
         }
       }
