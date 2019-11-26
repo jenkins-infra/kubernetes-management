@@ -1,7 +1,7 @@
 # Jenkins Core Release Environment - master Helm Chart
 
-This Helm chart defines a Jenkins master for the Jenkins Core Release Environment.
-See [jenkins-infra/release](https://github.com/jenkins-infra/release) for more information about the deployments and usage of this environment.
+This Helm chart defines a Jenkins master for the [Jenkins Core Release Environment](https://github.com/jenkins-infra/release).
+Chart for Jenkins Core Release Environment environment is available [here](/helmfile.d/jenkins-release.yaml).
 
 ## Details
 
