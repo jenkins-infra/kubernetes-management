@@ -1,0 +1,33 @@
+ingress:
+  enabled: true
+  annotations:
+    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/rewrite-target": /
+    "nginx.ingress.kubernetes.io/hsts": "true"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+
+  hosts:
+    - host: plugins.jenkins.io
+      paths: /api/
+      port: backend
+    - host: plugins.jenkins.io
+      paths: /
+      port: frontend
+
+  tls:
+    - secretName: plugins-tls
+      hosts:
+        - plugins.jenkins.io
+
+restApiUrl: https://plugins.jenkins.io/api
+
+replicaCount: 2
+
+resources:
+  limits:
+    cpu: 1500m
+    memory: 2048Mi
+  requests:
+    cpu: 250m
+    memory: 512Mi

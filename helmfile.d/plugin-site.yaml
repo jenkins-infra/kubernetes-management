@@ -1,0 +1,12 @@
+releases:
+    - name: plugin-site
+      namespace: plugin-site
+      chart: ../charts/plugin-site
+      wait: true
+      timeout: 300
+      force: true
+      atomic: true
+      values:
+        - "../config/default/plugin-site.yaml"
+      secrets:
+        - "../secrets/config/plugin-site/secrets.yaml"
