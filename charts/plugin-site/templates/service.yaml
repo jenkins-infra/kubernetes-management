@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "plugin-site.fullname" . }}
+  labels: {{ include "plugin-site.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: frontend
+      protocol: TCP
+      targetPort: frontend
+      port: 5000
+    - name: backend
+      protocol: TCP
+      targetPort: backend
+      port: 8080
+  selector:
+    app.kubernetes.io/name: {{ include "plugin-site.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

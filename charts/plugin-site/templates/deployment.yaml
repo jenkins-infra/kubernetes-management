@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "plugin-site.fullname" . }}
+  labels:
+{{ include "plugin-site.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "plugin-site.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "plugin-site.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plugin-site.fullname" . }}
+                  key: github_client_id
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plugin-site.fullname" . }}
+                  key: github_client_secret
+            - name: REST_API_URL
+              value: {{ .Values.restApiUrl }}
+            - name: DATA_FILE_URL
+              value: {{ .Values.dataFileUrl }}
+
+          ports:
+              - name: frontend
+                containerPort: 5000
+                protocol: TCP
+              - name: backend
+                containerPort: 8080
+                protocol: TCP
+          livenessProbe:
+              httpGet:
+                  path: /labels
+                  port: 8080
+                  scheme: HTTP
+              initialDelaySeconds: 60
+              timeoutSeconds: 5
+          readinessProbe:
+              httpGet:
+                  path: /labels
+                  port: 8080
+                  scheme: HTTP
+              initialDelaySeconds: 60
+              timeoutSeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
