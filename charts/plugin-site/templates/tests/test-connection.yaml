@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "plugin-site.fullname" . }}:{{ .Values.service.port }}']
+      args:  ['{{ include "plugin-site.fullname" . }}:8080/labels']
   restartPolicy: Never

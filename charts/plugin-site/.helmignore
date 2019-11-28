@@ -20,3 +20,6 @@
 .idea/
 *.tmproj
 .vscode/
+
+values.local.yaml
+README.md
