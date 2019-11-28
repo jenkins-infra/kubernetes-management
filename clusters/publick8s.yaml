@@ -18,3 +18,4 @@ helmfiles:
   - path: "../helmfile.d/oauth2-proxy.yaml"
   - path: "../helmfile.d/release-jenkins.yaml"
   - path: "../helmfile.d/plugin-site.yaml"
+  - path: "../helmfile.d/reports.yaml"

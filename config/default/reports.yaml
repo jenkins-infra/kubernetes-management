@@ -1,0 +1,40 @@
+ingress:
+  enabled: true
+  annotations:
+    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/hsts": "true"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+
+  hosts:
+    - host: reports.jenkins.io
+      paths:
+        - path: /
+          port: http
+    - host: reports.jenkins-ci.org
+      paths:
+        - path: /
+          port: http 
+
+  tls:
+    - secretName: reports-tls
+      hosts:
+        - reports.jenkins.io
+        - reports.jenkins-ci.org
+
+
+replicaCount: 2
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+htmlVolume:
+  azureFile: 
+    secretName: reports
+    shareName: reports
+    readOnly: true
