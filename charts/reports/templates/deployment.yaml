@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "reports.fullname" . }}
-  labels:
-{{ include "reports.labels" . | indent 4 }}
+  labels: {{ include "reports.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -12,9 +11,7 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: {{ include "reports.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+      labels: {{ include "reports.labels" . | nindent 8 }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
     spec:
