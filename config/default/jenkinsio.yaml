@@ -1,0 +1,74 @@
+ingress:
+  enabled: true
+  annotations:
+    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/hsts": "false"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "false"
+    "nginx.ingress.kubernetes.io/configuration-snippet": |
+      if ( $scheme = "http" ) {
+        rewrite ^/((?!patron|maven-site|jenkins.jnlp).+)$ https://jenkins.io/$1 permanent;
+        rewrite ^/$ https://$host permanent;
+      }
+
+  hosts:
+    - host: jenkins.io
+      paths:
+        - path: /
+          serviceName: jenkinsio
+          servicePort: 80
+        - path: /zh/
+          serviceName: jenkinsio-zh
+          servicePort: 80
+    - host: jenkins-ci.org
+      paths:
+        - path: /
+          serviceName: jenkinsio
+          servicePort: 80
+        - path: /zh/
+          serviceName: jenkinsio-zh
+          servicePort: 80
+    - host: www.jenkins-ci.org
+      paths:
+        - path: /
+          serviceName: jenkinsio
+          servicePort: 80
+        - path: /zh/
+          serviceName: jenkinsio-zh
+          servicePort: 80
+  tls:
+    - secretName: jenkinsio-tls
+      hosts:
+        - jenkins.io
+        - jenkins-ci.org
+        - www.jenkins-ci.org
+
+replicaCount: 2
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+htmlVolume:
+  azureFile: 
+    secretName: jenkinsio
+    shareName: jenkinsio
+    readOnly: true
+
+htmlVolume:
+  azureFile: 
+    secretName: jenkinsio
+    shareName: jenkinsio
+    readOnly: true
+
+zhHtmlVolume:
+  azureFile: 
+    secretName: jenkinsio
+    shareName: zhjenkinsio
+    readOnly: true
+
+forceJenkinsIoHost: true
