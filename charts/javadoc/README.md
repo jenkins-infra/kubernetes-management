@@ -41,3 +41,18 @@ htmlVolume:
 ```
 
 You'll need to add `javadoc-local.jenkins.io` to your hosts file, you can get the IP with `kubectl get ingress`
+
+## Running on Azure
+
+Here's some example configuration for running this on Azure:
+
+```yaml
+azureStorageAccountName: myaccount
+azureStorageAccountKey: key
+htmlVolume:
+  azureFile: 
+    secretName: reports
+    shareName: reports
+    readOnly: true
+# ... you will also need ingress configuration, add as required
+```
