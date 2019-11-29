@@ -1,0 +1,12 @@
+releases:
+    - name: chatbot_jenkinsadmin
+      namespace: chatbot_jenkinsadmin
+      chart: ../charts/chatbot_jenkinsadmin
+      wait: true
+      timeout: 300
+      force: true
+      atomic: true
+      values:
+        - "../config/default/chatbot_jenkinsadmin.yaml"
+      secrets:
+        - "../secrets/config/chatbot_jenkinsadmin/secrets.yaml"
