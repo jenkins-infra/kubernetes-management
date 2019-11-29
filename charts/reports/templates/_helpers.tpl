@@ -42,4 +42,5 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+jenkins.io/maintainer: {{ range $maintainer := .Chart.Maintainers }}{{ $maintainer.Name }} {{ end }}
 {{- end -}}

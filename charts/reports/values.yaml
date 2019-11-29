@@ -7,11 +7,14 @@ replicaCount: 1
 image:
   repository: nginx
   tag: alpine
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+ingress:
+  enabled: false
 
 service:
   type: ClusterIP
@@ -52,4 +55,14 @@ tolerations: []
 
 affinity: {}
 
+# the volume to mount
+# e.g.
+# htmlVolume:
+#   hostPath:
+#     path: /host
 htmlVolume:
+
+# name of the azure storage account to be used
+azureStorageAccountName:
+# key for accessing the azure storage account
+azureStorageAccountKey:

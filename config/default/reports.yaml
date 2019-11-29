@@ -31,7 +31,7 @@ resources:
     memory: 1024Mi
   requests:
     cpu: 100m
-    memory: 256Mi
+    memory: 128Mi
 
 htmlVolume:
   azureFile: 
