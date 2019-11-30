@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: halkeye/jenkins-wiki-exporter
-  tag: v1.3.1
+  tag: v1.4.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
