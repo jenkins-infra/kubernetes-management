@@ -1,21 +1,23 @@
-# Default values for jenkins-wiki-exporter.
+# Default values for plugins.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
+replicaCount: 1
 
 image:
-  repository: halkeye/jenkins-wiki-exporter
-  tag: v1.4.0
-  pullPolicy: IfNotPresent
+  repository: nginx
+  tag: alpine
+  pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+ingress:
+  enabled: false
+
 service:
   type: ClusterIP
-  port: 80
 
 # Please define ingress settings into environment variable
 #ingress:
@@ -26,26 +28,26 @@ service:
 #    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
 #
 #  hosts:
-#    - host: jenkins-wiki-exporter.jenkins.io
+#    - host: plugins.jenkins.io
 #      paths:
 #        - /
 #
 #  tls:
-#    - secretName: jenkins-wiki-exporter-tls
+#    - secretName: plugins-tls
 #      hosts:
-#        - jenkins-wiki-exporter.jenkins.io
+#        - plugins.jenkins.io
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
 nodeSelector: {}
 
@@ -53,6 +55,14 @@ tolerations: []
 
 affinity: {}
 
-confluence:
-  username: ""
-  password: ""
+# the volume to mount
+# e.g.
+# htmlVolume:
+#   hostPath:
+#     path: /host
+htmlVolume:
+
+# name of the azure storage account to be used
+azureStorageAccountName:
+# key for accessing the azure storage account
+azureStorageAccountKey:
