@@ -1,0 +1,12 @@
+releases:
+    - name: jenkinsio
+      namespace: jenkinsio
+      chart: ../charts/jenkinsio
+      wait: true
+      timeout: 300
+      force: true
+      atomic: true
+      values:
+        - "../config/default/jenkinsio.yaml"
+      secrets:
+        - "../secrets/config/jenkinsio/secrets.yaml"
