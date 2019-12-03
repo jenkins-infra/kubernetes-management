@@ -1,0 +1,12 @@
+releases:
+    - name: javadoc
+      namespace: javadoc
+      chart: ../charts/javadoc
+      wait: true
+      timeout: 300
+      force: true
+      atomic: true
+      values:
+        - "../config/default/javadoc.yaml"
+      secrets:
+        - "../secrets/config/javadoc/secrets.yaml"
