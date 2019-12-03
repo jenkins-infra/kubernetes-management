@@ -32,6 +32,15 @@ creation_rules:
             - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
             - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
 
+    - path_regex: secrets/config/javadoc/secrets.yaml
+      key_groups:
+        - azure_keyvault:
+          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
+            key: 'sops'
+            version: '252fc7e646ac40f184ab4a6016484725'
+          pgp:
+            - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
+            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
 
     - key_groups:
         - azure_keyvault:
