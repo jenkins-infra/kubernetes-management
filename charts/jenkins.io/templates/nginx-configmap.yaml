@@ -30,7 +30,7 @@ data:
           }   
       }
 
-      location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+      location ~* \.(?:css|js|woff|eot|svg|ttf|otf|png|gif|jpe?g) {
         expires 2d;
         add_header Cache-Control "public";
       }
