@@ -24,3 +24,5 @@
 values.local.yaml
 README.md
 site/
+site-zh/
+*.zip

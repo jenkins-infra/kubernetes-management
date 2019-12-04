@@ -20,15 +20,26 @@ data:
       }
       {{- end }}
   
+      root   /usr/share/nginx/html;
+
       location / {
-          root   /usr/share/nginx/html;
           index  index.html index.htm;
           # Language setting
           if ($lang) {
             rewrite ^/$ https://jenkins.io/$lang$1;
           }   
       }
-  
+
+      location ~* \.(?:css|js|woff|eot|svg|ttf|otf|png|gif|jpe?g) {
+        expires 2d;
+        add_header Cache-Control "public";
+      }
+
+      location ~* \.(html)$ {
+        expires 1h;
+        add_header Cache-Control "public";
+      }
+
       error_page  404              /404/index.html;
   
       # redirect server error pages to the static page /50x.html
