@@ -5,5 +5,6 @@
 jenkins-wiki-exporter/ @halkeye
 plugin-site/ @timja
 chatbot_jenkinsadmin/ @timja @slide
+reports/ @timja
 jenkins.io/ @timja
 javadoc/ @timja
