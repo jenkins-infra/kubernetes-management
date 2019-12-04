@@ -11,11 +11,16 @@ ingress:
       paths:
         - path: /
           port: http
+    - host: javadoc.jenkins-ci.org
+      paths:
+        - path: /
+          port: http
 
   tls:
     - secretName: javadoc-tls
       hosts:
         - javadoc.jenkins.io
+        - javadoc.jenkins-ci.org
 
 replicaCount: 2
 
