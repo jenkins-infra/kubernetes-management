@@ -1,4 +1,4 @@
-# Plugin site
+# Chatbot Jenkinsadmin
 
 This chart deploys [the jenkins admin irc chatbot](https://github.com/jenkins-infra/ircbot).
 

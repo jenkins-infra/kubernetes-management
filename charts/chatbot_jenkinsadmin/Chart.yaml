@@ -4,4 +4,5 @@ description: A Helm chart for plugins.jenkins.io
 name: jenkinsadmin
 maintainers:
   - name: timja
+  - name: slide
 version: 0.0.1
