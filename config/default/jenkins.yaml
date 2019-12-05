@@ -99,6 +99,11 @@ jenkins:
                             includes('master')
                           }
                         }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile_k8s')
+                          }
+                        }
                       }
               ldap-settings: |
                 jenkins:
