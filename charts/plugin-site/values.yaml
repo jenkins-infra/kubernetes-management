@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: jenkinsciinfra/plugin-site
-  tag: 120-bd2a5f
+  tag: 122-bd2a5f
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
