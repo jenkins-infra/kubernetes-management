@@ -1,7 +1,7 @@
 ingress:
   enabled: true
   annotations:
-    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/rewrite-target": /$1
     "nginx.ingress.kubernetes.io/hsts": "true"
