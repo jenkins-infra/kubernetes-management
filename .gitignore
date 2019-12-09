@@ -2,3 +2,4 @@ bin/*
 *.tgz
 .keyvault
 secrets
+values.local.yaml
