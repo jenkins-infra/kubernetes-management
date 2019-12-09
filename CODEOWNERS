@@ -3,7 +3,7 @@
 * @olblak
 
 jenkins-wiki-exporter/ @halkeye
-plugin-site/ @timja
 reports/ @timja
+plugin-site/ @jenkins-infra/plugin-site
 jenkins.io/ @timja
 javadoc/ @timja
