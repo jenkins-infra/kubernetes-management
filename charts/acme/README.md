@@ -9,6 +9,9 @@ Example configuration:
 
 ```yaml
 acme:
+  id: "letsencrypt-prod" # Used by ingress resources to identify the issuer
+  email: "test@example.com"
+  server: "https://acme-v02.api.letsencrypt.org/directory" # Used to query letsencrypt servers
   clientSecrets:
   - name: acme_secret_jenkins_io
     value: 'password'
