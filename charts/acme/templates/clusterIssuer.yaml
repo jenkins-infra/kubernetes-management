@@ -1,4 +1,4 @@
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: {{ .Values.acme.id }}
@@ -10,17 +10,4 @@ spec:
       # Secret resource used to store the account's private key.
       name: {{ .Values.acme.id }}
     solvers:
-    - dns01:
-        azuredns:
-          clientID: {{ .Values.acme.dns01.azure.clientID }}
-          # A secretKeyRef to a service principal ClientSecret (password)
-          # # ref: https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-service-principal
-          clientSecretSecretRef:
-            name: azuredns-config-{{ .Values.acme.id }}
-            key: CLIENT_SECRET
-          subscriptionID: {{ .Values.acme.dns01.azure.subscriptionID }}
-          # Azure AD tenant Id
-          tenantID: {{ .Values.acme.dns01.azure.tenantID }}
-          # ResourceGroup name where dns zone is provisioned
-          resourceGroupName: {{ .Values.acme.dns01.azure.resourceGroupName }}
-          hostedZoneName: {{ .Values.acme.dns01.azure.hostedZoneName }}
+      {{- toYaml .Values.acme.solvers | nindent 4 }}

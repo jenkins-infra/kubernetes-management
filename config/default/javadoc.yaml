@@ -1,7 +1,7 @@
 ingress:
   enabled: true
   annotations:
-    "certmanager.k8s.io/cluster-issuer": "letsencrypt-prod"
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/hsts": "true"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
@@ -11,11 +11,16 @@ ingress:
       paths:
         - path: /
           port: http
+    - host: javadoc.jenkins-ci.org
+      paths:
+        - path: /
+          port: http
 
   tls:
     - secretName: javadoc-tls
       hosts:
         - javadoc.jenkins.io
+        - javadoc.jenkins-ci.org
 
 replicaCount: 2
 
