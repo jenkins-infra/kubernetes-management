@@ -3,33 +3,46 @@ This chart is configured to use the dns challenge
 
 https://docs.cert-manager.io/en/latest/tasks/acme/configuring-dns01/azuredns.html
 
-The chart allows multiple dns01 configurations to be passed, currently only one client secret though.
+The chart allows multiple dns01 configurations to be passed, where `acme.dns01` accepts any valid settings as defined https://cert-manager.io/docs/configuration/acme/dns01/[here].
 
 Example configuration:
 
 ```yaml
 acme:
-  azureClientSecret: adsaasdsa
-
-  email: "your-email@example.com"
-
+  id: "letsencrypt-prod" # Used by ingress resources to identify the issuer
+  email: "test@example.com"
+  server: "https://acme-v02.api.letsencrypt.org/directory" # Used to query letsencrypt servers
+  clientSecrets:
+  - name: acme_secret_jenkins_io
+    value: 'password'
+  - name: acme_secret_jenkinsci_org
+    value: 'password2'
   dns01:
-    - azure:
-        clientID: "123"
-        clientSecretSecretRef:
-          name: azuredns-config-{{ .Values.acme.id }}
-          key: CLIENT_SECRET
-        subscriptionID: 1213-21312-3-1212
-        tenantID: 1234-12313-12312-321
-        resourceGroupName: rg-1
-        hostedZoneName: first.io
-    - azure:
-        clientID: "123"
-        clientSecretSecretRef:
-          name: azuredns-config-{{ .Values.acme.id }}
-          key: CLIENT_SECRET
-        subscriptionID: 1233-4567
-        tenantID: 3123-21312312
-        resourceGroupName: rg-2
-        hostedZoneName: second.org
+  - azuredns:
+      clientID: XXX
+      clientSecretSecretRef:
+        name: acme_secret_jenkinsio
+        key: CLIENT_SECRET
+      subscriptionID: YYY
+      tenantID: ZZZ
+      resourceGroupName: jenkinsio
+      hostedZoneName: jenkins.io
+      selector:
+        dnsZones:
+          - jenkins.io
+  - azuredns:
+      clientID: XXX
+      clientSecretSecretRef:
+        name: acme_secret_jenkinsci_org
+        key: CLIENT_SECRET
+      subscriptionID: YYY
+      tenantID: ZZZ
+      resourceGroupName: jenkinsci_org
+      hostedZoneName: jenkinsci.org
+      selector:
+        dnsZones:
+          - jenkins-ci.org
 ```
+
+## Links
+* https://cert-manager.io/docs/configuration/acme/[cert-manager]

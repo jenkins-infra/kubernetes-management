@@ -6,25 +6,11 @@ acme:
   id: "letsencrypt-prod"
   email: ""
   server: "https://acme-v02.api.letsencrypt.org/directory"
-  
-  azureClientSecret: ""
 
-  dns01:
-    - azure:
-        clientID: ""
-        clientSecretSecretRef:
-          name: ""
-          key: ""
-        subscriptionID: ""
-        tenantID: ""
-        resourceGroupName: ""
-        hostedZoneName: ""
-    - azure:
-        clientID: ""
-        clientSecretSecretRef:
-          name: ""
-          key: ""
-        subscriptionID: ""
-        tenantID: ""
-        resourceGroupName: ""
-        hostedZoneName: ""
+  # Secrets used for dns01 settings
+  clientSecrets:
+    - name: 'acme_test_secret'
+      value: 'password'
+
+  # Accepts any values as defined here https://cert-manager.io/docs/configuration/acme/dns01/
+  dns01: {}
