@@ -3,7 +3,16 @@
 * @olblak
 
 jenkins-wiki-exporter/ @halkeye
+jenkins-wiki-exporter.yaml @halkeye
+
 reports/ @timja
+reports.yaml @timja
+
 plugin-site/ @jenkins-infra/plugin-site
-jenkins.io/ @timja
+plugin-site.yaml @jenkins-infra/plugin-site
+
+jenkinsio/ @timja
+jenkinsio.yaml @timja
+
 javadoc/ @timja
+javadoc.yaml @timja
