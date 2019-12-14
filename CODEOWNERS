@@ -3,8 +3,19 @@
 * @olblak
 
 jenkins-wiki-exporter/ @halkeye
-chatbot_jenkinsadmin/ @timja @slide
+jenkins-wiki-exporter.yaml @halkeye
+
 reports/ @timja
+reports.yaml @timja
+
 plugin-site/ @jenkins-infra/plugin-site
-jenkins.io/ @timja
+plugin-site.yaml @jenkins-infra/plugin-site
+
+jenkinsio/ @timja
+jenkinsio.yaml @timja
+
 javadoc/ @timja
+javadoc.yaml @timja
+
+chatbot_jenkinsadmin/ @timja @slide
+chatbot_jenkinsadmin.yaml @timja @slide
