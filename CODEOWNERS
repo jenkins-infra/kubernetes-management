@@ -16,3 +16,6 @@ jenkinsio.yaml @timja
 
 javadoc/ @timja
 javadoc.yaml @timja
+
+accountapp/ @timja
+accountapp.yaml @timja

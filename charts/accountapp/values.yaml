@@ -1,0 +1,81 @@
+# Default values for accounts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: jenkinsciinfra/accountapp
+  tag: 63-build24706c
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+
+# Please define ingress settings into environment variable
+ingress:
+  enabled: true
+#  annotations:
+#    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+#    "kubernetes.io/ingress.class": "public-ingress"
+#    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+#
+#  hosts:
+#    - host: accounts.jenkins.io
+#      paths:
+#        - /
+#
+#  tls:
+#    - secretName: accounts-tls
+#      hosts:
+#        - accounts.jenkins.io
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+ldap:
+  url: ldaps://ldap.jenkins.io:636/
+  managerDn: cn=admin,dc=jenkins-ci,dc=org
+  newUserBaseDn: ou=people,dc=jenkins-ci,dc=org
+  password:
+
+jira:
+  username: accountapp
+  password:
+  url: https://issues.jenkins-ci.org/
+
+seats: 2
+seniority: 12
+
+smtp:
+  auth: true
+  server: smtp.sendgrid.net
+  user:
+  password:
+
+appUrl: https://accounts.jenkins.io
+
+election:
+  open: 1970-01-01
+  close: 1970-01-02
+  logDir: /var/log/accountapp/elections
+  candidates: bob,alice
