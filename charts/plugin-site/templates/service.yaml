@@ -10,9 +10,9 @@ spec:
       protocol: TCP
       targetPort: frontend
       port: 5000	
-    - name: backend	
-      protocol: TCP	
-      targetPort: backend	
+    - name: backend
+      protocol: TCP
+      targetPort: backend
       port: 8080
   selector:
     app.kubernetes.io/name: {{ include "plugin-site.name" . }}
