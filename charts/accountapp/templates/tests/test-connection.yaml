@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "accountapp.fullname" . }}:8080/labels']
+      args:  ['{{ include "accountapp.fullname" . }}:8080/login']
   restartPolicy: Never
