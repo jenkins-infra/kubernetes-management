@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "jenkinsadmin.fullname" . }}
-  labels: {{ include "jenkinsadmin.labels" . | nindent 4 }}
+  name: {{ include "chatbot.fullname" . }}
+  labels: {{ include "chatbot.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "jenkinsadmin.name" . }}
+      app.kubernetes.io/name: {{ include "chatbot.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
-      labels: {{ include "jenkinsadmin.labels" . | nindent 8 }}
+      labels: {{ include "chatbot.labels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -33,7 +33,7 @@ spec:
             - name: NICK_PASSWORD
               valueFrom:
                 secretKeyRef:
-                    name: {{ include "jenkinsadmin.fullname" . }}
+                    name: {{ include "chatbot.fullname" . }}
                     key: nick_password
           volumeMounts:
             - name: credentials
@@ -44,7 +44,7 @@ spec:
       volumes:
         - name: credentials
           secret:
-            secretName: {{ include "jenkinsadmin.fullname" . }}
+            secretName: {{ include "chatbot.fullname" . }}
             items:
               - key: github
                 path: .github
