@@ -6,9 +6,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - name: http
+    - name: frontend
       protocol: TCP
-      targetPort: http
+      targetPort: frontend
+      port: 5000	
+    - name: backend	
+      protocol: TCP	
+      targetPort: backend	
       port: 8080
   selector:
     app.kubernetes.io/name: {{ include "plugin-site.name" . }}
