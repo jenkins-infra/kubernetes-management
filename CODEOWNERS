@@ -19,3 +19,6 @@ javadoc.yaml @timja
 
 accountapp/ @timja
 accountapp.yaml @timja
+
+chatbot/ @timja @slide
+chatbot.yaml @timja @slide

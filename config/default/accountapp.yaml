@@ -5,6 +5,7 @@ ingress:
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/hsts": "true"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    "nginx.ingress.kubernetes.io/affinity": "cookie"
 
   hosts:
     - host: accounts.jenkins.io
