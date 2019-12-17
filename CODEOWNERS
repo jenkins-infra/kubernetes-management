@@ -16,3 +16,6 @@ jenkinsio.yaml @timja
 
 javadoc/ @timja
 javadoc.yaml @timja
+
+chatbot_jenkinsadmin/ @timja @slide
+chatbot_jenkinsadmin.yaml @timja @slide
