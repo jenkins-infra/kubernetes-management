@@ -1,4 +1,4 @@
-# Chatbot Jenkinsadmin
+# Chatbot
 
 This chart deploys [the jenkins admin irc chatbot](https://github.com/jenkins-infra/ircbot).
 
@@ -7,11 +7,11 @@ Bot usage instructions can be found on the [Jenkins website](https://jenkins.io/
 ## Running this yourself
 
 ```yaml
-helm install -f values.yaml -f values.local.yaml --name jenkinsadmin .
+helm install -f values.yaml -f values.local.yaml --name chatbot .
 ```
 
 ```yaml
-helm upgrade  -f values.yaml -f values.local.yaml  jenkinsadmin .
+helm upgrade  -f values.yaml -f values.local.yaml  chartbot .
 ```
 
 You need to define some configuration locally in a separate values file
