@@ -22,3 +22,4 @@ helmfiles:
   - path: "../helmfile.d/reports.yaml"
   - path: "../helmfile.d/jenkinsio.yaml"
   - path: "../helmfile.d/javadoc.yaml"
+  - path: "../helmfile.d/accountapp.yaml"
