@@ -1,0 +1,35 @@
+ingress:
+  enabled: true
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/hsts": "true"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    "nginx.ingress.kubernetes.io/affinity": "cookie"
+
+  hosts:
+    - host: accounts.jenkins.io
+      paths:
+        - path: /
+          port: http
+    - host: accounts.jenkins-ci.org
+      paths:
+        - path: /
+          port: http 
+
+  tls:
+    - secretName: accounts-tls
+      hosts:
+        - accounts.jenkins.io
+        - accounts.jenkins-ci.org
+
+
+replicaCount: 2
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 1024Mi
+  requests:
+    cpu: 500m
+    memory: 512Mi

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "accountapp.fullname" . }}
+  labels: {{ include "accountapp.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      protocol: TCP
+      targetPort: http
+      port: 8080
+  selector:
+    app.kubernetes.io/name: {{ include "accountapp.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
