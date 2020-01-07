@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "plugin-site.fullname" . }}
+  name: {{ include "plugin-site.fullname" . }}-frontend
   labels: {{ include "plugin-site.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "plugin-site.name" . }}
@@ -22,9 +22,79 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: {{ .Chart.Name }}-frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          {{ if .Values.frontend.image.oldMode -}}
+          workingDir: /plugins
+          command: ["yarn"]
+          args: ["server"]
+          {{ end -}}
+          ports:
+              - name: frontend
+                containerPort: {{ .Values.frontend.port }}
+                protocol: TCP
+          env:
+            - name: REST_API_URL
+              value: {{ .Values.restApiUrl }}
+          {{ if not .Values.frontend.image.oldMode -}}
+          livenessProbe:
+              httpGet:
+                  path: /
+                  port: {{ .Values.frontend.port }}
+                  scheme: HTTP
+              initialDelaySeconds: 5
+              timeoutSeconds: 5
+          readinessProbe:
+              httpGet:
+                  path: /
+                  port: {{ .Values.frontend.port }}
+                  scheme: HTTP
+              initialDelaySeconds: 5
+              timeoutSeconds: 5
+          {{ end -}}
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "plugin-site.fullname" . }}-backend
+  labels: {{ include "plugin-site.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "plugin-site.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels: {{ include "plugin-site.labels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           env:
             - name: GITHUB_CLIENT_ID
               valueFrom:
@@ -36,34 +106,28 @@ spec:
                 secretKeyRef:
                   name: {{ include "plugin-site.fullname" . }}
                   key: github_client_secret
-            - name: REST_API_URL
-              value: {{ .Values.restApiUrl }}
             - name: DATA_FILE_URL
               value: {{ .Values.dataFileUrl }}
-
           ports:
-              - name: frontend
-                containerPort: 5000
-                protocol: TCP
               - name: backend
-                containerPort: 8080
+                containerPort: {{ .Values.backend.port }}
                 protocol: TCP
           livenessProbe:
               httpGet:
                   path: /labels
-                  port: 8080
+                  port: {{ .Values.backend.port }}
                   scheme: HTTP
               initialDelaySeconds: 60
               timeoutSeconds: 5
           readinessProbe:
               httpGet:
                   path: /labels
-                  port: 8080
+                  port: {{ .Values.backend.port }}
                   scheme: HTTP
               initialDelaySeconds: 60
               timeoutSeconds: 5
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.backend.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -10,14 +10,8 @@ ingress:
     "nginx.ingress.kubernetes.io/cors-allow-methods": "GET, OPTIONS"
     "nginx.ingress.kubernetes.io/cors-allow-origin": "*"
 
-
   hosts:
     - host: plugins.jenkins.io
-      paths:
-        - path: /api/(.*)
-          port: backend
-        - path: /(.*)
-          port: frontend
 
   tls:
     - secretName: plugins-tls
@@ -26,12 +20,7 @@ ingress:
 
 restApiUrl: https://plugins.jenkins.io/api
 
-replicaCount: 2
-
-resources:
-  limits:
-    cpu: 2000m
-    memory: 2048Mi
-  requests:
-    cpu: 1000m
-    memory: 1024Mi
+backend:
+  replicaCount: 2
+frontend:
+  replicaCount: 2
