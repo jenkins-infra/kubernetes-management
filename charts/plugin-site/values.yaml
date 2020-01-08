@@ -52,7 +52,7 @@ service:
 
 # Please define ingress settings into environment variable
 ingress:
-  enabled: disabled
+  enabled: false
   paths:
     - path: /api/(.*)
       port: backend
