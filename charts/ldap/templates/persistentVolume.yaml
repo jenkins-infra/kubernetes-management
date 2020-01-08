@@ -10,7 +10,6 @@ spec:
     storage: 100Gi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
   mountOptions:
     - uid=100
     - gid=100
@@ -18,4 +17,3 @@ spec:
     secretName: {{ include "ldap.fullname" . }}
     shareName: ldap
     readOnly: false
-
