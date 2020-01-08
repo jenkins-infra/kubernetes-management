@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "ldap.fullname" . }}
+  labels:
+{{ include "ldap.labels" . | indent 4 }}
+spec:
+  replicas: 1
+  serviceName: {{ include "ldap.fullname" . }}
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "ldap.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "ldap.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "ldap.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      terminationGracePeriodSeconds: 20
+      containers:
+        - name: slapd
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: OPENLDAP_ADMIN_DN
+              value: {{ .Values.ldap.admin.dn }}
+            - name: OPENLDAP_ADMIN_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: {{ include "ldap.fullname" . }}
+                  key: ldap.admin.password
+            - name: OPENLDAP_BACKUP_PATH
+              value: {{ .Values.ldap.backup.path }}
+            - name: OPENLDAP_RESTORE_FILE
+              value: {{ .Values.ldap.backup.file }}
+            - name: OPENLDAP_DATABASE
+              value: {{ .Values.ldap.database }}
+            - name: OPENLDAP_DEBUG_LEVEL
+              value: {{ .Values.ldap.debug_level | quote }}
+            - name: OPENLDAP_SSL_CA
+              value: {{ .Values.ldap.ssl.ca.filename }}
+            - name: OPENLDAP_SSL_CRT
+              value: {{ .Values.ldap.ssl.crt.filename }}
+            - name: OPENLDAP_SSL_KEY
+              value: {{ .Values.ldap.ssl.key.filename }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: ldaps
+              containerPort: 636
+          volumeMounts:
+            - name: backup
+              mountPath: {{ .Values.ldap.backup.path }}
+              readOnly: true
+            - name: data
+              mountPath: {{ .Values.ldap.data.path }}
+            - name: tls
+              mountPath: "/etc/ldap/ssl"
+              readOnly: true
+          lifecycle:
+            preStop:
+              exec: 
+                command: ["/bin/bash", "-c", "sleep 10 && /entrypoint/backup"]
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: crond
+          env:
+            - name: OPENLDAP_ADMIN_DN
+              value: {{ .Values.ldap.admin.dn }}
+            - name: OPENLDAP_ADMIN_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: {{ include "ldap.fullname" . }}
+                  key: ldap.admin.password
+            - name: OPENLDAP_BACKUP_PATH
+              value: {{ .Values.ldap.backup.path}}
+            - name: OPENLDAP_DATABASE
+              value: {{ .Values.ldap.database }}
+            - name: OPENLDAP_DEBUG_LEVEL
+              value: {{ .Values.ldap.debug_level | quote }}
+            - name: OPENLDAP_SSL_CA
+              value: {{ .Values.ldap.ssl.ca.filename }}
+            - name: OPENLDAP_SSL_CRT
+              value: {{ .Values.ldap.ssl.crt.filename }}
+            - name: OPENLDAP_SSL_KEY
+              value: {{ .Values.ldap.ssl.key.filename }}
+          image: "{{ .Values.image.repository }}:cron-{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: backup
+              mountPath: {{ .Values.ldap.backup.path }}
+              readOnly: true
+            - name: tls
+              mountPath: "/etc/ldap/ssl"
+              readOnly: true
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: backup
+          persistentVolumeClaim:
+            claimName: {{ include "ldap.fullname" . }}-backup
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "ldap.fullname" . }}-data
+        - name: tls
+          secret:
+            secretName: {{ include "ldap.fullname" . }}
+            items:
+              - key: cacert.pem
+                path: {{ .Values.ldap.ssl.ca.filename }}
+              - key: cert.pem
+                path: {{ .Values.ldap.ssl.crt.filename }}
+              - key: privkey.key
+                path: {{ .Values.ldap.ssl.key.filename }}

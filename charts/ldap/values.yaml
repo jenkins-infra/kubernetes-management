@@ -1,0 +1,77 @@
+# Default values for ldap.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: jenkinsciinfra/ldap
+  tag: 27-buildf629e5
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+ldap:
+  admin: 
+    dn: 'cn=admin,dc=jenkins-ci,dc=org'
+    password: s3cr3t
+  backup:
+    path: '/var/backups'
+    file: 'backup.latest.ldif.gz'
+  data:
+    path: '/var/lib/ldap'
+  database: 'dc=jenkins-ci,dc=org'
+  debug_level: 256
+  ssl:
+    ca:
+      filename: cacert.pem
+      value: ''
+    crt:
+      filename: cert.pem
+      value: ''
+    key:
+      filename: privkey.key
+      value: ''
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: LoadBalancer
+  #IP: ''
+  whitelisted_sources: []
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 300m
+    memory: 1024Mi
+  requests:
+    cpu: 300m
+    memory: 800Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

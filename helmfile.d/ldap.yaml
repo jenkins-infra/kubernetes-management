@@ -1,0 +1,10 @@
+releases:
+    - name: ldap
+      namespace: ldap
+      chart: ../charts/ldap
+      wait: true
+      timeout: 300
+      values:
+        - "../config/default/ldap.yaml"
+      secrets:
+        - "../secrets/config/ldap/secrets.yaml"
