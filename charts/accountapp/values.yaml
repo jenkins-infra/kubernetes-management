@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: jenkinsciinfra/accountapp
+  repository: jenkinsciinfra/account-app
   tag: 63-build24706c
   pullPolicy: IfNotPresent
 
