@@ -40,11 +40,11 @@ spec:
                   name: {{ include "ldap.fullname" . }}
                   key: ldap.admin.password
             - name: OPENLDAP_BACKUP_PATH
-              value: {{ .Values.ldap.backup.path}}
+              value: {{ .Values.ldap.backup.path }}
             - name: OPENLDAP_DATABASE
               value: {{ .Values.ldap.database }}
             - name: OPENLDAP_DEBUG_LEVEL
-              value: {{ .Values.ldap.debug_level }}
+              value: {{ .Values.ldap.debug_level | quote }}
             - name: OPENLDAP_SSL_CA
               value: {{ .Values.ldap.ssl.ca.filename }}
             - name: OPENLDAP_SSL_CRT
@@ -85,7 +85,7 @@ spec:
             - name: OPENLDAP_DATABASE
               value: {{ .Values.ldap.database }}
             - name: OPENLDAP_DEBUG_LEVEL
-              value: {{ .Values.ldap.debug_level }}
+              value: {{ .Values.ldap.debug_level | quote }}
             - name: OPENLDAP_SSL_CA
               value: {{ .Values.ldap.ssl.ca.filename }}
             - name: OPENLDAP_SSL_CRT
