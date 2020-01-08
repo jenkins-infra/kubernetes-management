@@ -11,7 +11,7 @@ This helm chart installs the jenkins infrastructure ldap service (ldap.jenkins.i
 
 `helmfile -f helmfile.d/ldap.yaml apply`
 
- ### Minikube gotchas
+### Minikube gotchas
 
 Require `socat` and `cifs-utils` to mount azure file storage in Minikube
 
