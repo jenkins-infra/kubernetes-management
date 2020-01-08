@@ -26,6 +26,7 @@ ldap:
     password: s3cr3t
   backup:
     path: '/var/backups'
+    file: 'backup.latest.ldif.gz'
   data:
     path: '/var/lib/ldap'
   database: 'dc=jenkins-ci,dc=org'
@@ -33,13 +34,13 @@ ldap:
   ssl:
     ca:
       filename: cacert.pem
-      value:
+      value: ''
     crt:
       filename: cert.pem
-      value: 
+      value: ''
     key:
       filename: privkey.key
-      value:
+      value: ''
 
 podSecurityContext: {}
   # fsGroup: 2000
