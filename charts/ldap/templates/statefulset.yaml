@@ -41,6 +41,8 @@ spec:
                   key: ldap.admin.password
             - name: OPENLDAP_BACKUP_PATH
               value: {{ .Values.ldap.backup.path }}
+            - name: OPENLDAP_RESTORE_FILE
+              value: {{ .Values.ldap.backup.file }}
             - name: OPENLDAP_DATABASE
               value: {{ .Values.ldap.database }}
             - name: OPENLDAP_DEBUG_LEVEL
@@ -125,8 +127,8 @@ spec:
             secretName: {{ include "ldap.fullname" . }}
             items:
               - key: cacert.pem
-                path: ldap.ssl.ca.filename
+                path: {{ .Values.ldap.ssl.ca.filename }}
               - key: cert.pem
-                path: ldap.ssl.crt.filename
+                path: {{ .Values.ldap.ssl.crt.filename }}
               - key: privkey.key
-                path: ldap.ssl.key.filename
+                path: {{ .Values.ldap.ssl.key.filename }}
