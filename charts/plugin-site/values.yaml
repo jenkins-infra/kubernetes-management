@@ -15,7 +15,7 @@ backend:
       cpu: 2000m
       memory: 2048Mi
     requests:
-      cpu: 1000m
+      cpu: 500m
       memory: 1024Mi
 
 frontend:
@@ -37,11 +37,11 @@ frontend:
       memory: 1024Mi
   #resources:
   #  limits:
-  #    cpu: 100m
-  #    memory: 64Mi
+  #    cpu: 10m
+  #    memory: 32Mi
   #  requests:
-  #    cpu: 100m
-  #    memory: 64Mi
+  #    cpu: 10m
+  #    memory: 32Mi
 
 imagePullSecrets: []
 nameOverride: ""
