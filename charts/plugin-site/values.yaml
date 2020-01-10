@@ -21,27 +21,17 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    repository: jenkinsciinfra/plugin-site
-    tag: 122-bd2a5f
-    oldMode: true
-    #repository: halkeye/jenkins-plugin-site
-    #tag: 44-14cfe6
-    pullPolicy: IfNotPresent
+    repository: gatsbyjs/gatsby
+    tag: latest
+    pullPolicy: Always
   port: 80
   resources:
     limits:
-      cpu: 2000m
-      memory: 2048Mi
+      cpu: 10m
+      memory: 32Mi
     requests:
-      cpu: 1000m
-      memory: 1024Mi
-  #resources:
-  #  limits:
-  #    cpu: 10m
-  #    memory: 32Mi
-  #  requests:
-  #    cpu: 10m
-  #    memory: 32Mi
+      cpu: 10m
+      memory: 32Mi
 
 imagePullSecrets: []
 nameOverride: ""
@@ -85,3 +75,15 @@ restApiUrl: https://plugins.jenkins.io/api
 github:
   clientId: ""
   clientSecret: ""
+
+# the volume to mount
+# e.g.
+# htmlVolume:
+#   hostPath:
+#     path: /host
+htmlVolume:
+
+# name of the azure storage account to be used
+azureStorageAccountName:
+# key for accessing the azure storage account
+azureStorageAccountKey:

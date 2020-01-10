@@ -22,5 +22,9 @@ restApiUrl: https://plugins.jenkins.io/api
 
 backend:
   replicaCount: 2
-frontend:
-  replicaCount: 2
+
+htmlVolume:
+  azureFile:
+    secretName: pluginshtml
+    shareName: pluginshtml
+    readOnly: true

@@ -25,11 +25,6 @@ spec:
         - name: {{ .Chart.Name }}-frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
           imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
-          {{ if .Values.frontend.image.oldMode -}}
-          workingDir: /plugins
-          command: ["yarn"]
-          args: ["server"]
-          {{ end -}}
           ports:
               - name: frontend
                 containerPort: {{ .Values.frontend.port }}
@@ -37,7 +32,6 @@ spec:
           env:
             - name: REST_API_URL
               value: {{ .Values.restApiUrl }}
-          {{ if not .Values.frontend.image.oldMode -}}
           livenessProbe:
               httpGet:
                   path: /
@@ -52,7 +46,9 @@ spec:
                   scheme: HTTP
               initialDelaySeconds: 5
               timeoutSeconds: 5
-          {{ end -}}
+          volumeMounts:
+            - name: html
+              mountPath: /pub
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -67,4 +63,6 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-
+      volumes:
+        - name: html
+{{ toYaml .Values.htmlVolume | indent 10 }}
