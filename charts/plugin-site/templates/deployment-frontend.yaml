@@ -12,6 +12,8 @@ spec:
   template:
     metadata:
       labels: {{ include "plugin-site.labels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -49,6 +51,8 @@ spec:
           volumeMounts:
             - name: html
               mountPath: /pub
+            - name: config
+              mountPath: /etc/nginx/conf.d
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -66,3 +70,6 @@ spec:
       volumes:
         - name: html
 {{ toYaml .Values.htmlVolume | indent 10 }}
+        - name: config
+          configMap:
+            name: {{ include "plugin-site.fullname" . }}-nginx
