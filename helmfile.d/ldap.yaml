@@ -3,7 +3,7 @@ releases:
       namespace: ldap
       chart: ../charts/ldap
       wait: true
-      timeout: 300
+      timeout: 600
       values:
         - "../config/default/ldap.yaml"
       secrets:
