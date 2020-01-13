@@ -26,13 +26,13 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
   hosts:
     - host: plugins-local.jenkins.io
-      paths:
-        - path: /api/(.*)
-          port: backend
-        - path: /(.*)
-          port: frontend
 
 restApiUrl: http://plugins-local.jenkins.io/api
+
+# Should point to somewhere where the plugin-site's built public directory is
+htmlVolume:
+  hostPath:
+    path: /src/path/to/your/build/public
 
 ```
 
