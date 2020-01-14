@@ -21,16 +21,16 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    repository: gatsbyjs/gatsby
-    tag: latest
-    pullPolicy: Always
+    repository: nginx
+    tag: 1.17.7-alpine
+    pullPolicy: IfNotPresent
   port: 80
   resources:
     limits:
-      cpu: 10m
+      cpu: 100m
       memory: 32Mi
     requests:
-      cpu: 10m
+      cpu: 100m
       memory: 32Mi
 
 imagePullSecrets: []

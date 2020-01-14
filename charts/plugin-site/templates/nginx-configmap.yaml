@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "plugin-site.fullname" . }}-nginx
+  labels: {{ include "plugin-site.labels" . | nindent 4 }}
+data:
+  default.conf: |
+    server {
+      listen 80;
+      root /pub;
+
+      index index.html;
+      autoindex off;
+      charset utf-8;
+
+      error_page 404 /404.html;
+
+      location ~* \.(html)$ {
+        add_header Cache-Control "no-store";
+        expires    off;
+      }
+
+      location ~* \.(ico|jpg|jpeg|png|gif|svg|js|jsx|css|less|swf|eot|ttf|otf|woff|woff2)$ {
+        add_header Cache-Control "public";
+        expires +1y;
+      }
+
+      rewrite ^([^.]*[^/])$ $1/ permanent;
+
+      try_files $uri $uri/ $uri/index.html =404;
+    }
