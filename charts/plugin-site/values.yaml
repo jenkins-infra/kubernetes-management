@@ -21,8 +21,8 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    repository: gatsbyjs/gatsby
-    tag: latest
+    repository: halkeye/gatsby
+    tag: disable-open-fd
     pullPolicy: Always
   port: 80
   resources:

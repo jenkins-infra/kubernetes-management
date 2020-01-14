@@ -30,8 +30,8 @@ spec:
                 containerPort: {{ .Values.frontend.port }}
                 protocol: TCP
           env:
-            - name: REST_API_URL
-              value: {{ .Values.restApiUrl }}
+            - name: DISABLE_FILE_CACHE
+              value: "true"
           livenessProbe:
               httpGet:
                   path: /
