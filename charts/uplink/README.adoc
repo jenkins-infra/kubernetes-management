@@ -40,4 +40,5 @@ ingress:
 
 == Link
 
-* https://github.com/jenkins-infra/uplink/blob/master/README.adoc[Uplink Repository]
+* https://github.com/jenkins-infra/uplink/blob/master/README.adoc[Repository]
+* https://hub.docker.com/r/jenkinsciinfra/uplink[Docker]
