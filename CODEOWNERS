@@ -20,5 +20,8 @@ javadoc.yaml @timja
 accountapp/ @timja
 accountapp.yaml @timja
 
+uplink/ @olblak
+uplink.yaml @olblak
+
 chatbot/ @timja @slide
 chatbot.yaml @timja @slide

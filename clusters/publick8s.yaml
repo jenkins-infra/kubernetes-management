@@ -24,3 +24,4 @@ helmfiles:
   - path: "../helmfile.d/javadoc.yaml"
   - path: "../helmfile.d/accountapp.yaml"
   - path: "../helmfile.d/ldap.yaml"
+  - path: "../helmfile.d/uplink.yaml"
