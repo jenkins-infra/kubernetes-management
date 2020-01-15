@@ -1,0 +1,11 @@
+releases:
+    - name: uplink
+      namespace: uplink
+      chart: ../charts/uplink
+      wait: true
+      timeout: 600
+      atomic: true
+      values:
+        - "../config/default/uplink.yaml"
+      secrets:
+        - "../secrets/config/uplink/secrets.yaml"

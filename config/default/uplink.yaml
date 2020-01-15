@@ -1,0 +1,17 @@
+ingress:
+  enabled: true
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/hsts": "true"
+    "nginx.ingress.kubernetes.io/rewrite-target": /
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: uplink.jenkins.io
+      paths: []
+  tls:
+    - secretName: uplink-tls
+      hosts:
+        - uplink.jenkins.io
+
+replicaCount: 5
