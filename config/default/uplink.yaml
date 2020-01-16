@@ -8,7 +8,8 @@ ingress:
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
     - host: uplink.jenkins.io
-      paths: []
+      paths:
+        - /
   tls:
     - secretName: uplink-tls
       hosts:
