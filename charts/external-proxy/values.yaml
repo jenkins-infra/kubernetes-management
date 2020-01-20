@@ -1,0 +1,38 @@
+# Default values for plugins.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+nameOverride: "external"
+fullnameOverride: ""
+
+proxies:
+  - name: wiki
+    backend: wiki.jenkins.io
+    # ip: lettuce.jenkins.io
+    ip: 140.211.9.32
+    hosts:
+      - wiki.jenkins.io
+    port: 443
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        kubernetes.io/ingress.class: "public-ingress"
+        nginx.ingress.kubernetes.io/hsts: "true"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  - name: issues
+    backend: issues.jenkins.io
+    hosts:
+      - issues.jenkins.io
+    # ip: edamame.jenkins.io
+    ip: 140.211.9.2
+    port: 443
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        kubernetes.io/ingress.class: "public-ingress"
+        nginx.ingress.kubernetes.io/hsts: "true"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"

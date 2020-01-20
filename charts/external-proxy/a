@@ -1,0 +1,205 @@
+[debug] Created tunnel using local port: '38647'
+
+[debug] SERVER: "127.0.0.1:38647"
+
+Release "external-proxy" does not exist. Installing it now.
+[debug] CHART PATH: /home/halkeye/git/jenkins-infra/charts/charts/external-proxy
+
+NAME:   external-proxy
+REVISION: 1
+RELEASED: Sun Jan 19 20:45:11 2020
+CHART: external-proxy-0.0.1
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+fullnameOverride: ""
+nameOverride: external
+proxies:
+- backend: wiki.jenkins.io
+  hosts:
+  - wiki.jenkins.io.g4v.dev
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    enabled: true
+  ip: 140.211.9.32
+  name: wiki
+  port: 443
+- backend: issues.jenkins.io
+  hosts:
+  - issues.jenkins.io.g4v.dev
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    enabled: true
+  ip: 140.211.9.2
+  name: issues
+  port: 443
+replicaCount: 1
+
+HOOKS:
+MANIFEST:
+
+---
+# Source: external-proxy/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-wiki
+  labels: 
+    app.kubernetes.io/name: external
+    helm.sh/chart: external-proxy-0.0.1
+    app.kubernetes.io/instance: external-proxy
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+    jenkins.io/maintainer: halkeye
+spec:
+  type: ClusterIP
+  ports:
+    - name: external-wiki
+      protocol: TCP
+      targetPort: external-wiki
+      port: 443
+  selector:
+    app.kubernetes.io/name: external-wiki
+    app.kubernetes.io/instance: external-proxy
+---
+# Source: external-proxy/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-issues
+  labels: 
+    app.kubernetes.io/name: external
+    helm.sh/chart: external-proxy-0.0.1
+    app.kubernetes.io/instance: external-proxy
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+    jenkins.io/maintainer: halkeye
+spec:
+  type: ClusterIP
+  ports:
+    - name: external-issues
+      protocol: TCP
+      targetPort: external-issues
+      port: 443
+  selector:
+    app.kubernetes.io/name: external-issues
+    app.kubernetes.io/instance: external-proxy
+---
+# Source: external-proxy/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: external-wiki
+  labels: 
+    app.kubernetes.io/name: external
+    helm.sh/chart: external-proxy-0.0.1
+    app.kubernetes.io/instance: external-proxy
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+    jenkins.io/maintainer: halkeye
+  annotations:
+    
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    
+    nginx.ingress.kubernetes.io/upstream-vhost: wiki.jenkins.io
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  tls:
+  - hosts:
+    - "wiki.jenkins.io.g4v.dev"
+    secretName: external-wiki-tls
+  rules:
+    - host: "wiki.jenkins.io.g4v.dev"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: external-wiki
+              servicePort: 443
+---
+# Source: external-proxy/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: external-issues
+  labels: 
+    app.kubernetes.io/name: external
+    helm.sh/chart: external-proxy-0.0.1
+    app.kubernetes.io/instance: external-proxy
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+    jenkins.io/maintainer: halkeye
+  annotations:
+    
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    
+    nginx.ingress.kubernetes.io/upstream-vhost: issues.jenkins.io
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  tls:
+  - hosts:
+    - "issues.jenkins.io.g4v.dev"
+    secretName: external-issues-tls
+  rules:
+    - host: "issues.jenkins.io.g4v.dev"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: external-issues
+              servicePort: 443
+---
+# Source: external-proxy/templates/endpoints.yaml
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-issues
+  labels: 
+    app.kubernetes.io/name: external
+    helm.sh/chart: external-proxy-0.0.1
+    app.kubernetes.io/instance: external-proxy
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+    jenkins.io/maintainer: halkeye
+subsets:
+- addresses:
+  - ip: 140.211.9.2
+  ports:
+  - name: external-issues
+    port: 443
+    protocol: TCP
+---
+# Source: external-proxy/templates/endpoints.yaml
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-wiki
+  labels: 
+    app.kubernetes.io/name: external
+    helm.sh/chart: external-proxy-0.0.1
+    app.kubernetes.io/instance: external-proxy
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+    jenkins.io/maintainer: halkeye
+subsets:
+- addresses:
+  - ip: 140.211.9.32
+  ports:
+  - name: external-wiki
+    port: 443
+    protocol: TCP

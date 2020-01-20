@@ -1,0 +1,16 @@
+{{- $root := . -}}
+{{- range .Values.proxies }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "external-proxy.name" $root }}-{{ .name }}
+  labels: {{ include "external-proxy.labels" $root | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: {{ include "external-proxy.name" $root }}-{{ .name }}
+      protocol: TCP
+      targetPort: {{ include "external-proxy.name" $root }}-{{ .name }}
+      port: {{ .port }}
+{{ end }}

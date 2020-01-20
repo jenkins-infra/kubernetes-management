@@ -1,0 +1,36 @@
+{{- $root := . -}}
+
+{{- range .Values.proxies }}
+---
+{{- $proxy := . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "external-proxy.name" $root }}-{{ .name }}
+  labels: {{ include "external-proxy.labels" $root | nindent 4 }}
+  annotations:
+    {{ if $proxy.ingress.annotations }}
+    {{- toYaml $proxy.ingress.annotations | nindent 4 }}
+    {{- end }}
+    nginx.ingress.kubernetes.io/upstream-vhost: {{ $proxy.backend }}
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  tls:
+  - hosts:
+    {{- range $proxy.hosts }}
+    - {{ . | quote }}
+    {{- end }}
+    secretName: {{ include "external-proxy.name" $root }}-{{ $proxy.name }}-tls
+  rules:
+  {{- range $proxy.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ include "external-proxy.name" $root }}-{{ $proxy.name }}
+              servicePort: {{ $proxy.port }}
+  {{- end }}
+{{- end }}

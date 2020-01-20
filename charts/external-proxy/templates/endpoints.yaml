@@ -1,0 +1,18 @@
+{{- $root := . -}}
+
+{{- range .Values.proxies }}
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ include "external-proxy.name" $root }}-{{ .name }}
+  labels: {{ include "external-proxy.labels" $root | nindent 4 }}
+subsets:
+- addresses:
+  - ip: {{ .ip }}
+  ports:
+  - name: {{ include "external-proxy.name" $root }}-{{ .name }}
+    port: {{ .port }}
+    protocol: TCP
+{{ end }}
+
