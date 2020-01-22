@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: jenkinsciinfra/ldap
-  tag: 27-buildf629e5
+  tag: 36-build7cf719
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
