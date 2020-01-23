@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: jenkinsciinfra/account-app
-  tag: 63-build24706c
+  tag: 84-buildc612cb
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
