@@ -1,0 +1,18 @@
+replicaCount: 3
+
+ingress:
+  enabled: true
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    # For now deploy this service on the private ingress
+    #"kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "false"
+    "nginx.ingress.kubernetes.io/hsts": "false"
+  hosts:
+    - host: release.mirrors.jenkins.io
+      paths:
+        - /
+  tls:
+    - secretName: mirrorbits-tls
+      hosts:
+        - release.mirrors.jenkins.io

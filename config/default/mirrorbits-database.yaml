@@ -1,0 +1,9 @@
+cluster:
+  slaveCount: 2
+metrics:
+  enabled: true
+networkPolicy:
+  enabled: false
+sentinel:
+  enabled: false
+  staticID: true
