@@ -2,8 +2,8 @@
 
 * @olblak
 
-jenkins-wiki-exporter/ @halkeye
-jenkins-wiki-exporter.yaml @halkeye
+jenkins-wiki-exporter/ @jenkins-infra/plugin-site
+jenkins-wiki-exporter.yaml @jenkins-infra/plugin-site
 
 reports/ @timja
 reports.yaml @timja
