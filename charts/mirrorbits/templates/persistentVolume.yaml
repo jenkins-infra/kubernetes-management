@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "mirrorbits.fullname" . }}-binary
+  labels:
+    data: {{ include "mirrorbits.fullname" . }}-binary
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  azureFile:
+    secretName: {{ include "mirrorbits.fullname" . }}-binary
+    shareName: {{ .Values.shareName }}
+    readOnly: true
+  mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=101
+  - gid=101
+  - mfsymlinks
+  - nobrl
