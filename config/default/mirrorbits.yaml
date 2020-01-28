@@ -1,4 +1,13 @@
-replicaCount: 3
+replicaCount: 1
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
 
 ingress:
   enabled: true
@@ -16,3 +25,37 @@ ingress:
     - secretName: mirrorbits-tls
       hosts:
         - release.mirrors.jenkins.io
+
+repository:
+  name: mirrorbits-binary
+  persistentVolumeClaim:
+    enabled: true
+    spec:
+      accessModes:
+        - ReadWriteMany
+      storageClassName: azurefile
+      resources:
+        requests:
+          storage: 100Gi
+      selector:
+        matchLabels:
+          data: mirrorbits-binary
+  persistentVolume:
+    enabled: true
+    spec:
+      capacity:
+        storage: 100Gi
+      storageClassName: azurefile
+      accessModes:
+        - ReadWriteMany
+      azureFile:
+        secretName: mirrorbits-binary
+        shareName: binary-core-packages
+        readOnly: true
+      mountOptions:
+      - dir_mode=0777
+      - file_mode=0777
+      - uid=101
+      - gid=101
+      - mfsymlinks
+      - nobrl
