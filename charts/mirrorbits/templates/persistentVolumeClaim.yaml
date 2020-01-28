@@ -1,15 +1,9 @@
+{{ if $.Values.repository.persistentVolumeClaim.enabled -}}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "mirrorbits.fullname" . }}-binary
+  name: {{ $.Values.repository.name | default (printf "%s-binary" (include "mirrorbits.fullname" .))  }}
 spec:
-  accessModes:
-    - ReadWriteMany
-  #storageClassName: azurefile
-  resources:
-    requests:
-      storage: 100Gi
-  selector:
-    matchLabels:
-      data: {{ include "mirrorbits.fullname" . }}-binary
+{{ toYaml $.Values.repository.persistentVolumeClaim.spec | nindent 2 }}
+{{- end -}}

@@ -30,6 +30,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
             allowPrivilegeEscalation: false
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -42,8 +44,10 @@ spec:
           volumeMounts:
             - name: conf
               mountPath: /etc/mirrorbits
+            {{ if $.Values.repository.persistentVolumeClaim.enabled -}}
             - name: binary
               mountPath: /srv/repo
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /?mirrorstats
@@ -73,6 +77,8 @@ spec:
             items: 
               - key: mirrorbits.conf
                 path: mirrorbits.conf
+        {{ if $.Values.repository.persistentVolumeClaim.enabled -}}
         - name: binary
           persistentVolumeClaim:
             claimName: {{ include "mirrorbits.fullname" . }}-binary
+        {{- end -}}
