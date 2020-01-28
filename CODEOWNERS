@@ -1,27 +1,27 @@
 # Order is important. The last matching pattern has the most precedence.
 
-* @olblak
+* @jenkins-infra/kubernetes
 
-jenkins-wiki-exporter/ @jenkins-infra/plugin-site
-jenkins-wiki-exporter.yaml @jenkins-infra/plugin-site
+jenkins-wiki-exporter/ @jenkins-infra/kubernetes @jenkins-infra/plugin-site
+jenkins-wiki-exporter.yaml @jenkins-infra/kubernetes @jenkins-infra/plugin-site
 
-reports/ @timja
-reports.yaml @timja
+reports/ @jenkins-infra/kubernetes
+reports.yaml @jenkins-infra/kubernetes
 
-plugin-site/ @jenkins-infra/plugin-site
-plugin-site.yaml @jenkins-infra/plugin-site
+plugin-site/ @jenkins-infra/kubernetes @jenkins-infra/plugin-site
+plugin-site.yaml @jenkins-infra/kubernetes @jenkins-infra/plugin-site
 
-jenkinsio/ @timja
-jenkinsio.yaml @timja
+jenkinsio/ @jenkins-infra/kubernetes
+jenkinsio.yaml @jenkins-infra/kubernetes
 
-javadoc/ @timja
-javadoc.yaml @timja
+javadoc/ @jenkins-infra/kubernetes
+javadoc.yaml @jenkins-infra/kubernetes
 
-accountapp/ @timja
-accountapp.yaml @timja
+accountapp/ @jenkins-infra/kubernetes
+accountapp.yaml @jenkins-infra/kubernetes
 
-uplink/ @olblak
-uplink.yaml @olblak
+uplink/ @jenkins-infra/kubernetes
+uplink.yaml @jenkins-infra/kubernetes
 
-chatbot/ @timja @slide
-chatbot.yaml @timja @slide
+chatbot/ @jenkins-infra/kubernetes @slide
+chatbot.yaml @jenkins-infra/kubernetes @slide
