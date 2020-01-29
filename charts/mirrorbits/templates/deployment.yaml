@@ -32,6 +32,11 @@ spec:
             allowPrivilegeEscalation: false
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{ if $.Values.repository.persistentVolumeClaim.enabled -}}
+            - name: binary
+              mountPath: /srv/repo
+            {{- end }}
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}

@@ -2,11 +2,11 @@ replicaCount: 1
 
 resources:
   limits:
-    cpu: 200m
-    memory: 256Mi
+    cpu: 1000m
+    memory: 1024Mi
   requests:
-    cpu: 200m
-    memory: 256Mi
+    cpu: 1000m
+    memory: 1024Mi
 
 
 ingress:
@@ -51,11 +51,11 @@ repository:
       azureFile:
         secretName: mirrorbits-binary
         shareName: binary-core-packages
-        readOnly: true
+#        readOnly: true
       mountOptions:
       - dir_mode=0777
       - file_mode=0777
-      - uid=101
-      - gid=101
+      - uid=1000
+      - gid=1000
       - mfsymlinks
       - nobrl
