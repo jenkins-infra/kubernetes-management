@@ -35,6 +35,11 @@ spec:
                 secretKeyRef:
                   name: {{ include "jenkins-wiki-exporter.fullname" . }}
                   key: confluence_password
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "jenkins-wiki-exporter.fullname" . }}
+                  key: github_token
           ports:
             - name: http
               containerPort: 3000
