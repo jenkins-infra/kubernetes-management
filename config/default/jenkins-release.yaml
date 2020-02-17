@@ -4,7 +4,6 @@ jenkins:
         image: jenkins/jenkins@sha256
         imageTag: 973a0d1dd45f0706ac720c50f14f8ea7de6a80583cc0100af76d4288a7d89714
         JCasC:
-            enabled: true
             configScripts:
               credentials : |
                 credentials:

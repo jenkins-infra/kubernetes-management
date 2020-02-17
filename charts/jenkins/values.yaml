@@ -20,6 +20,17 @@ jenkins:
     overwritePlugins: true
     secretsFilesSecret: 'jenkins-secrets'
     serviceType: "ClusterIP"
+    sidecars:
+      configAutoReload:
+        enabled: true
+    enableXmlConfig: false
+    useSecurity: false # JCasC manages security, this stops a diff every time when a new password is generated
+    JCasC:
+      enabled: true
+      configScripts:
+        no-executors: |
+          jenkins:
+            numExecutors: 0
     installPlugins:
     - antisamy-markup-formatter
     - authentication-tokens

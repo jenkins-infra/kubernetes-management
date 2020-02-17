@@ -1,0 +1,18 @@
+helmDefaults:
+  atomic: true
+  force: true
+  timeout: 600
+  wait: true
+
+releases:
+    - name: jenkins
+      chart: ../charts/jenkins
+      namespace: ci
+      values:
+        - "../config/cijenkinsio/jenkins-ci-default.yaml"
+        # - "../config/cijenkinsio/jenkins-ci-production.yaml"
+      secrets:
+        - "../secrets/config/ci/jenkins/secrets.yaml"
+      set:
+        - name: namespace
+          value: ci

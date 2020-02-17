@@ -1,0 +1,63 @@
+jenkins:
+  persistence:
+    enabled: true
+    size: 100Gi
+  master:
+    JCasC:
+      configScripts:
+        security-realm: |
+           jenkins:
+             securityRealm:
+               ldap:
+                 cache:
+                   size: 100
+                   ttl: 300
+                 configurations:
+                   - server: "${LDAP_SERVER}"
+                     rootDN: "${LDAP_ROOT_DN}"
+                     managerDN: "${LDAP_MANAGER_DN}"
+                     managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                     userSearch: cn={0}
+                 cache:
+                   size: 100
+                   ttl: 300
+        matrix-settings: |
+          jenkins:
+            authorizationStrategy:
+              globalMatrix:
+                permissions:
+                  - "Overall/Administer:admins"
+                  - "Overall/Administer:jenkins-admins"
+                  - "Overall/Read:anonymous"
+                  - "Job/Read:anonymous"
+        location: |
+          unclassified:
+            location:
+              adminAddress: "nobody@jenkins.io"
+              url: "https://ci.jenkins.io"
+        datadog: |
+          unclassified:
+            datadogGlobalConfiguration:
+              targetApiKey: "${DATADOG_API_KEY}"
+        mailer: |
+          unclassified:
+            mailer:
+              authentication:
+                password: "${EMAIL_PASSWORD}"
+                username: "${EMAIL_USERNAME}"
+              charset: "UTF-8"
+              replyToAddress: "no-reply@ci.jenkins.io"
+              smtpHost: "smtp.sendgrid.net"
+              smtpPort: "2525"
+              useSsl: false
+
+    ingress:
+      hostName: ci.jenkins.io
+      annotations:
+        "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+        "kubernetes.io/ingress.class": "nginx"
+        "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+      tls:
+        - hosts:
+            - ci.jenkins.io
+          secretName: ci.jenkins.io-cert

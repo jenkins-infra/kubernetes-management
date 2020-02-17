@@ -2,7 +2,6 @@ clusterAdminEnabled: true
 jenkins:
     master:
         JCasC:
-            enabled: true
             configScripts:
               credentials : |
                 credentials:

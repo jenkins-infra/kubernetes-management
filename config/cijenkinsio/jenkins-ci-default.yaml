@@ -1,0 +1,443 @@
+jenkins:
+  persistence:
+    enabled: false
+  master:
+    testEnabled: false
+    image: jenkins/jenkins
+    imageTag: 2.222.1-jdk11
+    runAsUser: 1000
+    fsGroup: 1000
+    javaOpts: -Djenkins.ui.refresh=true
+    ingress:
+      enabled: true
+      hostName: local.ci.jenkins.io
+    containerEnv:
+      - name: SECRETS
+        value: /var/jenkins_secrets
+    overwritePlugins: true
+    secretsFilesSecret: 'jenkins-secrets'
+    serviceType: "ClusterIP"
+    installPlugins:
+      - ansicolor
+      - antisamy-markup-formatter
+      - authentication-tokens
+      # - azure-container-agents TODO https://github.com/jenkinsci/azure-container-agents-plugin/pull/50
+      - azure-vm-agents
+      - blueocean-autofavorite
+      - blueocean-commons
+      - blueocean-config
+      - blueocean-core-js
+      - blueocean-dashboard
+      - blueocean-display-url
+      - blueocean-events
+      - blueocean-git-pipeline
+      - blueocean-github-pipeline
+      - blueocean-i18n
+      - blueocean-jira
+      - blueocean-jwt
+      - blueocean-personalization
+      - blueocean-pipeline-api-impl
+      - blueocean-pipeline-editor
+      - blueocean-pipeline-scm-api
+      - blueocean-rest-impl
+      - blueocean-rest
+      - blueocean-web
+      - blueocean
+      - branch-api
+      - build-name-setter
+      - configuration-as-code
+      - config-file-provider
+      - cloud-stats
+      - credentials-binding
+      - credentials
+      - ec2
+#      - datadog # super spammy if you don't have a valid api key
+      - embeddable-build-status
+      - extended-read-permission
+      - git-client
+      - git
+      - github-api
+      - github-branch-source
+      - github
+      - groovy
+      - inline-pipeline
+      - javadoc
+      - jira
+      - job-dsl
+      - junit
+      - kubernetes-credentials
+      - kubernetes
+      - ldap
+      - lockable-resources
+      - pipeline-utility-steps
+      - metrics
+      - matrix-auth
+      - matrix-project
+      - pipeline-build-step
+      - pipeline-graph-analysis
+      - pipeline-input-step
+      - pipeline-milestone-step
+      - pipeline-model-api
+      - pipeline-model-declarative-agent
+      - pipeline-model-definition
+      - pipeline-model-extensions
+      - pipeline-rest-api
+      - pipeline-stage-step
+      - pipeline-stage-tags-metadata
+      - pipeline-stage-view
+      - plain-credentials
+      - prometheus
+      - scm-api
+      - script-security
+      - ssh-agent
+      - ssh-credentials
+      - support-core
+      - timestamper
+      - token-macro
+      - toolenv
+      - variant
+      - warnings-ng
+      - workflow-aggregator
+      - workflow-api
+      - workflow-basic-steps
+      - workflow-cps-global-lib
+      - workflow-cps
+      - workflow-durable-task-step
+      - workflow-job
+      - workflow-multibranch
+      - workflow-scm-step
+      - workflow-step-api
+      - workflow-support
+    JCasC:
+      configScripts:
+        system-message: |
+          jenkins:
+            systemMessage: |
+              <div>
+                <h1>About ci.jenkins.io</h1>
+                <p>This instance hosts several <a href="https://plugins.jenkins.io/github-branch-source">GitHub Organization folders</a> organized by subject area.</p>
+                <p>To add continuous integration and PR builds for a Jenkins plugin in the <code>jenkinsci</code> organization,
+                just add a <a href="https://jenkins.io/doc/book/pipeline/jenkinsfile/"><code>Jenkinsfile</code></a> to your repository.
+                You'll likely only need one line:</p>
+                <pre>    buildPlugin()</pre>
+                <p>Learn more:</p>
+                <ul>
+                  <li><a href="https://jenkins.io/projects/infrastructure/#jenkins">About the Jenkins infrastructure project</a></li>
+                  <li><a href="https://github.com/jenkins-infra/documentation/blob/master/ci.adoc#jenkins-on-jenkins">Infrastructure documentation: ci.jenkins.io</a></li>
+                  <li><a href="https://github.com/jenkins-infra/pipeline-library#pipeline-global-library">Infrastructure documentation: Pipeline library</a></li>
+                  <li><a href="https://github.com/jenkins-infra/charts/blob/master/config/cijenkinsio/jenkins.yaml">configuration-as-code for ci.jenkins.io</a></li>
+                </ul>
+              </div>
+        markup-formatter: |
+          jenkins:
+            markupFormatter:
+              rawHtml:
+                disableSyntaxHighlighting: false
+        security-realm: |
+          jenkins:
+            securityRealm:
+              local:
+                allowsSignup: true
+                users:
+                  - id: "admin"
+                    password: "admin"
+        matrix-settings: |
+          jenkins:
+            authorizationStrategy:
+              globalMatrix:
+                permissions:
+                  - "Overall/Administer:authenticated"
+                  - "Overall/Read:anonymous"
+                  - "Job/Read:anonymous"
+                  - "View/Read:anonymous"
+        pipeline-library: |
+          unclassified:
+            globalLibraries:
+              libraries:
+                - name: 'pipeline-library'
+                  includeInChangesets: false
+                  defaultVersion: master
+                  implicit: true
+                  retriever:
+                    modernSCM:
+                      scm:
+                        github:
+                          credentialsId: github-access-token
+                          repoOwner: jenkins-infra
+                          repository: pipeline-library
+        misc-jenkins: |
+          jenkins:
+            remotingSecurity:
+              enabled: true
+            slaveAgentPort: 50000
+        misc-security: |
+          security:
+            apiToken:
+              creationOfLegacyTokenEnabled: false
+              tokenGenerationOnCreationEnabled: false
+              usageStatisticsEnabled: true
+            sSHD:
+              port: 22222
+        misc-unclassified: |
+          unclassified:
+            appInsightsGlobalConfig:
+              appInsightsEnabled: false
+            gitSCM:
+              createAccountBasedOnEmail: false
+              globalConfigEmail: "oscar@example.com"
+              globalConfigName: "oscar"
+            pipeline-model-docker:
+              dockerLabel: "docker"
+            pollSCM:
+              pollingThreadCount: 10
+            timestamperConfig:
+              allPipelines: true
+        location: |
+          unclassified:
+            location:
+              adminAddress: "nobody@jenkins.io"
+              url: "http://local.ci.jenkins.io"
+        credentials : |
+          credentials:
+            system:
+              domainCredentials:
+                - credentials:
+                  - usernamePassword:
+                      description: "GitHub access token for jenkinsadmin"
+                      id: "github-access-token"
+                      username: "${GITHUB_USERNAME}"
+                      password: "${GITHUB_PASSWORD}"
+                      scope: GLOBAL
+                  - azure:
+                      azureEnvironmentName: "Azure"
+                      clientId: "${AZURE_CLIENT_ID}"
+                      clientSecret: "${AZURE_CLIENT_SECRET}"
+                      description: "ci.jenkins.io app in Azure AD"
+                      id: "azure-sponsorship-credentials"
+                      scope: SYSTEM
+                      subscriptionId: "${AZURE_SUBSCRIPTION_ID}"
+                      tenant: "${AZURE_TENANT_ID}"
+                  - usernamePassword:
+                      description: "Credentials for vm agents"
+                      id: "jenkinsvmagents-userpass"
+                      password: "${AZURE_VMAGENT_PASSWORD}"
+                      scope: GLOBAL
+                      username: "${AZURE_VMAGENT_USERNAME}"
+                  - string:
+                      scope: GLOBAL
+                      id: azure-terraform-k8s-ssh-key
+                      secret: '${K8S_SSH_PUBLIC_KEY}'
+                      description: Azure Kubernetes Public SSH Key
+                  - string:
+                      scope: GLOBAL
+                      id: azure-k8s-management-pubkey
+                      secret: '${STAGING_K8S_SSH_PUBLIC_KEY}'
+                      description: Azure staging K8s management public key
+                  - string:
+                      scope: GLOBAL
+                      id: incrementals-publisher-token
+                      secret: '${INCREMENTALS_PUBLISHER}'
+                      description: API Token for the incrementals-publisher Azure Function
+                  - file:
+                      scope: GLOBAL
+                      id: "jenkins-dockerhub"
+                      fileName: "config.json.zip"
+                      secretBytes: ${DOCKER_HUB_CONFIG_BYTES} # DOCKER_HUB_CONFIG_BYTES="$(cat ~/.docker/config.json | base64)"
+                      description: Jenkins account used to publish on dockerhub jenkins4eval organisation
+        tools: |
+          tool:
+            git:
+              installations:
+              - name: "jgit"
+            groovyInstallation:
+              installations:
+              - name: "groovy"
+                properties:
+                - installSource:
+                    installers:
+                    - groovyInstaller:
+                        id: "2.4.7"
+            jdk:
+              installations:
+              - name: "jdk8"
+                properties:
+                - installSource:
+                    installers:
+                    - zip:
+                        label: "linux"
+                        subdir: "jdk-8u242-b08"
+                        url: "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u242b08.tar.gz"
+                    - zip:
+                        label: "windows"
+                        subdir: "jdk-8u242-b08"
+                        url: "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.msi"
+              - name: "jdk11"
+                properties:
+                - installSource:
+                    installers:
+                    - zip:
+                        label: "linux"
+                        subdir: "jdk-11.0.3+7"
+                        url: "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.3%2B7/OpenJDK11U-jdk_x64_linux_hotspot_11.0.3_7.tar.gz"
+                    - zip:
+                        label: "windows"
+                        subdir: "jdk-11.0.3+7"
+                        url: "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.3%2B7/OpenJDK11U-jdk_x64_windows_hotspot_11.0.3_7.zip"
+            maven:
+              installations:
+              - name: "mvn"
+                properties:
+                - installSource:
+                    installers:
+                    - maven:
+                        id: "3.5.4"
+            groovyInstallation:
+              installations:
+              - name: "groovy"
+                properties:
+                - installSource:
+                    installers:
+                    - groovyInstaller:
+                        id: "2.4.7"
+        jobs-settings: |
+          jobs:
+            - script: >
+                def configuration = [
+                  [
+                    name        : "Core",
+                    repositories: "jenkins"
+                  ],
+                  [
+                    name        : "Infra",
+                    repositories: "*",
+                    owner       : "jenkins-infra"
+                  ],
+                  [
+                    name        : "jenkinsfile-runner",
+                    displayName: "Jenkinsfile Runner",
+                    repositories: "ci.jenkins.io-runner jenkinsfile-runner*",
+                  ],
+                  [
+                    name        : "jenkinsci-libraries",
+                    displayName: "Libraries",
+                    repositories: "dom4j extras-executable-war groovy-sandbox jelly lib-* maven-interceptors plugin-compat-tester trilead-ssh2 xtrigger-lib"
+                  ],
+                  [
+                    name        : "Modules",
+                    repositories: "*-modules"
+                  ],
+                  [
+                    name        : "Packaging",
+                    repositories: "docker docker-jnlp-slave docker-slave docker-ssh-slave jnlp-agents"
+                  ],
+                  [
+                    name        : "Plugins",
+                    repositories: "*-plugin"
+                  ],
+                  [
+                    name        : "Reporting",
+                    repositories: "backend-plugin-report-card deprecated-usage-in-plugins unused-code-detector",
+                    owner: "jenkins-infra"
+                  ],
+                  [
+                    name        : "Stapler",
+                    owner       : "stapler",
+                    displayName: "Stapler Web Framework",
+                    repositories: "stapler netbeans-stapler-plugin stapler-adjunct-jquery"
+                  ],
+                  [
+                    name        : "Tools",
+                    repositories: ".github archetypes bom custom-war-packager docker-fixtures gradle-jpi-plugin jenkinfile-runner maven-hpi-plugin plugin-installation-manager-tool plugin-pom"
+                  ],
+                ]
+
+                configuration.each { jobConfig ->
+                  def config = [
+                    displayName: jobConfig.name,
+                    owner      : "jenkinsci"
+                  ] << jobConfig
+
+                  organizationFolder(config.name) {
+                    displayName(config.displayName)
+                    organizations {
+                      github {
+                        repoOwner(config.owner)
+                        apiUri("https://api.github.com")
+                        credentialsId("github-access-token")
+                      }
+                    }
+
+                    projectFactories {
+                      workflowMultiBranchProjectFactory {
+                        scriptPath("Jenkinsfile")
+                      }
+                    }
+
+                    configure { node ->
+                      def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
+                      traits << 'jenkins.scm.impl.trait.WildcardSCMSourceFilterTrait' {
+                        includes(config.repositories)
+                        exludes()
+                      }
+                      traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
+                        strategyId(1)
+                      }
+                      traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
+                        strategyId(1)
+                      }
+                      traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                        strategyId(1)
+                      }
+                    }
+                  }
+                }
+        k8s-settings: |
+          jenkins:
+            clouds:
+              - kubernetes:
+                  containerCapStr: "100"
+                  jenkinsTunnel: "jenkins-agent:50000"
+                  jenkinsUrl: "http://jenkins:8080"
+                  maxRequestsPerHostStr: "300"
+                  name: "kubernetes"
+                  namespace: "ci"
+                  podRetention: "Never"
+                  serverUrl: "https://kubernetes.default"
+                  templates:
+                    - name: jnlp-linux
+                      nodeSelector: "kubernetes.io/os=linux"
+                      label: "linux"
+                      containers:
+                        - name: jnlp
+                          image: "jenkins/jnlp-slave:latest-jdk11"
+                          resourceLimitCpu: "500m"
+                          resourceLimitMemory: "512Mi"
+                          resourceRequestCpu: "500m"
+                          resourceRequestMemory: "512Mi"
+                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          alwaysPullImage: true
+                    - name: jnlp-windows
+                      nodeSelector: "kubernetes.io/os=windows"
+                      label: "windows"
+                      containers:
+                        - name: jnlp
+                          image: "jenkins4eval/jnlp-agent:latest-windows"
+                          resourceLimitCpu: "500m"
+                          resourceLimitMemory: "512Mi"
+                          resourceRequestCpu: "500m"
+                          resourceRequestMemory: "512Mi"
+                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          alwaysPullImage: true
+                      yaml: |-
+                        spec:
+                          tolerations:
+                          - key: "os"
+                            operator: "Equal"
+                            value: "windows"
+                            effect: "NoSchedule"
+  serviceAccount:
+    create: true
+    name: jenkins-master
+  serviceAccountAgent:
+    create: true
+    name: jenkins-agent
