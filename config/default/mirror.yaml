@@ -1,0 +1,20 @@
+ingress:
+  enabled: true
+  annotations: 
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+  hosts:
+    - host: archives.jenkins-ci.org
+      paths:
+        - "/"
+    - host: archives.jenkins.io
+      paths:
+        - "/"
+  tls:
+    - secretName: releasemirror-tls
+      hosts:
+        - archives.jenkins-ci.org
+        - archives.jenkins.io
+
+replicaCount: 3
