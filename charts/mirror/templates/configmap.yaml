@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mirror.fullname" . }}
+data:
+  default.conf: |
+    server {
+      listen       80;
+      server_name  localhost;
+  
+      location / {
+          autoindex on;
+          root   /usr/share/nginx/html;
+          index  index.html index.htm;
+      }
+
+      error_page  404              /404/index.html;
+  
+      # redirect server error pages to the static page /50x.html
+      #
+      error_page   500 502 503 504  /50x.html;
+      location = /50x.html {
+          root   /usr/share/nginx/html;
+      }
+  
+    }
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mirror.fullname" . }}-cronjobs
+data:
+  root: |
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    {{ .Values.synchronize.period }} rsync -avz {{ .Values.synchronize.upstream }} /packages

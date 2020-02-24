@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mirror.fullname" . }}
+  labels:
+{{ include "mirror.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "mirror.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "mirror.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum | trunc 63 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: web
+          image: "{{ .Values.images.web.repository }}:{{ .Values.images.web.tag }}"
+          imagePullPolicy: {{ .Values.images.web.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+             port: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          {{- if $.Values.persistent.volumeClaim.enabled }}
+            - name: binary
+              mountPath: /usr/share/nginx/html
+              readOnly: true
+          {{- end }}
+            - name: conf
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
+        - name: cron
+          image: "{{ .Values.images.cron.repository }}:{{ .Values.images.cron.tag }}"
+          imagePullPolicy: {{ .Values.images.cron.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          {{- if $.Values.persistent.volumeClaim.enabled }}
+            - name: binary
+              mountPath: /packages
+          {{- end }}
+            - name: cronjobs
+              mountPath: /etc/crontabs/
+              readOnly: true
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: conf
+          configMap:
+            name: {{ include "mirror.fullname" . }}
+        {{- if $.Values.persistent.volumeClaim.enabled }}
+        - name: binary
+          persistentVolumeClaim:
+            claimName:  {{ $.Values.persistent.volumeClaim.name | default (printf "%s-binary" (include "mirror.fullname" .))  }}
+        {{- end }}
+        - name: cronjobs
+          configMap:
+            name: {{ include "mirror.fullname" . }}-cronjobs
