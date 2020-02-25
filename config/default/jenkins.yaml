@@ -56,7 +56,7 @@ jenkins:
                           github {
                             id('2019092401')
                             scanCredentialsId('github')
-                            repoOwner('jenkins-infra')
+                            repoOwner('olblak')
                             repository('release')
                             includes('master')
                           }
