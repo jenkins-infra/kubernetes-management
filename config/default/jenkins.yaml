@@ -13,7 +13,7 @@ jenkins:
                         maxRequestsPerHostStr: "300"
                         name: "kubernetes"
                         namespace: "release"
-                        podRetention: "onFailure"
+                        podRetention: "Never"
                         serverUrl: "https://kubernetes.default"
                         templates:
                           - name: jnlp-linux
