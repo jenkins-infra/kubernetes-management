@@ -9,3 +9,5 @@ releases:
         - "../config/default/grafana.yaml"
       secrets:
         - "../secrets/config/grafana/secrets.yaml"
+bases:
+  - 00-repositories.yaml
