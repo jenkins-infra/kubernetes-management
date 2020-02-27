@@ -1,0 +1,9 @@
+## in secrets
+# key | desc | default
+# postgresqlPostgresPassword | PostgreSQL admin password (used when postgresqlUsername is not postgres) |	random 10 character alphanumeric string
+# postgresqlUsername | PostgreSQL admin user |	postgres
+# postgresqlPassword | PostgreSQL admin password | random 10 character alphanumeric string
+
+persistence:
+  storageClass: default
+  storageSize: 100Gi

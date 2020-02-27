@@ -1,0 +1,11 @@
+releases:
+    - name: postgresql
+      namespace:  postgresql
+      chart: stable/postgresql
+      wait: true
+      timeout: 300
+      atomic: true
+      values:
+        - "../config/default/postgresql.yaml"
+      secrets:
+        - "../secrets/config/postgresql/secrets.yaml"
