@@ -1,0 +1,13 @@
+releases:
+    - name: rating
+      namespace: rating
+      chart: ../charts/rating
+      wait: true
+      timeout: 300
+      force: true
+      atomic: true
+      values:
+        - "../config/default/rating.yaml"
+      secrets:
+        - "../secrets/config/rating/secrets.yaml"
+

@@ -1,0 +1,18 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: rating.jenkins.io
+      paths: ['/']
+  tls:
+    - secretName: rating-tls
+      hosts:
+        - rating.jenkins.io
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/hsts": "true"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    "nginx.ingress.kubernetes.io/enable-cors": "true"
+    "nginx.ingress.kubernetes.io/cors-allow-methods": "GET, POST, OPTIONS"
+    # from https://github.com/jenkins-infra/rating/blob/master/apache.conf
+    "nginx.ingress.kubernetes.io/cors-allow-origin": "https://jenkins.io"
