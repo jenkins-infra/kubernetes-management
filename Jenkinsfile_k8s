@@ -32,6 +32,19 @@ pipeline {
         }
       }
     }
+    stage('Update configuration') {
+      environment {
+        UPDATECLI_SOURCE_SPEC_TOKEN                           = credentials('updatecli-token')
+        UPDATECLI_TARGETS_IMAGETAG_SPEC_REPOSITORY_TOKEN      = credentials('updatecli-token')
+        UPDATECLI_TARGETS_APPVERSION_SPEC_REPOSITORY_TOKEN    = credentials('updatecli-token')
+      }
+      steps {
+        container('updatecli') {
+          sh 'updatecli --config ./updateCli.d'
+          }
+        }
+      }
+    }
     stage('Helm Client Init'){
       steps {
         container('helmfile'){

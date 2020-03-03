@@ -27,6 +27,26 @@ spec:
     securityContext:
       privileged: false
     tty: true
+  - args:
+    - "99d"
+    command:
+    - "sleep"
+    env:
+    - name: "HOME"
+      value: "/home/jenkins"
+    image: "olblak/updatecli:latest"
+    imagePullPolicy: "Always"
+    name: "updatecli"
+    resources:
+      limits:
+        memory: "512Mi"
+        cpu: "400m"
+      requests:
+        memory: "512Mi"
+        cpu: "400m"
+    securityContext:
+      privileged: false
+    tty: true
   nodeSelector:
     kubernetes.io/os: "linux"
   restartPolicy: "Never"
