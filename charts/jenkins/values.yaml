@@ -54,9 +54,7 @@ jenkins:
             - jira
             - job-dsl
             - junit
-            - kubernetes-credentials
             - kubernetes
-            - kubernetes-credentials-provider
             - ldap
             - lockable-resources
             - pipeline-utility-steps
