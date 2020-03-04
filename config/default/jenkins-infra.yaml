@@ -24,7 +24,7 @@ jenkins:
                             id: "charts-secrets"
                             username: ${SSH_CHARTS_SECRETS_USERNAME}
                             #passphrase: ${SSH_CHARTS_SECRETS_PASSWORD}
-                            description: "SSH privkey used to access jenkins-infra/charts-secret"
+                            description: "SSH privkey used to access jenkins-infra/charts-secrets"
                             privateKeySource:
                               directEntry:
                                 privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
