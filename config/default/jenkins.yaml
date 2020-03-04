@@ -86,25 +86,6 @@ jenkins:
                           }
                         }
                       }
-                  - script: >
-                      multibranchPipelineJob('k8smgmt') {
-                        displayName "K8s Cluster Management"
-                        description "Current K8s Cluster Management"
-                        branchSources {
-                          github {
-                            id('2019081602')
-                            scanCredentialsId('github')
-                            repoOwner('jenkins-infra')
-                            repository('charts')
-                            includes('master')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
-                      }
               ldap-settings: |
                 jenkins:
                   securityRealm:
