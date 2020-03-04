@@ -26,3 +26,4 @@ helmfiles:
   - path: "../helmfile.d/ldap.yaml"
   - path: "../helmfile.d/uplink.yaml"
   - path: "../helmfile.d/mirrorbits.yaml"
+  - path: "../helmfile.d/jenkins-infra.yaml"
