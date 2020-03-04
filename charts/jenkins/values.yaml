@@ -6,7 +6,7 @@ jenkins:
     master:
         testEnabled: false
         image: jenkins/jenkins
-        imageTag: 2.222-jdk11
+        imageTag: 2.223-jdk11
         runAsUser: 1000
         fsGroup: 1000
         containerEnv:
