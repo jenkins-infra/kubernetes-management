@@ -111,10 +111,7 @@ jenkins:
                     globalMatrix:
                       grantedPermissions:
                         - "Overall/Administer:admins"
-                        - "Overall/Read:all"
-                        - "Job/Build:all"
-                        - "Job/Cancel:all"
-                        - "Job/Read:all"
+                        - "Overall/SystemRead:all"
         ingress:
           enabled: true
           hostName: infra.ci.jenkins.io
