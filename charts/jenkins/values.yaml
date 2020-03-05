@@ -48,6 +48,7 @@ jenkins:
             - config-file-provider
             - credentials-binding
             - credentials
+            - extended-read-permission
             - git-client
             - git
             - github-api
