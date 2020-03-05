@@ -207,6 +207,8 @@ jenkins:
                       grantedPermissions:
                         - "Overall/Administer:release-core"
                         - "Overall/SystemRead:all"
+                        - "Overall/Read:all"
+                        - "Job/Read:all"
         ingress:
           enabled: true
           hostName: release.ci.jenkins.io
