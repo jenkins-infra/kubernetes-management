@@ -64,7 +64,6 @@ jenkins:
                                 resourceRequestMemory: "512Mi"
                                 args: "^${computer.jnlpmac} ^${computer.name}"
                                 alwaysPullImage: true
-                            label: "jnlp-windows"
                             yaml: |-
                               spec:
                                 tolerations:
