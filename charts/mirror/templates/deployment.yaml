@@ -39,7 +39,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          {{- if $.Values.persistent.volumeClaim.enabled }}
+          {{- if .Values.persistent.volumeClaim.enabled }}
             - name: binary
               mountPath: /usr/share/nginx/html
               readOnly: true
@@ -53,7 +53,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          {{- if $.Values.persistent.volumeClaim.enabled }}
+          {{- if .Values.persistent.volumeClaim.enabled }}
             - name: binary
               mountPath: /packages
           {{- end }}
@@ -76,7 +76,7 @@ spec:
         - name: conf
           configMap:
             name: {{ include "mirror.fullname" . }}
-        {{- if $.Values.persistent.volumeClaim.enabled }}
+        {{- if .Values.persistent.volumeClaim.enabled }}
         - name: binary
           persistentVolumeClaim:
             claimName:  {{ $.Values.persistent.volumeClaim.name | default (printf "%s-binary" (include "mirror.fullname" .))  }}
