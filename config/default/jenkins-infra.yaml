@@ -38,7 +38,7 @@ jenkins:
                         jenkinsUrl: "http://default-jenkins-infra:8080"
                         maxRequestsPerHostStr: "300"
                         name: "kubernetes"
-                        namespace: "release"
+                        namespace: "jenkins-infra"
                         podRetention: "Never"
                         serverUrl: "https://kubernetes.default"
                         templates:
