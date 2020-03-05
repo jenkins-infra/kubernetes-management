@@ -1,3 +1,4 @@
+{{ if .Values.clusterAdminEnabled }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -15,3 +16,4 @@ subjects:
   - kind: ServiceAccount
     name: cluster-admin
     namespace: {{ .Release.Namespace }}
+{{ end }}

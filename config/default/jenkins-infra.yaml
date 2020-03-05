@@ -1,3 +1,4 @@
+clusterAdminEnabled: true
 jenkins:
     master:
         JCasC:
