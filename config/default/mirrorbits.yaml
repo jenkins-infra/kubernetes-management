@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 3
 
 resources:
   limits:
@@ -18,13 +18,13 @@ ingress:
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"
     "nginx.ingress.kubernetes.io/hsts": "false"
   hosts:
-    - host: release.mirrors.jenkins.io
+    - host: get.jenkins.io
       paths:
         - /
   tls:
     - secretName: mirrorbits-tls
       hosts:
-        - release.mirrors.jenkins.io
+        - get.jenkins.io
 
 repository:
   name: mirrorbits-binary
@@ -50,8 +50,8 @@ repository:
         - ReadWriteMany
       azureFile:
         secretName: mirrorbits-binary
-        shareName: binary-core-packages
-#        readOnly: true
+        shareName: mirrorbits
+        readOnly: true
       mountOptions:
       - dir_mode=0777
       - file_mode=0777
