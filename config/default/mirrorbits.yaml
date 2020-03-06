@@ -14,7 +14,7 @@ ingress:
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     # For now deploy this service on the private ingress
-    #"kubernetes.io/ingress.class": "public-ingress"
+    "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"
     "nginx.ingress.kubernetes.io/hsts": "false"
   hosts:
