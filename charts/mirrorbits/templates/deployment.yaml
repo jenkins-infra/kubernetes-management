@@ -5,7 +5,7 @@ metadata:
   labels:
 {{ include "mirrorbits.labels" . | indent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount.mirrorbits }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "mirrorbits.name" . }}
@@ -26,12 +26,12 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: crond
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}-cron"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.mirrorbits.repository }}:{{ .Values.image.mirrorbits.tag }}-cron"
+          imagePullPolicy: {{ .Values.image.mirrorbits.pullPolicy }}
           securityContext:
             allowPrivilegeEscalation: false
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources.mirrorbits | nindent 12 }}
           volumeMounts:
             {{ if $.Values.repository.persistentVolumeClaim.enabled -}}
             - name: binary
@@ -40,8 +40,8 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.mirrorbits.repository }}:{{ .Values.image.mirrorbits.tag }}"
+          imagePullPolicy: {{ .Values.image.mirrorbits.pullPolicy }}
           ports:
             - name: http
               containerPort: 8080

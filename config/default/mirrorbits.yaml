@@ -1,13 +1,22 @@
-replicaCount: 3
+replicaCount:
+  mirrorbits: 3
+  files: 3
 
 resources:
-  limits:
-    cpu: 1000m
-    memory: 1024Mi
-  requests:
-    cpu: 1000m
-    memory: 1024Mi
-
+  mirrorbits:
+      limits:
+        cpu: 1000m
+        memory: 1024Mi
+      requests:
+        cpu: 1000m
+        memory: 1024Mi
+  files:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 500m
+        memory: 256Mi
 
 ingress:
   enabled: true
