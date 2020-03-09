@@ -72,6 +72,7 @@ persistent:
     spec: {}
 
 synchronize:
+  enabled: false
   upstream: "rsync://ftp-osl.osuosl.org/jenkins/"
   period: "*/5 * * * *"
 

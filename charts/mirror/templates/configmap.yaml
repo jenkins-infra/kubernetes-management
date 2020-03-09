@@ -25,6 +25,7 @@ data:
   
     }
 
+{{- if .Values.synchronize.enabled }}
 ---
 
 apiVersion: v1
@@ -35,3 +36,4 @@ data:
   root: |
     PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     {{ .Values.synchronize.period }} rsync -avz {{ .Values.synchronize.upstream }} /packages
+{{ end }}

@@ -47,6 +47,7 @@ spec:
             - name: conf
               mountPath: /etc/nginx/conf.d
               readOnly: true
+      {{- if .Values.synchronize.enabled }}
         - name: cron
           image: "{{ .Values.images.cron.repository }}:{{ .Values.images.cron.tag }}"
           imagePullPolicy: {{ .Values.images.cron.pullPolicy }}
@@ -60,6 +61,7 @@ spec:
             - name: cronjobs
               mountPath: /etc/crontabs/
               readOnly: true
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -81,6 +83,8 @@ spec:
           persistentVolumeClaim:
             claimName:  {{ $.Values.persistent.volumeClaim.name | default (printf "%s-binary" (include "mirror.fullname" .))  }}
         {{- end }}
+      {{- if .Values.synchronize.enabled }}
         - name: cronjobs
           configMap:
             name: {{ include "mirror.fullname" . }}-cronjobs
+      {{- end }}
