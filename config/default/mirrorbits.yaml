@@ -1,0 +1,70 @@
+replicaCount:
+  mirrorbits: 3
+  files: 3
+
+resources:
+  mirrorbits:
+      limits:
+        cpu: 1000m
+        memory: 1024Mi
+      requests:
+        cpu: 1000m
+        memory: 1024Mi
+  files:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 500m
+        memory: 256Mi
+
+ingress:
+  enabled: true
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    # For now deploy this service on the private ingress
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "false"
+    "nginx.ingress.kubernetes.io/hsts": "false"
+  hosts:
+    - host: get.jenkins.io
+      paths:
+        - /
+  tls:
+    - secretName: mirrorbits-tls
+      hosts:
+        - get.jenkins.io
+
+repository:
+  name: mirrorbits-binary
+  persistentVolumeClaim:
+    enabled: true
+    spec:
+      accessModes:
+        - ReadWriteMany
+      storageClassName: azurefile
+      resources:
+        requests:
+          storage: 100Gi
+      selector:
+        matchLabels:
+          data: mirrorbits-binary
+  persistentVolume:
+    enabled: true
+    spec:
+      capacity:
+        storage: 100Gi
+      storageClassName: azurefile
+      accessModes:
+        - ReadWriteMany
+      azureFile:
+        secretName: mirrorbits-binary
+        shareName: mirrorbits
+        readOnly: true
+      mountOptions:
+      - dir_mode=0777
+      - file_mode=0777
+      - uid=1000
+      - gid=1000
+      - mfsymlinks
+      - nobrl

@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mirrorbits.fullname" . }}-files
+  labels:
+{{ include "mirrorbits.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount.files }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "mirrorbits.name" . }}-files
+      app.kubernetes.io/instance: {{ .Release.Name }}-files
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "mirrorbits.name" . }}-files
+        app.kubernetes.io/instance: {{ .Release.Name }}-files
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.files.repository }}:{{ .Values.image.files.tag }}"
+          imagePullPolicy: {{ .Values.image.files.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+             port: 80
+          readinessProbe:
+            tcpSocket:
+              port: 80
+          resources:
+            {{- toYaml .Values.resources.files | nindent 12 }}
+          volumeMounts:
+            - name: binary
+              mountPath: /usr/share/nginx/html
+              readOnly: true
+            - name: conf
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: conf
+          configMap:
+            name: {{ include "mirrorbits.fullname" . }}-files
+        - name: binary
+          persistentVolumeClaim:
+            claimName: {{ include "mirrorbits.fullname" . }}-binary
