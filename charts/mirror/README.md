@@ -4,6 +4,6 @@ This helm charts starts two containers one that synchronize remote Jenkins mirro
 
 # Running this yourself.
 
-! By default the helm chart is configured to provision a volume based on the default storage class. A different persistentVolume can specified by modifying the variable `persistent`
+! By default the helm chart is configured to provision a volume based on the default storage class. A different persistentVolume can be specified by modifying the variable `persistent`
  
 `helmfile -f helmfile.d/mirror.yaml apply`
