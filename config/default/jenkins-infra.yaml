@@ -20,6 +20,21 @@ jenkins:
                             id: "updatecli-github-token"
                             secret: '${UPDATECLI_GITHUB_TOKEN}'
                             description: Github Token used by updatecli to update version
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-client-id"
+                            secret: "${SOPS_CLIENT_ID}"
+                            description: Azure client ID used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-client-secret"
+                            secret: "${SOPS_CLIENT_SECRET}"
+                            description: Azure client secret used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-tenant-id"
+                            secret: "${SOPS_TENANT_ID}"
+                            description: Azure tenant id used by sops to decrypt secrets
                         - basicSSHUserPrivateKey:
                             scope: GLOBAL
                             id: "charts-secrets"
@@ -83,6 +98,7 @@ jenkins:
                             scanCredentialsId('github')
                             repoOwner('jenkins-infra')
                             repository('charts')
+                            includes('master')
                           }
                         }
                         factory {
