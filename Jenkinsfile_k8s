@@ -41,7 +41,6 @@ pipeline {
       steps {
         container('updatecli') {
           sh 'updatecli --config ./updateCli.d'
-          }
         }
       }
     }
