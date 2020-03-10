@@ -1,111 +1,110 @@
 # Defautl helm value https://github.com/helm/charts/blob/master/stable/jenkins/values.yaml
 #
 clusterAdminEnabled: false
-
 jenkins:
-    rbac:
-      create: true
-      readSecrets: false
-    persistence:
-        enabled: true
-        size: 50Gi
-    master:
-        testEnabled: false
-        image: jenkins/jenkins
-        imageTag: 2.223-jdk11
-        runAsUser: 1000
-        fsGroup: 1000
-        containerEnv:
-          - name: SECRETS
-            value: /var/jenkins_secrets
-        overwritePlugins: true
-        secretsFilesSecret: 'jenkins-secrets'
-        serviceType: "ClusterIP"
-        installPlugins:
-            - antisamy-markup-formatter
-            - authentication-tokens
-            - blueocean-autofavorite
-            - blueocean-commons
-            - blueocean-config
-            - blueocean-core-js
-            - blueocean-dashboard
-            - blueocean-display-url
-            - blueocean-events
-            - blueocean-git-pipeline
-            - blueocean-github-pipeline
-            - blueocean-i18n
-            - blueocean-jira
-            - blueocean-jwt
-            - blueocean-personalization
-            - blueocean-pipeline-api-impl
-            - blueocean-pipeline-editor
-            - blueocean-pipeline-scm-api
-            - blueocean-rest-impl
-            - blueocean-rest
-            - blueocean-web
-            - blueocean
-            - branch-api
-            - build-name-setter
-            - configuration-as-code
-            - configuration-as-code-support
-            - config-file-provider
-            - credentials-binding
-            - credentials
-            - extended-read-permission
-            - git-client
-            - git
-            - github-api
-            - github-branch-source
-            - github
-            - inline-pipeline
-            - jira
-            - job-dsl
-            - junit
-            - kubernetes
-            - ldap
-            - lockable-resources
-            - pipeline-utility-steps
-            - matrix-auth
-            - matrix-project
-            - pipeline-build-step
-            - pipeline-graph-analysis
-            - pipeline-input-step
-            - pipeline-milestone-step
-            - pipeline-model-api
-            - pipeline-model-declarative-agent
-            - pipeline-model-definition
-            - pipeline-model-extensions
-            - pipeline-rest-api
-            - pipeline-stage-step
-            - pipeline-stage-tags-metadata
-            - pipeline-stage-view
-            - plain-credentials
-            - prometheus
-            - scm-api
-            - script-security
-            - ssh-agent
-            - ssh-credentials
-            - support-core
-            - token-macro
-            - variant
-            - workflow-aggregator
-            - workflow-api
-            - workflow-basic-steps
-            - workflow-cps-global-lib
-            - workflow-cps
-            - workflow-durable-task-step
-            - workflow-job
-            - workflow-multibranch
-            - workflow-scm-step
-            - workflow-step-api
-            - workflow-support
-            - javadoc
-            - metrics
-    serviceAccount:
-        create: true
-        name: jenkins-master
-    serviceAccountAgent:
-        create: true
-        name: jenkins-agent
-    networkPolicy:
-        enabled: true
+  rbac:
+    create: true
+    readSecrets: false
+  persistence:
+    enabled: true
+    size: 50Gi
+  master:
+    testEnabled: false
+    image: jenkins/jenkins
+    imageTag: 2.225-jdk11
+    runAsUser: 1000
+    fsGroup: 1000
+    containerEnv:
+    - name: SECRETS
+      value: /var/jenkins_secrets
+    overwritePlugins: true
+    secretsFilesSecret: 'jenkins-secrets'
+    serviceType: "ClusterIP"
+    installPlugins:
+    - antisamy-markup-formatter
+    - authentication-tokens
+    - blueocean-autofavorite
+    - blueocean-commons
+    - blueocean-config
+    - blueocean-core-js
+    - blueocean-dashboard
+    - blueocean-display-url
+    - blueocean-events
+    - blueocean-git-pipeline
+    - blueocean-github-pipeline
+    - blueocean-i18n
+    - blueocean-jira
+    - blueocean-jwt
+    - blueocean-personalization
+    - blueocean-pipeline-api-impl
+    - blueocean-pipeline-editor
+    - blueocean-pipeline-scm-api
+    - blueocean-rest-impl
+    - blueocean-rest
+    - blueocean-web
+    - blueocean
+    - branch-api
+    - build-name-setter
+    - configuration-as-code
+    - configuration-as-code-support
+    - config-file-provider
+    - credentials-binding
+    - credentials
+    - extended-read-permission
+    - git-client
+    - git
+    - github-api
+    - github-branch-source
+    - github
+    - inline-pipeline
+    - jira
+    - job-dsl
+    - junit
+    - kubernetes
+    - ldap
+    - lockable-resources
+    - pipeline-utility-steps
+    - matrix-auth
+    - matrix-project
+    - pipeline-build-step
+    - pipeline-graph-analysis
+    - pipeline-input-step
+    - pipeline-milestone-step
+    - pipeline-model-api
+    - pipeline-model-declarative-agent
+    - pipeline-model-definition
+    - pipeline-model-extensions
+    - pipeline-rest-api
+    - pipeline-stage-step
+    - pipeline-stage-tags-metadata
+    - pipeline-stage-view
+    - plain-credentials
+    - prometheus
+    - scm-api
+    - script-security
+    - ssh-agent
+    - ssh-credentials
+    - support-core
+    - token-macro
+    - variant
+    - workflow-aggregator
+    - workflow-api
+    - workflow-basic-steps
+    - workflow-cps-global-lib
+    - workflow-cps
+    - workflow-durable-task-step
+    - workflow-job
+    - workflow-multibranch
+    - workflow-scm-step
+    - workflow-step-api
+    - workflow-support
+    - javadoc
+    - metrics
+  serviceAccount:
+    create: true
+    name: jenkins-master
+  serviceAccountAgent:
+    create: true
+    name: jenkins-agent
+  networkPolicy:
+    enabled: true
