@@ -28,11 +28,11 @@ spec:
     name: "helmfile"
     resources:
       limits:
-        memory: "512Mi"
-        cpu: "400m"
+        memory: "256Mi"
+        cpu: "125m"
       requests:
-        memory: "512Mi"
-        cpu: "400m"
+        memory: "256Mi"
+        cpu: "125m"
     securityContext:
       privileged: false
     tty: true
@@ -48,11 +48,11 @@ spec:
     name: "updatecli"
     resources:
       limits:
-        memory: "512Mi"
-        cpu: "400m"
+        memory: "256Mi"
+        cpu: "125m"
       requests:
-        memory: "512Mi"
-        cpu: "400m"
+        memory: "256Mi"
+        cpu: "125m"
     securityContext:
       privileged: false
     tty: true
