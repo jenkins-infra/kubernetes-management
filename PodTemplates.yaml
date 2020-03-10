@@ -6,6 +6,15 @@ metadata:
     jenkins: "slave"
     job: "helmfile"
 spec:
+  tolerations:
+    - key: "os"
+      operator: "Equal"
+      value: "linux"
+      effect: "NoSchedule"
+    - key: "profile"
+      operator: "Equal"
+      value: "highmem"
+      effect: "NoSchedule"
   containers:
   - args:
     - "99d"
