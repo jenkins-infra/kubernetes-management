@@ -1,8 +1,110 @@
+clusterAdminEnabled: false
 jenkins:
     master:
         JCasC:
             enabled: true
             configScripts:
+              credentials : |
+                credentials:
+                  system:
+                    domainCredentials:
+                      - credentials:
+                        - usernamePassword:
+                            description: "GitHub access token for jenkinsadmin"
+                            id: "github-access-token"
+                            username: "${GITHUB_USERNAME}"
+                            password: "${GITHUB_PASSWORD}"
+                            scope: GLOBAL
+                        - string:
+                            scope: GLOBAL
+                            id: "azure_vault_client_id"
+                            secret: "${AZURE_VAULT_CLIENT_ID}"
+                            description: Azure Service Principale client id used to retrieve gpg key
+                        - string:
+                            scope: GLOBAL
+                            id: "azure_vault_client_secret"
+                            secret: "${AZURE_VAULT_CLIENT_SECRET}"
+                            description: Azure Service Principale client secret used to retrieve gpg key
+                        - string:
+                            scope: GLOBAL
+                            id: "azure_vault_tenant_id"
+                            secret: "${AZURE_VAULT_TENANT_ID"
+                            description: Azure Service Principale tenant id used to retrieve gpg key
+                        - string:
+                            scope: GLOBAL
+                            id: "release-gpg-passphrase"
+                            secret: "${RELEASE_GPG_PASSPHRASE}"
+                            description: Release GPG Key passphrase 
+                        - string:
+                            scope: GLOBAL
+                            id: "release-storage-account-key"
+                            secret: "${RELEASE_STORAGE_ACCOUNT_KEY}"
+                            description: Password used by maven to upload war files
+                        - string:
+                            scope: GLOBAL
+                            id: "gpg-storage-account-key"
+                            secret: "${GPG_STORAGE_ACCOUNT_KEY}"
+                            description: GPG storage account key
+                        - string:
+                            scope: GLOBAL
+                            id: "maven-repository-username"
+                            secret: "${MAVEN_REPOSITORY_USERNAME}"
+                            description: "Username used by maven release plugin to publish artifacts on a maven repository"
+                        - string:
+                            scope: GLOBAL
+                            id: "maven-repository-password"
+                            secret: "${MAVEN_REPOSITORY_PASSWORD}"
+                            description: "PASSWORD used by maven release plugin to publish artifacts on a maven repository"
+                        - string:
+                            scope: GLOBAL
+                            id: "maven-repository-username"
+                            secret: "${MAVEN_REPOSITORY_USERNAME}"
+                            description: GPG storage account key
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-client-id"
+                            secret: "${SOPS_CLIENT_ID}"
+                            description: Azure client ID used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-client-secret"
+                            secret: "${SOPS_CLIENT_SECRET}"
+                            description: Azure client secret used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-tenant-id"
+                            secret: "${SOPS_TENANT_ID}"
+                            description: Azure tenant id used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "signing-cert-pass"
+                            secret: "${RELEASE_CERTIFICATE_PASSWORD}"
+                            description: Password used by maven signer plugin to unlock the signing certificate
+                        - usernamePassword:
+                            scope: GLOBAL
+                            id: "github"
+                            username: "${GITHUB_USERNAME}"
+                            password: "${GITHUB_PASSWORD}"
+                            description: Default github credentials
+                        - basicSSHUserPrivateKey:
+                            scope: GLOBAL
+                            id: "release-key"
+                            username: ${SSH_RELEASE_USERNAME}
+                            #passphrase: ${SSH_RELEASE_PASSWORD}
+                            description: "SSH private key to commit on jenkinsci/jenkins"
+                            privateKeySource:
+                              directEntry:
+                                privateKey: ${SSH_RELEASE_PRIVKEY}
+                        - basicSSHUserPrivateKey:
+                            scope: GLOBAL
+                            id: "charts-secrets"
+                            username: ${SSH_CHARTS_SECRETS_USERNAME}
+                            #passphrase: ${SSH_CHARTS_SECRETS_PASSWORD}
+                            description: "SSH privkey used to access jenkins-infra/charts-secret"
+                            privateKeySource:
+                              directEntry:
+                                privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
+
               k8s-settings: |
                 jenkins:
                   clouds:
@@ -38,7 +140,6 @@ jenkins:
                                 resourceRequestMemory: "512Mi"
                                 args: "^${computer.jnlpmac} ^${computer.name}"
                                 alwaysPullImage: true
-                            label: "jnlp-windows"
                             yaml: |-
                               spec:
                                 tolerations:
@@ -86,25 +187,6 @@ jenkins:
                           }
                         }
                       }
-                  - script: >
-                      multibranchPipelineJob('k8smgmt') {
-                        displayName "K8s Cluster Management"
-                        description "Current K8s Cluster Management"
-                        branchSources {
-                          github {
-                            id('2019081602')
-                            scanCredentialsId('github')
-                            repoOwner('jenkins-infra')
-                            repository('charts')
-                            includes('master')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
-                      }
               ldap-settings: |
                 jenkins:
                   securityRealm:
@@ -124,10 +206,9 @@ jenkins:
                     globalMatrix:
                       grantedPermissions:
                         - "Overall/Administer:release-core"
-                        - "Overall/Read:release-core-dev"
-                        - "Job/Build:release-core-dev"
-                        - "Job/Cancel:release-core-dev"
-                        - "Job/Read:release-core-dev"
+                        - "Overall/SystemRead:all"
+                        - "Overall/Read:all"
+                        - "Job/Read:all"
         ingress:
           enabled: true
           hostName: release.ci.jenkins.io
