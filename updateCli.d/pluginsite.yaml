@@ -22,12 +22,12 @@ targets:
     spec:
       file: "charts/plugin-site/values.yaml"
       key: "backend.image.tag"
-      message: "[updatecli][pluginsite] Default image tag updated"
+      message: "[updatecli][pluginsite-api] Default image tag updated"
       scm: "github"
       repository:
         user: "updatecli"
         email: "updatecli@olblak.com"
-        owner: "olblak"
+        owner: "jenkins-infra"
         repository: "charts"
         token: ""
         username: "olblak"
@@ -43,7 +43,7 @@ targets:
       repository:
         user: "updatecli"
         email: "updatecli@olblak.com"
-        owner: "olblak"
+        owner: "jenkins-infra"
         repository: "charts"
         token: ""
         username: "olblak"
