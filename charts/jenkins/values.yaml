@@ -3,6 +3,9 @@
 clusterAdminEnabled: false
 
 jenkins:
+    rbac:
+      create: true
+      readSecrets: false
     persistence:
         enabled: true
         size: 50Gi
@@ -104,3 +107,5 @@ jenkins:
     serviceAccountAgent:
         create: true
         name: jenkins-agent
+    networkPolicy:
+        enabled: true
