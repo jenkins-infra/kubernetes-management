@@ -28,7 +28,7 @@ jenkins:
                         - string:
                             scope: GLOBAL
                             id: "azure-vault-tenant-id"
-                            secret: "${AZURE_VAULT_TENANT_ID"
+                            secret: "${AZURE_VAULT_TENANT_ID}"
                             description: Azure Service Principale tenant id used to retrieve gpg key
                         - string:
                             scope: GLOBAL
