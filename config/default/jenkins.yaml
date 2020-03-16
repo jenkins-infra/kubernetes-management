@@ -17,17 +17,17 @@ jenkins:
                             scope: GLOBAL
                         - string:
                             scope: GLOBAL
-                            id: "azure_vault_client_id"
+                            id: "azure-vault-client-id"
                             secret: "${AZURE_VAULT_CLIENT_ID}"
                             description: Azure Service Principale client id used to retrieve gpg key
                         - string:
                             scope: GLOBAL
-                            id: "azure_vault_client_secret"
+                            id: "azure-vault-client-secret"
                             secret: "${AZURE_VAULT_CLIENT_SECRET}"
                             description: Azure Service Principale client secret used to retrieve gpg key
                         - string:
                             scope: GLOBAL
-                            id: "azure_vault_tenant_id"
+                            id: "azure-vault-tenant-id"
                             secret: "${AZURE_VAULT_TENANT_ID"
                             description: Azure Service Principale tenant id used to retrieve gpg key
                         - string:
