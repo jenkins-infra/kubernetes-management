@@ -95,7 +95,7 @@ jenkins:
                         branchSources {
                           github {
                             id('2019081602')
-                            scanCredentialsId('github')
+                            scanCredentialsId('github-access-token')
                             repoOwner('jenkins-infra')
                             repository('charts')
                             includes('master')
