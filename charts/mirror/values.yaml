@@ -58,7 +58,7 @@ persistent:
     spec: {}
   volumeClaim:
     name: mirror-binary
-    enabled: true
+    enabled: false
     spec:
       storageClassName: default
       accessModes:
