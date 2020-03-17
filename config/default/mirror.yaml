@@ -5,16 +5,29 @@ ingress:
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   hosts:
-    - host: archives.jenkins-ci.org
-      paths:
-        - "/"
-    - host: archives.jenkins.io
+    - host: mirror.azure.jenkins.io
       paths:
         - "/"
   tls:
-    - secretName: releasemirror-tls
+    - secretName: mirrorazure-tls
       hosts:
-        - archives.jenkins-ci.org
-        - archives.jenkins.io
+        - mirror.azure.jenkins.io
 
-replicaCount: 3
+replicaCount: 1
+
+synchronize:
+  enabled: true
+  upstream: "rsync://ftp-osl.osuosl.org/jenkins/"
+  period: "*/5 * * * *"
+
+persistent:
+  volumeClaim:
+    name: mirror-binary
+    enabled: true
+    spec:
+      storageClassName: default
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 200Gi
