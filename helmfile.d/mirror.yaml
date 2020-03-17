@@ -5,7 +5,7 @@ helmDefaults:
   wait: true
 
 releases:
-    - name: archives
+    - name: mirror
       chart: ../charts/mirror
       namespace: mirror
       values:
