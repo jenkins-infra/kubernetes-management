@@ -69,7 +69,7 @@ persistent:
   secret:
     name: mirror-binary
     enabled: false
-    spec: {}
+    data: {}
 
 synchronize:
   enabled: false
