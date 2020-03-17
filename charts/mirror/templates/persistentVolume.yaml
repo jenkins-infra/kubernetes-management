@@ -3,9 +3,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ $.Values.persistent.volume.name | default (printf "%s-binary" (include "mirror.fullname" .))  }}
+  name: {{ $.Values.persistent.volume.name | default (printf "%s-binary" (include "mirror.fullname" .))}}
   labels:
-    data: mirror-binary
+    data: {{ $.Values.persistent.volume.name | default (printf "%s-binary" (include "mirror.fullname" .))}}
 spec:
 {{ toYaml $.Values.persistent.volume.spec | nindent 2 }}
 {{- end -}}
