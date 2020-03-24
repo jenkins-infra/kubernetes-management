@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: alpine
+  repository: nginx@sha256 # nginx:1.17
+  tag: 3936fb3946790d711a68c58be93628e43cbca72439079e16d154b5db216b58da
   pullPolicy: Always
 
 imagePullSecrets: []
