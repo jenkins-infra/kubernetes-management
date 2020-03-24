@@ -34,9 +34,10 @@ pipeline {
     }
     stage('Update configuration') {
       environment {
-        UPDATECLI_SOURCE_SPEC_TOKEN                           = credentials('updatecli-github-token')
-        UPDATECLI_TARGETS_IMAGETAG_SPEC_REPOSITORY_TOKEN      = credentials('updatecli-github-token')
-        UPDATECLI_TARGETS_APPVERSION_SPEC_REPOSITORY_TOKEN    = credentials('updatecli-github-token')
+        UPDATECLI_SOURCE_SPEC_TOKEN                             = credentials('updatecli-github-token')
+        UPDATECLI_TARGETS_IMAGETAG_SCM_GITHUB_TOKEN             = credentials('updatecli-github-token')
+        UPDATECLI_TARGETS_APPVERSION_SCM_GITHUB_TOKEN           = credentials('updatecli-github-token')
+        UPDATECLI_TARGETS_JENKINSIONGINXDIGEST_SCM_GITHUB_TOKEN = credentials('updatecli-github-token')
       }
       steps {
         container('updatecli') {
