@@ -8,7 +8,7 @@ targets:
     name: "Jenkins.io nginx"
     kind: yaml
     spec:
-      file: "charts/jenkins.io/values.yaml"
+      file: "charts/jenkinsio/values.yaml"
       key: image.tag
     scm:
       github:
