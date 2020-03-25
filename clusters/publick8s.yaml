@@ -16,7 +16,6 @@ helmfiles:
   - path: "../helmfile.d/polls.yaml"
   - path: "../helmfile.d/dex.yaml"
   - path: "../helmfile.d/oauth2-proxy.yaml"
-  - path: "../helmfile.d/release-jenkins.yaml"
   - path: "../helmfile.d/plugin-site.yaml"
   - path: "../helmfile.d/chatbot.yaml"
   - path: "../helmfile.d/reports.yaml"
@@ -27,3 +26,5 @@ helmfiles:
   - path: "../helmfile.d/uplink.yaml"
   - path: "../helmfile.d/mirrorbits.yaml"
   - path: "../helmfile.d/jenkins-infra.yaml"
+  - path: "../helmfile.d/jenkins-release.yaml"
+  - path: "../helmfile.d/nexus-release.yaml"
