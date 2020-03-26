@@ -241,7 +241,7 @@ data:
         # It can be "All", "None", or any combination of the keywords:
         #   AllowOverride FileInfo AuthConfig Limit
         #
-        AllowOverride None
+        AllowOverride FileInfo
     
         #
         # Controls who can get stuff from this server.
