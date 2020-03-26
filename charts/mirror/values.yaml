@@ -4,10 +4,19 @@
 
 replicaCount: 1
 
+strategy:
+  #rollingUpdate:
+  #  maxSurge: 25%
+  #  maxUnavailable: 25%
+  #type: RollingUpdate
+  # By default we use an azure disk which do not support multi mount so
+  # we must be sure that all containers are stopped before deploying the new one
+  type: Recreate
+
 images:
   web:
-    repository: nginx
-    tag: 1.17
+    repository: httpd
+    tag: 2.4
     pullPolicy: Always
   cron:
     repository: olblak/crond

@@ -6,6 +6,8 @@ metadata:
 {{ include "mirror.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy: 
+    {{- toYaml .Values.strategy | nindent 4 }} 
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "mirror.name" . }}
@@ -41,11 +43,12 @@ spec:
           volumeMounts:
           {{- if .Values.persistent.volumeClaim.enabled }}
             - name: binary
-              mountPath: /usr/share/nginx/html
+              mountPath: /usr/local/apache2/htdocs
               readOnly: true
           {{- end }}
             - name: conf
-              mountPath: /etc/nginx/conf.d
+              mountPath: /usr/local/apache2/conf/httpd.conf
+              subPath: httpd.conf
               readOnly: true
       {{- if .Values.synchronize.enabled }}
         - name: cron
@@ -78,6 +81,9 @@ spec:
         - name: conf
           configMap:
             name: {{ include "mirror.fullname" . }}
+            items:
+              - key: httpd.conf
+                path: httpd.conf
         {{- if .Values.persistent.volumeClaim.enabled }}
         - name: binary
           persistentVolumeClaim:
