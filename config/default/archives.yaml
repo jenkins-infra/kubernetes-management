@@ -34,7 +34,7 @@ persistent:
     enabled: true
     spec:
       accessModes:
-        - ReadWriteMany
+        - ReadOnlyMany
       storageClassName: azurefile
       resources:
         requests:
@@ -50,7 +50,7 @@ persistent:
         storage: 100Gi
       storageClassName: azurefile
       accessModes:
-        - ReadWriteMany
+        - ReadOnlyMany
       azureFile:
         secretName: archives-binary
         shareName: mirrorbits
