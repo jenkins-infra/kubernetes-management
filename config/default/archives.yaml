@@ -11,17 +11,17 @@ ingress:
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   hosts:
-    - host: archives.jenkins-ci.org
+    - host: archives.azure.jenkins-ci.org
       paths:
         - "/"
-    - host: archives.jenkins.io
+    - host: archives.azure.jenkins.io
       paths:
         - "/"
   tls:
     - secretName: archivesmirror-tls
       hosts:
-        - archives.jenkins-ci.org
-        - archives.jenkins.io
+        - archives.azure.jenkins-ci.org
+        - archives.azure.jenkins.io
 
 replicaCount: 3
 
