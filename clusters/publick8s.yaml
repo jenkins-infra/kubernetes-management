@@ -28,3 +28,5 @@ helmfiles:
   - path: "../helmfile.d/jenkins-infra.yaml"
   - path: "../helmfile.d/jenkins-release.yaml"
   - path: "../helmfile.d/nexus-release.yaml"
+  - path: "../helmfile.d/mirror.yaml"
+  - path: "../helmfile.d/archives.yaml"

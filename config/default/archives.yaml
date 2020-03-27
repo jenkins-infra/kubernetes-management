@@ -1,0 +1,64 @@
+strategy:
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+  type: RollingUpdate
+
+ingress:
+  enabled: true
+  annotations: 
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+  hosts:
+    - host: archives.azure.jenkins-ci.org
+      paths:
+        - "/"
+    - host: archives.azure.jenkins.io
+      paths:
+        - "/"
+  tls:
+    - secretName: archivesmirror-tls
+      hosts:
+        - archives.azure.jenkins-ci.org
+        - archives.azure.jenkins.io
+
+replicaCount: 3
+
+synchronize:
+  enabled: false
+
+persistent:
+  volumeClaim:
+    name: archives-binary
+    enabled: true
+    spec:
+      accessModes:
+        - ReadOnlyMany
+      storageClassName: azurefile
+      resources:
+        requests:
+          storage: 100Gi
+      selector:
+        matchLabels:
+          data: archives-binary
+  volume:
+    name: archives-binary
+    enabled: true
+    spec:
+      capacity:
+        storage: 100Gi
+      storageClassName: azurefile
+      accessModes:
+        - ReadOnlyMany
+      azureFile:
+        secretName: archives-binary
+        shareName: mirrorbits
+        readOnly: true
+      mountOptions:
+      - dir_mode=0777
+      - file_mode=0777
+      - uid=1000
+      - gid=1000
+      - mfsymlinks
+      - nobrl

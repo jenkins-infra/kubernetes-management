@@ -1,0 +1,12 @@
+helmDefaults:
+  atomic: true
+  force: true
+  timeout: 600
+  wait: true
+
+releases:
+    - name: mirror
+      chart: ../charts/mirror
+      namespace: mirror
+      values:
+        - "../config/default/mirror.yaml"

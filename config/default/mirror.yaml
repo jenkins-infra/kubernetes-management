@@ -1,0 +1,33 @@
+ingress:
+  enabled: true
+  annotations: 
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+  hosts:
+    - host: mirror.azure.jenkins.io
+      paths:
+        - "/"
+  tls:
+    - secretName: mirrorazure-tls
+      hosts:
+        - mirror.azure.jenkins.io
+
+replicaCount: 1
+
+synchronize:
+  enabled: true
+  upstream: "rsync://ftp-osl.osuosl.org/jenkins/"
+  period: "*/5 * * * *"
+
+persistent:
+  volumeClaim:
+    name: mirror-binary
+    enabled: true
+    spec:
+      storageClassName: default
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 200Gi
