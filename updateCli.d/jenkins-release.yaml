@@ -1,0 +1,21 @@
+source:
+  kind: dockerDigest
+  spec:
+    image: "jenkins/jenkins"
+    tag: "lts"
+targets:
+  imageTag:
+    name: "Jenkins Release Docker Image"
+    kind: yaml
+    spec:
+      file: "config/default/jenkins-release.yaml"
+      key: "jenkins.master.imageTag"
+    scm:
+      github:
+        user: "updatecli"
+        email: "updatecli@olblak.com"
+        owner: "jenkins-infra"
+        repository: "charts"
+        token: ""
+        username: "olblak"
+        branch: "master"
