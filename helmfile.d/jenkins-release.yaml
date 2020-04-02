@@ -9,7 +9,7 @@ releases:
       chart: ../charts/jenkins
       namespace: release
       values:
-        - "../config/default/jenkins.yaml"
+        - "../config/default/jenkins-release.yaml"
       secrets:
         - "../secrets/config/release/jenkins/secrets.yaml"
       set:
