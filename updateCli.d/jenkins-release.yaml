@@ -2,7 +2,7 @@ source:
   kind: dockerDigest
   spec:
     image: "jenkins/jenkins"
-    tag: "lts"
+    tag: "lts-jdk11"
 targets:
   imageTag:
     name: "Jenkins Release Docker Image"
