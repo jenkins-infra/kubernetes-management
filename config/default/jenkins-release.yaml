@@ -93,6 +93,15 @@ jenkins:
                                 privateKey: ${SSH_RELEASE_PRIVKEY}
                         - basicSSHUserPrivateKey:
                             scope: GLOBAL
+                            id: "pkgserver"
+                            username: ${SSH_PKGSERVER_USERNAME}
+                            #passphrase: ${SSH_PKGSERVER_PASSWORD}
+                            description: "SSH private key used to upload artifacts on pkg.jenkins.io"
+                            privateKeySource:
+                              directEntry:
+                                privateKey: ${SSH_PKGSERVER_PRIVKEY}
+                        - basicSSHUserPrivateKey:
+                            scope: GLOBAL
                             id: "charts-secrets"
                             username: ${SSH_CHARTS_SECRETS_USERNAME}
                             #passphrase: ${SSH_CHARTS_SECRETS_PASSWORD}
