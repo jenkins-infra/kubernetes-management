@@ -127,6 +127,7 @@ jenkins:
                       grantedPermissions:
                         - "Overall/Administer:admins"
                         - "Overall/SystemRead:all"
+                        - "Overall/Read:all"
         ingress:
           enabled: true
           hostName: infra.ci.jenkins.io
