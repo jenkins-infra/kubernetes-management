@@ -248,10 +248,12 @@ data:
         #
         Require all granted
 
-        #IndexHeadInsert "<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">" 
-        IndexHeadInsert "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css\">"
+        IndexOptions FancyIndexing VersionSort TrackModified FoldersFirst SuppressHTMLPreamble NameWidth=* SuppressRules SuppressIcon SuppressDescription
 
-        IndexOptions FancyIndexing HTMLTable VersionSort TrackModified FoldersFirst SuppressDescription
+        HeaderName HEADER.html
+        ReadmeName FOOTER.html
+
+        IndexIgnore HEADER* FOOTER* index.html
     </Directory>
     
     #
