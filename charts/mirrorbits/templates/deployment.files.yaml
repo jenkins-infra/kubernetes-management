@@ -42,6 +42,7 @@ spec:
               readOnly: true
             - name: conf
               mountPath: /usr/local/apache2/conf/httpd.conf
+              subPath: httpd.conf
               readOnly: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
