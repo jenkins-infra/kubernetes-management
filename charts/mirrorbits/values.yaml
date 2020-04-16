@@ -12,8 +12,8 @@ image:
     tag: v0.5.1
     pullPolicy: Always
   files:
-    repository: nginx
-    tag: latest
+    repository: httpd
+    tag: 2.4
     pullPolicy: Always
 
 imagePullSecrets: []

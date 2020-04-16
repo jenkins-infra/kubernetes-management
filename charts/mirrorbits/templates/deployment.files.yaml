@@ -38,10 +38,10 @@ spec:
             {{- toYaml .Values.resources.files | nindent 12 }}
           volumeMounts:
             - name: binary
-              mountPath: /usr/share/nginx/html
+              mountPath: /usr/local/apache2/htdocs
               readOnly: true
             - name: conf
-              mountPath: /etc/nginx/conf.d
+              mountPath: /usr/local/apache2/conf/httpd.conf
               readOnly: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
