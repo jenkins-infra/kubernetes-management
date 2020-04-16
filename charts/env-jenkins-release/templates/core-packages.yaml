@@ -22,7 +22,7 @@ spec:
   storageClassName: azurefile
   azureFile:
     secretName: core-packages
-    shareName: binary-{{ .Values.corePackages.shareName }}
+    shareName: {{ .Values.corePackages.shareName }}
     readOnly: false
   mountOptions:
   - dir_mode=0777
@@ -58,7 +58,7 @@ spec:
   storageClassName: azurefile
   azureFile:
     secretName: core-packages
-    shareName: website-{{ .Values.corePackages.shareName }}
+    shareName: {{ .Values.corePackages.websiteShareName }}
     readOnly: false
   mountOptions:
   - dir_mode=0777
