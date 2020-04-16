@@ -247,8 +247,6 @@ data:
         #
         Require all granted
 
-        IndexOptions FancyIndexing HTMLTable VersionSort TrackModified FoldersFirst SuppressDescription
-
         IndexOptions FancyIndexing VersionSort TrackModified FoldersFirst SuppressHTMLPreamble NameWidth=* SuppressRules SuppressIcon SuppressDescription
 
         HeaderName HEADER.html
