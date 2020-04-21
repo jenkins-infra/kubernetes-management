@@ -15,8 +15,8 @@ data:
       server_name  localhost;
   
       {{- if .Values.forceJenkinsIoHost -}}
-      if ( $host != 'jenkins.io') {
-        return 301 $scheme://jenkins.io$request_uri;
+      if ( $host != 'www.jenkins.io') {
+        return 301 $scheme://www.jenkins.io$request_uri;
       }
       {{- end }}
   
@@ -26,7 +26,7 @@ data:
           index  index.html index.htm;
           # Language setting
           if ($lang) {
-            rewrite ^/$ https://jenkins.io/$lang$1;
+            rewrite ^/$ https://www.jenkins.io/$lang$1;
           }   
       }
 
@@ -101,7 +101,7 @@ data:
       # baked in jenkins.war 1.587 / 1.580.1
       rewrite ^/security-144$          https://wiki.jenkins-ci.org/display/JENKINS/Slave+To+Master+Access+Control permanent;
       # baked in 1.600 easter egg
-      rewrite ^/100k$                  https://jenkins.io/content/jenkins-celebration-day-february-26 permanent;
+      rewrite ^/100k$                  https://www.jenkins.io/content/jenkins-celebration-day-february-26 permanent;
       rewrite ^/jep/([0-9]+) https://github.com/jenkinsci/jep/blob/master/jep/$1/README.adoc permanent;
       rewrite ^/iep/([0-9]+) https://github.com/jenkins-infra/iep/blob/master/iep/$1/README.adoc permanent;
     }
