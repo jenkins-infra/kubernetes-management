@@ -6,7 +6,7 @@ ingress:
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"
     "nginx.ingress.kubernetes.io/configuration-snippet": |
       if ( $scheme = "http" ) {
-        rewrite ^/((?!patron|maven-site|jenkins.jnlp).+)$ https://jenkins.io/$1 permanent;
+        rewrite ^/((?!patron|maven-site|jenkins.jnlp).+)$ https://www.jenkins.io/$1 permanent;
         rewrite ^/$ https://$host permanent;
       }
       if ( $scheme = "https" ) {
@@ -15,6 +15,14 @@ ingress:
 
   hosts:
     - host: jenkins.io
+      paths:
+        - path: /
+          serviceName: jenkinsio
+          servicePort: 80
+        - path: /zh/
+          serviceName: jenkinsio-zh
+          servicePort: 80
+    - host: www.jenkins.io
       paths:
         - path: /
           serviceName: jenkinsio
