@@ -11,8 +11,8 @@ data:
       server_name  localhost;
   
     {{- if .Values.forceJenkinsIoHost -}}
-      if ( $host != 'jenkins.io') {
-        return 301 $scheme://jenkins.io/zh/$request_uri;
+      if ( $host != 'www.jenkins.io') {
+        return 301 $scheme://www.jenkins.io/zh/$request_uri;
       }
     {{- end }}
   
