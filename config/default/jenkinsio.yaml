@@ -50,6 +50,7 @@ ingress:
     - secretName: jenkinsio-tls
       hosts:
         - jenkins.io
+        - www.jenkins.io
         - jenkins-ci.org
         - www.jenkins-ci.org
 
