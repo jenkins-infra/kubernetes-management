@@ -76,4 +76,4 @@ zhHtmlVolume:
     shareName: zhjenkinsio
     readOnly: true
 
-forceJenkinsIoHost: false
+forceJenkinsIoHost: true
