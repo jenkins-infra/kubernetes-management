@@ -5,7 +5,7 @@
 replicaCount: 1
 image:
   repository: nginx@sha256 # nginx:1.17
-  tag: 6b3b6c113f98e901a8b1473dee4c268cf37e93d72bc0a01e57c65b4ab99e58ee
+  tag: cccef6d6bdea671c394956e24b0d0c44cd82dbe83f543a47fdc790fadea48422
   pullPolicy: Always
 imagePullSecrets: []
 nameOverride: ""
