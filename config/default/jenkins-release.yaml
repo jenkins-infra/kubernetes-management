@@ -109,7 +109,6 @@ jenkins:
                             privateKeySource:
                               directEntry:
                                 privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-
               k8s-settings: |
                 jenkins:
                   clouds:
