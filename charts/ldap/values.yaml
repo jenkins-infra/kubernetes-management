@@ -75,3 +75,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+dnsNames:
+  - ldap.jenkins.io
