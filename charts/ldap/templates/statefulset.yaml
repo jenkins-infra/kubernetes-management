@@ -124,11 +124,11 @@ spec:
             claimName: {{ include "ldap.fullname" . }}-data
         - name: tls
           secret:
-            secretName: {{ include "ldap.fullname" . }}
+            secretName: ldap-tls
             items:
-              - key: cacert.pem
+              - key: ca.crt
                 path: {{ .Values.ldap.ssl.ca.filename }}
-              - key: cert.pem
+              - key: tls.crt
                 path: {{ .Values.ldap.ssl.crt.filename }}
-              - key: privkey.key
+              - key: tls.key
                 path: {{ .Values.ldap.ssl.key.filename }}
