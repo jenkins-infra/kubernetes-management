@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: jenkinsciinfra/ldap
-  tag: 41-build10af98
+  repository: jenkinsciinfra/ldap@sha256
+  tag: 6a272bb54780919010eebee33fc2cafb8406ca42af0209c7b6b8ed2f1e38a3b6
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
