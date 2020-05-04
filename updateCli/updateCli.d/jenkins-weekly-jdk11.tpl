@@ -22,10 +22,10 @@ targets:
       key: "jenkins.master.imageTag"
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: ""
-        username: "olblak"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
         branch: "master"

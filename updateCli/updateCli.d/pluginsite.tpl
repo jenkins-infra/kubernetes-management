@@ -4,7 +4,7 @@ source:
   spec:
     owner: "jenkins-infra"
     repository: "plugin-site-api"
-    token: ""
+    token: "{{ requiredEnv .github.token }}"
     username: "olblak"
     version: "latest"
 conditions:
@@ -22,11 +22,11 @@ targets:
       key: "backend.image.tag"
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: ""
+        token: "{{ requiredEnv .github.token }}"
         username: "olblak"
         branch: "master"
   appVersion:
@@ -37,10 +37,10 @@ targets:
       key: appVersion
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: ""
+        token: "{{ requiredEnv .github.token }}"
         username: "olblak"
         branch: "master"
