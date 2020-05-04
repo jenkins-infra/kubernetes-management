@@ -60,7 +60,7 @@ spec:
     env:
     - name: "HOME"
       value: "/home/jenkins"
-    image: "olblak/updatecli:v0.0.6"
+    image: "olblak/updatecli:v0.0.7"
     imagePullPolicy: "Always"
     name: "updatecli"
     resources:
