@@ -3,7 +3,7 @@ source:
   spec:
     owner: "jenkins-infra"
     repository: "jenkins-wiki-exporter"
-    token: "{{ requiredEnv "GITHUB_TOKEN" }}"
+    token: "{{ requiredEnv .github.token }}"
     username: "olblak"
     version: "latest"
 conditions:
@@ -25,7 +25,7 @@ targets:
         email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: "{{ requiredEnv "GITHUB_TOKEN" }}"
+        token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "master"
   appVersion:
