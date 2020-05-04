@@ -38,7 +38,7 @@ pipeline {
       }
       steps {
         container('updatecli') {
-          sh 'updatecli diff --config ./updatecli/updateCli.d --values ./updatecli/values.yaml'
+          sh 'updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
         }
       }
     }
@@ -48,7 +48,7 @@ pipeline {
       }
       steps {
         container('updatecli') {
-          sh 'updatecli apply --config ./updatecli/updateCli.d --values ./updatecli/values.yaml'
+          sh 'updatecli apply --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
         }
       }
     }
