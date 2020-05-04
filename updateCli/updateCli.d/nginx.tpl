@@ -4,7 +4,7 @@ source:
     image: "nginx"
     tag: "1.17"
 targets:
-  jenkinsioNginxDigest:
+  nginx:
     name: "Jenkins.io nginx"
     kind: yaml
     spec:
@@ -12,10 +12,10 @@ targets:
       key: image.tag
     scm:
       github:
-        user: "update-bot"
-        email: "update-bot@olblak.com"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: ""
-        username: "olblak"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
         branch: "master"

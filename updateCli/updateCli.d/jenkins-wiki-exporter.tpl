@@ -3,7 +3,7 @@ source:
   spec:
     owner: "jenkins-infra"
     repository: "jenkins-wiki-exporter"
-    token: ""
+    token: "{{ requiredEnv "GITHUB_TOKEN" }}"
     username: "olblak"
     version: "latest"
 conditions:
@@ -21,12 +21,12 @@ targets:
       key: image.tag
     scm:
       github:
-        user: "update-bot"
-        email: "update-bot@olblak.com"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: ""
-        username: "olblak"
+        token: "{{ requiredEnv "GITHUB_TOKEN" }}"
+        username: "{{ .github.username }}"
         branch: "master"
   appVersion:
     name: "Chart appVersion"
@@ -36,10 +36,10 @@ targets:
       key: appVersion
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: ""
-        username: "olblak"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
         branch: "master"
