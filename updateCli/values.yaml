@@ -2,4 +2,4 @@ github:
   user: "updatebot"
   email: "updatebot@olblak.com"
   username: "olblak"
-  token: "GITHUB_TOKEN" 
+  token: "UPDATECLI_GITHUB_TOKEN" 
