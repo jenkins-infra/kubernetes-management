@@ -2,14 +2,14 @@ source:
   kind: dockerDigest
   spec:
     image: "jenkinsciinfra/ldap"
-    tag: "latest"
+    tag: "cron-latest"
 targets:
   imageTag:
     name: "Ldap Docker Image"
     kind: yaml
     spec:
       file: "charts/ldap/values.yaml"
-      key: "image.tag"
+      key: "image.crond.tag"
     scm:
       github:
         user: "{{ .github.user }}"
