@@ -53,8 +53,8 @@ spec:
               value: {{ .Values.ldap.ssl.crt.filename }}
             - name: OPENLDAP_SSL_KEY
               value: {{ .Values.ldap.ssl.key.filename }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.slapd.repository }}:{{ .Values.image.slapd.tag }}"
+          imagePullPolicy: {{ .Values.image.slapd.pullPolicy }}
           ports:
             - name: ldaps
               containerPort: 636
@@ -94,8 +94,8 @@ spec:
               value: {{ .Values.ldap.ssl.crt.filename }}
             - name: OPENLDAP_SSL_KEY
               value: {{ .Values.ldap.ssl.key.filename }}
-          image: "{{ .Values.image.repository }}:cron-{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.crond.repository }}:{{ .Values.image.crond.tag }}"
+          imagePullPolicy: {{ .Values.image.crond.pullPolicy }}
           volumeMounts:
             - name: backup
               mountPath: {{ .Values.ldap.backup.path }}
