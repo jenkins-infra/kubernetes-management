@@ -3,7 +3,6 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
 image:
   slapd:
     repository: jenkinsciinfra/ldap@sha256
@@ -11,22 +10,19 @@ image:
     pullPolicy: IfNotPresent
   crond:
     repository: jenkinsciinfra/ldap@sha256
-    tag: d942a1e14f7aeb07da0f6428c84b4d4bcdfca22f0922e3ba21bb702d29fcae48
+    tag: 62d8cee01159434e642108fff2caa0571daa3c3393c4fb634ced8aea23ccb54f
     pullPolicy: IfNotPresent
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
-
 ldap:
-  admin: 
+  admin:
     dn: 'cn=admin,dc=jenkins-ci,dc=org'
     password: s3cr3t
   backup:
@@ -46,23 +42,21 @@ ldap:
     key:
       filename: privkey.key
       value: ''
-
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
 
 service:
   type: LoadBalancer
   #IP: ''
   whitelisted_sources: []
-
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -74,12 +68,8 @@ resources:
   requests:
     cpu: 300m
     memory: 800Mi
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
-
 dnsNames:
-  - ldap.jenkins.io
+- ldap.jenkins.io
