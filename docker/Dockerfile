@@ -10,10 +10,10 @@ RUN \
   apk add --no-cache gnupg wget ca-certificates git bash curl
 
 # Install kubectl
-ENV HELM_VERSION=v2.16.1
+ENV HELM_VERSION=v2.16.7
 ENV HELM_LOCATION="https://kubernetes-helm.storage.googleapis.com"
 ENV HELM_FILENAME="helm-${HELM_VERSION}-linux-amd64.tar.gz"
-ENV HELM_SHA256="7eebaaa2da4734242bbcdced62cc32ba8c7164a18792c8acdf16c77abffce202"
+ENV HELM_SHA256="4afe48da420e4c3adcccf8484f27991834e3a3838668103199f274f4fa6f2df2"
 RUN wget ${HELM_LOCATION}/${HELM_FILENAME} && \
     sha256sum ${HELM_FILENAME} | grep -q "${HELM_SHA256}" && \
     tar zxf ${HELM_FILENAME} && mv /linux-amd64/helm /usr/local/bin/ && \
