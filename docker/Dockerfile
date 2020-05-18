@@ -34,7 +34,7 @@ RUN \
   chmod +x /usr/local/bin/sops
 
 # Instal helmfile
-ENV HELMFILE_VERSION="0.90.0"
+ENV HELMFILE_VERSION="0.116.0"
 RUN \
   wget https://github.com/roboll/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_linux_amd64 -O /usr/local/bin/helmfile && \
   chmod +x /usr/local/bin/helmfile
