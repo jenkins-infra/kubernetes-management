@@ -20,8 +20,8 @@ RUN wget ${HELM_LOCATION}/${HELM_FILENAME} && \
     rm ${HELM_FILENAME} && rm -r /linux-amd64
 
 # Install helm
-ENV KUBECTL_VERSION="v1.14.5"
-ENV KUBECTL_SHA256="26681319de56820a8467c9407e9203d5b15fb010ffc75ac5b99c9945ad0bd28c"
+ENV KUBECTL_VERSION=v1.15.12
+ENV KUBECTL_SHA256="a32b762279c33cb8d8f4198f3facdae402248c3164e9b9b664c3afbd5a27472e"
 RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     sha256sum kubectl | grep ${KUBECTL_SHA256} && \
     chmod +x kubectl && \
