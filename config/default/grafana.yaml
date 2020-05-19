@@ -37,14 +37,14 @@ datasources:
       access: proxy
       url: http://loki.loki:3100
       jsonData:
-        maxLines: 1000
+        maxLines: 100000
       editable: false
     - name: Prometheus
       type: prometheus
       access: proxy
       url: http://prometheus-server.prometheus
       jsonData:
-        maxLines: 1000
+        maxLines: 100000
       editable: false
 
 grafana.ini:
