@@ -2,7 +2,7 @@ releases:
     - name: loki
       namespace: loki
       chart: loki/loki
-      version: 0.17.2
+      version: 0.28.1
       wait: true
       timeout: 100
       force: true
@@ -12,7 +12,7 @@ releases:
     - name: promtail
       namespace: loki
       chart: loki/promtail
-      version: 0.13.1
+      version: 0.22.2
       wait: true
       timeout: 100
       force: true
