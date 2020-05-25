@@ -151,7 +151,31 @@ jenkins:
         jobs-settings: |
           jobs:
             - script: >
-                multibranchPipelineJob('core-package') {
+                folder('core') {
+                  displayName('Core')
+                  description('Folder containing Jenkins core release job')
+                }
+
+            - script: >
+                folder('core/weekly') {
+                  displayName('Weekly')
+                  description('Folder for weekly releases')
+                }
+
+            - script: >
+                folder('core/stable') {
+                  displayName('Stable')
+                  description('Folder for weekly releases')
+                }
+
+            - script: >
+                folder('core/security') {
+                  displayName('Security')
+                  description('Folder for weekly releases')
+                }
+
+            - script: >
+                multibranchPipelineJob('core/package') {
                   displayName "Core Package"
                   description "Jenkins Core Packaging"
                   branchSources {
@@ -170,7 +194,7 @@ jenkins:
                   }
                 }
             - script: >
-                multibranchPipelineJob('core-release') {
+                multibranchPipelineJob('core/release') {
                   displayName "Core Release"
                   description "Jenkins Core Release"
                   branchSources {
@@ -185,6 +209,64 @@ jenkins:
                   factory {
                     workflowBranchProjectFactory {
                       scriptPath('Jenkinsfile.d/release')
+                    }
+                  }
+                }
+
+            - script: >
+                multibranchPipelineJob('core/weekly/release') {
+                  displayName "Release"
+                  description "Jenkins Core Release"
+                  branchSources {
+                    github {
+                      id('2019092402')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('release')
+                      includes('master')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile.d/weekly')
+                    }
+                  }
+                }
+            - script: >
+                multibranchPipelineJob('core/stable/release') {
+                  displayName "Release"
+                  description "Jenkins Core Release"
+                  branchSources {
+                    github {
+                      id('2019092402')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('release')
+                      includes('master')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile.d/stable')
+                    }
+                  }
+                }
+            - script: >
+                multibranchPipelineJob('core/security/release') {
+                  displayName "Release"
+                  description "Jenkins Core Release"
+                  branchSources {
+                    github {
+                      id('2019092402')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('release')
+                      includes('master')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile.d/security')
                     }
                   }
                 }
