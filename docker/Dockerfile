@@ -28,7 +28,7 @@ RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/${KUBECT
     mv kubectl /usr/local/bin/kubectl
 
 # Instal sops
-ENV SOPS_VERSION="3.5.0"
+ENV SOPS_VERSION="v3.5.0"
 RUN \
   wget https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux -O /usr/local/bin/sops && \
   chmod +x /usr/local/bin/sops
