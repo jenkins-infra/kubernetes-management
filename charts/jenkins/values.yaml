@@ -11,7 +11,9 @@ jenkins:
   master:
     testEnabled: false
     image: jenkins/jenkins
-    imageTag: 2.236-jdk11
+    imageTag: 2.238-jdk11
+    ingress:
+      apiVersion: networking.k8s.io/v1beta1
     runAsUser: 1000
     fsGroup: 1000
     containerEnv:
