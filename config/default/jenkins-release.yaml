@@ -215,7 +215,7 @@ jenkins:
                   }
                   factory {
                     workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile.d/package')
+                      scriptPath('Jenkinsfile.d/core/package')
                     }
                   }
                 }
@@ -234,7 +234,7 @@ jenkins:
                   }
                   factory {
                     workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile.d/release')
+                      scriptPath('Jenkinsfile.d/core/release')
                     }
                   }
                 }
@@ -254,7 +254,7 @@ jenkins:
                   }
                   factory {
                     workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile.d/weekly')
+                      scriptPath('Jenkinsfile.d/core/weekly')
                     }
                   }
                 }
@@ -273,7 +273,7 @@ jenkins:
                   }
                   factory {
                     workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile.d/stable')
+                      scriptPath('Jenkinsfile.d/core/stable')
                     }
                   }
                 }
@@ -292,7 +292,7 @@ jenkins:
                   }
                   factory {
                     workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile.d/security')
+                      scriptPath('Jenkinsfile.d/core/security')
                     }
                   }
                 }
