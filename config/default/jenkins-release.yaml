@@ -151,6 +151,32 @@ jenkins:
         jobs-settings: |
           jobs:
             - script: >
+                folder('components') {
+                  displayName('Components')
+                  description('Folder containing Jenkins components release job')
+                }
+
+            - script: >
+                multibranchPipelineJob('components/remoting') {
+                  displayName "Remoting"
+                  description "Jenkins Remoting"
+                  branchSources {
+                    github {
+                      id('2020052601')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('release')
+                      includes('master')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile.d/components/remoting')
+                    }
+                  }
+                }
+
+            - script: >
                 folder('core') {
                   displayName('Core')
                   description('Folder containing Jenkins core release job')
