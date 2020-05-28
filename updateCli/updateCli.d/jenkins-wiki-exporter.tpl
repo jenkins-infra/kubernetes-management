@@ -11,7 +11,7 @@ conditions:
     name: "Docker Image Published on Registry"
     kind: dockerImage
     spec:
-      image: "halkeye/jenkins-wiki-exporter"
+      image: "jenkinsciinfra/jenkins-wiki-exporter"
 targets:
   imageTag:
     name: "Docker Image"
