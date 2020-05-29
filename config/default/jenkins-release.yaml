@@ -2,7 +2,7 @@ clusterAdminEnabled: false
 jenkins:
   master:
     image: jenkins/jenkins@sha256
-    imageTag: 36534cc1dda2ee111d9a573ff3b11ec061bb8beb6c87f4b7a1279da8398ab920
+    imageTag: 952b7a13eabea25a965f5bae854663a148808caf965b59154a7a422edf2545af
     JCasC:
       enabled: true
       configScripts:
