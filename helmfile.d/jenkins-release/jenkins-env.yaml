@@ -1,0 +1,18 @@
+---
+environments:
+  default:
+    secrets:
+      - ../../secrets/config/release/env-jenkins/secrets.yaml
+  sandbox:
+    values:
+      - ../../config/sandbox/jenkins-release/env-jenkins.yaml
+
+# Need to be in a different yaml document than environment
+---
+releases:
+  - name: default-release-jenkins-env
+    chart: ../../charts/env-jenkins-release
+    namespace: release
+    force: true
+    values: 
+    - {{ .Values | toYaml | nindent 6 -}}
