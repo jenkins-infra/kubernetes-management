@@ -24,6 +24,7 @@ data:
 
       location / {
           index  index.html index.htm;
+          add_header Vary "Accept-Language";
           # Language setting
           if ($lang) {
             rewrite ^/$ https://www.jenkins.io/$lang$1;
