@@ -118,6 +118,9 @@ jenkins:
                   namespace: "release"
                   podRetention: "Never"
                   serverUrl: "https://kubernetes.default"
+                  podLabels:
+                    - key: "jenkins/default-release-jenkins-jenkins-slave"
+                      value: "true"
                   templates:
                     - name: jnlp-linux
                       nodeSelector: "kubernetes.io/os=linux"
