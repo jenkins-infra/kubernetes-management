@@ -10,10 +10,10 @@ RUN \
   apk add --no-cache gnupg wget ca-certificates git bash curl
 
 # Install kubectl
-ENV HELM_VERSION=v2.16.7
-ENV HELM_LOCATION="https://kubernetes-helm.storage.googleapis.com"
+ENV HELM_VERSION=v3.2.1
+ENV HELM_LOCATION="https://get.helm.sh"
 ENV HELM_FILENAME="helm-${HELM_VERSION}-linux-amd64.tar.gz"
-ENV HELM_SHA256="4afe48da420e4c3adcccf8484f27991834e3a3838668103199f274f4fa6f2df2"
+ENV HELM_SHA256="018f9908cb950701a5d59e757653a790c66d8eda288625dbb185354ca6f41f6b"
 RUN wget ${HELM_LOCATION}/${HELM_FILENAME} && \
     sha256sum ${HELM_FILENAME} | grep -q "${HELM_SHA256}" && \
     tar zxf ${HELM_FILENAME} && mv /linux-amd64/helm /usr/local/bin/ && \
@@ -46,10 +46,8 @@ USER helm
 WORKDIR /home/helm
 
 RUN \
-  helm init --client-only && \
   helm plugin install https://github.com/databus23/helm-diff && \
   helm plugin install https://github.com/futuresimple/helm-secrets && \
-  helm plugin install https://github.com/aslafy-z/helm-git.git && \
-  helm plugin install https://github.com/rimusz/helm-tiller
+  helm plugin install https://github.com/aslafy-z/helm-git.git
 
 ENTRYPOINT "/usr/local/bin/helmfile"
