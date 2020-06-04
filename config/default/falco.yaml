@@ -4,7 +4,7 @@ customRules:
     - list: allowed_docker_image_repository
       items: 
         - jenkins/jenkins
-        - jenkins/jnlp-slave
+        - jenkins/inbound-agent
         - olblak/nexus
         - olblak/helmfile
         - olblak/packaging
