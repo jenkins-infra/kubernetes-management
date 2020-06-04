@@ -27,12 +27,22 @@ This folder defines a custom Dockerfile in order to build a custom image to orch
 
 ## Remarks
 * When deploying nexus, the postStart strict hang from time to time and we have to manually execute while containers are in creating mode
-```kubectl exec -i -t -c nexus default-release-nexus-0 /opt/sonatype/nexus/postStart.sh```
+```kubectl exec -i -t -c nexus default-release-nexus-0 export PASSWORD=`cat /nexus-data/admin.password`; /opt/sonatype/nexus/postStart.sh```
 
 * We need one jenkins instance per cluster so we should split cluster orchestration tasks outside release.ci.jenkins.io
 
 * If RBAC is enabled on the cluster, before being able to use helm, we need to create a service acccount for helm with the right cluster role binding.
 we can run following command: ```kubectl apply -f helm/rbac.yaml```
+
+
+## Minikube
+
+minikube start --kubernetes-version v1.15.11
+minikube addons enable ingress
+helm install stable/nginx-ingress nginx-ingress, we can't install the ingress defined in this repository for testing servers
+kubectl -n release port-forward default-release-jenkins-77fd54976f-ns2c6 8081:8080
+
+kubectl get secrets -n release  default-release-jenkins -o json
 
 ## Links
 * [Helmfile](https://github.com/roboll/helmfile)
