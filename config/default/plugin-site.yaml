@@ -13,7 +13,7 @@ ingress:
   hosts:
     - host: plugins.origin.jenkins.io
     - host: plugins.jenkins.io
-  # www.plugins.io certificate is managed by Fastly
+  # plugins.jenkins.io certificate is managed by Fastly
   tls:
     - secretName: plugins-tls
       hosts:
