@@ -2,12 +2,11 @@ releases:
     - name: datadog
       namespace: datadog
       chart: stable/datadog
-      version: 1.38.3
+      version: 2.3.8
       wait: true
       timeout: 300
       atomic: true
       values:
         - "../config/default/datadog.yaml"
-        - "../config/{{ .Values.cluster }}/datadog.yaml"
       secrets:
         - "../secrets/config/datadog/secrets.yaml"
