@@ -11,12 +11,13 @@ ingress:
     "nginx.ingress.kubernetes.io/cors-allow-origin": "*"
 
   hosts:
+    - host: plugins.origin.jenkins.io
     - host: plugins.jenkins.io
-
+  # www.plugins.io certificate is managed by Fastly
   tls:
     - secretName: plugins-tls
       hosts:
-        - plugins.jenkins.io
+        - plugins.origin.jenkins.io
 
 restApiUrl: https://plugins.jenkins.io/api
 
