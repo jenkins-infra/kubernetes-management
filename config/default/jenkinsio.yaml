@@ -54,7 +54,7 @@ ingress:
         - path: /zh/
           serviceName: jenkinsio-zh
           servicePort: 80
-  # jenkins.io && www.jenkins.io certificate are managed at Fastly level
+  # www.jenkins.io certificate is managed by Fastly
   tls:
     - secretName: jenkinsio-tls
       hosts:
