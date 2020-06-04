@@ -17,4 +17,4 @@ service:
     - '104.209.251.202/32' # accept inbound LDAPS from vpn.jenkins.io
     - '104.210.5.242/32'   # accept inbound LDAPS from cert-ci
     - '104.208.238.39/32'  # Accept inbound LDAPS from azure.ci.jenkins.io
-    - '52.147.174.4/32'      # Accept inbound LDAPS from public.aks.jenkins.io
+    - '52.167.253.43/32'      # Accept inbound LDAPS from public.aks.jenkins.io
