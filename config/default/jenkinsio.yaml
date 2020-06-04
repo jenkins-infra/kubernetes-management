@@ -30,6 +30,14 @@ ingress:
         - path: /zh/
           serviceName: jenkinsio-zh
           servicePort: 80
+    - host: www.origin.jenkins.io
+      paths:
+        - path: /
+          serviceName: jenkinsio
+          servicePort: 80
+        - path: /zh/
+          serviceName: jenkinsio-zh
+          servicePort: 80
     - host: jenkins-ci.org
       paths:
         - path: /
@@ -46,13 +54,14 @@ ingress:
         - path: /zh/
           serviceName: jenkinsio-zh
           servicePort: 80
+  # jenkins.io && www.jenkins.io certificate are managed at Fastly level
   tls:
     - secretName: jenkinsio-tls
       hosts:
-        - jenkins.io
-        - www.jenkins.io
         - jenkins-ci.org
+        - jenkins.io
         - www.jenkins-ci.org
+        - www.origin.jenkins.io
 
 replicaCount: 5
 
