@@ -1,5 +1,10 @@
 clusterAdminEnabled: true
 jenkins:
+    networkPolicy:
+        internalAgents:
+            allowed: true
+            namespaceLabels:
+              name: "jenkins-infra"
     master:
         JCasC:
             enabled: true
@@ -49,13 +54,18 @@ jenkins:
                   clouds:
                     - kubernetes:
                         containerCapStr: "100"
-                        jenkinsTunnel: "default-jenkins-infra-agent:50000"
-                        jenkinsUrl: "http://default-jenkins-infra:8080"
+                        jenkinsTunnel: "jenkins-infra-agent:50000"
+                        jenkinsUrl: "http://jenkins-infra:8080"
                         maxRequestsPerHostStr: "300"
                         name: "kubernetes"
                         namespace: "jenkins-infra"
                         podRetention: "Never"
                         serverUrl: "https://kubernetes.default"
+                        podLabels:
+                          # Required to be jenkins/<helm-release>-jenkins-slave as definede here
+                          # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
+                          - key: "jenkins/jenkins-infra-jenkins-slave"
+                            value: "true"
                         templates:
                           - name: jnlp-linux
                             nodeSelector: "kubernetes.io/os=linux"
