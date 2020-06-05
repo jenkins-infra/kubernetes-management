@@ -1,5 +1,10 @@
 clusterAdminEnabled: false
 jenkins:
+  networkPolicy:
+    internalAgents:
+      allowed: true
+      namespaceLabels:
+        name: "release"
   master:
     image: jenkins/jenkins@sha256
     imageTag: 952b7a13eabea25a965f5bae854663a148808caf965b59154a7a422edf2545af
@@ -118,6 +123,11 @@ jenkins:
                   namespace: "release"
                   podRetention: "Never"
                   serverUrl: "https://kubernetes.default"
+                  podLabels:
+                    # Required to be jenkins/<helm-release>-jenkins-slave as defined here
+                    # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
+                    - key: "jenkins/default-release-jenkins-jenkins-slave"
+                      value: "true"
                   templates:
                     - name: jnlp-linux
                       nodeSelector: "kubernetes.io/os=linux"
