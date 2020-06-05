@@ -1,5 +1,7 @@
 clusterAdminEnabled: true
 jenkins:
+    agent:
+        componentName: "agent"
     networkPolicy:
         internalAgents:
             allowed: true
@@ -64,7 +66,7 @@ jenkins:
                         podLabels:
                           # Required to be jenkins/<helm-release>-jenkins-slave as definede here
                           # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
-                          - key: "jenkins/jenkins-infra-jenkins-slave"
+                          - key: "jenkins/jenkins-infra-agent"
                             value: "true"
                         templates:
                           - name: jnlp-linux
