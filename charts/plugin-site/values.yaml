@@ -76,6 +76,10 @@ github:
   clientId: ""
   clientSecret: ""
 
+jira:
+  username: ""
+  password: ""
+
 # the volume to mount
 # e.g.
 # htmlVolume:
