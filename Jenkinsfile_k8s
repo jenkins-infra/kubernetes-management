@@ -59,13 +59,6 @@ pipeline {
         }
       }
     }
-    stage('Apply repositories'){
-      steps {
-        container('helmfile'){
-          sh 'helmfile -f clusters/_apply_repositories.yaml apply --suppress-secrets'
-        }
-      }
-    }
     stage('Test Lint'){
       steps {
         container('helmfile'){
