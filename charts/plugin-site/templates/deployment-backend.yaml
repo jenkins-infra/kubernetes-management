@@ -36,6 +36,16 @@ spec:
                 secretKeyRef:
                   name: {{ include "plugin-site.fullname" . }}
                   key: github_client_secret
+            - name: JIRA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plugin-site.fullname" . }}
+                  key: jira_username
+            - name: JIRA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plugin-site.fullname" . }}
+                  key: jira_password
             - name: DATA_FILE_URL
               value: {{ .Values.dataFileUrl }}
           ports:

@@ -7,7 +7,7 @@ backend:
   replicaCount: 1
   image:
     repository: jenkinsciinfra/plugin-site-api
-    tag: 139-e03bcc
+    tag: 150-80dbed
     pullPolicy: IfNotPresent
   port: 8080
   resources:
@@ -75,6 +75,10 @@ restApiUrl: https://plugins.jenkins.io/api
 github:
   clientId: ""
   clientSecret: ""
+
+jira:
+  username: ""
+  password: ""
 
 # the volume to mount
 # e.g.
