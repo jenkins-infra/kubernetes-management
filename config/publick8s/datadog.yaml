@@ -1,2 +1,2 @@
 datadog:
-    clusterName: publicK8s
+  clusterName: 'publick8s'

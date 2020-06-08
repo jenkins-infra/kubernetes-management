@@ -2,7 +2,7 @@
 dependencies:
     - name: jenkins
       repository: https://kubernetes-charts.storage.googleapis.com
-      version: 1.9.21
+      version: 1.27.0
       import-values:
           - child: jenkins.master
             parent: master

@@ -27,7 +27,7 @@ releases:
                   service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
                   prometheus.io/scrape: "true"
                   prometheus.io/port: "10254"
-                loadBalancerIP: 52.147.174.4
+                loadBalancerIP: 52.167.253.43
                 externalTrafficPolicy: Local
     - name: private-nginx-ingress
       chart: stable/nginx-ingress

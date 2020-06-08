@@ -1,11 +1,17 @@
 releases:
+    - name: cert-manager
+      chart: jetstack/cert-manager
+      namespace: cert-manager
+      wait: true
+      version: v0.15.1
+      set:
+        - name: installCRDs
+          value: true
+
     - name: acme
       chart: ../charts/acme
       namespace: cert-manager
       wait: true
-      timeout: 600
-      force: true
-      atomic: true
       values:
         - "../config/default/acme.yaml"
       secrets:

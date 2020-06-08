@@ -62,7 +62,7 @@ spec:
               path: /?mirrorstats
               port: 8080
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources.mirrorbits | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

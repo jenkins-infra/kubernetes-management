@@ -61,7 +61,7 @@ spec:
           volumeMounts:
             - name: backup
               mountPath: {{ .Values.ldap.backup.path }}
-              readOnly: true
+              readOnly: false
             - name: data
               mountPath: {{ .Values.ldap.data.path }}
             - name: tls
@@ -99,7 +99,7 @@ spec:
           volumeMounts:
             - name: backup
               mountPath: {{ .Values.ldap.backup.path }}
-              readOnly: true
+              readOnly: false
             - name: tls
               mountPath: "/etc/ldap/ssl"
               readOnly: true

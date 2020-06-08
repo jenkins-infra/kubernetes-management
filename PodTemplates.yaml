@@ -3,7 +3,7 @@ apiVersion: "v1"
 kind: "Pod"
 metadata:
   labels:
-    jenkins: "slave"
+    jenkins: "agent"
     job: "helmfile"
 spec:
   tolerations:

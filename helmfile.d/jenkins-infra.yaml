@@ -5,7 +5,7 @@ helmDefaults:
   wait: true
 
 releases:
-    - name: default-jenkins-infra
+    - name: jenkins-infra
       chart: ../charts/jenkins
       namespace: jenkins-infra
       values:
