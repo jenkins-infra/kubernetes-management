@@ -40,7 +40,7 @@ spec:
     env:
     - name: "HOME"
       value: "/home/jenkins"
-    image: "olblak/helmfile:506a6f"
+    image: "olblak/helmfile:025921"
     imagePullPolicy: "IfNotPresent"
     name: "helmfile"
     resources:
