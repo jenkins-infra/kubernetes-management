@@ -1,3 +1,6 @@
+repositories:
+  - name: loki
+    url: https://grafana.github.io/loki/charts
 releases:
     - name: loki
       namespace: loki
