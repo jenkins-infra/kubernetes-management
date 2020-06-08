@@ -10,7 +10,7 @@ image:
     pullPolicy: IfNotPresent
   crond:
     repository: jenkinsciinfra/ldap@sha256
-    tag: 0ac196d6e2e2e7fbf67c8faee4c842d80e5cc9ccae6a3d2fcc7629a176953890
+    tag: ab25e71fe7b0f37cb88a52353d777016324dd9bc254b05b812872753146a97b2
     pullPolicy: IfNotPresent
 imagePullSecrets: []
 nameOverride: ""
