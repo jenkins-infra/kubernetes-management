@@ -52,14 +52,6 @@ pipeline {
         }
       }
     }
-    stage('Helm Client Init'){
-      steps {
-        container('helmfile'){
-          checkout scm
-          sh 'helm init --client-only'
-        }
-      }
-    }
     stage('Test Lint'){
       steps {
         container('helmfile'){
