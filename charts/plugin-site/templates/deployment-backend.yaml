@@ -46,6 +46,13 @@ spec:
                 secretKeyRef:
                   name: {{ include "plugin-site.fullname" . }}
                   key: jira_password
+ {{- if .Values.sentry.dsn }}
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "plugin-site.fullname" . }}
+                  key: sentry_dsn
+ {{- end }}
             - name: DATA_FILE_URL
               value: {{ .Values.dataFileUrl }}
           ports:

@@ -31,9 +31,6 @@ spec:
               - name: frontend
                 containerPort: {{ .Values.frontend.port }}
                 protocol: TCP
-          env:
-            - name: REST_API_URL
-              value: {{ .Values.restApiUrl }}
           livenessProbe:
               httpGet:
                   path: /

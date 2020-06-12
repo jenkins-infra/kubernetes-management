@@ -7,7 +7,7 @@ backend:
   replicaCount: 1
   image:
     repository: jenkinsciinfra/plugin-site-api
-    tag: 150-80dbed
+    tag: 152-25512d
     pullPolicy: IfNotPresent
   port: 8080
   resources:
