@@ -9,7 +9,7 @@ jenkins:
         name: "release"
   master:
     image: jenkins/jenkins@sha256
-    imageTag: 952b7a13eabea25a965f5bae854663a148808caf965b59154a7a422edf2545af
+    imageTag: 841489e4beaa8c5c02cfa8a76da0bc1ad84b8d5786b7cf42817c670953873622
     JCasC:
       enabled: true
       configScripts:
