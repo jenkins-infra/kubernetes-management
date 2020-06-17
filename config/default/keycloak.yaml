@@ -1,4 +1,5 @@
 keycloak:
+  replicas: 2
   ingress:
     enabled: true
     annotations: 
