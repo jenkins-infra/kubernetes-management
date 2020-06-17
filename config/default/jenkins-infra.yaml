@@ -138,7 +138,7 @@ jenkins:
                         }
                         factory {
                           workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile')
+                            scriptPath('Jenkinsfile_k8s')
                           }
                         }
                       }
