@@ -39,6 +39,11 @@ jenkins:
                             description: Azure client secret used by sops to decrypt secrets
                         - string:
                             scope: GLOBAL
+                            id: "PLUGINSITE_STORAGEACCOUNTKEY"
+                            secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
+                            description: Azure storage account key for plugin site
+                        - string:
+                            scope: GLOBAL
                             id: "sops-tenant-id"
                             secret: "${SOPS_TENANT_ID}"
                             description: Azure tenant id used by sops to decrypt secrets
@@ -116,6 +121,24 @@ jenkins:
                         factory {
                           workflowBranchProjectFactory {
                             scriptPath('Jenkinsfile_k8s')
+                          }
+                        }
+                      }
+                  - script: >
+                      multibranchPipelineJob('pluginsite') {
+                        displayName "Plugin Site"
+                        branchSources {
+                          github {
+                            id('2019081603')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('plugin-site')
+                            includes('master')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile')
                           }
                         }
                       }
