@@ -13,6 +13,28 @@ keycloak:
     path: "/"
     hosts:
       - admin.accounts.jenkins.io
+  extraInitContainers: |
+    - name: theme-provider
+      image: timja/jenkins-keycloak-theme:0.1
+      imagePullPolicy: IfNotPresent
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          echo "Copying theme..."
+          cp -R /jenkins/* /theme
+      volumeMounts:
+        - name: theme
+          mountPath: /theme
+
+  extraVolumeMounts: |
+    - name: theme
+      mountPath: /opt/jboss/keycloak/themes/jenkins
+
+  extraVolumes: |
+    - name: theme
+      emptyDir: {}
   resources:
     limits:
       cpu: 1000m
