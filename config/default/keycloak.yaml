@@ -16,7 +16,7 @@ keycloak:
       - admin.accounts.jenkins.io
   extraInitContainers: |
     - name: theme-provider
-      image: timja/jenkins-keycloak-theme:0.1
+      image: jenkinsciinfra/keycloak-theme:0.0.1
       imagePullPolicy: IfNotPresent
       command:
         - sh
