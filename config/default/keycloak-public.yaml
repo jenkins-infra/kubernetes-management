@@ -1,0 +1,12 @@
+ingress:
+  enabled: true
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+  labels:
+  tls:
+    - hosts:
+        - beta.accounts.jenkins.io
+      secretName: keycloak-public-cert
+  hosts:
+    - host: beta.accounts.jenkins.io
