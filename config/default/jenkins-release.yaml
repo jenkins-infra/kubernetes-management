@@ -3,6 +3,11 @@ jenkins:
   agent:
     componentName: "agent"
   networkPolicy:
+    # As of today, 2020-06-19, network policy is not supported for windows node https://docs.microsoft.com/en-us/azure/aks/windows-node-limitations#are-all-features-supported-with-windows-nodes
+    # This is a blocker for the release environment as in the current state windows containers are not allowed to connect on main Jenkins. 
+    # I disable it for now
+    # enabled: true
+    enabled: false 
     internalAgents:
       allowed: true
       namespaceLabels:
