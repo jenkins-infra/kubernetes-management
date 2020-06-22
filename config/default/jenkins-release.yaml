@@ -151,12 +151,11 @@ jenkins:
                       nodeSelector: "kubernetes.io/os=windows"
                       containers:
                         - name: jnlp
-                          image: "jenkins4eval/jnlp-agent:latest-windows"
+                          image: "jenkins/inbound-agent:windowsservercore-1809"
                           resourceLimitCpu: "500m"
-                          resourceLimitMemory: "512Mi"
+                          resourceLimitMemory: "1024Mi"
                           resourceRequestCpu: "500m"
-                          resourceRequestMemory: "512Mi"
-                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          resourceRequestMemory: "1024Mi"
                           alwaysPullImage: true
                       yaml: |-
                         spec:
