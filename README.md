@@ -1,10 +1,17 @@
 # Jenkins Infrastructure Helm Charts
 
-**This project is still heavily in development**
-
 This repository defines and stores helm charts used by jenkins infrastructure project to configure its clusters.
 
-It also combines a Jenkinsfile, helmfiles and helm charts to automate Kubernetes Cluster configuration.
+It combines a Jenkinsfile, helmfiles and helm charts to automate Kubernetes Cluster configuration.
+
+## Contributing
+
+The Jenkins Infratructure Charts project accepts contributions via GitHub pull requests, more information in [CONTRIBUTING.md](https://github.com/jenkins-infra/charts/blob/master/CONTRIBUTING.md)
+Sign Your Work
+
+## Issues
+
+Any issues can be reported on our [ticket system](https://issues.jenkins-ci.org/projects/INFRA/)
 
 ## Repository Structure
 This project contains three main folders:
