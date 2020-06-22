@@ -6,7 +6,7 @@ ingress:
   labels:
   tls:
     - hosts:
-        - beta.accounts.jenkins.io
+        - accounts.jenkins.io
       secretName: keycloak-public-cert
   hosts:
-    - host: beta.accounts.jenkins.io
+    - host: accounts.jenkins.io
