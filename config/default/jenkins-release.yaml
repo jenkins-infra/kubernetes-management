@@ -226,7 +226,6 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('release')
-                      includes('master')
                     }
                   }
                   factory {
@@ -245,7 +244,6 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('release')
-                      includes('master')
                     }
                   }
                   factory {
@@ -284,7 +282,6 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('release')
-                      includes('master')
                     }
                   }
                   factory {
@@ -303,7 +300,6 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('release')
-                      includes('master')
                     }
                   }
                   factory {
