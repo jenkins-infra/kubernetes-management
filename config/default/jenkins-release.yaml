@@ -202,6 +202,7 @@ jenkins:
                 folder('core/weekly') {
                   displayName('Weekly')
                   description('Folder for weekly releases')
+                  includes('master')
                 }
 
             - script: >
