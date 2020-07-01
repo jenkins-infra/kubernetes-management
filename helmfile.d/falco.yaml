@@ -1,13 +1,13 @@
 repositories:
-  - name: stable
-    url: https://kubernetes-charts.storage.googleapis.com
+- name: stable
+  url: https://kubernetes-charts.storage.googleapis.com
 releases:
-    - name: falco
-      namespace: falco
-      chart: stable/falco
-      version: 1.0.9
-      wait: true
-      timeout: 100
-      atomic: true
-      values:
-        - "../config/default/falco.yaml"
+- name: falco
+  namespace: falco
+  chart: stable/falco
+  version: 1.1.7
+  wait: true
+  timeout: 100
+  atomic: true
+  values:
+  - "../config/default/falco.yaml"
