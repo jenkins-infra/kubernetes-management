@@ -5,7 +5,7 @@ source:
     tag: "latest"
 targets:
   imageTag:
-    name: "Ldap Docker Image"
+    name: "Ldap docker image tag"
     kind: yaml
     spec:
       file: "charts/ldap/values.yaml"

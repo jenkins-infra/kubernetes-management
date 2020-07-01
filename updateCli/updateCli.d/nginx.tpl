@@ -5,7 +5,7 @@ source:
     tag: "1.17"
 targets:
   nginx:
-    name: "Jenkins.io nginx"
+    name: "nginx docker image digest"
     kind: yaml
     spec:
       file: "charts/jenkinsio/values.yaml"

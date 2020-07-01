@@ -14,7 +14,7 @@ conditions:
       image: "jenkinsciinfra/jenkins-wiki-exporter"
 targets:
   imageTag:
-    name: "Docker Image"
+    name: "jenkins-wiki-exporter docker tag"
     kind: yaml
     spec:
       file: "charts/jenkins-wiki-exporter/values.yaml"
@@ -29,7 +29,7 @@ targets:
         username: "{{ .github.username }}"
         branch: "master"
   appVersion:
-    name: "Chart appVersion"
+    name: "jenkins-wiki-exporter appversion"
     kind: yaml
     spec:
       file: "charts/jenkins-wiki-exporter/Chart.yaml"

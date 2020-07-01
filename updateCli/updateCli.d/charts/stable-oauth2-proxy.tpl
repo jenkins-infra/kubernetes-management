@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "stable/oauth2-proxy Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/oauth2-proxy.yaml"

@@ -15,7 +15,7 @@ conditions:
       image: "jenkinsciinfra/plugin-site-api"
 targets:
   imageTag:
-    name: "Docker Image"
+    name: "jenkinsciinfra/plugin-site-api docker image"
     kind: yaml
     spec:
       file: "charts/plugin-site/values.yaml"

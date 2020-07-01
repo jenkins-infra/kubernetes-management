@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "grafana/loki Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/loki.yaml"

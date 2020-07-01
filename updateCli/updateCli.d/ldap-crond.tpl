@@ -5,7 +5,7 @@ source:
     tag: "cron-latest"
 targets:
   imageTag:
-    name: "Ldap Docker Image"
+    name: "Ldap crond docker image digest"
     kind: yaml
     spec:
       file: "charts/ldap/values.yaml"

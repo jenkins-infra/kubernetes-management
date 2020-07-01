@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "stable/prometheus Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/prometheus.yaml"

@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "stable/datadog Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/datadog.yaml"

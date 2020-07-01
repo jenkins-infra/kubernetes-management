@@ -11,10 +11,9 @@ conditions:
     spec:
       url: https://codecentric.github.io/helm-charts
       name: keycloack
-
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "codecentric/keycloak Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/keycloak.yaml"
