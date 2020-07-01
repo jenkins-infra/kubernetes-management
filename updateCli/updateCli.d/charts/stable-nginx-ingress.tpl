@@ -14,7 +14,7 @@ conditions:
 
 targets:
   public-nginx-ingress:
-    name: "stable/nginx-ingress Helm Chart"
+    name: "public stable/nginx-ingress Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/nginx-ingress.yaml"
@@ -29,7 +29,7 @@ targets:
         username: "olblak"
         branch: "master"
   private-nginx-ingress:
-    name: "Helm Chart"
+    name: "private stable/nginx-ingress Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/nginx-ingress.yaml"
