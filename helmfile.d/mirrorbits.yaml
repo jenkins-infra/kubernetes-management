@@ -1,27 +1,25 @@
 repositories:
-  - name: stable
-    url: https://kubernetes-charts.storage.googleapis.com
+- name: stable
+  url: https://kubernetes-charts.storage.googleapis.com
 releases:
-    - name: mirrorbits-database
-      namespace: mirrorbits
-      version: 10.3.4
-      chart: stable/redis
-      wait: true
-      timeout: 600
-      atomic: true
-      values:
-        - "../config/default/mirrorbits-database.yaml"
-      secrets:
-        - "../secrets/config/mirrorbits-database/secrets.yaml"
-
-    - name: mirrorbits
-      namespace: mirrorbits
-      chart: ../charts/mirrorbits
-      wait: true
-      timeout: 600
-      atomic: true
-      values:
-        - "../config/default/mirrorbits.yaml"
-      secrets:
-        - "../secrets/config/mirrorbits/secrets.yaml"
-
+- name: mirrorbits-database
+  namespace: mirrorbits
+  version: 10.5.7
+  chart: stable/redis
+  wait: true
+  timeout: 600
+  atomic: true
+  values:
+  - "../config/default/mirrorbits-database.yaml"
+  secrets:
+  - "../secrets/config/mirrorbits-database/secrets.yaml"
+- name: mirrorbits
+  namespace: mirrorbits
+  chart: ../charts/mirrorbits
+  wait: true
+  timeout: 600
+  atomic: true
+  values:
+  - "../config/default/mirrorbits.yaml"
+  secrets:
+  - "../secrets/config/mirrorbits/secrets.yaml"
