@@ -9,6 +9,7 @@ helmfiles:
   - path: "../helmfile.d/cert-manager.yaml"
   - path: "../helmfile.d/falco.yaml"
   - path: "../helmfile.d/loki.yaml"
+  - path: "../helmfile.d/promtail.yaml"
   - path: "../helmfile.d/grafana.yaml"
   - path: "../helmfile.d/jenkins-wiki-exporter.yaml"
   - path: "../helmfile.d/polls.yaml"
