@@ -15,7 +15,7 @@ conditions:
       image: "jenkins/jenkins"
 targets:
   imageTag:
-    name: "Docker Image"
+    name: "jenkins/jenkins docker tag"
     kind: yaml
     spec:
       file: "charts/jenkins/values.yaml"

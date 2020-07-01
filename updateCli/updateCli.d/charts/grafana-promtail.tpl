@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "grafana/promtail Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/promtail.yaml"

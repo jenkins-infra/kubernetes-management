@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "stable/jenkins Helm Chart"
     kind: yaml
     spec:
       file: "charts/jenkins/requirements.yaml"

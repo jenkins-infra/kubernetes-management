@@ -14,7 +14,7 @@ conditions:
 
 targets:
   public-nginx-ingress:
-    name: "Helm Chart"
+    name: "stable/nginx-ingress Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/nginx-ingress.yaml"

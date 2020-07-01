@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "stable/falco Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/falco.yaml"

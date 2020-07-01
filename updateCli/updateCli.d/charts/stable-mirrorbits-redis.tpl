@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "stable/redis Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/mirrorbits.yaml"

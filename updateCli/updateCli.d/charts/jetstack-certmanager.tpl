@@ -14,7 +14,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "jetstack/cert-manager Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/cert-manager.yaml"

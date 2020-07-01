@@ -14,10 +14,10 @@ conditions:
 
 targets:
   chartVersion:
-    name: "Helm Chart"
+    name: "stable/dex Helm Chart"
     kind: yaml
     spec:
-      file: "helmfile.d/datadog.yaml"
+      file: "helmfile.d/dex.yaml"
       key: "releases[0].version"
     scm:
       github:

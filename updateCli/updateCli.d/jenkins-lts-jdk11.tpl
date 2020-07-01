@@ -5,7 +5,7 @@ source:
     tag: "lts-jdk11"
 targets:
   imageTag:
-    name: "Jenkins Release Docker Image"
+    name: "jenkins/jenkins:lts-jdk11 docker digest"
     kind: yaml
     spec:
       file: "config/default/jenkins-release.yaml"
