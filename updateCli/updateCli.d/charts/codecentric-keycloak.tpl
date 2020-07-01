@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://kubernetes-charts.storage.googleapis.com
+    url: https://codecentric.github.io/helm-charts
     name: keycloak
 
 conditions:
@@ -9,7 +9,7 @@ conditions:
     name: "Keycloack helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://codecentric.github.io/helm-charts
       name: keycloack
 
 targets:
