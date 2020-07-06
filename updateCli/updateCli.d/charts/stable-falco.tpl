@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://kubernetes-charts.storage.googleapis.com
+    url: https://hub.helm.sh/charts
     name: falco
 
 conditions:
@@ -9,7 +9,7 @@ conditions:
     name: "Falco helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://hub.helm.sh/charts
       name: falco
 
 targets:
