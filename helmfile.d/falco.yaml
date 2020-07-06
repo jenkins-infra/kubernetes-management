@@ -1,11 +1,11 @@
 repositories:
 - name: stable
-  url: https://kubernetes-charts.storage.googleapis.com
+  url: https://hub.helm.sh/charts
 releases:
 - name: falco
   namespace: falco
   chart: stable/falco
-  version: 1.1.7
+  version: 0.21.0
   wait: true
   timeout: 100
   atomic: true
