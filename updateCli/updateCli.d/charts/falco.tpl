@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://hub.helm.sh/charts
+    url: https://falcosecurity.github.io/charts
     name: falco
 
 conditions:
@@ -9,10 +9,10 @@ conditions:
     name: "Falco helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://hub.helm.sh/charts
+      url: https://falcosecurity.github.io/charts
       name: falco
   helmfileRelease:
-    name: "stable/falco Helm Chart"
+    name: "falco/falco Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/falco.yaml"
@@ -30,7 +30,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "stable/falco Helm Chart"
+    name: "falco/falco Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/falco.yaml"
