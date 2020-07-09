@@ -8,8 +8,8 @@ source:
     username: "olblak"
     version: "latest"
 conditions: 
-  # Ensure that container template name 'updatecli' is correctly defined in the PodTemplate
-  # and also that's defined in array location 1, as needed for the target 
+  # Ensure that a container name 'updatecli' is correctly defined in the PodTemplate
+  # and located in the array position spec.containers[1], as needed for the target 
   containerSpec:
     name: "Updatecli"
     kind: yaml
@@ -26,7 +26,7 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "master"
-    # Ensure that a docker image for the latest version is available on dockerhub
+    # Ensure that a docker image tag matching the value retrieved from the latest Github Release is available on dockerhub
   docker:
     name: "Docker Image Published on Registry"
     kind: dockerImage
