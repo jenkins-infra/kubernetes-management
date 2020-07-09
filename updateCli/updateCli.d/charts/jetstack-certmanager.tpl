@@ -11,7 +11,22 @@ conditions:
     spec:
       url: https://charts.jetstack.io
       name: cert-manager
-
+  helmfileRelease:
+    name: "jetstack/cert-manager Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/cert-manager.yaml"
+      key: "releases[0].name"
+      value: "cert-manager"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
 targets:
   chartVersion:
     name: "jetstack/cert-manager Helm Chart"
@@ -21,10 +36,10 @@ targets:
       key: "releases[0].version"
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
-        username: "olblak"
-        branch: "master"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
