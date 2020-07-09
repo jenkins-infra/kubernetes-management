@@ -1,10 +1,10 @@
 repositories:
-- name: stable
-  url: https://hub.helm.sh/charts
+- name: falco
+  url: https://falcosecurity.github.io/charts
 releases:
 - name: falco
   namespace: falco
-  chart: stable/falco
+  chart: falco/falco
   version: 0.21.0
   wait: true
   timeout: 100
