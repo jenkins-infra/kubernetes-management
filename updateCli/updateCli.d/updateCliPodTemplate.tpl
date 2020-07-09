@@ -37,6 +37,7 @@ targets:
   imageTag:
     name: "Updatecli"
     kind: yaml
+    prefix: "olblak/updatecli:"
     spec:
       file: "PodTemplates.yaml"
       prefix: "olblak/updatecli:"
