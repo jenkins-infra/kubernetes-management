@@ -3,3 +3,6 @@ github:
   email: "updatebot@olblak.com"
   username: "olblak"
   token: "UPDATECLI_GITHUB_TOKEN" 
+  branch: "master"
+  owner: "jenkins-infra"
+  repository: "charts"

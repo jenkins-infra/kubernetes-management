@@ -11,7 +11,38 @@ conditions:
     spec:
       url: https://kubernetes-charts.storage.googleapis.com
       name: nginx-ingress
-
+  publicHelmfileRelease:
+    name: "public stable/nginx-ingress Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/nginx-ingress.yaml"
+      key: "releases[0].name"
+      value:  "public-nginx-ingress"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  privateHelmfileRelease:
+    name: "private stable/nginx-ingress Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/nginx-ingress.yaml"
+      key: "releases[1].name"
+      value: "private-nginx-ingress"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
 targets:
   public-nginx-ingress:
     name: "public stable/nginx-ingress Helm Chart"
@@ -21,13 +52,13 @@ targets:
       key: "releases[0].version"
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
-        username: "olblak"
-        branch: "master"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
   private-nginx-ingress:
     name: "private stable/nginx-ingress Helm Chart"
     kind: yaml
@@ -36,10 +67,10 @@ targets:
       key: "releases[1].version"
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
-        username: "olblak"
-        branch: "master"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

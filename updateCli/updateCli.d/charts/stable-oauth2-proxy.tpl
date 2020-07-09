@@ -11,6 +11,22 @@ conditions:
     spec:
       url: https://kubernetes-charts.storage.googleapis.com
       name: oauth2-proxy
+  helmfileRelease:
+    name: "stable/oauth2-proxy Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/oauth2-proxy.yaml"
+      key: "releases[0].name"
+      value: "oauth2-proxy"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
 
 targets:
   chartVersion:
@@ -21,10 +37,10 @@ targets:
       key: "releases[0].version"
     scm:
       github:
-        user: "updatecli"
-        email: "updatecli@olblak.com"
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
-        username: "olblak"
-        branch: "master"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
