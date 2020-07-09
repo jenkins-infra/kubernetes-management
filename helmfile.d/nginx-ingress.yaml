@@ -38,7 +38,7 @@ releases:
 - name: private-nginx-ingress
   chart: stable/nginx-ingress
   namespace: kube-system
-  version: 1.40.2
+  version: 1.40.3
   wait: true
   timeout: 300
   atomic: true
