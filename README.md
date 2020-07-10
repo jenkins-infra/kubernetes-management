@@ -44,12 +44,14 @@ we can run following command: ```kubectl apply -f helm/rbac.yaml```
 
 ## Minikube
 
+```
 minikube start --kubernetes-version v1.15.11
 minikube addons enable ingress
 helm install stable/nginx-ingress nginx-ingress, we can't install the ingress defined in this repository for testing servers
 kubectl -n release port-forward default-release-jenkins-77fd54976f-ns2c6 8081:8080
 
 kubectl get secrets -n release  default-release-jenkins -o json
+```
 
 ## Links
 * [Helmfile](https://github.com/roboll/helmfile)
