@@ -1,18 +1,17 @@
----
 dependencies:
-    - name: jenkins
-      repository: https://kubernetes-charts.storage.googleapis.com
-      version: 1.27.0
-      import-values:
-          - child: jenkins.master
-            parent: master
-          - child: jenkins.agent
-            parent: agent
-          - child: jenkins.persistence
-            parent: persistence
-          - child: jenkins.serviceAccount
-            parent: serviceAccount
-          - child: jenkins.rbac
-            parent: rbac
-          - child: jenkins.networkPolicy
-            parent: networkPolicy
+- name: jenkins
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 2.3.3
+  import-values:
+  - child: jenkins.master
+    parent: master
+  - child: jenkins.agent
+    parent: agent
+  - child: jenkins.persistence
+    parent: persistence
+  - child: jenkins.serviceAccount
+    parent: serviceAccount
+  - child: jenkins.rbac
+    parent: rbac
+  - child: jenkins.networkPolicy
+    parent: networkPolicy
