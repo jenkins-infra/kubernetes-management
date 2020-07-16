@@ -1,12 +1,12 @@
 releases:
-    - name: oauth2-proxy
-      chart: stable/oauth2-proxy
-      namespace: proxy
-      version: 3.2.0
-      wait: true
-      timeout: 300
-      atomic: true
-      values:
-        - "../config/default/oauth2-proxy.yaml"
-      secrets:
-        - "../secrets/config/oauth2-proxy/secrets.yaml"
+- name: oauth2-proxy
+  chart: stable/oauth2-proxy
+  namespace: proxy
+  version: 3.2.1
+  wait: true
+  timeout: 300
+  atomic: true
+  values:
+  - "../config/default/oauth2-proxy.yaml"
+  secrets:
+  - "../secrets/config/oauth2-proxy/secrets.yaml"
