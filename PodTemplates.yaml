@@ -59,7 +59,7 @@ spec:
     env:
     - name: "HOME"
       value: "/home/helm"
-    image: "olblak/updatecli:v0.0.14"
+    image: "olblak/updatecli:v0.0.15"
     imagePullPolicy: "Always"
     name: "updatecli"
     resources:
