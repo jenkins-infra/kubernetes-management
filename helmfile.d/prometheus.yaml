@@ -7,7 +7,7 @@ releases:
   chart: stable/prometheus
   wait: true
   timeout: 600
-  version: 11.8.0
+  version: 11.9.0
   force: true
   atomic: true
   values:
