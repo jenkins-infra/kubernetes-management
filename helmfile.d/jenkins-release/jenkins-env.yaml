@@ -13,6 +13,6 @@ releases:
   - name: default-release-jenkins-env
     chart: ../../charts/env-jenkins-release
     namespace: release
-    force: true
+    force: false
     values: 
     - {{ .Values | toYaml | nindent 6 -}}

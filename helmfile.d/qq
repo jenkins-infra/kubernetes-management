@@ -1,0 +1,263 @@
+[1mdiff --git a/updateCli/updateCli.d/charts/codecentric-keycloak.tpl b/updateCli/updateCli.d/charts/codecentric-keycloak.tpl[m
+[1mindex 918ea8d..8e0a3cc 100644[m
+[1m--- a/updateCli/updateCli.d/charts/codecentric-keycloak.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/codecentric-keycloak.tpl[m
+[36m@@ -11,10 +11,9 @@[m [mconditions:[m
+     spec:[m
+       url: https://codecentric.github.io/helm-charts[m
+       name: keycloack[m
+[31m-[m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "codecentric/keycloak Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/keycloak.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/dex.tpl b/updateCli/updateCli.d/charts/dex.tpl[m
+[1mindex 125699e..5b66f29 100644[m
+[1m--- a/updateCli/updateCli.d/charts/dex.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/dex.tpl[m
+[36m@@ -14,10 +14,10 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/dex Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+[31m-      file: "helmfile.d/datadog.yaml"[m
+[32m+[m[32m      file: "helmfile.d/dex.yaml"[m
+       key: "releases[0].version"[m
+     scm:[m
+       github:[m
+[1mdiff --git a/updateCli/updateCli.d/charts/grafana-loki.tpl b/updateCli/updateCli.d/charts/grafana-loki.tpl[m
+[1mindex 2f73449..461b76e 100644[m
+[1m--- a/updateCli/updateCli.d/charts/grafana-loki.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/grafana-loki.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "grafana/loki Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/loki.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/grafana-promtail.tpl b/updateCli/updateCli.d/charts/grafana-promtail.tpl[m
+[1mindex 6018014..f74d925 100644[m
+[1m--- a/updateCli/updateCli.d/charts/grafana-promtail.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/grafana-promtail.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "grafana/promtail Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/promtail.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/jetstack-certmanager.tpl b/updateCli/updateCli.d/charts/jetstack-certmanager.tpl[m
+[1mindex 6daf403..c8d9800 100644[m
+[1m--- a/updateCli/updateCli.d/charts/jetstack-certmanager.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/jetstack-certmanager.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "jetstack/cert-manager Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/cert-manager.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/prometheus.tpl b/updateCli/updateCli.d/charts/prometheus.tpl[m
+[1mindex 9ed563b..92bc890 100644[m
+[1m--- a/updateCli/updateCli.d/charts/prometheus.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/prometheus.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/prometheus Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/prometheus.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/stable-datadog.tpl b/updateCli/updateCli.d/charts/stable-datadog.tpl[m
+[1mindex b781102..5a3fcb3 100644[m
+[1m--- a/updateCli/updateCli.d/charts/stable-datadog.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/stable-datadog.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/datadog Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/datadog.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/stable-falco.tpl b/updateCli/updateCli.d/charts/stable-falco.tpl[m
+[1mindex 72aa71e..8b0d820 100644[m
+[1m--- a/updateCli/updateCli.d/charts/stable-falco.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/stable-falco.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/falco Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/falco.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/stable-jenkins.tpl b/updateCli/updateCli.d/charts/stable-jenkins.tpl[m
+[1mindex b824729..b65433f 100644[m
+[1m--- a/updateCli/updateCli.d/charts/stable-jenkins.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/stable-jenkins.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/jenkins Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/jenkins/requirements.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/stable-mirrorbits-redis.tpl b/updateCli/updateCli.d/charts/stable-mirrorbits-redis.tpl[m
+[1mindex 7903852..772275b 100644[m
+[1m--- a/updateCli/updateCli.d/charts/stable-mirrorbits-redis.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/stable-mirrorbits-redis.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/redis Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/mirrorbits.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/stable-nginx-ingress.tpl b/updateCli/updateCli.d/charts/stable-nginx-ingress.tpl[m
+[1mindex d5c2bf4..3928b38 100644[m
+[1m--- a/updateCli/updateCli.d/charts/stable-nginx-ingress.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/stable-nginx-ingress.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   public-nginx-ingress:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/nginx-ingress Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/nginx-ingress.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/charts/stable-oauth2-proxy.tpl b/updateCli/updateCli.d/charts/stable-oauth2-proxy.tpl[m
+[1mindex 4376b2b..184edd9 100644[m
+[1m--- a/updateCli/updateCli.d/charts/stable-oauth2-proxy.tpl[m
+[1m+++ b/updateCli/updateCli.d/charts/stable-oauth2-proxy.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+ [m
+ targets:[m
+   chartVersion:[m
+[31m-    name: "Helm Chart"[m
+[32m+[m[32m    name: "stable/oauth2-proxy Helm Chart"[m
+     kind: yaml[m
+     spec:[m
+       file: "helmfile.d/oauth2-proxy.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/jenkins-lts-jdk11.tpl b/updateCli/updateCli.d/jenkins-lts-jdk11.tpl[m
+[1mindex baf1dc0..44af130 100644[m
+[1m--- a/updateCli/updateCli.d/jenkins-lts-jdk11.tpl[m
+[1m+++ b/updateCli/updateCli.d/jenkins-lts-jdk11.tpl[m
+[36m@@ -5,7 +5,7 @@[m [msource:[m
+     tag: "lts-jdk11"[m
+ targets:[m
+   imageTag:[m
+[31m-    name: "Jenkins Release Docker Image"[m
+[32m+[m[32m    name: "jenkins/jenkins:lts-jdk11 docker digest"[m
+     kind: yaml[m
+     spec:[m
+       file: "config/default/jenkins-release.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/jenkins-weekly-jdk11.tpl b/updateCli/updateCli.d/jenkins-weekly-jdk11.tpl[m
+[1mindex 92ba376..290f3b6 100644[m
+[1m--- a/updateCli/updateCli.d/jenkins-weekly-jdk11.tpl[m
+[1m+++ b/updateCli/updateCli.d/jenkins-weekly-jdk11.tpl[m
+[36m@@ -15,7 +15,7 @@[m [mconditions:[m
+       image: "jenkins/jenkins"[m
+ targets:[m
+   imageTag:[m
+[31m-    name: "Docker Image"[m
+[32m+[m[32m    name: "jenkins/jenkins docker tag"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/jenkins/values.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/jenkins-wiki-exporter.tpl b/updateCli/updateCli.d/jenkins-wiki-exporter.tpl[m
+[1mindex 20f3ba0..04488b2 100644[m
+[1m--- a/updateCli/updateCli.d/jenkins-wiki-exporter.tpl[m
+[1m+++ b/updateCli/updateCli.d/jenkins-wiki-exporter.tpl[m
+[36m@@ -14,7 +14,7 @@[m [mconditions:[m
+       image: "jenkinsciinfra/jenkins-wiki-exporter"[m
+ targets:[m
+   imageTag:[m
+[31m-    name: "Docker Image"[m
+[32m+[m[32m    name: "jenkins-wiki-exporter docker tag"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/jenkins-wiki-exporter/values.yaml"[m
+[36m@@ -29,7 +29,7 @@[m [mtargets:[m
+         username: "{{ .github.username }}"[m
+         branch: "master"[m
+   appVersion:[m
+[31m-    name: "Chart appVersion"[m
+[32m+[m[32m    name: "jenkins-wiki-exporter appversion"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/jenkins-wiki-exporter/Chart.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/ldap-crond.tpl b/updateCli/updateCli.d/ldap-crond.tpl[m
+[1mindex 24585ff..2a84d7c 100644[m
+[1m--- a/updateCli/updateCli.d/ldap-crond.tpl[m
+[1m+++ b/updateCli/updateCli.d/ldap-crond.tpl[m
+[36m@@ -5,7 +5,7 @@[m [msource:[m
+     tag: "cron-latest"[m
+ targets:[m
+   imageTag:[m
+[31m-    name: "Ldap Docker Image"[m
+[32m+[m[32m    name: "Ldap crond docker image digest"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/ldap/values.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/ldap-slapd.tpl b/updateCli/updateCli.d/ldap-slapd.tpl[m
+[1mindex 44c2cbb..6342161 100644[m
+[1m--- a/updateCli/updateCli.d/ldap-slapd.tpl[m
+[1m+++ b/updateCli/updateCli.d/ldap-slapd.tpl[m
+[36m@@ -5,7 +5,7 @@[m [msource:[m
+     tag: "latest"[m
+ targets:[m
+   imageTag:[m
+[31m-    name: "Ldap Docker Image"[m
+[32m+[m[32m    name: "Ldap docker image tag"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/ldap/values.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/nginx.tpl b/updateCli/updateCli.d/nginx.tpl[m
+[1mindex 9b923ef..be4ea0c 100644[m
+[1m--- a/updateCli/updateCli.d/nginx.tpl[m
+[1m+++ b/updateCli/updateCli.d/nginx.tpl[m
+[36m@@ -5,7 +5,7 @@[m [msource:[m
+     tag: "1.17"[m
+ targets:[m
+   nginx:[m
+[31m-    name: "Jenkins.io nginx"[m
+[32m+[m[32m    name: "nginx docker image digest"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/jenkinsio/values.yaml"[m
+[1mdiff --git a/updateCli/updateCli.d/pluginsite.tpl b/updateCli/updateCli.d/pluginsite.tpl[m
+[1mindex 4587125..3a90b09 100644[m
+[1m--- a/updateCli/updateCli.d/pluginsite.tpl[m
+[1m+++ b/updateCli/updateCli.d/pluginsite.tpl[m
+[36m@@ -15,7 +15,7 @@[m [mconditions:[m
+       image: "jenkinsciinfra/plugin-site-api"[m
+ targets:[m
+   imageTag:[m
+[31m-    name: "Docker Image"[m
+[32m+[m[32m    name: "jenkinsciinfra/plugin-site-api docker image"[m
+     kind: yaml[m
+     spec:[m
+       file: "charts/plugin-site/values.yaml"[m

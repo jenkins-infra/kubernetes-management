@@ -7,7 +7,7 @@ releases:
       namespace: dex
       wait: true
       timeout: 300
-      force: true
+      force: false
       atomic: true
       values:
         - "../config/default/dex.yaml"
