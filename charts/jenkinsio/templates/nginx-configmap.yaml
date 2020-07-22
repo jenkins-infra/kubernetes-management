@@ -36,7 +36,7 @@ data:
         add_header Cache-Control "public";
       }
 
-      location ~* \.(html)$ {
+      location ~* \.(html|json|xml)$ {
         expires 1h;
         add_header Cache-Control "public";
       }
