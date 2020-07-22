@@ -7,14 +7,14 @@ jenkins:
     # This is a blocker for the release environment as in the current state windows containers are not allowed to connect on main Jenkins. 
     # I disable it for now
     # enabled: true
-    enabled: false 
+    enabled: false
     internalAgents:
       allowed: true
       namespaceLabels:
         name: "release"
   master:
     image: jenkins/jenkins@sha256
-    imageTag: 841489e4beaa8c5c02cfa8a76da0bc1ad84b8d5786b7cf42817c670953873622
+    imageTag: dfe766e539dc2f47600229c7ed5bb7950b34d2c61f1ae240ef9393cbc0df6e68
     JCasC:
       enabled: true
       configScripts:
