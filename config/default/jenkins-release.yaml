@@ -194,6 +194,17 @@ jenkins:
                       scriptPath('Jenkinsfile.d/components/remoting')
                     }
                   }
+                  configure {
+                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                            properties(class: 'java.util.Arrays$ArrayList') {
+                                a(class: 'jenkins.branch.BranchProperty-array') {
+                                    'jenkins.branch.NoTriggerBranchProperty'()
+                                }
+                            }
+                        }
+                    }
+                  }
                 }
 
             - script: >
@@ -237,6 +248,17 @@ jenkins:
                       scriptPath('Jenkinsfile.d/core/package')
                     }
                   }
+                  configure {
+                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                            properties(class: 'java.util.Arrays$ArrayList') {
+                                a(class: 'jenkins.branch.BranchProperty-array') {
+                                    'jenkins.branch.NoTriggerBranchProperty'()
+                                }
+                            }
+                        }
+                    }
+                  }
                 }
             - script: >
                 multibranchPipelineJob('core/release') {
@@ -253,6 +275,17 @@ jenkins:
                   factory {
                     workflowBranchProjectFactory {
                       scriptPath('Jenkinsfile.d/core/release')
+                    }
+                  }
+                  configure {
+                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                            properties(class: 'java.util.Arrays$ArrayList') {
+                                a(class: 'jenkins.branch.BranchProperty-array') {
+                                    'jenkins.branch.NoTriggerBranchProperty'()
+                                }
+                            }
+                        }
                     }
                   }
                 }
@@ -275,6 +308,17 @@ jenkins:
                       scriptPath('Jenkinsfile.d/core/weekly')
                     }
                   }
+                  configure {
+                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                            properties(class: 'java.util.Arrays$ArrayList') {
+                                a(class: 'jenkins.branch.BranchProperty-array') {
+                                    'jenkins.branch.NoTriggerBranchProperty'()
+                                }
+                            }
+                        }
+                    }
+                  }
                 }
             - script: >
                 multibranchPipelineJob('core/stable/release') {
@@ -291,6 +335,17 @@ jenkins:
                   factory {
                     workflowBranchProjectFactory {
                       scriptPath('Jenkinsfile.d/core/stable')
+                    }
+                  }
+                  configure {
+                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                            properties(class: 'java.util.Arrays$ArrayList') {
+                                a(class: 'jenkins.branch.BranchProperty-array') {
+                                    'jenkins.branch.NoTriggerBranchProperty'()
+                                }
+                            }
+                        }
                     }
                   }
                 }
@@ -311,6 +366,18 @@ jenkins:
                       scriptPath('Jenkinsfile.d/core/security')
                     }
                   }
+                  configure {
+                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                            properties(class: 'java.util.Arrays$ArrayList') {
+                                a(class: 'jenkins.branch.BranchProperty-array') {
+                                    'jenkins.branch.NoTriggerBranchProperty'()
+                                }
+                            }
+                        }
+                    }
+                  }
+
                 }
         ldap-settings: |
           jenkins:
