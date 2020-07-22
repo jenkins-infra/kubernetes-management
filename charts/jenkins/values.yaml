@@ -48,7 +48,6 @@ jenkins:
     - branch-api
     - build-name-setter
     - configuration-as-code
-    - configuration-as-code-support
     - config-file-provider
     - credentials-binding
     - credentials
@@ -73,7 +72,6 @@ jenkins:
     - pipeline-input-step
     - pipeline-milestone-step
     - pipeline-model-api
-    - pipeline-model-declarative-agent
     - pipeline-model-definition
     - pipeline-model-extensions
     - pipeline-rest-api
