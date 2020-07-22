@@ -15,9 +15,6 @@ jenkins:
   master:
     image: jenkins/jenkins@sha256
     imageTag: dfe766e539dc2f47600229c7ed5bb7950b34d2c61f1ae240ef9393cbc0df6e68
-    sidecars:
-      configAutoReload:
-        enabled: false # While INFRA-2674 is not done
     JCasC:
       enabled: true
       defaultConfig: false
