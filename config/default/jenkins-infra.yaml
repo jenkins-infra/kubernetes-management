@@ -10,6 +10,7 @@ jenkins:
     master:
         JCasC:
             enabled: true
+            defaultConfig: false
             configScripts:
               credentials : |
                 credentials:

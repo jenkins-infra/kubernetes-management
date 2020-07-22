@@ -4,7 +4,7 @@ releases:
       chart: ../charts/plugin-site
       wait: true
       timeout: 300
-      force: true
+      force: false
       atomic: true
       values:
         - "../config/default/plugin-site.yaml"

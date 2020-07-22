@@ -8,7 +8,7 @@ releases:
   wait: true
   timeout: 600
   version: 11.9.1
-  force: true
+  force: false
   atomic: true
   values:
   - "../config/default/prometheus.yaml"

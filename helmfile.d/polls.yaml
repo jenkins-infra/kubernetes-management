@@ -1,6 +1,6 @@
 helmDefaults:
   atomic: true
-  force: true
+  force: false
   timeout: 300
   wait: true
 

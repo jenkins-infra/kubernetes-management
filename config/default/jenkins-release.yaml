@@ -17,6 +17,7 @@ jenkins:
     imageTag: dfe766e539dc2f47600229c7ed5bb7950b34d2c61f1ae240ef9393cbc0df6e68
     JCasC:
       enabled: true
+      defaultConfig: false
       configScripts:
         credentials: |
           credentials:

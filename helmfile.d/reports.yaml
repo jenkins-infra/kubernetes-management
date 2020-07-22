@@ -4,7 +4,7 @@ releases:
       chart: ../charts/reports
       wait: true
       timeout: 300
-      force: true
+      force: false
       atomic: true
       values:
         - "../config/default/reports.yaml"
