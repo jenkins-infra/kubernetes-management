@@ -223,12 +223,6 @@ jenkins:
                 }
 
             - script: >
-                folder('core/security') {
-                  displayName('Security')
-                  description('Folder for weekly releases')
-                }
-
-            - script: >
                 multibranchPipelineJob('core/package') {
                   displayName "Core Package"
                   description "Jenkins Core Packaging"
@@ -345,36 +339,6 @@ jenkins:
                         }
                     }
                   }
-                }
-            - script: >
-                multibranchPipelineJob('core/security/release') {
-                  displayName "Release"
-                  description "Jenkins Core Release"
-                  branchSources {
-                    github {
-                      id('2019092402')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('release')
-                    }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile.d/core/security')
-                    }
-                  }
-                  configure {
-                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
-                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
-                            properties(class: 'java.util.Arrays$ArrayList') {
-                                a(class: 'jenkins.branch.BranchProperty-array') {
-                                    'jenkins.branch.NoTriggerBranchProperty'()
-                                }
-                            }
-                        }
-                    }
-                  }
-
                 }
         ldap-settings: |
           jenkins:
