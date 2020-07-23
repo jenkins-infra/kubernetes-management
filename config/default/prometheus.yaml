@@ -5,6 +5,9 @@ server:
   retention: "90d"
   statefulSet:
     enabled: true
+alertmanager:
+  statefulSet:
+    enabled: true
 extraScrapeConfigs: |
   - job_name: 'release-jenkins'
     metrics_path: /prometheus

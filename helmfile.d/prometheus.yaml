@@ -6,9 +6,9 @@ releases:
   namespace: prometheus
   chart: stable/prometheus
   wait: true
-  timeout: 600
+  timeout: 300
   version: 11.10.0
   force: false
-  atomic: true
+  atomic: false
   values:
   - "../config/default/prometheus.yaml"
