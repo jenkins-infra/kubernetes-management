@@ -1,28 +1,27 @@
 repositories:
-  - name: codecentric
-    url: https://codecentric.github.io/helm-charts
+- name: codecentric
+  url: https://codecentric.github.io/helm-charts
 releases:
-    # Admin
-    # https://admin.accounts.jenkins.io/auth/admin
-    - name: keycloak
-      namespace: keycloak
-      chart: codecentric/keycloak
-      version: 8.2.2
-      wait: true
-      timeout: 300
-      atomic: true
-      values:
-        - "../config/default/keycloak.yaml"
-      secrets:
-        - "../secrets/config/keycloak/secrets.yaml"
-
-    # User
-    # https://admin.accounts.jenkins.io/auth/realms/jenkins/account
-    - name: keycloak-public
-      namespace: keycloak
-      chart: ../charts/keycloak
-      wait: true
-      timeout: 150
-      atomic: true
-      values:
-        - "../config/default/keycloak-public.yaml"
+- # Admin
+  # https://admin.accounts.jenkins.io/auth/admin
+  name: keycloak
+  namespace: keycloak
+  chart: codecentric/keycloak
+  version: 9.0.0
+  wait: true
+  timeout: 300
+  atomic: true
+  values:
+  - "../config/default/keycloak.yaml"
+  secrets:
+  - "../secrets/config/keycloak/secrets.yaml"
+- # User
+  # https://admin.accounts.jenkins.io/auth/realms/jenkins/account
+  name: keycloak-public
+  namespace: keycloak
+  chart: ../charts/keycloak
+  wait: true
+  timeout: 150
+  atomic: true
+  values:
+  - "../config/default/keycloak-public.yaml"
