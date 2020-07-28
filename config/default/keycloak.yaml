@@ -1,45 +1,44 @@
-keycloak:
-  replicas: 2
-  ingress:
-    enabled: true
-    annotations: 
-      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-      "kubernetes.io/ingress.class": "nginx"
-      "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-    labels:
-    tls:
-      - hosts:
-          - admin.accounts.jenkins.io
-        secretName: keycloak-cert
-    path: "/"
-    hosts:
-      - admin.accounts.jenkins.io
-  extraInitContainers: |
-    - name: theme-provider
-      image: jenkinsciinfra/keycloak-theme:0.0.1
-      imagePullPolicy: IfNotPresent
-      command:
-        - sh
-      args:
-        - -c
-        - |
-          echo "Copying theme..."
-          cp -R /jenkins/* /theme
-      volumeMounts:
-        - name: theme
-          mountPath: /theme
+replicas: 2
+ingress:
+  enabled: true
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "nginx"
+    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+  labels:
+  tls:
+    - hosts:
+        - admin.accounts.jenkins.io
+      secretName: keycloak-cert
+  path: "/"
+  hosts:
+    - admin.accounts.jenkins.io
+extraInitContainers: |
+  - name: theme-provider
+    image: jenkinsciinfra/keycloak-theme:0.0.1
+    imagePullPolicy: IfNotPresent
+    command:
+      - sh
+    args:
+      - -c
+      - |
+        echo "Copying theme..."
+        cp -R /jenkins/* /theme
+    volumeMounts:
+      - name: theme
+        mountPath: /theme
 
-  extraVolumeMounts: |
-    - name: theme
-      mountPath: /opt/jboss/keycloak/themes/jenkins
+extraVolumeMounts: |
+  - name: theme
+    mountPath: /opt/jboss/keycloak/themes/jenkins
 
-  extraVolumes: |
-    - name: theme
-      emptyDir: {}
-  resources:
-    limits:
-      cpu: 1000m
-      memory: 2048Mi
-    requests:
-      cpu: 1000m
-      memory: 2048Mi
+extraVolumes: |
+  - name: theme
+    emptyDir: {}
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2048Mi
+  requests:
+    cpu: 1000m
+    memory: 2048Mi
