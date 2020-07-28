@@ -47,6 +47,16 @@ jenkins:
                       description: Azure Service Principale tenant id used to retrieve gpg key
                   - string:
                       scope: GLOBAL
+                      id: "fastly-api-token"
+                      secret: "${FASTLY_API_TOKEN}"
+                      description: Fastly api token used to purge pkg.jenkins.io cache
+                  - string:
+                      scope: GLOBAL
+                      id: "fastly_pkgserver_service_id"
+                      secret: "${FASTLY_PKGSERVER_SERVICE_ID}"
+                      description: Fastly pkgserver service id used for invalidating pkg.jenkins.io
+                  - string:
+                      scope: GLOBAL
                       id: "release-gpg-passphrase"
                       secret: "${RELEASE_GPG_PASSPHRASE}"
                       description: Release GPG Key passphrase
