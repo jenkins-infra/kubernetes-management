@@ -11,6 +11,9 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        # subpath secrets don't get updates, and we want to restart on change anyways
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       labels: {{ include "plugin-site.labels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
@@ -26,16 +29,13 @@ spec:
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           env:
-            - name: GITHUB_CLIENT_ID
+            - name: GITHUB_APP_ID
               valueFrom:
                 secretKeyRef:
                   name: {{ include "plugin-site.fullname" . }}
-                  key: github_client_id
-            - name: GITHUB_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "plugin-site.fullname" . }}
-                  key: github_client_secret
+                  key: github_app_id
+            - name: GITHUB_APP_PRIVATE_KEY
+              value: /secrets/github_app_key
             - name: JIRA_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -55,6 +55,10 @@ spec:
  {{- end }}
             - name: DATA_FILE_URL
               value: {{ .Values.dataFileUrl }}
+          volumeMounts:
+            - mountPath: /secrets/github_app_key
+              name: secrets
+              subPath: github_app_key
           ports:
               - name: backend
                 containerPort: {{ .Values.backend.port }}
@@ -87,3 +91,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      volumes:
+        - name: secrets
+          secret:
+            secretName: {{ include "plugin-site.fullname" . }}
