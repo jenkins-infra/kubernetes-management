@@ -14,11 +14,15 @@ helm upgrade  -f values.yaml -f values.local.yaml  plugin-site .
 
 You need to define some configuration locally in a separate values file
 
+Make sure your pem key is converted from the format given by the website to pks#8
+
+openssl pkcs8 -topk8 -inform PEM -outform PEM -in devpluginsjenkinsio.2020-07-28.private-key.pem -out githubapp.pem -nocrypt
+
 Here's an example `values.local.yaml` file:
 ```yaml
 github:
-  clientId: <your-github-username>
-  clientSecret: <your-github-api-token>
+  appId: <your github app id>
+  appPrivateKey: <your github app key>
 
 ingress:
   enabled: true
@@ -27,8 +31,6 @@ ingress:
   hosts:
     - host: plugins-local.jenkins.io
 
-restApiUrl: http://plugins-local.jenkins.io/api
-
 # Should point to somewhere where the plugin-site's built public directory is
 htmlVolume:
   hostPath:
@@ -36,7 +38,7 @@ htmlVolume:
 
 ```
 
-The `ingress host` and the `restApiUrl` need to be reachable from both your desktop and from the k8s cluster
+The `ingress host` need to be reachable from both your desktop and from the k8s cluster
 
 ### Minikube gotchas
 

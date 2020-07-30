@@ -4,4 +4,5 @@ description: A Helm chart for plugins.jenkins.io
 name: plugin-site
 maintainers:
   - name: timja
-version: 0.0.1
+  - name: halkeye
+version: 0.0.3
