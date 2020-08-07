@@ -241,6 +241,8 @@ data:
         #   AllowOverride FileInfo AuthConfig Limit
         #
         AllowOverride FileInfo
+
+        IndexOrderDefault Descending Name
     
         #
         # Controls who can get stuff from this server.

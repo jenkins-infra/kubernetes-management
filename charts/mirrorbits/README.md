@@ -7,6 +7,14 @@ A "Quick Start" is available on [etix/mirrorbits](repository)
 Docker image used in this chart is defined from [olblak/mirrorbits](https://github.com/olblak/mirrorbits)
 
 
+Parameters can be added to a file url to display various information like:
+```
+https://get.jenkins.io/windows/2.251/jenkins.msi.sha256?mirrorlist
+https://get.jenkins.io/windows/2.251/jenkins.msi.sha256?mirrorstats
+https://get.jenkins.io/windows/2.251/jenkins.msi.sha256?stats
+```
+
+
 ## Settings
 
 ```
