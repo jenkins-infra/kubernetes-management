@@ -37,10 +37,10 @@ resources:
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
     cpu: 300m
-    memory: 128Mi
+    memory: 256Mi
   requests:
     cpu: 100m
-    memory: 128Mi
+    memory: 256Mi
 nodeSelector: {}
 tolerations: []
 affinity: {}
