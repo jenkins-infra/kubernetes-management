@@ -40,6 +40,11 @@ spec:
                 secretKeyRef:
                   name: {{ include "jenkins-wiki-exporter.fullname" . }}
                   key: github_token
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "jenkins-wiki-exporter.fullname" . }}
+                  key: sentry_dsn
           ports:
             - name: http
               containerPort: 3000

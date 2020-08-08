@@ -13,8 +13,9 @@ fullnameOverride: ""
 service:
   type: ClusterIP
   port: 80
+ingress:
+  enabled: false
 # Please define ingress settings into environment variable
-#ingress:
 #  enabled: true
 #  annotations:
 #    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
@@ -47,3 +48,7 @@ affinity: {}
 confluence:
   username: ""
   password: ""
+github:
+  token:
+sentry:
+  dsn:
