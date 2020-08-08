@@ -148,6 +148,24 @@ jenkins:
                           }
                         }
                       }
+                  - script: >
+                      multibranchPipelineJob('jenkins-wiki-exporter') {
+                        displayName "Wiki Exporter"
+                        branchSources {
+                          github {
+                            id('2019081603')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('jenkins-wiki-exporter')
+                            includes('master')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile')
+                          }
+                        }
+                      }
               ldap-settings: |
                 jenkins:
                   securityRealm:
