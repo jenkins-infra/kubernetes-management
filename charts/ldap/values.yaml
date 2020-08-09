@@ -10,7 +10,7 @@ image:
     pullPolicy: IfNotPresent
   crond:
     repository: jenkinsciinfra/ldap@sha256
-    tag: 0910680ada64cdb5be2c99657b46db9e7fa53095d6112d29addce54546260575
+    tag: 82dca08f2d2408ba33c20761717a6fccf885fa1e9388c66e45d17cd05bad2b2b
     pullPolicy: IfNotPresent
 imagePullSecrets: []
 nameOverride: ""
@@ -72,4 +72,4 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 dnsNames:
-- ldap.jenkins.io
+  - ldap.jenkins.io
