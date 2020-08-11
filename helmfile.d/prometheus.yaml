@@ -1,14 +1,14 @@
 repositories:
-- name: stable
-  url: https://kubernetes-charts.storage.googleapis.com
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
 releases:
-- name: prometheus
-  namespace: prometheus
-  chart: stable/prometheus
-  wait: true
-  timeout: 300
-  version: 11.11.1
-  force: false
-  atomic: false
-  values:
-  - "../config/default/prometheus.yaml"
+  - name: prometheus
+    namespace: prometheus
+    chart: stable/prometheus
+    wait: true
+    timeout: 300
+    version: 11.12.0
+    force: false
+    atomic: false
+    values:
+      - "../config/default/prometheus.yaml"
