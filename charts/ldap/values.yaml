@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   slapd:
     repository: jenkinsciinfra/ldap@sha256
-    tag: 2e13edd3d7c00b956439ba022d331483d8c313a916253257b712285e9ffc8a7c
+    tag: 09ece6870441790ef7a286ee057dc3ff8f52f197ebb32826bbab97daaa6598ce
     pullPolicy: IfNotPresent
   crond:
     repository: jenkinsciinfra/ldap@sha256
@@ -72,4 +72,4 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 dnsNames:
-- ldap.jenkins.io
+  - ldap.jenkins.io
