@@ -14,7 +14,7 @@ jenkins:
         name: "release"
   master:
     image: jenkins/jenkins@sha256
-    imageTag: baab19c22500877cbc7d7e0dd262109e119e2ed91a512225f3cafd8c02febc28
+    imageTag: 8997ba26303a5111d2bcc73c07ec68723bd3e7908d5acbe8700ce977a97e923a
     JCasC:
       enabled: true
       defaultConfig: false
@@ -380,6 +380,6 @@ jenkins:
         "kubernetes.io/ingress.class": "nginx"
         "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
       tls:
-      - hosts:
-        - release.ci.jenkins.io
-        secretName: release.ci.jenkins.io-cert
+        - hosts:
+            - release.ci.jenkins.io
+          secretName: release.ci.jenkins.io-cert
