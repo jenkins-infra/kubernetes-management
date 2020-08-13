@@ -1,14 +1,14 @@
 repositories:
-- name: loki
-  url: https://grafana.github.io/loki/charts
+  - name: loki
+    url: https://grafana.github.io/loki/charts
 releases:
-- name: loki
-  namespace: loki
-  chart: loki/loki
-  version: 0.30.2
-  wait: true
-  timeout: 300
-  force: false
-  atomic: true
-  values:
-  - "../config/default/loki.yaml"
+  - name: loki
+    namespace: loki
+    chart: loki/loki
+    version: 0.31.0
+    wait: true
+    timeout: 300
+    force: false
+    atomic: true
+    values:
+      - "../config/default/loki.yaml"
