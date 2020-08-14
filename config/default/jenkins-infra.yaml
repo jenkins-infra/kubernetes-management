@@ -197,6 +197,19 @@ jenkins:
                       cache:
                         size: 100
                         ttl: 300
+              pipeline-library: |
+                unclassified:
+                  globalLibraries:
+                    libraries:
+                    - defaultVersion: "master"
+                      implicit: true
+                      name: "pipeline-library"
+                      retriever:
+                        modernSCM:
+                          scm:
+                            git:
+                              id: "github-access-token"
+                              remote: "https://github.com/jenkins-infra/pipeline-library.git"
               matrix-settings: |
                 jenkins:
                   authorizationStrategy:
