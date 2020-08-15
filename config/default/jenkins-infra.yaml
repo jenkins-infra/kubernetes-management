@@ -158,6 +158,33 @@ jenkins:
                             repoOwner('jenkins-infra')
                             repository('jenkins-wiki-exporter')
                             includes('master')
+                            traits {
+                              pruneStaleBranchTrait()
+                              gitHubTagDiscovery()
+                            }
+                          }
+                          buildStrategies {
+                            buildAnyBranches {
+                              strategies {
+                                buildAllBranches {
+                                  strategies {
+                                    buildRegularBranches()
+                                  }
+                                }
+                              }
+                            }
+                            buildAnyBranches {
+                              strategies {
+                                buildAllBranches {
+                                  strategies {
+                                    buildTags {
+                                      atLeastDays '-1'
+                                      atMostDays '3'
+                                    }
+                                  }
+                                }
+                              }
+                            }
                           }
                         }
                         factory {
@@ -176,6 +203,33 @@ jenkins:
                             repoOwner('jenkinsci')
                             repository('custom-distribution-service')
                             includes('master')
+                            traits {
+                              pruneStaleBranchTrait()
+                              gitHubTagDiscovery()
+                            }
+                          }
+                          buildStrategies {
+                            buildAnyBranches {
+                              strategies {
+                                buildAllBranches {
+                                  strategies {
+                                    buildRegularBranches()
+                                  }
+                                }
+                              }
+                            }
+                            buildAnyBranches {
+                              strategies {
+                                buildAllBranches {
+                                  strategies {
+                                    buildTags {
+                                      atLeastDays '-1'
+                                      atMostDays '3'
+                                    }
+                                  }
+                                }
+                              }
+                            }
                           }
                         }
                         factory {
