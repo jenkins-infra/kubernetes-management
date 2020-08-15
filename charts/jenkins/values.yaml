@@ -23,6 +23,7 @@ jenkins:
     secretsFilesSecret: 'jenkins-secrets'
     serviceType: "ClusterIP"
     installPlugins:
+      - ansicolor
       - antisamy-markup-formatter
       - authentication-tokens
       - blueocean-autofavorite
@@ -54,9 +55,10 @@ jenkins:
       - extended-read-permission
       - git-client
       - git
+      - github
       - github-api
       - github-branch-source
-      - github
+      - github-checks
       - inline-pipeline
       - jira
       - job-dsl
@@ -87,11 +89,12 @@ jenkins:
       - support-core
       - token-macro
       - variant
+      - warnings-ng
       - workflow-aggregator
       - workflow-api
       - workflow-basic-steps
-      - workflow-cps-global-lib
       - workflow-cps
+      - workflow-cps-global-lib
       - workflow-durable-task-step
       - workflow-job
       - workflow-multibranch
