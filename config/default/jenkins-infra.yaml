@@ -135,10 +135,6 @@ jenkins:
                         displayName "Plugin Site"
                         branchSources {
                           github {
-                            id('2019081603')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('plugin-site')
                             includes('master')
                           }
                         }
@@ -152,34 +148,38 @@ jenkins:
                       multibranchPipelineJob('jenkins-wiki-exporter') {
                         displayName "Wiki Exporter"
                         branchSources {
-                          github {
-                            id('2019081603')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('jenkins-wiki-exporter')
-                            includes('master')
-                            traits {
-                              pruneStaleBranchTrait()
-                              gitHubTagDiscovery()
-                            }
-                          }
-                          buildStrategies {
-                            buildAnyBranches {
-                              strategies {
-                                buildAllBranches {
-                                  strategies {
-                                    buildRegularBranches()
-                                  }
+                          branchSource {
+                            source {
+                              github {
+                                id('2019081603')
+                                scanCredentialsId('github-access-token')
+                                repoOwner('jenkins-infra')
+                                repository('plugin-site')
+                                includes('master')
+                                traits {
+                                  pruneStaleBranchTrait()
+                                  gitHubTagDiscovery()
                                 }
                               }
-                            }
-                            buildAnyBranches {
-                              strategies {
-                                buildAllBranches {
+                              buildStrategies {
+                                buildAnyBranches {
                                   strategies {
-                                    buildTags {
-                                      atLeastDays '-1'
-                                      atMostDays '3'
+                                    buildAllBranches {
+                                      strategies {
+                                        buildRegularBranches()
+                                      }
+                                    }
+                                  }
+                                }
+                                buildAnyBranches {
+                                  strategies {
+                                    buildAllBranches {
+                                      strategies {
+                                        buildTags {
+                                          atLeastDays '-1'
+                                          atMostDays '3'
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -197,34 +197,38 @@ jenkins:
                       multibranchPipelineJob('custom-distribution-service') {
                         displayName "Custom Distribution Service"
                         branchSources {
-                          github {
-                            id('2019081603')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkinsci')
-                            repository('custom-distribution-service')
-                            includes('master')
-                            traits {
-                              pruneStaleBranchTrait()
-                              gitHubTagDiscovery()
-                            }
-                          }
-                          buildStrategies {
-                            buildAnyBranches {
-                              strategies {
-                                buildAllBranches {
-                                  strategies {
-                                    buildRegularBranches()
-                                  }
+                          branchSource {
+                            source {
+                              github {
+                                id('2019081603')
+                                scanCredentialsId('github-access-token')
+                                repoOwner('jenkinsci')
+                                repository('custom-distribution-service')
+                                includes('master')
+                                traits {
+                                  pruneStaleBranchTrait()
+                                  gitHubTagDiscovery()
                                 }
                               }
-                            }
-                            buildAnyBranches {
-                              strategies {
-                                buildAllBranches {
+                              buildStrategies {
+                                buildAnyBranches {
                                   strategies {
-                                    buildTags {
-                                      atLeastDays '-1'
-                                      atMostDays '3'
+                                    buildAllBranches {
+                                      strategies {
+                                        buildRegularBranches()
+                                      }
+                                    }
+                                  }
+                                }
+                                buildAnyBranches {
+                                  strategies {
+                                    buildAllBranches {
+                                      strategies {
+                                        buildTags {
+                                          atLeastDays '-1'
+                                          atMostDays '3'
+                                        }
+                                      }
                                     }
                                   }
                                 }
