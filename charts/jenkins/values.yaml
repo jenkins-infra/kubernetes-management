@@ -26,6 +26,8 @@ jenkins:
       - ansicolor
       - antisamy-markup-formatter
       - authentication-tokens
+      - basic-branch-build-strategies
+      - blueocean
       - blueocean-autofavorite
       - blueocean-commons
       - blueocean-config
@@ -42,19 +44,18 @@ jenkins:
       - blueocean-pipeline-api-impl
       - blueocean-pipeline-editor
       - blueocean-pipeline-scm-api
-      - blueocean-rest-impl
       - blueocean-rest
+      - blueocean-rest-impl
       - blueocean-web
-      - blueocean
       - branch-api
       - build-name-setter
-      - configuration-as-code
       - config-file-provider
-      - credentials-binding
+      - configuration-as-code
       - credentials
+      - credentials-binding
       - extended-read-permission
-      - git-client
       - git
+      - git-client
       - github
       - github-api
       - github-branch-source
