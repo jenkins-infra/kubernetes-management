@@ -26,6 +26,7 @@ jenkins:
       - ansicolor
       - antisamy-markup-formatter
       - authentication-tokens
+      - basic-branch-build-strategies
       - blueocean-autofavorite
       - blueocean-commons
       - blueocean-config
