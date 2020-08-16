@@ -149,45 +149,54 @@ jenkins:
                         }
                       }
                   - script: >
-                      multibranchPipelineJob('jenkins-wiki-exporter') {
-                        displayName "Wiki Exporter"
-                        branchSources {
-                          github {
-                            id('2020816-01')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('jenkins-wiki-exporter')
-                            includes('master')
-                          }
-                          branchSource {
-                            source {
-                              github {
-                                id('2020816-01')
-                                repoOwner('jenkins-infra')
-                                repository('plugin-site')
-                                includes('master')
-                                traits {
-                                  pruneStaleBranchTrait()
-                                  gitHubTagDiscovery()
+                      [
+                        ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
+                        ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
+                      ].each { config ->
+                        multibranchPipelineJob(config[1]) {
+                          displayName config[2]
+                          branchSources {
+                            branchSource {
+                              source {
+                                github {
+                                  credentialsId("github-access-token")
+                                  configuredByUrl(true)
+                                  repositoryUrl('https://github.com/' + config[0] + '/' + config[1])
+                                  repoOwner(config[0])
+                                  repository(config[1])
+                                  traits {
+                                    gitHubBranchDiscovery {
+                                      strategyId(1) // 1-only branches that are not pull requests
+                                    }
+                                    pruneStaleBranchTrait()
+                                    gitHubTagDiscovery()
+                                  }
                                 }
-                              }
-                              buildStrategies {
-                                buildAnyBranches {
-                                  strategies {
-                                    buildAllBranches {
-                                      strategies {
-                                        buildRegularBranches()
+                                buildStrategies {
+                                  buildAnyBranches {
+                                    strategies {
+                                      buildAllBranches {
+                                        strategies {
+                                          buildNamedBranches {
+                                            filters {
+                                              exact {
+                                                name("master")
+                                                caseSensitive(true)
+                                              }
+                                            }
+                                          }
+                                        }
                                       }
                                     }
                                   }
-                                }
-                                buildAnyBranches {
-                                  strategies {
-                                    buildAllBranches {
-                                      strategies {
-                                        buildTags {
-                                          atLeastDays '-1'
-                                          atMostDays '3'
+                                  buildAnyBranches {
+                                    strategies {
+                                      buildAllBranches {
+                                        strategies {
+                                          buildTags {
+                                            atLeastDays '-1'
+                                            atMostDays '3'
+                                          }
                                         }
                                       }
                                     }
@@ -196,65 +205,10 @@ jenkins:
                               }
                             }
                           }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile')
-                          }
-                        }
-                      }
-                  - script: >
-                      multibranchPipelineJob('custom-distribution-service') {
-                        displayName "Custom Distribution Service"
-                        branchSources {
-                          github {
-                            id('2020816-02')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkinsci')
-                            repository('custom-distribution-service')
-                            includes('master')
-                          }
-                          branchSource {
-                            source {
-                              github {
-                                id('2020816-02')
-                                repoOwner('jenkinsci')
-                                repository('custom-distribution-service')
-                                includes('master')
-                                traits {
-                                  pruneStaleBranchTrait()
-                                  gitHubTagDiscovery()
-                                }
-                              }
-                              buildStrategies {
-                                buildAnyBranches {
-                                  strategies {
-                                    buildAllBranches {
-                                      strategies {
-                                        buildRegularBranches()
-                                      }
-                                    }
-                                  }
-                                }
-                                buildAnyBranches {
-                                  strategies {
-                                    buildAllBranches {
-                                      strategies {
-                                        buildTags {
-                                          atLeastDays '-1'
-                                          atMostDays '3'
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
+                          factory {
+                            workflowBranchProjectFactory {
+                              scriptPath('Jenkinsfile')
                             }
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile')
                           }
                         }
                       }
