@@ -135,6 +135,10 @@ jenkins:
                         displayName "Plugin Site"
                         branchSources {
                           github {
+                            id('2019081602')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('plugin-site')
                             includes('master')
                           }
                         }
