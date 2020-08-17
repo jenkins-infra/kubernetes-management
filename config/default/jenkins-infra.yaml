@@ -249,6 +249,7 @@ jenkins:
                         - "Overall/Read:all"
                         - "Job/Read:all"
                         - "Job/Build:all"
+                        - "Job/ExtendedRead:all"
         ingress:
           enabled: true
           hostName: infra.ci.jenkins.io
