@@ -213,6 +213,23 @@ jenkins:
                           }
                         }
                       }
+                  - script: >
+                      multibranchPipelineJob('updatecli') {
+                        displayName "Updatecli"
+                        branchSources {
+                          github {
+                            id('2020081801')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('updatecli')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile_k8s')
+                          }
+                        }
+                      }
               ldap-settings: |
                 jenkins:
                   securityRealm:
