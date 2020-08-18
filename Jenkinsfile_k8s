@@ -32,26 +32,6 @@ pipeline {
         }
       }
     }
-    stage('Check Configuration Update') {
-      environment {
-        UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
-      }
-      steps {
-        container('updatecli') {
-          sh 'updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
-        }
-      }
-    }
-    stage('Apply Configuration Update') {
-      environment {
-        UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
-      }
-      steps {
-        container('updatecli') {
-          sh 'updatecli apply --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
-        }
-      }
-    }
     stage('Prepare Environment'){
       steps {
         container('helmfile'){
