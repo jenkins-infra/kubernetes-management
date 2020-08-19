@@ -1,68 +1,62 @@
 repositories:
-- name: stable
-  url: https://kubernetes-charts.storage.googleapis.com
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
 releases:
-- name: public-nginx-ingress
-  chart: stable/nginx-ingress
-  namespace: kube-system
-  version: 1.41.2
-  wait: true
-  timeout: 300
-  atomic: true
-  values:
-  - defaultBackend:
-      enabled: true
-      image:
-        repository: jenkinsciinfra/404
-        tag: 25-builde5532f
-        runAsUser: 0 # This container needs to be run as root user at the moment
-      port: 80
-      replicaCount: 1
-  - controller:
-      config:
-        log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local]
-          "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length
-          $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length
-          $upstream_response_time $upstream_status $req_id'
-        use-geoip2: "true"
-      ingressClass: public-ingress
-      service:
-        annotations:
-          service.beta.kubernetes.io/azure-load-balancer-internal: false
-          service.beta.kubernetes.io/azure-load-balancer-internal-subnet: app-tier
-          service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
-          prometheus.io/scrape: "true"
-          prometheus.io/port: "10254"
-        loadBalancerIP: 52.167.253.43
-        externalTrafficPolicy: Local
-- name: private-nginx-ingress
-  chart: stable/nginx-ingress
-  namespace: kube-system
-  version: 1.41.2
-  wait: true
-  timeout: 300
-  atomic: true
-  values:
-  - defaultBackend:
-      enabled: true
-      image:
-        repository: jenkinsciinfra/404
-        tag: 25-builde5532f
-        runAsUser: 0 # This container needs to be run as root user at the moment
-      port: 80
-      replicaCount: 1
-  - controller:
-      config:
-        log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local]
-          "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length
-          $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length
-          $upstream_response_time $upstream_status $req_id'
-        use-geoip2: "true"
-      ingressClass: nginx
-      service:
-        annotations:
-          service.beta.kubernetes.io/azure-load-balancer-internal: true
-          service.beta.kubernetes.io/azure-load-balancer-internal-subnet: data-tier
-          prometheus.io/scrape: "true"
-          prometheus.io/port: "10254"
-        externalTrafficPolicy: Local
+  - name: public-nginx-ingress
+    chart: stable/nginx-ingress
+    namespace: kube-system
+    version: 1.41.3
+    wait: true
+    timeout: 300
+    atomic: true
+    values:
+      - defaultBackend:
+          enabled: true
+          image:
+            repository: jenkinsciinfra/404
+            tag: 25-builde5532f
+            runAsUser: 0 # This container needs to be run as root user at the moment
+          port: 80
+          replicaCount: 1
+      - controller:
+          config:
+            log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
+            use-geoip2: "true"
+          ingressClass: public-ingress
+          service:
+            annotations:
+              service.beta.kubernetes.io/azure-load-balancer-internal: false
+              service.beta.kubernetes.io/azure-load-balancer-internal-subnet: app-tier
+              service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
+              prometheus.io/scrape: "true"
+              prometheus.io/port: "10254"
+            loadBalancerIP: 52.167.253.43
+            externalTrafficPolicy: Local
+  - name: private-nginx-ingress
+    chart: stable/nginx-ingress
+    namespace: kube-system
+    version: 1.41.2
+    wait: true
+    timeout: 300
+    atomic: true
+    values:
+      - defaultBackend:
+          enabled: true
+          image:
+            repository: jenkinsciinfra/404
+            tag: 25-builde5532f
+            runAsUser: 0 # This container needs to be run as root user at the moment
+          port: 80
+          replicaCount: 1
+      - controller:
+          config:
+            log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
+            use-geoip2: "true"
+          ingressClass: nginx
+          service:
+            annotations:
+              service.beta.kubernetes.io/azure-load-balancer-internal: true
+              service.beta.kubernetes.io/azure-load-balancer-internal-subnet: data-tier
+              prometheus.io/scrape: "true"
+              prometheus.io/port: "10254"
+            externalTrafficPolicy: Local
