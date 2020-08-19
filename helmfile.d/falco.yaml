@@ -1,13 +1,13 @@
 repositories:
-- name: falco
-  url: https://falcosecurity.github.io/charts
+  - name: falco
+    url: https://falcosecurity.github.io/charts
 releases:
-- name: falco
-  namespace: falco
-  chart: falco/falco
-  version: 1.2.1
-  wait: true
-  timeout: 100
-  atomic: true
-  values:
-  - "../config/default/falco.yaml"
+  - name: falco
+    namespace: falco
+    chart: falco/falco
+    version: 1.2.2
+    wait: true
+    timeout: 100
+    atomic: true
+    values:
+      - "../config/default/falco.yaml"
