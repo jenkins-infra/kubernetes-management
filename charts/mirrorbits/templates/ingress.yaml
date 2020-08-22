@@ -37,7 +37,7 @@ spec:
             backend:
               serviceName: {{ $fullName }}-files
               servicePort: 80
-          - path: /.*(.deb|.war|.rpm|.msi|.pkg|.sha256|.md5sum|.zip|.gz|.pdf|.json|.svg|.sh|.jpeg|.ico|.png|.html)$
+          - path: /.*(.deb|.hpi|.war|.rpm|.msi|.pkg|.sha256|.md5sum|.zip|.gz|.pdf|.json|.svg|.sh|.jpeg|.ico|.png|.html)$
             backend:
               serviceName: {{ $fullName }}
               servicePort: 80
