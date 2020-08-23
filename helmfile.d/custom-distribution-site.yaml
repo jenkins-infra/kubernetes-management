@@ -1,0 +1,10 @@
+releases:
+    - name: custom-distribution-service
+      namespace: custom-distribution-service
+      chart: ../charts/custom-distribution-service
+      wait: true
+      timeout: 300
+      force: false
+      atomic: true
+      values:
+        - "../config/default/custom-distribution-service.yaml"
