@@ -32,14 +32,11 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          # First match policy
-          - path: /
+        {{- range .paths }}
+          - path: {{ .path }}
             backend:
-              serviceName: {{ $fullName }}-files
+              serviceName: {{ if .serviceNameSuffix }}{{ $fullName }}-{{ .serviceNameSuffix }}{{ else }}{{ $fullName }}{{ end }}
               servicePort: 80
-          - path: /.*(.deb|.war|.rpm|.msi|.pkg|.sha256|.md5sum|.zip|.gz|.pdf|.json|.svg|.sh|.jpeg|.ico|.png|.html)$
-            backend:
-              serviceName: {{ $fullName }}
-              servicePort: 80
+        {{- end }}
   {{- end }}
 {{- end }}

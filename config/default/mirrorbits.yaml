@@ -19,21 +19,26 @@ resources:
         memory: 256Mi
 
 ingress:
-  enabled: true
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    # For now deploy this service on the private ingress
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"
     "nginx.ingress.kubernetes.io/hsts": "false"
   hosts:
     - host: get.jenkins.io
       paths:
-        - /
+        - path: /
+          serviceNameSuffix: files
+        - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
+    - host: fallback.get.jenkins.io
+      paths:
+        - path: /
+          serviceNameSuffix: files
   tls:
     - secretName: mirrorbits-tls
       hosts:
         - get.jenkins.io
+        - fallback.get.jenkins.io
 
 repository:
   name: mirrorbits-binary
