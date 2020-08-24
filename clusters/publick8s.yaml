@@ -29,3 +29,4 @@ helmfiles:
   - path: "../helmfile.d/nexus-release.yaml"
   - path: "../helmfile.d/mirror.yaml"
   - path: "../helmfile.d/archives.yaml"
+  - path: "../helmfile.d/custom-distribution-site.yaml"
