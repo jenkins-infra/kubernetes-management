@@ -3,7 +3,6 @@ ingress:
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "kubernetes.io/ingress.class": "public-ingress"
-    "nginx.ingress.kubernetes.io/rewrite-target": /$1
     "nginx.ingress.kubernetes.io/hsts": "true"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
     "nginx.ingress.kubernetes.io/enable-cors": "true"
