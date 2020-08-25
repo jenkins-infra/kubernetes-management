@@ -156,6 +156,12 @@ jenkins:
                       ].each { config ->
                         multibranchPipelineJob(config[1]) {
                           displayName config[2]
+                          triggers {
+                            pollSCM {
+                              // poll every two hours until hooks are setup
+                              scmpoll_spec('H/2 * * * *')
+                            }
+                          }
                           branchSources {
                             branchSource {
                               source {
