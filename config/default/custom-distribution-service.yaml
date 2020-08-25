@@ -14,7 +14,3 @@ ingress:
     - secretName: customize-tls
       hosts:
         - customize.jenkins.io
-
-image:
-  tag: latest
-  pullPolicy: Always
