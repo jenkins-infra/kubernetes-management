@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: jenkinsciinfra/custom-distribution-service
-  tag: latest
+  tag: 49d692d819bdc9c823e3531eb9c253eed35087da
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
