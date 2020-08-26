@@ -85,6 +85,15 @@ tolerations: []
 
 affinity: {}
 
+geoipupdate:
+  image:
+    repository: maxmindinc/geoipupdate
+    tag: v4.3
+  #account_id:
+  #license_key:
+  editions: GeoLite2-ASN GeoLite2-City GeoLite2-Country
+  update_frequency: 24
+
 mirrorbits:
   # Accept the mirrorbits.conf data
   conf: |
