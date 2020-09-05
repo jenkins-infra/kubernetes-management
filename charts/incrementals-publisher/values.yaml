@@ -75,3 +75,5 @@ github:
 jenkins:
   # jenkins.auth -- username:accesskey to  talk to jenkins apis to pull build metadata
   auth: ''
+# preshared_key -- The token needed to be provided for autherization
+preshared_key: ''
