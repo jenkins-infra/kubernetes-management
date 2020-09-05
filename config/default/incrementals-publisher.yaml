@@ -1,0 +1,14 @@
+ingress:
+  enabled: true
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "kubernetes.io/ingress.class": "public-ingress"
+    "nginx.ingress.kubernetes.io/hsts": "true"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+
+  hosts:
+    - host: incrementals.jenkins.io
+  tls:
+    - secretName: incrementals-tls
+      hosts:
+        - incrementals.jenkins.io
