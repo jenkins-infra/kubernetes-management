@@ -67,8 +67,11 @@ tolerations: []
 affinity: {}
 
 artifactory:
+  # artifactory.key -- key to upload to artifactory
   key: ''
 github:
+  # github.token -- token to update github checks and look up commits
   token: ''
 jenkins:
+  # jenkins.auth -- username:accesskey to  talk to jenkins apis to pull build metadata
   auth: ''
