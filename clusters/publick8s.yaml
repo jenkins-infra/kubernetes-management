@@ -30,3 +30,4 @@ helmfiles:
   - path: "../helmfile.d/mirror.yaml"
   - path: "../helmfile.d/archives.yaml"
   - path: "../helmfile.d/custom-distribution-site.yaml"
+  - path: "../helmfile.d/incrementals-publisher.yaml"
