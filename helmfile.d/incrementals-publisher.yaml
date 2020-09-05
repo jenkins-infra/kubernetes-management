@@ -1,0 +1,12 @@
+releases:
+    - name: incrementals-publisher
+      namespace: incrementals-publisher
+      chart: ../charts/incrementals-publisher
+      wait: true
+      timeout: 300
+      force: false
+      atomic: true
+      values:
+          - "../config/default/incrementals-publisher.yaml"
+      secrets:
+          - "../secrets/config/incrementals-publisher/secrets.yaml"
