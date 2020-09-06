@@ -153,7 +153,7 @@ jenkins:
                       [
                         ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
                         ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
-                        ['jenkinsci', 'incrementals-publisher', 'Incrementals Publisher'],
+                        ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher'],
                       ].each { config ->
                         multibranchPipelineJob(config[1]) {
                           displayName config[2]
