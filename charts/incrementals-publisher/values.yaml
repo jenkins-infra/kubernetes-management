@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: halkeye/incrementals-publisher
-  tag: latest
+  repository: jenkinsciinfra/incrementals-publisher
+  tag: v1.0.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
