@@ -28,3 +28,7 @@ chatbot.yaml @jenkins-infra/kubernetes @slide
 
 incrementals-publisher/ @jenkins-infra/kubernetes @slide
 incrementals-publisher.yaml @jenkins-infra/kubernetes @slide
+
+custom-distribution-service/ @jenkins-infra/kubernetes @martinda @kwhetstone @sladyn98
+custom-distribution-service.yaml @jenkins-infra/kubernetes @martinda @kwhetstone @sladyn98
+
