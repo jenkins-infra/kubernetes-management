@@ -15,7 +15,7 @@ conditions:
       image: "jenkinsciinfra/incrementals-publisher"
 targets:
   appVersion:
-    name: "[incrementals-publisher] Update appVersion"
+    name: "Chart appVersion"
     kind: yaml
     spec:
       file: "charts/incrementals-publisher/Chart.yaml"
