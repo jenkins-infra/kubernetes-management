@@ -15,7 +15,7 @@ conditions:
       image: "jenkinsciinfra/custom-distribution-service"
 targets:
   appVersion:
-    name: "[custom-distribution-service] Update appVersion"
+    name: "Chart appVersion"
     kind: yaml
     spec:
       file: "charts/custom-distribution-service/Chart.yaml"
