@@ -5,7 +5,7 @@ releases:
   - name: loki
     namespace: loki
     chart: loki/loki
-    version: 0.31.0
+    version: 0.31.1
     wait: true
     timeout: 300
     force: false
