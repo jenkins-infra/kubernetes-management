@@ -83,6 +83,25 @@ spec:
           envFrom:
           - secretRef:
               name: {{ include "mirrorbits.fullname" . }}-geoipupdate
+      initContainers:
+        # we need to ensure the geoip data is in place before mirrorbits starts
+        - name: geoipupdate-init
+          image: "{{ .Values.geoipupdate.image.repository }}:{{ .Values.geoipupdate.image.tag }}"
+          imagePullPolicy: {{ .Values.image.mirrorbits.pullPolicy }}
+          securityContext:
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - name: geoipdata
+              mountPath: /usr/share/GeoIP
+          resources:
+            {{- toYaml .Values.resources.mirrorbits | nindent 12 }}
+          env:
+            - name: GEOIPUPDATE_EDITION_IDS
+              value: {{ .Values.geoipupdate.editions }}
+          envFrom:
+          - secretRef:
+              name: {{ include "mirrorbits.fullname" . }}-geoipupdate        
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
