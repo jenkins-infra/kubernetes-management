@@ -24,7 +24,7 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
+        owner: "jenkinsci"
         repository: "charts"
         token: "{{ requiredEnv .github.token }}"
         username: "olblak"
