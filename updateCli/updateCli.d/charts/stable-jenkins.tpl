@@ -9,10 +9,10 @@ conditions:
     name: "Jenkins Helm Chart Published on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://charts.jenkins.io
       name: jenkins
   chartVersion:
-    name: "stable/jenkins Helm Chart"
+    name: "jenkinsci/jenkins Helm Chart"
     kind: yaml
     spec:
       file: "charts/jenkins/requirements.yaml"
@@ -30,7 +30,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "stable/jenkins Helm Chart"
+    name: "jenkinsci/jenkins Helm Chart"
     kind: yaml
     spec:
       file: "charts/jenkins/requirements.yaml"
