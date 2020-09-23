@@ -1,4 +1,4 @@
-# Defautl helm value https://github.com/helm/charts/blob/master/stable/jenkins/values.yaml
+# Default helm value https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml
 #
 clusterAdminEnabled: false
 jenkins:

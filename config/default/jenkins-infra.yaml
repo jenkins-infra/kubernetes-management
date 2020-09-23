@@ -268,3 +268,17 @@ jenkins:
             - hosts:
                 - infra.ci.jenkins.io
               secretName: infra.ci.jenkins.io-cert
+        secondaryingress:
+          enabled: true
+          paths:
+            - /github-webhook
+          hostName: infra-webhooks.ci.jenkins.io
+          annotations:
+            "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+            "kubernetes.io/ingress.class": "public-ingress"
+            "nginx.ingress.kubernetes.io/hsts": "true"
+            "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+          tls:
+            - hosts:
+                - infra-webhooks.ci.jenkins.io
+              secretName: infra-webhooks.ci.jenkins.io-cert
