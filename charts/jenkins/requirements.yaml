@@ -1,7 +1,7 @@
 dependencies:
   - name: jenkins
     repository: https://charts.jenkins.io
-    version: 2.7.0
+    version: 2.7.1
     import-values:
       - child: jenkins.master
         parent: master
