@@ -79,6 +79,8 @@ mirrorbits add -http https://ftp-chi.osuosl.org/pub/jenkins -rsync rsync://ftp-c
 mirrorbits add -http https://ftp.yz.yamagata-u.ac.jp/pub/misc/jenkins/ -rsync rsync://ftp.yz.yamagata-u.ac.jp/pub/misc/jenkins/ -admin-name "Tomohiro Ito" -admin-email "tomohiro@yz.yamagata-u.ac.jp"  yamagata-u.ac.jp
 
 mirrorbits add -http https://mirror.gruenehoelle.nl/jenkins/ -rsync rsync://esme.gruenehoelle.nl/mirror/jenkins/ -admin-name "gunter@grodotzki.com" -admin-email "gunter@grodotzki.com" gruenehoelle.nl
+
+mirrorbits add -http https://ftp.halifax.rwth-aachen.de/jenkins/ -rsync rsync://ftp.halifax.rwth-aachen.de/jenkins/ -admin-name "carsten.otto@gmail.com" -admin-email "carsten.otto@gmail.com" rwth-aachen.de
 ```
 
 ## Links
