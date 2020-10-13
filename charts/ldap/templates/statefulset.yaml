@@ -126,8 +126,6 @@ spec:
           secret:
             secretName: ldap-tls
             items:
-              - key: ca.crt
-                path: {{ .Values.ldap.ssl.ca.filename }}
               - key: tls.crt
                 path: {{ .Values.ldap.ssl.crt.filename }}
               - key: tls.key
