@@ -34,7 +34,7 @@ ldap:
   debug_level: 256
   ssl:
     ca:
-      filename: cacert.pem
+      filename: ca.crt
       value: ''
     crt:
       filename: cert.pem
