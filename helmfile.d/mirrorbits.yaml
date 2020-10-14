@@ -1,11 +1,11 @@
 repositories:
-- name: stable
-  url: https://kubernetes-charts.storage.googleapis.com
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
 releases:
 - name: mirrorbits-database
   namespace: mirrorbits
   version: 10.5.7
-  chart: stable/redis
+  chart: bitnami/redis
   wait: true
   timeout: 600
   atomic: true
