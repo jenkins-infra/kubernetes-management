@@ -18,3 +18,4 @@ service:
     - '104.210.5.242/32'   # accept inbound LDAPS from cert-ci
     - '104.208.238.39/32'  # Accept inbound LDAPS from azure.ci.jenkins.io
     - '52.167.253.43/32'      # Accept inbound LDAPS from public.aks.jenkins.io
+    - '34.211.101.61'     # Accept inbound connections from Linux Foundation machine
