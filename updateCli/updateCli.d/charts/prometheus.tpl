@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://kubernetes-charts.storage.googleapis.com
+    url: https://prometheus-community.github.io/helm-charts
     name: prometheus
 
 conditions:
@@ -9,7 +9,7 @@ conditions:
     name: "Prometheus helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://prometheus-community.github.io/helm-charts
       name: prometheus
   helmfileRelease:
     name: "stable/prometheus Helm Chart"
