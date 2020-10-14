@@ -2,14 +2,14 @@ repositories:
   - name: grafana
     url: https://grafana.github.io/helm-charts
 releases:
-    - name: grafana
-      namespace: grafana
-      chart: grafana/grafana
-      version: 5.3.0
-      wait: true
-      timeout: 300
-      atomic: true
-      values:
-        - "../config/default/grafana.yaml"
-      secrets:
-        - "../secrets/config/grafana/secrets.yaml"
+  - name: grafana
+    namespace: grafana
+    chart: grafana/grafana
+    version: 5.7.7
+    wait: true
+    timeout: 300
+    atomic: true
+    values:
+      - "../config/default/grafana.yaml"
+    secrets:
+      - "../secrets/config/grafana/secrets.yaml"
