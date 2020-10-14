@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://kubernetes-charts.storage.googleapis.com
+    url: https://helm.datadoghq.com
     name: datadog
 
 conditions:
@@ -9,7 +9,7 @@ conditions:
     name: "Datadog helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://helm.datadoghq.com
       name: datadog
   helmfileRelease:
     name: "stable/datadog Helm Chart"
@@ -30,7 +30,7 @@ conditions:
 
 targets:
   chartVersion:
-    name: "stable/datadog Helm Chart"
+    name: "Datadog Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/datadog.yaml"

@@ -1,10 +1,10 @@
 repositories:
-- name: stable
-  url: https://kubernetes-charts.storage.googleapis.com
+- name: datadog
+  url: https://helm.datadoghq.com
 releases:
 - name: datadog
   namespace: datadog
-  chart: stable/datadog
+  chart: datadog/datadog
   version: 2.3.42
   wait: true
   timeout: 300
