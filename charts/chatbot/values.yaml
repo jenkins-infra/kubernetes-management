@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: jenkinsciinfra/ircbot
-  tag: 113-build1a3814
+  tag: 117-build21c9a7
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
