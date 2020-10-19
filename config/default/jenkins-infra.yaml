@@ -150,6 +150,23 @@ jenkins:
                         }
                       }
                   - script: >
+                      multibranchPipelineJob('docker-packer') {
+                        displayName "Packer Docker Build"
+                        branchSources {
+                          github {
+                            id('2020101901')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('docker-packer')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile_k8s')
+                          }
+                        }
+                      }
+                  - script: >
                       [
                         ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
                         ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
