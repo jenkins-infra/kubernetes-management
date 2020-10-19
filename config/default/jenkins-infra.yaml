@@ -159,7 +159,6 @@ jenkins:
                             scanCredentialsId('github-access-token')
                             repoOwner('jenkins-infra')
                             repository('docker-packer')
-                            includes('main')
                           }
                         }
                         factory {
