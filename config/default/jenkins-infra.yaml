@@ -152,7 +152,6 @@ jenkins:
                   - script: >
                       multibranchPipelineJob('docker-packer') {
                         displayName "Packer Docker Build"
-                        description "Packer Docker Build"
                         branchSources {
                           github {
                             id('2020101901')
