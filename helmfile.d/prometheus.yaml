@@ -7,7 +7,7 @@ releases:
     chart: prometheus-community/prometheus
     wait: true
     timeout: 300
-    version: 11.16.3
+    version: 11.16.4
     force: false
     atomic: false
     values:
