@@ -1,0 +1,20 @@
+repositories:
+  - name: traefik
+    url: 
+releases:
+- name: traefik
+  chart: stable/traefik
+  namespace: kube-system
+  version: 1.3.0
+  wait: true
+  timeout: 300
+  atomic: true
+values:
+  - defaultBackend:
+      enabled: true
+      image:
+        repository: jenkinsciinfra/404
+        tag: 25-builde5532f
+        runAsUser: 0 # This container needs to be run as root user at the moment
+      port: 80
+      replicaCount: 1
