@@ -1,15 +1,12 @@
 source:
-  kind: githubRelease
+  kind: maven
   postfix: "-jdk11"
-  replaces:
-    - from: "jenkins-"
-      to: ""
   spec:
-    owner: "jenkinsci"
-    repository: "jenkins"
-    username: "{{ .github.username }}"
-    token: "{{ requiredEnv .github.token }}"
-    version: latest
+    owner: "maven"
+    url: "repo.jenkins-ci.org"
+    repository: "releases"
+    groupID: "org.jenkins-ci.main"
+    artifactID: "jenkins-war"
 conditions:
   docker:
     name: "Docker Image Published on Registry"
