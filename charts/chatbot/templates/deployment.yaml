@@ -12,6 +12,8 @@ spec:
   template:
     metadata:
       labels: {{ include "chatbot.labels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
