@@ -67,7 +67,7 @@ mirrorbits add -rsync rsync://mirror.serverion.com/jenkins -ftp ftp://mirror.ser
 
 mirrorbits add -http https://mirror.esuni.jp/jenkins/ -admin-email "kuriyama@FreeBSD.org" esuni.jp
 
-mirrorbits add -http http://mirrors.tuna.tsinghua.edu.cn/jenkins/ -rsync rsync://mirrors.tuna.tsinghua.edu.cn/jenkins/ -admin-name "Yuzhi Wang" -admin-email "yuzhi.wang@tuna.tsinghua.edu.cn" tsinghua.edu.cn
+mirrorbits add -http https://mirrors.tuna.tsinghua.edu.cn/jenkins/ -rsync rsync://mirrors.tuna.tsinghua.edu.cn/jenkins/ -admin-name "Yuzhi Wang" -admin-email "yuzhi.wang@tuna.tsinghua.edu.cn" tsinghua.edu.cn
 
 mirrorbits add -http https://mirror.xmission.com/jenkins/ -rsync rsync://mirror.xmission.com/jenkins/  -ftp ftp://mirror.xmission.com/jenkins/ xmission.org
 
