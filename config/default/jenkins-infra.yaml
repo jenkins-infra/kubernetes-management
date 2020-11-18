@@ -201,6 +201,23 @@ jenkins:
                         }
                       }
                   - script: >
+                      multibranchPipelineJob('docker-datadog') {
+                        displayName "DataDog Docker Build"
+                        branchSources {
+                          github {
+                            id('2020111801')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('docker-datadog')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile_k8s')
+                          }
+                        }
+                      }
+                  - script: >
                       [
                         ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
                         ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
