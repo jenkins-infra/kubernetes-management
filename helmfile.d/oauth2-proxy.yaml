@@ -2,7 +2,7 @@ releases:
   - name: oauth2-proxy
     chart: stable/oauth2-proxy
     namespace: proxy
-    version: 3.2.4
+    version: 3.2.5
     wait: true
     timeout: 300
     atomic: true
