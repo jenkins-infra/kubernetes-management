@@ -1,0 +1,15 @@
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+releases:
+  - name: mirrorbits-database
+    namespace: mirrorbits
+    version: 12.0.0
+    chart: bitnami/redis
+    wait: true
+    timeout: 600
+    atomic: true
+    values:
+      - "../config/default/mirrorbits-database.yaml"
+    secrets:
+      - "../secrets/config/mirrorbits-database/secrets.yaml"

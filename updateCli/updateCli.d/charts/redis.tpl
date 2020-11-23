@@ -15,7 +15,7 @@ conditions:
     name: "bitnami/redis Helm Chart"
     kind: yaml
     spec:
-      file: "helmfile.d/mirrorbits.yaml"
+      file: "helmfile.d/mirrorbits-database.yaml"
       key: "releases[0].name"
       value: "mirrorbits-database"
     scm:
@@ -32,7 +32,7 @@ targets:
     name: "stable/redis Helm Chart"
     kind: yaml
     spec:
-      file: "helmfile.d/mirrorbits.yaml"
+      file: "helmfile.d/mirrorbits-database.yaml"
       key: "releases[0].version"
     scm:
       github:
