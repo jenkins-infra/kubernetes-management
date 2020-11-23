@@ -14,8 +14,8 @@ agents:
   rbac:
     create: true
   image:
-    repository: "jenkinsciinfra/datadog"
-    tag: "180e74110b7182e25bea5e8e325eb4b4453528d8"
+    repository: "jenkinsciinfra/datadog@sha256"
+    tag: "295a43c8e1dc531e525e6d2c99fac92f69d486e8348e4f1f83d38d54503db8ff"
 clusterAgents:
   enabled: true
   metricsProvider:
