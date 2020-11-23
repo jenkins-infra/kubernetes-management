@@ -1,7 +1,7 @@
 github:
-  user: "updatebot"
+  user: "jenkins-infra-bot"
   email: "updatebot@olblak.com"
-  username: "olblak"
+  username: "jenkins-infra-bot"
   token: "UPDATECLI_GITHUB_TOKEN" 
   branch: "master"
   owner: "jenkins-infra"
