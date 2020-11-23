@@ -38,4 +38,3 @@ targets:
         username: "{{ .github.username }}" 
         branch: "master"
 
-
