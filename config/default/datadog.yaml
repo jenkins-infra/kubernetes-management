@@ -12,7 +12,10 @@ datadog:
       configContainerCollectAll: true
 agents:
   rbac:
-      create: true
+    create: true
+  image:
+    repository: "jenkinsciinfra/datadog"
+    tag: "180e74110b7182e25bea5e8e325eb4b4453528d8"
 clusterAgents:
   enabled: true
   metricsProvider:
