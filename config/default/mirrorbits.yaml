@@ -50,7 +50,7 @@ repository:
       storageClassName: azurefile
       resources:
         requests:
-          storage: 100Gi
+          storage: 500Gi
       selector:
         matchLabels:
           data: mirrorbits-binary
@@ -58,7 +58,7 @@ repository:
     enabled: true
     spec:
       capacity:
-        storage: 100Gi
+        storage: 500Gi
       storageClassName: azurefile
       accessModes:
         - ReadWriteMany
@@ -73,3 +73,5 @@ repository:
       - gid=1000
       - mfsymlinks
       - nobrl
+      - serverino
+      - cache=strict
