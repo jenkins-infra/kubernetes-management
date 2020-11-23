@@ -31,7 +31,8 @@ conditions:
     name: "Docker Image Published on Registry"
     kind: dockerImage
     spec:
-      image: "olblak/updatecli"
+      image: "ghcr.io/olblak/updatecli"
+      token: "{{ requiredEnv .github.token }}"
 targets:
   # Update updatecli version in the PodTemplate
   imageTag:
@@ -40,7 +41,7 @@ targets:
     prefix: "olblak/updatecli:"
     spec:
       file: "PodTemplates.yaml"
-      prefix: "olblak/updatecli:"
+      prefix: "ghcr.io/olblak/updatecli:"
       key: spec.containers[1].image
     scm:
       github:
