@@ -1,25 +1,25 @@
 datadog:
-    collectEvents: true
-    leaderElection: true
-    leaderLeaseDuration: 60
-    apm:
-      enabled: true
-    processAgent:
-      enabled: true
-      processCollection: true
-    logs:
-      enabled: true
-      configContainerCollectAll: true
+  collectEvents: true
+  leaderElection: true
+  leaderLeaseDuration: 60
+  apm:
+    enabled: true
+  processAgent:
+    enabled: true
+    processCollection: true
+  logs:
+    enabled: true
+    configContainerCollectAll: true
 agents:
   rbac:
     create: true
   image:
     repository: "jenkinsciinfra/datadog@sha256"
-    tag: "295a43c8e1dc531e525e6d2c99fac92f69d486e8348e4f1f83d38d54503db8ff"
+    tag: "be825e8327572d585d8e2a5dc1461f6873df796299ad7b2cf7b4dbeea0f8c1cd"
     doNotCheckTag: true # we must skip version test while we use the docker image digest
 clusterAgents:
   enabled: true
   metricsProvider:
     enabled: true
   rbac:
-      create: true
+    create: true
