@@ -11,7 +11,7 @@ conditions:
     spec:
       file: "config/default/datadog.yaml"
       key: "agents.image.repository"
-      value: "jenkinsciinfraa/datadog@sha256"
+      value: "jenkinsciinfra/datadog@sha256"
     scm:
       github:
         user: "{{ .github.user }}" 
