@@ -218,6 +218,23 @@ jenkins:
                         }
                       }
                   - script: >
+                      multibranchPipelineJob('experiment-aws') {
+                        displayName "AWS Experiments"
+                        branchSources {
+                          github {
+                            id('2020120401')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('experiment-aws')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile_k8s')
+                          }
+                        }
+                      }
+                    - script: >
                       [
                         ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
                         ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
