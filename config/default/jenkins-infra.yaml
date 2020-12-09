@@ -234,7 +234,7 @@ jenkins:
                           }
                         }
                       }
-                    - script: >
+                  - script: >
                       [
                         ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
                         ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
