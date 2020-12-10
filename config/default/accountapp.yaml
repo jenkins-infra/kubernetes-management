@@ -15,7 +15,7 @@ ingress:
     - host: accounts.jenkins-ci.org
       paths:
         - path: /
-          port: http 
+          port: http
 
   tls:
     - secretName: accounts-tls

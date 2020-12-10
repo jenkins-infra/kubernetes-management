@@ -1,14 +1,15 @@
-# Oauth client configuration specifics  
+# Oauth client configuration specifics
 # https://github.com/pusher/oauth2_proxy/blob/master/docs/configuration/configuration.md
-config:  
-  # OAuth client ID  
+config:
+  # OAuth client ID
   # clientID: yyy
-  # OAuth client secret  
+  # OAuth client secret
   # clientSecret: xxxx
-  # Create a new secret with the following command  
+  # Create a new secret with the following command
   # cookieSecret: `openssl rand -base64 32`
-  # Custom configuration file see https://github.com/bitly/oauth2_proxy/blob/master/contrib/oauth2_proxy.cfg.example
-  configFile: |-  
+  # Custom configuration file see
+  # https://github.com/bitly/oauth2_proxy/blob/master/contrib/oauth2_proxy.cfg.example
+  configFile: |-
     ## Pass OAuth Access token to upstream via "X-Forwarded-Access-Token"
     provider = "oidc"
     oidc_issuer_url = 'https://private.dex.jenkins.io'

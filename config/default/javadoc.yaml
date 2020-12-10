@@ -33,7 +33,7 @@ resources:
     memory: 128Mi
 
 htmlVolume:
-  azureFile: 
+  azureFile:
     secretName: javadoc
     shareName: javadoc
     readOnly: true

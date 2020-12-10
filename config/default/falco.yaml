@@ -2,7 +2,7 @@
 customRules:
   rules-jenkins-infra.yaml: |-
     - list: allowed_docker_image_repository
-      items: 
+      items:
         - jenkins/jenkins
         - jenkins/inbound-agent
         - olblak/nexus

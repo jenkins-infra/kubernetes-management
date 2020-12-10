@@ -12,7 +12,7 @@ jenkins:
             enabled: true
             defaultConfig: false
             configScripts:
-              credentials : |
+              credentials: |
                 credentials:
                   system:
                     domainCredentials:

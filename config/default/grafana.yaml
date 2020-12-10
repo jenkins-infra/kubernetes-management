@@ -1,7 +1,7 @@
 # https://github.com/helm/charts/tree/master/stable/grafana
 ingress:
   enabled: true
-  hosts: 
+  hosts:
     - grafana.jenkins.io
     - grafana.publick8s.jenkins.io
   annotations:
@@ -27,7 +27,7 @@ persistence:
   size: 50
   type: statefulset
 
-#https://grafana.com/docs/administration/provisioning/#custom-settings-per-datasource
+# https://grafana.com/docs/administration/provisioning/#custom-settings-per-datasource
 datasources:
   datasources.yaml:
     apiVersion: 1
