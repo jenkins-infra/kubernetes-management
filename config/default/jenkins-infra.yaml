@@ -200,6 +200,23 @@ jenkins:
                   }
                 }
             - script: >
+                multibranchPipelineJob('docker-terraform') {
+                  displayName "Terraform Docker Build"
+                  branchSources {
+                    github {
+                      id('2020121001')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('docker-terraform')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
                 multibranchPipelineJob('aws') {
                   displayName "AWS Infra"
                   branchSources {
