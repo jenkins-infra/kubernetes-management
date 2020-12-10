@@ -1,278 +1,262 @@
 clusterAdminEnabled: true
 jenkins:
-    agent:
-        componentName: "agent"
-    networkPolicy:
-        internalAgents:
-            allowed: true
-            namespaceLabels:
-              name: "jenkins-infra"
-    master:
-        JCasC:
-            enabled: true
-            defaultConfig: false
-            configScripts:
-              credentials : |
-                credentials:
-                  system:
-                    domainCredentials:
-                      - credentials:
-                        - usernamePassword:
-                            description: "GitHub access token for jenkinsadmin"
-                            id: "github-access-token"
-                            username: "${GITHUB_USERNAME}"
-                            password: "${GITHUB_PASSWORD}"
-                            scope: GLOBAL
-                        - string:
-                            scope: GLOBAL
-                            id: "updatecli-github-token"
-                            secret: '${UPDATECLI_GITHUB_TOKEN}'
-                            description: Github Token used by updatecli to update version
-                        - string:
-                            scope: GLOBAL
-                            id: "sops-client-id"
-                            secret: "${SOPS_CLIENT_ID}"
-                            description: Azure client ID used by sops to decrypt secrets
-                        - string:
-                            scope: GLOBAL
-                            id: "sops-client-secret"
-                            secret: "${SOPS_CLIENT_SECRET}"
-                            description: Azure client secret used by sops to decrypt secrets
-                        - string:
-                            scope: GLOBAL
-                            id: "PLUGINSITE_STORAGEACCOUNTKEY"
-                            secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
-                            description: Azure storage account key for plugin site
-                        - string:
-                            scope: GLOBAL
-                            id: "sops-tenant-id"
-                            secret: "${SOPS_TENANT_ID}"
-                            description: Azure tenant id used by sops to decrypt secrets
-                        - basicSSHUserPrivateKey:
-                            scope: GLOBAL
-                            id: "charts-secrets"
-                            username: ${SSH_CHARTS_SECRETS_USERNAME}
-                            #passphrase: ${SSH_CHARTS_SECRETS_PASSWORD}
-                            description: "SSH privkey used to access jenkins-infra/charts-secrets"
-                            privateKeySource:
-                              directEntry:
-                                privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-                        - usernamePassword:
-                            scope: GLOBAL
-                            description: Docker hub credential for jenkinsinfra organisation
-                            id: jenkins-dockerhub
-                            username: "${DOCKER_HUB_USERNAME}"
-                            password: "${DOCKER_HUB_TOKEN}"
-              k8s-settings: |
-                jenkins:
-                  clouds:
-                    - kubernetes:
-                        containerCapStr: "100"
-                        jenkinsTunnel: "jenkins-infra-agent:50000"
-                        jenkinsUrl: "http://jenkins-infra:8080"
-                        maxRequestsPerHostStr: "300"
-                        name: "kubernetes"
-                        namespace: "jenkins-infra"
-                        podRetention: "Never"
-                        serverUrl: "https://kubernetes.default"
-                        podLabels:
-                          # Required to be jenkins/<helm-release>-jenkins-slave as definede here
-                          # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
-                          - key: "jenkins/jenkins-infra-agent"
-                            value: "true"
-                        templates:
-                          - name: jnlp-linux
-                            nodeSelector: "kubernetes.io/os=linux"
-                            containers:
-                              - name: jnlp
-                                image: "jenkins/inbound-agent:latest-jdk11"
-                                resourceLimitCpu: "500m"
-                                resourceLimitMemory: "512Mi"
-                                resourceRequestCpu: "500m"
-                                resourceRequestMemory: "512Mi"
-                                args: "^${computer.jnlpmac} ^${computer.name}"
-                                alwaysPullImage: true
-                          - name: jnlp-windows
-                            nodeSelector: "kubernetes.io/os=windows"
-                            containers:
-                              - name: jnlp
-                                image: "jenkins4eval/jnlp-agent:latest-windows"
-                                resourceLimitCpu: "500m"
-                                resourceLimitMemory: "512Mi"
-                                resourceRequestCpu: "500m"
-                                resourceRequestMemory: "512Mi"
-                                args: "^${computer.jnlpmac} ^${computer.name}"
-                                alwaysPullImage: true
-                            yaml: |-
-                              spec:
-                                tolerations:
-                                - key: "os"
-                                  operator: "Equal"
-                                  value: "windows"
-                                  effect: "NoSchedule"
-              jobs-settings: |
-                jobs:
-                  - script: >
-                      multibranchPipelineJob('k8smgmt') {
-                        displayName "K8s Cluster Management"
-                        description "Current K8s Cluster Management"
-                        branchSources {
-                          github {
-                            id('2019081602')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('charts')
-                            includes('master')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
+  agent:
+    componentName: "agent"
+  networkPolicy:
+    internalAgents:
+      allowed: true
+      namespaceLabels:
+        name: "jenkins-infra"
+  master:
+    JCasC:
+      enabled: true
+      defaultConfig: false
+      configScripts:
+        credentials: |
+          credentials:
+            system:
+              domainCredentials:
+                - credentials:
+                  - usernamePassword:
+                      description: "GitHub access token for jenkinsadmin"
+                      id: "github-access-token"
+                      username: "${GITHUB_USERNAME}"
+                      password: "${GITHUB_PASSWORD}"
+                      scope: GLOBAL
+                  - string:
+                      scope: GLOBAL
+                      id: "updatecli-github-token"
+                      secret: '${UPDATECLI_GITHUB_TOKEN}'
+                      description: Github Token used by updatecli to update version
+                  - string:
+                      scope: GLOBAL
+                      id: "sops-client-id"
+                      secret: "${SOPS_CLIENT_ID}"
+                      description: Azure client ID used by sops to decrypt secrets
+                  - string:
+                      scope: GLOBAL
+                      id: "sops-client-secret"
+                      secret: "${SOPS_CLIENT_SECRET}"
+                      description: Azure client secret used by sops to decrypt secrets
+                  - string:
+                      scope: GLOBAL
+                      id: "PLUGINSITE_STORAGEACCOUNTKEY"
+                      secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
+                      description: Azure storage account key for plugin site
+                  - string:
+                      scope: GLOBAL
+                      id: "sops-tenant-id"
+                      secret: "${SOPS_TENANT_ID}"
+                      description: Azure tenant id used by sops to decrypt secrets
+                  - basicSSHUserPrivateKey:
+                      scope: GLOBAL
+                      id: "charts-secrets"
+                      username: ${SSH_CHARTS_SECRETS_USERNAME}
+                      #passphrase: ${SSH_CHARTS_SECRETS_PASSWORD}
+                      description: "SSH privkey used to access jenkins-infra/charts-secrets"
+                      privateKeySource:
+                        directEntry:
+                          privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
+                  - usernamePassword:
+                      scope: GLOBAL
+                      description: Docker hub credential for jenkinsinfra organisation
+                      id: jenkins-dockerhub
+                      username: "${DOCKER_HUB_USERNAME}"
+                      password: "${DOCKER_HUB_TOKEN}"
+        k8s-settings: |
+          jenkins:
+            clouds:
+              - kubernetes:
+                  containerCapStr: "100"
+                  jenkinsTunnel: "jenkins-infra-agent:50000"
+                  jenkinsUrl: "http://jenkins-infra:8080"
+                  maxRequestsPerHostStr: "300"
+                  name: "kubernetes"
+                  namespace: "jenkins-infra"
+                  podRetention: "Never"
+                  serverUrl: "https://kubernetes.default"
+                  podLabels:
+                    # Required to be jenkins/<helm-release>-jenkins-slave as definede here
+                    # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
+                    - key: "jenkins/jenkins-infra-agent"
+                      value: "true"
+                  templates:
+                    - name: jnlp-linux
+                      nodeSelector: "kubernetes.io/os=linux"
+                      containers:
+                        - name: jnlp
+                          image: "jenkins/inbound-agent:latest-jdk11"
+                          resourceLimitCpu: "500m"
+                          resourceLimitMemory: "512Mi"
+                          resourceRequestCpu: "500m"
+                          resourceRequestMemory: "512Mi"
+                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          alwaysPullImage: true
+                    - name: jnlp-windows
+                      nodeSelector: "kubernetes.io/os=windows"
+                      containers:
+                        - name: jnlp
+                          image: "jenkins4eval/jnlp-agent:latest-windows"
+                          resourceLimitCpu: "500m"
+                          resourceLimitMemory: "512Mi"
+                          resourceRequestCpu: "500m"
+                          resourceRequestMemory: "512Mi"
+                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          alwaysPullImage: true
+                      yaml: |-
+                        spec:
+                          tolerations:
+                          - key: "os"
+                            operator: "Equal"
+                            value: "windows"
+                            effect: "NoSchedule"
+        jobs-settings: |
+          jobs:
+            - script: >
+                multibranchPipelineJob('k8smgmt') {
+                  displayName "K8s Cluster Management"
+                  description "Current K8s Cluster Management"
+                  branchSources {
+                    github {
+                      id('2019081602')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('charts')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
+                multibranchPipelineJob('plugin-site') {
+                  displayName "Plugin Site"
+                  branchSources {
+                    github {
+                      id('2019081602')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('plugin-site')
+                      includes('master')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
+                multibranchPipelineJob('docker-packer') {
+                  displayName "Packer Docker Build"
+                  branchSources {
+                    github {
+                      id('2020101901')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('docker-packer')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
+                multibranchPipelineJob('docker-mirrorbits') {
+                  displayName "Mirrorbits Docker Build"
+                  branchSources {
+                    github {
+                      id('2020102301')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('docker-mirrorbits')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
+                multibranchPipelineJob('docker-datadog') {
+                  displayName "DataDog Docker Build"
+                  branchSources {
+                    github {
+                      id('2020111801')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('docker-datadog')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
+                multibranchPipelineJob('aws') {
+                  displayName "AWS Infra"
+                  branchSources {
+                    github {
+                      id('2020120401')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('aws')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
+                [
+                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
+                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
+                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher'],
+                ].each { config ->
+                  multibranchPipelineJob(config[1]) {
+                    displayName config[2]
+                    triggers {
+                      pollSCM {
+                        // poll every two hours until hooks are setup
+                        scmpoll_spec('H/2 * * * *')
                       }
-                  - script: >
-                      multibranchPipelineJob('plugin-site') {
-                        displayName "Plugin Site"
-                        branchSources {
+                    }
+                    branchSources {
+                      branchSource {
+                        source {
                           github {
-                            id('2019081602')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('plugin-site')
-                            includes('master')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
-                      }
-                  - script: >
-                      multibranchPipelineJob('docker-packer') {
-                        displayName "Packer Docker Build"
-                        branchSources {
-                          github {
-                            id('2020101901')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('docker-packer')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
-                      }
-                  - script: >
-                      multibranchPipelineJob('docker-mirrorbits') {
-                        displayName "Mirrorbits Docker Build"
-                        branchSources {
-                          github {
-                            id('2020102301')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('docker-mirrorbits')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
-                      }
-                  - script: >
-                      multibranchPipelineJob('docker-datadog') {
-                        displayName "DataDog Docker Build"
-                        branchSources {
-                          github {
-                            id('2020111801')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('docker-datadog')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
-                      }
-                  - script: >
-                      multibranchPipelineJob('aws') {
-                        displayName "AWS Infra"
-                        branchSources {
-                          github {
-                            id('2020120401')
-                            scanCredentialsId('github-access-token')
-                            repoOwner('jenkins-infra')
-                            repository('aws')
-                          }
-                        }
-                        factory {
-                          workflowBranchProjectFactory {
-                            scriptPath('Jenkinsfile_k8s')
-                          }
-                        }
-                      }
-                  - script: >
-                      [
-                        ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
-                        ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
-                        ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher'],
-                      ].each { config ->
-                        multibranchPipelineJob(config[1]) {
-                          displayName config[2]
-                          triggers {
-                            pollSCM {
-                              // poll every two hours until hooks are setup
-                              scmpoll_spec('H/2 * * * *')
+                            credentialsId("github-access-token")
+                            configuredByUrl(true)
+                            repositoryUrl('https://github.com/' + config[0] + '/' + config[1])
+                            repoOwner(config[0])
+                            repository(config[1])
+                            traits {
+                              gitHubBranchDiscovery {
+                                strategyId(1) // 1-only branches that are not pull requests
+                              }
+                              pruneStaleBranchTrait()
+                              gitHubTagDiscovery()
                             }
                           }
-                          branchSources {
-                            branchSource {
-                              source {
-                                github {
-                                  credentialsId("github-access-token")
-                                  configuredByUrl(true)
-                                  repositoryUrl('https://github.com/' + config[0] + '/' + config[1])
-                                  repoOwner(config[0])
-                                  repository(config[1])
-                                  traits {
-                                    gitHubBranchDiscovery {
-                                      strategyId(1) // 1-only branches that are not pull requests
-                                    }
-                                    pruneStaleBranchTrait()
-                                    gitHubTagDiscovery()
-                                  }
-                                }
-                                buildStrategies {
-                                  buildAnyBranches {
-                                    strategies {
-                                      buildAllBranches {
-                                        strategies {
-                                          buildNamedBranches {
-                                            filters {
-                                              exact {
-                                                name("master")
-                                                caseSensitive(true)
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                  buildAnyBranches {
-                                    strategies {
-                                      buildAllBranches {
-                                        strategies {
-                                          buildTags {
-                                            atLeastDays '-1'
-                                            atMostDays '3'
-                                          }
+                          buildStrategies {
+                            buildAnyBranches {
+                              strategies {
+                                buildAllBranches {
+                                  strategies {
+                                    buildNamedBranches {
+                                      filters {
+                                        exact {
+                                          name("master")
+                                          caseSensitive(true)
                                         }
                                       }
                                     }
@@ -280,73 +264,88 @@ jenkins:
                                 }
                               }
                             }
-                          }
-                          factory {
-                            workflowBranchProjectFactory {
-                              scriptPath('Jenkinsfile')
+                            buildAnyBranches {
+                              strategies {
+                                buildAllBranches {
+                                  strategies {
+                                    buildTags {
+                                      atLeastDays '-1'
+                                      atMostDays '3'
+                                    }
+                                  }
+                                }
+                              }
                             }
                           }
                         }
                       }
-              ldap-settings: |
-                jenkins:
-                  securityRealm:
-                    ldap:
-                      configurations:
-                        - server: "${LDAP_SERVER}"
-                          rootDN: "${LDAP_ROOT_DN}"
-                          managerDN: "${LDAP_MANAGER_DN}"
-                          managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
-                          userSearch: cn={0}
-                      cache:
-                        size: 100
-                        ttl: 300
-              pipeline-library: |
-                unclassified:
-                  globalLibraries:
-                    libraries:
-                    - defaultVersion: "master"
-                      implicit: true
-                      name: "pipeline-library"
-                      retriever:
-                        modernSCM:
-                          scm:
-                            git:
-                              id: "github-access-token"
-                              remote: "https://github.com/jenkins-infra/pipeline-library.git"
-              matrix-settings: |
-                jenkins:
-                  authorizationStrategy:
-                    globalMatrix:
-                      grantedPermissions:
-                        - "Overall/Administer:admins"
-                        - "Overall/SystemRead:all"
-                        - "Overall/Read:all"
-                        - "Job/Read:all"
-                        - "Job/Build:all"
-                        - "Job/ExtendedRead:all"
-        ingress:
-          enabled: true
-          hostName: infra.ci.jenkins.io
-          annotations:
-            "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-            "kubernetes.io/ingress.class": "nginx"
-            "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-          tls:
-            - hosts:
-                - infra.ci.jenkins.io
-              secretName: infra.ci.jenkins.io-cert
-        secondaryingress:
-          enabled: true
-          paths:
-            - /github-webhook
-          hostName: infra-webhooks.ci.jenkins.io
-          annotations:
-            "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-            "kubernetes.io/ingress.class": "public-ingress"
-            "nginx.ingress.kubernetes.io/hsts": "true"
-            "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-          tls:
-            - hosts:
-                - infra-webhooks.ci.jenkins.io
-              secretName: infra-webhooks.ci.jenkins.io-cert
+                    }
+                    factory {
+                      workflowBranchProjectFactory {
+                        scriptPath('Jenkinsfile')
+                      }
+                    }
+                  }
+                }
+        ldap-settings: |
+          jenkins:
+            securityRealm:
+              ldap:
+                configurations:
+                  - server: "${LDAP_SERVER}"
+                    rootDN: "${LDAP_ROOT_DN}"
+                    managerDN: "${LDAP_MANAGER_DN}"
+                    managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                    userSearch: cn={0}
+                cache:
+                  size: 100
+                  ttl: 300
+        pipeline-library: |
+          unclassified:
+            globalLibraries:
+              libraries:
+              - defaultVersion: "master"
+                implicit: true
+                name: "pipeline-library"
+                retriever:
+                  modernSCM:
+                    scm:
+                      git:
+                        id: "github-access-token"
+                        remote: "https://github.com/jenkins-infra/pipeline-library.git"
+        matrix-settings: |
+          jenkins:
+            authorizationStrategy:
+              globalMatrix:
+                grantedPermissions:
+                  - "Overall/Administer:admins"
+                  - "Overall/SystemRead:all"
+                  - "Overall/Read:all"
+                  - "Job/Read:all"
+                  - "Job/Build:all"
+                  - "Job/ExtendedRead:all"
+  ingress:
+    enabled: true
+    hostName: infra.ci.jenkins.io
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "kubernetes.io/ingress.class": "nginx"
+      "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+    tls:
+      - hosts:
+          - infra.ci.jenkins.io
+        secretName: infra.ci.jenkins.io-cert
+  secondaryingress:
+    enabled: true
+    paths:
+      - /github-webhook
+    hostName: infra-webhooks.ci.jenkins.io
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "kubernetes.io/ingress.class": "public-ingress"
+      "nginx.ingress.kubernetes.io/hsts": "true"
+      "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    tls:
+      - hosts:
+          - infra-webhooks.ci.jenkins.io
+        secretName: infra-webhooks.ci.jenkins.io-cert

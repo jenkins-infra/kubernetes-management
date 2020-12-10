@@ -74,13 +74,13 @@ resources:
     memory: 128Mi
 
 htmlVolume:
-  azureFile: 
+  azureFile:
     secretName: jenkinsio
     shareName: jenkinsio
     readOnly: true
 
 zhHtmlVolume:
-  azureFile: 
+  azureFile:
     secretName: jenkinsio
     shareName: zhjenkinsio
     readOnly: true

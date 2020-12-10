@@ -20,3 +20,6 @@ diff:
 
 release:
 	helmfile -f helmfile.d/release.yaml apply --suppress-secrets
+
+yamllint:
+	yamllint --config-file yamllint.config config/

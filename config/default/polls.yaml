@@ -6,7 +6,7 @@ ingress:
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   hosts:
     - host: polls.jenkins.io
-      paths: 
+      paths:
         - /
 
   tls:
@@ -24,7 +24,7 @@ admin_ingress:
     "nginx.ingress.kubernetes.io/auth-signin": "https://$host/oauth2/start?rd=$escaped_request_uri"
   hosts:
     - host: admin.polls.jenkins.io
-      paths: 
+      paths:
         - /
   tls:
     - secretName: admin-polls-tls

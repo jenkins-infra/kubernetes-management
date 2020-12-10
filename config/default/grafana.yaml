@@ -1,7 +1,7 @@
 # https://github.com/helm/charts/tree/master/stable/grafana
 ingress:
   enabled: true
-  hosts: 
+  hosts:
     - grafana.jenkins.io
     - grafana.publick8s.jenkins.io
   annotations:
@@ -27,25 +27,25 @@ persistence:
   size: 50
   type: statefulset
 
-#https://grafana.com/docs/administration/provisioning/#custom-settings-per-datasource
+# https://grafana.com/docs/administration/provisioning/#custom-settings-per-datasource
 datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
-    - name: Loki
-      type: loki
-      access: proxy
-      url: http://loki.loki:3100
-      jsonData:
-        maxLines: 30000
-      editable: false
-    - name: Prometheus
-      type: prometheus
-      access: proxy
-      url: http://prometheus-server.prometheus
-      jsonData:
-        maxLines: 30000
-      editable: false
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki.loki:3100
+        jsonData:
+          maxLines: 30000
+        editable: false
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus-server.prometheus
+        jsonData:
+          maxLines: 30000
+        editable: false
 
 grafana.ini:
   analytics:

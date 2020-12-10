@@ -4,19 +4,19 @@ replicaCount:
 
 resources:
   mirrorbits:
-      limits:
-        cpu: 1000m
-        memory: 1024Mi
-      requests:
-        cpu: 1000m
-        memory: 1024Mi
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+    requests:
+      cpu: 1000m
+      memory: 1024Mi
   files:
-      limits:
-        cpu: 500m
-        memory: 256Mi
-      requests:
-        cpu: 500m
-        memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 500m
+      memory: 256Mi
 
 ingress:
   annotations:
@@ -67,11 +67,11 @@ repository:
         shareName: mirrorbits
         readOnly: true
       mountOptions:
-      - dir_mode=0777
-      - file_mode=0777
-      - uid=1000
-      - gid=1000
-      - mfsymlinks
-      - nobrl
-      - serverino
-      - cache=strict
+        - dir_mode=0777
+        - file_mode=0777
+        - uid=1000
+        - gid=1000
+        - mfsymlinks
+        - nobrl
+        - serverino
+        - cache=strict

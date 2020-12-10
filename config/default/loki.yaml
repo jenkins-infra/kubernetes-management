@@ -14,7 +14,7 @@ resources:
 persistence:
   enabled: true
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   size: 100Gi
   storageClassName: default
   annotations: {}

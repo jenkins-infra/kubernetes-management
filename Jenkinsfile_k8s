@@ -23,7 +23,15 @@ pipeline {
   }
 
   stages {
+    stage('Yaml Lint') {
+      steps {
+        container('yamllint') {
+          sh 'yamllint --config-file yamllint.config config/'
+        }
+      }
+    }
     stage('Init Secrets') {
+      when { branch 'master' }
       steps {
         container('jnlp') {
           dir ('secrets'){
@@ -33,6 +41,7 @@ pipeline {
       }
     }
     stage('Check Configuration Update') {
+      when { branch 'master' }
       environment {
         UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
       }
@@ -43,6 +52,7 @@ pipeline {
       }
     }
     stage('Apply Configuration Update') {
+      when { branch 'master' }
       environment {
         UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
       }
@@ -53,6 +63,7 @@ pipeline {
       }
     }
     stage('Prepare Environment'){
+      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'mkdir -p $HOME $HOME/.config'
@@ -60,6 +71,7 @@ pipeline {
       }
     }
     stage('Test Lint'){
+      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml lint'
@@ -67,6 +79,7 @@ pipeline {
       }
     }
     stage('Diff'){
+      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets'
@@ -74,6 +87,7 @@ pipeline {
       }
     }
     stage('Apply'){
+      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml apply --suppress-secrets'
