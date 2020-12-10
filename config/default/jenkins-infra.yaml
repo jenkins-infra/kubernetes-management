@@ -122,7 +122,6 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('charts')
-                      includes('master')
                     }
                   }
                   factory {
