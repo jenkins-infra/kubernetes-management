@@ -19,6 +19,7 @@ pipeline {
   }
 
   triggers {
+    cron 'H/30 * * * *'
   }
 
   stages {
@@ -39,35 +40,25 @@ pipeline {
         }
       }
     }
-    stage('Prepare Environment'){
+    stage('Check Configuration Update') {
       when { branch 'master' }
+      environment {
+        UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
+      }
       steps {
-        container('helmfile'){
-          sh 'mkdir -p $HOME $HOME/.config'
+        container('updatecli') {
+          sh 'updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
         }
       }
     }
-    stage('Test Lint'){
+    stage('Apply Configuration Update') {
       when { branch 'master' }
-      steps {
-        container('helmfile'){
-          sh 'helmfile -f clusters/publick8s.yaml lint'
-        }
+      environment {
+        UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
       }
-    }
-    stage('Diff'){
-      when { branch 'master' }
       steps {
-        container('helmfile'){
-          sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets'
-        }
-      }
-    }
-    stage('Apply'){
-      when { branch 'master' }
-      steps {
-        container('helmfile'){
-          sh 'helmfile -f clusters/publick8s.yaml apply --suppress-secrets'
+        container('updatecli') {
+          sh 'updatecli apply --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
         }
       }
     }

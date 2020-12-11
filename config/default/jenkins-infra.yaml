@@ -131,6 +131,25 @@ jenkins:
                   }
                 }
             - script: >
+                multibranchPipelineJob('k8smgmt-updatecli') {
+                  displayName "Update Manager for k8s cluster"
+                  description "Update Manager for k8s cluster"
+                  branchSources {
+                    github {
+                      id('2019081602')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('charts')
+                      includes('master')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_updatecli_k8s')
+                    }
+                  }
+                }
+            - script: >
                 multibranchPipelineJob('plugin-site') {
                   displayName "Plugin Site"
                   branchSources {
