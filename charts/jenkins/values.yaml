@@ -106,7 +106,7 @@ jenkins:
       - metrics
   serviceAccount:
     create: true
-    name: jenkins-master
+    name: jenkins-controller
   serviceAccountAgent:
     create: true
     name: jenkins-agent
