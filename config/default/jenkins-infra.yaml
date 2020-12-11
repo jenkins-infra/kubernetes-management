@@ -339,7 +339,7 @@ jenkins:
           jenkins:
             authorizationStrategy:
               globalMatrix:
-                grantedPermissions:
+                permissions:
                   - "Overall/Administer:admins"
                   - "Overall/SystemRead:all"
                   - "Overall/Read:all"
