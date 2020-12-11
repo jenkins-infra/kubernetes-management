@@ -367,7 +367,7 @@ jenkins:
           jenkins:
             authorizationStrategy:
               globalMatrix:
-                grantedPermissions:
+                permissions:
                   - "Overall/Administer:release-core"
                   - "Overall/SystemRead:all"
                   - "Overall/Read:all"
