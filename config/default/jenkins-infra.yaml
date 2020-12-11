@@ -122,11 +122,6 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('charts')
-                      traits {
-                        gitHubBranchDiscovery {
-                          strategyId(2) // 2-only branches that are pull requests
-                        }
-                      }
                     }
                   }
                   factory {
