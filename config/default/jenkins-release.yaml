@@ -361,7 +361,7 @@ jenkins:
                   description "Jenkins Core Release"
                   branchSources {
                     github {
-                      id('2020121601')
+                      id('2020121702')
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('release')
