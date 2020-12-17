@@ -365,7 +365,6 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('release')
-                      includes('master')
                     }
                   }
                   factory {
