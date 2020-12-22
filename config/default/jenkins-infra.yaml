@@ -217,6 +217,23 @@ jenkins:
                   }
                 }
             - script: >
+                multibranchPipelineJob('docker-builder') {
+                  displayName "Docker Builder's Docker Build"
+                  branchSources {
+                    github {
+                      id('2020122201')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('docker-builder')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
                 multibranchPipelineJob('aws') {
                   displayName "AWS Infra"
                   branchSources {
