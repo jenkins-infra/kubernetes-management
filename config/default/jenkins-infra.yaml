@@ -147,7 +147,7 @@ jenkins:
                       excludes()
                     }
                     traits << 'org.jenkinsci.plugins.github.label.filter.PullRequestLabelsBlackListFilterTrait' {
-                      labels('on-hold')
+                      labels('on-hold ci-skip')
                     }
                   }
                 }
