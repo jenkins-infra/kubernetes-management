@@ -151,11 +151,11 @@ jenkins:
                 }
             - script: >
                 [
-                  [repo: 'docker-packer', owner: 'jenkins-infra', name: 'Packer Docker Build'],
-                  [repo: 'docker-mirrorbits', owner: 'jenkins-infra', name: 'Mirrorbits Docker Build'],
-                  [repo: 'docker-datadog', owner: 'jenkins-infra', name: 'Datadog Docker Build'],
-                  [repo: 'docker-terraform', owner: 'jenkins-infra', name: 'Terraform Docker Build'],
-                  [repo: 'docker-builder', owner: 'jenkins-infra', name: "Docker Builder's Docker Build"],
+                  [repo: 'docker-packer', owner: 'jenkins-infra', name: 'Packer Docker Build', trust: 'TrustPermission'],
+                  [repo: 'docker-mirrorbits', owner: 'jenkins-infra', name: 'Mirrorbits Docker Build', trust: 'TrustPermission'],
+                  [repo: 'docker-datadog', owner: 'jenkins-infra', name: 'Datadog Docker Build', trust: 'TrustPermission'],
+                  [repo: 'docker-terraform', owner: 'jenkins-infra', name: 'Terraform Docker Build', trust: 'TrustPermission'],
+                  [repo: 'docker-builder', owner: 'jenkins-infra', name: "Docker Builder's Docker Build", trust: 'TrustPermission'],
                   [repo: 'aws', owner: 'jenkins-infra', name: 'AWS Infra'],
                 ].each{ config ->
                   multibranchPipelineJob(config.repo) {
@@ -183,7 +183,7 @@ jenkins:
                       }
                       traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
                         strategyId(1)
-                        trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustNobody')
+                        trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$' + config.trust)
                       }
                       traits << 'jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait' {
                         includes('main master PR-*')
