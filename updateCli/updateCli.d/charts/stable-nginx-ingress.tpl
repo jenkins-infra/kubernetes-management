@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://kubernetes-charts.storage.googleapis.com
+    url: https://charts.helm.sh/stable
     name: nginx-ingress
 
 conditions:
@@ -9,7 +9,7 @@ conditions:
     name: "Nging ingress helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://charts.helm.sh/stable
       name: nginx-ingress
   publicHelmfileRelease:
     name: "public stable/nginx-ingress Helm Chart"
