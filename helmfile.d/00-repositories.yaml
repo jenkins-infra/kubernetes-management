@@ -1,6 +1,6 @@
 repositories:
   - name: incubator
-    url: https://kubernetes-charts-incubator.storage.googleapis.com
+    url: https://charts.helm.sh/incubator
   - name: jetstack
     url: https://charts.jetstack.io
   - name: loki
