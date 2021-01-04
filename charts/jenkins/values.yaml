@@ -1,5 +1,5 @@
+---
 # Default helm value https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml
-#
 clusterAdminEnabled: false
 jenkins:
   rbac:
@@ -60,6 +60,7 @@ jenkins:
       - github-api
       - github-branch-source
       - github-checks
+      - github-label-filter
       - inline-pipeline
       - jira
       - job-dsl
