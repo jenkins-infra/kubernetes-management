@@ -176,7 +176,7 @@ jenkins:
                   [repo: 'docker-datadog', owner: 'jenkins-infra', name: 'Datadog Docker Build', trust: 'TrustPermission'],
                   [repo: 'docker-terraform', owner: 'jenkins-infra', name: 'Terraform Docker Build', trust: 'TrustPermission'],
                   [repo: 'docker-builder', owner: 'jenkins-infra', name: "Docker Builder's Docker Build", trust: 'TrustPermission'],
-                  [repo: 'aws', owner: 'jenkins-infra', name: 'AWS Infra'],
+                  [repo: 'aws', owner: 'jenkins-infra', name: 'AWS Infra', trust: 'TrustNobody'],
                 ].each{ config ->
                   multibranchPipelineJob(config.repo) {
                     displayName config.name
