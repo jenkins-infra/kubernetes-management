@@ -1,6 +1,6 @@
 dependencies:
 - name: sonatype-nexus
-  repository: https://kubernetes-charts.storage.googleapis.com
+  repository: https://charts.helm.sh/stable
   version: 1.18.4
-digest: sha256:2ee2d6d747813ec5564db9144f9dfd3fd3f537555fd61e168b76ea5f5c661306
-generated: 2019-06-25T15:12:53.033243911+02:00
+digest: sha256:f63c61e07284a72089320d6c98f9a37ec4315d27da382265255f45bd89582d72
+generated: "2021-01-04T12:01:14.966001+01:00"
