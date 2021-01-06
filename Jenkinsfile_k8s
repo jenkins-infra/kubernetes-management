@@ -84,7 +84,7 @@ pipeline {
       }
     }
     stage('Diff on PR'){
-      when { branch != 'master' }
+      when { branch 'PR-*' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets --skip-deps'
