@@ -89,7 +89,11 @@ pipeline {
         container('helmfile'){
           script {
             def diff = sh(script:'helmfile -f clusters/publick8s.yaml diff --suppress-secrets --skip-deps', returnStdout: true).trim()
+            echo "======================================"
             echo diff
+            echo "======================================"
+            echo diff.split('\n').findAll{!it.startsWith('Decrypting ')}.join('\n')
+            echo "======================================"
           }
         }
       }
