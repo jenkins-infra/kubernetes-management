@@ -19,7 +19,7 @@ pipeline {
   }
 
   triggers {
-    cron 'H/30 * * * *'
+    cron(env.BRANCH_NAME == 'master' ? 'H/30 * * * *' : '')
   }
 
   stages {
