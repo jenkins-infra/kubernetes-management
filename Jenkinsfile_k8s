@@ -31,7 +31,6 @@ pipeline {
       }
     }
     stage('Init Secrets') {
-      when { branch 'master' }
       steps {
         container('jnlp') {
           dir ('secrets'){
