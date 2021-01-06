@@ -221,6 +221,23 @@ jenkins:
                   }
                 }
             - script: >
+                multibranchPipelineJob('docker-rsyncd') {
+                  displayName "Rsyncd Docker Build"
+                  branchSources {
+                    github {
+                      id('2021010601')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('docker-rsyncd')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                }
+            - script: >
                 multibranchPipelineJob('docker-terraform') {
                   displayName "Terraform Docker Build"
                   branchSources {
