@@ -75,10 +75,19 @@ pipeline {
         }
       }
     }
-    stage('Diff'){
+    stage('Diff on Main Branch'){
+      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets'
+        }
+      }
+    }
+    stage('Diff on PR'){
+      when { branch != 'master' }
+      steps {
+        container('helmfile'){
+          sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets --skip-deps'
         }
       }
     }
