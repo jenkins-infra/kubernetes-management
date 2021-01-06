@@ -76,7 +76,6 @@ pipeline {
       }
     }
     stage('Diff'){
-      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets'
