@@ -62,7 +62,6 @@ pipeline {
       }
     }
     stage('Prepare Environment'){
-      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'mkdir -p $HOME $HOME/.config'
@@ -70,7 +69,6 @@ pipeline {
       }
     }
     stage('Test Lint'){
-      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml lint'
