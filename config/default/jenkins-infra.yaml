@@ -170,87 +170,46 @@ jenkins:
                   }
                 }
             - script: >
-                multibranchPipelineJob('docker-packer') {
-                  displayName "Packer Docker Build"
-                  branchSources {
+                organizationFolder('Docker Builds') {
+                  description('Docker Builds')
+                  displayName('Docker Builds')
+                  organizations {
                     github {
-                      id('2020101901')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-packer')
+                      repoOwner("jenkins-infra")
+                      apiUri("https://api.github.com")
+                      credentialsId('github-access-token')
                     }
                   }
-                  factory {
-                    workflowBranchProjectFactory {
+
+                  orphanedItemStrategy {
+                    discardOldItems {
+                      daysToKeep(7)
+                      numToKeep(10)
+                    }
+                  }
+
+                  projectFactories {
+                    workflowMultiBranchProjectFactory {
                       scriptPath('Jenkinsfile_k8s')
                     }
                   }
-                }
-            - script: >
-                multibranchPipelineJob('docker-mirrorbits') {
-                  displayName "Mirrorbits Docker Build"
-                  branchSources {
-                    github {
-                      id('2020102301')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-mirrorbits')
+
+                  configure { node ->
+                    def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
+                    traits << 'jenkins.scm.impl.trait.RegexSCMSourceFilterTrait' {
+                      regex('docker-.*')
                     }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
+                    traits << 'jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait' {
+                      includes('main master PR-*')
+                      excludes()
                     }
-                  }
-                }
-            - script: >
-                multibranchPipelineJob('docker-datadog') {
-                  displayName "DataDog Docker Build"
-                  branchSources {
-                    github {
-                      id('2020111801')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-datadog')
+                    traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
+                      strategyId(1)
                     }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
+                    traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
+                      strategyId(1)
                     }
-                  }
-                }
-            - script: >
-                multibranchPipelineJob('docker-terraform') {
-                  displayName "Terraform Docker Build"
-                  branchSources {
-                    github {
-                      id('2020121001')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-terraform')
-                    }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
-                    }
-                  }
-                }
-            - script: >
-                multibranchPipelineJob('docker-builder') {
-                  displayName "Docker Builder's Docker Build"
-                  branchSources {
-                    github {
-                      id('2020122201')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-builder')
-                    }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ExcludeArchivedRepositoriesTrait' {
                     }
                   }
                 }
