@@ -23,8 +23,8 @@ images:
     tag: latest
     pullPolicy: Always
   rsyncd:
-    repository: jenkinsciinfra/rsyncd
-    tag: latest
+    repository: jenkinsciinfra/rsyncd@sha256
+    tag: 7d932c3cec64b3e67c6e64e1ff85b1588c305d540af4aac426628f38f6fd17af
     pullPolicy: Always
 
 imagePullSecrets: []
