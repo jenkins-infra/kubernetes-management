@@ -178,6 +178,19 @@ jenkins:
                       repoOwner("jenkins-infra")
                       apiUri("https://api.github.com")
                       credentialsId('github-access-token')
+
+                      traits {
+                        gitHubTagDiscovery()
+                        cloneOptionTrait {
+                          extension {
+                            shallow(false)
+                            noTags(false)
+                            reference('')
+                            timeout(10)
+                            honorRefspec(true)
+                          }
+                        }
+                      }
                     }
                   }
 
@@ -191,6 +204,13 @@ jenkins:
                   projectFactories {
                     workflowMultiBranchProjectFactory {
                       scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+
+                  buildStrategies {
+                    buildTags {
+                      atLeastDays("0")
+                      atMostDays("7")
                     }
                   }
 
