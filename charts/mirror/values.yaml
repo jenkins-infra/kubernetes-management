@@ -44,6 +44,7 @@ service:
 #    IP:
     whitelisted_sources:
       - 52.167.253.43/32
+      - 52.202.51.185/32
 
 #ingress:
 #  enabled: true
