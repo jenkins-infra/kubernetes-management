@@ -22,14 +22,28 @@ images:
     repository: olblak/crond
     tag: latest
     pullPolicy: Always
+  rsyncd:
+    repository: jenkinsciinfra/rsyncd
+    tag: latest
+    pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: ClusterIP
-  port: 80
+  web:
+    type: ClusterIP
+    port: 80
+#    IP:
+#    whitelisted_sources:
+#      - 
+  rsyncd:
+    type: ClusterIP
+    port: 873
+#    IP:
+#    whitelisted_sources:
+#      - 
 
 #ingress:
 #  enabled: true
@@ -47,12 +61,27 @@ service:
 #        - mirror.jenkins.io
 
 resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+  web:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  cron:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  rsyncd:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
 
 nodeSelector: {}
 

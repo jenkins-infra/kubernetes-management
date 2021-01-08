@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mirror.fullname" . }}
+  labels:
+{{ include "mirror.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.web.type }}
+  {{- if eq .Values.service.web.type "LoadBalancer" }}
+  {{- if .Values.service.web.IP }}
+  loadBalancerIP: {{ .Values.service.IP }}
+  {{- end }}
+  loadBalancerSourceRanges:
+    {{- range .Values.service.web.whitelisted_sources }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
+
+  ports:
+    - port: {{ .Values.service.web.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "mirror.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
