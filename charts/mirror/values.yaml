@@ -3,7 +3,6 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
 strategy:
   #rollingUpdate:
   #  maxSurge: 25%
@@ -12,7 +11,6 @@ strategy:
   # By default we use an azure disk which do not support multi mount so
   # we must be sure that all containers are stopped before deploying the new one
   type: Recreate
-
 images:
   web:
     repository: httpd
@@ -24,28 +22,25 @@ images:
     pullPolicy: Always
   rsyncd:
     repository: jenkinsciinfra/rsyncd@sha256
-    tag: 7d932c3cec64b3e67c6e64e1ff85b1588c305d540af4aac426628f38f6fd17af
+    tag: d36521208fce3edb1143db78e8a390ddd039eb7d6f4e17f7f190888999272a53
     pullPolicy: Always
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
 service:
   web:
     type: ClusterIP
     port: 80
-#    IP:
-#    whitelisted_sources:
-#      - 
+    #    IP:
+    #    whitelisted_sources:
+    #      - 
   rsyncd:
     type: ClusterIP
     port: 873
-#    IP:
+    #    IP:
     whitelisted_sources:
       - 52.167.253.43/32
       - 52.202.51.185/32
-
 #ingress:
 #  enabled: true
 #  annotations: 
@@ -60,7 +55,6 @@ service:
 #    - secretName: releasemirror-tls
 #      hosts:
 #        - mirror.jenkins.io
-
 resources:
   web:
     limits:
@@ -83,13 +77,9 @@ resources:
     requests:
       cpu: 50m
       memory: 64Mi
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
-
 persistent:
   volume:
     name: mirror-binary
@@ -109,9 +99,7 @@ persistent:
     name: mirror-binary
     enabled: false
     data: {}
-
 synchronize:
   enabled: false
   upstream: "rsync://ftp-osl.osuosl.org/jenkins/"
   period: "*/5 * * * *"
-
