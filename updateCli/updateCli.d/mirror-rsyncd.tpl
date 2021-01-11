@@ -11,7 +11,7 @@ conditions:
     kind: yaml
     spec:
       file: "charts/mirror/values.yaml"
-      key: "images.rsyncd.tag"
+      key: "images.rsyncd.repository"
       value: "jenkinsciinfra/rsyncd@sha256"
     scm:
       github:
