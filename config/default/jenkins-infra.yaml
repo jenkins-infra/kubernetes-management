@@ -219,10 +219,6 @@ jenkins:
                     traits << 'jenkins.scm.impl.trait.RegexSCMSourceFilterTrait' {
                       regex('docker-.*')
                     }
-                    traits << 'jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait' {
-                      includes('main master PR-*')
-                      excludes()
-                    }
                     traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
                       strategyId(1)
                     }
