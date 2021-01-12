@@ -81,6 +81,9 @@ mirrorbits add -http https://ftp.yz.yamagata-u.ac.jp/pub/misc/jenkins/ -rsync rs
 mirrorbits add -http https://mirror.gruenehoelle.nl/jenkins/ -rsync rsync://esme.gruenehoelle.nl/mirror/jenkins/ -admin-name "gunter@grodotzki.com" -admin-email "gunter@grodotzki.com" gruenehoelle.nl
 
 mirrorbits add -http https://ftp.halifax.rwth-aachen.de/jenkins/ -rsync rsync://ftp.halifax.rwth-aachen.de/jenkins/ -ftp ftp://ftp.halifax.rwth-aachen.de/jenkins/ -admin-name "ftp@halifax.rwth-aachen.de" -admin-email "ftp@halifax.rwth-aachen.de" rwth-aachen.de
+
+# `20.62.81.57` is a dynamic generated IP retrieved using command `kubectl get service -n mirror  mirror-rsyncd`
+mirrorbits add -http https://mirror.azure.jenkins.io/ -rsync rsync://20.62.81.57/jenkins/ -admin-name "Jenkins Infrastructure" -admin-email "jenkinsci-infra@googlegroups.com" mirror.azure.jenkins.io
 ```
 
 ## Links
