@@ -229,7 +229,12 @@ jenkins:
             - script: >
                 folder('core/stable') {
                   displayName('Stable')
-                  description('Folder for weekly releases')
+                  description('Folder for stable releases')
+                }
+            - script: >
+                folder('core/stable-rc') {
+                  displayName('Stable Release Candidates')
+                  description('Folder for stable release candidates')
                 }
 
             - script: >
@@ -350,6 +355,35 @@ jenkins:
                     }
                   }
                 }
+            - script: >
+                multibranchPipelineJob('core/stable-rc/release') {
+                  displayName "Release"
+                  description "Jenkins Core Release"
+                  branchSources {
+                    github {
+                      id('2020121601')
+                      scanCredentialsId('github-access-token')
+                      repoOwner('jenkins-infra')
+                      repository('release')
+                    }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath('Jenkinsfile.d/core/stable-rc')
+                    }
+                  }
+                  configure {
+                    it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                        strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                            properties(class: 'java.util.Arrays$ArrayList') {
+                                a(class: 'jenkins.branch.BranchProperty-array') {
+                                    'jenkins.branch.NoTriggerBranchProperty'()
+                                }
+                            }
+                        }
+                    }
+                  }
+                }
         ldap-settings: |
           jenkins:
             securityRealm:
@@ -367,7 +401,7 @@ jenkins:
           jenkins:
             authorizationStrategy:
               globalMatrix:
-                grantedPermissions:
+                permissions:
                   - "Overall/Administer:release-core"
                   - "Overall/SystemRead:all"
                   - "Overall/Read:all"

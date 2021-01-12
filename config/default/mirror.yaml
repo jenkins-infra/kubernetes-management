@@ -31,3 +31,7 @@ persistent:
       resources:
         requests:
           storage: 200Gi
+
+service:
+  rsyncd:
+    type: LoadBalancer

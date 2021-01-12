@@ -6,11 +6,11 @@ replicaCount: 1
 image:
   slapd:
     repository: jenkinsciinfra/ldap@sha256
-    tag: 19ff8faf9e7d69465d4ab8aae293f3beeb229a5015b936363790ec767125614a
+    tag: c309103fae47dac77040c6b66def76a3bac95499a4def069186d73473e30af9f
     pullPolicy: IfNotPresent
   crond:
     repository: jenkinsciinfra/ldap@sha256
-    tag: 6f9dfe149e46390ce5407855372c3f6f0339cfa44c64adc7873bbcec972c28e0
+    tag: 741ad83758a61897de90a3caa731adcc470e9801ff141191427737fbbb53899c
     pullPolicy: IfNotPresent
 imagePullSecrets: []
 nameOverride: ""

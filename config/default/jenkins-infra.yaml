@@ -1,3 +1,4 @@
+---
 clusterAdminEnabled: true
 jenkins:
   agent:
@@ -122,16 +123,31 @@ jenkins:
                       scanCredentialsId('github-access-token')
                       repoOwner('jenkins-infra')
                       repository('charts')
-                      traits {
-                        gitHubBranchDiscovery {
-                          strategyId(2) // 2-only branches that are pull requests
-                        }
-                      }
                     }
                   }
                   factory {
                     workflowBranchProjectFactory {
                       scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                  configure { node ->
+                    def traits = node / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
+                    traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
+                      strategyId(1)
+                    }
+                    traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
+                      strategyId(1)
+                    }
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                      strategyId(1)
+                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
+                    }
+                    traits << 'jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait' {
+                      includes('main master PR-*')
+                      excludes()
+                    }
+                    traits << 'org.jenkinsci.plugins.github.label.filter.PullRequestLabelsBlackListFilterTrait' {
+                      labels('on-hold ci-skip')
                     }
                   }
                 }
@@ -154,70 +170,69 @@ jenkins:
                   }
                 }
             - script: >
-                multibranchPipelineJob('docker-packer') {
-                  displayName "Packer Docker Build"
-                  branchSources {
+                organizationFolder('Docker Builds') {
+                  description('Docker Builds')
+                  displayName('Docker Builds')
+                  organizations {
                     github {
-                      id('2020101901')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-packer')
+                      repoOwner("jenkins-infra")
+                      apiUri("https://api.github.com")
+                      credentialsId('github-access-token')
+
+                      traits {
+                        gitHubTagDiscovery()
+                        cloneOptionTrait {
+                          extension {
+                            shallow(false)
+                            noTags(false)
+                            reference('')
+                            timeout(10)
+                            honorRefspec(true)
+                          }
+                        }
+                      }
                     }
                   }
-                  factory {
-                    workflowBranchProjectFactory {
+
+                  orphanedItemStrategy {
+                    discardOldItems {
+                      daysToKeep(7)
+                      numToKeep(10)
+                    }
+                  }
+
+                  projectFactories {
+                    workflowMultiBranchProjectFactory {
                       scriptPath('Jenkinsfile_k8s')
                     }
                   }
-                }
-            - script: >
-                multibranchPipelineJob('docker-mirrorbits') {
-                  displayName "Mirrorbits Docker Build"
-                  branchSources {
-                    github {
-                      id('2020102301')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-mirrorbits')
+
+                  buildStrategies {
+                    buildTags {
+                      atLeastDays("0")
+                      atMostDays("7")
                     }
                   }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
+
+                  configure { node ->
+                    def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
+                    traits << 'jenkins.scm.impl.trait.RegexSCMSourceFilterTrait' {
+                      regex('docker-.*')
                     }
-                  }
-                }
-            - script: >
-                multibranchPipelineJob('docker-datadog') {
-                  displayName "DataDog Docker Build"
-                  branchSources {
-                    github {
-                      id('2020111801')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-datadog')
+                    traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
+                      strategyId(1)
                     }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
+                    traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
+                      strategyId(1)
                     }
-                  }
-                }
-            - script: >
-                multibranchPipelineJob('docker-terraform') {
-                  displayName "Terraform Docker Build"
-                  branchSources {
-                    github {
-                      id('2020121001')
-                      scanCredentialsId('github-access-token')
-                      repoOwner('jenkins-infra')
-                      repository('docker-terraform')
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                      strategyId(1)
+                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
                     }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ExcludeArchivedRepositoriesTrait' {
+                    }
+                    traits << 'org.jenkinsci.plugins.github.label.filter.PullRequestLabelsBlackListFilterTrait' {
+                      labels('on-hold ci-skip')
                     }
                   }
                 }
@@ -339,7 +354,7 @@ jenkins:
           jenkins:
             authorizationStrategy:
               globalMatrix:
-                grantedPermissions:
+                permissions:
                   - "Overall/Administer:admins"
                   - "Overall/SystemRead:all"
                   - "Overall/Read:all"

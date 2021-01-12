@@ -1,5 +1,5 @@
+---
 # Default helm value https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml
-#
 clusterAdminEnabled: false
 jenkins:
   rbac:
@@ -11,7 +11,7 @@ jenkins:
   controller:
     testEnabled: false
     image: jenkins/jenkins
-    tag: 2.270-jdk11
+    tag: 2.274-jdk11
     ingress:
       apiVersion: networking.k8s.io/v1beta1
     runAsUser: 1000
@@ -60,6 +60,7 @@ jenkins:
       - github-api
       - github-branch-source
       - github-checks
+      - github-label-filter
       - inline-pipeline
       - jira
       - job-dsl
@@ -71,6 +72,7 @@ jenkins:
       - matrix-auth
       - matrix-project
       - pipeline-build-step
+      - pipeline-github
       - pipeline-graph-analysis
       - pipeline-input-step
       - pipeline-milestone-step

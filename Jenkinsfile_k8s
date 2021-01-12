@@ -19,7 +19,7 @@ pipeline {
   }
 
   triggers {
-    cron 'H/30 * * * *'
+    cron(env.BRANCH_NAME == 'master' ? 'H/30 * * * *' : '')
   }
 
   stages {
@@ -31,7 +31,6 @@ pipeline {
       }
     }
     stage('Init Secrets') {
-      when { branch 'master' }
       steps {
         container('jnlp') {
           dir ('secrets'){
@@ -63,7 +62,6 @@ pipeline {
       }
     }
     stage('Prepare Environment'){
-      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'mkdir -p $HOME $HOME/.config'
@@ -71,18 +69,28 @@ pipeline {
       }
     }
     stage('Test Lint'){
-      when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml lint'
         }
       }
     }
-    stage('Diff'){
+    stage('Diff on Main Branch'){
       when { branch 'master' }
       steps {
         container('helmfile'){
           sh 'helmfile -f clusters/publick8s.yaml diff --suppress-secrets'
+        }
+      }
+    }
+    stage('Diff on PR'){
+      when { changeRequest() }
+      steps {
+        container('helmfile'){
+          script {
+            def diff = sh(script:'helmfile --no-color -f clusters/publick8s.yaml diff --suppress-secrets --skip-deps', returnStdout: true).trim()
+            pullRequest.comment('```\n' + diff)
+          }
         }
       }
     }

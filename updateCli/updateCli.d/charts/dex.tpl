@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://kubernetes-charts.storage.googleapis.com
+    url: https://charts.helm.sh/stable
     name: dex
 
 conditions:
@@ -9,7 +9,7 @@ conditions:
     name: "Dex helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://charts.helm.sh/stable
       name: dex
   helmfileRelease:
     name: "stable/dex Helm Chart"

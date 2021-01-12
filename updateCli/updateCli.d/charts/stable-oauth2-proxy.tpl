@@ -1,7 +1,7 @@
 source:
   kind: helmChart
   spec:
-    url: https://kubernetes-charts.storage.googleapis.com
+    url: https://charts.helm.sh/stable
     name: oauth2-proxy
 
 conditions:
@@ -9,7 +9,7 @@ conditions:
     name: Ooauth2-proxy helm chart available on Registry"
     kind: helmChart
     spec:
-      url: https://kubernetes-charts.storage.googleapis.com
+      url: https://charts.helm.sh/stable
       name: oauth2-proxy
   helmfileRelease:
     name: "stable/oauth2-proxy Helm Chart"

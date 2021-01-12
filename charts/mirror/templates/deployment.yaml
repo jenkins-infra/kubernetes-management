@@ -39,7 +39,7 @@ spec:
               path: /
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources.web | nindent 12 }}
           volumeMounts:
           {{- if .Values.persistent.volumeClaim.enabled }}
             - name: binary
@@ -55,7 +55,7 @@ spec:
           image: "{{ .Values.images.cron.repository }}:{{ .Values.images.cron.tag }}"
           imagePullPolicy: {{ .Values.images.cron.pullPolicy }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources.cron | nindent 12 }}
           volumeMounts:
           {{- if .Values.persistent.volumeClaim.enabled }}
             - name: binary
@@ -64,6 +64,27 @@ spec:
             - name: cronjobs
               mountPath: /etc/crontabs/
               readOnly: true
+        - name: rsyncd
+          image: "{{ .Values.images.rsyncd.repository }}:{{ .Values.images.rsyncd.tag }}"
+          imagePullPolicy: {{ .Values.images.rsyncd.pullPolicy }}
+          ports:
+            - name: rsyncd
+              containerPort: 873
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+             port: 873
+          readinessProbe:
+            tcpSocket:
+             port: 873
+          resources:
+            {{- toYaml .Values.resources.rsyncd | nindent 12 }}
+          volumeMounts:
+          {{- if .Values.persistent.volumeClaim.enabled }}
+            - name: binary
+              mountPath: /srv/releases/jenkins
+              readOnly: true
+          {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

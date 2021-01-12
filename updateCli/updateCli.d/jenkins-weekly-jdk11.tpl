@@ -1,21 +1,25 @@
 source:
-  kind: maven
+  name: "Retrieve latest jenkins weekly version"
+  kind: githubRelease
   postfix: "-jdk11"
+  replaces:
+    - from: "jenkins-"
+      to: ""
   spec:
-    owner: "maven"
-    url: "repo.jenkins-ci.org"
-    repository: "releases"
-    groupID: "org.jenkins-ci.main"
-    artifactID: "jenkins-war"
+    owner: "jenkinsci"
+    repository: "jenkins"
+    token: "{{ requiredEnv .github.token }}"
+    username: "{{ .github.username }}"
+    version: "latest"
 conditions:
   docker:
-    name: "Docker Image Published on Registry"
+    name: "Test jenkins/jenkins docker image tag"
     kind: dockerImage
     spec:
       image: "jenkins/jenkins"
 targets:
   imageTag:
-    name: "jenkins/jenkins docker tag"
+    name: "Update jenkins/jenkins docker image tag"
     kind: yaml
     spec:
       file: "charts/jenkins/values.yaml"
@@ -24,8 +28,8 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "master"
