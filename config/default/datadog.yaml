@@ -15,7 +15,7 @@ agents:
     create: true
   image:
     repository: "jenkinsciinfra/datadog@sha256"
-    tag: "33c3633b6bf64671fb8f6975ea8a9aa59d9183ab8cf8fc18a2b6ee31cf6e981f"
+    tag: "976b971f63d68702321a540fb087e91cd52bd722069b60b847e625776d371e51"
     doNotCheckTag: true # we must skip version test while we use the docker image digest
 clusterAgents:
   enabled: true
