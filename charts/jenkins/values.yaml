@@ -1,4 +1,3 @@
----
 # Default helm value https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml
 clusterAdminEnabled: false
 jenkins:
@@ -11,7 +10,7 @@ jenkins:
   master:
     testEnabled: false
     image: jenkins/jenkins
-    imageTag: 2.274-jdk11
+    imageTag: 2.275-jdk11
     ingress:
       apiVersion: networking.k8s.io/v1beta1
     runAsUser: 1000
