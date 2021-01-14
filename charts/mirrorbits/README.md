@@ -84,7 +84,7 @@ mirrorbits add -http https://ftp.halifax.rwth-aachen.de/jenkins/ -rsync rsync://
 
 # `20.62.81.57` is a dynamic generated IP retrieved using command `kubectl get service -n mirror  mirror-rsyncd`
 # `20.62.81.57` can be replaced by `mirror-rsyncd.mirror` if on the same kubernetes cluster
-mirrorbits add -http https://mirror.azure.jenkins.io/ -rsync rsync://20.62.81.57/jenkins/ -admin-name "Jenkins Infrastructure" -admin-email "jenkinsci-infra@googlegroups.com" mirror.azure.jenkins.io
+mirrorbits add -http https://mirror.azure.jenkins.io/ -rsync rsync://mirror-rsyncd.mirror/jenkins/ -admin-name "Jenkins Infrastructure" -admin-email "jenkinsci-infra@googlegroups.com" mirror.azure.jenkins.io
 ```
 
 ## Links
