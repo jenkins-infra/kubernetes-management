@@ -208,9 +208,18 @@ jenkins:
                   }
 
                   buildStrategies {
-                    buildTags {
-                      atLeastDays("0")
-                      atMostDays("7")
+                    buildAnyBranches {
+                      strategies {
+                        buildChangeRequests {
+                          ignoreTargetOnlyChanges(true)
+                          ignoreUntrustedChanges(true)
+                        }
+                        buildRegularBranches()
+                        buildTags {
+                          atLeastDays("0")
+                          atMostDays("7")
+                        }
+                      }
                     }
                   }
 
