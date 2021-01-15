@@ -18,6 +18,11 @@ jenkins:
             system:
               domainCredentials:
                 - credentials:
+                  - gitHubApp:
+                      appID: "${GITHUB_APP_ID}"
+                      description: "GitHub App for infra.ci.jenkins.io"
+                      id: "github-app-infra"
+                      privateKey: "${GITHUB_APP_PRIVATE_KEY}"
                   - usernamePassword:
                       description: "GitHub access token for jenkinsadmin"
                       id: "github-access-token"
@@ -120,7 +125,7 @@ jenkins:
                   branchSources {
                     github {
                       id('2019081602')
-                      scanCredentialsId('github-access-token')
+                      scanCredentialsId('github-app-infra')
                       repoOwner('jenkins-infra')
                       repository('charts')
                     }
@@ -157,7 +162,7 @@ jenkins:
                   branchSources {
                     github {
                       id('2019081602')
-                      scanCredentialsId('github-access-token')
+                      scanCredentialsId('github-app-infra')
                       repoOwner('jenkins-infra')
                       repository('plugin-site')
                       includes('master')
@@ -177,7 +182,7 @@ jenkins:
                     github {
                       repoOwner("jenkins-infra")
                       apiUri("https://api.github.com")
-                      credentialsId('github-access-token')
+                      credentialsId('github-app-infra')
 
                       traits {
                         gitHubTagDiscovery()
@@ -257,7 +262,7 @@ jenkins:
                   branchSources {
                     github {
                       id('2020120401')
-                      scanCredentialsId('github-access-token')
+                      scanCredentialsId('github-app-infra')
                       repoOwner('jenkins-infra')
                       repository('aws')
                     }
@@ -286,7 +291,7 @@ jenkins:
                       branchSource {
                         source {
                           github {
-                            credentialsId("github-access-token")
+                            credentialsId("github-app-infra")
                             configuredByUrl(true)
                             repositoryUrl('https://github.com/' + config[0] + '/' + config[1])
                             repoOwner(config[0])
@@ -363,7 +368,7 @@ jenkins:
                   modernSCM:
                     scm:
                       git:
-                        id: "github-access-token"
+                        id: "github-app-infra"
                         remote: "https://github.com/jenkins-infra/pipeline-library.git"
         matrix-settings: |
           jenkins:
