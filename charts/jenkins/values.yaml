@@ -85,6 +85,7 @@ jenkins:
       - plain-credentials
       - prometheus
       - scm-api
+      - scm-filter-branch-pr
       - script-security
       - ssh-agent
       - ssh-credentials

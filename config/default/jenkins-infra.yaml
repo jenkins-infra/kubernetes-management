@@ -240,6 +240,12 @@ jenkins:
                     }
                     traits << 'org.jenkinsci.plugins.github__branch__source.ExcludeArchivedRepositoriesTrait' {
                     }
+                    traits << 'net.gleske.scmfilter.impl.trait.WildcardSCMHeadFilterTrait' {
+                      includes('main master PR-*')
+                      excludes()
+                      tagIncludes('*')
+                      tagExcludes()
+                    }
                     traits << 'org.jenkinsci.plugins.github.label.filter.PullRequestLabelsBlackListFilterTrait' {
                       labels('on-hold ci-skip')
                     }
