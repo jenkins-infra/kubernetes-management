@@ -5,7 +5,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 1.6.0
+    version: 1.6.1
     wait: true
     timeout: 100
     atomic: true
