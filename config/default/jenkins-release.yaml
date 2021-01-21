@@ -14,7 +14,7 @@ jenkins:
         name: "release"
   controller:
     image: jenkins/jenkins@sha256
-    tag: bde1c86c0e6bac9477b2220cb0d5c33d3a80daa37e995397cd17795525d19a00
+    tag: 5d144d45338f7be6cf43b776ef4329ff4384b629ae5d2cb20957989c535aef79
     JCasC:
       enabled: true
       defaultConfig: false

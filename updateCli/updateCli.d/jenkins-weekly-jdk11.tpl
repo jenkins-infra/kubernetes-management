@@ -1,16 +1,13 @@
 source:
   name: "Retrieve latest jenkins weekly version"
-  kind: githubRelease
+  kind: maven
   postfix: "-jdk11"
-  replaces:
-    - from: "jenkins-"
-      to: ""
   spec:
-    owner: "jenkinsci"
-    repository: "jenkins"
-    token: "{{ requiredEnv .github.token }}"
-    username: "{{ .github.username }}"
-    version: "latest"
+    owner: "maven"
+    url: "repo.jenkins-ci.org"
+    repository: "releases"
+    groupID: "org.jenkins-ci.main"
+    artifactID: "jenkins-war"
 conditions:
   docker:
     name: "Test jenkins/jenkins docker image tag"
