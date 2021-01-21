@@ -12,9 +12,9 @@ jenkins:
       allowed: true
       namespaceLabels:
         name: "release"
-  master:
+  controller:
     image: jenkins/jenkins@sha256
-    imageTag: 5d144d45338f7be6cf43b776ef4329ff4384b629ae5d2cb20957989c535aef79
+    tag: 5d144d45338f7be6cf43b776ef4329ff4384b629ae5d2cb20957989c535aef79
     JCasC:
       enabled: true
       defaultConfig: false

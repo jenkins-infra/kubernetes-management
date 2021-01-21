@@ -7,10 +7,10 @@ jenkins:
   persistence:
     enabled: true
     size: 50Gi
-  master:
+  controller:
     testEnabled: false
     image: jenkins/jenkins
-    imageTag: 2.276-jdk11
+    tag: 2.276-jdk11
     ingress:
       apiVersion: networking.k8s.io/v1beta1
     runAsUser: 1000
@@ -108,7 +108,7 @@ jenkins:
       - metrics
   serviceAccount:
     create: true
-    name: jenkins-master
+    name: jenkins-controller
   serviceAccountAgent:
     create: true
     name: jenkins-agent

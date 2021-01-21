@@ -9,7 +9,7 @@ targets:
     kind: yaml
     spec:
       file: "config/default/jenkins-release.yaml"
-      key: "jenkins.master.imageTag"
+      key: "jenkins.controller.tag"
     scm:
       github:
         user: "{{ .github.user }}"

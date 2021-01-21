@@ -8,7 +8,7 @@ jenkins:
       allowed: true
       namespaceLabels:
         name: "jenkins-infra"
-  master:
+  controller:
     JCasC:
       enabled: true
       defaultConfig: false
