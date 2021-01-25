@@ -17,6 +17,13 @@ jenkins:
         readOnly: true
 
   controller:
+    probes:
+      startupProbe:
+        initialDelaySeconds: 120
+      livenessProbe:
+        initialDelaySeconds: 120
+      readinessProbe:
+        initialDelaySeconds: 120
     testEnabled: false
     image: jenkins/jenkins
     tag: 2.276-jdk11
