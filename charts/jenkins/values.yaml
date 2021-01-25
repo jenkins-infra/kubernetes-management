@@ -7,7 +7,23 @@ jenkins:
   persistence:
     enabled: true
     size: 50Gi
+    volumes:
+      - name: jenkins-secrets
+        secret:
+          secretName: jenkins-secrets
+    mounts:
+      - name: jenkins-secrets
+        mountPath: /var/jenkins_secrets
+        readOnly: true
+
   controller:
+    probes:
+      startupProbe:
+        initialDelaySeconds: 120
+      livenessProbe:
+        initialDelaySeconds: 120
+      readinessProbe:
+        initialDelaySeconds: 120
     testEnabled: false
     image: jenkins/jenkins
     tag: 2.276-jdk11
