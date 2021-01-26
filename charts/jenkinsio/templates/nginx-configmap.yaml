@@ -30,6 +30,8 @@ data:
             rewrite ^/$ https://www.jenkins.io/$lang$1;
           }   
       }
+      
+      add_header X-Frame-Options "DENY";
 
       location ~* \.(?:css|js|woff|eot|svg|ttf|otf|png|gif|jpe?g) {
         expires 2d;
