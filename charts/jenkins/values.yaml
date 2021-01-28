@@ -15,7 +15,6 @@ jenkins:
       - name: jenkins-secrets
         mountPath: /var/jenkins_secrets
         readOnly: true
-
   controller:
     probes:
       startupProbe:
@@ -26,7 +25,7 @@ jenkins:
         initialDelaySeconds: 120
     testEnabled: false
     image: jenkins/jenkins
-    tag: 2.276-jdk11
+    tag: 2.277-jdk11
     ingress:
       apiVersion: networking.k8s.io/v1beta1
     runAsUser: 1000
