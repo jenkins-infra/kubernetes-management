@@ -1,17 +1,18 @@
 # Retrieve last updatecli version according Github Releases
 source:
   kind: githubRelease
+  name: Get latest updatecli version
   spec:
-    owner: "olblak"
+    owner: "updatecli"
     repository: "updatecli"
     token: "{{ requiredEnv .github.token }}"
-    username: "olblak"
+    username: "{{ .github.username }}"
     version: "latest"
 conditions: 
   # Ensure that a container name 'updatecli' is correctly defined in the PodTemplate
   # and located in the array position spec.containers[1], as needed for the target 
   containerSpec:
-    name: "Updatecli"
+    name: "Is Updatecli correctly defined in PodTemplates.yaml"
     kind: yaml
     spec:
       file: "PodTemplates.yaml"
@@ -21,34 +22,33 @@ conditions:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"
     # Ensure that a docker image tag matching the value retrieved from the latest Github Release is available on dockerhub
   docker:
-    name: "Docker Image Published on Registry"
+    name: "Test if ghcr.io/updatecli/updatecli docker image published on registry"
     kind: dockerImage
     spec:
-      image: "ghcr.io/olblak/updatecli"
+      image: "ghcr.io/updatecli/updatecli"
       token: "{{ requiredEnv .github.token }}"
 targets:
   # Update updatecli version in the PodTemplate
   imageTag:
-    name: "Updatecli"
+    name: "Update Updatecli verison in PodTemplates.yaml"
     kind: yaml
-    prefix: "olblak/updatecli:"
+    prefix: "ghcr.io/updatecli/updatecli:"
     spec:
       file: "PodTemplates.yaml"
-      prefix: "ghcr.io/olblak/updatecli:"
       key: spec.containers[1].image
     scm:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"

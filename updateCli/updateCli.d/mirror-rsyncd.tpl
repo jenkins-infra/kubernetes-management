@@ -1,5 +1,5 @@
 source:
-  name: Get latest jenkinsciinfra/rsyncd:latest image digest
+  name: Get jenkinsciinfra/rsyncd:latest docker image digest
   kind: dockerDigest
   spec:
     image: "jenkinsciinfra/rsyncd"
@@ -7,7 +7,7 @@ source:
 
 conditions:
   defaultCiDockerImage:
-    name: "Ensure mirror rsyncd image name is set to jenkinsciinfra/rsyncd@sha256"
+    name: "Test if rsyncd docker image is set to jenkinsciinfra/rsyncd@sha256"
     kind: yaml
     spec:
       file: "charts/mirror/values.yaml"
@@ -24,7 +24,7 @@ conditions:
         branch: "{{ .github.branch }}" 
 targets:
   imageTag:
-    name: "Update mirror helm chart with latest rsyncd image digest"
+    name: "Update jenkinsciinfra/rsyncd:latest docker image digest"
     kind: yaml
     spec:
       file: "charts/mirror/values.yaml"

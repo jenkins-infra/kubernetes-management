@@ -1,11 +1,12 @@
 source:
   kind: dockerDigest
+  name: Get jenkinsciinfra/ldap:latest docker image digest
   spec:
     image: "jenkinsciinfra/ldap"
     tag: "latest"
 targets:
   imageTag:
-    name: "Ldap docker image tag"
+    name: "Update jenkinsciinfra/ldap:latest docker image digest"
     kind: yaml
     spec:
       file: "charts/ldap/values.yaml"
@@ -14,8 +15,8 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"

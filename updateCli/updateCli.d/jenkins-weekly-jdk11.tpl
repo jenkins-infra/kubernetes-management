@@ -1,5 +1,5 @@
 source:
-  name: "Retrieve latest jenkins weekly version"
+  name: "Get Jenkins latest weekly version"
   kind: maven
   postfix: "-jdk11"
   spec:
@@ -29,4 +29,4 @@ targets:
         repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"

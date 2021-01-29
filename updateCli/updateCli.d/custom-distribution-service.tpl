@@ -2,10 +2,11 @@
 source:
   kind: githubRelease
   spec:
+    name: Get jenkinsci/custom-distribution-service latest version
     owner: "jenkinsci"
     repository: "custom-distribution-service"
     token: "{{ requiredEnv .github.token }}"
-    username: "olblak"
+    username: "{{ .github.username }}"
     version: "latest"
 conditions:
   docker:
@@ -24,8 +25,8 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
-        username: "olblak"
-        branch: "master"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
