@@ -1,18 +1,29 @@
 source:
   name: Get jenkinsciinfra/rsyncd:latest docker image digest
-  kind: dockerDigest
+  kind: githubRelease
   spec:
-    image: "jenkinsciinfra/rsyncd"
-    tag: "latest"
+    user: "{{ .github.user }}" 
+    email: "{{ .github.email }}" 
+    owner: "{{ .github.owner }}" 
+    repository: "docker-mirrorbits" 
+    token: "{{ requiredEnv .github.token }}" 
+    username: "{{ .github.username }}" 
+    branch: "{{ .github.branch }}" 
 
 conditions:
+  dockerImage:
+    name: Get jenkinsciinfra/rsyncd:latest docker image digest
+    kind: dockerDigest
+    spec:
+      image: "jenkinsciinfra/mirrorbits"
+      tag: "latest"
   defaultCiDockerImage:
-    name: "Test if rsyncd docker image is set to jenkinsciinfra/rsyncd@sha256"
+    name: "Test if mirrorbits docker image is set to jenkinsciinfra/mirrorbits"
     kind: yaml
     spec:
-      file: "charts/mirror/values.yaml"
-      key: "images.rsyncd.repository"
-      value: "jenkinsciinfra/rsyncd@sha256"
+      file: "charts/mirrorbits/values.yaml"
+      key: "image.mirrorbits.repository"
+      value: "jenkinsciinfra/mirrorbits"
     scm:
       github:
         user: "{{ .github.user }}" 
@@ -27,8 +38,9 @@ targets:
     name: "Update jenkinsciinfra/rsyncd:latest docker image digest"
     kind: yaml
     spec:
-      file: "charts/mirror/values.yaml"
-      key: "images.rsyncd.tag"
+      file: "charts/mirrorbits/values.yaml"
+      key: "image.mirrorbits.tag"
+      value: "jenkinsciinfra/mirrorbits"
     scm:
       github:
         user: "{{ .github.user }}"

@@ -1,6 +1,7 @@
 ---
 source:
   kind: githubRelease
+  name: Get jenkins-infra/plugin-site-api latest version
   spec:
     owner: "jenkins-infra"
     repository: "plugin-site-api"
@@ -9,7 +10,7 @@ source:
     version: "latest"
 conditions:
   docker:
-    name: "Docker Image Published on Registry"
+    name: "Test if jenkinsciinfra/plugin-site-api exist"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/plugin-site-api"
@@ -24,13 +25,13 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
-        username: "olblak"
-        branch: "master"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
   appVersion:
-    name: "Chart appVersion"
+    name: "Update plugin-site-api chart Chart appVersion"
     kind: yaml
     spec:
       file: "charts/plugin-site/Chart.yaml"
@@ -39,8 +40,8 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
-        username: "olblak"
-        branch: "master"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

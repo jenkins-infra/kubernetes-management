@@ -1,11 +1,12 @@
 source:
   kind: dockerDigest
+  name: Get nginx:1.17 docker image digest
   spec:
     image: "nginx"
     tag: "1.17"
 targets:
   nginx:
-    name: "nginx docker image digest"
+    name: "Update nginx:1.17 docker image digest"
     kind: yaml
     spec:
       file: "charts/jenkinsio/values.yaml"
@@ -14,8 +15,8 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"

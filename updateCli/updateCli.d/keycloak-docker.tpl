@@ -1,25 +1,26 @@
+---
 source:
-  kind: jenkins
-  name: Get jenkins/jenkins:lts-jdk11 docker digest
-  postfix: "-jdk11"
+  kind: githubRelease
+  name: "Get latest keycloak release version"
   spec:
-    release: stable
-    github:
-      username: "{{ .github.username }}"
-      token: "{{ requiredEnv .github.token }}"
+    owner: "keycloak"
+    repository: "keycloak"
+    token: "{{ requiredEnv .github.token }}"
+    username: "{{ .github.username }}"
+    version: "latest"
 conditions:
   docker:
-    name: "Test jenkins/jenkins docker image tag"
+    name: "Docker Image Published on Registry"
     kind: dockerImage
     spec:
-      image: "jenkins/jenkins"
-  imageName:
-    name: "Test if jenkins/jenkins docker image is used"
+      image: "docker.io/jboss/keycloak"
+  yaml:
+    name: "Image set to docker.io/jboss/keycloak"
     kind: yaml
     spec:
-      file: "config/default/jenkins-release.yaml"
-      key: "jenkins.controller.image"
-      value: "jenkins/jenkins"
+      file: "config/default/keycloak.yaml"
+      key: "image.repository"
+      value: "docker.io/jboss/keycloak"
     scm:
       github:
         user: "{{ .github.user }}"
@@ -31,11 +32,11 @@ conditions:
         branch: "{{ .github.branch }}"
 targets:
   imageTag:
-    name: "Update jenkins/jenkins:lts-jdk11 docker image digest"
+    name: "Update docker image tag if needed"
     kind: yaml
     spec:
-      file: "config/default/jenkins-release.yaml"
-      key: "jenkins.controller.tag"
+      file: "config/default/keycloak.yaml"
+      key: "image.tag"
     scm:
       github:
         user: "{{ .github.user }}"

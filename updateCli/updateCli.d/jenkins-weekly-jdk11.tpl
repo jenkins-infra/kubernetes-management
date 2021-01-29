@@ -1,13 +1,12 @@
 source:
-  name: "Retrieve latest jenkins weekly version"
-  kind: maven
+  name: "Get Jenkins latest weekly version"
+  kind: jenkins
   postfix: "-jdk11"
   spec:
-    owner: "maven"
-    url: "repo.jenkins-ci.org"
-    repository: "releases"
-    groupID: "org.jenkins-ci.main"
-    artifactID: "jenkins-war"
+    release: weekly
+    github:
+      username: "{{ .github.username }}"
+      token: "{{ requiredEnv .github.token }}"
 conditions:
   docker:
     name: "Test jenkins/jenkins docker image tag"
@@ -29,4 +28,4 @@ targets:
         repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"

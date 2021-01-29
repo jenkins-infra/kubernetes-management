@@ -1,21 +1,22 @@
 ---
 source:
   kind: githubRelease
+  name: Get jenkins-infra/incrementals-publish latest version
   spec:
     owner: "jenkins-infra"
     repository: "incrementals-publisher"
     token: "{{ requiredEnv .github.token }}"
-    username: "olblak"
+    username: "{{ .github.username }}"
     version: "latest"
 conditions:
   docker:
-    name: "Docker Image Published on Registry"
+    name: "Test if jenkinsciinfra/incrementals-publish docker image is published"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/incrementals-publisher"
 targets:
   appVersion:
-    name: "incrementals-publisher appVersion"
+    name: "Update incrementals-publisher appVersion"
     kind: yaml
     spec:
       file: "charts/incrementals-publisher/Chart.yaml"
@@ -24,8 +25,8 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
-        username: "olblak"
-        branch: "master"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

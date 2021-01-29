@@ -1,12 +1,13 @@
+---
 source:
-  name: "Get docker image digest for jenkinsciinfra/datadog:latest"
+  name: "Get jenkinsciinfra/datadog:latest docker image digest"
   kind: dockerDigest
   spec:
     image: "jenkinsciinfra/datadog"
     tag: "latest"
 conditions:
   imageName:
-    name: "Docker image name 'jenkinsciinfra/datadog@sha256' is used"
+    name: "Test if 'jenkinsciinfra/datadog@sha256' docker image is set"
     kind: yaml
     spec:
       file: "config/default/datadog.yaml"
@@ -14,27 +15,26 @@ conditions:
       value: "jenkinsciinfra/datadog@sha256"
     scm:
       github:
-        user: "{{ .github.user }}" 
-        email: "{{ .github.email }}" 
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: "{{ requiredEnv .github.token }}" 
-        username: "{{ .github.username }}" 
-        branch: "master"
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
 targets:
   imageTag:
-    name: "Update docker image digest fom 'jenkinsciinfra/datadog:latest'"
+    name: "Update 'jenkinsciinfra/datadog:latest' docker image digest"
     kind: yaml
     spec:
       file: "config/default/datadog.yaml"
       key: "agents.image.tag"
     scm:
       github:
-        user: "{{ .github.user }}" 
-        email: "{{ .github.email }}" 
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: "{{ requiredEnv .github.token }}" 
-        username: "{{ .github.username }}" 
-        branch: "master"
-
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

@@ -13,8 +13,8 @@ jenkins:
       namespaceLabels:
         name: "release"
   controller:
-    image: jenkins/jenkins@sha256
-    tag: 30ea63a17079c3bd3cfca99ea2ca880f1c1f8233316d044bce9f145984fdce51
+    image: jenkins/jenkins
+    tag: 2.263.3-jdk11
     JCasC:
       enabled: true
       defaultConfig: false
