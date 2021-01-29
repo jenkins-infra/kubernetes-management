@@ -8,8 +8,8 @@ replicaCount:
 
 image:
   mirrorbits:
-    repository: olblak/mirrorbits
-    tag: v0.5.1
+    repository: jenkinsciinfra/mirrorbits
+    tag: v0.1.2
     pullPolicy: Always
   files:
     repository: httpd
