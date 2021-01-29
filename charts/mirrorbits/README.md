@@ -58,7 +58,26 @@ https://get.jenkins.io/windows/2.251/jenkins.msi.sha256?stats
 ## Requirements
 This chart requires a redis database which can be deployed with the redis helm [chart](https://github.com/helm/charts/tree/master/stable/redis)
 
-## Configuration
+## HowTo
+
+Mirrorbits is configured using its cli. The configuration is stored in the redis database which means that you can either store a configuration 
+locally and run the cli from your machine or you can connect inside one of the pod running to use the cli.
+
+### Access mirrobits cli
+ 
+You need to first identify a pod name and then run a bash command inside it.
+
+* ```kubectl get pods -n mirrorbits -l "app.kubernetes.io/name=mirrorbits"```
+* ```kubectl exec -i -t -n mirrorbits -c mirrorbits <POD_NAME> bash```
+
+### Disable Mirrors
+
+You need to identify the mirror identifier that you wand to disable and then disable it.
+
+* ```mirrorbits list```
+* ```mirrorbits disable [IDENTIFIER]```
+
+### Add Mirrors Configuration
 
 Currently mirrorbits do not provide a way to configure mirrors through a configuration file and considering that this is not something that changes regularly, I will run the following commands once via "kubectl" exec
 
