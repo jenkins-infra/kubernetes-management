@@ -13,7 +13,7 @@ source:
 conditions:
   dockerImage:
     name: Get jenkinsciinfra/rsyncd:latest docker image digest
-    kind: dockerDigest
+    kind: dockerImage
     spec:
       image: "jenkinsciinfra/mirrorbits"
       tag: "latest"

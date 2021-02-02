@@ -29,4 +29,4 @@ targets:
         repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+        branch: "master"

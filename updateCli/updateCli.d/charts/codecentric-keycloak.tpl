@@ -21,11 +21,11 @@ conditions:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"
 targets:
   chartVersion:
     name: "codecentric/keycloak Helm Chart"
@@ -37,8 +37,8 @@ targets:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
         token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"
