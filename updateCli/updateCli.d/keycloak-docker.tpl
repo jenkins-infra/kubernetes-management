@@ -14,22 +14,22 @@ conditions:
     kind: dockerImage
     spec:
       image: "docker.io/jboss/keycloak"
-  yaml:
-    name: "Image set to docker.io/jboss/keycloak"
-    kind: yaml
-    spec:
-      file: "config/default/keycloak.yaml"
-      key: "image.repository"
-      value: "docker.io/jboss/keycloak"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+#  yaml:
+#    name: "Image set to docker.io/jboss/keycloak"
+#    kind: yaml
+#    spec:
+#      file: "config/default/keycloak.yaml"
+#      key: "image.repository"
+#      value: "docker.io/jboss/keycloak"
+#    scm:
+#      github:
+#        user: "{{ .github.user }}"
+#        email: "{{ .github.email }}"
+#        owner: "{{ .github.owner }}"
+#        repository: "{{ .github.repository }}"
+#        token: "{{ requiredEnv .github.token }}"
+#        username: "{{ .github.username }}"
+#        branch: "{{ .github.branch }}"
 targets:
   imageTag:
     name: "Update docker image tag if needed"
