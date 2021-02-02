@@ -40,7 +40,13 @@ pipeline {
       }
     }
     stage('Check Configuration Update') {
-      when { branch 'master' }
+      when {
+        allOf {
+          branch 'master'
+          // Only run updateCli's tasks when the pipeline is triggered by the "cron" routine
+          triggeredBy 'TimerTrigger'
+        }
+      }
       environment {
         UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
       }
@@ -51,7 +57,13 @@ pipeline {
       }
     }
     stage('Apply Configuration Update') {
-      when { branch 'master' }
+      when {
+        allOf {
+          branch 'master'
+          // Only run updateCli's tasks when the pipeline is triggered by the "cron" routine
+          triggeredBy 'TimerTrigger'
+        }
+      }
       environment {
         UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
       }
