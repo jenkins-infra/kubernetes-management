@@ -16,7 +16,6 @@ conditions:
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/mirrorbits"
-      tag: "latest"
   defaultCiDockerImage:
     name: "Test if mirrorbits docker image is set to jenkinsciinfra/mirrorbits"
     kind: yaml
