@@ -1,12 +1,12 @@
 source:
   kind: dockerDigest
-  name: "Get jenkinsciinra/ldap:cron-latest docker image digest"
+  name: "Get jenkinsciinfra/ldap:cron-latest docker image digest"
   spec:
     image: "jenkinsciinfra/ldap"
     tag: "cron-latest"
 targets:
   imageTag:
-    name: "Update jenkinsciinra/ldap:cron-latest image digest"
+    name: "Update jenkinsciinfra/ldap:cron-latest image digest"
     kind: yaml
     spec:
       file: "charts/ldap/values.yaml"
