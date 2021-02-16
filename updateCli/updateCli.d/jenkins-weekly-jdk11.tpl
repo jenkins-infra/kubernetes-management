@@ -2,24 +2,23 @@ title: "Bump jenkins weekly version"
 pipelineID: jenkinsweeklyjdk11
 sources:
   default:
-    name: "Get Jenkins latest weekly version"
-    kind: jenkins
-    transformers:
-      - addSuffix: "-jdk11"
+    name: "Get latest jenkins-weekly version"
+    kind: githubRelease
     spec:
-      release: weekly
-      github:
-        username: "{{ .github.username }}"
-        token: "{{ requiredEnv .github.token }}"
+      name: Get jenkins-infra/docker-jenkins-weekly latest version
+      owner: "jenkins-infra"
+      repository: "docker-jenkins-weekly"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
 conditions:
   docker:
-    name: "Test jenkins/jenkins:<latest_version>-jdk11 docker image tag"
+    name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag"
     kind: dockerImage
     spec:
-      image: "jenkins/jenkins"
+      image: "jenkinscinfra/jenkins-weekly"
 targets:
   imageTag:
-    name: "Update jenkins/jenkins docker image tag"
+    name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
     kind: yaml
     spec:
       file: "charts/jenkins/values.yaml"

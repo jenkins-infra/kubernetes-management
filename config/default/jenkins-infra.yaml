@@ -465,11 +465,17 @@ jenkins:
               globalMatrix:
                 permissions:
                   - "Overall/Administer:admins"
+<<<<<<< HEAD
                   - "Overall/SystemRead:authenticated"
                   - "Overall/Read:authenticated"
                   - "Job/Read:authenticated"
                   - "Job/Build:authenticated"
                   - "Job/ExtendedRead:authenticated"
+                  - "Overall/SystemRead:all"
+                  - "Overall/Read:all"
+                  - "Job/Read:all"
+                  - "Job/Build:all"
+                  - "Job/ExtendedRead:all"
         system-settings: |
           jenkins:
             disabledAdministrativeMonitors:
@@ -485,6 +491,8 @@ jenkins:
           - name: SLEEP_TIME
             # Time in seconds between two polls
             value: "60"
+    overwritePlugins: false
+    installPlugins: false
     ingress:
       enabled: true
       hostName: infra.ci.jenkins.io
