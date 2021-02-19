@@ -1,0 +1,46 @@
+repositories:
+- name: traefik
+  url: https://helm.traefik.io/traefik
+releases:
+- name: public-traefik
+  chart: traefik/traefik
+  namespace: kube-system
+  version: 9.14.2
+  wait: true
+  timeout: 300
+  atomic: true
+  values:
+  - "../config/default/traefik.yaml"
+  - additionalArguments:
+    - "--providers.kubernetescrd.ingressclass=public-traefik"
+    - "--providers.kubernetesingress.ingressclass=public-traefik"
+  - service:
+      spec:
+        externalTrafficPolicy: Local
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: false
+        service.beta.kubernetes.io/azure-load-balancer-internal-subnet: app-tier
+        service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
+        # prometheus.io/scrape: "true" -- currently not supported. https://github.com/traefik/traefik-helm-chart/issues/156#issuecomment-624523750
+        # prometheus.io/port: "10254"
+        # loadBalancerIP: 52.167.253.43
+- name: private-traefik
+  chart: traefik/traefik
+  namespace: kube-system
+  version: 9.14.2
+  wait: true
+  timeout: 300
+  atomic: true
+  values:
+  - "../config/default/traefik.yaml"
+  - additionalArguments:
+    - "--providers.kubernetescrd.ingressclass=traefik"
+    - "--providers.kubernetesingress.ingressclass=traefik"
+  - service:
+      spec:
+        externalTrafficPolicy: Local
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: true
+        service.beta.kubernetes.io/azure-load-balancer-internal-subnet: data-tier
+        # prometheus.io/scrape: "true" -- currently not supported. https://github.com/traefik/traefik-helm-chart/issues/156#issuecomment-624523750
+        # prometheus.io/port: "10254"
