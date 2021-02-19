@@ -1,5 +1,4 @@
-globalArguments:
-  - "--global.checknewversion"
+globalArguments: []
 logs:
   general:
     format: json
@@ -12,8 +11,9 @@ providers:
       enabled: true
 ingressRoute:
   dashboard:
-    enabled: disabled
+    enabled: false
 tlsOptions:
+  # https://ssl-config.mozilla.org/#server=traefik&version=2.4.5&config=intermediate&guideline=5.6
   default:
     minVersion: VersionTLS12
     cipherSuites:
