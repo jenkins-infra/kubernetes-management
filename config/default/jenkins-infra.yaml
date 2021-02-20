@@ -69,6 +69,21 @@ jenkins:
                       id: jenkins-dockerhub
                       username: "${DOCKER_HUB_USERNAME}"
                       password: "${DOCKER_HUB_TOKEN}"
+                  - string:
+                      scope: GLOBAL
+                      id: "algolia-plugins-app-id"
+                      secret: "${ALGOLIA_APP_ID}"
+                      description: Algolia app id for plugin site
+                  - string:
+                      scope: GLOBAL
+                      id: "algolia-plugins-search-key"
+                      secret: "${ALGOLIA_SEARCH_KEY}"
+                      description: Algolia credentials to read data for plugin site (runtime)
+                  - string:
+                      scope: GLOBAL
+                      id: "algolia-plugins-write-key"
+                      secret: "${ALGOLIA_WRITE_KEY}"
+                      description: Algolia credentials to write data for plugin site
         k8s-settings: |
           jenkins:
             clouds:
