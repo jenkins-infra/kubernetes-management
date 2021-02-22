@@ -12,6 +12,8 @@ creation_rules:
             - '88FABF5F307FB5870B6AD2E8A266F2D3F9D60C45' # Halkeye
             - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
             - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
+            - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
+            - '837CD965F821949EE5DD45131046E0D5ED9B51BC' # gevans
 
     - path_regex: secrets/config/jenkins-wiki-exporter/secrets.yaml
       key_groups:
@@ -23,6 +25,8 @@ creation_rules:
             - '88FABF5F307FB5870B6AD2E8A266F2D3F9D60C45' # Halkeye
             - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
             - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
+            - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
+            - '837CD965F821949EE5DD45131046E0D5ED9B51BC' # gevans
 
     - path_regex: secrets/config/plugin-site/secrets.yaml
       key_groups:
@@ -34,38 +38,12 @@ creation_rules:
             - '88FABF5F307FB5870B6AD2E8A266F2D3F9D60C45' # Halkeye
             - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
             - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
+            - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
+            - '837CD965F821949EE5DD45131046E0D5ED9B51BC' # gevans
 
-    - path_regex: secrets/config/chatbot_jenkinsadmin/secrets.yaml
-      key_groups:
-        - azure_keyvault:
-          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
-            key: 'sops'
-            version: '252fc7e646ac40f184ab4a6016484725'
-          pgp:
-            - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
-            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
-
-    - path_regex: secrets/config/reports/secrets.yaml
-      key_groups:
-        - azure_keyvault:
-          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
-            key: 'sops'
-            version: '252fc7e646ac40f184ab4a6016484725'
-          pgp:
-            - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
-            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
-
-    - path_regex: secrets/config/jenkinsio/secrets.yaml
-      key_groups:
-        - azure_keyvault:
-          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
-            key: 'sops'
-            version: '252fc7e646ac40f184ab4a6016484725'
-          pgp:
-            - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
-            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
-
-    - path_regex: secrets/config/javadoc/secrets.yaml
+    # Let's keep the number of people with access to the release environment
+    # as small as possible (max 3)
+    - path_regex: secrets/config/release/
       key_groups:
         - azure_keyvault:
           - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
@@ -83,3 +61,6 @@ creation_rules:
           pgp:
             - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
             - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
+            - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
+            - '837CD965F821949EE5DD45131046E0D5ED9B51BC' # gevans
+            - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
