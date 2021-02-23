@@ -34,7 +34,7 @@ If you can access the secrets, you have to set up the local `./secrets` folder f
 git clone https://github.com/jenkins-infra/charts-secrets.git ./secrets
 ```
 
-Then, you can edit a secret by usingh the `sops ./secrets/.../<your yaml file>` command.
+Then, you can edit a secret by using the `sops ./secrets/.../<your yaml file>` command.
 
 ## Docker
 
