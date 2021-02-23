@@ -23,7 +23,7 @@ releases:
         service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
         # prometheus.io/scrape: "true" -- currently not supported. https://github.com/traefik/traefik-helm-chart/issues/156#issuecomment-624523750
         # prometheus.io/port: "10254"
-        # loadBalancerIP: 52.167.253.43
+        loadBalancerIP: 20.65.25.172
 - name: private-traefik
   chart: traefik/traefik
   namespace: kube-system
