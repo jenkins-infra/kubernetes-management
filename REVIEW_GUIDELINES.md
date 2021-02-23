@@ -8,7 +8,6 @@ The process to get a pull request merged is fairly simple. all required tests ne
 
 The charts repository uses the CODEOWNERS files to provide merge access. If a chart has an CODEOWNERS file, an approver listed in that file can approve the pull request. If the chart does not have an CODEOWNERS file, an approver in the OWNERS file at the root of the repository can approve the pull request.
 
-
 ## Immutability
 
 Chart releases must be immutable. Any change to a chart warrants a chart version bump even if it is only changed to the documentation.
@@ -38,6 +37,7 @@ The `Chart.yaml` should be as complete as possible. The following fields are man
 ## Names and Labels
 
 ### Metadata
+
 Resources and labels should follow some conventions. The standard resource metadata (`metadata.labels` and `spec.template.metadata.labels`) should be this:
 
 ```yaml
@@ -73,14 +73,14 @@ The chart label string contains the version, so if it is specified, whenever the
 
 ##### For Deployments, StatefulSets, DaemonSets apps/v1beta1 or extensions/v1beta1
 
-- If it does not specify `spec.selector.matchLabels`, set it
-- Remove `helm.sh/chart` label in `spec.selector.matchLabels` if it exists
-- Bump patch version of the Chart
+* If it does not specify `spec.selector.matchLabels`, set it
+* Remove `helm.sh/chart` label in `spec.selector.matchLabels` if it exists
+* Bump patch version of the Chart
 
 ##### For Deployments, StatefulSets, DaemonSets >=apps/v1beta2
 
-- Remove `helm.sh/chart` label in `spec.selector.matchLabels` if it exists
-- Bump major version of the Chart as it is a breaking change
+* Remove `helm.sh/chart` label in `spec.selector.matchLabels` if it exists
+* Bump major version of the Chart as it is a breaking change
 
 ### Service Selectors
 
@@ -315,7 +315,7 @@ spec:
 
 * Example prepend logic for getting an application URL in NOTES.txt:
 
-```
+```gotpl
 {{- if .Values.ingress.enabled }}
 {{- range .Values.ingress.hosts }}
   http{{ if $.Values.ingress.tls }}s{{ end }}://{{ . }}{{ $.Values.ingress.path }}

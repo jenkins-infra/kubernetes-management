@@ -84,6 +84,26 @@ jenkins:
                       id: "algolia-plugins-write-key"
                       secret: "${ALGOLIA_WRITE_KEY}"
                       description: Algolia credentials to write data for plugin site
+                  - string:
+                      scope: GLOBAL
+                      id: "ci-terraform-access-key"
+                      secret: "${CI_TERRAFORM_AWS_ACCESS_KEY_ID}"
+                      description: AWS access key id for the account 'ci-terraform'
+                  - string:
+                      scope: GLOBAL
+                      id: "ci-terraform-secret-key"
+                      secret: "${CI_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
+                      description: AWS secret key for the account 'ci-terraform'
+                  - string:
+                      scope: GLOBAL
+                      id: "production-terraform-access-key"
+                      secret: "${PRODUCTION_TERRAFORM_AWS_ACCESS_KEY_ID}"
+                      description: AWS access key id for the account 'production-terraform'
+                  - string:
+                      scope: GLOBAL
+                      id: "production-terraform-secret-key"
+                      secret: "${PRODUCTION_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
+                      description: AWS secret key for the account 'production-terraform'
         k8s-settings: |
           jenkins:
             clouds:
