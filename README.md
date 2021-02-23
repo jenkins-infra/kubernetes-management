@@ -24,17 +24,21 @@ This project contains three main folders:
 ## Secrets
 
 Secrets are encrypted with [sops](https://github.com/mozilla/sops) and a default configuration is defined in `.sops.yaml`
-Currently there are two keys, one GPG key  and a second one in an azure key vault and accessible from Kubernetes clusters.
+Currently there are two kinds of encryption keys: a GPG key and an Azure Key-Vault (accessible from Kubernetes clusters).
 
-In order to edit a secret, just run `sops <your yaml file>`
+All secrets are expected to be found in the `./secrets` folder which is absent (gitignored) by default.
+
+If you can access the secrets, you have to set up the local `./secrets` folder from the (private) repository [jenkins-infra/charts-secrets](https://github.com/jenkins-infra/charts-secrets.git) with the following command:
+
+```bash
+git clone https://github.com/jenkins-infra/charts-secrets.git ./secrets
+```
+
+Then, you can edit a secret by usingh the `sops ./secrets/.../<your yaml file>` command.
 
 ## Docker
 
 This folder defines a custom Dockerfile in order to build a custom image to orchestrate our clusters
-
-## Rules
-
-* Secrets are define in `secrets.yaml` file and always encrypted
 
 ## Remarks
 
