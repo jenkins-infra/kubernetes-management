@@ -4,7 +4,7 @@ repositories:
 releases:
   - name: mirrorbits-database
     namespace: mirrorbits
-    version: 12.7.4
+    version: 12.7.6
     chart: bitnami/redis
     wait: true
     timeout: 600
