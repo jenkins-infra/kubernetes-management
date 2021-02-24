@@ -2,7 +2,7 @@ datadog:
   confd:
     http_jenkins.yaml: |-
       init_config:
-      
+
       instances:
         - name: accounts.jenkins.io
           url: https://accounts.jenkins.io
@@ -209,4 +209,3 @@ datadog:
           tags:
             - production
             - jenkins.io
-      
