@@ -389,6 +389,13 @@ jenkins:
                     managerDN: "${LDAP_MANAGER_DN}"
                     managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
                     userSearch: cn={0}
+                    environmentProperties:
+                      - name: "com.sun.jndi.ldap.connect.timeout"
+                        value: "20000"
+                      - name: "com.sun.jndi.ldap.read.timeout"
+                        value: "20000"
+                      - name: "com.sun.jndi.ldap.connect.pool"
+                        value: "false"
                 cache:
                   size: 100
                   ttl: 300
