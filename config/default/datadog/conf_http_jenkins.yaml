@@ -1,0 +1,211 @@
+datadog:
+  confd:
+    http_jenkins.yaml: |-
+      init_config:
+
+      instances:
+        - name: accounts.jenkins.io
+          url: https://accounts.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: ci.jenkins.io
+          url: https://ci.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: issues.jenkins.io
+          url: https://issues.jenkins.io/status
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: javadoc.io
+          url: http://javadoc.jenkins.io/script.js
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: jenkins.io
+          url: https://www.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: pkg.jenkins.io
+          url: https://pkg.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: plugins.jenkins.io
+          url: https://plugins.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: rating.jenkins.io
+          url: https://rating.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          http_response_status_code: 403
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: repo.jenkins-ci.org
+          url: https://repo.jenkins-ci.org/api/system/ping
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins-ci.org
+        - name: reports.jenkins.io
+          url: https://reports.jenkins.io/artifactory-ldap-users-report.json
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: status.jenkins.io
+          url: https://status.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: updates.jenkins.io
+          url: https://updates.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: updates.jenkins-ci.org
+          url: https://updates.jenkins-ci.org
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins-ci.org
+        - name: uplink.jenkins.io
+          url: https://uplink.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: usage.jenkins.io
+          url: https://usage.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: wiki.jenkins-ci.org
+          url: https://wiki.jenkins-ci.org/status
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins-ci.org
+        - name: wiki.jenkins.io
+          url: https://wiki.jenkins.io/status
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
