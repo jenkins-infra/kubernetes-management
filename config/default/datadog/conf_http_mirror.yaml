@@ -7,7 +7,7 @@ datadog:
         - name: ftp.belnet.be
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://ftp.belnet.be/pub/jenkins/TIME
@@ -19,7 +19,7 @@ datadog:
         - name: mirror.serverion.com
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://mirror.serverion.com/jenkins/TIME
@@ -31,7 +31,7 @@ datadog:
         - name: mirror.esuni.jp
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://mirror.esuni.jp/jenkins/TIME
@@ -43,7 +43,7 @@ datadog:
         - name: mirrors.tuna.tsinghua.edu.cn
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://mirrors.tuna.tsinghua.edu.cn/jenkins/TIME
@@ -55,7 +55,7 @@ datadog:
         - name: mirror.xmission.com
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://mirror.xmission.com/jenkins/TIME
@@ -67,7 +67,7 @@ datadog:
         - name: ftp-nyc.osuosl.org
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://ftp-nyc.osuosl.org/pub/jenkins/TIME
@@ -79,7 +79,7 @@ datadog:
         - name: ftp-chi.osuosl.org
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://ftp-chi.osuosl.org/pub/jenkins/TIME
@@ -91,7 +91,7 @@ datadog:
         - name: ftp.yz.yamagata-u.ac.jp
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://ftp.yz.yamagata-u.ac.jp/pub/jenkins/TIME
@@ -103,7 +103,7 @@ datadog:
         - name: mirror.gruenehoelle.nl
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://mirror.gruenehoelle.nl/jenkins/TIME
@@ -115,7 +115,7 @@ datadog:
         - name: ftp.halifax.rwth-aachen.de
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://ftp.halifax.rwth-aachen.de/jenkins/TIME
@@ -127,7 +127,7 @@ datadog:
         - name: mirror.azure.jenkins.io
           timeout: 10
           threshold: 3
-          window:5
+          window: 5
           days_warning: 10
           days_critical: 5
           url: https://mirror.azure.jenkins.io/TIME
