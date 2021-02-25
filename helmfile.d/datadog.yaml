@@ -11,7 +11,5 @@ releases:
     atomic: true
     values:
       - "../config/default/datadog/datadog.yaml"
-      - "../config/default/datadog/conf_http_jenkins.yaml"
-      - "../config/default/datadog/conf_http_mirror.yaml"
     secrets:
       - "../secrets/config/datadog/secrets.yaml"
