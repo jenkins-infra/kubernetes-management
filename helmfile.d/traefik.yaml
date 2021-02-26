@@ -17,6 +17,7 @@ releases:
       - service:
           spec:
             externalTrafficPolicy: Local
+            # If the loadbalancer creation fails to use this IP, diagnose with "kubectl describe svc -n public-traefik public-traefik" (99% it's related to a different resource group between the public IP object and the LB)
             loadBalancerIP: 20.65.25.172
           annotations:
             service.beta.kubernetes.io/azure-load-balancer-internal: false
