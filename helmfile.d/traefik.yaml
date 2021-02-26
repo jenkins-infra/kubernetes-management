@@ -4,7 +4,7 @@ repositories:
 releases:
   - name: public-traefik
     chart: traefik/traefik
-    namespace: kube-system
+    namespace: public-traefik
     version: 9.14.3
     wait: true
     timeout: 300
@@ -26,7 +26,7 @@ releases:
             loadBalancerIP: 20.65.25.172
   - name: private-traefik
     chart: traefik/traefik
-    namespace: kube-system
+    namespace: private-traefik
     version: 9.14.3
     wait: true
     timeout: 300
