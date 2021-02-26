@@ -27,7 +27,7 @@ releases:
   - name: private-traefik
     chart: traefik/traefik
     namespace: kube-system
-    version: 9.14.2
+    version: 9.14.3
     wait: true
     timeout: 300
     atomic: true
