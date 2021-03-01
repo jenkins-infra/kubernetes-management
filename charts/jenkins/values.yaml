@@ -67,6 +67,7 @@ jenkins:
       - configuration-as-code
       - credentials
       - credentials-binding
+      - cloudbees-jenkins-advisor
       - extended-read-permission
       - git
       - git-client
