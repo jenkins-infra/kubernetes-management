@@ -101,7 +101,7 @@ pipeline {
         container('helmfile'){
           script {
             def diff = sh(script:'helmfile --no-color -f clusters/publick8s.yaml diff --suppress-secrets --skip-deps', returnStdout: true).trim()
-            pullRequest.comment('```\n' + diff)
+            pullRequest.comment('<details><summary>Helmfile Diff</summary>\n\n```\n' + diff + '\n```\n\n</details>') // In GitHub flavored markdown, and empty line is required around the code block triple backticks
           }
         }
       }
