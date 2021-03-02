@@ -448,6 +448,10 @@ jenkins:
                   - "Job/Read:all"
                   - "Job/Build:all"
                   - "Job/ExtendedRead:all"
+        system-settings: |
+          jenkins:
+            disabledAdministrativeMonitors:
+              - "jenkins.security.QueueItemAuthenticatorMonitor"
     ingress:
       enabled: true
       hostName: infra.ci.jenkins.io
