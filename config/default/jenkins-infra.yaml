@@ -9,6 +9,7 @@ jenkins:
       namespaceLabels:
         name: "jenkins-infra"
   controller:
+    javaOpts: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC"
     JCasC:
       enabled: true
       defaultConfig: false
