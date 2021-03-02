@@ -25,11 +25,10 @@ releases:
             service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
             # prometheus.io/scrape: "true" -- currently not supported. https://github.com/traefik/traefik-helm-chart/issues/156#issuecomment-624523750
             # prometheus.io/port: "10254"
-
   - name: private-traefik
     chart: traefik/traefik
     namespace: private-traefik
-    version: 9.14.3
+    version: 9.15.2
     wait: true
     timeout: 300
     atomic: true
