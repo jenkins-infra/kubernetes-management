@@ -102,6 +102,11 @@ jenkins:
                       id: "ci-terraform-secret-key"
                       secret: "${CI_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
                       description: AWS secret key for the account 'ci-terraform'
+                  - file:
+                      fileName: "backend-config"
+                      id: "ci-terraform-backend-config"
+                      scope: GLOBAL
+                      secretBytes: "${CI_TERRAFORM_BACKEND_CONFIG}"
                   - string:
                       scope: GLOBAL
                       id: "production-terraform-access-key"
@@ -112,6 +117,11 @@ jenkins:
                       id: "production-terraform-secret-key"
                       secret: "${PRODUCTION_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
                       description: AWS secret key for the account 'production-terraform'
+                  - file:
+                      fileName: "backend-config"
+                      id: "production-terraform-backend-config"
+                      scope: GLOBAL
+                      secretBytes: "${PRODUCTION_TERRAFORM_BACKEND_CONFIG}"
         k8s-settings: |
           jenkins:
             clouds:
