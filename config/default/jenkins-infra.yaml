@@ -9,7 +9,14 @@ jenkins:
       namespaceLabels:
         name: "jenkins-infra"
   controller:
-    javaOpts: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC"
+    resources:
+      limits:
+        cpu: "2"
+        memory: "4Gi"
+      requests:
+        cpu: "2"
+        memory: "4Gi"
+    javaOpts: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g"
     JCasC:
       enabled: true
       defaultConfig: false
