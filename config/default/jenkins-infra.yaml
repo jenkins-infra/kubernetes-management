@@ -9,6 +9,14 @@ jenkins:
       namespaceLabels:
         name: "jenkins-infra"
   controller:
+    resources:
+      limits:
+        cpu: "2"
+        memory: "4Gi"
+      requests:
+        cpu: "2"
+        memory: "4Gi"
+    javaOpts: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g"
     JCasC:
       enabled: true
       defaultConfig: false
@@ -440,6 +448,10 @@ jenkins:
                   - "Job/Read:all"
                   - "Job/Build:all"
                   - "Job/ExtendedRead:all"
+        system-settings: |
+          jenkins:
+            disabledAdministrativeMonitors:
+              - "jenkins.security.QueueItemAuthenticatorMonitor"
     ingress:
       enabled: true
       hostName: infra.ci.jenkins.io
