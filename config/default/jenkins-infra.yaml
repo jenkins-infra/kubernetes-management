@@ -106,7 +106,7 @@ jenkins:
                       fileName: "backend-config"
                       id: "ci-terraform-backend-config"
                       scope: GLOBAL
-                      secretBytes: "${CI_TERRAFORM_BACKEND_CONFIG}"
+                      secretBytes: "${base64:${CI_TERRAFORM_BACKEND_CONFIG}}"
                   - string:
                       scope: GLOBAL
                       id: "production-terraform-access-key"
@@ -121,7 +121,7 @@ jenkins:
                       fileName: "backend-config"
                       id: "production-terraform-backend-config"
                       scope: GLOBAL
-                      secretBytes: "${PRODUCTION_TERRAFORM_BACKEND_CONFIG}"
+                      secretBytes: "${base64:${PRODUCTION_TERRAFORM_BACKEND_CONFIG}}"
         k8s-settings: |
           jenkins:
             clouds:
