@@ -155,7 +155,7 @@ jenkins:
                       nodeSelector: "kubernetes.io/os=windows"
                       containers:
                         - name: jnlp
-                          image: "jenkins4eval/jnlp-agent:latest-windows"
+                          image: "jenkins/inbound-agent:jdk11-windowsservercore-1809"
                           resourceLimitCpu: "500m"
                           resourceLimitMemory: "512Mi"
                           resourceRequestCpu: "500m"
