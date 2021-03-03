@@ -8,9 +8,9 @@ source:
     token: "{{ requiredEnv .github.token }}"
     username: "{{ .github.username }}"
     version: "latest"
-conditions: 
+conditions:
   # Ensure that a container name 'updatecli' is correctly defined in the PodTemplate
-  # and located in the array position spec.containers[1], as needed for the target 
+  # and located in the array position spec.containers[1], as needed for the target
   containerSpec:
     name: "Is Updatecli correctly defined in PodTemplates.yaml"
     kind: yaml
