@@ -59,7 +59,7 @@ spec:
       env:
         - name: "HOME"
           value: "/home/helm"
-      image: "ghcr.io/updatecli/updatecli:v0.1.1"
+      image: "ghcr.io/updatecli/updatecli:v0.1.2"
       imagePullPolicy: "Always"
       name: "updatecli"
       resources:
