@@ -14,7 +14,7 @@ jenkins:
         name: "release"
   controller:
     image: jenkins/jenkins
-    tag: 2.263.4-jdk11
+    tag: 2.277.1-jdk11
     JCasC:
       enabled: true
       defaultConfig: false
