@@ -1,0 +1,50 @@
+# Retrieve last updatecli version according Github Releases
+source:
+  name: Get latest jenkinsciinfra/helmfile docker image version
+  kind: githubRelease
+  spec:
+    owner: "jenkins-infra"
+    repository: "docker-helmfile"
+    token: "{{ requiredEnv .github.token }}"
+    username: "{{ .github.username }}"
+    version: "latest"
+
+conditions:
+  dockerImage:
+    name: Ensure that the image "jenkinsciinfra/helmfile:<found_version>" is published on the DockerHub
+    kind: dockerImage
+    spec:
+      image: "jenkinsciinfra/helmfile"
+  containerSpec:
+    name: "Is container 'helmfile' correctly defined in PodTemplates.yaml"
+    kind: yaml
+    spec:
+      file: "PodTemplates.yaml"
+      key: spec.containers[0].name
+      value: "helmfile"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+targets:
+  imageTag:
+    name: "Update helmfile container's image in PodTemplates.yaml"
+    kind: yaml
+    prefix: "jenkinsciinfra/helmfile:"
+    spec:
+      file: "PodTemplates.yaml"
+      key: spec.containers[0].image
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
