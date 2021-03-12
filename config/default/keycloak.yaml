@@ -50,14 +50,6 @@ resources:
 postgresql:
   enabled: false
 extraEnv: |
-  - name: DB_VENDOR
-    value: "postgres"
-  - name: DB_ADDR
-    value: "keycloak.cwlcugggqkje.us-east-2.rds.amazonaws.com"
-  - name: DB_PORT
-    value: "5432"
-  - name: DB_DATABASE
-    value: "keycloak"
   - name: PROXY_ADDRESS_FORWARDING
     value: "true"
   - name: JGROUPS_DISCOVERY_PROTOCOL
