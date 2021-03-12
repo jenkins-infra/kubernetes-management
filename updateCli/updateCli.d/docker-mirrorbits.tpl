@@ -1,18 +1,18 @@
 source:
-  name: Get jenkinsciinfra/rsyncd:latest docker image digest
+  name: Get latest version of jenkinsciinfra/mirrorbits
   kind: githubRelease
   spec:
-    user: "{{ .github.user }}" 
-    email: "{{ .github.email }}" 
-    owner: "{{ .github.owner }}" 
-    repository: "docker-mirrorbits" 
-    token: "{{ requiredEnv .github.token }}" 
-    username: "{{ .github.username }}" 
-    branch: "{{ .github.branch }}" 
+    user: "{{ .github.user }}"
+    email: "{{ .github.email }}"
+    owner: "{{ .github.owner }}"
+    repository: "docker-mirrorbits"
+    token: "{{ requiredEnv .github.token }}"
+    username: "{{ .github.username }}"
+    branch: "{{ .github.branch }}"
 
 conditions:
   dockerImage:
-    name: Get jenkinsciinfra/rsyncd:latest docker image digest
+    name: Ensure that the image "jenkinsciinfra/mirrorbits:<found_version>" is published on the DockerHub
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/mirrorbits"
@@ -25,13 +25,13 @@ conditions:
       value: "jenkinsciinfra/mirrorbits"
     scm:
       github:
-        user: "{{ .github.user }}" 
-        email: "{{ .github.email }}" 
-        owner: "{{ .github.owner }}" 
-        repository: "{{ .github.repository }}" 
-        token: "{{ requiredEnv .github.token }}" 
-        username: "{{ .github.username }}" 
-        branch: "{{ .github.branch }}" 
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
 targets:
   imageTag:
     name: "Update jenkinsciinfra/rsyncd:latest docker image digest"
