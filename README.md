@@ -15,11 +15,12 @@ Any issues can be reported on our [ticket system](https://issues.jenkins-ci.org/
 
 ## Repository Structure
 
-This project contains three main folders:
+This project contains the following main directories:
 
-* `helmfile.d`: This folder contains [Helmfile](https://github.com/roboll/helmfile)
+* `clusters`: This folder contains the per-cluster helmfile listing, e.g the list of helmfiles to apply per cluster
+* `helmfile.d`: This folder contains the [Helmfile](https://github.com/roboll/helmfile) definitions
 * `charts`: This folder contains specific jenkins infrastructure helm charts
-* `config`: The configuration specific our environments.
+* `config`: This folder contains the specific configuration for our environments
 
 ## Secrets
 
