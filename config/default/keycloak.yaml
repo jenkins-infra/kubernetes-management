@@ -11,7 +11,7 @@ ingress:
       paths: [/]
   tls:
     - hosts:
-      - admin.accounts.jenkins.io
+        - admin.accounts.jenkins.io
       secretName: keycloak-cert
 
 
