@@ -16,7 +16,9 @@ jenkins:
       requests:
         cpu: "2"
         memory: "4Gi"
-    javaOpts: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g"
+    javaOpts: >
+      -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
+      -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
     JCasC:
       enabled: true
       defaultConfig: false
@@ -406,14 +408,13 @@ jenkins:
                     rootDN: "${LDAP_ROOT_DN}"
                     managerDN: "${LDAP_MANAGER_DN}"
                     managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                    mailAddressAttributeName: "mail"
                     userSearch: cn={0}
-                    environmentProperties:
-                      - name: "com.sun.jndi.ldap.connect.timeout"
-                        value: "20000"
-                      - name: "com.sun.jndi.ldap.read.timeout"
-                        value: "20000"
-                      - name: "com.sun.jndi.ldap.connect.pool"
-                        value: "false"
+                    userSearchBase: "ou=people"
+                    groupSearchBase: "ou=groups"
+                disableMailAddressResolver: false
+                groupIdStrategy: "caseInsensitive"
+                userIdStrategy: "caseInsensitive"
                 cache:
                   size: 100
                   ttl: 300
@@ -453,11 +454,11 @@ jenkins:
               globalMatrix:
                 permissions:
                   - "Overall/Administer:admins"
-                  - "Overall/SystemRead:all"
-                  - "Overall/Read:all"
-                  - "Job/Read:all"
-                  - "Job/Build:all"
-                  - "Job/ExtendedRead:all"
+                  - "Overall/SystemRead:authenticated"
+                  - "Overall/Read:authenticated"
+                  - "Job/Read:authenticated"
+                  - "Job/Build:authenticated"
+                  - "Job/ExtendedRead:authenticated"
         system-settings: |
           jenkins:
             disabledAdministrativeMonitors:
