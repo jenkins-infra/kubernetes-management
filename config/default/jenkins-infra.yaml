@@ -463,6 +463,17 @@ jenkins:
           jenkins:
             disabledAdministrativeMonitors:
               - "jenkins.security.QueueItemAuthenticatorMonitor"
+    sidecars:
+      configAutoReload:
+        env:
+          # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+          - name: METHOD
+            # Polling mode (instead of watching kube API)
+            value: "SLEEP"
+          # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+          - name: SLEEP_TIME
+            # Time in seconds between two polls
+            value: "60"
     ingress:
       enabled: true
       hostName: infra.ci.jenkins.io
