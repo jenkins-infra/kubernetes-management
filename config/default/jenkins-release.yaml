@@ -414,7 +414,7 @@ jenkins:
                 cache:
                   size: 100
                   ttl: 300
-          advisor-settings: |
+        advisor-settings: |
           jenkins:
             disabledAdministrativeMonitors:
               - com.cloudbees.jenkins.plugins.advisor.Reminder
