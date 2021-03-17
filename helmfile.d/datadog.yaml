@@ -7,7 +7,7 @@ releases:
     chart: datadog/datadog
     version: 2.10.3
     wait: true
-    timeout: 300
+    timeout: 600
     atomic: true
     values:
       - "../config/default/datadog/datadog.yaml"
