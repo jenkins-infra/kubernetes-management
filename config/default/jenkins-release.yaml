@@ -1,3 +1,4 @@
+---
 clusterAdminEnabled: false
 jenkins:
   agent:
@@ -15,6 +16,16 @@ jenkins:
   controller:
     image: jenkins/jenkins
     tag: 2.277.1-jdk11
+    resources:
+      limits:
+        cpu: "2"
+        memory: "4Gi"
+      requests:
+        cpu: "2"
+        memory: "4Gi"
+    javaOpts: >
+      -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
+      -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
     JCasC:
       enabled: true
       defaultConfig: false
@@ -393,19 +404,46 @@ jenkins:
                     rootDN: "${LDAP_ROOT_DN}"
                     managerDN: "${LDAP_MANAGER_DN}"
                     managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                    mailAddressAttributeName: "mail"
                     userSearch: cn={0}
+                    userSearchBase: "ou=people"
+                    groupSearchBase: "ou=groups"
+                disableMailAddressResolver: false
+                groupIdStrategy: "caseInsensitive"
+                userIdStrategy: "caseInsensitive"
                 cache:
                   size: 100
                   ttl: 300
+          advisor-settings: |
+          jenkins:
+            disabledAdministrativeMonitors:
+              - com.cloudbees.jenkins.plugins.advisor.Reminder
+          advisor:
+            acceptToS: true
+            ccs:
+            - "damien.duportal@gmail.com"
+            email: "jenkins@oblak.com"
+            excludedComponents:
+              - "ItemsContent"
+              - "GCLogs"
+              - "Agents"
+              - "RootCAs"
+              - "SlaveLogs"
+              - "HeapUsageHistogram"
+            nagDisabled: true
         matrix-settings: |
           jenkins:
             authorizationStrategy:
               globalMatrix:
                 permissions:
                   - "Overall/Administer:release-core"
-                  - "Overall/SystemRead:all"
-                  - "Overall/Read:all"
-                  - "Job/Read:all"
+                  - "Overall/SystemRead:authenticated"
+                  - "Overall/Read:authenticated"
+                  - "Job/Read:authenticated"
+        system-settings: |
+          jenkins:
+            disabledAdministrativeMonitors:
+              - "jenkins.security.QueueItemAuthenticatorMonitor"
     ingress:
       enabled: true
       hostName: release.ci.jenkins.io
