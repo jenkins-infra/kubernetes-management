@@ -124,6 +124,11 @@ jenkins:
                       id: "production-terraform-backend-config"
                       scope: GLOBAL
                       secretBytes: "${base64:${PRODUCTION_TERRAFORM_BACKEND_CONFIG}}"
+                  - file:
+                      fileName: "kubeconfig"
+                      id: "k8s_kubeconfig"
+                      scope: GLOBAL
+                      secretBytes: "${base64:${KUBECONFIG}}"
         k8s-settings: |
           jenkins:
             clouds:
