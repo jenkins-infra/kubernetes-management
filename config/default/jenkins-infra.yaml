@@ -129,6 +129,11 @@ jenkins:
                       id: "k8s_kubeconfig"
                       scope: GLOBAL
                       secretBytes: "${base64:${KUBECONFIG}}"
+                  - file:
+                      fileName: "credentials"
+                      id: "eks_charter_awsconfig"
+                      scope: GLOBAL
+                      secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
         k8s-settings: |
           jenkins:
             clouds:
