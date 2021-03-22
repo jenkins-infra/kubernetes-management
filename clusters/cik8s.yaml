@@ -1,13 +1,6 @@
 helmfiles:
   # ! Order matter
   - path: "../helmfile.d/00-repositories.yaml"
-  - path: "../helmfile.d/cert-manager.yaml"
-  - path: "../helmfile.d/loki.yaml"
-  - path: "../helmfile.d/falco.yaml"
   - path: "../helmfile.d/datadog.yaml"
-    values: 
-      - "../../config/publick8s/environment.yaml"
-  - path: "../helmfile.d/prometheus.yaml"
-  - path: "../helmfile.d/nexus.yaml"
-  - path: "../helmfile.d/grafana.yaml"
-
+    values:
+      - "../../config/cik8s/datadog.yaml"
