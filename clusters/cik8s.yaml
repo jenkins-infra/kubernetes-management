@@ -4,3 +4,4 @@ helmfiles:
   - path: "../helmfile.d/datadog.yaml"
     values:
       - "../../config/cik8s/datadog.yaml"
+  - path: "../helmfile.d/jenkins-agents.yaml"

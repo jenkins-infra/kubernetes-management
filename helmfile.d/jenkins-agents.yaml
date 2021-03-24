@@ -1,0 +1,8 @@
+releases:
+  - name: jenkins-agents
+    namespace: jenkins-agents
+    chart: ../charts/jenkins-kubernetes-agents
+    wait: true
+    timeout: 300
+    force: false
+    atomic: true
