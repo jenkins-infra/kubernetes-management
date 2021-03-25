@@ -1,5 +1,5 @@
 title: Bump falco helm chart version
-pipelineID bumpfalcohelmchart
+pipelineID: bumpfalcohelmchart
 sources:
   default:
     kind: helmChart
