@@ -98,14 +98,6 @@ pipeline {
                 }
               }
             } // stage
-            stage('Diff on Main Branch'){
-              when { branch 'master' }
-              steps {
-                container('helmfile'){
-                  sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --concurrency 10'
-                }
-              }
-            } // stage
             stage('Diff on PR'){
               when { changeRequest() }
               steps {
@@ -173,14 +165,6 @@ pipeline {
               steps {
                 container('helmfile'){
                   sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint --concurrency 10'
-                }
-              }
-            } // stage
-            stage('Diff on Main Branch'){
-              when { branch 'master' }
-              steps {
-                container('helmfile'){
-                  sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --concurrency 10'
                 }
               }
             } // stage
