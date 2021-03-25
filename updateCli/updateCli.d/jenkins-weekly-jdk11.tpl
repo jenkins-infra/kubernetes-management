@@ -1,15 +1,19 @@
-source:
-  name: "Get Jenkins latest weekly version"
-  kind: jenkins
-  postfix: "-jdk11"
-  spec:
-    release: weekly
-    github:
-      username: "{{ .github.username }}"
-      token: "{{ requiredEnv .github.token }}"
+title: "Bump jenkins weekly version"
+pipelineID: jenkinsweeklyjdk11
+sources:
+  default:
+    name: "Get Jenkins latest weekly version"
+    kind: jenkins
+    transformers:
+      - addSuffix: "-jdk11"
+    spec:
+      release: weekly
+      github:
+        username: "{{ .github.username }}"
+        token: "{{ requiredEnv .github.token }}"
 conditions:
   docker:
-    name: "Test jenkins/jenkins docker image tag"
+    name: "Test jenkins/jenkins:<latest_version>-jdk11 docker image tag"
     kind: dockerImage
     spec:
       image: "jenkins/jenkins"

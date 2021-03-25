@@ -1,13 +1,15 @@
 # Retrieve last updatecli version according Github Releases
-source:
-  name: Get latest jenkinsciinfra/helmfile docker image version
-  kind: githubRelease
-  spec:
-    owner: "jenkins-infra"
-    repository: "docker-helmfile"
-    token: "{{ requiredEnv .github.token }}"
-    username: "{{ .github.username }}"
-    version: "latest"
+title: Bump jenkins-infra helmfile docker image
+pipelineID: helmfileimagepodtemplate
+sources:
+  default:
+    name: Get latest jenkinsciinfra/helmfile docker image version
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "docker-helmfile"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
 
 conditions:
   dockerImage:
@@ -35,7 +37,8 @@ targets:
   imageTag:
     name: "Update helmfile container's image in PodTemplates.yaml"
     kind: yaml
-    prefix: "jenkinsciinfra/helmfile:"
+    transformers:
+      - addPrefix: "jenkinsciinfra/helmfile:"
     spec:
       file: "PodTemplates.yaml"
       key: spec.containers[0].image

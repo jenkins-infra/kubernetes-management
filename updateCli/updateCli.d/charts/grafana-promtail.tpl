@@ -1,16 +1,13 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://grafana.github.io/loki/charts
-    name: promtail
 
-conditions:
-  exist:
-    name: "Promtail helm chart available on Registry"
+title: Bump promtail helm chart version
+pipelineID: bumppromtailhelmchartversion
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://grafana.github.io/loki/charts
       name: promtail
+conditions:
   helmfileRelease:
     name: "grafana/promtail Helm Chart"
     kind: yaml
@@ -27,7 +24,6 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-
 targets:
   chartVersion:
     name: "grafana/promtail Helm Chart"

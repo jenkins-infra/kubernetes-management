@@ -1,16 +1,11 @@
+title: Bump prometheus helm chart version
+pipelineID: bumpprometheushelmchartversion
 source:
   kind: helmChart
   spec:
     url: https://prometheus-community.github.io/helm-charts
     name: prometheus
-
 conditions:
-  exist:
-    name: "Prometheus helm chart available on Registry"
-    kind: helmChart
-    spec:
-      url: https://prometheus-community.github.io/helm-charts
-      name: prometheus
   helmfileRelease:
     name: "stable/prometheus Helm Chart"
     kind: yaml
@@ -27,7 +22,6 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-
 targets:
   chartVersion:
     name: "stable/prometheus Helm Chart"

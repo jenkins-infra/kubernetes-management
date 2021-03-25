@@ -1,9 +1,11 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://falcosecurity.github.io/charts
-    name: falco
-
+title: Bump falco helm chart version
+pipelineID bumpfalcohelmchart
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://falcosecurity.github.io/charts
+      name: falco
 conditions:
   exist:
     name: "Falco helm chart available on Registry"
@@ -27,7 +29,6 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-
 targets:
   chartVersion:
     name: "falco/falco Helm Chart"

@@ -1,8 +1,12 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://charts.jenkins.io
-    name: jenkins
+title: Bump Jenkins Upstream Helm Charts 
+pipelineID: bumpjenkinsupstreamhelmcharts
+
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://charts.jenkins.io
+      name: jenkins
 
 conditions:
   exist:
@@ -31,9 +35,10 @@ conditions:
 targets:
   chartVersion:
     name: "jenkinsci/jenkins Helm Chart"
-    kind: yaml
+    kind: helmChart
     spec:
-      file: "charts/jenkins/requirements.yaml"
+      file: requirements.yaml
+      name: charts/jenkins
       key: "dependencies[0].version"
     scm:
       github:

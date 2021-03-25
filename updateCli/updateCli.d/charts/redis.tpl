@@ -1,16 +1,13 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://charts.bitnami.com/bitnami
-    name: redis
-
-conditions:
-  exist:
-    name: "Redis helm chart available on Registry"
+title: Bump Redis Helm Chart Version
+pipelineID: bumpredishelmchartversion
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://charts.bitnami.com/bitnami
       name: redis
+
+conditions:
   helmfileRelease:
     name: "bitnami/redis Helm Chart"
     kind: yaml

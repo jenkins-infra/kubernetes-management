@@ -1,26 +1,29 @@
 ---
-source:
-  kind: githubRelease
-  name: Get jenkins-infra/incrementals-publish latest version
-  spec:
-    owner: "jenkins-infra"
-    repository: "incrementals-publisher"
-    token: "{{ requiredEnv .github.token }}"
-    username: "{{ .github.username }}"
-    version: "latest"
+title: Bump incremental publisher
+pipelineID: incrementals-publisher
+sources:
+  default:
+    kind: githubRelease
+    name: Get jenkins-infra/incrementals-publish latest version
+    spec:
+      owner: "jenkins-infra"
+      repository: "incrementals-publisher"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
 conditions:
-  docker:
+  default:
     name: "Test if jenkinsciinfra/incrementals-publish docker image is published"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/incrementals-publisher"
 targets:
-  appVersion:
+  default:
     name: "Update incrementals-publisher appVersion"
-    kind: yaml
+    kind: helmChart
     spec:
-      file: "charts/incrementals-publisher/Chart.yaml"
-      key: appVersion
+      name: charts/incrementals-publisher
+      key: image.tag
+      appVersion: true
     scm:
       github:
         user: "{{ .github.user }}"

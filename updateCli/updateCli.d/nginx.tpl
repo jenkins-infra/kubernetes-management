@@ -1,16 +1,20 @@
-source:
-  kind: dockerDigest
-  name: Get nginx:1.17 docker image digest
-  spec:
-    image: "nginx"
-    tag: "1.17"
+title: Bump nginx:stable docker image digest
+pipelineID: nginxdockerdigest
+sources:
+  default:
+    kind: dockerDigest
+    name: Get nginx:stable docker image digest
+    spec:
+      image: "nginx"
+      tag: "stable"
 targets:
   nginx:
-    name: "Update nginx:1.17 docker image digest"
-    kind: yaml
+    name: "Update nginx:stable docker image digest"
+    kind: helmChart
     spec:
-      file: "charts/jenkinsio/values.yaml"
+      name: charts/jenkinsio
       key: image.tag
+      versionIncrement: patch
     scm:
       github:
         user: "{{ .github.user }}"

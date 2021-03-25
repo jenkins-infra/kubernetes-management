@@ -1,12 +1,16 @@
-source:
-  kind: jenkins
-  name: Get jenkins/jenkins:lts-jdk11 docker digest
-  postfix: "-jdk11"
-  spec:
-    release: stable
-    github:
-      username: "{{ .github.username }}"
-      token: "{{ requiredEnv .github.token }}"
+title: Bump jenkins stable version
+pipelineID: jenkinsltsjdk11
+sources:
+  default:
+    kind: jenkins
+    name: Get jenkins/jenkins:lts-jdk11 docker digest
+    transformers:
+      - addSuffix: "-jdk11"
+    spec:
+      release: stable
+      github:
+        username: "{{ .github.username }}"
+        token: "{{ requiredEnv .github.token }}"
 conditions:
   docker:
     name: "Test jenkins/jenkins docker image tag"

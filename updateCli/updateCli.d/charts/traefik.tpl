@@ -1,16 +1,13 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://helm.traefik.io/traefik
-    name: traefik
+title: Bump Traefik Helm Chart Version
+pipelineID: bumptraefikhelmchartversion
 
-conditions:
-  exist:
-    name: "traefik helm chart available on Registry"
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://helm.traefik.io/traefik
       name: traefik
+conditions:
   publicHelmfileRelease:
     name: "public traefik/traefik Helm Chart"
     kind: yaml

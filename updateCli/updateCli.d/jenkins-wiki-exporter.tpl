@@ -1,12 +1,14 @@
-source:
-  kind: githubRelease
-  name: "Get jenkins-infra/jenkins-wiki-exporter latest version"
-  spec:
-    owner: "jenkins-infra"
-    repository: "jenkins-wiki-exporter"
-    token: "{{ requiredEnv .github.token }}"
-    username: "{{ .github.username }}"
-    version: "latest"
+title: Bump jenkins-wiki-exporter version
+pipelineID: bumpjenkinswikiexporterversion
+sources:
+  default:
+    kind: githubRelease
+    name: "Get jenkins-infra/jenkins-wiki-exporter latest version"
+    spec:
+      owner: "jenkins-infra"
+      repository: "jenkins-wiki-exporter"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
 conditions:
   docker:
     name: "Test if jenkinsciinfra/jenkins-wiki-exporter Docker Image exist"
@@ -16,25 +18,11 @@ conditions:
 targets:
   imageTag:
     name: "Update jenkins-wiki-exporter docker image tag"
-    kind: yaml
+    kind: helmChart
     spec:
-      file: "charts/jenkins-wiki-exporter/values.yaml"
+      name: charts/jenkins-wiki-exporter
       key: image.tag
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
-  appVersion:
-    name: "Update jenkins-wiki-exporter appversion"
-    kind: yaml
-    spec:
-      file: "charts/jenkins-wiki-exporter/Chart.yaml"
-      key: appVersion
+      appVersion: true
     scm:
       github:
         user: "{{ .github.user }}"

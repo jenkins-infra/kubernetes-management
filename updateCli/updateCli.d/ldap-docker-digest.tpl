@@ -1,21 +1,26 @@
----
-title: Bump jenkins-infra datadog docker image version
-pipelineID: bumpjenkinsinfradatadogversion
+title: Bump ldap docker image digest
+pipelineID: ldapdockerdigest
 sources:
-  default:
-    name: "Get jenkinsciinfra/datadog:latest docker image digest"
+  crond:
     kind: dockerDigest
+    name: "Get jenkinsciinfra/ldap:cron-latest docker image digest"
     spec:
-      image: "jenkinsciinfra/datadog"
+      image: "jenkinsciinfra/ldap"
+      tag: "cron-latest"
+  slapd:
+    kind: dockerDigest
+    name: Get jenkinsciinfra/ldap:latest docker image digest
+    spec:
+      image: "jenkinsciinfra/ldap"
       tag: "latest"
-conditions:
-  imageName:
-    name: "Test if 'jenkinsciinfra/datadog@sha256' docker image is set"
+targets:
+  crond:
+    sourceID: crond
+    name: "Update jenkinsciinfra/ldap:cron-latest image digest"
     kind: yaml
     spec:
-      file: "config/default/datadog/datadog.yaml"
-      key: "agents.image.repository"
-      value: "jenkinsciinfra/datadog@sha256"
+      file: "charts/ldap/values.yaml"
+      key: "image.crond.tag"
     scm:
       github:
         user: "{{ .github.user }}"
@@ -25,13 +30,13 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-targets:
-  imageTag:
-    name: "Bump 'jenkinsciinfra/datadog:latest' docker image digest"
+  slapd:
+    sourceID: slapd
+    name: "Update jenkinsciinfra/ldap:latest docker image digest"
     kind: yaml
     spec:
-      file: "config/default/datadog/datadog.yaml"
-      key: "agents.image.tag"
+      file: "charts/ldap/values.yaml"
+      key: "image.slapd.tag"
     scm:
       github:
         user: "{{ .github.user }}"

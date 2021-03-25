@@ -1,16 +1,13 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://charts.helm.sh/stable
-    name: nginx-ingress
-
-conditions:
-  exist:
-    name: "Nging ingress helm chart available on Registry"
+title: Bump nginx-ingress helm chart
+pipelineID: bumpnginxingresshelmchart
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://charts.helm.sh/stable
       name: nginx-ingress
+
+conditions:
   publicHelmfileRelease:
     name: "public stable/nginx-ingress Helm Chart"
     kind: yaml

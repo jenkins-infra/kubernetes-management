@@ -1,8 +1,11 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://codecentric.github.io/helm-charts
-    name: keycloak
+title: Bump keycloak helm chart version
+pipelineID: codecentric-keycloak
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://codecentric.github.io/helm-charts
+      name: keycloak
 conditions:
   exist:
     name: "Keycloack helm chart available on Registry"
