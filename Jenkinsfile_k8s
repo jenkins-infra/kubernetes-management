@@ -1,9 +1,9 @@
 pipeline {
   agent {
     kubernetes {
-      label 'helmfile'
       yamlFile 'PodTemplates.yaml'
       inheritFrom 'jnlp-linux'
+      defaultContainer 'updatecli'
     }
   }
 
@@ -41,9 +41,7 @@ pipeline {
                 UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
               }
               steps {
-                container('updatecli') {
-                  sh 'updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
-                }
+                sh 'updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
               }
             } // stage
             stage('Apply Configuration Update') {
@@ -58,9 +56,7 @@ pipeline {
                 UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
               }
               steps {
-                container('updatecli') {
-                  sh 'updatecli apply --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
-                }
+                sh 'updatecli apply --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
               }
             } // stage
           }
@@ -68,9 +64,9 @@ pipeline {
         stage('publick8s Cluster') {
           agent {
             kubernetes {
-              label 'helmfile'
               yamlFile 'PodTemplates.yaml'
               inheritFrom 'jnlp-linux'
+              defaultContainer 'helmfile'
             }
           }
           environment {
@@ -83,31 +79,24 @@ pipeline {
           stages {
             stage('Prepare Environment'){
               steps {
-                container('jnlp') {
-                  dir ('secrets'){
-                    // Init secrets
-                    git branch: 'master', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
-                  }
+                dir ('secrets'){
+                  // Init secrets
+                  git branch: 'master', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
                 }
               }
             }
             stage('Test Lint'){
               steps {
-                container('helmfile'){
-                  sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint --concurrency 10'
-                }
+                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint --concurrency 10'
               }
             } // stage
             stage('Diff on PR'){
               when { changeRequest() }
               steps {
-                container('helmfile'){
-                  script {
-                    def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps', returnStdout: true).trim()
-                    // Note the GitHub markdown formatting for the diff, to have syntax coloration
-                    publishChecks name: "helmfile-diff-${K8S_CLUSTER}", title: "Helmfile Diff for cluster ${K8S_CLUSTER}", text: '```diff\n' + diff + '\n```'
-                  }
-
+                script {
+                  def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps', returnStdout: true).trim()
+                  // Note the GitHub markdown formatting for the diff, to have syntax coloration
+                  publishChecks name: "helmfile-diff-${K8S_CLUSTER}", title: "Helmfile Diff for cluster ${K8S_CLUSTER}", text: '```diff\n' + diff + '\n```'
                 }
               }
             } // stage
@@ -125,9 +114,9 @@ pipeline {
         stage('cik8s Cluster') {
           agent {
             kubernetes {
-              label 'helmfile'
               yamlFile 'PodTemplates.yaml'
               inheritFrom 'jnlp-linux'
+              defaultContainer 'helmfile'
             }
           }
           environment {
