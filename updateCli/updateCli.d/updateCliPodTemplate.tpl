@@ -39,7 +39,7 @@ conditions:
 targets:
   # Update updatecli version in the PodTemplate
   imageTag:
-    name: "Update Updatecli verison in PodTemplates.yaml"
+    name: "Update Updatecli version in PodTemplates.yaml"
     kind: yaml
     transformers:
       - addPrefix: "ghcr.io/updatecli/updatecli:"
