@@ -87,7 +87,7 @@ pipeline {
             }
             stage('Test Lint'){
               steps {
-                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint --concurrency 10'
+                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
               }
             } // stage
             stage('Diff on PR'){
@@ -153,7 +153,7 @@ pipeline {
             stage('Test Lint'){
               steps {
                 container('helmfile'){
-                  sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint --concurrency 10'
+                  sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
                 }
               }
             } // stage
