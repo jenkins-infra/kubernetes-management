@@ -1,15 +1,17 @@
-source:
-  name: Get latest version of jenkinsciinfra/mirrorbits
-  kind: githubRelease
-  spec:
-    user: "{{ .github.user }}"
-    email: "{{ .github.email }}"
-    owner: "{{ .github.owner }}"
-    repository: "docker-mirrorbits"
-    token: "{{ requiredEnv .github.token }}"
-    username: "{{ .github.username }}"
-    branch: "{{ .github.branch }}"
-
+title: Bump mirrorbits helm chart with latest docker image
+pipelineID: bumpmirrorbitshelmchart
+sources:
+  default:
+    name: Get latest version of jenkinsciinfra/mirrorbits
+    kind: githubRelease
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "docker-mirrorbits"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
 conditions:
   dockerImage:
     name: Ensure that the image "jenkinsciinfra/mirrorbits:<found_version>" is published on the DockerHub
@@ -34,12 +36,12 @@ conditions:
         branch: "{{ .github.branch }}"
 targets:
   imageTag:
-    name: "Update jenkinsciinfra/rsyncd:latest docker image digest"
-    kind: yaml
+    name: "Update mirrorbits docker image digest"
+    kind: helmChart
     spec:
-      file: "charts/mirrorbits/values.yaml"
+      name: charts/mirrorbits
       key: "image.mirrorbits.tag"
-      value: "jenkinsciinfra/mirrorbits"
+      appVersion: true
     scm:
       github:
         user: "{{ .github.user }}"

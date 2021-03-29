@@ -1,17 +1,19 @@
 # Retrieve last updatecli version according Github Releases
-source:
-  kind: githubRelease
-  name: Get latest updatecli version
-  spec:
-    owner: "updatecli"
-    repository: "updatecli"
-    token: "{{ requiredEnv .github.token }}"
-    username: "{{ .github.username }}"
-    version: "latest"
+title: Bump updatecli PodTemplate
+pipelineID: updateCliPodTemplate
+sources:
+  default:
+    kind: githubRelease
+    name: Get latest updatecli version
+    spec:
+      owner: "updatecli"
+      repository: "updatecli"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
 conditions:
   # Ensure that a container name 'updatecli' is correctly defined in the PodTemplate
   # and located in the array position spec.containers[1], as needed for the target
-  containerSpec:
+  default:
     name: "Is Updatecli correctly defined in PodTemplates.yaml"
     kind: yaml
     spec:
@@ -37,9 +39,10 @@ conditions:
 targets:
   # Update updatecli version in the PodTemplate
   imageTag:
-    name: "Update Updatecli verison in PodTemplates.yaml"
+    name: "Update Updatecli version in PodTemplates.yaml"
     kind: yaml
-    prefix: "ghcr.io/updatecli/updatecli:"
+    transformers:
+      - addPrefix: "ghcr.io/updatecli/updatecli:"
     spec:
       file: "PodTemplates.yaml"
       key: spec.containers[1].image

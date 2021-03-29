@@ -1,16 +1,12 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://charts.jetstack.io
-    name: cert-manager
-
-conditions:
-  exist:
-    name: "Certmanager helm chart available on Registry"
+title: Bump cert-manager helm chart version
+pipelineID: bumpcertmanagerhelmchartversion
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://charts.jetstack.io
       name: cert-manager
+conditions:
   helmfileRelease:
     name: "jetstack/cert-manager Helm Chart"
     kind: yaml

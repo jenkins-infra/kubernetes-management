@@ -1,9 +1,11 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://grafana.github.io/helm-charts
-    name: grafana
-
+title: Bump grafana helm chart version
+pipelineID: bumpgrafanahelmchartversion
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://grafana.github.io/helm-charts
+      name: grafana
 conditions:
   helmfileRelease:
     name: "grafana/grafana Helm Chart"
@@ -21,7 +23,6 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-
 targets:
   chartVersion:
     name: "grafana/grafana Helm Chart"

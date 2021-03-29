@@ -1,9 +1,11 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://helm.datadoghq.com
-    name: datadog
-
+title: Bump datadog helm chart
+pipelineID: bumpdatadoghelmchart
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://helm.datadoghq.com
+      name: datadog
 conditions:
   exist:
     name: "Datadog helm chart available on Registry"
@@ -27,7 +29,6 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-
 targets:
   chartVersion:
     name: "Datadog Helm Chart"

@@ -1,16 +1,12 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://charts.helm.sh/stable
-    name: oauth2-proxy
-
-conditions:
-  exist:
-    name: Ooauth2-proxy helm chart available on Registry"
+title: Bump oauth2-proxy helm chart
+pipelineID: bumpoauth2proxyhelmchart
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://charts.helm.sh/stable
       name: oauth2-proxy
+conditions:
   helmfileRelease:
     name: "stable/oauth2-proxy Helm Chart"
     kind: yaml

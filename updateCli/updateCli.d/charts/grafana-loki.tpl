@@ -1,16 +1,12 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://grafana.github.io/loki/charts
-    name: loki
-
-conditions:
-  exist:
-    name: "Loki helm chart available on Registry"
+title: Bump loki helm chart version
+pipelineID: bumplokihelmchartversion
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://grafana.github.io/loki/charts
       name: loki
+conditions:
   helmfileRelease:
     name: "grafana/loki Helm Chart"
     kind: yaml
@@ -27,7 +23,6 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-
 targets:
   chartVersion:
     name: "grafana/loki Helm Chart"

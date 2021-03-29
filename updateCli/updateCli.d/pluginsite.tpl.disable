@@ -1,4 +1,6 @@
 ---
+title: Bump pluginsite helmChart appVersion
+pipelineID: pluginsite
 source:
   kind: githubRelease
   name: Get jenkins-infra/plugin-site-api latest version
@@ -7,7 +9,6 @@ source:
     repository: "plugin-site-api"
     token: "{{ requiredEnv .github.token }}"
     username: "olblak"
-    version: "latest"
 conditions:
   docker:
     name: "Test if jenkinsciinfra/plugin-site-api exist"
@@ -17,25 +18,10 @@ conditions:
 targets:
   imageTag:
     name: "jenkinsciinfra/plugin-site-api docker image"
-    kind: yaml
+    kind: helmChart
     spec:
-      file: "charts/plugin-site/values.yaml"
+      name: "charts/plugin-site"
       key: "backend.image.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
-  appVersion:
-    name: "Update plugin-site-api chart Chart appVersion"
-    kind: yaml
-    spec:
-      file: "charts/plugin-site/Chart.yaml"
-      key: appVersion
     scm:
       github:
         user: "{{ .github.user }}"
