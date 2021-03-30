@@ -16,7 +16,7 @@ data:
   
       {{- if .Values.forceJenkinsIoHost -}}
       if ( $host != 'www.jenkins.io') {
-        return 301 $scheme://www.jenkins.io$request_uri;
+        return 301 https://www.jenkins.io$request_uri;
       }
       {{- end }}
   
