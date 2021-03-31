@@ -1,6 +1,8 @@
 ---
 clusterAdminEnabled: true
 jenkins:
+  rbac:
+    readSecrets: true
   agent:
     componentName: "agent"
   networkPolicy:
