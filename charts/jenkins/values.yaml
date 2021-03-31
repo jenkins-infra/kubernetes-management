@@ -24,8 +24,8 @@ jenkins:
       readinessProbe:
         initialDelaySeconds: 120
     testEnabled: false
-    image: jenkins/jenkins
-    tag: 2.286-jdk11
+    image: jenkinsciinfra/jenkins-weekly
+    tag: 0.0.7-2.286
     ingress:
       apiVersion: networking.k8s.io/v1beta1
     runAsUser: 1000
