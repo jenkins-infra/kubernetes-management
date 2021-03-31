@@ -465,17 +465,11 @@ jenkins:
               globalMatrix:
                 permissions:
                   - "Overall/Administer:admins"
-<<<<<<< HEAD
                   - "Overall/SystemRead:authenticated"
                   - "Overall/Read:authenticated"
                   - "Job/Read:authenticated"
                   - "Job/Build:authenticated"
                   - "Job/ExtendedRead:authenticated"
-                  - "Overall/SystemRead:all"
-                  - "Overall/Read:all"
-                  - "Job/Read:all"
-                  - "Job/Build:all"
-                  - "Job/ExtendedRead:all"
         system-settings: |
           jenkins:
             disabledAdministrativeMonitors:
