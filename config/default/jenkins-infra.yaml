@@ -142,9 +142,9 @@ jenkins:
             clouds:
               - kubernetes:
                   containerCapStr: "100"
-                  jenkinsTunnel: "jenkins-infra-agent:50000"
                   jenkinsUrl: "http://jenkins-infra:8080"
                   maxRequestsPerHostStr: "300"
+                  webSocket: true
                   name: "kubernetes"
                   namespace: "jenkins-infra"
                   podRetention: "Never"
@@ -155,7 +155,7 @@ jenkins:
                     - key: "jenkins/jenkins-infra-agent"
                       value: "true"
                   templates:
-                    - name: jnlp-linux
+                    - name: jnlp
                       nodeSelector: "kubernetes.io/os=linux"
                       containers:
                         - name: jnlp
@@ -164,7 +164,7 @@ jenkins:
                           resourceLimitMemory: "512Mi"
                           resourceRequestCpu: "500m"
                           resourceRequestMemory: "512Mi"
-                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          args: "1d"
                           alwaysPullImage: true
                     - name: jnlp-windows
                       nodeSelector: "kubernetes.io/os=windows"
@@ -175,7 +175,7 @@ jenkins:
                           resourceLimitMemory: "512Mi"
                           resourceRequestCpu: "500m"
                           resourceRequestMemory: "512Mi"
-                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          args: "1d"
                           alwaysPullImage: true
                       yaml: |-
                         spec:
