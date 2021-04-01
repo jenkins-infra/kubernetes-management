@@ -458,7 +458,7 @@ jenkins:
             # Time in seconds between two polls
             value: "60"
     overwritePlugins: false
-    installPlugins: false          
+    installPlugins: false
     ingress:
       enabled: true
       hostName: release.ci.jenkins.io
