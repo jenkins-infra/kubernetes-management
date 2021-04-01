@@ -1,6 +1,8 @@
 ---
 clusterAdminEnabled: false
 jenkins:
+  rbac:
+    readSecrets: true
   agent:
     componentName: "agent"
   networkPolicy:
@@ -14,8 +16,8 @@ jenkins:
       namespaceLabels:
         name: "release"
   controller:
-    image: jenkins/jenkins
-    tag: 2.277.1-jdk11
+    image: jenkinsciinfra/jenkins-lts
+    tag: 0.0.8-2.277.1
     resources:
       limits:
         cpu: "2"
@@ -455,6 +457,8 @@ jenkins:
           - name: SLEEP_TIME
             # Time in seconds between two polls
             value: "60"
+    overwritePlugins: false
+    installPlugins: false          
     ingress:
       enabled: true
       hostName: release.ci.jenkins.io
