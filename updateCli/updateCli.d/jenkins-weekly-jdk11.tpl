@@ -15,7 +15,7 @@ conditions:
     name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag"
     kind: dockerImage
     spec:
-      image: "jenkinscinfra/jenkins-weekly"
+      image: "jenkinsciinfra/jenkins-weekly"
 targets:
   imageTag:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
