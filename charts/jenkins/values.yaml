@@ -3,7 +3,7 @@ clusterAdminEnabled: false
 jenkins:
   rbac:
     create: true
-    readSecrets: false
+    readSecrets: true
   persistence:
     enabled: true
     size: 50Gi
@@ -36,92 +36,6 @@ jenkins:
     overwritePlugins: true
     secretsFilesSecret: 'jenkins-secrets'
     serviceType: "ClusterIP"
-    installPlugins:
-      - ansicolor
-      - antisamy-markup-formatter
-      - authentication-tokens
-      - basic-branch-build-strategies
-      - blueocean
-      - blueocean-autofavorite
-      - blueocean-commons
-      - blueocean-config
-      - blueocean-core-js
-      - blueocean-dashboard
-      - blueocean-display-url
-      - blueocean-events
-      - blueocean-git-pipeline
-      - blueocean-github-pipeline
-      - blueocean-i18n
-      - blueocean-jira
-      - blueocean-jwt
-      - blueocean-personalization
-      - blueocean-pipeline-api-impl
-      - blueocean-pipeline-editor
-      - blueocean-pipeline-scm-api
-      - blueocean-rest
-      - blueocean-rest-impl
-      - blueocean-web
-      - branch-api
-      - build-name-setter
-      - config-file-provider
-      - configuration-as-code
-      - credentials
-      - credentials-binding
-      - cloudbees-jenkins-advisor
-      - extended-read-permission
-      - git
-      - git-client
-      - github
-      - github-api
-      - github-branch-source
-      - github-checks
-      - github-label-filter
-      - inline-pipeline
-      - jira
-      - job-dsl
-      - junit
-      - kubernetes
-      - ldap
-      - lockable-resources
-      - pipeline-utility-steps
-      - matrix-auth
-      - matrix-project
-      - pipeline-build-step
-      - pipeline-github
-      - pipeline-graph-analysis
-      - pipeline-input-step
-      - pipeline-milestone-step
-      - pipeline-model-api
-      - pipeline-model-definition
-      - pipeline-model-extensions
-      - pipeline-rest-api
-      - pipeline-stage-step
-      - pipeline-stage-tags-metadata
-      - pipeline-stage-view
-      - plain-credentials
-      - prometheus
-      - scm-api
-      - scm-filter-branch-pr
-      - script-security
-      - ssh-agent
-      - ssh-credentials
-      - support-core
-      - token-macro
-      - variant
-      - warnings-ng
-      - workflow-aggregator
-      - workflow-api
-      - workflow-basic-steps
-      - workflow-cps
-      - workflow-cps-global-lib
-      - workflow-durable-task-step
-      - workflow-job
-      - workflow-multibranch
-      - workflow-scm-step
-      - workflow-step-api
-      - workflow-support
-      - javadoc
-      - metrics
   serviceAccount:
     create: true
     name: jenkins-controller
