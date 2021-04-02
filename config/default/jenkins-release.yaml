@@ -1,4 +1,3 @@
----
 clusterAdminEnabled: false
 jenkins:
   rbac:
@@ -16,7 +15,7 @@ jenkins:
       namespaceLabels:
         name: "release"
   controller:
-    image: jenkinsciinfra/jenkins-lts
+    image: 0.0.8-2.277.1
     tag: 0.0.8-2.277.1
     resources:
       limits:
@@ -26,8 +25,8 @@ jenkins:
         cpu: "2"
         memory: "4Gi"
     javaOpts: >
-      -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
-      -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
+      -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
+
     JCasC:
       enabled: true
       defaultConfig: false
