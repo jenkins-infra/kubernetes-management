@@ -5,7 +5,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.10.10
+    version: 2.10.11
     wait: true
     timeout: 600
     atomic: true
