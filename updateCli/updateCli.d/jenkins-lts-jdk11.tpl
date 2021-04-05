@@ -23,13 +23,6 @@ targets:
     spec:
       file: "config/default/jenkins-release.yaml"
       key: "jenkins.controller.tag"
-  imageName:
-    name: "Test if jenkinsciinfra/jenkins-lts docker image is used"
-    kind: yaml
-    spec:
-      file: "config/default/jenkins-release.yaml"
-      key: "jenkins.controller.image"
-      value: "jenkinsciinfra/jenkins-lts"    
     scm:
       github:
         user: "{{ .github.user }}"
