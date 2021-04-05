@@ -15,7 +15,7 @@ jenkins:
       namespaceLabels:
         name: "release"
   controller:
-    image: 0.0.9-2.277.1
+    image: 0.0.10-2.277.1
     tag: 0.0.8-2.277.1
     resources:
       limits:
