@@ -457,7 +457,6 @@ jenkins:
           - name: SLEEP_TIME
             # Time in seconds between two polls
             value: "60"
-    overwritePlugins: false
     installPlugins: false
     ingress:
       enabled: true
