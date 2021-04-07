@@ -1,20 +1,16 @@
-source:
-  kind: helmChart
-  spec:
-    url: https://garethjevans.github.io/captain-hook
-    name: captain-hook
-
-
-conditions:
-  exist:
-    name: "Captain Hook Helm Chart Published on Registry"
+title: Bump Captain Hook helm chart version
+pipelineID: captainhookhelmfile
+sources:
+  default:
     kind: helmChart
     spec:
       url: https://garethjevans.github.io/captain-hook
       name: captain-hook
+conditions:
   chartVersion:
-    name: "captain-hook/captain-hook Helm Chart"
+    name: "Test captain-hook/captain-hook Helm Chart position in helmfile"
     kind: yaml
+    sourceID: default
     spec:
       file: "helmfile.d/captain-hook.yaml"
       key: "releases[0].name"
@@ -32,6 +28,7 @@ conditions:
 targets:
   chartVersion:
     name: "captain-hook/captain-hook Helm Chart"
+    sourceID: default
     kind: yaml
     spec:
       file: "helmfile.d/captain-hook.yaml"
