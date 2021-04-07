@@ -147,9 +147,9 @@ jenkins:
             clouds:
               - kubernetes:
                   containerCapStr: "100"
-                  jenkinsTunnel: "default-release-jenkins-agent:50000"
                   jenkinsUrl: "http://default-release-jenkins:8080"
                   maxRequestsPerHostStr: "300"
+                  webSocket: true  
                   name: "kubernetes"
                   namespace: "release"
                   podRetention: "Never"
@@ -160,7 +160,7 @@ jenkins:
                     - key: "jenkins/default-release-jenkins-agent"
                       value: "true"
                   templates:
-                    - name: jnlp-linux
+                    - name: jnlp
                       nodeSelector: "kubernetes.io/os=linux"
                       containers:
                         - name: jnlp
@@ -169,7 +169,7 @@ jenkins:
                           resourceLimitMemory: "512Mi"
                           resourceRequestCpu: "500m"
                           resourceRequestMemory: "512Mi"
-                          args: "^${computer.jnlpmac} ^${computer.name}"
+                          args: "1d"
                           alwaysPullImage: true
                     - name: jnlp-windows
                       nodeSelector: "kubernetes.io/os=windows"
@@ -180,6 +180,7 @@ jenkins:
                           resourceLimitMemory: "1024Mi"
                           resourceRequestCpu: "500m"
                           resourceRequestMemory: "1024Mi"
+                          args: "1d"
                           alwaysPullImage: true
                       yaml: |-
                         spec:
