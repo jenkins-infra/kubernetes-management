@@ -6,8 +6,10 @@ jenkins:
   agent:
     componentName: "agent"
   networkPolicy:
-    # As of today, 2020-06-19, network policy is not supported for windows node https://docs.microsoft.com/en-us/azure/aks/windows-node-limitations#are-all-features-supported-with-windows-nodes
-    # This is a blocker for the release environment as in the current state windows containers are not allowed to connect on main Jenkins.
+    # As of today, 2020-06-19, network policy is not supported for windows node
+    # https://docs.microsoft.com/en-us/azure/aks/windows-node-limitations#are-all-features-supported-with-windows-nodes
+    # This is a blocker for the release environment as in the current state,
+    # windows containers are not allowed to connect on main Jenkins.
     # I disable it for now
     # enabled: true
     enabled: false
@@ -26,7 +28,8 @@ jenkins:
         cpu: "2"
         memory: "4Gi"
     javaOpts: >
-      -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
+      -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled
+      -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
       -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
       -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
     JCasC:
@@ -150,7 +153,7 @@ jenkins:
                   containerCapStr: "100"
                   jenkinsUrl: "http://default-release-jenkins:8080"
                   maxRequestsPerHostStr: "300"
-                  webSocket: true  
+                  webSocket: true
                   name: "kubernetes"
                   namespace: "release"
                   podRetention: "Never"
