@@ -10,6 +10,7 @@ conditions:
   chartVersion:
     name: "Test captain-hook/captain-hook Helm Chart position in helmfile"
     kind: yaml
+    sourceID: default
     spec:
       file: "helmfile.d/captain-hook.yaml"
       key: "releases[0].name"
