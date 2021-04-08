@@ -8,7 +8,7 @@ sources:
       image: "nginx"
       tag: "stable"
 conditions:
-  usJenkinsio:
+  ENJenkinsio:
     name: "Update nginx:stable docker image digest for jenkins.io"
     kind: yaml
     spec:
@@ -24,7 +24,7 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-  zhJenkinsio:
+  ZHJenkinsio:
     name: "Update nginx:stable docker image digest for jenkins.io/zh"
     kind: helmChart
     spec:
@@ -42,7 +42,7 @@ conditions:
         branch: "{{ .github.branch }}"
 
 targets:
-  usJenkinsio:
+  USJenkinsio:
     name: "Update nginx:stable docker image digest"
     kind: helmChart
     spec:
@@ -58,7 +58,7 @@ targets:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-  zhJenkinsio:
+  ZHJenkinsio:
     name: "Update nginx:stable docker image digest"
     kind: helmChart
     spec:
