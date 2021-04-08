@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "jenkinsio.fullname" . }}
-  labels: {{ include "jenkinsio.labels" . | nindent 4 }}
+  name: {{include "jenkinsio.fullname" .}}
+  labels: {{include "jenkinsio.labels" . | nindent 4}}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{.Values.replicaCount}}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "jenkinsio.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/name: {{include "jenkinsio.name" .}}
+      app.kubernetes.io/instance: {{.Release.Name}}
   template:
     metadata:
-      labels: {{ include "jenkinsio.labels" . | nindent 8 }}
+      labels: {{include "jenkinsio.labels" . | nindent 8}}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
+        checksum/config: {{include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum}}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -25,8 +25,8 @@ spec:
     {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.images.en.repository }}:{{ .Values.images.en.tag }}"
+          imagePullPolicy: {{ .Values.images.en.pullPolicy }}
           ports:
               - name: {{ include "jenkinsio.fullname" . }}
                 containerPort: 80
