@@ -7,13 +7,63 @@ sources:
     spec:
       image: "nginx"
       tag: "stable"
+conditions:
+  ENJenkinsio:
+    name: "Update nginx:stable docker image digest for jenkins.io"
+    kind: yaml
+    spec:
+      file: charts/jenkinsio
+      key: images.en.repository
+      value: nginx@sha256
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  ZHJenkinsio:
+    name: "Update nginx:stable docker image digest for jenkins.io/zh"
+    kind: helmChart
+    spec:
+      file: charts/jenkinsio
+      key: images.zh.repository
+      value: nginx@sha256
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+
 targets:
-  nginx:
+  USJenkinsio:
     name: "Update nginx:stable docker image digest"
     kind: helmChart
     spec:
       name: charts/jenkinsio
-      key: image.tag
+      key: images.us.tag
+      versionIncrement: patch
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  ZHJenkinsio:
+    name: "Update nginx:stable docker image digest"
+    kind: helmChart
+    spec:
+      name: charts/jenkinsio
+      key: images.zh.tag
       versionIncrement: patch
     scm:
       github:

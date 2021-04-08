@@ -7,13 +7,13 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "jenkinsio.name" . }}-zh
-      app.kubernetes.io/instance: {{ .Release.Name }}-zh
+      app.kubernetes.io/name: {{include "jenkinsio.name" .}}-zh
+      app.kubernetes.io/instance: {{.Release.Name}}-zh
   template:
     metadata:
-      labels: {{ include "zh-jenkinsio.labels" . | nindent 8 }}
+      labels: {{include "zh-jenkinsio.labels" . | nindent 8}}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/zh-configmap.yaml") . | sha256sum }}
+        checksum/config: {{include (print $.Template.BasePath "/zh-configmap.yaml") . | sha256sum}}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -25,8 +25,8 @@ spec:
     {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.images.zh.repository }}:{{ .Values.images.zh.tag }}"
+          imagePullPolicy: {{ .Values.images.zh.pullPolicy }}
           ports:
               - name: {{ include "jenkinsio.fullname" . }}-zh
                 containerPort: 80
