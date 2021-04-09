@@ -299,7 +299,7 @@ jenkins:
                   configure { node ->
                     def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
                     traits << 'jenkins.scm.impl.trait.RegexSCMSourceFilterTrait' {
-                      regex('docker-.*')
+                      regex('docker-.*|^jenkins.io$')
                     }
                     traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
                       strategyId(1)
