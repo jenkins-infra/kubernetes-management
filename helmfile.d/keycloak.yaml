@@ -6,7 +6,7 @@ releases:
     name: keycloak # Admin
     namespace: keycloak
     chart: codecentric/keycloak
-    version: 10.1.0
+    version: 10.3.0
     wait: true
     timeout: 300
     atomic: true
