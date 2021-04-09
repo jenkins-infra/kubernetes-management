@@ -12,7 +12,7 @@ conditions:
     name: "Update nginx:stable docker image digest for jenkins.io"
     kind: yaml
     spec:
-      file: charts/jenkinsio
+      file: charts/jenkinsio/values.yaml
       key: images.en.repository
       value: nginx@sha256
     scm:
@@ -26,9 +26,9 @@ conditions:
         branch: "{{ .github.branch }}"
   ZHJenkinsio:
     name: "Update nginx:stable docker image digest for jenkins.io/zh"
-    kind: helmChart
+    kind: yaml
     spec:
-      file: charts/jenkinsio
+      file: charts/jenkinsio/values.yaml
       key: images.zh.repository
       value: nginx@sha256
     scm:
@@ -47,7 +47,7 @@ targets:
     kind: helmChart
     spec:
       name: charts/jenkinsio
-      key: images.us.tag
+      key: images.en.tag
       versionIncrement: patch
     scm:
       github:
