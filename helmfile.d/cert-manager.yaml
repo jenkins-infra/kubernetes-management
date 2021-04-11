@@ -6,7 +6,7 @@ releases:
     chart: jetstack/cert-manager
     namespace: cert-manager
     wait: true
-    version: v1.3.0
+    version: ""
     set:
       - name: installCRDs
         value: true
