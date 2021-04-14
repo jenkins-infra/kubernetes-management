@@ -137,6 +137,20 @@ jenkins:
                       id: "eks_charter_awsconfig"
                       scope: GLOBAL
                       secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
+                  - basicSSHUserPrivateKey:
+                      scope: SYSTEM
+                      id: "ec2-agents-privkey"
+                      username: "key"
+                      description: "SSH privkey used to connect to EC2 agents"
+                      privateKeySource:
+                        directEntry:
+                          privateKey: "${EC2_AGENTS_PRIVKEY}"
+                  - aws:
+                      accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
+                      description: "This credential is used to provision dynamic agents on AWS EC2"
+                      id: "ec2-agents-credentials"
+                      scope: SYSTEM
+                      secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
         k8s-settings: |
           jenkins:
             clouds:
