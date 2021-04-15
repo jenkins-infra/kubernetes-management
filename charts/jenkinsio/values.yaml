@@ -5,9 +5,9 @@
 replicaCount: 1
 images:
   en:
-    repository: nginx@sha256 # nginx:1.17
-    tag: 9b0fc8e09ae1abb0144ce57018fc1e13d23abd108540f135dc83c0ed661081cf
-    pullPolicy: Always
+    repository: jenkinsciinfra/jenkinsio@sha256  # latest
+    tag: 71b99dcc924899b0d77366f698a691bff15ed4f48c052502d889e10e18132c41
+    pullPolicy: IfNotPresent
   zh:
     repository: nginx@sha256 # nginx:1.17
     tag: 9b0fc8e09ae1abb0144ce57018fc1e13d23abd108540f135dc83c0ed661081cf
@@ -49,6 +49,5 @@ resources:
 nodeSelector: {}
 tolerations: []
 affinity: {}
-htmlVolume:
 zhHtmlVolume:
 forceJenkinsIoHost: false

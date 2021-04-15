@@ -73,12 +73,6 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-htmlVolume:
-  azureFile:
-    secretName: jenkinsio
-    shareName: jenkinsio
-    readOnly: true
-
 zhHtmlVolume:
   azureFile:
     secretName: jenkinsio
