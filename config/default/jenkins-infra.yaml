@@ -151,7 +151,7 @@ jenkins:
                       id: "ec2-agents-credentials"
                       scope: SYSTEM
                       secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
-        k8s-settings: |
+        agent-settings: |
           jenkins:
             clouds:
               - kubernetes:
@@ -198,6 +198,52 @@ jenkins:
                             operator: "Equal"
                             value: "windows"
                             effect: "NoSchedule"
+              - amazonEC2:
+                  cloudName: "aws-us-east-2"
+                  credentialsId: "ec2-agents-credentials"
+                  instanceCapStr: "20"
+                  noDelayProvisioning: true
+                  region: "us-east-2"
+                  sshKeysCredentialsId: "ec2-agents-privkey"
+                  templates:
+                  - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/blob/master/aws/ubuntu-18-agent.arm64.json
+                    amiOwners: "200564066411"
+                    amiType:
+                      unixData:
+                        sshPort: "22"
+                    associatePublicIp: true
+                    connectBySSHProcess: false
+                    connectionStrategy: PUBLIC_IP
+                    deleteRootOnTermination: false
+                    description: "ARM64 Ubuntu 18.04"
+                    ebsOptimized: false
+                    hostKeyVerificationStrategy: ACCEPT_NEW
+                    idleTerminationMinutes: "5"
+                    instanceCapStr: "5"
+                    labelString: "arm64 arm64docker"
+                    launchTimeoutStr: "180"
+                    maxTotalUses: 1
+                    minimumNumberOfInstances: 0
+                    minimumNumberOfSpareInstances: 0
+                    mode: EXCLUSIVE
+                    monitoring: true
+                    numExecutors: 1
+                    remoteAdmin: "jenkins"
+                    remoteFS: "/home/jenkins"
+                    securityGroups: "ec2_agents_infraci"
+                    stopOnTerminate: false
+                    t2Unlimited: false
+                    tags:
+                    - name: "architecture"
+                      value: "arm64"
+                    - name: "os"
+                      value: "linux"
+                    - name: "jenkins"
+                      value: "infra.ci.jenkins.io"
+                    type: T4gMedium
+                    useDedicatedTenancy: false
+                    useEphemeralDevices: true
+                  useInstanceProfileForCredentials: false
         jobs-settings: |
           jobs:
             - script: >
