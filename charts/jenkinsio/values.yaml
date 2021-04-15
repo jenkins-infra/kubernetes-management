@@ -6,7 +6,7 @@ replicaCount: 1
 images:
   en:
     repository: jenkinsciinfra/jenkinsio@sha256  # latest
-    tag: 71b99dcc924899b0d77366f698a691bff15ed4f48c052502d889e10e18132c41
+    tag: 013d9c4f5d1f6e33752d4d1a5c07af64b19908391cbe95417141055e3279dfd0
     pullPolicy: IfNotPresent
   zh:
     repository: nginx@sha256 # nginx:1.17
