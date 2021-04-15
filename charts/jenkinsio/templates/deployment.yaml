@@ -12,8 +12,6 @@ spec:
   template:
     metadata:
       labels: {{include "jenkinsio.labels" . | nindent 8}}
-      annotations:
-        checksum/config: {{include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum}}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -45,11 +43,6 @@ spec:
                   scheme: HTTP
               initialDelaySeconds: 5
               timeoutSeconds: 5
-          volumeMounts:
-            - name: html
-              mountPath: /usr/share/nginx/html
-            - name: config
-              mountPath: /etc/nginx/conf.d
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -64,9 +57,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      volumes:
-        - name: html
-{{ toYaml .Values.htmlVolume | indent 10 }}
-        - name: config
-          configMap:
-            name: jenkinsio
