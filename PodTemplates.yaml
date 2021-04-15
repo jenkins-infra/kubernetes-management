@@ -44,10 +44,10 @@ spec:
       name: "helmfile"
       resources:
         limits:
-          memory: "512Mi"
+          memory: "1512Mi"
           cpu: "400m"
         requests:
-          memory: "512Mi"
+          memory: "1512Mi"
           cpu: "400m"
       securityContext:
         privileged: false
