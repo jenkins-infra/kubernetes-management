@@ -53,18 +53,18 @@ spec:
               port: 8080
           resources:
             {{- toYaml .Values.resources.mirrorbits | nindent 12 }}
-        - name: crond
-          image: "{{ .Values.image.mirrorbits.repository }}:{{ .Values.image.mirrorbits.tag }}-cron"
-          imagePullPolicy: {{ .Values.image.mirrorbits.pullPolicy }}
-          securityContext:
-            allowPrivilegeEscalation: false
-          resources:
-            {{- toYaml .Values.resources.mirrorbits | nindent 12 }}
-          volumeMounts:
-            {{ if $.Values.repository.persistentVolumeClaim.enabled -}}
-            - name: binary
-              mountPath: /srv/repo
-            {{- end }}
+# - name: crond
+#   image: "{{ .Values.image.mirrorbits.repository }}:{{ .Values.image.mirrorbits.tag }}-cron"
+#   imagePullPolicy: {{ .Values.image.mirrorbits.pullPolicy }}
+#   securityContext:
+#     allowPrivilegeEscalation: false
+#   resources:
+#     {{- toYaml .Values.resources.mirrorbits | nindent 12 }}
+#   volumeMounts:
+#     {{ if $.Values.repository.persistentVolumeClaim.enabled -}}
+#     - name: binary
+#       mountPath: /srv/repo
+#     {{- end }}
         - name: geoipupdate
           image: "{{ .Values.geoipupdate.image.repository }}:{{ .Values.geoipupdate.image.tag }}"
           imagePullPolicy: {{ .Values.image.mirrorbits.pullPolicy }}
@@ -100,7 +100,7 @@ spec:
               value: {{ .Values.geoipupdate.editions }}
           envFrom:
           - secretRef:
-              name: {{ include "mirrorbits.fullname" . }}-geoipupdate        
+              name: {{ include "mirrorbits.fullname" . }}-geoipupdate
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -118,7 +118,7 @@ spec:
         - name: conf
           secret:
             secretName: {{ include "mirrorbits.fullname" . }}
-            items: 
+            items:
               - key: mirrorbits.conf
                 path: mirrorbits.conf
         - name: geoipdata
