@@ -298,6 +298,11 @@ jenkins:
                       scriptPath('Jenkinsfile_k8s')
                     }
                   }
+                  orphanedItemStrategy {
+                    discardOldItems {
+                      daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
+                    }
+                  }
                   configure { node ->
                     def traits = node / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
                     traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
@@ -364,8 +369,7 @@ jenkins:
 
                   orphanedItemStrategy {
                     discardOldItems {
-                      daysToKeep(7)
-                      numToKeep(10)
+                      daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
                     }
                   }
 
@@ -433,6 +437,11 @@ jenkins:
                   factory {
                     workflowBranchProjectFactory {
                       scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+                  orphanedItemStrategy {
+                    discardOldItems {
+                      daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
                     }
                   }
                 }
