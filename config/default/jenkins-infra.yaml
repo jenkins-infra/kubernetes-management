@@ -242,7 +242,6 @@ jenkins:
                       - name: "jenkins"
                         value: "infra.ci.jenkins.io"
                       type: T4gMedium
-                      useDedicatedTenancy: false
                       useEphemeralDevices: true
                     - ami: "ami-03233867ef33df3bc" # https://github.com/jenkins-infra/packer-images/blob/master/aws/windows-2019-agent.amd64.json
                       amiOwners: "200564066411"
@@ -279,7 +278,6 @@ jenkins:
                       - name: "jenkins"
                         value: "infra.ci.jenkins.io"
                       type: T3Medium
-                      useDedicatedTenancy: false
                       useEphemeralDevices: true
         jobs-settings: |
           jobs:
