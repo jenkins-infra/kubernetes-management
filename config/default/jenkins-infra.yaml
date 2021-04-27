@@ -151,6 +151,21 @@ jenkins:
                       id: "ec2-agents-credentials"
                       scope: SYSTEM
                       secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                  - string:
+                      scope: GLOBAL
+                      id: "datadog-api-key"
+                      secret: "${DATADOG_API_KEY}"
+                      description: Datadog API key for infra.ci
+                  - string:
+                      scope: GLOBAL
+                      id: "datadog-app-key"
+                      secret: "${DATADOG_APP_KEY}"
+                      description: Datadog application key for infra.ci
+                  - string:
+                      scope: GLOBAL
+                      id: "terraform-datadog-azure-backend-account-key"
+                      secret: "${TERRAFORM_AZURE_BACKEND_ACCOUNT_KEY}"
+                      description: Account key for the Azure terraform backend used for datadog's management
         agent-settings: |
           jenkins:
             clouds:
@@ -363,6 +378,26 @@ jenkins:
                             honorRefspec(true)
                           }
                         }
+                        sourceRegexFilter {
+                          regex('docker-.*|^jenkins.io$')
+                        }
+                        gitHubBranchDiscovery {
+                          strategyId(1) // 1-Exclude branches that are also filed as PRs
+                        }
+                        // Only Origin Pull Request
+                        gitHubPullRequestDiscovery {
+                          strategyId(1) // 1-Merging the pull request with the current target branch revision
+                        }
+                        gitHubExcludeArchivedRepositories()
+                        pullRequestLabelsBlackListFilterTrait {
+                          labels('on-hold ci-skip')
+                        }
+                        headWildcardFilterWithPR {
+                          includes('main master PR-*')
+                          excludes('')
+                          tagIncludes('*')
+                          tagExcludes('')
+                        }
                       }
                     }
                   }
@@ -397,51 +432,92 @@ jenkins:
 
                   configure { node ->
                     def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
-                    traits << 'jenkins.scm.impl.trait.RegexSCMSourceFilterTrait' {
-                      regex('docker-.*|^jenkins.io$')
-                    }
-                    traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
-                      strategyId(1)
-                    }
-                    traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
-                      strategyId(1)
-                    }
+                    // Not discovered by Job-DSL: need to be configured as raw-XML
                     traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
-                      strategyId(1)
+                      strategyId(1) // 1-Merging the pull request with the current target branch revision
                       trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
-                    }
-                    traits << 'org.jenkinsci.plugins.github__branch__source.ExcludeArchivedRepositoriesTrait' {
-                    }
-                    traits << 'net.gleske.scmfilter.impl.trait.WildcardSCMHeadFilterTrait' {
-                      includes('main master PR-*')
-                      excludes()
-                      tagIncludes('*')
-                      tagExcludes()
-                    }
-                    traits << 'org.jenkinsci.plugins.github.label.filter.PullRequestLabelsBlackListFilterTrait' {
-                      labels('on-hold ci-skip')
                     }
                   }
                 }
             - script: >
-                multibranchPipelineJob('aws') {
-                  displayName "AWS Infra"
-                  branchSources {
+                organizationFolder('Terraform Jobs') {
+                  description('Terraform Jobs')
+                  displayName('Terraform Jobs')
+                  organizations {
                     github {
-                      id('2020120401')
-                      scanCredentialsId('github-app-infra')
-                      repoOwner('jenkins-infra')
-                      repository('aws')
+                      repoOwner("jenkins-infra")
+                      apiUri("https://api.github.com")
+                      credentialsId('github-app-infra')
+
+                      traits {
+                        gitHubTagDiscovery()
+                        cloneOptionTrait {
+                          extension {
+                            shallow(false)
+                            noTags(false)
+                            reference('')
+                            timeout(10)
+                            honorRefspec(true)
+                          }
+                        }
+                        sourceRegexFilter {
+                          regex('aws|datadog$')
+                        }
+                        gitHubBranchDiscovery {
+                          strategyId(1) // 1-Exclude branches that are also filed as PRs
+                        }
+                        // Only Origin Pull Request
+                        gitHubPullRequestDiscovery {
+                          strategyId(1) // 1-Merging the pull request with the current target branch revision
+                        }
+                        gitHubExcludeArchivedRepositories()
+                        pullRequestLabelsBlackListFilterTrait {
+                          labels('on-hold ci-skip')
+                        }
+                        headWildcardFilterWithPR {
+                          includes('main master PR-*')
+                          excludes('')
+                          tagIncludes('*')
+                          tagExcludes('')
+                        }
+                      }
                     }
                   }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
-                    }
-                  }
+
                   orphanedItemStrategy {
                     discardOldItems {
                       daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
+                    }
+                  }
+
+                  projectFactories {
+                    workflowMultiBranchProjectFactory {
+                      scriptPath('Jenkinsfile_k8s')
+                    }
+                  }
+
+                  buildStrategies {
+                    buildAnyBranches {
+                      strategies {
+                        buildChangeRequests {
+                          ignoreTargetOnlyChanges(true)
+                          ignoreUntrustedChanges(true)
+                        }
+                        buildRegularBranches()
+                        buildTags {
+                          atLeastDays("0")
+                          atMostDays("7")
+                        }
+                      }
+                    }
+                  }
+
+                  configure { node ->
+                    def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
+                    // Not discovered by Job-DSL: need to be configured as raw-XML
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                      strategyId(1) // 1-Merging the pull request with the current target branch revision
+                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
                     }
                   }
                 }
