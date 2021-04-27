@@ -4,7 +4,7 @@ sources:
   default:
     kind: helmChart
     spec:
-      url: https://garethjevans.github.io/captain-hook
+      url: https://jenkins-infra.github.io/captain-hook
       name: captain-hook
 conditions:
   chartVersion:
