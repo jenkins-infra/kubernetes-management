@@ -7,7 +7,7 @@ helmDefaults:
 
 repositories:
   - name: captain-hook
-    url: https://garethjevans.github.io/captain-hook
+    url: https://jenkins-infra.github.io/captain-hook
 
 releases:
   - name: captain-hook
