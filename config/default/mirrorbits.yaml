@@ -5,11 +5,11 @@ replicaCount:
 resources:
   mirrorbits:
     limits:
-      cpu: 1000m
-      memory: 1024Mi
+      cpu: 2000m
+      memory: 2048Mi
     requests:
-      cpu: 1000m
-      memory: 1024Mi
+      cpu: 2000m
+      memory: 2048Mi
   files:
     limits:
       cpu: 500m
