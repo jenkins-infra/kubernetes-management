@@ -151,6 +151,21 @@ jenkins:
                       id: "ec2-agents-credentials"
                       scope: SYSTEM
                       secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                  - string:
+                      scope: GLOBAL
+                      id: "datadog-api-key"
+                      secret: "${DATADOG_API_KEY}"
+                      description: Datadog API key for infra.ci
+                  - string:
+                      scope: GLOBAL
+                      id: "datadog-app-key"
+                      secret: "${DATADOG_APP_KEY}"
+                      description: Datadog application key for infra.ci
+                  - string:
+                      scope: GLOBAL
+                      id: "terraform-datadog-azure-backend-account-key"
+                      secret: "${TERRAFORM_AZURE_BACKEND_ACCOUNT_KEY}"
+                      description: Account key for the Azure terraform backend used for datadog's management
         agent-settings: |
           jenkins:
             clouds:
