@@ -297,67 +297,6 @@ jenkins:
         jobs-settings: |
           jobs:
             - script: >
-                multibranchPipelineJob('k8smgmt') {
-                  displayName "K8s Cluster Management"
-                  description "Current K8s Cluster Management"
-                  branchSources {
-                    github {
-                      id('2019081602')
-                      scanCredentialsId('github-app-infra')
-                      repoOwner('jenkins-infra')
-                      repository('charts')
-                    }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
-                    }
-                  }
-                  orphanedItemStrategy {
-                    discardOldItems {
-                      daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
-                    }
-                  }
-                  configure { node ->
-                    def traits = node / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
-                    traits << 'org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait' {
-                      strategyId(1)
-                    }
-                    traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
-                      strategyId(1)
-                    }
-                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
-                      strategyId(1)
-                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
-                    }
-                    traits << 'jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait' {
-                      includes('main master PR-*')
-                      excludes()
-                    }
-                    traits << 'org.jenkinsci.plugins.github.label.filter.PullRequestLabelsBlackListFilterTrait' {
-                      labels('on-hold ci-skip')
-                    }
-                  }
-                }
-            - script: >
-                multibranchPipelineJob('plugin-site') {
-                  displayName "Plugin Site"
-                  branchSources {
-                    github {
-                      id('2019081602')
-                      scanCredentialsId('github-app-infra')
-                      repoOwner('jenkins-infra')
-                      repository('plugin-site')
-                      includes('master')
-                    }
-                  }
-                  factory {
-                    workflowBranchProjectFactory {
-                      scriptPath('Jenkinsfile_k8s')
-                    }
-                  }
-                }
-            - script: >
                 organizationFolder('Docker Builds') {
                   description('Docker Builds')
                   displayName('Docker Builds')
@@ -523,9 +462,11 @@ jenkins:
                 }
             - script: >
                 [
-                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter', '2021042801'],
-                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service', '2021042802'],
-                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher', '2021042801'],
+                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter', '2021042801', 'Jenkinsfile'],
+                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service', '2021042802', 'Jenkinsfile'],
+                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher', '2021042801', 'Jenkinsfile'],
+                  ['jenkins-infra', 'charts', 'K8s Cluster Management', '2019081601', 'Jenkinsfile_k8s'],
+                  ['jenkins-infra', 'plugin-site', 'Plugin Site', '2019081603', 'Jenkinsfile_k8s'],
                 ].each { config ->
                   multibranchPipelineJob(config[1]) {
                     displayName config[2]
@@ -568,29 +509,14 @@ jenkins:
                           buildStrategies {
                             buildAnyBranches {
                               strategies {
-                                buildAllBranches {
-                                  strategies {
-                                    buildNamedBranches {
-                                      filters {
-                                        exact {
-                                          name("master")
-                                          caseSensitive(true)
-                                        }
-                                      }
-                                    }
-                                  }
+                                buildChangeRequests {
+                                  ignoreTargetOnlyChanges(true)
+                                  ignoreUntrustedChanges(true)
                                 }
-                              }
-                            }
-                            buildAnyBranches {
-                              strategies {
-                                buildAllBranches {
-                                  strategies {
-                                    buildTags {
-                                      atLeastDays '-1'
-                                      atMostDays '3'
-                                    }
-                                  }
+                                buildRegularBranches()
+                                buildTags {
+                                  atLeastDays('-1')
+                                  atMostDays('3')
                                 }
                               }
                             }
@@ -600,7 +526,7 @@ jenkins:
                     }
                     factory {
                       workflowBranchProjectFactory {
-                        scriptPath('Jenkinsfile')
+                        scriptPath(config[4])
                       }
                     }
                     orphanedItemStrategy {
