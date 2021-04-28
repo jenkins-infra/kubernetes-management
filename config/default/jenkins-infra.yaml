@@ -523,22 +523,22 @@ jenkins:
                 }
             - script: >
                 [
-                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
-                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
-                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher'],
+                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter', '2021042801'],
+                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service', '2021042802'],
+                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher', '2021042801'],
                 ].each { config ->
                   multibranchPipelineJob(config[1]) {
                     displayName config[2]
                     triggers {
-                      pollSCM {
-                        // poll every two hours until hooks are setup
-                        scmpoll_spec('H/2 * * * *')
+                      periodicFolderTrigger {
+                        interval('2h')
                       }
                     }
                     branchSources {
                       branchSource {
                         source {
                           github {
+                            id(config[3])
                             credentialsId("github-app-infra")
                             configuredByUrl(true)
                             repositoryUrl('https://github.com/' + config[0] + '/' + config[1])
@@ -548,8 +548,21 @@ jenkins:
                               gitHubBranchDiscovery {
                                 strategyId(1) // 1-only branches that are not pull requests
                               }
+                              // Only Origin Pull Request
+                              gitHubPullRequestDiscovery {
+                                strategyId(1) // 1-Merging the pull request with the current target branch revision
+                              }
                               pruneStaleBranchTrait()
                               gitHubTagDiscovery()
+                              pullRequestLabelsBlackListFilterTrait {
+                                labels('on-hold ci-skip')
+                              }
+                              headWildcardFilterWithPR {
+                                includes('main master PR-*')
+                                excludes('')
+                                tagIncludes('*')
+                                tagExcludes('')
+                              }
                             }
                           }
                           buildStrategies {
@@ -588,6 +601,19 @@ jenkins:
                     factory {
                       workflowBranchProjectFactory {
                         scriptPath('Jenkinsfile')
+                      }
+                    }
+                    orphanedItemStrategy {
+                      discardOldItems {
+                        daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
+                      }
+                    }
+                    configure { node ->
+                      def traits = node / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
+                      // Not discovered by Job-DSL: need to be configured as raw-XML
+                      traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                        strategyId(1) // 1-Merging the pull request with the current target branch revision
+                        trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
                       }
                     }
                   }
