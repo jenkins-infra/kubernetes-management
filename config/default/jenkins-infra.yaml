@@ -523,9 +523,9 @@ jenkins:
                 }
             - script: >
                 [
-                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter'],
-                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service'],
-                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher'],
+                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter', 2021042801],
+                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service', 2021042802],
+                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher', 2021042801],
                 ].each { config ->
                   multibranchPipelineJob(config[1]) {
                     displayName config[2]
@@ -538,6 +538,7 @@ jenkins:
                       branchSource {
                         source {
                           github {
+                            id(config[3])
                             credentialsId("github-app-infra")
                             configuredByUrl(true)
                             repositoryUrl('https://github.com/' + config[0] + '/' + config[1])
