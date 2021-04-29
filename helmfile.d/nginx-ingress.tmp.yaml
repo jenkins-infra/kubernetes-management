@@ -7,7 +7,7 @@ releases:
   namespace: public-nginx-ingress
   version: 3.29.0
   wait: true
-  timeout: 300
+  timeout: 600
   atomic: true
   values:
   - defaultBackend:
@@ -28,7 +28,7 @@ releases:
           $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length
           $upstream_response_time $upstream_status $req_id'
         # In order to use geoIP from the ingress controller,
-        # we need to provide a maxmind license key. 
+        # we need to provide a maxmind license key.
         # I doubt we need it at the moment, hence this comment.
         # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
         use-geoip2: "true"
@@ -48,7 +48,7 @@ releases:
   namespace: private-nginx-ingress
   version: 3.29.0
   wait: true
-  timeout: 300
+  timeout: 600
   atomic: true
   values:
   - defaultBackend:
@@ -66,7 +66,7 @@ releases:
           $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length
           $upstream_response_time $upstream_status $req_id'
         # In order to use geoIP from the ingress controller,
-        # we need to provide a maxmind license key. 
+        # we need to provide a maxmind license key.
         # I doubt we need it at the moment, hence this comment.
         # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
         use-geoip2: "true"
