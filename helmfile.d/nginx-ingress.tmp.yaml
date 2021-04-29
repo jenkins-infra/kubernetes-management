@@ -1,0 +1,80 @@
+repositories:
+- name: ingress-nginx
+  url: https://kubernetes.github.io/ingress-nginx
+releases:
+- name: tmp-public-nginx-ingress
+  chart: ingress-nginx/ingress-nginx
+  namespace: public-nginx-ingress
+  version: 3.29.0
+  wait: true
+  timeout: 300
+  atomic: true
+  values:
+  - defaultBackend:
+      enabled: true
+      image:
+        repository: jenkinsciinfra/404
+        tag: 25-builde5532f
+        # This container needs to be run as root user at the moment
+        # some additionnal work is needed to not start the nginx process
+        # as root
+        runAsUser: 0
+      port: 80
+      replicaCount: 2
+  - controller:
+      config:
+        log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local]
+          "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length
+          $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length
+          $upstream_response_time $upstream_status $req_id'
+        # In order to use geoIP from the ingress controller,
+        # we need to provide a maxmind license key. 
+        # I doubt we need it at the moment, hence this comment.
+        # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
+        use-geoip2: "true"
+      ingressClass: tmp-public-ingress
+      service:
+        annotations:
+          service.beta.kubernetes.io/azure-load-balancer-internal: false
+          service.beta.kubernetes.io/azure-load-balancer-internal-subnet: app-tier
+          service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "10254"
+        ## Uncomment for production environment
+        ## loadBalancerIP: 52.167.253.43
+        externalTrafficPolicy: Local
+- name: tmp-private-nginx-ingress
+  chart: ingress-nginx/ingress-nginx
+  namespace: private-nginx-ingress
+  version: 3.29.0
+  wait: true
+  timeout: 300
+  atomic: true
+  values:
+  - defaultBackend:
+      enabled: true
+      image:
+        repository: jenkinsciinfra/404
+        tag: 25-builde5532f
+        runAsUser: 0 # This container needs to be run as root user at the moment
+      port: 80
+      replicaCount: 2
+  - controller:
+      config:
+        log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local]
+          "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length
+          $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length
+          $upstream_response_time $upstream_status $req_id'
+        # In order to use geoIP from the ingress controller,
+        # we need to provide a maxmind license key. 
+        # I doubt we need it at the moment, hence this comment.
+        # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
+        use-geoip2: "true"
+      ingressClass: tmp-private-nginx
+      service:
+        annotations:
+          service.beta.kubernetes.io/azure-load-balancer-internal: true
+          service.beta.kubernetes.io/azure-load-balancer-internal-subnet: data-tier
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "10254"
+        externalTrafficPolicy: Local
