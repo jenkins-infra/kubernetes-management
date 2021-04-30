@@ -43,6 +43,7 @@ releases:
         # I doubt we need it at the moment, hence this comment.
         # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
         use-geoip2: "true"
+      replicaCount: 2
       ingressClass: public-ingress
       service:
         annotations:
@@ -95,6 +96,7 @@ releases:
         # I doubt we need it at the moment, hence this comment.
         # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
         use-geoip2: "true"
+      replicaCount: 2
       ingressClass: nginx
       service:
         annotations:
