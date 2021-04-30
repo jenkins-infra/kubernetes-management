@@ -298,7 +298,7 @@ jenkins:
           jobs:
             - script: >
                 [
-                  ['Docker Builds', 'jenkins-infra', 'docker-.*|^jenkins.io$'],
+                  ['Docker Builds', 'jenkins-infra', 'docker-.*$'],
                   ['Terraform Jobs', 'jenkins-infra', 'aws|datadog$'],
                 ].each { config ->
                   organizationFolder(config[0]) {
