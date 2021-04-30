@@ -294,19 +294,23 @@ jenkins:
                         value: "infra.ci.jenkins.io"
                       type: T3Medium
                       useEphemeralDevices: true
+        # To add a job, choose if you want to add it as a map, inside the corresponding arrays below
+        # - A GH Org. requires a name, the GH Org (or user handle) of the repo and the pattern to capture the repo (s) name
+        # - A Multibranch requires a name, the GH Org (or user handle) of the repo, the repo name, an string identifier (we use the YYYYMMDDXX format with XX being a suffix integer)
         jobs-settings: |
           jobs:
+            # List of GH Org. Folders, add your own as another map (or append existing repoPattern)
             - script: >
                 [
-                  ['Docker Builds', 'jenkins-infra', 'docker-.*$'],
-                  ['Terraform Jobs', 'jenkins-infra', 'aws|datadog$'],
+                  [ name: 'Docker Builds', GHOrganization: 'jenkins-infra', repoPattern: 'docker-.*|^jenkins.io$', jenkinsfilePath: 'Jenkinsfile_k8s'],
+                  [ name: 'Terraform Jobs', GHOrganization: 'jenkins-infra', repoPattern: 'aws|datadog$', jenkinsfilePath: 'Jenkinsfile_k8s'],
                 ].each { config ->
-                  organizationFolder(config[0]) {
-                    description(config[0])
-                    displayName(config[0])
+                  organizationFolder(config.name) {
+                    description(config.name)
+                    displayName(config.name)
                     organizations {
                       github {
-                        repoOwner(config[1])
+                        repoOwner(config.GHOrganization)
                         apiUri('https://api.github.com')
                         credentialsId('github-app-infra')
 
@@ -322,7 +326,7 @@ jenkins:
                             }
                           }
                           sourceRegexFilter {
-                            regex(config[2])
+                            regex(config.repoPattern)
                           }
                           gitHubBranchDiscovery {
                             strategyId(1) // 1-Exclude branches that are also filed as PRs
@@ -335,8 +339,9 @@ jenkins:
                           pullRequestLabelsBlackListFilterTrait {
                             labels('on-hold ci-skip')
                           }
+                          // Select branches and tags to build based on these filters
                           headWildcardFilterWithPR {
-                            includes('main master PR-*')
+                            includes('main master PR-*') // only branches listed here
                             excludes('')
                             tagIncludes('*')
                             tagExcludes('')
@@ -345,13 +350,16 @@ jenkins:
                       }
                     }
                     orphanedItemStrategy {
+                      // Remove unused items as soon as possible
                       discardOldItems {
-                        daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
+                        // Keep removed SCM heads/branch/PRs only for 1 day (not 0 days to be sure that jobs are all finished/timeouted when deleting)
+                        // Does not apply to the build history of kept branches(use Pipeline for that)
+                        daysToKeep(1)
                       }
                     }
                     projectFactories {
                       workflowMultiBranchProjectFactory {
-                        scriptPath('Jenkinsfile_k8s')
+                        scriptPath(config.jenkinsfilePath)
                       }
                     }
                     buildStrategies {
@@ -379,16 +387,17 @@ jenkins:
                     }
                   }
                 }
+            # List of MultiBranches, add your own as another map
             - script: >
                 [
-                  ['jenkins-infra', 'jenkins-wiki-exporter', 'Wiki Exporter', '2021042801', 'Jenkinsfile'],
-                  ['jenkinsci', 'custom-distribution-service', 'Custom Distribution Service', '2021042802', 'Jenkinsfile'],
-                  ['jenkins-infra', 'incrementals-publisher', 'Incrementals Publisher', '2021042801', 'Jenkinsfile'],
-                  ['jenkins-infra', 'charts', 'K8s Cluster Management', '2019081601', 'Jenkinsfile_k8s'],
-                  ['jenkins-infra', 'plugin-site', 'Plugin Site', '2019081603', 'Jenkinsfile_k8s'],
+                  [ name: 'Wiki Exporter', GHOrganization: 'jenkins-infra', repository: 'jenkins-wiki-exporter', internalId: '2021042801', jenkinsfilePath: 'Jenkinsfile'],
+                  [ name: 'Custom Distribution Service', GHOrganization: 'jenkinsci', repository: 'custom-distribution-service', internalId: '2021042802', jenkinsfilePath: 'Jenkinsfile'],
+                  [ name: 'Incrementals Publisher', GHOrganization: 'jenkins-infra', repository: 'incrementals-publisher', internalId: '2021042801',jenkinsfilePath: 'Jenkinsfile'],
+                  [ name: 'K8s Cluster Management', GHOrganization: 'jenkins-infra', repository: 'charts', internalId: '2019081601',jenkinsfilePath: 'Jenkinsfile_k8s'],
+                  [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603',jenkinsfilePath: 'Jenkinsfile_k8s'],
                 ].each { config ->
-                  multibranchPipelineJob(config[1]) {
-                    displayName config[2]
+                  multibranchPipelineJob(config.repository) {
+                    displayName config.name
                     triggers {
                       periodicFolderTrigger {
                         interval('2h')
@@ -398,12 +407,12 @@ jenkins:
                       branchSource {
                         source {
                           github {
-                            id(config[3])
+                            id(config.internalId)
                             credentialsId("github-app-infra")
                             configuredByUrl(true)
-                            repositoryUrl('https://github.com/' + config[0] + '/' + config[1])
-                            repoOwner(config[0])
-                            repository(config[1])
+                            repositoryUrl('https://github.com/' + config.GHOrganization + '/' + config.repository)
+                            repoOwner(config.GHOrganization)
+                            repository(config.repository)
                             traits {
                               gitHubBranchDiscovery {
                                 strategyId(1) // 1-only branches that are not pull requests
@@ -417,8 +426,9 @@ jenkins:
                               pullRequestLabelsBlackListFilterTrait {
                                 labels('on-hold ci-skip')
                               }
+                              // Select branches and tags to build based on these filters
                               headWildcardFilterWithPR {
-                                includes('main master PR-*')
+                                includes('main master PR-*') // only branches listed here
                                 excludes('')
                                 tagIncludes('*')
                                 tagExcludes('')
@@ -445,12 +455,15 @@ jenkins:
                     }
                     factory {
                       workflowBranchProjectFactory {
-                        scriptPath(config[4])
+                        scriptPath(config.jenkinsfilePath)
                       }
                     }
                     orphanedItemStrategy {
+                      // Remove unused items as soon as possible
                       discardOldItems {
-                        daysToKeep(1) // Keep removed SCM heads/branch/PRs only for 1 day
+                        // Keep removed SCM heads/branch/PRs only for 1 day (not 0 days to be sure that jobs are all finished/timeouted when deleting)
+                        // Does not apply to the build history of kept branches(use Pipeline for that)
+                        daysToKeep(1)
                       }
                     }
                     configure { node ->
