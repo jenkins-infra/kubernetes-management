@@ -43,7 +43,7 @@ releases:
         # I doubt we need it at the moment, hence this comment.
         # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
         use-geoip2: "true"
-      ingressClass: tmp-public-ingress
+      ingressClass: public-ingress
       service:
         annotations:
           service.beta.kubernetes.io/azure-load-balancer-internal: false
@@ -95,7 +95,7 @@ releases:
         # I doubt we need it at the moment, hence this comment.
         # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
         use-geoip2: "true"
-      ingressClass: tmp-private-nginx
+      ingressClass: nginx
       service:
         annotations:
           service.beta.kubernetes.io/azure-load-balancer-internal: true
