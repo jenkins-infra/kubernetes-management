@@ -1,6 +1,3 @@
-repositories:
-- name: stable
-  url: https://kubernetes.github.io/ingress-nginx
 releases:
 - name: public-nginx-ingress
   chart: ingress-nginx/ingress-nginx
