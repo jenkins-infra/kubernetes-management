@@ -5,7 +5,6 @@ helmfiles:
     values:
       - "../../config/publick8s/datadog.yaml"
   - path: "../helmfile.d/nginx-ingress.yaml"
-  - path: "../helmfile.d/nginx-ingress.tmp.yaml"
   - path: "../helmfile.d/traefik.yaml"
   - path: "../helmfile.d/prometheus.yaml"
   - path: "../helmfile.d/cert-manager.yaml"
