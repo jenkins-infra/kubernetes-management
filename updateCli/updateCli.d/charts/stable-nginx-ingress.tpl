@@ -1,20 +1,20 @@
 title: Bump nginx-ingress helm chart
 pipelineID: bumpnginxingresshelmchart
 sources:
-  default:
+  ingress-nginx-version:
+    name: "Retrieve latest version of the chart ingress-nginx"
     kind: helmChart
     spec:
-      url: https://charts.helm.sh/stable
-      name: nginx-ingress
-
+      url: https://kubernetes.github.io/ingress-nginx
+      name: ingress-nginx
 conditions:
   publicHelmfileRelease:
-    name: "public stable/nginx-ingress Helm Chart"
+    name: "Check that the public-ingress references the ingress-nginx Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/nginx-ingress.yaml"
-      key: "releases[0].name"
-      value:  "public-nginx-ingress"
+      key: "releases[0].chart"
+      value:  "ingress-nginx/ingress-nginx"
     scm:
       github:
         user: "{{ .github.user }}"
@@ -25,12 +25,12 @@ conditions:
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
   privateHelmfileRelease:
-    name: "private stable/nginx-ingress Helm Chart"
+    name: "Check that the private-ingress references the ingress-nginx Helm Chart"
     kind: yaml
     spec:
       file: "helmfile.d/nginx-ingress.yaml"
-      key: "releases[1].name"
-      value: "private-nginx-ingress"
+      key: "releases[1].chart"
+      value:  "ingress-nginx/ingress-nginx"
     scm:
       github:
         user: "{{ .github.user }}"
@@ -42,7 +42,7 @@ conditions:
         branch: "{{ .github.branch }}"
 targets:
   public-nginx-ingress:
-    name: "public stable/nginx-ingress Helm Chart"
+    name: "Update the version of the Helm chart ingress-nginx for public-ingress"
     kind: yaml
     spec:
       file: "helmfile.d/nginx-ingress.yaml"
@@ -57,7 +57,7 @@ targets:
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
   private-nginx-ingress:
-    name: "private stable/nginx-ingress Helm Chart"
+    name: "Update the version of the Helm chart ingress-nginx for private-ingress"
     kind: yaml
     spec:
       file: "helmfile.d/nginx-ingress.yaml"
