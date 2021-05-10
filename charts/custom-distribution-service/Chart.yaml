@@ -1,4 +1,4 @@
 apiVersion: v1
 description: custom-distribution-service
 name: custom-distribution-service
-version: 0.3.0
+version: 0.4.0
