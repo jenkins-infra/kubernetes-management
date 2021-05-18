@@ -1,7 +1,7 @@
 dependencies:
   - name: jenkins
     repository: https://charts.jenkins.io
-    version: 3.3.15
+    version: 3.3.16
     import-values:
       - child: jenkins.master
         parent: master
