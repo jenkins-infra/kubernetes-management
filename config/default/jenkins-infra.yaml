@@ -233,7 +233,7 @@ jenkins:
                       deleteRootOnTermination: true
                       description: "ARM64 Ubuntu 18.04"
                       ebsOptimized: false
-                      hostKeyVerificationStrategy: ACCEPT_NEW
+                      hostKeyVerificationStrategy: CHECK_NEW_HARD           # Secure: even initial connection is checked against the EC2 console
                       idleTerminationMinutes: "5"
                       instanceCapStr: "10"
                       labelString: "arm64 linux-arm64 linux-arm64-docker"
@@ -258,7 +258,7 @@ jenkins:
                         value: "infra.ci.jenkins.io"
                       type: T4gMedium
                       useEphemeralDevices: true
-                    - ami: "ami-03233867ef33df3bc" # https://github.com/jenkins-infra/packer-images/blob/master/aws/windows-2019-agent.amd64.json
+                    - ami: "ami-06f1bf39751cf944e" # https://github.com/jenkins-infra/packer-images/blob/master/aws/windows-2019-agent.amd64.json
                       amiOwners: "200564066411"
                       amiType:
                         unixData:
@@ -269,16 +269,16 @@ jenkins:
                       deleteRootOnTermination: true
                       description: "Windows 2019 AMD64"
                       ebsOptimized: false
-                      hostKeyVerificationStrategy: ACCEPT_NEW
-                      idleTerminationMinutes: "5"
+                      hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
+                      idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
                       instanceCapStr: "10"
-                      labelString: "windows windows-amd64 windows-amd64-docker"
-                      launchTimeoutStr: "180"
-                      maxTotalUses: 1
+                      labelString: "windows windows-amd64 windows-amd64-docker windock"
+                      launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
+                      maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
                       minimumNumberOfInstances: 0
                       minimumNumberOfSpareInstances: 0
                       mode: EXCLUSIVE
-                      monitoring: true
+                      monitoring: false
                       numExecutors: 1
                       remoteAdmin: "Administrator"
                       remoteFS: "C:\\Jenkins"
@@ -292,6 +292,8 @@ jenkins:
                         value: "windows"
                       - name: "jenkins"
                         value: "infra.ci.jenkins.io"
+                      tenancy: Default
+                      tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
                       type: T3Medium
                       useEphemeralDevices: true
         # To add a job, choose if you want to add it as a map, inside the corresponding arrays below
