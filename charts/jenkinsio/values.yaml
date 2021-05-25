@@ -10,7 +10,7 @@ images:
     pullPolicy: Always
   zh:
     repository: nginx@sha256 # nginx:1.17
-    tag: 598057a5c482d2fb42092fd6f4ba35ea4cc86c41f5db8bb68d1ab92c4c40db98
+    tag: 56cbb3c9ada0858d69d19415039ba2aa1e9b357ba9aa9c88c73c30307aae17b0
     pullPolicy: Always
 imagePullSecrets: []
 nameOverride: ""
