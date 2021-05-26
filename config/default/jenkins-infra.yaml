@@ -197,15 +197,21 @@ jenkins:
                           alwaysPullImage: true
                     - name: jnlp-windows
                       nodeSelector: "kubernetes.io/os=windows"
+                      instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
+                      instanceCapStr: "5"
                       containers:
                         - name: jnlp
                           image: "jenkins/inbound-agent:windowsservercore-1809"
+                          command: "powershell"
+                          args: "Start-Sleep 999999"
                           resourceLimitCpu: "500m"
-                          resourceLimitMemory: "512Mi"
+                          resourceLimitMemory: "1024Mi"
                           resourceRequestCpu: "500m"
-                          resourceRequestMemory: "512Mi"
+                          resourceRequestMemory: "1024Mi"
                           args: "1d"
                           alwaysPullImage: true
+                          workingDir: "C:\\Users\\jenkins"
+                      yamlMergeStrategy: "override"
                       yaml: |-
                         spec:
                           tolerations:
