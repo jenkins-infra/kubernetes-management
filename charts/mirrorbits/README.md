@@ -108,6 +108,8 @@ mirrorbits add -http https://mirror.azure.jenkins.io/ -rsync rsync://mirror-rsyn
 mirrorbits add -http https://ftp.belnet.be/mirror/jenkins/ -rsync rsync://rsync.belnet.be -admin-name "Belnet" -admin-email "ftpmaint@belnet.be" ftp.belnet.be
 
 # Low priority mirrors
+
+```shell
 mirrorbits add -rsync rsync://archives.jenkins.io/jenkins/ -http https://archives.jenkins.io/jenkins -sponsor-name Jenkins-infra -sponsor-url www.jenkins.io -admin-email "jenkinsci-infra@googlegroups.com" -admin-name "Jenkins" archives.jenkins.io -score -1
 ```
 
