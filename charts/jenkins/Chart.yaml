@@ -5,4 +5,4 @@ icon: https://jenkins.io/images/logos/plumber/256.png
 maintainers:
 - name: Olblak
 name: jenkins
-version: 0.18.0
+version: 0.19.0
