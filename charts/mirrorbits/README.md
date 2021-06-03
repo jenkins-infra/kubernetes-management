@@ -110,7 +110,7 @@ mirrorbits add -http https://ftp.belnet.be/mirror/jenkins/ -rsync rsync://rsync.
 # Low priority mirrors
 
 ```shell
-mirrorbits add -rsync rsync://archives.jenkins.io/jenkins/ -http https://archives.jenkins.io/jenkins -sponsor-name Jenkins-infra -sponsor-url www.jenkins.io -admin-email "jenkinsci-infra@googlegroups.com" -admin-name "Jenkins" archives.jenkins.io -score -1
+mirrorbits add -rsync rsync://archives.jenkins.io/jenkins/ -http https://archives.jenkins.io/jenkins -sponsor-name Jenkins-infra -sponsor-url www.jenkins.io -admin-email "jenkinsci-infra@googlegroups.com" -admin-name "Jenkins" archives.jenkins.io -score -100
 ```
 
 ## Links
