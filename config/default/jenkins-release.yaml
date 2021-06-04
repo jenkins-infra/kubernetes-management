@@ -451,6 +451,10 @@ jenkins:
                   - "Overall/Read:authenticated"
                   - "Job/Read:authenticated"
         system-settings: |
+          unclassified:
+            defaultFolderConfiguration:
+              # Keep healthMetrics an empty list to ensure weather is disabled
+              healthMetrics: []
           jenkins:
             disabledAdministrativeMonitors:
               - "jenkins.security.QueueItemAuthenticatorMonitor"
