@@ -2,7 +2,7 @@ releases:
   - name: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     namespace: public-nginx-ingress
-    version: 3.32.0
+    version: 3.33.0
     wait: true
     timeout: 300
     atomic: true
