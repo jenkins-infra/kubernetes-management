@@ -7,7 +7,7 @@ releases:
     chart: falco/falco
     version: 1.13.1
     wait: true
-    timeout: 100
+    timeout: 300
     atomic: true
     values:
       - "../config/default/falco.yaml"
