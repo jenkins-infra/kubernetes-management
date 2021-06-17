@@ -11,6 +11,12 @@ datadog:
   logs:
     enabled: true
     configContainerCollectAll: true
+  kubelet:
+    host:
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    hostCAPath: /etc/kubernetes/certs/kubeletserver.crt
 agents:
   rbac:
     create: true
