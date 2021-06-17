@@ -2,6 +2,7 @@ datadog:
   collectEvents: true
   leaderElection: true
   leaderLeaseDuration: 60
+  criSocketPath: /var/run/containerd/containerd.sock
   apm:
     enabled: true
   processAgent:
