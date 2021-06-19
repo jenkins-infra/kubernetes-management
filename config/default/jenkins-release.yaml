@@ -18,7 +18,7 @@ jenkins:
         name: "release"
   controller:
     image: jenkinsciinfra/jenkins-lts
-    tag: 0.5.10-2.289.1-lts
+    tag: 0.5.11-2.289.1-lts
     resources:
       limits:
         cpu: "2"
