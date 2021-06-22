@@ -27,13 +27,7 @@ pipeline {
           }
           stages {
             stage('Check Configuration Update') {
-              when {
-                allOf {
-                  branch 'master'
-                  // Only run updateCli's tasks when the pipeline is triggered by the "cron" routine
-                  triggeredBy 'TimerTrigger'
-                }
-              } // stage
+              // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
               steps {
                 sh 'updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
               }
