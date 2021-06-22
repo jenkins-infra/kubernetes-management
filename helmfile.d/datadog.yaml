@@ -10,6 +10,6 @@ releases:
     timeout: 600
     atomic: true
     values:
-      - "../config/default/datadog/datadog.yaml"
+      - "../config/default/datadog/datadog.yaml.gotmpl"
     secrets:
       - "../secrets/config/datadog/secrets.yaml"

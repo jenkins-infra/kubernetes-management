@@ -1,2 +1,8 @@
 datadog:
   clusterName: 'publick8s'
+  kubelet:
+    host:
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    hostCAPath: /etc/kubernetes/certs/kubeletserver.crt
