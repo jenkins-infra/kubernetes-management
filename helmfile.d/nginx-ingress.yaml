@@ -51,7 +51,7 @@ releases:
   - name: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     namespace: private-nginx-ingress
-    version: 3.33.0
+    version: 3.34.0
     wait: true
     timeout: 300
     atomic: true
