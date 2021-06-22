@@ -13,7 +13,7 @@ conditions:
     name: "Test if 'jenkinsciinfra/datadog@sha256' docker image is set"
     kind: yaml
     spec:
-      file: "config/default/datadog/datadog.yaml"
+      file: "config/default/datadog/datadog.yaml.gotmpl"
       key: "agents.image.repository"
       value: "jenkinsciinfra/datadog@sha256"
     scm:
@@ -30,7 +30,7 @@ targets:
     name: "Bump 'jenkinsciinfra/datadog:latest' docker image digest"
     kind: yaml
     spec:
-      file: "config/default/datadog/datadog.yaml"
+      file: "config/default/datadog/datadog.yaml.gotmpl"
       key: "agents.image.tag"
     scm:
       github:
