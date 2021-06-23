@@ -1,4 +1,0 @@
-nexus:
-  nexusProxy:
-    env:
-      nexusHttpHost: 'release.repo.jenkins.io'
