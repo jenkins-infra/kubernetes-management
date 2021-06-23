@@ -1,5 +1,0 @@
-apiVersion: v1
-appVersion: "3.16.2"
-description: Nexus environment for the Jenkins Infrastrucutre project.
-name: nexus
-version: 0.1.0

@@ -1,9 +1,0 @@
-{{- if .Values.ldap.service.enabled }}
-kind: Service
-apiVersion: v1
-metadata:
- name: ldap
-spec:
- type: ExternalName
- externalName: {{ .Values.ldap.service.externalName }}
-{{- end }}
