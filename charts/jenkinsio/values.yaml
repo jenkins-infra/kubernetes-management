@@ -6,11 +6,11 @@ replicaCount: 1
 images:
   en:
     repository: nginx@sha256 # nginx:1.17
-    tag: 56cbb3c9ada0858d69d19415039ba2aa1e9b357ba9aa9c88c73c30307aae17b0
+    tag: d96a932a263f003339751442aa14073fbab77032ca3f2e5f7e42c9f10ec275f5
     pullPolicy: Always
   zh:
     repository: nginx@sha256 # nginx:1.17
-    tag: 56cbb3c9ada0858d69d19415039ba2aa1e9b357ba9aa9c88c73c30307aae17b0
+    tag: d96a932a263f003339751442aa14073fbab77032ca3f2e5f7e42c9f10ec275f5
     pullPolicy: Always
 imagePullSecrets: []
 nameOverride: ""
