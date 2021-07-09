@@ -1,14 +1,14 @@
 ---
 title: Bump pluginsite helmChart appVersion
 pipelineID: pluginsite
-source:
-  kind: githubRelease
-  name: Get jenkins-infra/plugin-site-api latest version
-  spec:
-    owner: "jenkins-infra"
-    repository: "plugin-site-api"
-    token: "{{ requiredEnv .github.token }}"
-    username: "olblak"
+sources:
+  default:
+    kind: githubRelease
+    name: Get jenkins-infra/plugin-site-api latest version
+    spec:
+      owner: "jenkins-infra"
+      repository: "plugin-site-api"
+      token: "{{ requiredEnv .github.token }}"
 conditions:
   docker:
     name: "Test if jenkinsciinfra/plugin-site-api exist"

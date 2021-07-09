@@ -35,7 +35,8 @@ conditions:
     kind: dockerImage
     spec:
       image: "ghcr.io/updatecli/updatecli"
-      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      password: "{{ requiredEnv .github.token }}"
 targets:
   # Update updatecli version in the PodTemplate
   imageTag:

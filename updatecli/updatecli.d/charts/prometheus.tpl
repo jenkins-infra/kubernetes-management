@@ -1,10 +1,11 @@
 title: Bump prometheus helm chart version
 pipelineID: bumpprometheushelmchartversion
-source:
-  kind: helmChart
-  spec:
-    url: https://prometheus-community.github.io/helm-charts
-    name: prometheus
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://prometheus-community.github.io/helm-charts
+      name: prometheus
 conditions:
   helmfileRelease:
     name: "stable/prometheus Helm Chart"
