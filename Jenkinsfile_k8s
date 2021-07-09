@@ -29,19 +29,19 @@ pipeline {
             stage('Check Configuration Update') {
               // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
               steps {
-                sh 'updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
+                sh 'updatecli diff --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
               }
             } // stage
             stage('Apply Configuration Update') {
               when {
                 allOf {
                   branch 'master'
-                  // Only run updateCli's tasks when the pipeline is triggered by the "cron" routine
+                  // Only run updatecli's tasks when the pipeline is triggered by the "cron" routine
                   triggeredBy 'TimerTrigger'
                 }
               }
               steps {
-                sh 'updatecli apply --config ./updateCli/updateCli.d --values ./updateCli/values.yaml'
+                sh 'updatecli apply --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
               }
             } // stage
           }
