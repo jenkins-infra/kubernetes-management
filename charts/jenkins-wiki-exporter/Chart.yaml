@@ -2,4 +2,4 @@ apiVersion: v1
 description: A Helm chart that deploy a service to convert Jenkins plugin information
   fro confluence into markdown
 name: jenkins-wiki-exporter
-version: 0.2.0
+version: 0.3.0
