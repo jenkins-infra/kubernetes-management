@@ -5,7 +5,7 @@
 replicaCount: 2
 image:
   repository: jenkinsciinfra/jenkins-wiki-exporter
-  tag: v1.11.1
+  tag: ""
   pullPolicy: IfNotPresent
 imagePullSecrets: []
 nameOverride: ""
