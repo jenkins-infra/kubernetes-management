@@ -28,7 +28,7 @@ releases:
   - name: private-traefik
     chart: traefik/traefik
     namespace: private-traefik
-    version: 10.0.2
+    version: 10.1.0
     wait: true
     timeout: 300
     atomic: true
