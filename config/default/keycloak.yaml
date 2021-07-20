@@ -8,7 +8,9 @@ ingress:
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   rules:
     - host: admin.accounts.jenkins.io
-      paths: [/]
+      paths:
+        - path: /
+          pathType: Prefix
   tls:
     - hosts:
         - admin.accounts.jenkins.io
