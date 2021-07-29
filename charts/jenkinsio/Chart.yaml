@@ -4,4 +4,4 @@ description: A Helm chart for jenkins.io
 maintainers:
 - name: timja
 name: jenkinsio
-version: 0.0.13
+version: 0.0.15
