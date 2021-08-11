@@ -22,7 +22,7 @@ images:
     pullPolicy: Always
   rsyncd:
     repository: jenkinsciinfra/rsyncd@sha256
-    tag: 95b02bfdbe2539e76bc9cea8f0ef3aac7dc6206fa7f3822e9e92da6cccb2e3f5
+    tag: 25154f846a178c9176e2c0bad6408cbdc3e7082a8410ef0b14b4c918162f1080
     pullPolicy: Always
 imagePullSecrets: []
 nameOverride: ""
