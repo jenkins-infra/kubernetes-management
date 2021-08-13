@@ -1,0 +1,13 @@
+repositories:
+  - name: autoscaler
+    url: https://kubernetes.github.io/autoscaler
+releases:
+  - name: autoscaler
+    namespace: autoscaler
+    chart: autoscaler/cluster-autoscaler
+    version: 9.10.4
+    wait: true
+    timeout: 300
+    atomic: true
+    values:
+      - "../config/cik8s/autoscaler.yaml"

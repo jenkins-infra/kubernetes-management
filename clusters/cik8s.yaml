@@ -5,3 +5,4 @@ helmfiles:
     values:
       - "../../config/cik8s/datadog.yaml"
   - path: "../helmfile.d/jenkins-agents.yaml"
+  - path: "../helmfile.d/autoscaler.yaml"
