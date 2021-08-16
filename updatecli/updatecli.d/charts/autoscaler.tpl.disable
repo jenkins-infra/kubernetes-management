@@ -1,0 +1,46 @@
+title: Bump autoscaler helm chart version
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://kubernetes.github.io/autoscaler
+      name: cluster-autoscaler
+conditions:
+  exist:
+    name: "Autoscaler helm chart available on Registry"
+    kind: helmChart
+    spec:
+      url: https://kubernetes.github.io/autoscaler
+      name: cluster-autoscaler
+  helmfileRelease:
+    name: "autoscaler/cluster-autoscaler Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/autoscaler.yaml"
+      key: "releases[0].name"
+      value: "autoscaler"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+targets:
+  chartVersion:
+    name: "autoscaler/cluster-autoscaler Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/autoscaler.yaml"
+      key: "releases[0].version"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
