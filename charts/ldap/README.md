@@ -1,6 +1,6 @@
 # README
 
-This helm chart installs the jenkins infrastructure ldap service (ldap.jenkins.io) and is designed to be working with the [jenkinsciinfra/openldap](https://github.com/jenkinsciinfra/openldap) docker image.
+This helm chart installs the jenkins infrastructure ldap service (ldap.jenkins.io) and is designed to be working with the [jenkins-infra/ldap](https://github.com/jenkins-infra/ldap) docker image.
 
 - [Docker](https://github.com/jenkins-infra/ldap)
 - [DockerHub](https://hub.docker.com/r/jenkinsciinfra/ldap)
