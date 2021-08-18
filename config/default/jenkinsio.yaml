@@ -12,7 +12,7 @@ ingress:
       if ( $scheme = "https" ) {
         more_clear_headers "Strict-Transport-Security";
       }
-
+      more_set_headers "X-Content-Type-Options: nosniff";
   hosts:
     - host: jenkins.io
       paths:
