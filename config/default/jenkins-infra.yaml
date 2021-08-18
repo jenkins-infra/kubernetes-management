@@ -589,7 +589,7 @@ jenkins:
       annotations:
         "cert-manager.io/cluster-issuer": "letsencrypt-prod"
         "kubernetes.io/ingress.class": "public-ingress"
-        "nginx.ingress.kubernetes.io/hsts": "true"
+
         "nginx.ingress.kubernetes.io/ssl-redirect": "true"
       tls:
         - hosts:
