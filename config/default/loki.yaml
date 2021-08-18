@@ -15,7 +15,7 @@ persistence:
   enabled: true
   accessModes:
     - ReadWriteOnce
-  size: 100Gi
+  size: 500Gi
   storageClassName: default
   annotations: {}
   # subPath: ""
