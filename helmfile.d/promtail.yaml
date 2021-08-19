@@ -1,7 +1,7 @@
 releases:
   - name: promtail
     namespace: loki
-    chart: loki/promtail
+    chart: grafana/promtail
     version: 3.7.0
     wait: true
     timeout: 300

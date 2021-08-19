@@ -1,7 +1,7 @@
 releases:
   - name: loki
     namespace: loki
-    chart: loki/loki
+    chart: grafana/loki
     version: 2.6.0
     wait: true
     timeout: 300
