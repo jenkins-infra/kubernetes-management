@@ -2,7 +2,7 @@ releases:
   - name: promtail
     namespace: loki
     chart: loki/promtail
-    version: 2.0.2
+    version: 3.7.0
     wait: true
     timeout: 300
     force: false
