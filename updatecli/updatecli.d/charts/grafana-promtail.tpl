@@ -5,7 +5,7 @@ sources:
   default:
     kind: helmChart
     spec:
-      url: https://grafana.github.io/loki/charts
+      url: https://grafana.github.io/helm-charts
       name: promtail
 conditions:
   helmfileRelease:
