@@ -1,11 +1,8 @@
-repositories:
-  - name: loki
-    url: https://grafana.github.io/loki/charts
 releases:
   - name: loki
     namespace: loki
-    chart: loki/loki
-    version: 2.1.1
+    chart: grafana/loki
+    version: 2.6.0
     wait: true
     timeout: 300
     force: false

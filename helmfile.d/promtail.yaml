@@ -1,11 +1,8 @@
-repositories:
-  - name: loki
-    url: https://grafana.github.io/loki/charts
 releases:
   - name: promtail
     namespace: loki
-    chart: loki/promtail
-    version: 2.0.2
+    chart: grafana/promtail
+    version: 3.7.0
     wait: true
     timeout: 300
     force: false
