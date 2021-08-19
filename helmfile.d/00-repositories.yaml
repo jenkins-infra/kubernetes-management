@@ -6,6 +6,9 @@ repositories:
   - name: grafana
     # For grafana but also loki and promtail
     url: https://grafana.github.io/helm-charts
+  - name: loki
+    # For grafana but also loki and promtail
+    url: https://grafana.github.io/helm-charts
   - name: stable
     url: https://charts.helm.sh/stable
   - name: ingress-nginx
