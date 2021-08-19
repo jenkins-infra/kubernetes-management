@@ -23,7 +23,6 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"
-    "nginx.ingress.kubernetes.io/hsts": "false"
   hosts:
     - host: get.jenkins.io
       paths:
