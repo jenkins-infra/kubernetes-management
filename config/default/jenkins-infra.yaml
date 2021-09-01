@@ -172,6 +172,31 @@ jenkins:
                       id: "terraform-datadog-azure-backend-account-key"
                       secret: "${TERRAFORM_AZURE_BACKEND_ACCOUNT_KEY}"
                       description: Account key for the Azure terraform backend used for datadog's management
+                  - string:
+                      scope: GLOBAL
+                      id: "packer-aws-access-key-id"
+                      secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
+                      description: AWS API key for the account ci-packer
+                  - string:
+                      scope: GLOBAL
+                      id: "packer-aws-secret-access-key"
+                      secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
+                      description: AWS Secret key for the account ci-packer
+                  - string:
+                      scope: GLOBAL
+                      id: "packer-azure-client-id"
+                      secret: "${PACKER_AZURE_CLIENT_SECRET_ID}"
+                      description: Azure client secret ID for the Service Principal "packer"
+                  - string:
+                      scope: GLOBAL
+                      id: "packer-azure-client-secret"
+                      secret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+                      description: Azure client secret value for the Service Principal "packer"
+                  - string:
+                      scope: GLOBAL
+                      id: "packer-azure-subscription-id"
+                      secret: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                      description: Azure client secret value for the Service Principal "packer"
         agent-settings: |
           jenkins:
             clouds:
@@ -409,6 +434,7 @@ jenkins:
                   [ name: 'Incrementals Publisher', GHOrganization: 'jenkins-infra', repository: 'incrementals-publisher', internalId: '2021042801',jenkinsfilePath: 'Jenkinsfile'],
                   [ name: 'K8s Cluster Management', GHOrganization: 'jenkins-infra', repository: 'charts', internalId: '2019081601',jenkinsfilePath: 'Jenkinsfile_k8s'],
                   [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603',jenkinsfilePath: 'Jenkinsfile_k8s'],
+                  [ name: 'Packer Images', GHOrganization: 'jenkins-infra', repository: 'packer-images', internalId: '2021090101',jenkinsfilePath: 'Jenkinsfile_k8s'],
                 ].each { config ->
                   multibranchPipelineJob(config.repository) {
                     displayName config.name
