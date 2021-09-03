@@ -6,7 +6,7 @@ replicaCount: 1
 images:
   en:
     repository: nginx@sha256 # nginx:1.17
-    tag: 8800a24f9f767f6938c49a9d7d102f54c960e9cfbc1e20fd3ae6d9ddfb81e91e
+    tag: b633feba05322a0add7b1f163506ae80f916c1d0988c3f0ce57fbb599214c56e
     pullPolicy: Always
   zh:
     repository: nginx@sha256 # nginx:1.17
