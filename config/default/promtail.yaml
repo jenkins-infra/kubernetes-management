@@ -7,7 +7,6 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-loki:
-  serviceName: "loki"
+config:
+  lokiAddress: http://loki:3100/loki/api/v1/push
   servicePort: 3100
-  serviceScheme: http
