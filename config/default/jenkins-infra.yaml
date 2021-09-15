@@ -185,8 +185,8 @@ jenkins:
                   - string:
                       scope: GLOBAL
                       id: "packer-azure-client-id"
-                      secret: "${PACKER_AZURE_CLIENT_SECRET_ID}"
-                      description: Azure client secret ID for the Service Principal "packer"
+                      secret: "${PACKER_AZURE_CLIENT_ID}"
+                      description: Azure client ID for the Service Principal "packer"
                   - string:
                       scope: GLOBAL
                       id: "packer-azure-client-secret"
