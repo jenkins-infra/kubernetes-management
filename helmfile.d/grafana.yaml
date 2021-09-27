@@ -2,7 +2,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: "6.16.9"
+    version: "6.16.10"
     wait: true
     timeout: 300
     atomic: true
