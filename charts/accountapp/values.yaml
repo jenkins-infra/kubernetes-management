@@ -61,7 +61,7 @@ ldap:
 jira:
   username: accountapp
   password:
-  url: https://issues.jenkins-ci.org/
+  url: https://issues.jenkins.io/
 
 seats: 2
 seniority: 12
