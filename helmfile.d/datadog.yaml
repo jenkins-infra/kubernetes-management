@@ -7,7 +7,7 @@ releases:
     chart: datadog/datadog
     version: 2.22.13
     wait: true
-    timeout: 600
+    timeout: 1200
     atomic: true
     values:
       - "../config/default/datadog/datadog.yaml.gotmpl"
