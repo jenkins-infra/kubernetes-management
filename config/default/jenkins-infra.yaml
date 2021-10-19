@@ -309,7 +309,7 @@ jenkins:
                       hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
                       idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
                       instanceCapStr: "10"
-                      labelString: "windows windows-amd64 windows-amd64-docker windock"
+                      labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
                       launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
                       maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
                       minimumNumberOfInstances: 0
