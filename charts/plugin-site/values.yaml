@@ -56,7 +56,6 @@ ingress:
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
 #    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-#    "kubernetes.io/ingress.class": "public-ingress"
 #    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
 #
 #  hosts:
@@ -66,6 +65,7 @@ ingress:
 #    - secretName: plugins-tls
 #      hosts:
 #        - plugins.jenkins.io
+  ingressClassName: public-ingress
 
 
 nodeSelector: {}

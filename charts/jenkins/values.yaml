@@ -27,7 +27,8 @@ jenkins:
     image: jenkinsciinfra/jenkins-weekly
     tag: 0.25.7-2.316
     ingress:
-      apiVersion: networking.k8s.io/v1beta1
+      apiVersion: networking.k8s.io/v1
+      ingressClassName: private-ingress
     runAsUser: 1000
     fsGroup: 1000
     containerEnv:
