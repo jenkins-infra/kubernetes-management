@@ -13,10 +13,10 @@ ingress:
   hosts:
     - host: archives.azure.jenkins-ci.org
       paths:
-        - "/"
+        - path: /
     - host: archives.azure.jenkins.io
       paths:
-        - "/"
+        - path: /
   tls:
     - secretName: archivesmirror-tls
       hosts:
