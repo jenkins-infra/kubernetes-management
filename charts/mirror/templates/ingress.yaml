@@ -33,7 +33,7 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number:  {{ .port }}
+                  number:  {{ $.Values.service.web.port }}
         {{- end }}
   {{- end }}
 {{- end }}
