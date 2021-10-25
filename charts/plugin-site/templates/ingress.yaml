@@ -34,7 +34,7 @@ spec:
               service:
                 name: {{ .svcName }}
                 port:
-                  number:  {{ (index .Values svcName).port }}
+                  number:  {{ .svcName }}
         {{- end }}
   {{- end }}
 {{- end }}
