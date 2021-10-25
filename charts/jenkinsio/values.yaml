@@ -28,7 +28,7 @@ service:
 #  hosts:
 #    - host: plugins.jenkins.io
 #      paths:
-#        - /
+#        - path: /
 #
 #  tls:
 #    - secretName: plugins-tls
