@@ -35,7 +35,7 @@ ingress:
         - path: /
           pathType: Prefix
           service:
-            name: ?????
+            name: javadoc-local
             port: http
 
 htmlVolume:
