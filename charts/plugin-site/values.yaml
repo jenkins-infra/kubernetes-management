@@ -45,9 +45,9 @@ ingress:
   enabled: false
   paths:
     - path: /api/(.*)
-      port: backend
+      svcName: backend
     - path: /(.*)
-      port: frontend
+      svcName: frontend
 
   annotations:
     # rewrite target is important to get the path regexes to work
