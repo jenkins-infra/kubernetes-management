@@ -8,7 +8,7 @@ ingress:
   hosts:
     - host: jenkins-wiki-exporter.jenkins.io
       paths:
-        - /
+        - path: /
 
   tls:
     - secretName: jenkins-wiki-exporter-tls
