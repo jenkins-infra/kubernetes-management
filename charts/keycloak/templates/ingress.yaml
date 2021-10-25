@@ -33,12 +33,18 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: keycloak-http
-              servicePort: 80
+              service:
+                name: keycloak-http
+                port:
+                  number: 80
           - path: /auth/admin/
+            pathType: Prefix
             backend:
-              serviceName: {{ $fullName }}-404
-              servicePort: 80
+              service:
+                name: {{ $fullName }}-404
+                port:
+                  number: 80
     {{- end }}
   {{- end }}

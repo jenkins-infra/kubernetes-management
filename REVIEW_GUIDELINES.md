@@ -305,10 +305,13 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-          - path: {{ .Values.ingress.path }}
+          - path: {{ .path }}
+            pathType: Prefix
             backend:
-              serviceName: {{ include "myapp.fullname" }}
-              servicePort: http
+              service:
+                name: {{ $fullName }}
+                port:
+                  number:  {{ .port }}
   {{- end }}
 {{- end }}
 ```
