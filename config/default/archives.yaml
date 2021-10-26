@@ -8,7 +8,6 @@ ingress:
   enabled: true
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   hosts:
     - host: archives.azure.jenkins-ci.org

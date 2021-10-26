@@ -601,8 +601,8 @@ jenkins:
       hostName: infra.ci.jenkins.io
       annotations:
         "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-        "kubernetes.io/ingress.class": "nginx"
         "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+      ingressClassName: private-ingress
       tls:
         - hosts:
             - infra.ci.jenkins.io
@@ -612,10 +612,9 @@ jenkins:
       paths:
         - /github-webhook
       hostName: infra-webhooks.ci.jenkins.io
+      ingressClassName: public-ingress
       annotations:
         "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-        "kubernetes.io/ingress.class": "public-ingress"
-
         "nginx.ingress.kubernetes.io/ssl-redirect": "true"
       tls:
         - hosts:
