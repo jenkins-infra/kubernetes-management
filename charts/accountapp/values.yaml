@@ -27,7 +27,7 @@ ingress:
 #  hosts:
 #    - host: accounts.jenkins.io
 #      paths:
-#        - /
+#        - path: /
 #
 #  tls:
 #    - secretName: accounts-tls

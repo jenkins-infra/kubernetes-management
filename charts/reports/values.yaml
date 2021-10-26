@@ -18,6 +18,7 @@ ingress:
 
 service:
   type: ClusterIP
+  port: 80
 
 # Please define ingress settings into environment variable
 #ingress:
@@ -30,7 +31,7 @@ service:
 #  hosts:
 #    - host: plugins.jenkins.io
 #      paths:
-#        - /
+#        - path: /
 #
 #  tls:
 #    - secretName: plugins-tls

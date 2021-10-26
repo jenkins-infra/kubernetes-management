@@ -27,13 +27,13 @@ spec:
       http:
         paths:
         {{- range .paths }}
-          - path: {{ . }}
+          - path: {{ .path }}
             pathType: Prefix
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number:  {{ $.Values.service.port }}
+                  number: {{ int ($.Values.service.port) }}
         {{- end }}
   {{- end }}
 {{- end }}

@@ -33,6 +33,6 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number:  {{ .port }}
+                  number: {{ int (.port) }}
   {{- end }}
 {{- end }}
