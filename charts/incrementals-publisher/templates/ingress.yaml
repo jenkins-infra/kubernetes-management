@@ -27,6 +27,7 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
+        {{- range .paths }}
           - path: {{ .path }}
             pathType: Prefix
             backend:
@@ -34,5 +35,6 @@ spec:
                 name: {{ $fullName }}
                 port:
                   number: {{ int ($.Values.service.port) }}
+        {{- end }}
   {{- end }}
 {{- end }}
