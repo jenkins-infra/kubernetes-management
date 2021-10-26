@@ -21,7 +21,6 @@ resources:
 ingress:
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"
   hosts:
     - host: get.jenkins.io

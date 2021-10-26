@@ -26,11 +26,10 @@ ingress:
   enabled: true
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   hosts:
     - host: polls.example.com
-
+  ingressClassName: public-ingress
   tls:
     - secretName: polls-tls
       hosts:
@@ -40,12 +39,12 @@ admin_ingress:
   enabled: false
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "kubernetes.io/ingress.class": "nginx"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
   hosts:
     - host: admin.polls.example.com
       paths: 
         - /
+  ingressClassName: private-ingress
   tls:
     - secretName: admin-polls-tls
       hosts:

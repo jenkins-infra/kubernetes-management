@@ -1,9 +1,9 @@
 ---
 ingress:
   enabled: true
+  ingressClassName: private-ingress
   annotations:
     # "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "kubernetes.io/ingress.class": "public-ingress"
 
     # "nginx.ingress.kubernetes.io/ssl-redirect": "true"
     # tls:

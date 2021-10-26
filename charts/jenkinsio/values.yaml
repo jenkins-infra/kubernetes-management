@@ -19,17 +19,17 @@ service:
   type: ClusterIP
   port: 80
 # Please define ingress settings into environment variable
-# ingress:
+ingress:
 #  enabled: true
 #  annotations:
 #    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-#    "kubernetes.io/ingress.class": "public-ingress"
 #    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
 #
 #  hosts:
 #    - host: plugins.jenkins.io
 #      paths:
 #        - path: /
+  ingressClassName: public-ingress
 #
 #  tls:
 #    - secretName: plugins-tls

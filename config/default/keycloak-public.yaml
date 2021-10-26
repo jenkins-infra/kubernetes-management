@@ -1,8 +1,8 @@
 ingress:
   enabled: true
+  ingressClassName: public-ingress
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "kubernetes.io/ingress.class": "public-ingress"
     "nginx.ingress.kubernetes.io/affinity": "cookie"
     "nginx.ingress.kubernetes.io/affinity-mode": "persistent"
   labels:
