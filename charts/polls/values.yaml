@@ -44,7 +44,7 @@ admin_ingress:
     - host: admin.polls.example.com
       paths: 
         - /
-  ingressClassName: public-ingress
+  ingressClassName: private-ingress
   tls:
     - secretName: admin-polls-tls
       hosts:
