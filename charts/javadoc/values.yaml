@@ -23,7 +23,7 @@ ingress:
 #    - host: plugins.jenkins.io
 #      paths:
 #        - /
-#  ingressClassName: public-ingress
+  ingressClassName: public-ingress
 #  tls:
 #    - secretName: plugins-tls
 #      hosts:
