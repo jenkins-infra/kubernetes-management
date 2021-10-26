@@ -1,6 +1,7 @@
 # https://github.com/helm/charts/tree/master/stable/grafana
 ingress:
   enabled: true
+  ingressClassName: private-ingress
   hosts:
     - grafana.jenkins.io
     - grafana.publick8s.jenkins.io
