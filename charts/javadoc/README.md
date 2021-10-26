@@ -33,7 +33,10 @@ ingress:
     - host: javadoc-local.jenkins.io
       paths:
         - path: /
-          port: http
+          pathType: Prefix
+          service:
+            name: javadoc-local
+            port: http
 
 htmlVolume:
   hostPath:

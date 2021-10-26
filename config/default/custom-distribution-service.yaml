@@ -9,6 +9,8 @@ ingress:
 
   hosts:
     - host: customize.jenkins.io
+      paths:
+        - path: /
   tls:
     - secretName: customize-tls
       hosts:

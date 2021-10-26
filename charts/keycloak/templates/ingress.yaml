@@ -1,11 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "keycloak.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -33,12 +29,18 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: keycloak-http
-              servicePort: 80
+              service:
+                name: keycloak-http
+                port:
+                  number: 80
           - path: /auth/admin/
+            pathType: Prefix
             backend:
-              serviceName: {{ $fullName }}-404
-              servicePort: 80
+              service:
+                name: {{ $fullName }}-404
+                port:
+                  number: 80
     {{- end }}
   {{- end }}

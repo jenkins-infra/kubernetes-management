@@ -272,11 +272,7 @@ ingress:
 
 ```yaml
 {{- if .Values.ingress.enabled -}}
-{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1" }}
-apiVersion: networking.k8s.io/v1beta1
-{{ else }}
-apiVersion: extensions/v1beta1
-{{ end -}}
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "myapp.fullname" }}
@@ -305,10 +301,13 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-          - path: {{ .Values.ingress.path }}
+          - path: {{ .path }}
+            pathType: Prefix
             backend:
-              serviceName: {{ include "myapp.fullname" }}
-              servicePort: http
+              service:
+                name: {{ $fullName }}
+                port:
+                  number:  {{ .port }}
   {{- end }}
 {{- end }}
 ```
