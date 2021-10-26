@@ -9,7 +9,7 @@ spec:
     - name: http
       protocol: TCP
       targetPort: http
-      port: 8080
+      port: {{ .Values.service.port }}
   selector:
     app.kubernetes.io/name: {{ include "accountapp.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
