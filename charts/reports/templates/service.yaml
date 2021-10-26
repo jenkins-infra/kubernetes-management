@@ -9,7 +9,7 @@ spec:
     - name: http
       protocol: TCP
       targetPort: http
-      port: 80
+      port: {{ int (.Values.service.port) }}
 
   selector:
     app.kubernetes.io/name: {{ include "reports.name" . }}

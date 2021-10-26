@@ -15,6 +15,7 @@ fullnameOverride: ""
 
 service:
   type: ClusterIP
+  port: 8080
 
 # Please define ingress settings into environment variable
 ingress:
@@ -27,7 +28,7 @@ ingress:
 #  hosts:
 #    - host: accounts.jenkins.io
 #      paths:
-#        - /
+#        - path: /
 #
 #  tls:
 #    - secretName: accounts-tls

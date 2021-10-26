@@ -7,7 +7,7 @@ ingress:
   hosts:
     - host: polls.jenkins.io
       paths:
-        - /
+        - path: /
 
   tls:
     - secretName: polls-tls
@@ -25,7 +25,7 @@ admin_ingress:
   hosts:
     - host: admin.polls.jenkins.io
       paths:
-        - /
+        - path: /
   tls:
     - secretName: admin-polls-tls
       hosts:

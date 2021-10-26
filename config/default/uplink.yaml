@@ -9,7 +9,7 @@ ingress:
   hosts:
     - host: uplink.jenkins.io
       paths:
-        - /
+        - path: /
   tls:
     - secretName: uplink-tls
       hosts:

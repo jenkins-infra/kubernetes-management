@@ -8,6 +8,8 @@ ingress:
 
   hosts:
     - host: incrementals.jenkins.io
+      paths:
+        - path: /
   tls:
     - secretName: incrementals-tls
       hosts:

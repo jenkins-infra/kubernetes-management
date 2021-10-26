@@ -11,11 +11,9 @@ ingress:
     - host: accounts.jenkins.io
       paths:
         - path: /
-          port: http
     - host: accounts.jenkins-ci.org
       paths:
         - path: /
-          port: http
 
   tls:
     - secretName: accounts-tls

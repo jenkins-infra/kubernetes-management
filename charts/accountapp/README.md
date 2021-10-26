@@ -22,7 +22,10 @@ ingress:
     - host: accountapp-local.jenkins.io
       paths:
         - path: /
-          port: http
+          service:
+            name: 
+            port:
+              number: 80
 
 ldap:
   url: ...

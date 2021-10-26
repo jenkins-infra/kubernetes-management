@@ -30,12 +30,18 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: {{ $fullName }}-frontend
-              servicePort: http
+              service:
+                name: {{ $fullName }}-frontend
+                port:
+                  number: 80
           - path: /api/participate
+            pathType: Prefix
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: 80
   {{- end }}
 {{- end }}

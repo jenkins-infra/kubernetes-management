@@ -16,42 +16,32 @@ ingress:
       paths:
         - path: /
           serviceName: jenkinsio
-          servicePort: 80
         - path: /zh/
           serviceName: jenkinsio-zh
-          servicePort: 80
     - host: www.jenkins.io
       paths:
         - path: /
           serviceName: jenkinsio
-          servicePort: 80
         - path: /zh/
           serviceName: jenkinsio-zh
-          servicePort: 80
     - host: www.origin.jenkins.io
       paths:
         - path: /
           serviceName: jenkinsio
-          servicePort: 80
         - path: /zh/
           serviceName: jenkinsio-zh
-          servicePort: 80
     - host: jenkins-ci.org
       paths:
         - path: /
           serviceName: jenkinsio
-          servicePort: 80
         - path: /zh/
           serviceName: jenkinsio-zh
-          servicePort: 80
     - host: www.jenkins-ci.org
       paths:
         - path: /
           serviceName: jenkinsio
-          servicePort: 80
         - path: /zh/
           serviceName: jenkinsio-zh
-          servicePort: 80
   # www.jenkins.io certificate is managed by Fastly
   tls:
     - secretName: jenkinsio-tls

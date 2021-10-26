@@ -10,11 +10,9 @@ ingress:
     - host: reports.jenkins.io
       paths:
         - path: /
-          port: http
     - host: reports.jenkins-ci.org
       paths:
         - path: /
-          port: http
 
   tls:
     - secretName: reports-tls
