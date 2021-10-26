@@ -44,7 +44,6 @@ ingress:
   hosts:
     - host: chart-example.local
       paths: []
-  ingressClassName: public-ingress
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

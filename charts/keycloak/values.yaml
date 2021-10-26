@@ -13,7 +13,6 @@ ingress:
   hosts:
     - host: chart-example.local
       paths: []
-  ingressClassName: private-ingress
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

@@ -43,7 +43,7 @@ releases:
             # Should be 2 years as per https://hstspreload.org/
             hsts-max-age: "86400" # 24 hours, as a first gradual HSTS deployment - see INFRA-2998
           replicaCount: 2
-          ingressClass: public-ingress
+          ingressClass: public-nginx
           # This section refers to the creation of the IngressClass resource
           # IngressClass resources are supported since k8s >= 1.18
           ingressClassResource:

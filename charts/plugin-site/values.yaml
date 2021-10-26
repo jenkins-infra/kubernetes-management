@@ -67,7 +67,6 @@ ingress:
 #    - secretName: plugins-tls
 #      hosts:
 #        - plugins.jenkins.io
-  ingressClassName: public-ingress
 
 
 nodeSelector: {}

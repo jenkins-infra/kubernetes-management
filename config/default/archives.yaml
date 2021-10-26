@@ -6,6 +6,7 @@ strategy:
 
 ingress:
   enabled: true
+  ingressClassName: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
