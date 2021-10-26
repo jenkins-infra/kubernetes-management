@@ -26,6 +26,7 @@ ingress:
   path: /oauth2
   hosts:
     - 'admin.polls.jenkins.io'
+  ingressClassName: private-ingress
   tls:
     - secretName: admin-polls-tls
       hosts:
