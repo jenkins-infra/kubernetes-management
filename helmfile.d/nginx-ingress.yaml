@@ -103,7 +103,7 @@ releases:
             # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
             use-geoip2: "true"
           replicaCount: 2
-          ingressClass: private-nginx
+          ingressClass: private-ingress
           # This section refers to the creation of the IngressClass resource
           # IngressClass resources are supported since k8s >= 1.18
           ingressClassResource:
