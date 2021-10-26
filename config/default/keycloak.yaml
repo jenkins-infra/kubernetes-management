@@ -2,6 +2,7 @@ replicas: 2
 
 ingress:
   enabled: true
+  ingressClassName: private-ingress
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
