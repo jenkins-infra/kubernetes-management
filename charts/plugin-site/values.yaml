@@ -4,7 +4,7 @@
 
 
 backend:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: jenkinsciinfra/plugin-site-api
     tag: 242-0f9b58
@@ -19,7 +19,7 @@ backend:
       memory: 1024Mi
 
 frontend:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: nginx
     tag: 1.17.7-alpine
