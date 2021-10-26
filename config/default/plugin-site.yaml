@@ -22,7 +22,7 @@ ingress:
 restApiUrl: https://plugins.jenkins.io/api
 
 backend:
-  replicaCount: 2
+  replicaCount: 1
 
 htmlVolume:
   azureFile:
