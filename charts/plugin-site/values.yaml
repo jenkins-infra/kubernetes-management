@@ -4,10 +4,10 @@
 
 
 backend:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: jenkinsciinfra/plugin-site-api
-    tag: 225-5723ad
+    tag: 242-0f9b58
     pullPolicy: IfNotPresent
   port: 8080
   resources:
@@ -19,7 +19,7 @@ backend:
       memory: 1024Mi
 
 frontend:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: nginx
     tag: 1.17.7-alpine
