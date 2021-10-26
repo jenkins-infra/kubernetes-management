@@ -1,6 +1,7 @@
 ---
 ingress:
   enabled: true
+  ingressClassName: private-ingress
   annotations:
     # "cert-manager.io/cluster-issuer": "letsencrypt-prod"
 
