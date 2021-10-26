@@ -25,7 +25,7 @@ jenkins:
         initialDelaySeconds: 120
     testEnabled: false
     image: jenkinsciinfra/jenkins-weekly
-    tag: 0.26.2-2.317
+    tag: 0.27.0-2.318
     ingress:
       apiVersion: networking.k8s.io/v1
     runAsUser: 1000
