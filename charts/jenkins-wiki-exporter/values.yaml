@@ -25,7 +25,7 @@ ingress:
 #    - host: jenkins-wiki-exporter.jenkins.io
 #      paths:
 #        - /
-#  ingressClassName: public-ingress
+  ingressClassName: public-ingress
 #  tls:
 #    - secretName: jenkins-wiki-exporter-tls
 #      hosts:
