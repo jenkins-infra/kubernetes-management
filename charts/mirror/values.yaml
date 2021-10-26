@@ -41,7 +41,7 @@ service:
     whitelisted_sources:
       - 52.167.253.43/32
       - 52.202.51.185/32
-#ingress:
+ingress:
 #  enabled: true
 #  annotations: 
 #    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
@@ -49,7 +49,7 @@ service:
 #
 #  hosts:
 #    - host: mirror.jenkins.io
-#  ingressClassName: public-ingress
+  ingressClassName: public-ingress
 #  tls:
 #    - secretName: releasemirror-tls
 #      hosts:
