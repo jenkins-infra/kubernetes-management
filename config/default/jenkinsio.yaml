@@ -1,5 +1,6 @@
 ingress:
   enabled: true
+  ingressClassName: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"

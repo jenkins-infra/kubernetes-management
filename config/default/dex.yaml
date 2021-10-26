@@ -14,7 +14,7 @@ ingress:
   path: /
   hosts:
     - private.dex.jenkins.io
-  ingressClassName: private-ingress
+  ingressClassName: private-nginx
   tls:
     - secretName: private-dex-tls
       hosts:

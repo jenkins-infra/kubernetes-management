@@ -60,7 +60,6 @@ ingress:
       paths:
         - path: /
           serviceNameSuffix: files
-  ingressClassName: public-ingress
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

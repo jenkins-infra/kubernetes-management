@@ -20,7 +20,6 @@ service:
 # Please define ingress settings into environment variable
 ingress:
   enabled: true
-  ingressClassName: public-ingress
 #  annotations:
 #    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
 #    "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
