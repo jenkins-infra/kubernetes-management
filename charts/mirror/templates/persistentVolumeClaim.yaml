@@ -1,9 +1,0 @@
-{{ if $.Values.persistent.volumeClaim.enabled -}}
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: {{ $.Values.persistent.volumeClaim.name | default (printf "%s-binary" (include "mirror.fullname" .))  }}
-spec:
-{{ toYaml $.Values.persistent.volumeClaim.spec | nindent 2 }}
-{{- end -}}
