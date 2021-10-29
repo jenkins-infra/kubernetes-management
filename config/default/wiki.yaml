@@ -1,0 +1,26 @@
+ingress:
+  enabled: true
+  ingressClassName: public-nginx
+  # annotations:
+  #   "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+  #   "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: wiki.jenkins.io
+      paths:
+        - path: /
+    - host: wiki.jenkins-ci.org
+      paths:
+        - path: /
+  # tls:
+  #   - secretName: wiki-tls
+  #     hosts:
+  #       - wiki.jenkins.io
+  #       - wiki.jenkins-ci.org
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
