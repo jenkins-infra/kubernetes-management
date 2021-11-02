@@ -8,9 +8,11 @@ ingress:
     - host: wiki.jenkins.io
       paths:
         - path: /
+          pathType: Prefix
     - host: wiki.jenkins-ci.org
       paths:
         - path: /
+          pathType: Prefix
   # tls:
   #   - secretName: wiki-tls
   #     hosts:
