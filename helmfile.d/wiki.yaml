@@ -2,7 +2,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.2.0
+    version: 0.2.1
     wait: false
     values:
       - "../config/default/wiki.yaml"
