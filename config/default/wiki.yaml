@@ -13,11 +13,23 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+    - host: wiki-test.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: wiki-test.jenkins-ci.org
+      paths:
+        - path: /
+          pathType: Prefix
   tls:
     - secretName: wiki-tls
       hosts:
         - wiki.jenkins.io
         - wiki.jenkins-ci.org
+    - secretName: wiki-test-tls
+      hosts:
+        - wiki-test.jenkins.io
+        - wiki-test.jenkins-ci.org
 
 resources:
   limits:
