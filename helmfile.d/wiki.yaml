@@ -2,9 +2,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.1.1
+    version: 0.2.0
     wait: false
     values:
       - "../config/default/wiki.yaml"
-    # secrets:
-    #   - "../secrets/config/wiki/secrets.yaml"

@@ -5,19 +5,19 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: wiki-test.jenkins.io
+    - host: wiki.jenkins.io
       paths:
         - path: /
           pathType: Prefix
-    - host: wiki-test.jenkins-ci.org
+    - host: wiki.jenkins-ci.org
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: wiki-test-tls
+    - secretName: wiki-tls
       hosts:
-        - wiki-test.jenkins.io
-        - wiki-test.jenkins-ci.org
+        - wiki.jenkins.io
+        - wiki.jenkins-ci.org
 
 resources:
   limits:
