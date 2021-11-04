@@ -23,10 +23,7 @@ helmfiles:
   - path: "../helmfile.d/uplink.yaml"
   - path: "../helmfile.d/mirrorbits.yaml"
   - path: "../helmfile.d/jenkins-infra.yaml"
-  # Disabling for the next security release
-  # The goal is to not modify release.ci configuration 
-  # https://github.com/jenkins-infra/release/issues/187 
-  # - path: "../helmfile.d/jenkins-release"
+  - path: "../helmfile.d/jenkins-release"
   - path: "../helmfile.d/custom-distribution-site.yaml"
   - path: "../helmfile.d/incrementals-publisher.yaml"
   - path: "../helmfile.d/keycloak.yaml"
