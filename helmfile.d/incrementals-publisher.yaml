@@ -1,7 +1,8 @@
 releases:
     - name: incrementals-publisher
       namespace: incrementals-publisher
-      chart: ../charts/incrementals-publisher
+      chart: jenkins-infra/incrementals-publisher
+      version: 0.3.0
       wait: true
       timeout: 300
       force: false

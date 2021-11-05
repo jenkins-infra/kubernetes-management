@@ -9,7 +9,8 @@ repositories:
     url: https://charts.jenkins.io
 releases:
     - name: jenkins-infra
-      chart: ../charts/jenkins
+      chart: jenkins-infra/jenkins
+      version: 0.53.1
       namespace: jenkins-infra
       values:
         - "../config/default/jenkins-infra.yaml"

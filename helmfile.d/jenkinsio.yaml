@@ -1,7 +1,8 @@
 releases:
     - name: jenkinsio
       namespace: jenkinsio
-      chart: ../charts/jenkinsio
+      chart: jenkins-infra/jenkinsio
+      version: 0.0.23
       wait: true
       timeout: 300
       force: false

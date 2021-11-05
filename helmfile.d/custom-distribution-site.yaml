@@ -1,7 +1,8 @@
 releases:
     - name: custom-distribution-service
       namespace: custom-distribution-service
-      chart: ../charts/custom-distribution-service
+      chart: jenkins-infra/custom-distribution-service
+      version: 0.2.0
       wait: true
       timeout: 300
       force: false

@@ -11,7 +11,8 @@ environments:
 ---
 releases:
   - name: default-release-jenkins-env
-    chart: ../../charts/env-jenkins-release
+    chart: jenkins-infra/env-jenkins-release
+    version: 0.1.1
     namespace: release
     force: false
     values: 

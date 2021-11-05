@@ -1,7 +1,8 @@
 releases:
     - name: javadoc
       namespace: javadoc
-      chart: ../charts/javadoc
+      chart: jenkins-infra/javadoc
+      version: 0.0.1
       wait: true
       timeout: 300
       force: false

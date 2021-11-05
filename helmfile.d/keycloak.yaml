@@ -17,7 +17,8 @@ releases:
   - # https://admin.accounts.jenkins.io/auth/realms/jenkins/account
     name: keycloak-public # User
     namespace: keycloak
-    chart: ../charts/keycloak
+    chart: jenkins-infra/keycloak
+    version: 0.1.1
     wait: true
     timeout: 150
     atomic: true

@@ -1,6 +1,0 @@
-corePackages:
-  enabled: false
-  storageAccountName: 'name'
-  storageAccountKey: 'key'
-  shareName: 'shareName'
-  websiteShareName: 'website'
