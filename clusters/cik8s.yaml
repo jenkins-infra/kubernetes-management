@@ -6,3 +6,4 @@ helmfiles:
       - "../../config/cik8s/datadog.yaml"
   - path: "../helmfile.d/jenkins-agents.yaml"
   - path: "../helmfile.d/autoscaler.yaml"
+  - path: "../helmfile.d/aws-node-termination-handler.yaml"

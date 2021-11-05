@@ -1,0 +1,13 @@
+repositories:
+  - name: eks
+    url: https://aws.github.io/eks-charts
+releases:
+  - name: aws-node-termination-handler
+    namespace: eks
+    chart: eks/aws-node-termination-handler
+    version: 0.16.0
+    wait: true
+    timeout: 300
+    atomic: true
+    values:
+      - "../config/cik8s/aws-node-termination-handler.yaml"
