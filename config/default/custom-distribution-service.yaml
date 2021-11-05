@@ -5,7 +5,7 @@ ingress:
 
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
     "nginx.ingress.kubernetes.io/enable-cors": "true"
-  ingressClassName: public-nginx
+  className: public-nginx
   hosts:
     - host: customize.jenkins.io
       paths:
