@@ -1,0 +1,37 @@
+title: Bump aws-node-termination-handler helm chart version
+sources:
+  default:
+    kind: helmChart
+    spec:
+      url: https://aws.github.io/eks-charts
+      name: aws-node-termination-handler
+conditions:
+  exist:
+    name: "AWS node termination handler helm chart available on Registry"
+    kind: helmChart
+    spec:
+      url: https://aws.github.io/eks-charts
+      name: aws-node-termination-handler
+  helmfileRelease:
+    name: "eks/aws-node-termination-handler Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/aws-node-termination-handler.yaml"
+      key: "releases[0].name"
+      value: "aws-node-termination-handler"
+targets:
+  chartVersion:
+    name: "eks/aws-node-termination-handler Helm Chart"
+    kind: yaml
+    spec:
+      file: "helmfile.d/aws-node-termination-handler.yaml"
+      key: "releases[0].version"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
