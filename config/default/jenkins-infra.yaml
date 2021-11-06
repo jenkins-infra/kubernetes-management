@@ -341,7 +341,7 @@ jenkins:
             # List of GH Org. Folders, add your own as another map (or append existing repoPattern)
             - script: >
                 [
-                  [ name: 'Docker Builds', GHOrganization: 'jenkins-infra', repoPattern: 'docker-.*$', jenkinsfilePath: 'Jenkinsfile_k8s'],
+                  [ name: 'Docker Builds', GHOrganization: 'jenkins-infra', repoPattern: 'rating|docker-.*$', jenkinsfilePath: 'Jenkinsfile_k8s'],
                   [ name: 'Terraform Jobs', GHOrganization: 'jenkins-infra', repoPattern: 'aws|datadog$', jenkinsfilePath: 'Jenkinsfile_k8s'],
                 ].each { config ->
                   organizationFolder(config.name) {
