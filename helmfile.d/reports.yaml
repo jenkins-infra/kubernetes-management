@@ -1,7 +1,8 @@
 releases:
     - name: reports
       namespace: reports
-      chart: ../charts/reports
+      chart: jenkins-infra/reports
+      version: 0.0.1
       wait: true
       timeout: 300
       force: false

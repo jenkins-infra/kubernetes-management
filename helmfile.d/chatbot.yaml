@@ -1,7 +1,8 @@
 releases:
     - name: chatbot
       namespace: chatbot
-      chart: ../charts/chatbot
+      chart: jenkins-infra/chatbot
+      version: 0.0.2
       wait: true
       timeout: 300
       force: false

@@ -1,7 +1,8 @@
 releases:
     - name: uplink
       namespace: uplink
-      chart: ../charts/uplink
+      chart: jenkins-infra/uplink
+      version: 0.1.0
       wait: true
       timeout: 600
       atomic: true

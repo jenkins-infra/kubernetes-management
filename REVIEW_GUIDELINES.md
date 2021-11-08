@@ -286,8 +286,8 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-{{- if .Values.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
+{{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
 {{- end }}
 {{- if .Values.ingress.tls }}
   tls:

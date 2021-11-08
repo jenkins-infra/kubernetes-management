@@ -1,4 +1,0 @@
-apiVersion: v1
-description: Jenkins Release Environment Chart
-name: env-jenkins-release
-version: 0.1.0

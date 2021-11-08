@@ -1,7 +1,8 @@
 releases:
     - name: plugin-site
       namespace: plugin-site
-      chart: ../charts/plugin-site
+      chart: jenkins-infra/plugin-site
+      version: 0.0.3
       wait: true
       timeout: 300
       force: false

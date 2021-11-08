@@ -18,7 +18,8 @@ environments:
 ---
 releases:
   - name: default-release-jenkins
-    chart: ../../charts/jenkins
+    chart: jenkins-infra/jenkins
+    version: 0.55.0
     namespace: release
     set:
       - name: namespace

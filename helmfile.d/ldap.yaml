@@ -1,7 +1,8 @@
 releases:
     - name: ldap
       namespace: ldap
-      chart: ../charts/ldap
+      chart: jenkins-infra/ldap
+      version: 0.1.0
       wait: true
       timeout: 600
       values:

@@ -1,7 +1,8 @@
 releases:
     - name: accountapp
       namespace: accountapp
-      chart: ../charts/accountapp
+      chart: jenkins-infra/accountapp
+      version: 0.0.1
       wait: true
       timeout: 300
       force: false

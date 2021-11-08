@@ -19,7 +19,8 @@ resources:
       memory: 256Mi
 
 ingress:
-  ingressClassName: public-nginx
+  enabled: true
+  className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "false"

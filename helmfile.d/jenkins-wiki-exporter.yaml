@@ -1,7 +1,8 @@
 releases:
     - name: jenkins-wiki-exporter
       namespace: jenkins-wiki-exporter
-      chart: ../charts/jenkins-wiki-exporter
+      chart: jenkins-infra/jenkins-wiki-exporter
+      version: 0.5.0
       wait: true
       timeout: 300
       force: false

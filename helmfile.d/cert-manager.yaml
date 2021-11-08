@@ -11,7 +11,8 @@ releases:
       - name: installCRDs
         value: true
   - name: acme
-    chart: ../charts/acme
+    chart: jenkins-infra/acme
+    version: 0.1.1
     namespace: cert-manager
     wait: true
     values:
