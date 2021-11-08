@@ -19,6 +19,7 @@ resources:
       memory: 256Mi
 
 ingress:
+  enabled: true
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
