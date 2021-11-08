@@ -7,6 +7,6 @@ releases:
       timeout: 600
       atomic: true
       values:
-        - "../config/default/uplink.yaml"
+        - "../config/publick8s/uplink.yaml"
       secrets:
         - "../secrets/config/uplink/secrets.yaml"

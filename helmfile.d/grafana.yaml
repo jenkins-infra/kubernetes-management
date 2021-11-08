@@ -7,6 +7,6 @@ releases:
     timeout: 300
     atomic: true
     values:
-      - "../config/default/grafana.yaml"
+      - "../config/publick8s/grafana.yaml"
     secrets:
       - "../secrets/config/grafana/secrets.yaml"

@@ -8,6 +8,6 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/default/javadoc.yaml"
+        - "../config/publick8s/javadoc.yaml"
       secrets:
         - "../secrets/config/javadoc/secrets.yaml"

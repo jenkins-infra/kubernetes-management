@@ -16,6 +16,6 @@ releases:
     namespace: cert-manager
     wait: true
     values:
-      - "../config/default/acme.yaml"
+      - "../config/publick8s/cert-manager.yaml"
     secrets:
       - "../secrets/config/acme/secrets.yaml"

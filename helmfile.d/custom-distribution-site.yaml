@@ -8,4 +8,4 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/default/custom-distribution-service.yaml"
+        - "../config/publick8s/custom-distribution-service.yaml"

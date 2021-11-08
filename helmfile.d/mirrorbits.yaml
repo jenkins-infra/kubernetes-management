@@ -7,6 +7,6 @@ releases:
     timeout: 600
     atomic: false
     values:
-      - "../config/default/mirrorbits.yaml"
+      - "../config/publick8s/mirrorbits.yaml"
     secrets:
       - "../secrets/config/mirrorbits/secrets.yaml"

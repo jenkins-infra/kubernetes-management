@@ -8,6 +8,6 @@ releases:
       force: false
       atomic: true
       values:
-          - "../config/default/incrementals-publisher.yaml"
+          - "../config/publick8s/incrementals-publisher.yaml"
       secrets:
           - "../secrets/config/incrementals-publisher/secrets.yaml"

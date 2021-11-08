@@ -8,4 +8,4 @@ releases:
     force: false
     atomic: true
     values:
-      - "../config/default/loki.yaml"
+      - "../config/publick8s/loki.yaml"

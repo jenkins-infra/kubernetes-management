@@ -8,6 +8,6 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/default/jenkins-wiki-exporter.yaml"
+        - "../config/publick8s/jenkins-wiki-exporter.yaml"
       secrets:
         - "../secrets/config/jenkins-wiki-exporter/secrets.yaml"
