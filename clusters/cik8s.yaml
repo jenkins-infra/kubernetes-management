@@ -1,6 +1,5 @@
 helmfiles:
   # ! Order matter
-  - path: "../helmfile.d/00-repositories.yaml"
   - path: "../helmfile.d/datadog.yaml"
     values:
       - "../../config/cik8s/datadog.yaml"

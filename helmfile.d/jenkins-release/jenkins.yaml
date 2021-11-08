@@ -16,6 +16,9 @@ environments:
 
 # Need to be in a different yaml document than environment
 ---
+repositories:
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/public-charts
 releases:
   - name: default-release-jenkins
     chart: jenkins-infra/jenkins
