@@ -6,7 +6,7 @@ It combines a Jenkinsfile, helmfiles and helm charts to automate Kubernetes Clus
 
 ## Contributing
 
-The Jenkins Infratructure Charts project accepts contributions via GitHub pull requests, more information in [CONTRIBUTING.md](https://github.com/jenkins-infra/charts/blob/master/CONTRIBUTING.md)
+The Jenkins Infratructure Charts project accepts contributions via GitHub pull requests, more information in [CONTRIBUTING.md](https://github.com/jenkins-infra/charts/blob/main/CONTRIBUTING.md)
 Sign Your Work
 
 ## Issues
