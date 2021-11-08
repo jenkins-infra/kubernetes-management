@@ -19,3 +19,13 @@ service:
     - '44.240.22.235/32'      # Accept inbound connections from Linux Foundation prod machine
     - '20.75.10.224/29'       # Accept inbound connections from publick8s public IPs
     - '40.85.158.127/32'      # **Temporary** accept inbound connections olblak-confluence hosted on jenkins azure account. Please remove this entry once the machine is deleted
+
+image:
+  slapd:
+    repository: jenkinsciinfra/ldap@sha256
+    tag: 854acad8a1341c29127a150f570c324df7eaf97d0fd9f5f1b90a4ea9f6a865d1
+    pullPolicy: IfNotPresent
+  crond:
+    repository: jenkinsciinfra/ldap@sha256
+    tag: 7c330a465dc1fde5152b939b8b5f5e87953c14015cebd20dc8b04906ba21981f
+    pullPolicy: IfNotPresent
