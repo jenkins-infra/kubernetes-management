@@ -11,4 +11,4 @@ releases:
     force: false
     atomic: false
     values:
-      - "../config/default/prometheus.yaml"
+      - "../config/publick8s/prometheus.yaml"
