@@ -1,4 +1,4 @@
-# https://github.com/helm/charts/tree/master/stable/grafana
+# https://github.com/grafana/helm-charts
 ingress:
   enabled: true
   ingressClassName: private-nginx
