@@ -1,3 +1,6 @@
+repositories:
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/public-charts
 releases:
     - name: plugin-site
       namespace: plugin-site

@@ -1,13 +1,16 @@
+repositories:
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/public-charts
 releases:
-    - name: javadoc
-      namespace: javadoc
-      chart: jenkins-infra/javadoc
-      version: 0.0.1
-      wait: true
-      timeout: 300
-      force: false
-      atomic: true
-      values:
-        - "../config/publick8s/javadoc.yaml"
-      secrets:
-        - "../secrets/config/javadoc/secrets.yaml"
+  - name: javadoc
+    namespace: javadoc
+    chart: jenkins-infra/javadoc
+    version: 0.0.1
+    wait: true
+    timeout: 300
+    force: false
+    atomic: true
+    values:
+      - "../config/publick8s/javadoc.yaml"
+    secrets:
+      - "../secrets/config/javadoc/secrets.yaml"

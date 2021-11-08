@@ -1,6 +1,8 @@
 repositories:
   - name: codecentric
     url: https://codecentric.github.io/helm-charts
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/public-charts
 releases:
   - # https://admin.accounts.jenkins.io/auth/admin
     name: keycloak # Admin
