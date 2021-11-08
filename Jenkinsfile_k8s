@@ -8,7 +8,7 @@ pipeline {
   }
 
   triggers {
-    cron(env.BRANCH_NAME == 'master' ? 'H/30 * * * *' : '')
+    cron(env.BRANCH_NAME == 'main' ? 'H/30 * * * *' : '')
   }
 
   stages {
@@ -35,7 +35,7 @@ pipeline {
             stage('Apply Configuration Update') {
               when {
                 allOf {
-                  branch 'master'
+                  branch 'main'
                   // Only run updatecli's tasks when the pipeline is triggered by the "cron" routine
                   triggeredBy 'TimerTrigger'
                 }
@@ -66,7 +66,7 @@ pipeline {
               steps {
                 dir ('secrets'){
                   // Init secrets
-                  git branch: 'master', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
+                  git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
                 }
               }
             }
@@ -93,7 +93,7 @@ pipeline {
               }
             } // stage
             stage('Apply'){
-              when { branch 'master' }
+              when { branch 'main' }
               steps {
                 sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets'
               }
@@ -123,7 +123,7 @@ pipeline {
               steps {
                 dir ('secrets'){
                   // Init secrets
-                  git branch: 'master', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
+                  git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
                 }
                 // The "chmod" operation allows "kubectl config use-context" to write the file
                 sh '''
@@ -159,7 +159,7 @@ pipeline {
               }
             } // stage
             stage('Apply'){
-              when { branch 'master' }
+              when { branch 'main' }
               steps {
                 sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets'
               }
