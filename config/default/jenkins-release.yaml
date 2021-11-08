@@ -473,7 +473,7 @@ jenkins:
     ingress:
       enabled: true
       hostName: release.ci.jenkins.io
-      className: private-nginx
+      ingressClassName: private-nginx
       annotations:
         "cert-manager.io/cluster-issuer": "letsencrypt-prod"
         "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
