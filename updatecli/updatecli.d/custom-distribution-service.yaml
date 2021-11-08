@@ -1,6 +1,5 @@
 ---
 title: "Bump Custom Distribution Service"
-pipelineID: "helmchartscustomdistributionid"
 sources:
   default:
     name: Get latest jenkinsci/custom-distribution-service version
@@ -12,8 +11,7 @@ sources:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
       versionFilter:
-        pattern: ~0
-        kind: semver
+        kind: latest
 conditions:
   docker:
     name: "Is latest jenkinsciinfra/custom-distribution-service docker image published"
@@ -22,12 +20,11 @@ conditions:
       image: "jenkinsciinfra/custom-distribution-service"
 targets:
   appVersion:
-    name: "custom-distribution-service appVersion"
-    kind: helmChart
+    name: "Update the tag of the Docker image for custom-distribution-service"
+    kind: yaml
     spec:
-      name: charts/custom-distribution-service
+      file: config/publick8s/custom-distribution-service.yaml
       key: image.tag
-      appVersion: true
     scm:
       github:
         user: "{{ .github.user }}"
@@ -36,4 +33,4 @@ targets:
         repository: "{{ .github.repository }}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
-        branch: "master"
+        branch: "{{ .github.branch }}"
