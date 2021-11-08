@@ -2,13 +2,13 @@ repositories:
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/public-charts
 releases:
-    - name: ldap
-      namespace: ldap
-      chart: jenkins-infra/ldap
-      version: 0.1.0
-      wait: true
-      timeout: 600
-      values:
-        - "../config/publick8s/ldap.yaml"
-      secrets:
-        - "../secrets/config/ldap/secrets.yaml"
+  - name: ldap
+    namespace: ldap
+    chart: jenkins-infra/ldap
+    version: 0.1.1
+    wait: true
+    timeout: 600
+    values:
+      - "../config/publick8s/ldap.yaml"
+    secrets:
+      - "../secrets/config/ldap/secrets.yaml"
