@@ -10,7 +10,7 @@ releases:
     timeout: 300
     atomic: true
     values:
-      - "../config/publick8s/traefik.yaml"
+      - "../config/traefik.yaml"
       - additionalArguments:
           - "--providers.kubernetescrd.ingressclass=public-traefik"
           - "--providers.kubernetesingress.ingressclass=public-traefik"
@@ -33,7 +33,7 @@ releases:
     timeout: 300
     atomic: true
     values:
-      - "../config/publick8s/traefik.yaml"
+      - "../config/traefik.yaml"
       - additionalArguments:
           - "--providers.kubernetescrd.ingressclass=traefik"
           - "--providers.kubernetesingress.ingressclass=traefik"

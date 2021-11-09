@@ -28,5 +28,5 @@ releases:
       - name: namespace
         value: release
     values:
-    - ../../config/publick8s/jenkins-release.yaml
+    - ../../config/jenkins-release.yaml
     - {{- .Values | toYaml | nindent 6 -}}

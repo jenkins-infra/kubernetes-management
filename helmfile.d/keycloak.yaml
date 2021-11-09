@@ -13,7 +13,7 @@ releases:
     timeout: 600
     atomic: true
     values:
-      - "../config/publick8s/keycloak.yaml"
+      - "../config/keycloak.yaml"
     secrets:
       - "../secrets/config/keycloak/secrets.yaml"
   - # https://admin.accounts.jenkins.io/auth/realms/jenkins/account
@@ -25,4 +25,4 @@ releases:
     timeout: 150
     atomic: true
     values:
-      - "../config/publick8s/keycloak-public.yaml"
+      - "../config/keycloak-public.yaml"

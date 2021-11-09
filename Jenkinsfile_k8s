@@ -73,7 +73,7 @@ pipeline {
             stage('Yaml Lint') {
               steps {
                 container('yamllint') {
-                  sh 'yamllint --config-file yamllint.config config/default config/publick8s config/cik8s'
+                  sh 'yamllint --config-file yamllint.config config'
                 }
               }
             }
@@ -139,7 +139,7 @@ pipeline {
             stage('Yaml Lint') {
               steps {
                 container('yamllint') {
-                  sh 'yamllint --config-file yamllint.config config/cik8s'
+                  sh 'yamllint --config-file yamllint.config config'
                 }
               }
             }

@@ -18,7 +18,7 @@ targets:
     name: "Update jenkinsciinfra/ldap:cron-latest image digest"
     kind: yaml
     spec:
-      file: "config/publick8s/ldap.yaml"
+      file: "config/ldap.yaml"
       key: "image.crond.tag"
     scm:
       github:
@@ -34,7 +34,7 @@ targets:
     name: "Update jenkinsciinfra/ldap:latest docker image digest"
     kind: yaml
     spec:
-      file: "config/publick8s/ldap.yaml"
+      file: "config/ldap.yaml"
       key: "image.slapd.tag"
     scm:
       github:
