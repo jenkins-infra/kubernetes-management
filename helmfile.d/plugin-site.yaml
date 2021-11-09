@@ -11,6 +11,6 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/publick8s/plugin-site.yaml"
+        - "../config/plugin-site.yaml"
       secrets:
         - "../secrets/config/plugin-site/secrets.yaml"

@@ -11,4 +11,4 @@ releases:
     force: false
     atomic: true
     values:
-      - "../config/publick8s/promtail.yaml"
+      - "../config/promtail.yaml"

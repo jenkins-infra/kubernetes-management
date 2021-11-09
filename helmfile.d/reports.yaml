@@ -11,6 +11,6 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/publick8s/reports.yaml"
+        - "../config/reports.yaml"
       secrets:
         - "../secrets/config/reports/secrets.yaml"

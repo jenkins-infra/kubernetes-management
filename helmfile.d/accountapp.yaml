@@ -11,6 +11,6 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/publick8s/accountapp.yaml"
+        - "../config/accountapp.yaml"
       secrets:
         - "../secrets/config/accountapp/secrets.yaml"

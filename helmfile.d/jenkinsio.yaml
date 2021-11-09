@@ -11,6 +11,6 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/publick8s/jenkinsio.yaml"
+        - "../config/jenkinsio.yaml"
       secrets:
         - "../secrets/config/jenkinsio/secrets.yaml"

@@ -9,6 +9,6 @@ releases:
     wait: true
     timeout: 600
     values:
-      - "../config/publick8s/ldap.yaml"
+      - "../config/ldap.yaml"
     secrets:
       - "../secrets/config/ldap/secrets.yaml"

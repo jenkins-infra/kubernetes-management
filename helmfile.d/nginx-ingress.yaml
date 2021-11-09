@@ -10,7 +10,7 @@ releases:
     timeout: 300
     atomic: true
     values:
-      - "../config/publick8s/public-nginx-ingress.yaml"
+      - "../config/public-nginx-ingress.yaml"
   - name: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     namespace: private-nginx-ingress
@@ -19,4 +19,4 @@ releases:
     timeout: 300
     atomic: true
     values:
-      - "../config/publick8s/private-nginx-ingress.yaml"
+      - "../config/private-nginx-ingress.yaml"

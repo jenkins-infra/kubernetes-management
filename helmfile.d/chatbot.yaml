@@ -11,6 +11,6 @@ releases:
       force: false
       atomic: true
       values:
-        - "../config/publick8s/chatbot.yaml"
+        - "../config/chatbot.yaml"
       secrets:
         - "../secrets/config/chatbot/secrets.yaml"

@@ -13,7 +13,7 @@ releases:
       version: 0.55.0
       namespace: jenkins-infra
       values:
-        - "../config/publick8s/jenkins-infra.yaml"
+        - "../config/jenkins-infra.yaml"
       secrets:
         - "../secrets/config/jenkins-infra/jenkins.yaml"
       set:

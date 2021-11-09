@@ -23,7 +23,7 @@ targets:
     name: "Update the tag of the Docker image for custom-distribution-service"
     kind: yaml
     spec:
-      file: config/publick8s/custom-distribution-service.yaml
+      file: config/custom-distribution-service.yaml
       key: image.tag
     scm:
       github:

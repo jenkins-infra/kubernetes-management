@@ -8,4 +8,4 @@ releases:
     version: 0.3.0
     wait: false
     values:
-      - "../config/publick8s/wiki.yaml"
+      - "../config/wiki.yaml"
