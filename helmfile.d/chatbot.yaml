@@ -2,15 +2,15 @@ repositories:
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/public-charts
 releases:
-    - name: chatbot
-      namespace: chatbot
-      chart: jenkins-infra/chatbot
-      version: 0.0.2
-      wait: true
-      timeout: 300
-      force: false
-      atomic: true
-      values:
-        - "../config/chatbot.yaml"
-      secrets:
-        - "../secrets/config/chatbot/secrets.yaml"
+  - name: chatbot
+    namespace: chatbot
+    chart: jenkins-infra/chatbot
+    version: 0.1.0
+    wait: true
+    timeout: 300
+    force: false
+    atomic: true
+    values:
+      - "../config/chatbot.yaml"
+    secrets:
+      - "../secrets/config/chatbot/secrets.yaml"
