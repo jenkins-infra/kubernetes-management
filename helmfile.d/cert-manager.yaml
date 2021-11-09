@@ -14,7 +14,7 @@ releases:
         value: true
   - name: acme
     chart: jenkins-infra/acme
-    version: 0.1.1
+    version: 0.1.2
     namespace: cert-manager
     wait: true
     values:
