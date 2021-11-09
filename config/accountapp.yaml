@@ -1,3 +1,8 @@
+image:
+  # https://github.com/jenkins-infra/charts/issues/1668
+  tag: 169-buildca55e3
+  pullPolicy: IfNotPresent
+
 ingress:
   enabled: true
   className: public-nginx
