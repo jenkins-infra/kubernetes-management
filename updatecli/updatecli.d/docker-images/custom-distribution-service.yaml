@@ -5,7 +5,6 @@ sources:
     name: Get latest jenkinsci/custom-distribution-service version
     kind: githubRelease
     spec:
-      name: Get jenkinsci/custom-distribution-service latest version
       owner: "jenkinsci"
       repository: "custom-distribution-service"
       token: "{{ requiredEnv .github.token }}"
