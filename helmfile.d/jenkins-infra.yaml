@@ -14,8 +14,6 @@ releases:
       namespace: jenkins-infra
       values:
         - "../config/jenkins-infra.yaml"
-      secrets:
-        - "../secrets/config/jenkins-infra/jenkins.yaml"
       set:
         - name: namespace
           value: jenkins-infra

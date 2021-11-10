@@ -11,5 +11,9 @@ releases:
         value: release
     values:
     - ../../config/jenkins-release.yaml
+  - name: jenkins-additional
+    chart: jenkins-infra/jenkins-additional
+    version: 0.0.1
+    namespace: release
     secrets:
     - ../../secrets/config/release/jenkins/secrets.yaml
