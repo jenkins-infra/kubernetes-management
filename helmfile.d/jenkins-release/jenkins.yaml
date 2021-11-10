@@ -1,32 +1,15 @@
----
-helmDefaults:
-  atomic: true
-  force: false
-  timeout: 600
-  wait: true
-
-environments:
-  default:
-    secrets:
-      - ../../secrets/config/release/jenkins/secrets.yaml
-  sandbox:
-    values:
-      - ../../config/sandbox/jenkins-release/jenkins.yaml
-
-
-# Need to be in a different yaml document than environment
----
 repositories:
-  - name: jenkins-infra
-    url: https://jenkins-infra.github.io/public-charts
+  - name: jenkins
+    url: https://charts.jenkins.io
 releases:
   - name: default-release-jenkins
-    chart: jenkins-infra/jenkins
-    version: 0.55.0
+    chart: jenkins/jenkins
+    version: 3.8.8
     namespace: release
     set:
       - name: namespace
         value: release
     values:
     - ../../config/jenkins-release.yaml
-    - {{- .Values | toYaml | nindent 6 -}}
+    secrets:
+    - ../../secrets/config/release/jenkins/secrets.yaml
