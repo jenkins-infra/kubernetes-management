@@ -22,7 +22,7 @@ helmfiles:
   - path: "../helmfile.d/uplink.yaml"
   - path: "../helmfile.d/mirrorbits.yaml"
   - path: "../helmfile.d/jenkins-infra.yaml"
-  - path: "../helmfile.d/jenkins-release"
+  - path: "../helmfile.d/jenkins-release.yaml"
   - path: "../helmfile.d/custom-distribution-site.yaml"
   - path: "../helmfile.d/incrementals-publisher.yaml"
   - path: "../helmfile.d/keycloak.yaml"
