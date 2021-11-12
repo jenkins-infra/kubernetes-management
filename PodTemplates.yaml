@@ -92,5 +92,3 @@ spec:
       securityContext:
         privileged: false
       tty: true
-  restartPolicy: "Never"
-  serviceAccount: "cluster-admin"
