@@ -1,19 +1,21 @@
-helmDefaults:
-  atomic: true
-  force: false
-  timeout: 600
-  wait: true
-
 repositories:
   - name: jenkins
     url: https://charts.jenkins.io
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/public-charts
 releases:
-    - name: jenkins-infra
-      chart: jenkins-infra/jenkins
-      version: 0.55.0
-      namespace: jenkins-infra
-      values:
-        - "../config/jenkins-infra.yaml"
-      set:
-        - name: namespace
-          value: jenkins-infra
+  - name: jenkins-infra
+    chart: jenkins/jenkins
+    version: 3.8.8
+    namespace: jenkins-infra
+    set:
+      - name: namespace
+        value: jenkins-infra
+    values:
+    - ../config/jenkins-infra.yaml
+  - name: jenkins-infra-additional
+    chart: jenkins-infra/jenkins-additional
+    version: 0.0.1
+    namespace: jenkins-infra
+    values:
+    - ../config/jenkins-infra-additional.yaml
