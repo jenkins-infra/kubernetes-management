@@ -23,6 +23,5 @@ releases:
     chart: jenkins-infra/env-jenkins-release
     version: 0.1.1
     namespace: release
-    force: false
     secrets:
       - ../secrets/config/release/env-jenkins/secrets.yaml
