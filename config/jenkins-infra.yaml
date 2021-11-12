@@ -1,622 +1,656 @@
----
-clusterAdminEnabled: true
-jenkins:
-  rbac:
-    readSecrets: true
-  agent:
-    componentName: "agent"
-  networkPolicy:
-    internalAgents:
-      allowed: true
-      namespaceLabels:
-        name: "jenkins-infra"
-  controller:
-    resources:
-      limits:
-        cpu: "2"
-        memory: "4Gi"
-      requests:
-        cpu: "2"
-        memory: "4Gi"
-    javaOpts: >
-      -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
-      -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
-      -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
-    JCasC:
-      enabled: true
-      defaultConfig: false
-      configScripts:
-        security: |
-          security:
-            scriptApproval:
-              approvedSignatures:
-                - "method org.jenkinsci.plugins.workflow.steps.FlowInterruptedException getCauses"
-                - "new java.lang.RuntimeException java.lang.Throwable"
-        credentials: |
-          credentials:
-            system:
-              domainCredentials:
-                - credentials:
-                  - gitHubApp:
-                      appID: "${GITHUB_APP_ID}"
-                      description: "GitHub App for infra.ci.jenkins.io"
-                      id: "github-app-infra"
-                      privateKey: "${GITHUB_APP_PRIVATE_KEY}"
-                  - usernamePassword:
-                      description: "GitHub access token for jenkinsadmin"
-                      id: "github-access-token"
-                      username: "${GITHUB_USERNAME}"
-                      password: "${GITHUB_PASSWORD}"
-                      scope: GLOBAL
-                  - string:
-                      scope: GLOBAL
-                      id: "updatecli-github-token"
-                      secret: '${UPDATECLI_GITHUB_TOKEN}'
-                      description: Github Token used by updatecli to update version
-                  - string:
-                      scope: GLOBAL
-                      id: "sops-client-id"
-                      secret: "${SOPS_CLIENT_ID}"
-                      description: Azure client ID used by sops to decrypt secrets
-                  - string:
-                      scope: GLOBAL
-                      id: "sops-client-secret"
-                      secret: "${SOPS_CLIENT_SECRET}"
-                      description: Azure client secret used by sops to decrypt secrets
-                  - string:
-                      scope: GLOBAL
-                      id: "PLUGINSITE_STORAGEACCOUNTKEY"
-                      secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
-                      description: Azure storage account key for plugin site
-                  - string:
-                      scope: GLOBAL
-                      id: "sops-tenant-id"
-                      secret: "${SOPS_TENANT_ID}"
-                      description: Azure tenant id used by sops to decrypt secrets
-                  - basicSSHUserPrivateKey:
-                      scope: GLOBAL
-                      id: "charts-secrets"
-                      username: ${SSH_CHARTS_SECRETS_USERNAME}
-                      #passphrase: ${SSH_CHARTS_SECRETS_PASSWORD}
-                      description: "SSH privkey used to access jenkins-infra/charts-secrets"
-                      privateKeySource:
-                        directEntry:
-                          privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-                  - usernamePassword:
-                      scope: GLOBAL
-                      description: Docker hub credential for jenkinsinfra organisation
-                      id: jenkins-dockerhub
-                      username: "${DOCKER_HUB_USERNAME}"
-                      password: "${DOCKER_HUB_TOKEN}"
-                  - string:
-                      scope: GLOBAL
-                      id: "algolia-plugins-app-id"
-                      secret: "${ALGOLIA_PLUGINS_JENKINS_IO_APP_ID}"
-                      description: Algolia app id for plugin site
-                  - string:
-                      scope: GLOBAL
-                      id: "algolia-plugins-search-key"
-                      secret: "${ALGOLIA_PLUGINS_JENKINS_IO_SEARCH_KEY}"
-                      description: Algolia credentials to read data for plugin site (runtime)
-                  - string:
-                      scope: GLOBAL
-                      id: "algolia-plugins-write-key"
-                      secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
-                      description: Algolia credentials to write data for plugin site
-                  - string:
-                      scope: GLOBAL
-                      id: "ci-terraform-access-key"
-                      secret: "${CI_TERRAFORM_AWS_ACCESS_KEY_ID}"
-                      description: AWS access key id for the account 'ci-terraform'
-                  - string:
-                      scope: GLOBAL
-                      id: "ci-terraform-secret-key"
-                      secret: "${CI_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
-                      description: AWS secret key for the account 'ci-terraform'
-                  - file:
-                      fileName: "backend-config"
-                      id: "ci-terraform-backend-config"
-                      scope: GLOBAL
-                      secretBytes: "${base64:${CI_TERRAFORM_BACKEND_CONFIG}}"
-                  - string:
-                      scope: GLOBAL
-                      id: "production-terraform-access-key"
-                      secret: "${PRODUCTION_TERRAFORM_AWS_ACCESS_KEY_ID}"
-                      description: AWS access key id for the account 'production-terraform'
-                  - string:
-                      scope: GLOBAL
-                      id: "production-terraform-secret-key"
-                      secret: "${PRODUCTION_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
-                      description: AWS secret key for the account 'production-terraform'
-                  - file:
-                      fileName: "backend-config"
-                      id: "production-terraform-backend-config"
-                      scope: GLOBAL
-                      secretBytes: "${base64:${PRODUCTION_TERRAFORM_BACKEND_CONFIG}}"
-                  - file:
-                      fileName: "kubeconfig"
-                      id: "k8s_kubeconfig"
-                      scope: GLOBAL
-                      secretBytes: "${base64:${KUBECONFIG}}"
-                  - file:
-                      fileName: "credentials"
-                      id: "eks_charter_awsconfig"
-                      scope: GLOBAL
-                      secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
-                  - basicSSHUserPrivateKey:
-                      scope: SYSTEM
-                      id: "ec2-agents-privkey"
-                      username: "key"
-                      description: "SSH privkey used to connect to EC2 agents"
-                      privateKeySource:
-                        directEntry:
-                          privateKey: "${EC2_AGENTS_PRIVKEY}"
-                  - aws:
-                      accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
-                      description: "This credential is used to provision dynamic agents on AWS EC2"
-                      id: "ec2-agents-credentials"
-                      scope: SYSTEM
-                      secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
-                  - string:
-                      scope: GLOBAL
-                      id: "datadog-api-key"
-                      secret: "${DATADOG_API_KEY}"
-                      description: Datadog API key for infra.ci
-                  - string:
-                      scope: GLOBAL
-                      id: "datadog-app-key"
-                      secret: "${DATADOG_APP_KEY}"
-                      description: Datadog application key for infra.ci
-                  - string:
-                      scope: GLOBAL
-                      id: "terraform-datadog-azure-backend-account-key"
-                      secret: "${TERRAFORM_AZURE_BACKEND_ACCOUNT_KEY}"
-                      description: Account key for the Azure terraform backend used for datadog's management
-                  - string:
-                      scope: GLOBAL
-                      id: "packer-aws-access-key-id"
-                      secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
-                      description: AWS API key for the account ci-packer
-                  - string:
-                      scope: GLOBAL
-                      id: "packer-aws-secret-access-key"
-                      secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
-                      description: AWS Secret key for the account ci-packer
-                  - string:
-                      scope: GLOBAL
-                      id: "packer-azure-client-id"
-                      secret: "${PACKER_AZURE_CLIENT_ID}"
-                      description: Azure client ID for the Service Principal "packer"
-                  - string:
-                      scope: GLOBAL
-                      id: "packer-azure-client-secret"
-                      secret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-                      description: Azure client secret value for the Service Principal "packer"
-                  - string:
-                      scope: GLOBAL
-                      id: "packer-azure-subscription-id"
-                      secret: "${PACKER_AZURE_SUBSCRIPTION_ID}"
-                      description: Azure client secret value for the Service Principal "packer"
-        agent-settings: |
-          jenkins:
-            clouds:
-              - kubernetes:
-                  containerCapStr: "100"
-                  jenkinsUrl: "http://jenkins-infra:8080"
-                  maxRequestsPerHostStr: "300"
-                  webSocket: true
-                  name: "kubernetes"
-                  namespace: "jenkins-infra"
-                  podRetention: "Never"
-                  serverUrl: "https://kubernetes.default"
-                  podLabels:
-                    # Required to be jenkins/<helm-release>-jenkins-slave as definede here
-                    # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
-                    - key: "jenkins/jenkins-infra-agent"
-                      value: "true"
-                  templates:
-                    - name: jnlp
-                      nodeSelector: "kubernetes.io/os=linux"
-                      containers:
-                        - name: jnlp
-                          image: "jenkins/inbound-agent:latest-jdk11"
-                          resourceLimitCpu: "500m"
-                          resourceLimitMemory: "512Mi"
-                          resourceRequestCpu: "500m"
-                          resourceRequestMemory: "512Mi"
-                          args: "1d"
-                          alwaysPullImage: true
-                    - name: jnlp-windows
-                      nodeSelector: "kubernetes.io/os=windows"
-                      instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
-                      instanceCapStr: "5"
-                      containers:
-                        - name: jnlp
-                          image: "jenkins/inbound-agent:windowsservercore-1809"
-                          command: "powershell"
-                          args: "Start-Sleep 999999"
-                          resourceLimitCpu: "500m"
-                          resourceLimitMemory: "1024Mi"
-                          resourceRequestCpu: "500m"
-                          resourceRequestMemory: "1024Mi"
-                          args: "1d"
-                          alwaysPullImage: true
-                          workingDir: "C:\\Users\\jenkins"
-                      yamlMergeStrategy: "override"
-                      yaml: |-
-                        spec:
-                          tolerations:
-                          - key: "os"
-                            operator: "Equal"
-                            value: "windows"
-                            effect: "NoSchedule"
-              - amazonEC2:
-                  cloudName: "aws-us-east-2"
-                  credentialsId: "ec2-agents-credentials"
-                  instanceCapStr: "20"
-                  noDelayProvisioning: true
-                  region: "us-east-2"
-                  sshKeysCredentialsId: "ec2-agents-privkey"
-                  useInstanceProfileForCredentials: false
-                  templates:
-                    - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/blob/master/aws/ubuntu-18-agent.arm64.json
-                      amiOwners: "200564066411"
-                      amiType:
-                        unixData:
-                          sshPort: "22"
-                      associatePublicIp: true
-                      connectBySSHProcess: false
-                      connectionStrategy: PUBLIC_IP
-                      deleteRootOnTermination: true
-                      description: "ARM64 Ubuntu 18.04"
-                      ebsOptimized: false
-                      hostKeyVerificationStrategy: CHECK_NEW_HARD           # Secure: even initial connection is checked against the EC2 console
-                      idleTerminationMinutes: "5"
-                      instanceCapStr: "10"
-                      labelString: "arm64 linux-arm64 linux-arm64-docker"
-                      launchTimeoutStr: "180"
-                      maxTotalUses: 1
-                      minimumNumberOfInstances: 0
-                      minimumNumberOfSpareInstances: 0
-                      mode: EXCLUSIVE
-                      monitoring: true
-                      numExecutors: 1
-                      remoteAdmin: "jenkins"
-                      remoteFS: "/home/jenkins"
-                      securityGroups: "ec2_agents_infraci"
-                      stopOnTerminate: false
-                      t2Unlimited: false
-                      tags:
-                      - name: "architecture"
-                        value: "arm64"
-                      - name: "os"
-                        value: "linux"
-                      - name: "jenkins"
-                        value: "infra.ci.jenkins.io"
-                      type: T4gMedium
-                      useEphemeralDevices: true
-                    - ami: "ami-06f1bf39751cf944e" # https://github.com/jenkins-infra/packer-images/blob/master/aws/windows-2019-agent.amd64.json
-                      amiOwners: "200564066411"
-                      amiType:
-                        unixData:
-                          sshPort: "22"
-                      associatePublicIp: true
-                      connectBySSHProcess: false
-                      connectionStrategy: PUBLIC_IP
-                      deleteRootOnTermination: true
-                      description: "Windows 2019 AMD64"
-                      ebsOptimized: false
-                      hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
-                      idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
-                      instanceCapStr: "10"
-                      labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
-                      launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
-                      maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
-                      minimumNumberOfInstances: 0
-                      minimumNumberOfSpareInstances: 0
-                      mode: EXCLUSIVE
-                      monitoring: false
-                      numExecutors: 1
-                      remoteAdmin: "Administrator"
-                      remoteFS: "C:\\Jenkins"
-                      securityGroups: "ec2_agents_infraci"
-                      stopOnTerminate: false
-                      t2Unlimited: false
-                      tags:
-                      - name: "architecture"
-                        value: "amd64"
-                      - name: "os"
-                        value: "windows"
-                      - name: "jenkins"
-                        value: "infra.ci.jenkins.io"
-                      tenancy: Default
-                      tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
-                      type: T3Medium
-                      useEphemeralDevices: true
-        # To add a job, choose if you want to add it as a map, inside the corresponding arrays below
-        # - A GH Org. requires a name, the GH Org (or user handle) of the repo and the pattern to capture the repo (s) name
-        # - A Multibranch requires a name, the GH Org (or user handle) of the repo, the repo name, an string identifier (we use the YYYYMMDDXX format with XX being a suffix integer)
-        jobs-settings: |
-          jobs:
-            # List of GH Org. Folders, add your own as another map (or append existing repoPattern)
-            - script: >
-                [
-                  [ name: 'Docker Builds', GHOrganization: 'jenkins-infra', repoPattern: 'rating|docker-.*$', jenkinsfilePath: 'Jenkinsfile_k8s'],
-                  [ name: 'Terraform Jobs', GHOrganization: 'jenkins-infra', repoPattern: 'aws|datadog$', jenkinsfilePath: 'Jenkinsfile_k8s'],
-                ].each { config ->
-                  organizationFolder(config.name) {
-                    description(config.name)
-                    displayName(config.name)
-                    organizations {
-                      github {
-                        repoOwner(config.GHOrganization)
-                        apiUri('https://api.github.com')
-                        credentialsId('github-app-infra')
+serviceAccount:
+  create: true
+  name: jenkins-controller
+serviceAccountAgent:
+  create: true
+  name: jenkins-agent
+rbac:
+  create: true
+  readSecrets: true
+persistence:
+  enabled: true
+  size: 50Gi
+  volumes:
+    - name: jenkins-secrets
+      secret:
+        secretName: jenkins-secrets
+  mounts:
+    - name: jenkins-secrets
+      mountPath: /var/jenkins_secrets
+      readOnly: true
+agent:
+  componentName: "agent"
+networkPolicy:
+  enabled: true
+  internalAgents:
+    allowed: true
+    namespaceLabels:
+      name: "jenkins-infra"
+controller:
+  image: jenkinsciinfra/jenkins-weekly
+  tag: 0.28.4-2.319
+  resources:
+    limits:
+      cpu: "2"
+      memory: "4Gi"
+    requests:
+      cpu: "2"
+      memory: "4Gi"
+  probes:
+    startupProbe:
+      initialDelaySeconds: 120
+    livenessProbe:
+      initialDelaySeconds: 120
+    readinessProbe:
+      initialDelaySeconds: 120
+  testEnabled: false
+  runAsUser: 1000
+  fsGroup: 1000
+  containerEnv:
+    - name: SECRETS
+      value: /var/jenkins_secrets
+  overwritePlugins: true
+  secretsFilesSecret: 'jenkins-secrets'
+  serviceType: "ClusterIP"
+  javaOpts: >
+    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
+    -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
+    -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
+  JCasC:
+    enabled: true
+    defaultConfig: false
+    configScripts:
+      security: |
+        security:
+          scriptApproval:
+            approvedSignatures:
+              - "method org.jenkinsci.plugins.workflow.steps.FlowInterruptedException getCauses"
+              - "new java.lang.RuntimeException java.lang.Throwable"
+      credentials: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                - gitHubApp:
+                    appID: "${GITHUB_APP_ID}"
+                    description: "GitHub App for infra.ci.jenkins.io"
+                    id: "github-app-infra"
+                    privateKey: "${GITHUB_APP_PRIVATE_KEY}"
+                - usernamePassword:
+                    description: "GitHub access token for jenkinsadmin"
+                    id: "github-access-token"
+                    username: "${GITHUB_USERNAME}"
+                    password: "${GITHUB_PASSWORD}"
+                    scope: GLOBAL
+                - string:
+                    scope: GLOBAL
+                    id: "updatecli-github-token"
+                    secret: '${UPDATECLI_GITHUB_TOKEN}'
+                    description: Github Token used by updatecli to update version
+                - string:
+                    scope: GLOBAL
+                    id: "sops-client-id"
+                    secret: "${SOPS_CLIENT_ID}"
+                    description: Azure client ID used by sops to decrypt secrets
+                - string:
+                    scope: GLOBAL
+                    id: "sops-client-secret"
+                    secret: "${SOPS_CLIENT_SECRET}"
+                    description: Azure client secret used by sops to decrypt secrets
+                - string:
+                    scope: GLOBAL
+                    id: "PLUGINSITE_STORAGEACCOUNTKEY"
+                    secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
+                    description: Azure storage account key for plugin site
+                - string:
+                    scope: GLOBAL
+                    id: "sops-tenant-id"
+                    secret: "${SOPS_TENANT_ID}"
+                    description: Azure tenant id used by sops to decrypt secrets
+                - basicSSHUserPrivateKey:
+                    scope: GLOBAL
+                    id: "charts-secrets"
+                    username: ${SSH_CHARTS_SECRETS_USERNAME}
+                    #passphrase: ${SSH_CHARTS_SECRETS_PASSWORD}
+                    description: "SSH privkey used to access jenkins-infra/charts-secrets"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
+                - usernamePassword:
+                    scope: GLOBAL
+                    description: Docker hub credential for jenkinsinfra organisation
+                    id: jenkins-dockerhub
+                    username: "${DOCKER_HUB_USERNAME}"
+                    password: "${DOCKER_HUB_TOKEN}"
+                - string:
+                    scope: GLOBAL
+                    id: "algolia-plugins-app-id"
+                    secret: "${ALGOLIA_PLUGINS_JENKINS_IO_APP_ID}"
+                    description: Algolia app id for plugin site
+                - string:
+                    scope: GLOBAL
+                    id: "algolia-plugins-search-key"
+                    secret: "${ALGOLIA_PLUGINS_JENKINS_IO_SEARCH_KEY}"
+                    description: Algolia credentials to read data for plugin site (runtime)
+                - string:
+                    scope: GLOBAL
+                    id: "algolia-plugins-write-key"
+                    secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
+                    description: Algolia credentials to write data for plugin site
+                - string:
+                    scope: GLOBAL
+                    id: "ci-terraform-access-key"
+                    secret: "${CI_TERRAFORM_AWS_ACCESS_KEY_ID}"
+                    description: AWS access key id for the account 'ci-terraform'
+                - string:
+                    scope: GLOBAL
+                    id: "ci-terraform-secret-key"
+                    secret: "${CI_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
+                    description: AWS secret key for the account 'ci-terraform'
+                - file:
+                    fileName: "backend-config"
+                    id: "ci-terraform-backend-config"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${CI_TERRAFORM_BACKEND_CONFIG}}"
+                - string:
+                    scope: GLOBAL
+                    id: "production-terraform-access-key"
+                    secret: "${PRODUCTION_TERRAFORM_AWS_ACCESS_KEY_ID}"
+                    description: AWS access key id for the account 'production-terraform'
+                - string:
+                    scope: GLOBAL
+                    id: "production-terraform-secret-key"
+                    secret: "${PRODUCTION_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
+                    description: AWS secret key for the account 'production-terraform'
+                - file:
+                    fileName: "backend-config"
+                    id: "production-terraform-backend-config"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${PRODUCTION_TERRAFORM_BACKEND_CONFIG}}"
+                - file:
+                    fileName: "kubeconfig"
+                    id: "k8s_kubeconfig"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${KUBECONFIG}}"
+                - file:
+                    fileName: "credentials"
+                    id: "eks_charter_awsconfig"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
+                - basicSSHUserPrivateKey:
+                    scope: SYSTEM
+                    id: "ec2-agents-privkey"
+                    username: "key"
+                    description: "SSH privkey used to connect to EC2 agents"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: "${EC2_AGENTS_PRIVKEY}"
+                - aws:
+                    accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
+                    description: "This credential is used to provision dynamic agents on AWS EC2"
+                    id: "ec2-agents-credentials"
+                    scope: SYSTEM
+                    secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - string:
+                    scope: GLOBAL
+                    id: "datadog-api-key"
+                    secret: "${DATADOG_API_KEY}"
+                    description: Datadog API key for infra.ci
+                - string:
+                    scope: GLOBAL
+                    id: "datadog-app-key"
+                    secret: "${DATADOG_APP_KEY}"
+                    description: Datadog application key for infra.ci
+                - string:
+                    scope: GLOBAL
+                    id: "terraform-datadog-azure-backend-account-key"
+                    secret: "${TERRAFORM_AZURE_BACKEND_ACCOUNT_KEY}"
+                    description: Account key for the Azure terraform backend used for datadog's management
+                - string:
+                    scope: GLOBAL
+                    id: "packer-aws-access-key-id"
+                    secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
+                    description: AWS API key for the account ci-packer
+                - string:
+                    scope: GLOBAL
+                    id: "packer-aws-secret-access-key"
+                    secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
+                    description: AWS Secret key for the account ci-packer
+                - string:
+                    scope: GLOBAL
+                    id: "packer-azure-client-id"
+                    secret: "${PACKER_AZURE_CLIENT_ID}"
+                    description: Azure client ID for the Service Principal "packer"
+                - string:
+                    scope: GLOBAL
+                    id: "packer-azure-client-secret"
+                    secret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+                    description: Azure client secret value for the Service Principal "packer"
+                - string:
+                    scope: GLOBAL
+                    id: "packer-azure-subscription-id"
+                    secret: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                    description: Azure client secret value for the Service Principal "packer"
+      agent-settings: |
+        jenkins:
+          clouds:
+            - kubernetes:
+                containerCapStr: "100"
+                jenkinsUrl: "http://jenkins-infra:8080"
+                maxRequestsPerHostStr: "300"
+                webSocket: true
+                name: "kubernetes"
+                namespace: "jenkins-infra"
+                podRetention: "Never"
+                serverUrl: "https://kubernetes.default"
+                podLabels:
+                  # Required to be jenkins/<helm-release>-jenkins-slave as definede here
+                  # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
+                  - key: "jenkins/jenkins-infra-agent"
+                    value: "true"
+                templates:
+                  - name: jnlp
+                    nodeSelector: "kubernetes.io/os=linux"
+                    containers:
+                      - name: jnlp
+                        image: "jenkins/inbound-agent:latest-jdk11"
+                        resourceLimitCpu: "500m"
+                        resourceLimitMemory: "512Mi"
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "512Mi"
+                        args: "1d"
+                        alwaysPullImage: true
+                  - name: jnlp-windows
+                    nodeSelector: "kubernetes.io/os=windows"
+                    instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
+                    instanceCapStr: "5"
+                    containers:
+                      - name: jnlp
+                        image: "jenkins/inbound-agent:windowsservercore-1809"
+                        command: "powershell"
+                        args: "Start-Sleep 999999"
+                        resourceLimitCpu: "500m"
+                        resourceLimitMemory: "1024Mi"
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "1024Mi"
+                        args: "1d"
+                        alwaysPullImage: true
+                        workingDir: "C:\\Users\\jenkins"
+                    yamlMergeStrategy: "override"
+                    yaml: |-
+                      spec:
+                        tolerations:
+                        - key: "os"
+                          operator: "Equal"
+                          value: "windows"
+                          effect: "NoSchedule"
+            - amazonEC2:
+                cloudName: "aws-us-east-2"
+                credentialsId: "ec2-agents-credentials"
+                instanceCapStr: "20"
+                noDelayProvisioning: true
+                region: "us-east-2"
+                sshKeysCredentialsId: "ec2-agents-privkey"
+                useInstanceProfileForCredentials: false
+                templates:
+                  - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/blob/master/aws/ubuntu-18-agent.arm64.json
+                    amiOwners: "200564066411"
+                    amiType:
+                      unixData:
+                        sshPort: "22"
+                    associatePublicIp: true
+                    connectBySSHProcess: false
+                    connectionStrategy: PUBLIC_IP
+                    deleteRootOnTermination: true
+                    description: "ARM64 Ubuntu 18.04"
+                    ebsOptimized: false
+                    hostKeyVerificationStrategy: CHECK_NEW_HARD           # Secure: even initial connection is checked against the EC2 console
+                    idleTerminationMinutes: "5"
+                    instanceCapStr: "10"
+                    labelString: "arm64 linux-arm64 linux-arm64-docker"
+                    launchTimeoutStr: "180"
+                    maxTotalUses: 1
+                    minimumNumberOfInstances: 0
+                    minimumNumberOfSpareInstances: 0
+                    mode: EXCLUSIVE
+                    monitoring: true
+                    numExecutors: 1
+                    remoteAdmin: "jenkins"
+                    remoteFS: "/home/jenkins"
+                    securityGroups: "ec2_agents_infraci"
+                    stopOnTerminate: false
+                    t2Unlimited: false
+                    tags:
+                    - name: "architecture"
+                      value: "arm64"
+                    - name: "os"
+                      value: "linux"
+                    - name: "jenkins"
+                      value: "infra.ci.jenkins.io"
+                    type: T4gMedium
+                    useEphemeralDevices: true
+                  - ami: "ami-06f1bf39751cf944e" # https://github.com/jenkins-infra/packer-images/blob/master/aws/windows-2019-agent.amd64.json
+                    amiOwners: "200564066411"
+                    amiType:
+                      unixData:
+                        sshPort: "22"
+                    associatePublicIp: true
+                    connectBySSHProcess: false
+                    connectionStrategy: PUBLIC_IP
+                    deleteRootOnTermination: true
+                    description: "Windows 2019 AMD64"
+                    ebsOptimized: false
+                    hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
+                    idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
+                    instanceCapStr: "10"
+                    labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
+                    launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
+                    maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
+                    minimumNumberOfInstances: 0
+                    minimumNumberOfSpareInstances: 0
+                    mode: EXCLUSIVE
+                    monitoring: false
+                    numExecutors: 1
+                    remoteAdmin: "Administrator"
+                    remoteFS: "C:\\Jenkins"
+                    securityGroups: "ec2_agents_infraci"
+                    stopOnTerminate: false
+                    t2Unlimited: false
+                    tags:
+                    - name: "architecture"
+                      value: "amd64"
+                    - name: "os"
+                      value: "windows"
+                    - name: "jenkins"
+                      value: "infra.ci.jenkins.io"
+                    tenancy: Default
+                    tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
+                    type: T3Medium
+                    useEphemeralDevices: true
+      # To add a job, choose if you want to add it as a map, inside the corresponding arrays below
+      # - A GH Org. requires a name, the GH Org (or user handle) of the repo and the pattern to capture the repo (s) name
+      # - A Multibranch requires a name, the GH Org (or user handle) of the repo, the repo name, an string identifier (we use the YYYYMMDDXX format with XX being a suffix integer)
+      jobs-settings: |
+        jobs:
+          # List of GH Org. Folders, add your own as another map (or append existing repoPattern)
+          - script: >
+              [
+                [ name: 'Docker Builds', GHOrganization: 'jenkins-infra', repoPattern: 'rating|docker-.*$', jenkinsfilePath: 'Jenkinsfile_k8s'],
+                [ name: 'Terraform Jobs', GHOrganization: 'jenkins-infra', repoPattern: 'aws|datadog$', jenkinsfilePath: 'Jenkinsfile_k8s'],
+              ].each { config ->
+                organizationFolder(config.name) {
+                  description(config.name)
+                  displayName(config.name)
+                  organizations {
+                    github {
+                      repoOwner(config.GHOrganization)
+                      apiUri('https://api.github.com')
+                      credentialsId('github-app-infra')
 
-                        traits {
-                          gitHubTagDiscovery()
-                          cloneOptionTrait {
-                            extension {
-                              shallow(false)
-                              noTags(false)
-                              reference('')
-                              timeout(10)
-                              honorRefspec(true)
-                            }
-                          }
-                          sourceRegexFilter {
-                            regex(config.repoPattern)
-                          }
-                          gitHubBranchDiscovery {
-                            strategyId(1) // 1-Exclude branches that are also filed as PRs
-                          }
-                          // Only Origin Pull Request
-                          gitHubPullRequestDiscovery {
-                            strategyId(1) // 1-Merging the pull request with the current target branch revision
-                          }
-                          gitHubExcludeArchivedRepositories()
-                          pullRequestLabelsBlackListFilterTrait {
-                            labels('on-hold ci-skip')
-                          }
-                          // Select branches and tags to build based on these filters
-                          headWildcardFilterWithPR {
-                            includes('main master PR-*') // only branches listed here
-                            excludes('')
-                            tagIncludes('*')
-                            tagExcludes('')
+                      traits {
+                        gitHubTagDiscovery()
+                        cloneOptionTrait {
+                          extension {
+                            shallow(false)
+                            noTags(false)
+                            reference('')
+                            timeout(10)
+                            honorRefspec(true)
                           }
                         }
-                      }
-                    }
-                    orphanedItemStrategy {
-                      // Remove unused items as soon as possible
-                      discardOldItems {
-                        // Keep removed SCM heads/branch/PRs only for 1 day (not 0 days to be sure that jobs are all finished/timeouted when deleting)
-                        // Does not apply to the build history of kept branches(use Pipeline for that)
-                        daysToKeep(1)
-                      }
-                    }
-                    projectFactories {
-                      workflowMultiBranchProjectFactory {
-                        scriptPath(config.jenkinsfilePath)
-                      }
-                    }
-                    buildStrategies {
-                      buildAnyBranches {
-                        strategies {
-                          buildChangeRequests {
-                            ignoreTargetOnlyChanges(true)
-                            ignoreUntrustedChanges(true)
-                          }
-                          buildRegularBranches()
-                          buildTags {
-                            atLeastDays('-1')
-                            atMostDays('3')
-                          }
+                        sourceRegexFilter {
+                          regex(config.repoPattern)
                         }
-                      }
-                    }
-                    configure { node ->
-                      def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
-                      // Not discovered by Job-DSL: need to be configured as raw-XML
-                      traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
-                        strategyId(1) // 1-Merging the pull request with the current target branch revision
-                        trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
+                        gitHubBranchDiscovery {
+                          strategyId(1) // 1-Exclude branches that are also filed as PRs
+                        }
+                        // Only Origin Pull Request
+                        gitHubPullRequestDiscovery {
+                          strategyId(1) // 1-Merging the pull request with the current target branch revision
+                        }
+                        gitHubExcludeArchivedRepositories()
+                        pullRequestLabelsBlackListFilterTrait {
+                          labels('on-hold ci-skip')
+                        }
+                        // Select branches and tags to build based on these filters
+                        headWildcardFilterWithPR {
+                          includes('main master PR-*') // only branches listed here
+                          excludes('')
+                          tagIncludes('*')
+                          tagExcludes('')
+                        }
                       }
                     }
                   }
-                }
-            # List of MultiBranches, add your own as another map
-            - script: >
-                [
-                  [ name: 'Wiki Exporter', GHOrganization: 'jenkins-infra', repository: 'jenkins-wiki-exporter', internalId: '2021042801', jenkinsfilePath: 'Jenkinsfile'],
-                  [ name: 'Custom Distribution Service', GHOrganization: 'jenkinsci', repository: 'custom-distribution-service', internalId: '2021042802', jenkinsfilePath: 'Jenkinsfile'],
-                  [ name: 'Incrementals Publisher', GHOrganization: 'jenkins-infra', repository: 'incrementals-publisher', internalId: '2021042801',jenkinsfilePath: 'Jenkinsfile'],
-                  [ name: 'K8s Cluster Management', GHOrganization: 'jenkins-infra', repository: 'charts', internalId: '2019081601',jenkinsfilePath: 'Jenkinsfile_k8s'],
-                  [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603',jenkinsfilePath: 'Jenkinsfile_k8s'],
-                  [ name: 'Packer Images', GHOrganization: 'jenkins-infra', repository: 'packer-images', internalId: '2021090101',jenkinsfilePath: 'Jenkinsfile_k8s'],
-                ].each { config ->
-                  multibranchPipelineJob(config.repository) {
-                    displayName config.name
-                    triggers {
-                      periodicFolderTrigger {
-                        interval('2h')
+                  orphanedItemStrategy {
+                    // Remove unused items as soon as possible
+                    discardOldItems {
+                      // Keep removed SCM heads/branch/PRs only for 1 day (not 0 days to be sure that jobs are all finished/timeouted when deleting)
+                      // Does not apply to the build history of kept branches(use Pipeline for that)
+                      daysToKeep(1)
+                    }
+                  }
+                  projectFactories {
+                    workflowMultiBranchProjectFactory {
+                      scriptPath(config.jenkinsfilePath)
+                    }
+                  }
+                  buildStrategies {
+                    buildAnyBranches {
+                      strategies {
+                        buildChangeRequests {
+                          ignoreTargetOnlyChanges(true)
+                          ignoreUntrustedChanges(true)
+                        }
+                        buildRegularBranches()
+                        buildTags {
+                          atLeastDays('-1')
+                          atMostDays('3')
+                        }
                       }
                     }
-                    branchSources {
-                      branchSource {
-                        source {
-                          github {
-                            id(config.internalId)
-                            credentialsId("github-app-infra")
-                            configuredByUrl(true)
-                            repositoryUrl('https://github.com/' + config.GHOrganization + '/' + config.repository)
-                            repoOwner(config.GHOrganization)
-                            repository(config.repository)
-                            traits {
-                              gitHubBranchDiscovery {
-                                strategyId(1) // 1-only branches that are not pull requests
-                              }
-                              // Only Origin Pull Request
-                              gitHubPullRequestDiscovery {
-                                strategyId(1) // 1-Merging the pull request with the current target branch revision
-                              }
-                              pruneStaleBranchTrait()
-                              gitHubTagDiscovery()
-                              pullRequestLabelsBlackListFilterTrait {
-                                labels('on-hold ci-skip')
-                              }
-                              // Select branches and tags to build based on these filters
-                              headWildcardFilterWithPR {
-                                includes('main master PR-*') // only branches listed here
-                                excludes('')
-                                tagIncludes('*')
-                                tagExcludes('')
-                              }
+                  }
+                  configure { node ->
+                    def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
+                    // Not discovered by Job-DSL: need to be configured as raw-XML
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                      strategyId(1) // 1-Merging the pull request with the current target branch revision
+                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
+                    }
+                  }
+                }
+              }
+          # List of MultiBranches, add your own as another map
+          - script: >
+              [
+                [ name: 'Wiki Exporter', GHOrganization: 'jenkins-infra', repository: 'jenkins-wiki-exporter', internalId: '2021042801', jenkinsfilePath: 'Jenkinsfile'],
+                [ name: 'Custom Distribution Service', GHOrganization: 'jenkinsci', repository: 'custom-distribution-service', internalId: '2021042802', jenkinsfilePath: 'Jenkinsfile'],
+                [ name: 'Incrementals Publisher', GHOrganization: 'jenkins-infra', repository: 'incrementals-publisher', internalId: '2021042801',jenkinsfilePath: 'Jenkinsfile'],
+                [ name: 'K8s Cluster Management', GHOrganization: 'jenkins-infra', repository: 'charts', internalId: '2019081601',jenkinsfilePath: 'Jenkinsfile_k8s'],
+                [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603',jenkinsfilePath: 'Jenkinsfile_k8s'],
+                [ name: 'Packer Images', GHOrganization: 'jenkins-infra', repository: 'packer-images', internalId: '2021090101',jenkinsfilePath: 'Jenkinsfile_k8s'],
+              ].each { config ->
+                multibranchPipelineJob(config.repository) {
+                  displayName config.name
+                  triggers {
+                    periodicFolderTrigger {
+                      interval('2h')
+                    }
+                  }
+                  branchSources {
+                    branchSource {
+                      source {
+                        github {
+                          id(config.internalId)
+                          credentialsId("github-app-infra")
+                          configuredByUrl(true)
+                          repositoryUrl('https://github.com/' + config.GHOrganization + '/' + config.repository)
+                          repoOwner(config.GHOrganization)
+                          repository(config.repository)
+                          traits {
+                            gitHubBranchDiscovery {
+                              strategyId(1) // 1-only branches that are not pull requests
+                            }
+                            // Only Origin Pull Request
+                            gitHubPullRequestDiscovery {
+                              strategyId(1) // 1-Merging the pull request with the current target branch revision
+                            }
+                            pruneStaleBranchTrait()
+                            gitHubTagDiscovery()
+                            pullRequestLabelsBlackListFilterTrait {
+                              labels('on-hold ci-skip')
+                            }
+                            // Select branches and tags to build based on these filters
+                            headWildcardFilterWithPR {
+                              includes('main master PR-*') // only branches listed here
+                              excludes('')
+                              tagIncludes('*')
+                              tagExcludes('')
                             }
                           }
-                          buildStrategies {
-                            buildAnyBranches {
-                              strategies {
-                                buildChangeRequests {
-                                  ignoreTargetOnlyChanges(true)
-                                  ignoreUntrustedChanges(true)
-                                }
-                                buildRegularBranches()
-                                buildTags {
-                                  atLeastDays('-1')
-                                  atMostDays('3')
-                                }
+                        }
+                        buildStrategies {
+                          buildAnyBranches {
+                            strategies {
+                              buildChangeRequests {
+                                ignoreTargetOnlyChanges(true)
+                                ignoreUntrustedChanges(true)
+                              }
+                              buildRegularBranches()
+                              buildTags {
+                                atLeastDays('-1')
+                                atMostDays('3')
                               }
                             }
                           }
                         }
                       }
                     }
-                    factory {
-                      workflowBranchProjectFactory {
-                        scriptPath(config.jenkinsfilePath)
-                      }
+                  }
+                  factory {
+                    workflowBranchProjectFactory {
+                      scriptPath(config.jenkinsfilePath)
                     }
-                    orphanedItemStrategy {
-                      // Remove unused items as soon as possible
-                      discardOldItems {
-                        // Keep removed SCM heads/branch/PRs only for 1 day (not 0 days to be sure that jobs are all finished/timeouted when deleting)
-                        // Does not apply to the build history of kept branches(use Pipeline for that)
-                        daysToKeep(1)
-                      }
+                  }
+                  orphanedItemStrategy {
+                    // Remove unused items as soon as possible
+                    discardOldItems {
+                      // Keep removed SCM heads/branch/PRs only for 1 day (not 0 days to be sure that jobs are all finished/timeouted when deleting)
+                      // Does not apply to the build history of kept branches(use Pipeline for that)
+                      daysToKeep(1)
                     }
-                    configure { node ->
-                      def traits = node / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
-                      // Not discovered by Job-DSL: need to be configured as raw-XML
-                      traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
-                        strategyId(1) // 1-Merging the pull request with the current target branch revision
-                        trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
-                      }
+                  }
+                  configure { node ->
+                    def traits = node / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
+                    // Not discovered by Job-DSL: need to be configured as raw-XML
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                      strategyId(1) // 1-Merging the pull request with the current target branch revision
+                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
                     }
                   }
                 }
-        ldap-settings: |
-          jenkins:
-            securityRealm:
-              ldap:
-                configurations:
-                  - server: "${LDAP_SERVER}"
-                    rootDN: "${LDAP_ROOT_DN}"
-                    managerDN: "${LDAP_MANAGER_DN}"
-                    managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
-                    mailAddressAttributeName: "mail"
-                    userSearch: cn={0}
-                    userSearchBase: "ou=people"
-                    groupSearchBase: "ou=groups"
-                disableMailAddressResolver: false
-                groupIdStrategy: "caseInsensitive"
-                userIdStrategy: "caseInsensitive"
-                cache:
-                  size: 100
-                  ttl: 300
-        advisor-settings: |
-          jenkins:
-            disabledAdministrativeMonitors:
-              - com.cloudbees.jenkins.plugins.advisor.Reminder
-          advisor:
-            acceptToS: true
-            ccs:
-            - "damien.duportal@gmail.com"
-            email: "jenkins@oblak.com"
-            excludedComponents:
-              - "ItemsContent"
-              - "GCLogs"
-              - "Agents"
-              - "RootCAs"
-              - "SlaveLogs"
-              - "HeapUsageHistogram"
-            nagDisabled: true
-        pipeline-library: |
-          unclassified:
-            globalLibraries:
-              libraries:
-              - defaultVersion: "master"
-                implicit: true
-                name: "pipeline-library"
-                retriever:
-                  modernSCM:
-                    scm:
-                      git:
-                        id: "github-app-infra"
-                        remote: "https://github.com/jenkins-infra/pipeline-library.git"
-        matrix-settings: |
-          jenkins:
-            authorizationStrategy:
-              globalMatrix:
-                permissions:
-                  - "Overall/Administer:admins"
-                  - "Overall/SystemRead:authenticated"
-                  - "Overall/Read:authenticated"
-                  - "Job/Read:authenticated"
-                  - "Job/Build:authenticated"
-                  - "Job/ExtendedRead:authenticated"
-        system-settings: |
-          unclassified:
-            defaultFolderConfiguration:
-              # Keep healthMetrics an empty list to ensure weather is disabled
-              healthMetrics: []
-          jenkins:
-            disabledAdministrativeMonitors:
-              - "jenkins.security.QueueItemAuthenticatorMonitor"
-    sidecars:
-      configAutoReload:
-        env:
-          # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-          - name: METHOD
-            # Polling mode (instead of watching kube API)
-            value: "SLEEP"
-          # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-          - name: SLEEP_TIME
-            # Time in seconds between two polls
-            value: "60"
-    installPlugins: false
-    ingress:
-      enabled: true
-      hostName: infra.ci.jenkins.io
-      annotations:
-        "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-        "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-      ingressClassName: private-nginx
-      tls:
-        - hosts:
-            - infra.ci.jenkins.io
-          secretName: infra.ci.jenkins.io-cert
-    secondaryingress:
-      enabled: true
-      paths:
-        - /github-webhook
-      hostName: infra-webhooks.ci.jenkins.io
-      ingressClassName: public-nginx
-      annotations:
-        "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-        "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-      tls:
-        - hosts:
-            - infra-webhooks.ci.jenkins.io
-          secretName: infra-webhooks.ci.jenkins.io-cert
+              }
+      ldap-settings: |
+        jenkins:
+          securityRealm:
+            ldap:
+              configurations:
+                - server: "${LDAP_SERVER}"
+                  rootDN: "${LDAP_ROOT_DN}"
+                  managerDN: "${LDAP_MANAGER_DN}"
+                  managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                  mailAddressAttributeName: "mail"
+                  userSearch: cn={0}
+                  userSearchBase: "ou=people"
+                  groupSearchBase: "ou=groups"
+              disableMailAddressResolver: false
+              groupIdStrategy: "caseInsensitive"
+              userIdStrategy: "caseInsensitive"
+              cache:
+                size: 100
+                ttl: 300
+      advisor-settings: |
+        jenkins:
+          disabledAdministrativeMonitors:
+            - com.cloudbees.jenkins.plugins.advisor.Reminder
+        advisor:
+          acceptToS: true
+          ccs:
+          - "damien.duportal@gmail.com"
+          email: "jenkins@oblak.com"
+          excludedComponents:
+            - "ItemsContent"
+            - "GCLogs"
+            - "Agents"
+            - "RootCAs"
+            - "SlaveLogs"
+            - "HeapUsageHistogram"
+          nagDisabled: true
+      pipeline-library: |
+        unclassified:
+          globalLibraries:
+            libraries:
+            - defaultVersion: "master"
+              implicit: true
+              name: "pipeline-library"
+              retriever:
+                modernSCM:
+                  scm:
+                    git:
+                      id: "github-app-infra"
+                      remote: "https://github.com/jenkins-infra/pipeline-library.git"
+      matrix-settings: |
+        jenkins:
+          authorizationStrategy:
+            globalMatrix:
+              permissions:
+                - "Overall/Administer:admins"
+                - "Overall/SystemRead:authenticated"
+                - "Overall/Read:authenticated"
+                - "Job/Read:authenticated"
+                - "Job/Build:authenticated"
+                - "Job/ExtendedRead:authenticated"
+      system-settings: |
+        unclassified:
+          defaultFolderConfiguration:
+            # Keep healthMetrics an empty list to ensure weather is disabled
+            healthMetrics: []
+        jenkins:
+          disabledAdministrativeMonitors:
+            - "jenkins.security.QueueItemAuthenticatorMonitor"
+  sidecars:
+    configAutoReload:
+      env:
+        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+        - name: METHOD
+          # Polling mode (instead of watching kube API)
+          value: "SLEEP"
+        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+        - name: SLEEP_TIME
+          # Time in seconds between two polls
+          value: "60"
+  installPlugins: false
+  ingress:
+    enabled: true
+    hostName: infra.ci.jenkins.io
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+    ingressClassName: private-nginx
+    tls:
+      - hosts:
+          - infra.ci.jenkins.io
+        secretName: infra.ci.jenkins.io-cert
+  secondaryingress:
+    enabled: true
+    paths:
+      - /github-webhook
+    hostName: infra-webhooks.ci.jenkins.io
+    ingressClassName: public-nginx
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    tls:
+      - hosts:
+          - infra-webhooks.ci.jenkins.io
+        secretName: infra-webhooks.ci.jenkins.io-cert
