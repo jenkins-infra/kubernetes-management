@@ -70,6 +70,6 @@ Once the pull request has been merged, changes will automatically be applied.
 
 ## Support Channels
 
-Whether you are a user or contributor, official support channels is IRC, [freenode#jenkins-infra](https://www.jenkins.io/chat/#jenkins-infra)
+Whether you are a user or contributor, you can contact us through the [chat channels](https://www.jenkins.io/chat/#jenkins-infra) or through the [community forum](https://community.jenkins.io/).
 
 Before opening a new issue or submitting a new pull request, it's helpful to search the project - it's likely that another user has already reported the issue you're facing, or it's a known issue that we're already aware of.
