@@ -1,7 +1,7 @@
 title: Bump datadog helm chart
 pipelineID: bumpdatadoghelmchart
 sources:
-  default:
+  chartLastVersion:
     kind: helmChart
     spec:
       url: https://helm.datadoghq.com
@@ -13,13 +13,30 @@ conditions:
     spec:
       url: https://helm.datadoghq.com
       name: datadog
-  helmfileRelease:
-    name: "stable/datadog Helm Chart"
+  # helmfileRelease:
+  #   name: "stable/datadog Helm Chart"
+  #   kind: yaml
+  #   spec:
+  #     file: "helmfile.d/datadog.yaml"
+  #     key: "releases[0].name"
+  #     value: "datadog"
+  #   scm:
+  #     github:
+  #       user: "{{ .github.user }}"
+  #       email: "{{ .github.email }}"
+  #       owner: "{{ .github.owner }}"
+  #       repository: "{{ .github.repository }}"
+  #       token: "{{ requiredEnv .github.token }}"
+  #       username: "{{ .github.username }}"
+  #       branch: "{{ .github.branch }}"
+targets:
+  publicChartVersion:
+    name: "Datadog Helm Chart"
     kind: yaml
     spec:
-      file: "helmfile.d/datadog.yaml"
-      key: "releases[0].name"
-      value: "datadog"
+      file: cluster/publick8s.yaml
+      matchPattern: 'chart: datadog\/datadog(\r\n|\r|\n)\s+version: .*'
+      replacePattern: 'chart: datadog/datadog$1version: {{ source `chartLastVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
@@ -29,13 +46,13 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-targets:
-  chartVersion:
+  ciChartVersion:
     name: "Datadog Helm Chart"
     kind: yaml
     spec:
-      file: "helmfile.d/datadog.yaml"
-      key: "releases[0].version"
+      file: cluster/cik8s.yaml
+      matchPattern: 'chart: datadog\/datadog(\r\n|\r|\n)\s+version: .*'
+      replacePattern: 'chart: datadog/datadog$1version: {{ source `chartLastVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
