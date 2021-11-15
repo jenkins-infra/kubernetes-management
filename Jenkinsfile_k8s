@@ -86,7 +86,7 @@ pipeline {
               when { changeRequest() }
               steps {
                 script {
-                  def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2', returnStdout: true).trim()
+                  def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2 --concurrency=8', returnStdout: true).trim()
                   // Note the GitHub markdown formatting for the diff, to have syntax coloration
                   publishChecks name: "helmfile-diff-${K8S_CLUSTER}", title: "Helmfile Diff for cluster ${K8S_CLUSTER}", text: '```diff\n' + diff + '\n```'
                 }
@@ -95,7 +95,7 @@ pipeline {
             stage('Apply'){
               when { branch 'main' }
               steps {
-                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets'
+                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
               }
             } // stage
           } // stages
@@ -152,7 +152,7 @@ pipeline {
               when { changeRequest() }
               steps {
                 script {
-                  def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2', returnStdout: true).trim()
+                  def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2 --concurrency=8', returnStdout: true).trim()
                   // Note the GitHub markdown formatting for the diff, to have syntax coloration
                   publishChecks name: "helmfile-diff-${K8S_CLUSTER}", title: "Helmfile Diff for cluster ${K8S_CLUSTER}", text: '```diff\n' + diff + '\n```'
                 }
@@ -161,7 +161,7 @@ pipeline {
             stage('Apply'){
               when { branch 'main' }
               steps {
-                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets'
+                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
               }
             } // stage
           } // stages
