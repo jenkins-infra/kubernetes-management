@@ -1,7 +1,7 @@
 ---
 title: "Bump Account App Helm Chart Version"
 sources:
-  default:
+  chartLastVersion:
     kind: helmChart
     spec:
       url: https://jenkins-infra.github.io/public-charts
@@ -11,8 +11,9 @@ targets:
     name: "Update the chart version for chatbot"
     kind: yaml
     spec:
-      file: helmfile.d/chatbot.yaml
-      key: releases[0].version
+      file: cluster/publick8s.yaml
+      matchPattern: 'chart: jenkins-infra\/chatbot(\r\n|\r|\n)\s+version: .*'
+      replacePattern: 'chart: jenkins-infra/chatbot$1version: {{ source `chartLastVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
