@@ -17,9 +17,7 @@ Any issues can be reported on our [ticket system](https://issues.jenkins-ci.org/
 
 This project contains the following main directories:
 
-* `clusters`: This folder contains the per-cluster helmfile listing, e.g the list of helmfiles to apply per cluster
-* `helmfile.d`: This folder contains the [Helmfile](https://github.com/roboll/helmfile) definitions
-* `charts`: This folder contains specific jenkins infrastructure helm charts
+* `clusters`: This folder contains the per-cluster [helmfiles](https://github.com/roboll/helmfile) with the releases to apply per cluster
 * `config`: This folder contains the specific configuration for our environments
 
 ## Secrets

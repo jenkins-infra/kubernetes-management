@@ -1,29 +1,262 @@
-helmfiles:
-  # ! Order matter
-  - path: "../helmfile.d/datadog.yaml"
+helmDefaults:
+  atomic: true
+  force: false
+  timeout: 300
+  wait: true
+repositories:
+  - name: codecentric
+    url: https://codecentric.github.io/helm-charts
+  - name: datadog
+    url: https://helm.datadoghq.com
+  - name: falco
+    url: https://falcosecurity.github.io/charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: jenkins
+    url: https://charts.jenkins.io
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/public-charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: traefik
+    url: https://helm.traefik.io/traefik
+releases:
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 2.23.4
+    timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
-      - "../../config/publick8s-datadog.yaml"
-  - path: "../helmfile.d/nginx-ingress.yaml"
-  - path: "../helmfile.d/traefik.yaml"
-  - path: "../helmfile.d/prometheus.yaml"
-  - path: "../helmfile.d/cert-manager.yaml"
-  - path: "../helmfile.d/falco.yaml"
-  - path: "../helmfile.d/loki.yaml"
-  - path: "../helmfile.d/promtail.yaml"
-  - path: "../helmfile.d/grafana.yaml"
-  - path: "../helmfile.d/jenkins-wiki-exporter.yaml"
-  - path: "../helmfile.d/plugin-site.yaml"
-  - path: "../helmfile.d/chatbot.yaml"
-  - path: "../helmfile.d/reports.yaml"
-  - path: "../helmfile.d/jenkinsio.yaml"
-  - path: "../helmfile.d/javadoc.yaml"
-  - path: "../helmfile.d/accountapp.yaml"
-  - path: "../helmfile.d/ldap.yaml"
-  - path: "../helmfile.d/uplink.yaml"
-  - path: "../helmfile.d/mirrorbits.yaml"
-  - path: "../helmfile.d/jenkins-infra.yaml"
-  - path: "../helmfile.d/jenkins-release.yaml"
-  - path: "../helmfile.d/custom-distribution-site.yaml"
-  - path: "../helmfile.d/incrementals-publisher.yaml"
-  - path: "../helmfile.d/keycloak.yaml"
-  - path: "../helmfile.d/wiki.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/publick8s-datadog.yaml"
+    secrets:
+      - "../secrets/config/datadog/secrets.yaml"
+  - name: public-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    namespace: public-nginx-ingress
+    version: 4.0.6
+    values:
+      - "../config/public-nginx-ingress.yaml"
+  - name: private-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    namespace: private-nginx-ingress
+    version: 4.0.6
+    values:
+      - "../config/private-nginx-ingress.yaml"
+  - name: public-traefik
+    chart: traefik/traefik
+    namespace: public-traefik
+    version: 10.6.1
+    values:
+      - "../config/traefik.yaml"
+      - "../config/public-traefik.yaml"
+  - name: private-traefik
+    chart: traefik/traefik
+    namespace: private-traefik
+    version: 10.6.1
+    values:
+      - "../config/traefik.yaml"
+      - "../config/private-traefik.yaml"
+  - name: prometheus
+    namespace: prometheus
+    chart: prometheus-community/prometheus
+    version: 14.11.1
+    atomic: false
+    values:
+      - "../config/prometheus.yaml"
+  - name: cert-manager
+    chart: jetstack/cert-manager
+    namespace: cert-manager
+    version: v1.6.1
+    set:
+      - name: installCRDs
+        value: true
+  - name: acme
+    chart: jenkins-infra/acme
+    version: 0.1.1
+    namespace: cert-manager
+    needs:
+    - cert-manager
+    values:
+      - "../config/cert-manager.yaml"
+    secrets:
+      - "../secrets/config/acme/secrets.yaml"
+  - name: falco
+    namespace: falco
+    chart: falco/falco
+    version: 1.16.0
+    values:
+      - "../config/falco.yaml"
+  - name: loki
+    namespace: loki
+    chart: grafana/loki
+    version: 2.8.1
+    values:
+      - "../config/loki.yaml"
+  - name: promtail
+    namespace: loki
+    chart: grafana/promtail
+    version: 3.9.0
+    values:
+      - "../config/promtail.yaml"
+  - name: grafana
+    namespace: grafana
+    chart: grafana/grafana
+    version: "6.17.5"
+    values:
+      - "../config/grafana.yaml"
+    secrets:
+      - "../secrets/config/grafana/secrets.yaml"
+  - name: jenkins-wiki-exporter
+    namespace: jenkins-wiki-exporter
+    chart: jenkins-infra/jenkins-wiki-exporter
+    version: 0.5.0
+    values:
+      - "../config/jenkins-wiki-exporter.yaml"
+    secrets:
+      - "../secrets/config/jenkins-wiki-exporter/secrets.yaml"
+  - name: plugin-site
+    namespace: plugin-site
+    chart: jenkins-infra/plugin-site
+    version: 0.0.3
+    values:
+      - "../config/plugin-site.yaml"
+    secrets:
+      - "../secrets/config/plugin-site/secrets.yaml"
+  - name: chatbot
+    namespace: chatbot
+    chart: jenkins-infra/chatbot
+    version: 0.0.2
+    values:
+      - "../config/chatbot.yaml"
+    secrets:
+      - "../secrets/config/chatbot/secrets.yaml"
+  - name: reports
+    namespace: reports
+    chart: jenkins-infra/reports
+    version: 0.0.1
+    values:
+      - "../config/reports.yaml"
+    secrets:
+      - "../secrets/config/reports/secrets.yaml"
+  - name: jenkinsio
+    namespace: jenkinsio
+    chart: jenkins-infra/jenkinsio
+    version: 0.0.23
+    values:
+      - "../config/jenkinsio.yaml"
+    secrets:
+      - "../secrets/config/jenkinsio/secrets.yaml"
+  - name: javadoc
+    namespace: javadoc
+    chart: jenkins-infra/javadoc
+    version: 0.0.1
+    values:
+      - "../config/javadoc.yaml"
+    secrets:
+      - "../secrets/config/javadoc/secrets.yaml"
+  - name: accountapp
+    namespace: accountapp
+    chart: jenkins-infra/accountapp
+    version: 0.0.1
+    values:
+      - "../config/accountapp.yaml"
+    secrets:
+      - "../secrets/config/accountapp/secrets.yaml"
+  - name: ldap
+    namespace: ldap
+    chart: jenkins-infra/ldap
+    version: 0.1.1
+    timeout: 600
+    values:
+      - "../config/ldap.yaml"
+    secrets:
+      - "../secrets/config/ldap/secrets.yaml"
+  - name: uplink
+    namespace: uplink
+    chart: jenkins-infra/uplink
+    version: 0.1.0
+    timeout: 600
+    values:
+      - "../config/uplink.yaml"
+    secrets:
+      - "../secrets/config/uplink/secrets.yaml"
+  - name: mirrorbits
+    namespace: mirrorbits
+    chart: jenkins-infra/mirrorbits
+    version: 0.2.0
+    timeout: 600
+    atomic: false
+    values:
+      - "../config/mirrorbits.yaml"
+    secrets:
+      - "../secrets/config/mirrorbits/secrets.yaml"
+  - name: jenkins-infra
+    chart: jenkins-infra/jenkins
+    version: 0.55.0
+    namespace: jenkins-infra
+    values:
+      - "../config/jenkins-infra.yaml"
+    secrets:
+      - "../secrets/config/jenkins-infra/jenkins.yaml"
+    set:
+      - name: namespace
+        value: jenkins-infra
+  - name: default-release-jenkins-env
+    chart: jenkins-infra/env-jenkins-release
+    version: 0.1.1
+    namespace: release
+    secrets:
+      - ../secrets/config/release/env-jenkins/secrets.yaml
+  - name: default-release-jenkins
+    chart: jenkins-infra/jenkins
+    version: 0.55.0
+    namespace: release
+    timeout: 600
+    values:
+    - ../config/jenkins-release.yaml
+    secrets:
+      - ../secrets/config/release/jenkins/secrets.yaml
+    set:
+      - name: namespace
+        value: release
+  - name: custom-distribution-service
+    namespace: custom-distribution-service
+    chart: jenkins-infra/custom-distribution-service
+    version: 0.3.0
+    values:
+      - "../config/custom-distribution-service.yaml"
+  - name: incrementals-publisher
+    namespace: incrementals-publisher
+    chart: jenkins-infra/incrementals-publisher
+    version: 0.3.0
+    values:
+        - "../config/incrementals-publisher.yaml"
+    secrets:
+        - "../secrets/config/incrementals-publisher/secrets.yaml"
+  - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
+    namespace: keycloak
+    chart: codecentric/keycloak
+    version: "15.1.0"
+    timeout: 600
+    values:
+      - "../config/keycloak.yaml"
+    secrets:
+      - "../secrets/config/keycloak/secrets.yaml"
+  - name: keycloak-public # User: https://admin.accounts.jenkins.io/auth/realms/jenkins/account
+    namespace: keycloak
+    chart: jenkins-infra/keycloak
+    version: 0.1.1
+    timeout: 150
+    values:
+      - "../config/keycloak-public.yaml"
+  - name: wiki
+    namespace: wiki
+    chart: jenkins-infra/wiki
+    version: 0.3.0
+    values:
+      - "../config/wiki.yaml"
