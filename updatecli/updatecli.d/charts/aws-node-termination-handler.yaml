@@ -26,7 +26,7 @@ targets:
     spec:
       file: cluster/cik8s.yaml
       matchPattern: 'chart: eks\/aws-node-termination-handler(\r\n|\r|\n)\s+version: .*'
-      replacePattern: 'chart: eks/aws-node-termination-handler$1version: {{ source `chartLastVersion` }}'
+      replacePattern: 'chart: eks/aws-node-termination-handler$1version: {{ source `default` }}'
     scm:
       github:
         user: "{{ .github.user }}"
