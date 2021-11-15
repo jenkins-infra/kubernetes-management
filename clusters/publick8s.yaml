@@ -77,7 +77,7 @@ releases:
         value: true
   - name: acme
     chart: jenkins-infra/acme
-    version: 0.1.1
+    version: 0.1.2
     namespace: cert-manager
     needs:
     - cert-manager
@@ -130,7 +130,7 @@ releases:
   - name: chatbot
     namespace: chatbot
     chart: jenkins-infra/chatbot
-    version: 0.0.2
+    version: 0.1.0
     values:
       - "../config/chatbot.yaml"
     secrets:
@@ -162,7 +162,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.0.1
+    version: 0.1.0
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -217,13 +217,19 @@ releases:
     version: 3.8.8
     namespace: release
     timeout: 600
-    values:
-    - ../config/jenkins-release.yaml
-    secrets:
-      - ../secrets/config/release/jenkins/secrets.yaml
     set:
       - name: namespace
         value: release
+    values:
+    - ../config/jenkins-release.yaml
+  - name: jenkins-infra-additional
+    chart: jenkins-infra/jenkins-additional
+    version: 0.0.1
+    namespace: jenkins-infra
+    values:
+    - ../config/jenkins-infra-additional.yaml
+    secrets:
+      - "../secrets/config/jenkins-infra/jenkins.yaml"
   - name: default-release-jenkins-env
     chart: jenkins-infra/env-jenkins-release
     version: 0.1.1
