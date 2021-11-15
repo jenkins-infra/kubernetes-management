@@ -26,7 +26,7 @@ sources:
 targets:
   chartVersion:
     name: "grafana/loki Helm Chart"
-    kind: yaml
+    kind: file
     spec:
       file: cluster/publick8s.yaml
       matchPattern: 'chart: grafana\/loki(\r\n|\r|\n)\s+version: .*'

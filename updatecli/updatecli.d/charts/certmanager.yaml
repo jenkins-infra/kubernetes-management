@@ -9,7 +9,7 @@ sources:
 targets:
   updateChartVersion:
     name: "jetstack/cert-manager Helm Chart"
-    kind: yaml
+    kind: file
     spec:
       file: cluster/publick8s.yaml
       matchPattern: 'chart: jetstack\/cert-manager(\r\n|\r|\n)\s+version: .*'

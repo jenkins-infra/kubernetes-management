@@ -32,7 +32,7 @@ conditions:
 targets:
   publicChartVersion:
     name: "Datadog Helm Chart"
-    kind: yaml
+    kind: file
     spec:
       file: cluster/publick8s.yaml
       matchPattern: 'chart: datadog\/datadog(\r\n|\r|\n)\s+version: .*'
@@ -48,7 +48,7 @@ targets:
         branch: "{{ .github.branch }}"
   ciChartVersion:
     name: "Datadog Helm Chart"
-    kind: yaml
+    kind: file
     spec:
       file: cluster/cik8s.yaml
       matchPattern: 'chart: datadog\/datadog(\r\n|\r|\n)\s+version: .*'

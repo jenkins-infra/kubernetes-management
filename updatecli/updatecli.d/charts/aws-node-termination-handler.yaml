@@ -22,7 +22,7 @@ conditions:
 targets:
   chartVersion:
     name: "eks/aws-node-termination-handler Helm Chart"
-    kind: yaml
+    kind: file
     spec:
       file: cluster/cik8s.yaml
       matchPattern: 'chart: eks\/aws-node-termination-handler(\r\n|\r|\n)\s+version: .*'

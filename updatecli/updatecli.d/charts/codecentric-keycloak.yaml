@@ -32,7 +32,7 @@ conditions:
 targets:
   chartVersion:
     name: "codecentric/keycloak Helm Chart"
-    kind: yaml
+    kind: file
     spec:
       file: cluster/publick8s.yaml
       matchPattern: 'chart: codecentric\/keycloak(\r\n|\r|\n)\s+version: .*'

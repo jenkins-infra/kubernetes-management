@@ -22,7 +22,7 @@ conditions:
 targets:
   chartVersion:
     name: "autoscaler/cluster-autoscaler Helm Chart"
-    kind: yaml
+    kind: file
     spec:
       file: cluster/cik8s.yaml
       matchPattern: 'chart: autoscaler\/cluster-autoscaler(\r\n|\r|\n)\s+version: .*'
