@@ -1,7 +1,6 @@
----
 title: "Bump LDAP Helm Chart Version"
 sources:
-  default:
+  lastChartVersion:
     kind: helmChart
     spec:
       url: https://jenkins-infra.github.io/public-charts
@@ -9,10 +8,11 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for ldap"
-    kind: yaml
+    kind: file
     spec:
-      file: helmfile.d/ldap.yaml
-      key: releases[0].version
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: jenkins-infra\/ldap((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/ldap${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"

@@ -1,25 +1,18 @@
 title: Bump datadog helm chart
-pipelineID: bumpdatadoghelmchart
 sources:
-  default:
+  lastChartVersion:
     kind: helmChart
     spec:
       url: https://helm.datadoghq.com
       name: datadog
-conditions:
-  exist:
-    name: "Datadog helm chart available on Registry"
-    kind: helmChart
+targets:
+  publicChartVersion:
+    name: "Datadog Helm Chart"
+    kind: file
     spec:
-      url: https://helm.datadoghq.com
-      name: datadog
-  helmfileRelease:
-    name: "stable/datadog Helm Chart"
-    kind: yaml
-    spec:
-      file: "helmfile.d/datadog.yaml"
-      key: "releases[0].name"
-      value: "datadog"
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
@@ -29,13 +22,13 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-targets:
-  chartVersion:
+  ciChartVersion:
     name: "Datadog Helm Chart"
-    kind: yaml
+    kind: file
     spec:
-      file: "helmfile.d/datadog.yaml"
-      key: "releases[0].version"
+      file: clusters/cik8s.yaml
+      matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"

@@ -1,41 +1,18 @@
 title: Bump falco helm chart version
-pipelineID: bumpfalcohelmchart
 sources:
-  default:
+  lastChartVersion:
     kind: helmChart
     spec:
       url: https://falcosecurity.github.io/charts
       name: falco
-conditions:
-  exist:
-    name: "Falco helm chart available on Registry"
-    kind: helmChart
-    spec:
-      url: https://falcosecurity.github.io/charts
-      name: falco
-  helmfileRelease:
-    name: "falco/falco Helm Chart"
-    kind: yaml
-    spec:
-      file: "helmfile.d/falco.yaml"
-      key: "releases[0].name"
-      value: "falco"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
 targets:
-  chartVersion:
+  updateChartVersion:
     name: "falco/falco Helm Chart"
-    kind: yaml
+    kind: file
     spec:
-      file: "helmfile.d/falco.yaml"
-      key: "releases[0].version"
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: falco\/falco((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: falco/falco${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"

@@ -1,18 +1,18 @@
-title: Bump grafana helm chart version
+title: "Bump Jenkins Kubernetes Agents Helm Chart Version"
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
-      url: https://grafana.github.io/helm-charts
-      name: grafana
+      url: https://jenkins-infra.github.io/public-charts
+      name: jenkins-kubernetes-agents
 targets:
   updateChartVersion:
-    name: "grafana/grafana Helm Chart"
+    name: "Update the chart version for jenkins kubernetes agent"
     kind: file
     spec:
       file: clusters/publick8s.yaml
-      matchPattern: 'chart: grafana\/grafana((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: grafana/grafana${1}version: {{ source `lastChartVersion` }}'
+      matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"

@@ -1,7 +1,6 @@
----
 title: Bump cert-manager helm chart version
 sources:
-  default:
+  lastChartVersion:
     kind: helmChart
     spec:
       url: https://charts.jetstack.io
@@ -9,11 +8,11 @@ sources:
 targets:
   updateChartVersion:
     name: "jetstack/cert-manager Helm Chart"
-    kind: yaml
+    kind: file
     spec:
-      # There are 2 releases in this helmfile
-      file: "helmfile.d/cert-manager.yaml"
-      key: "releases[0].version"
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
