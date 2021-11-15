@@ -1,7 +1,7 @@
 title: Bump keycloak helm chart version
 pipelineID: codecentric-keycloak
 sources:
-  default:
+  chartLastVersion:
     kind: helmChart
     spec:
       url: https://codecentric.github.io/helm-charts
@@ -13,29 +13,30 @@ conditions:
     spec:
       url: https://codecentric.github.io/helm-charts
       name: keycloak
-  helmfileRelease:
-    name: "codecentric/keycloak Helm Chart"
-    kind: yaml
-    spec:
-      file: "helmfile.d/keycloak.yaml"
-      key: "releases[0].name"
-      value: "keycloak"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+  # helmfileRelease:
+  #   name: "codecentric/keycloak Helm Chart"
+  #   kind: yaml
+  #   spec:
+  #     file: "helmfile.d/keycloak.yaml"
+  #     key: "releases[0].name"
+  #     value: "keycloak"
+  #   scm:
+  #     github:
+  #       user: "{{ .github.user }}"
+  #       email: "{{ .github.email }}"
+  #       owner: "{{ .github.owner }}"
+  #       repository: "{{ .github.repository }}"
+  #       token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
+  #       username: "{{ .github.username }}"
+  #       branch: "{{ .github.branch }}"
 targets:
   chartVersion:
     name: "codecentric/keycloak Helm Chart"
     kind: yaml
     spec:
-      file: "helmfile.d/keycloak.yaml"
-      key: "releases[0].version"
+      file: cluster/publick8s.yaml
+      matchPattern: 'chart: codecentric\/keycloak(\r\n|\r|\n)\s+version: .*'
+      replacePattern: 'chart: codecentric/keycloak$1version: {{ source `chartLastVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
