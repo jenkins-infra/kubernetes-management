@@ -12,6 +12,7 @@ datadog:
   logs:
     enabled: true
     configContainerCollectAll: true
+  {{- if .Values }}
   {{- if hasKey .Values.datadog "kubelet" }}
   kubelet:
     host:
@@ -21,6 +22,7 @@ datadog:
     {{- if hasKey .Values.datadog.kubelet "hostCAPath" }}
     hostCAPath: {{ .Values | get "datadog.kubelet.hostCAPath" nil }}
     {{- end }}
+  {{- end }}
   {{- end }}
 agents:
   rbac:

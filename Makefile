@@ -7,19 +7,16 @@ init:
 	helm init --service-account tiller
 
 lint:
-	helmfile -f helmfile.d lint
+	helmfile -f clusters lint
 
 apply:
-	helmfile -f helmfile.d apply --suppress-secrets
+	helmfile -f clusters apply --suppress-secrets
 
 delete:
-	helmfile -f helmfile.d delete --purge
+	helmfile -f clusters delete --purge
 
 diff:
-	helmfile -f helmfile.d diff --suppress-secrets
-
-release:
-	helmfile -f helmfile.d/release.yaml apply --suppress-secrets
+	helmfile -f clusters diff --suppress-secrets
 
 yamllint:
 	yamllint --config-file yamllint.config config/

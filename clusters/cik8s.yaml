@@ -1,8 +1,41 @@
-helmfiles:
-  # ! Order matter
-  - path: "../helmfile.d/datadog.yaml"
+helmDefaults:
+  atomic: true
+  force: false
+  timeout: 300
+  wait: true
+repositories:
+  - name: autoscaler
+    url: https://kubernetes.github.io/autoscaler
+  - name: datadog
+    url: https://helm.datadoghq.com
+  - name: eks
+    url: https://aws.github.io/eks-charts
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/public-charts
+releases:
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 2.23.4
+    timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
-      - "../../config/cik8s-datadog.yaml"
-  - path: "../helmfile.d/jenkins-agents.yaml"
-  - path: "../helmfile.d/autoscaler.yaml"
-  - path: "../helmfile.d/aws-node-termination-handler.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/cik8s-datadog.yaml"
+    secrets:
+      - "../secrets/config/datadog/secrets.yaml"
+  - name: jenkins-agents
+    namespace: jenkins-agents
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 0.1.1
+  - name: autoscaler
+    namespace: autoscaler
+    chart: autoscaler/cluster-autoscaler
+    version: 9.10.8
+    values:
+      - "../config/autoscaler.yaml"
+  - name: aws-node-termination-handler
+    namespace: eks
+    chart: eks/aws-node-termination-handler
+    version: 0.16.0
+    values:
+      - "../config/aws-node-termination-handler.yaml"
