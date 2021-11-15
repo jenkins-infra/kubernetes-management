@@ -1,7 +1,6 @@
----
 title: "Bump Custom Distribution Service Helm Chart Version"
 sources:
-  chartLastVersion:
+  lastChartVersion:
     kind: helmChart
     spec:
       url: https://jenkins-infra.github.io/public-charts
@@ -11,9 +10,9 @@ targets:
     name: "Update the chart version for custom-distribution-service"
     kind: file
     spec:
-      file: cluster/publick8s.yaml
-      matchPattern: 'chart: jenkins-infra\/custom-distribution-service(\r\n|\r|\n)\s+version: .*'
-      replacePattern: 'chart: jenkins-infra/custom-distribution-service$1version: {{ source `chartLastVersion` }}'
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: jenkins-infra\/custom-distribution-service((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/custom-distribution-service${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"

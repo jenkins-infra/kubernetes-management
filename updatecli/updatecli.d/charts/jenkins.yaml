@@ -1,18 +1,18 @@
-title: Bump grafana helm chart version
+title: Bump Jenkins Upstream Helm Charts 
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
-      url: https://grafana.github.io/helm-charts
-      name: grafana
+      url: https://charts.jenkins.io
+      name: jenkins
 targets:
   updateChartVersion:
-    name: "grafana/grafana Helm Chart"
+    name: "jenkinsci/jenkins Helm Chart"
     kind: file
     spec:
       file: clusters/publick8s.yaml
-      matchPattern: 'chart: grafana\/grafana((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: grafana/grafana${1}version: {{ source `lastChartVersion` }}'
+      matchPattern: 'chart: jenkins\/jenkins((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins/jenkins${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"

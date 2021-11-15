@@ -1,18 +1,19 @@
-title: Bump grafana helm chart version
+title: Bump nginx-ingress helm chart
 sources:
   lastChartVersion:
+    name: "Retrieve latest version of the chart ingress-nginx"
     kind: helmChart
     spec:
-      url: https://grafana.github.io/helm-charts
-      name: grafana
+      url: https://kubernetes.github.io/ingress-nginx
+      name: ingress-nginx
 targets:
   updateChartVersion:
-    name: "grafana/grafana Helm Chart"
+    name: "Update the version of the Helm chart ingress-nginx for public-ingress"
     kind: file
     spec:
       file: clusters/publick8s.yaml
-      matchPattern: 'chart: grafana\/grafana((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: grafana/grafana${1}version: {{ source `lastChartVersion` }}'
+      matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"

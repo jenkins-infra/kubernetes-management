@@ -1,32 +1,18 @@
 title: Bump autoscaler helm chart version
 sources:
-  chartLastVersion:
+  lastChartVersion:
     kind: helmChart
     spec:
       url: https://kubernetes.github.io/autoscaler
       name: cluster-autoscaler
-conditions:
-  exist:
-    name: "Autoscaler helm chart available on Registry"
-    kind: helmChart
-    spec:
-      url: https://kubernetes.github.io/autoscaler
-      name: cluster-autoscaler
-  # helmfileRelease:
-  #   name: "autoscaler/cluster-autoscaler Helm Chart"
-  #   kind: yaml
-  #   spec:
-  #     file: "helmfile.d/autoscaler.yaml"
-  #     key: "releases[0].name"
-  #     value: "autoscaler"
 targets:
-  chartVersion:
+  updateChartVersion:
     name: "autoscaler/cluster-autoscaler Helm Chart"
     kind: file
     spec:
-      file: cluster/cik8s.yaml
-      matchPattern: 'chart: autoscaler\/cluster-autoscaler(\r\n|\r|\n)\s+version: .*'
-      replacePattern: 'chart: autoscaler/cluster-autoscaler$1version: {{ source `chartLastVersion` }}'
+      file: clusters/cik8s.yaml
+      matchPattern: 'chart: autoscaler\/cluster-autoscaler((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: autoscaler/cluster-autoscaler${1}version: {{ source `lastChartVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
