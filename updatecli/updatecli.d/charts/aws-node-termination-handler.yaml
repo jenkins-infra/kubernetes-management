@@ -12,20 +12,21 @@ conditions:
     spec:
       url: https://aws.github.io/eks-charts
       name: aws-node-termination-handler
-  helmfileRelease:
-    name: "eks/aws-node-termination-handler Helm Chart"
-    kind: yaml
-    spec:
-      file: "helmfile.d/aws-node-termination-handler.yaml"
-      key: "releases[0].name"
-      value: "aws-node-termination-handler"
+  # helmfileRelease:
+  #   name: "eks/aws-node-termination-handler Helm Chart"
+  #   kind: yaml
+  #   spec:
+  #     file: "helmfile.d/aws-node-termination-handler.yaml"
+  #     key: "releases[0].name"
+  #     value: "aws-node-termination-handler"
 targets:
   chartVersion:
     name: "eks/aws-node-termination-handler Helm Chart"
     kind: yaml
     spec:
-      file: "helmfile.d/aws-node-termination-handler.yaml"
-      key: "releases[0].version"
+      file: cluster/cik8s.yaml
+      matchPattern: 'chart: eks\/aws-node-termination-handler(\r\n|\r|\n)\s+version: .*'
+      replacePattern: 'chart: eks/aws-node-termination-handler$1version: {{ source `chartLastVersion` }}'
     scm:
       github:
         user: "{{ .github.user }}"
