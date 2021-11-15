@@ -225,11 +225,11 @@ releases:
   - name: jenkins-infra-additional
     chart: jenkins-infra/jenkins-additional
     version: 0.0.1
-    namespace: jenkins-infra
+    namespace: release
     values:
     - ../config/jenkins-infra-additional.yaml
     secrets:
-      - "../secrets/config/jenkins-infra/jenkins.yaml"
+      - "../secrets/config/release/jenkins/secrets.yaml"
   - name: default-release-jenkins-env
     chart: jenkins-infra/env-jenkins-release
     version: 0.1.1
