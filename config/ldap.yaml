@@ -26,5 +26,5 @@ image:
     pullPolicy: IfNotPresent
   crond:
     repository: jenkinsciinfra/ldap@sha256
-    tag: b09c185152f74396841043b64ecb420076c9816e62d6df68c5bbc42785b4b64b
+    tag: e487b740bf6976d6671ae16b818d65cfc841138b3f338fec494030033f161399
     pullPolicy: IfNotPresent
