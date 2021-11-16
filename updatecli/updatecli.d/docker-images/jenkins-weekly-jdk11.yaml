@@ -21,8 +21,8 @@ targets:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
     kind: yaml
     spec:
-      file: "charts/jenkins/values.yaml"
-      key: "jenkins.controller.tag"
+      file: "config/jenkins-release.yaml"
+      key: "controller.tag"
     scm:
       github:
         user: "{{ .github.user }}"
