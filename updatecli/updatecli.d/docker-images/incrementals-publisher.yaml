@@ -14,7 +14,7 @@ sources:
         kind: latest
 conditions:
   checkDockerImagePublished:
-    name: "Test if jenkinsciinfra/incrementals-publish docker image is published"
+    name: "Test if jenkinsciinfra/incrementals-publisher docker image is published"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/incrementals-publisher"
