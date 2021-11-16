@@ -1,7 +1,7 @@
 ---
 title: "Bump Custom Distribution Service"
 sources:
-  default:
+  latestRelease:
     name: Get latest jenkinsci/custom-distribution-service version
     kind: githubRelease
     spec:
@@ -12,13 +12,13 @@ sources:
       versionFilter:
         kind: latest
 conditions:
-  docker:
+  checkDockerImagePublished:
     name: "Is latest jenkinsciinfra/custom-distribution-service docker image published"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/custom-distribution-service"
 targets:
-  appVersion:
+  updateReleaseInConfig:
     name: "Update the tag of the Docker image for custom-distribution-service"
     kind: yaml
     spec:
