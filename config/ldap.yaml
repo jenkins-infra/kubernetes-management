@@ -22,7 +22,7 @@ service:
 image:
   slapd:
     repository: jenkinsciinfra/ldap@sha256
-    tag: 5d64fd6d0275641815729ac0d9761ed07ba83330044a4b688ce64039c3972376
+    tag: 0983e3996797cdadd242f189ad981d42e16ad97c0545c198b25f81955f407354
     pullPolicy: IfNotPresent
   crond:
     repository: jenkinsciinfra/ldap@sha256
