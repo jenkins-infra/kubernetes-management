@@ -1,20 +1,32 @@
 title: Bump nginx:stable docker image digest
-pipelineID: nginxdockerdigest
 sources:
   default:
-    kind: dockerDigest
-    name: Get nginx:stable docker image digest
+    kind: githubRelease
+    name: Get latest nginx/nginx version
+    # We should retrieve only the minor even version to get the stable, but it requires an updatecli fix on its regexp parser, adding unwanted backslashes
     spec:
-      image: "nginx"
-      tag: "stable"
-conditions:
-  ENJenkinsio:
+      owner: nginx
+      repository: nginx
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      versionFilter:
+        kind: latest
+    # problem with nginxinc/docker-nginx repository: all tags aren't present in its releases
+    # spec:
+    #   owner: "nginxinc"
+    #   repository: "docker-nginx"
+    #   token: "{{ requiredEnv .github.token }}"
+    #   username: "{{ .github.username }}"
+    #   versionFilter:
+    #     kind: regexp
+    #     pattern: '(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
+targets:
+  updateENJenkinsio:
     name: "Update nginx:stable docker image digest for jenkins.io"
     kind: yaml
     spec:
-      file: charts/jenkinsio/values.yaml
-      key: images.en.repository
-      value: nginx@sha256
+      file: config/jenkinsio.yaml
+      key: image.en.tag
     scm:
       github:
         user: "{{ .github.user }}"
@@ -24,13 +36,12 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-  ZHJenkinsio:
+  updateZHJenkinsio:
     name: "Update nginx:stable docker image digest for jenkins.io/zh"
     kind: yaml
     spec:
-      file: charts/jenkinsio/values.yaml
-      key: images.zh.repository
-      value: nginx@sha256
+      file: config/jenkinsio.yaml
+      key: image.zh.tag
     scm:
       github:
         user: "{{ .github.user }}"
@@ -40,15 +51,12 @@ conditions:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-
-targets:
-  USJenkinsio:
-    name: "Update nginx:stable docker image digest"
-    kind: helmChart
+  updateJavadoc:
+    name: "Update nginx:stable docker image digest for javadoc"
+    kind: yaml
     spec:
-      name: charts/jenkinsio
-      key: images.en.tag
-      versionIncrement: patch
+      file: config/javadoc.yaml
+      key: image.tag
     scm:
       github:
         user: "{{ .github.user }}"
@@ -58,13 +66,27 @@ targets:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-  ZHJenkinsio:
-    name: "Update nginx:stable docker image digest"
-    kind: helmChart
+  updatePluginsite:
+    name: "Update nginx:stable docker image digest for plugin-site"
+    kind: yaml
     spec:
-      name: charts/jenkinsio
-      key: images.zh.tag
-      versionIncrement: patch
+      file: config/plugin-site.yaml
+      key: frontend.image.tag
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  updateReports:
+    name: "Update nginx:stable docker image digest for reports"
+    kind: yaml
+    spec:
+      file: config/reports.yaml
+      key: image.tag
     scm:
       github:
         user: "{{ .github.user }}"
