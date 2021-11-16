@@ -33,3 +33,4 @@ htmlVolume:
 frontend:
   image:
     tag: 1.17.7-alpine
+    pullPolicy: IfNotPresent

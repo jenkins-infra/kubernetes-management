@@ -29,6 +29,7 @@ networkPolicy:
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.28.4-2.319
+  pullPolicy: IfNotPresent
   resources:
     limits:
       cpu: "2"
