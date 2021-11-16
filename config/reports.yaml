@@ -36,3 +36,7 @@ htmlVolume:
     secretName: reports
     shareName: reports
     readOnly: true
+
+image:
+  tag: alpine
+  pullPolicy: IfNotPresent

@@ -29,3 +29,7 @@ htmlVolume:
     secretName: plugin-site
     shareName: pluginsite
     readOnly: true
+
+frontend:
+  image:
+    tag: 1.17.7-alpine
