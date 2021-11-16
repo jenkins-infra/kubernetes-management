@@ -1,8 +1,7 @@
 ---
 title: Bump incremental publisher
-pipelineID: incrementals-publisher
 sources:
-  default:
+  latestRelease:
     kind: githubRelease
     name: Get jenkins-infra/incrementals-publish latest version
     spec:
@@ -10,20 +9,21 @@ sources:
       repository: "incrementals-publisher"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
+      versionFilter:
+        kind: latest
 conditions:
-  default:
+  checkDockerImagePublished:
     name: "Test if jenkinsciinfra/incrementals-publish docker image is published"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/incrementals-publisher"
 targets:
-  default:
+  updateReleaseInConfig:
     name: "Update incrementals-publisher appVersion"
-    kind: helmChart
+    kind: yaml
     spec:
-      name: charts/incrementals-publisher
+      file: config/incrementals-publisher.yaml
       key: image.tag
-      appVersion: true
     scm:
       github:
         user: "{{ .github.user }}"

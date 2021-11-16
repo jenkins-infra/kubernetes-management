@@ -13,3 +13,7 @@ ingress:
     - secretName: incrementals-tls
       hosts:
         - incrementals.jenkins.io
+
+image:
+  tag: "v1.4.0"
+  pullPolicy: IfNotPresent
