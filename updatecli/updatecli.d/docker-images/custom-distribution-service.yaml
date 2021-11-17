@@ -1,4 +1,4 @@
-title: "Bump Custom Distribution Service docker image version"
+title: Bump Custom Distribution Service docker image version
 sources:
   latestRelease:
     name: Get latest jenkinsci/custom-distribution-service version

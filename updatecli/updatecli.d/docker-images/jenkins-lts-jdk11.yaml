@@ -16,7 +16,7 @@ conditions:
     spec:
       image: "jenkinsciinfra/jenkins-lts"
 targets:
-  imageTag:
+  updateReleaseInConfig:
     name: "Update jenkinsciinfra/jenkins-lts docker image tag"
     kind: yaml
     spec:

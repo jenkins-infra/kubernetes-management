@@ -10,13 +10,13 @@ sources:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 conditions:
-  docker:
+  checkDockerImagePublished:
     name: "Test jenkinsciinfra/wiki:<latest_version> docker image tag"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/wiki"
 targets:
-  imageTag:
+  updateReleaseInConfig:
     name: "Update wiki docker image tag"
     kind: yaml
     spec:

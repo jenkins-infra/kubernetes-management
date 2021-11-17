@@ -18,7 +18,7 @@ sources:
       image: "httpd"
       tag: "latest"
 conditions:
-  mirrorbitsDockerImage:
+  checkDockerImagePublished:
     name: Ensure that the image "jenkinsciinfra/mirrorbits:<found_version>" is published on the DockerHub
     sourceID: latestMirrorbitsRelease
     kind: dockerImage

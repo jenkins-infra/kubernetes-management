@@ -16,7 +16,7 @@ conditions:
     spec:
       image: "jenkinsciinfra/keycloak-theme"
 targets:
-  imageTag:
+  updateReleaseInConfig:
     name: "Update keycloak-theme docker image tag"
     kind: file
     spec:

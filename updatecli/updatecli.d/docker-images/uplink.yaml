@@ -8,7 +8,7 @@ sources:
       tag: "latest"
 # no condition to test docker image availability as we're using a digest from docker hub
 targets:
-  imageTag:
+  updateDigestInConfig:
     name: "Update uplink docker image tag"
     kind: yaml
     spec:

@@ -16,7 +16,7 @@ conditions:
     spec:
       image: "jenkinsciinfra/jenkins-weekly"
 targets:
-  imageTag:
+  updateReleaseInConfig:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
     kind: yaml
     spec:

@@ -12,13 +12,13 @@ sources:
       versionFilter:
         kind: latest
 conditions:
-  docker:
+  checkDockerImagePublished:
     name: "Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/jenkins-wiki-exporter"
 targets:
-  imageTag:
+  updateReleaseInConfig:
     name: "Update jenkins-wiki-exporter docker image tag"
     kind: yaml
     spec:

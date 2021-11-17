@@ -11,6 +11,9 @@ sources:
       username: "{{ .github.username }}"
       versionFilter:
         kind: latest
+    transformers:
+    - trimPrefix: "release-"
+    - addSuffix: "-alpine"
     # problem with nginxinc/docker-nginx repository: all tags aren't present in its releases
     # spec:
     #   owner: "nginxinc"
@@ -21,11 +24,11 @@ sources:
     #     kind: regexp
     #     pattern: '(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
 conditions:
-  docker:
-    name: "Test nginx/nginx:<latest_version> docker image tag"
+  checkDockerImagePublished:
+    name: "Test nginx:<latest_version> docker image tag"
     kind: dockerImage
     spec:
-      image: "nginx/nginx"
+      image: "nginx"
 targets:
   updateENJenkinsio:
     name: "Update nginx:stable docker image digest for jenkins.io"
