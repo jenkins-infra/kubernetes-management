@@ -1,7 +1,6 @@
 replicaCount:
   mirrorbits: 3
   files: 3
-
 resources:
   mirrorbits:
     limits:
@@ -17,7 +16,6 @@ resources:
     requests:
       cpu: 500m
       memory: 256Mi
-
 ingress:
   enabled: true
   className: public-nginx
@@ -39,7 +37,6 @@ ingress:
       hosts:
         - get.jenkins.io
         - fallback.get.jenkins.io
-
 repository:
   name: mirrorbits-binary
   persistentVolumeClaim:
@@ -75,11 +72,10 @@ repository:
         - nobrl
         - serverino
         - cache=strict
-
 image:
   mirrorbits:
     tag: v0.1.2
     pullPolicy: IfNotPresent
   files:
-    tag: 2.4
+    tag: 2e064dc3197af3fa33704936040165b34a3c03b55024d90ea11b2f9d5bcde552
     pullPolicy: IfNotPresent
