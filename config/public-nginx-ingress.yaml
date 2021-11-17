@@ -2,7 +2,7 @@ defaultBackend:
   enabled: true
   image:
     repository: jenkinsciinfra/404
-    tag: 0.2.1
+    tag: 0.3.0
     pullPolicy: IfNotPresent
   ## Unprivileged port as non root user and no escalation allowed
   port: 8080
@@ -43,7 +43,6 @@ controller:
     default: false
     controllerValue: k8s.io/ingress-public-nginx
     name: public-nginx
-
     # Parameters is a link to a custom resource containing additional
     # configuration for the controller. This is optional if the controller
     # does not require extra parameters.
