@@ -1,6 +1,6 @@
 title: Bump jenkins-wiki-exporter version
 sources:
-  default:
+  latestRelease:
     kind: githubRelease
     name: "Get jenkins-infra/jenkins-wiki-exporter latest version"
     spec:

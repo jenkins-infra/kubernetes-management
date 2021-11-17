@@ -1,0 +1,31 @@
+title: Bump keycloak-theme version
+sources:
+  latestDigest:
+    kind: dockerDigest
+    name: "Get jenkinsciinfra/keycloak-theme docker image digest"
+    spec:
+      image: "jenkinsciinfra/keycloak-theme"
+      tag: "latest"
+conditions:
+  docker:
+    name: "Test jenkinsciinfra/keycloak-theme:<latest_version> docker image tag"
+    kind: dockerImage
+    spec:
+      image: "jenkinsciinfra/keycloak-theme@sha256"
+targets:
+  imageTag:
+    name: "Update keycloak-theme docker image tag"
+    kind: file
+    spec:
+      file: config/keycloak.yaml
+      matchPattern: 'image: jenkinsciinfra/keycloak-theme:.*'
+      replacePattern: 'image: jenkinsciinfra/keycloak-theme@sha256:{{ source `latestDigest` }}'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
