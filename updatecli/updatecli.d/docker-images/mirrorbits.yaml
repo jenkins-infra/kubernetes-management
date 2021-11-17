@@ -1,7 +1,6 @@
-title: Bump mirrorbits helm chart with latest docker image
-pipelineID: bumpmirrorbitshelmchart
+title: Bump mirrorbits docker image digest
 sources:
-  default:
+  latestMirrorbitsRelease:
     name: Get latest version of jenkinsciinfra/mirrorbits
     kind: githubRelease
     spec:
@@ -12,36 +11,44 @@ sources:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
       branch: "{{ .github.branch }}"
+  latestHttpdDigest:
+    kind: dockerDigest
+    name: "Get httdp docker image digest"
+    spec:
+      image: "httpd"
+      tag: "latest"
 conditions:
-  dockerImage:
+  checkDockerImagePublished:
     name: Ensure that the image "jenkinsciinfra/mirrorbits:<found_version>" is published on the DockerHub
+    sourceID: latestMirrorbitsRelease
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/mirrorbits"
-  defaultCiDockerImage:
-    name: "Test if mirrorbits docker image is set to jenkinsciinfra/mirrorbits"
+  # no condition to test httpd docker image availability as we're using a digest from docker hub
+targets:
+  updateMirrorbits:
+    name: "Update mirrorbits docker image digest"
+    sourceID: latestMirrorbitsRelease
     kind: yaml
     spec:
-      file: "charts/mirrorbits/values.yaml"
-      key: "image.mirrorbits.repository"
-      value: "jenkinsciinfra/mirrorbits"
+      file: config/mirrorbits.yaml
+      key: "image.mirrorbits.tag"
     scm:
       github:
         user: "{{ .github.user }}"
         email: "{{ .github.email }}"
         owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
+        repository: "{{ .github.repository}}"
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-targets:
-  imageTag:
-    name: "Update mirrorbits docker image digest"
-    kind: helmChart
+  updateHttpd:
+    name: "Update httpd docker image digest"
+    sourceID: latestHttpdDigest
+    kind: yaml
     spec:
-      name: charts/mirrorbits
-      key: "image.mirrorbits.tag"
-      appVersion: true
+      file: config/mirrorbits.yaml
+      key: "image.files.tag"
     scm:
       github:
         user: "{{ .github.user }}"

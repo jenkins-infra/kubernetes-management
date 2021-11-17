@@ -12,6 +12,7 @@ sources:
     spec:
       image: "jenkinsciinfra/ldap"
       tag: "latest"
+# no condition to test docker image availability as we're using a digest from docker hub
 targets:
   crond:
     sourceID: crond
