@@ -1,5 +1,4 @@
-title: "Bump jenkins lts version"
-pipelineID: jenkinsltsjdk11
+title: "Bump Jenkins LTS docker image version"
 sources:
   latestRelease:
     name: "Get latest jenkins-lts version"
@@ -11,7 +10,7 @@ sources:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 conditions:
-  docker:
+  checkDockerImagePublished:
     name: "Test jenkinsciinfra/jenkins-lts:<latest_version> docker image tag"
     kind: dockerImage
     spec:

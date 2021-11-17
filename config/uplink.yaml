@@ -16,3 +16,7 @@ ingress:
         - uplink.jenkins.io
 
 replicaCount: 5
+
+image:
+  tag: a5ed6fd422231c3dd846fefe0f454d6e397e6bcb
+  pullPolicy: IfNotPresent

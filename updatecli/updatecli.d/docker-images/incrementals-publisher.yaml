@@ -1,5 +1,5 @@
 ---
-title: Bump incremental publisher
+title: Bump incremental publisher docker image version
 sources:
   latestRelease:
     kind: githubRelease

@@ -1,5 +1,4 @@
-title: Bump mirrorbits helm chart with latest docker image
-pipelineID: bumpmirrorbitshelmchart
+title: Bump mirrorbits docker image digest
 sources:
   latestMirrorbitsRelease:
     name: Get latest version of jenkinsciinfra/mirrorbits
@@ -25,12 +24,7 @@ conditions:
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/mirrorbits"
-  httpdDockerImage:
-    name: Ensure that the image "httpd:<found_version>" is published on the DockerHub
-    sourceID: latestHttpdDigest
-    kind: dockerImage
-    spec:
-      image: "httpd@sha256"
+  # no condition to test httpd docker image availability as we're using a digest from docker hub
 targets:
   updateMirrorbits:
     name: "Update mirrorbits docker image digest"

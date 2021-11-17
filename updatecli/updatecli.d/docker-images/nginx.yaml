@@ -1,6 +1,6 @@
-title: Bump nginx:stable docker image digest
+title: Bump nginx:stable docker image version
 sources:
-  default:
+  latestRelease:
     kind: githubRelease
     name: Get latest nginx/nginx version
     # We should retrieve only the minor even version to get the stable, but it requires an updatecli fix on its regexp parser, adding unwanted backslashes
@@ -20,6 +20,12 @@ sources:
     #   versionFilter:
     #     kind: regexp
     #     pattern: '(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
+conditions:
+  docker:
+    name: "Test nginx/nginx:<latest_version> docker image tag"
+    kind: dockerImage
+    spec:
+      image: "nginx/nginx"
 targets:
   updateENJenkinsio:
     name: "Update nginx:stable docker image digest for jenkins.io"

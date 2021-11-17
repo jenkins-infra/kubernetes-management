@@ -1,5 +1,4 @@
-title: "Bump jenkins weekly version"
-pipelineID: jenkinsweeklyjdk11
+title: "Bump Jenkins weekly docker image version"
 sources:
   latestRelease:
     name: "Get latest jenkins-weekly version"
@@ -11,7 +10,7 @@ sources:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 conditions:
-  docker:
+  checkDockerImagePublished:
     name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag"
     kind: dockerImage
     spec:
