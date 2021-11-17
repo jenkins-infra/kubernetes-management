@@ -71,7 +71,7 @@ zhHtmlVolume:
 forceJenkinsIoHost: true
 image:
   en:
-    tag: alpine
+    tag: 1.20.2-alpine
     pullPolicy: IfNotPresent
   zh:
     tag: 1.20.2-alpine
