@@ -3,7 +3,6 @@ ingress:
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-
     "nginx.ingress.kubernetes.io/rewrite-target": /
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
@@ -14,9 +13,7 @@ ingress:
     - secretName: uplink-tls
       hosts:
         - uplink.jenkins.io
-
 replicaCount: 5
-
 image:
-  tag: a5ed6fd422231c3dd846fefe0f454d6e397e6bcb
+  tag: c7ecad0e5e24bc05ac722418faf844d6a0286620c6316ff712459ecfcc3ee7ce
   pullPolicy: IfNotPresent
