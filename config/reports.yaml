@@ -3,9 +3,7 @@ ingress:
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-
   hosts:
     - host: reports.jenkins.io
       paths:
@@ -13,16 +11,12 @@ ingress:
     - host: reports.jenkins-ci.org
       paths:
         - path: /
-
   tls:
     - secretName: reports-tls
       hosts:
         - reports.jenkins.io
         - reports.jenkins-ci.org
-
-
 replicaCount: 2
-
 resources:
   limits:
     cpu: 200m
@@ -30,13 +24,11 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
 htmlVolume:
   azureFile:
     secretName: reports
     shareName: reports
     readOnly: true
-
 image:
-  tag: alpine
+  tag: 1.20.2-alpine
   pullPolicy: IfNotPresent
