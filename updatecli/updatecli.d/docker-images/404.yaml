@@ -1,0 +1,48 @@
+title: Bump 404 docker image version
+sources:
+  latestRelease:
+    kind: githubRelease
+    name: "Get latest jenkins-infra/docker-404 release"
+    spec:
+      name: Get jenkins-infra/docker-404 latest version
+      owner: "jenkins-infra"
+      repository: "docker-404"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+conditions:
+  checkDockerImagePublished:
+    name: "Test jenkinsciinfra/404:<latest_version> docker image tag"
+    kind: dockerImage
+    spec:
+      image: "jenkinsciinfra/404"
+targets:
+  updatePrivateNginxIngress404:
+    name: "Update 404 docker image tag"
+    kind: yaml
+    spec:
+      file: "config/private-nginx-ingress.yaml"
+      key: "defaultBackend.image.tag"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  updatePublicNginxIngress404:
+    name: "Update 404 docker image tag"
+    kind: yaml
+    spec:
+      file: "config/public-nginx-ingress.yaml"
+      key: "defaultBackend.image.tag"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

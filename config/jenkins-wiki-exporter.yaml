@@ -14,3 +14,7 @@ ingress:
     - secretName: jenkins-wiki-exporter-tls
       hosts:
         - jenkins-wiki-exporter.jenkins.io
+
+image:
+  tag: "v1.12.1"
+  pullPolicy: IfNotPresent

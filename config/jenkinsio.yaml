@@ -74,3 +74,11 @@ zhHtmlVolume:
     readOnly: true
 
 forceJenkinsIoHost: true
+
+image:
+  en:
+    tag: alpine
+    pullPolicy: IfNotPresent
+  zh:
+    tag: alpine
+    pullPolicy: IfNotPresent
