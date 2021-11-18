@@ -35,7 +35,7 @@ targets:
     kind: yaml
     spec:
       file: config/jenkinsio.yaml
-      key: image.en.tag
+      key: images.en.tag
     scm:
       github:
         user: "{{ .github.user }}"
@@ -50,7 +50,7 @@ targets:
     kind: yaml
     spec:
       file: config/jenkinsio.yaml
-      key: image.zh.tag
+      key: images.zh.tag
     scm:
       github:
         user: "{{ .github.user }}"

@@ -62,7 +62,7 @@ zhHtmlVolume:
     shareName: zhjenkinsio
     readOnly: true
 forceJenkinsIoHost: true
-image:
+images:
   en:
     repository: nginx
     tag: 1.20.2-alpine
