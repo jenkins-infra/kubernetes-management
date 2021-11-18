@@ -28,6 +28,7 @@ agents:
   rbac:
     create: true
   image:
+    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: "jenkinsciinfra/datadog@sha256"
     tag: "feec56f2f4596213abc4be382f466154077215c10bd5d8e0b22a29783530f5de"
     # we must skip version test while we use the docker image digest

@@ -18,5 +18,7 @@ ingress:
 replicaCount: 5
 
 image:
+  # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
+  repository: jenkinsciinfra/uplink@sha256
   tag: a5ed6fd422231c3dd846fefe0f454d6e397e6bcb
   pullPolicy: IfNotPresent

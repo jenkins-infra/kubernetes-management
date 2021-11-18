@@ -81,5 +81,7 @@ image:
     tag: v0.1.2
     pullPolicy: IfNotPresent
   files:
+    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
+    repository: httpd@sha256
     tag: 2.4
     pullPolicy: IfNotPresent
