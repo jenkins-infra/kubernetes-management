@@ -31,7 +31,7 @@ conditions:
       image: "nginx"
 targets:
   updateENJenkinsio:
-    name: "Update nginx:stable docker image digest for jenkins.io"
+    name: "Update nginx:stable docker image version for jenkins.io"
     kind: yaml
     spec:
       file: config/jenkinsio.yaml
@@ -46,7 +46,7 @@ targets:
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
   updateZHJenkinsio:
-    name: "Update nginx:stable docker image digest for jenkins.io/zh"
+    name: "Update nginx:stable docker image version for jenkins.io/zh"
     kind: yaml
     spec:
       file: config/jenkinsio.yaml
@@ -61,7 +61,7 @@ targets:
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
   updateJavadoc:
-    name: "Update nginx:stable docker image digest for javadoc"
+    name: "Update nginx:stable docker image version for javadoc"
     kind: yaml
     spec:
       file: config/javadoc.yaml
@@ -76,7 +76,7 @@ targets:
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
   updatePluginsite:
-    name: "Update nginx:stable docker image digest for plugin-site"
+    name: "Update nginx:stable docker image version for plugin-site"
     kind: yaml
     spec:
       file: config/plugin-site.yaml
@@ -91,7 +91,7 @@ targets:
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
   updateReports:
-    name: "Update nginx:stable docker image digest for reports"
+    name: "Update nginx:stable docker image version for reports"
     kind: yaml
     spec:
       file: config/reports.yaml

@@ -47,20 +47,20 @@ releases:
     version: 4.0.6
     values:
       - "../config/private-nginx-ingress.yaml"
-  - name: public-traefik
-    namespace: public-traefik
-    chart: traefik/traefik
-    version: 10.6.2
-    values:
-      - "../config/traefik.yaml"
-      - "../config/public-traefik.yaml"
-  - name: private-traefik
-    namespace: private-traefik
-    chart: traefik/traefik
-    version: 10.6.2
-    values:
-      - "../config/traefik.yaml"
-      - "../config/private-traefik.yaml"
+  # - name: public-traefik
+  #   namespace: public-traefik
+  #   chart: traefik/traefik
+  #   version: 10.6.2
+  #   values:
+  #     - "../config/traefik.yaml"
+  #     - "../config/public-traefik.yaml"
+  # - name: private-traefik
+  #   namespace: private-traefik
+  #   chart: traefik/traefik
+  #   version: 10.6.2
+  #   values:
+  #     - "../config/traefik.yaml"
+  #     - "../config/private-traefik.yaml"
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
@@ -88,7 +88,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 1.16.1
+    version: 1.16.2
     values:
       - "../config/falco.yaml"
   - name: loki
