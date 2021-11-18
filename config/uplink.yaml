@@ -3,7 +3,6 @@ ingress:
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-
     "nginx.ingress.kubernetes.io/rewrite-target": /
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
@@ -14,9 +13,7 @@ ingress:
     - secretName: uplink-tls
       hosts:
         - uplink.jenkins.io
-
 replicaCount: 5
-
 image:
   # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
   repository: jenkinsciinfra/uplink@sha256
