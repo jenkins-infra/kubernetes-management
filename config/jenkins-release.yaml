@@ -35,6 +35,7 @@ networkPolicy:
 controller:
   image: jenkinsciinfra/jenkins-lts
   tag: 0.10.4-2.303.3
+  pullPolicy: IfNotPresent
   resources:
     limits:
       cpu: "2"

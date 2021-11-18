@@ -3,6 +3,7 @@ defaultBackend:
   image:
     repository: jenkinsciinfra/404
     tag: 0.2.1
+    pullPolicy: IfNotPresent
   ## Unprivileged port as non root user and no escalation allowed
   port: 8080
   ## Volumes are required because rootfs is readonly

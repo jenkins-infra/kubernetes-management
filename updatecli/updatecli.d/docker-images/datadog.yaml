@@ -1,0 +1,27 @@
+title: Bump datadog docker image digest
+sources:
+  latestDigest:
+    kind: dockerDigest
+    name: "Get jenkinsciinfra/datadog:latest docker image digest"
+    spec:
+      image: "jenkinsciinfra/datadog"
+      tag: "latest"
+# no condition to test docker image availability as we're using a digest from docker hub
+targets:
+  updateDigestInConfig:
+    name: "Update datadog docker image tag"
+    # As it's a yaml.gotmpl, we can't use 'kind: yaml', the parser fails on the first bracket
+    kind: file
+    spec:
+      file: config/datadog.yaml.gotmpl
+      matchPattern: 'repository: "jenkinsciinfra/datadog@sha256"((\r\n|\r|\n)(\s+))tag:.*'
+      replacePattern: 'repository: "jenkinsciinfra/datadog@sha256"${1}tag: "{{ source `latestDigest` }}"'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

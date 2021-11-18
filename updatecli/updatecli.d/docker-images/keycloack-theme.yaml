@@ -1,27 +1,28 @@
----
-title: Bump incremental publisher docker image version
+title: Bump keycloak-theme docker image version
 sources:
   latestRelease:
     kind: githubRelease
-    name: Get jenkins-infra/incrementals-publish latest version
+    name: "Get latest jenkins-infra/keycloak-theme release"
     spec:
+      name: Get jenkins-infra/keycloak-theme latest version
       owner: "jenkins-infra"
-      repository: "incrementals-publisher"
+      repository: "keycloak-theme"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 conditions:
   checkDockerImagePublished:
-    name: "Test if jenkinsciinfra/incrementals-publisher docker image is published"
+    name: "Test jenkinsciinfra/keycloak-theme:<latest_version> docker image tag"
     kind: dockerImage
     spec:
-      image: "jenkinsciinfra/incrementals-publisher"
+      image: "jenkinsciinfra/keycloak-theme"
 targets:
   updateReleaseInConfig:
-    name: "Update incrementals-publisher appVersion"
-    kind: yaml
+    name: "Update keycloak-theme docker image tag"
+    kind: file
     spec:
-      file: config/incrementals-publisher.yaml
-      key: image.tag
+      file: config/keycloak.yaml
+      matchPattern: 'image: jenkinsciinfra/keycloak-theme:.*'
+      replacePattern: 'image: jenkinsciinfra/keycloak-theme:{{ source `latestRelease` }}'
     scm:
       github:
         user: "{{ .github.user }}"

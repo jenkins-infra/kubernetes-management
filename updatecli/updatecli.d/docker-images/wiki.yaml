@@ -1,28 +1,27 @@
-title: Bump Custom Distribution Service docker image version
+title: Bump wiki docker image version
 sources:
   latestRelease:
-    name: Get latest jenkinsci/custom-distribution-service version
     kind: githubRelease
+    name: "Get latest jenkins-infra/docker-confluence-data release"
     spec:
-      owner: "jenkinsci"
-      repository: "custom-distribution-service"
+      name: Get jenkins-infra/docker-confluence-data latest version
+      owner: "jenkins-infra"
+      repository: "docker-confluence-data"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
-      versionFilter:
-        kind: latest
 conditions:
   checkDockerImagePublished:
-    name: "Is latest jenkinsciinfra/custom-distribution-service docker image published"
+    name: "Test jenkinsciinfra/wiki:<latest_version> docker image tag"
     kind: dockerImage
     spec:
-      image: "jenkinsciinfra/custom-distribution-service"
+      image: "jenkinsciinfra/wiki"
 targets:
   updateReleaseInConfig:
-    name: "Update the tag of the Docker image for custom-distribution-service"
+    name: "Update wiki docker image tag"
     kind: yaml
     spec:
-      file: config/custom-distribution-service.yaml
-      key: image.tag
+      file: "config/wiki.yaml"
+      key: "image.tag"
     scm:
       github:
         user: "{{ .github.user }}"
