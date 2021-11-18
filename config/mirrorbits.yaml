@@ -79,5 +79,5 @@ image:
   files:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: httpd@sha256
-    tag: 2.4
+    tag: f70876d78442771406d7245b8d3425e8b0a86891c79811af94fb2e12af0fadeb
     pullPolicy: IfNotPresent
