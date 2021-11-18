@@ -4,7 +4,6 @@ ingress:
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-
   hosts:
     - host: incrementals.jenkins.io
       paths:
@@ -13,7 +12,6 @@ ingress:
     - secretName: incrementals-tls
       hosts:
         - incrementals.jenkins.io
-
 image:
-  tag: "v1.4.0"
+  tag: "v1.4.1"
   pullPolicy: IfNotPresent
