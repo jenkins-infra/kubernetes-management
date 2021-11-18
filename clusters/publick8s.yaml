@@ -38,29 +38,29 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.0.8
+    version: 4.0.6
     values:
       - "../config/public-nginx-ingress.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.0.8
+    version: 4.0.6
     values:
       - "../config/private-nginx-ingress.yaml"
-  # - name: public-traefik
-  #   namespace: public-traefik
-  #   chart: traefik/traefik
-  #   version: 10.6.2
-  #   values:
-  #     - "../config/traefik.yaml"
-  #     - "../config/public-traefik.yaml"
-  # - name: private-traefik
-  #   namespace: private-traefik
-  #   chart: traefik/traefik
-  #   version: 10.6.2
-  #   values:
-  #     - "../config/traefik.yaml"
-  #     - "../config/private-traefik.yaml"
+  - name: public-traefik
+    namespace: public-traefik
+    chart: traefik/traefik
+    version: 10.6.2
+    values:
+      - "../config/traefik.yaml"
+      - "../config/public-traefik.yaml"
+  - name: private-traefik
+    namespace: private-traefik
+    chart: traefik/traefik
+    version: 10.6.2
+    values:
+      - "../config/traefik.yaml"
+      - "../config/private-traefik.yaml"
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus

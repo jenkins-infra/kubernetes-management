@@ -64,8 +64,10 @@ zhHtmlVolume:
 forceJenkinsIoHost: true
 image:
   en:
+    repository: nginx
     tag: 1.20.2-alpine
     pullPolicy: IfNotPresent
   zh:
+    repository: nginx
     tag: 1.20.2-alpine
     pullPolicy: IfNotPresent
