@@ -4,12 +4,10 @@ ingress:
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/rewrite-target": /$1
-
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
     "nginx.ingress.kubernetes.io/enable-cors": "true"
     "nginx.ingress.kubernetes.io/cors-allow-methods": "GET, OPTIONS"
     "nginx.ingress.kubernetes.io/cors-allow-origin": "*"
-
   hosts:
     - host: plugins.origin.jenkins.io
     - host: plugins.jenkins.io
@@ -18,19 +16,15 @@ ingress:
     - secretName: plugins-tls
       hosts:
         - plugins.origin.jenkins.io
-
 restApiUrl: https://plugins.jenkins.io/api
-
 backend:
   replicaCount: 1
-
 htmlVolume:
   azureFile:
     secretName: plugin-site
     shareName: pluginsite
     readOnly: true
-
 frontend:
   image:
-    tag: 1.17.7-alpine
+    tag: 1.20.2-alpine
     pullPolicy: IfNotPresent
