@@ -16,7 +16,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.26.0
+    version: 2.26.1
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/datadog.yaml.gotmpl"
