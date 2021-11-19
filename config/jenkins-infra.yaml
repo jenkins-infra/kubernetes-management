@@ -28,7 +28,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.28.4-2.319
+  tag: 0.30.4-2.321
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -54,9 +54,8 @@ controller:
   secretsFilesSecret: 'jenkins-secrets'
   serviceType: "ClusterIP"
   javaOpts: >
-    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch
-    -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC
-    -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
+    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
+
   JCasC:
     enabled: true
     defaultConfig: false
