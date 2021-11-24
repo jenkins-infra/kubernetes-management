@@ -24,6 +24,8 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: traefik
     url: https://helm.traefik.io/traefik
+  - name: nikonorovi
+    url: git+https://github.com/nikonorovi/helm-charts@charts/jenkins?ref=container-security-context
 releases:
   - name: datadog
     namespace: datadog
@@ -197,8 +199,8 @@ releases:
       - "../secrets/config/mirrorbits/secrets.yaml"
   - name: jenkins-infra
     namespace: jenkins-infra
-    chart: jenkins/jenkins
-    version: 3.8.9
+    chart: nikonorovi/jenkins
+    version: 3.9.0
     set:
       - name: namespace
         value: jenkins-infra
