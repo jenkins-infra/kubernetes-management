@@ -28,5 +28,5 @@ image:
   crond:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: jenkinsciinfra/ldap@sha256
-    tag: e407809ec6a5153e0bdc058f2605185c02e06a4fe34b24375025eacb8c1d9318
+    tag: d26a0f5e41955aa13fdf4607603d8cc3fcd552625fed1bab19a6b766894f9484
     pullPolicy: IfNotPresent
