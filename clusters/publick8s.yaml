@@ -198,7 +198,7 @@ releases:
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
-    version: 3.9.0
+    version: 3.9.1
     set:
       - name: namespace
         value: jenkins-infra
@@ -215,7 +215,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 3.9.0
+    version: 3.9.1
     timeout: 600
     set:
       - name: namespace
