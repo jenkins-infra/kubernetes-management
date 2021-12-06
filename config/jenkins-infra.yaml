@@ -244,7 +244,7 @@ controller:
                 podRetention: "Never"
                 serverUrl: "https://kubernetes.default"
                 podLabels:
-                  # Required to be jenkins/<helm-release>-jenkins-slave as definede here
+                  # Required to be jenkins/<helm-release>-jenkins-slave as defined here
                   # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
                   - key: "jenkins/jenkins-infra-agent"
                     value: "true"
@@ -258,8 +258,8 @@ controller:
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
-                        args: "1d"
                         alwaysPullImage: true
+                    yamlMergeStrategy: "merge"
                   - name: jnlp-windows
                     nodeSelector: "kubernetes.io/os=windows"
                     instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
@@ -276,7 +276,7 @@ controller:
                         args: "1d"
                         alwaysPullImage: true
                         workingDir: "C:\\Users\\jenkins"
-                    yamlMergeStrategy: "override"
+                    yamlMergeStrategy: "merge"
                     yaml: |-
                       spec:
                         tolerations:
