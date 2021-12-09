@@ -127,6 +127,14 @@ releases:
       - "../config/plugin-site.yaml"
     secrets:
       - "../secrets/config/plugin-site/secrets.yaml"
+  - name: plugin-site-issues
+    namespace: plugin-site
+    chart: jenkins-infra/plugin-site-issues
+    version: 0.1.1
+    values:
+      - "../config/plugin-site-issues.yaml"
+    secrets:
+      - "../secrets/config/plugin-site-issues/secrets.yaml"
   - name: chatbot
     namespace: chatbot
     chart: jenkins-infra/chatbot

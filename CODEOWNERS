@@ -11,6 +11,9 @@ reports.yaml @jenkins-infra/kubernetes
 plugin-site/ @jenkins-infra/kubernetes @jenkins-infra/plugin-site
 plugin-site.yaml @jenkins-infra/kubernetes @jenkins-infra/plugin-site
 
+plugin-site-issues/ @jenkins-infra/kubernetes @jenkins-infra/plugin-site
+plugin-site-issues.yaml @jenkins-infra/kubernetes @jenkins-infra/plugin-site
+
 jenkinsio/ @jenkins-infra/kubernetes
 jenkinsio.yaml @jenkins-infra/kubernetes
 
