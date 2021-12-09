@@ -23,10 +23,10 @@ image:
   slapd:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: jenkinsciinfra/ldap@sha256
-    tag: 54e6294f4db37a6388524577d5b5efede56b52abeaf750755609c71b937a1072
+    tag: d851dee80360c7c7e338881647075698d8d4a856862e75af7b2bd44427d6a0ec
     pullPolicy: IfNotPresent
   crond:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: jenkinsciinfra/ldap@sha256
-    tag: fcb648be75baa3db0261d23c57355c943fc7f63d4fa0a9316d43fac6db8f12fe
+    tag: fd574000ade29c338add5a2859097429e49de44d8e44108444bf64d308060e2d
     pullPolicy: IfNotPresent
