@@ -55,3 +55,17 @@ creation_rules:
             - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
             - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
             - '81B0C54A1BA2C92EAD985025A2B9560AF24FF1AD' # hlemeur
+  - path_regex: secrets/config/plugin-site-issues/secrets.yaml
+    key_groups:
+      - azure_keyvault:
+          - vaultUrl: "https://prodjenkinsinfra.vault.azure.net"
+            key: "sops"
+            version: "252fc7e646ac40f184ab4a6016484725"
+        pgp:
+          - "88FABF5F307FB5870B6AD2E8A266F2D3F9D60C45" # Halkeye
+          - "6699E555C6730CAED9083B7AD40F4AD2F55AF15F" # timja
+          - "56D8342434B84E2D1CCF53D96E9A025D52210D3D" # Olblak
+          - "29B84443F41DE582F71599AFB47082DEE225AE06" # dduportal
+          - "81B0C54A1BA2C92EAD985025A2B9560AF24FF1AD" # hlemeur
+          - "E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344" # markewaite
+          - "56D8342434B84E2D1CCF53D96E9A025D52210D3D" # Olblak
