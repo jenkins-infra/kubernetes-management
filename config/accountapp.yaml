@@ -4,7 +4,7 @@ image:
   pullPolicy: IfNotPresent
 
 ingress:
-  enabled: true
+  enabled: false
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
