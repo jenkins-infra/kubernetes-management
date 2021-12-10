@@ -1,0 +1,24 @@
+title: "Bump incrementals-publisher Helm Chart Version"
+sources:
+  lastChartVersion:
+    kind: helmChart
+    spec:
+      url: https://jenkins-infra.github.io/public-charts
+      name: incrementals-publisher
+targets:
+  updateChartVersion:
+    name: "Update the chart version for incrementals-publisher"
+    kind: file
+    spec:
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: jenkins-infra\/incrementals-publisher((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/incrementals-publisher${1}version: {{ source `lastChartVersion` }}'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

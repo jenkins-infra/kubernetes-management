@@ -1,0 +1,24 @@
+title: "Bump jenkins-additional Helm Chart Version"
+sources:
+  lastChartVersion:
+    kind: helmChart
+    spec:
+      url: https://jenkins-infra.github.io/public-charts
+      name: jenkins-additional
+targets:
+  updateChartVersion:
+    name: "Update the chart version for jenkins-additional"
+    kind: file
+    spec:
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: jenkins-infra\/jenkins-additional((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/jenkins-additional${1}version: {{ source `lastChartVersion` }}'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
