@@ -1,40 +1,36 @@
 title: Bump datadog helm chart
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
       url: https://helm.datadoghq.com
       name: datadog
+
 targets:
-  publicChartVersion:
+  updateChartVersion:
     name: "Datadog Helm Chart"
     kind: file
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
-  ciChartVersion:
-    name: "Datadog Helm Chart"
-    kind: file
-    spec:
-      file: clusters/cik8s.yaml
-      matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersion

@@ -1,10 +1,24 @@
 title: "Bump env-jenkins-release Helm Chart Version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: env-jenkins-release
+
 targets:
   updateChartVersion:
     name: "Update the chart version for env-jenkins-release"
@@ -13,12 +27,10 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/env-jenkins-release((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/env-jenkins-release${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersion
