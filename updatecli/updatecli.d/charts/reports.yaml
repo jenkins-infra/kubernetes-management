@@ -1,0 +1,24 @@
+title: "Bump reports Helm Chart Version"
+sources:
+  lastChartVersion:
+    kind: helmChart
+    spec:
+      url: https://jenkins-infra.github.io/public-charts
+      name: reports
+targets:
+  updateChartVersion:
+    name: "Update the chart version for reports"
+    kind: file
+    spec:
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: jenkins-infra\/reports((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/reports${1}version: {{ source `lastChartVersion` }}'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"

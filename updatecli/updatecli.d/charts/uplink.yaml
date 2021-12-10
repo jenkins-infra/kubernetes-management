@@ -1,0 +1,24 @@
+title: "Bump uplink Helm Chart Version"
+sources:
+  lastChartVersion:
+    kind: helmChart
+    spec:
+      url: https://jenkins-infra.github.io/public-charts
+      name: uplink
+targets:
+  updateChartVersion:
+    name: "Update the chart version for uplink"
+    kind: file
+    spec:
+      file: clusters/publick8s.yaml
+      matchPattern: 'chart: jenkins-infra\/uplink((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/uplink${1}version: {{ source `lastChartVersion` }}'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
