@@ -1,4 +1,17 @@
 title: Bump nginx-ingress helm chart
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     name: "Retrieve latest version of the chart ingress-nginx"
@@ -6,6 +19,7 @@ sources:
     spec:
       url: https://kubernetes.github.io/ingress-nginx
       name: ingress-nginx
+
 targets:
   updateChartVersionPublic:
     name: "Update the version of the Helm chart ingress-nginx for public-ingress"
@@ -14,15 +28,7 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updateChartVersionPrivate:
     name: "Update the version of the Helm chart ingress-nginx for temp-privatek8s"
     kind: file
@@ -30,12 +36,16 @@ targets:
       file: clusters/temp-privatek8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersionPublic
+      - updateChartVersionPrivate
+    spec:
+      labels:
+        - dependencies
+        - nginx

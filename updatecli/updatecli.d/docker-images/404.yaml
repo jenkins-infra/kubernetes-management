@@ -1,4 +1,17 @@
 title: Bump 404 docker image version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   latestRelease:
     kind: githubRelease
@@ -9,12 +22,14 @@ sources:
       repository: "docker-404"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
+
 conditions:
   checkDockerImagePublished:
     name: "Test jenkinsciinfra/404:<latest_version> docker image tag"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/404"
+
 targets:
   updatePrivateNginxIngress404Public:
     name: "Update 404 docker image tag"
@@ -22,57 +37,39 @@ targets:
     spec:
       file: "config/ext_private-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updatePublicNginxIngress404Public:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
       file: "config/ext_public-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updatePrivateNginxIngress404Private:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
       file: "config/temp-privatek8s/ext_private-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updatePublicNginxIngress404Private:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
       file: "config/temp-privatek8s/ext_public-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updatePrivateNginxIngress404Public
+      - updatePublicNginxIngress404Public
+      - updatePrivateNginxIngress404Private
+      - updatePublicNginxIngress404Private
+    spec:
+      labels:
+        - dependencies
+        - docker-404

@@ -1,4 +1,17 @@
 title: Bump datadog docker image digest
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   latestDigest:
     kind: dockerDigest
@@ -6,7 +19,9 @@ sources:
     spec:
       image: "jenkinsciinfra/datadog"
       tag: "latest"
+
 # no condition to test docker image availability as we're using a digest from docker hub
+
 targets:
   updateDigestInConfig:
     name: "Update datadog docker image tag"
@@ -16,12 +31,15 @@ targets:
       file: config/ext_datadog.yaml.gotmpl
       matchPattern: 'repository: "jenkinsciinfra/datadog@sha256"((\r\n|\r|\n)(\s+))tag:.*'
       replacePattern: 'repository: "jenkinsciinfra/datadog@sha256"${1}tag: "{{ source `latestDigest` }}"'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateDigestInConfig
+    spec:
+      labels:
+        - dependencies
+        - datadog

@@ -1,10 +1,24 @@
 title: Bump prometheus helm chart version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
       url: https://prometheus-community.github.io/helm-charts
       name: prometheus
+
 targets:
   updateChartVersion:
     name: "stable/prometheus Helm Chart"
@@ -13,12 +27,15 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: prometheus-community\/prometheus((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: prometheus-community/prometheus${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersion
+    spec:
+      labels:
+        - dependencies
+        - prometheus

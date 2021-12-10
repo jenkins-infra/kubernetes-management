@@ -1,4 +1,17 @@
 title: Bump keycloak-theme docker image version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   latestRelease:
     kind: githubRelease
@@ -9,12 +22,14 @@ sources:
       repository: "keycloak-theme"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
+
 conditions:
   checkDockerImagePublished:
     name: "Test jenkinsciinfra/keycloak-theme:<latest_version> docker image tag"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/keycloak-theme"
+
 targets:
   updateReleaseInConfig:
     name: "Update keycloak-theme docker image tag"
@@ -23,12 +38,15 @@ targets:
       file: config/ext_keycloak.yaml
       matchPattern: 'image: jenkinsciinfra/keycloak-theme:.*'
       replacePattern: 'image: jenkinsciinfra/keycloak-theme:{{ source `latestRelease` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateReleaseInConfig
+    spec:
+      labels:
+        - dependencies
+        - certmanager

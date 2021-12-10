@@ -1,24 +1,41 @@
 title: Bump keycloak helm chart version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
       url: https://codecentric.github.io/helm-charts
       name: keycloak
+
 targets:
   updateChartVersion:
     name: "codecentric/keycloak Helm Chart"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: codecentric\/keycloak((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: codecentric/keycloak${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: {{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersion
+    spec:
+      labels:
+        - dependencies
+        - keycloak
