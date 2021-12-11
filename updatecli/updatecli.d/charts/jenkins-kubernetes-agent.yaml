@@ -10,7 +10,7 @@ targets:
     name: "Update the chart version for jenkins kubernetes agent"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/cik8s.yaml
       matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
     scm:
