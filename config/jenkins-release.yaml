@@ -479,10 +479,12 @@ controller:
           authorizationStrategy:
             globalMatrix:
               permissions:
-                - "Overall/Administer:release-core"
-                - "Overall/SystemRead:authenticated"
-                - "Overall/Read:authenticated"
-                - "Job/Read:authenticated"
+                - "GROUP:Overall/Administer:release-core"
+                - "GROUP:Overall/Administer:admins"
+                - "GROUP:Overall/Administer:jenkins-admins"
+                - "GROUP:Overall/SystemRead:authenticated"
+                - "GROUP:Overall/Read:authenticated"
+                - "GROUP:Job/Read:authenticated"
       system-settings: |
         unclassified:
           defaultFolderConfiguration:
