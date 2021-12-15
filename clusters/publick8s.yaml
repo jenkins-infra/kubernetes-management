@@ -265,13 +265,13 @@ releases:
       - "../config/keycloak.yaml"
     secrets:
       - "../secrets/config/keycloak/secrets.yaml"
-  # - name: keycloak-public # User: https://admin.accounts.jenkins.io/auth/realms/jenkins/account
-  #   namespace: keycloak
-  #   chart: jenkins-infra/keycloak
-  #   version: 0.1.1
-  #   timeout: 150
-  #   values:
-  #     - "../config/keycloak-public.yaml"
+  - name: keycloak-public # User: https://admin.accounts.jenkins.io/auth/realms/jenkins/account
+    namespace: keycloak
+    chart: jenkins-infra/keycloak
+    version: 0.1.1
+    timeout: 150
+    values:
+      - "../config/keycloak-public.yaml"
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
