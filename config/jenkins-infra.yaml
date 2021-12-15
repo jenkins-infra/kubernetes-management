@@ -604,12 +604,13 @@ controller:
           authorizationStrategy:
             globalMatrix:
               permissions:
-                - "Overall/Administer:admins"
-                - "Overall/SystemRead:authenticated"
-                - "Overall/Read:authenticated"
-                - "Job/Read:authenticated"
-                - "Job/Build:authenticated"
-                - "Job/ExtendedRead:authenticated"
+                - "GROUP:Job/Build:authenticated"
+                - "GROUP:Job/ExtendedRead:authenticated"
+                - "GROUP:Job/Read:authenticated"
+                - "GROUP:Overall/Administer:admins"
+                - "GROUP:Overall/Administer:jenkins-admins"
+                - "GROUP:Overall/Read:authenticated"
+                - "GROUP:Overall/SystemRead:authenticated"
       system-settings: |
         unclassified:
           defaultFolderConfiguration:
