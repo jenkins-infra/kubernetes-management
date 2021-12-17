@@ -17,7 +17,7 @@ repositories:
   - name: jenkins
     url: https://charts.jenkins.io
   - name: jenkins-infra
-    url: https://jenkins-infra.github.io/public-charts
+    url: https://jenkins-infra.github.io/helm-charts
   - name: jetstack
     url: https://charts.jetstack.io
   - name: prometheus-community

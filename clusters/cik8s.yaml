@@ -11,7 +11,7 @@ repositories:
   - name: eks
     url: https://aws.github.io/eks-charts
   - name: jenkins-infra
-    url: https://jenkins-infra.github.io/public-charts
+    url: https://jenkins-infra.github.io/helm-charts
 releases:
   - name: datadog
     namespace: datadog

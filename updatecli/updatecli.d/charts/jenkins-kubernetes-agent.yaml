@@ -3,7 +3,7 @@ sources:
   lastChartVersion:
     kind: helmChart
     spec:
-      url: https://jenkins-infra.github.io/public-charts
+      url: https://jenkins-infra.github.io/helm-charts
       name: jenkins-kubernetes-agents
 targets:
   updateChartVersion:
