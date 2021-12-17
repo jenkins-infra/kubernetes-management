@@ -1,5 +1,5 @@
 image:
-  # https://github.com/jenkins-infra/charts/issues/1668
+  # https://github.com/jenkins-infra/kubernetes-management/issues/1668
   tag: 169-buildca55e3
   pullPolicy: IfNotPresent
 
