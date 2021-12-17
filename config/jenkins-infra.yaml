@@ -466,7 +466,7 @@ controller:
                 [ name: 'Wiki Exporter', GHOrganization: 'jenkins-infra', repository: 'jenkins-wiki-exporter', internalId: '2021042801', jenkinsfilePath: 'Jenkinsfile'],
                 [ name: 'Custom Distribution Service', GHOrganization: 'jenkinsci', repository: 'custom-distribution-service', internalId: '2021042802', jenkinsfilePath: 'Jenkinsfile'],
                 [ name: 'Incrementals Publisher', GHOrganization: 'jenkins-infra', repository: 'incrementals-publisher', internalId: '2021042801',jenkinsfilePath: 'Jenkinsfile'],
-                [ name: 'K8s Cluster Management', GHOrganization: 'jenkins-infra', repository: 'charts', internalId: '2019081601',jenkinsfilePath: 'Jenkinsfile_k8s'],
+                [ name: 'K8s Cluster Management', GHOrganization: 'jenkins-infra', repository: 'kubernetes-management', internalId: '2019081601',jenkinsfilePath: 'Jenkinsfile_k8s'],
                 [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603',jenkinsfilePath: 'Jenkinsfile_k8s'],
                 [ name: 'Packer Images', GHOrganization: 'jenkins-infra', repository: 'packer-images', internalId: '2021090101',jenkinsfilePath: 'Jenkinsfile_k8s'],
               ].each { config ->
