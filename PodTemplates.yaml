@@ -39,7 +39,7 @@ spec:
       env:
         - name: "HOME"
           value: "/home/helm"
-      image: "jenkinsciinfra/helmfile:1.6.0"
+      image: "jenkinsciinfra/helmfile:1.6.2"
       imagePullPolicy: "IfNotPresent"
       name: "helmfile"
       resources:
