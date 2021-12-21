@@ -64,7 +64,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.0.1
+    version: 15.0.2
     atomic: false
     values:
       - "../config/prometheus.yaml"
