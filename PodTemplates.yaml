@@ -79,7 +79,7 @@ spec:
       env:
         - name: "HOME"
           value: "/home/helm"
-      image: "cytopia/yamllint:1.22"
+      image: "cytopia/yamllint:"
       imagePullPolicy: "Always"
       name: "yamllint"
       resources:
