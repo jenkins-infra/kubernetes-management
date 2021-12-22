@@ -1,0 +1,3 @@
+This folder contains updatecli manifests to update the Docker image tag of official/external helm charts.
+
+The Docker tag updates for our custom charts are here: https://github.com/jenkins-infra/helm-charts/tree/main/updatecli
