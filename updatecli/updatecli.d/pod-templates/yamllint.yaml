@@ -1,0 +1,39 @@
+---
+title: Bump yamllint PodTemplate
+sources:
+  lastRelease:
+    kind: githubRelease
+    name: Get latest yamllint version
+    spec:
+      # this repository is the source for the cytopia docker image
+      owner: "adrienverge"
+      repository: "yamllint"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+    # the cytopia docker image keeps only the first 2 version digits of yamllint version
+    transformers:
+      - findSubMatch: '^(\d*\.\d*)'
+conditions:
+  checkDockerImage:
+    name: Ensure that the latest image is published
+    kind: dockerImage
+    spec:
+      image: "cytopia/yamllint"
+targets:
+  updateImage:
+    name: "Update yamllint version in PodTemplates.yaml"
+    kind: yaml
+    transformers:
+      - addPrefix: "cytopia/yamllint:"
+    spec:
+      file: "PodTemplates.yaml"
+      key: spec.containers[2].image
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
