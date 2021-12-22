@@ -23,6 +23,7 @@ targets:
   updateChartVersionPublic:
     name: "Update the chart version for acme"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/acme((\r\n|\r|\n)(\s+))version: .*'

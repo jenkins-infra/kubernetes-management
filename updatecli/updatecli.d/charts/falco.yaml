@@ -23,6 +23,7 @@ targets:
   updateChartVersion:
     name: "falco/falco Helm Chart"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: falco\/falco((\r\n|\r|\n)(\s+))version: .*'

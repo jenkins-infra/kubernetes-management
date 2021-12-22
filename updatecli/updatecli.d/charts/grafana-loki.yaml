@@ -23,6 +23,7 @@ targets:
   updateChartVersion:
     name: "grafana/loki Helm Chart"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: grafana\/loki((\r\n|\r|\n)(\s+))version: .*'

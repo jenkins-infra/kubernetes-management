@@ -23,6 +23,7 @@ targets:
   updateChartVersion:
     name: "Update the chart version for env-jenkins-release"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/env-jenkins-release((\r\n|\r|\n)(\s+))version: .*'

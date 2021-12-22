@@ -23,6 +23,7 @@ targets:
   updateChartVersion:
     name: "Datadog Helm Chart"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'

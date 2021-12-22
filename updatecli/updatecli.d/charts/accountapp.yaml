@@ -23,6 +23,7 @@ targets:
   updateChartVersion:
     name: "Update the chart version for accountapp"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/accountapp((\r\n|\r|\n)(\s+))version: .*'

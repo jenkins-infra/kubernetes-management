@@ -23,6 +23,7 @@ targets:
   updateChartVersion:
     name: "autoscaler/cluster-autoscaler Helm Chart"
     kind: file
+    scmID: default
     spec:
       file: clusters/cik8s.yaml
       matchPattern: 'chart: autoscaler\/cluster-autoscaler((\r\n|\r|\n)(\s+))version: .*'
