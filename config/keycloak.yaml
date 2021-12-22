@@ -18,6 +18,10 @@ ingress:
         - admin.accounts.jenkins.io
       secretName: keycloak-cert
 
+image:
+  # https://twitter.com/keycloak/status/1471815630655528968?s=20
+  # Until the 16.x versions are available for the helm chart
+  tag: 15.1.1
 
 extraInitContainers: |
   - name: theme-provider
