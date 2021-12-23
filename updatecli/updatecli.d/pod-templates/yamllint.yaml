@@ -12,7 +12,7 @@ sources:
       username: "{{ .github.username }}"
     # the cytopia docker image keeps only the first 2 version digits of yamllint version
     transformers:
-      - findSubMatch: '^(\d*\.\d*)'
+      - findSubMatch: '(\d+\.\d+)'
 conditions:
   checkDockerImage:
     name: Ensure that the latest image is published
