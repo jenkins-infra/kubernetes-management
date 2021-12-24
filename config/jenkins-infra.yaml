@@ -231,6 +231,11 @@ controller:
                     id: "packer-azure-subscription-id"
                     secret: "${PACKER_AZURE_SUBSCRIPTION_ID}"
                     description: Azure client secret value for the Service Principal "packer"
+                - string:
+                    scope: GLOBAL
+                    description: Auth token to communicate with netlify
+                    id: netlify-auth-token
+                    secret: "${NETLIFY_AUTH_TOKEN}"
       agent-settings: |
         jenkins:
           clouds:
