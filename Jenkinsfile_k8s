@@ -111,7 +111,7 @@ pipeline {
           }
           environment {
             K8S_CLUSTER           = 'cik8s'
-            KUBECONFIG            = credentials('k8s_kubeconfig')
+            KUBECONFIG            = credentials('kubeconfig-cik8s')
             AWS_CONFIG_FILE       = credentials('eks_charter_awsconfig')
             // Required for secret decryption
             AZURE_TENANT_ID       = credentials('sops-tenant-id')

@@ -169,9 +169,16 @@ controller:
                     secretBytes: "${base64:${PRODUCTION_TERRAFORM_BACKEND_CONFIG}}"
                 - file:
                     fileName: "kubeconfig"
-                    id: "k8s_kubeconfig"
+                    id: "kubeconfig-cik8s"
+                    description: "Kubeconfig file for cik8s"
                     scope: GLOBAL
-                    secretBytes: "${base64:${KUBECONFIG}}"
+                    secretBytes: "${base64:${KUBECONFIG_CIK8S}}"
+                - file:
+                    fileName: "kubeconfig"
+                    id: "kubeconfig-temp-privatek8s"
+                    description: "Kubeconfig file for temp-privatek8s"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
                 - file:
                     fileName: "credentials"
                     id: "eks_charter_awsconfig"
@@ -241,13 +248,16 @@ controller:
           clouds:
             - kubernetes:
                 containerCapStr: "100"
-                jenkinsUrl: "http://jenkins-infra:8080"
+                jenkinsUrl: "https://infra.ci.jenkins.io"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
                 name: "kubernetes"
-                namespace: "jenkins-infra"
+                namespace: "jenkins-agents"
                 podRetention: "Never"
-                serverUrl: "https://kubernetes.default"
+                serverUrl: ${AGENTS_KUBERNETES_CLUSTER_URL}
+                credentialsId: "kubeconfig-temp-privatek8s"
+                serverCertificate: |
+                  ${AGENTS_KUBERNETES_CLUSTER_CERT}
                 podLabels:
                   # Required to be jenkins/<helm-release>-jenkins-slave as defined here
                   # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
