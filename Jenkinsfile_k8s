@@ -46,7 +46,7 @@ pipeline {
             } // stage
           }
         } // stage
-        stage('publick8s Cluster') {
+        stage('prodpublick8s Cluster') {
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
@@ -55,7 +55,8 @@ pipeline {
             }
           }
           environment {
-            K8S_CLUSTER           = 'publick8s'
+            K8S_CLUSTER           = 'prodpublick8s'
+            KUBECONFIG            = credentials('kubeconfig-prodpublick8s')
             // Required for secret decryption
             AZURE_TENANT_ID       = credentials('sops-tenant-id')
             AZURE_CLIENT_ID       = credentials('sops-client-id')
@@ -68,6 +69,13 @@ pipeline {
                   // Init secrets
                   git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
                 }
+                // The "chmod" operation allows "kubectl config use-context" to write the file
+                sh '''
+                chmod 0600 $KUBECONFIG
+                kubectl config use-context "${K8S_CLUSTER}"
+                chmod 0400 $KUBECONFIG
+                kubectl cluster-info
+                '''
               }
             }
             stage('Yaml Lint') {

@@ -175,6 +175,12 @@ controller:
                     secretBytes: "${base64:${KUBECONFIG_CIK8S}}"
                 - file:
                     fileName: "kubeconfig"
+                    id: "kubeconfig-prodpublick8s"
+                    description: "Kubeconfig file for prodpublick8s"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${KUBECONFIG_PRODPUBLICK8S}}"
+                - file:
+                    fileName: "kubeconfig"
                     id: "kubeconfig-temp-privatek8s"
                     description: "Kubeconfig file for temp-privatek8s"
                     scope: GLOBAL
