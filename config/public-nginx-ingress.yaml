@@ -50,8 +50,6 @@ controller:
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
-      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: app-tier
-      service.beta.kubernetes.io/azure-load-balancer-resource-group: prodpublick8s
       prometheus.io/scrape: "true"
       prometheus.io/port: "10254"
     loadBalancerIP: 52.167.253.43
