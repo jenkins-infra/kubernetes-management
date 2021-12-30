@@ -11,7 +11,7 @@ targets:
     name: "grafana/promtail Helm Chart"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: grafana\/promtail((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: grafana/promtail${1}version: {{ source `lastChartVersion` }}'
     scm:

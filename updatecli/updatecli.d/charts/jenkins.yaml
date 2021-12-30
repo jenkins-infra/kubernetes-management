@@ -1,4 +1,4 @@
-title: Bump Jenkins Upstream Helm Charts 
+title: Bump Jenkins Upstream Helm Charts
 sources:
   lastChartVersion:
     kind: helmChart
@@ -10,7 +10,7 @@ targets:
     name: "jenkinsci/jenkins Helm Chart"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins\/jenkins((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins/jenkins${1}version: {{ source `lastChartVersion` }}'
     scm:

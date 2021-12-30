@@ -10,7 +10,7 @@ targets:
     name: "Update the chart version for chatbot"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/chatbot((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/chatbot${1}version: {{ source `lastChartVersion` }}'
     scm:

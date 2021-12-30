@@ -10,7 +10,7 @@ targets:
     name: "stable/prometheus Helm Chart"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: prometheus-community\/prometheus((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: prometheus-community/prometheus${1}version: {{ source `lastChartVersion` }}'
     scm:
