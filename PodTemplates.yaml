@@ -59,8 +59,8 @@ spec:
       env:
         - name: "HOME"
           value: "/home/helm"
-      image: "ghcr.io/updatecli/updatecli:v0.17.1"
-      imagePullPolicy: "Always"
+      image: "ghcr.io/updatecli/updatecli:v0.16.1" # Do not update to 0.17.x+ until https://github.com/updatecli/updatecli/issues/431 is resolved
+      imagePullPolicy: "IfNotPresent"
       name: "updatecli"
       resources:
         limits:
@@ -80,7 +80,7 @@ spec:
         - name: "HOME"
           value: "/home/helm"
       image: "cytopia/yamllint:1.26"
-      imagePullPolicy: "Always"
+      imagePullPolicy: "IfNotPresent"
       name: "yamllint"
       resources:
         limits:
@@ -92,4 +92,3 @@ spec:
       securityContext:
         privileged: false
       tty: true
-  restartPolicy: "Never"
