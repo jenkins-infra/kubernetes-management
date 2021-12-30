@@ -1,17 +1,17 @@
 # Jenkins Infrastructure Kubernetes Management
 
-This repository contains the helm charts references and values used by jenkins infrastructure project to configure its clusters.
+This repository contains the helmfile manifests values used by jenkins infrastructure project to manage the applications of its kubernetes clusters.
 
 The charts used come from [the helm charts repository](https://github.com/jenkins-infra/helm-charts/) and from external providers.
 
 ## Contributing
 
-The Jenkins Infrastructure Kubernetes Management project accepts contributions via GitHub pull requests, more information in [CONTRIBUTING.md](https://github.com/jenkins-infra/kubernetes-management/blob/main/CONTRIBUTING.md)
-
+The Jenkins Infrastructure Kubernetes Management project accepts contributions via GitHub pull requests,
+more information in [CONTRIBUTING.md](https://github.com/jenkins-infra/kubernetes-management/blob/main/CONTRIBUTING.md)
 
 ## Issues
 
-Any issues can be reported on our [ticket system](https://issues.jenkins-ci.org/projects/INFRA/)
+Any issues can be reported on our [JIRA issue tracker](https://issues.jenkins-ci.org/projects/INFRA/)
 
 ## Repository Structure
 
@@ -45,7 +45,7 @@ Then, you can edit an app secret by using the `sops ./secrets/config/<app-name>/
 ## Minikube
 
 ```bash
-minikube start --kubernetes-version v1.20.9
+minikube start --kubernetes-version v1.20.13
 minikube addons enable ingress
 helm install stable/nginx-ingress nginx-ingress # we can't install the ingress defined in this repository for local testing
 kubectl -n release port-forward default-release-jenkins-77fd54976f-ns2c6 8081:8080
