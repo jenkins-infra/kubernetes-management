@@ -23,7 +23,7 @@ targets:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-  updateChartVersionTempPrivate:
+  updateChartVersionPrivate:
     name: "Update the version of the Helm chart ingress-nginx for temp-privatek8s"
     kind: file
     spec:
