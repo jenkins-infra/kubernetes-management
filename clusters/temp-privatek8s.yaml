@@ -10,7 +10,26 @@ repositories:
     url: https://jenkins-infra.github.io/helm-charts
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  - name: jetstack
+    url: https://charts.jetstack.io
 releases:
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.6.1
+    set:
+      - name: installCRDs
+        value: true
+  - name: acme
+    namespace: cert-manager
+    chart: jenkins-infra/acme
+    version: 0.1.2
+    needs:
+    - cert-manager
+    values:
+      - "../config/cert-manager.yaml"
+    secrets:
+      - "../secrets/config/acme/secrets.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
