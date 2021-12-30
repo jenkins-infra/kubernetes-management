@@ -14,39 +14,40 @@ pipeline {
   stages {
     stage('Parallel Stages') {
       parallel {
-        stage('updatecli tasks') {
-          agent {
-            kubernetes {
-              yamlFile 'PodTemplates.yaml'
-              inheritFrom 'jnlp-linux'
-              defaultContainer 'updatecli'
-            }
-          }
-          environment {
-            UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
-          }
-          stages {
-            stage('Check Configuration Update') {
-              // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
-              steps {
-                sh 'updatecli diff --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
-              }
-            } // stage
-            stage('Apply Configuration Update') {
-              when {
-                allOf {
-                  branch 'main'
-                  // Only run updatecli's tasks when the pipeline is triggered by the "cron" routine
-                  triggeredBy 'TimerTrigger'
-                }
-              }
-              steps {
-                sh 'updatecli apply --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
-              }
-            } // stage
-          }
-        } // stage
-        stage('publick8s Cluster') {
+        // Updatecli is disabled until https://github.com/updatecli/updatecli/issues/431 is resolved
+        // stage('updatecli tasks') {
+        //   agent {
+        //     kubernetes {
+        //       yamlFile 'PodTemplates.yaml'
+        //       inheritFrom 'jnlp-linux'
+        //       defaultContainer 'updatecli'
+        //     }
+        //   }
+        //   environment {
+        //     UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
+        //   }
+        //   stages {
+        //     stage('Check Configuration Update') {
+        //       // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
+        //       steps {
+        //         sh 'updatecli diff --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
+        //       }
+        //     } // stage
+        //     stage('Apply Configuration Update') {
+        //       when {
+        //         allOf {
+        //           branch 'main'
+        //           // Only run updatecli's tasks when the pipeline is triggered by the "cron" routine
+        //           triggeredBy 'TimerTrigger'
+        //         }
+        //       }
+        //       steps {
+        //         sh 'updatecli apply --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
+        //       }
+        //     } // stage
+        //   }
+        // } // stage
+        stage('prodpublick8s Cluster') {
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
@@ -55,7 +56,8 @@ pipeline {
             }
           }
           environment {
-            K8S_CLUSTER           = 'publick8s'
+            K8S_CLUSTER           = 'prodpublick8s'
+            KUBECONFIG            = credentials('kubeconfig-prodpublick8s')
             // Required for secret decryption
             AZURE_TENANT_ID       = credentials('sops-tenant-id')
             AZURE_CLIENT_ID       = credentials('sops-client-id')
@@ -68,6 +70,13 @@ pipeline {
                   // Init secrets
                   git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
                 }
+                // The "chmod" operation allows "kubectl config use-context" to write the file
+                sh '''
+                chmod 0600 $KUBECONFIG
+                kubectl config use-context "${K8S_CLUSTER}"
+                chmod 0400 $KUBECONFIG
+                kubectl cluster-info
+                '''
               }
             }
             stage('Yaml Lint') {
@@ -111,7 +120,7 @@ pipeline {
           }
           environment {
             K8S_CLUSTER           = 'cik8s'
-            KUBECONFIG            = credentials('k8s_kubeconfig')
+            KUBECONFIG            = credentials('kubeconfig-cik8s')
             AWS_CONFIG_FILE       = credentials('eks_charter_awsconfig')
             // Required for secret decryption
             AZURE_TENANT_ID       = credentials('sops-tenant-id')
