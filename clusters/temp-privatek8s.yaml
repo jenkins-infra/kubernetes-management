@@ -30,6 +30,12 @@ releases:
       - "../config/cert-manager.yaml"
     secrets:
       - "../secrets/config/acme/secrets.yaml"
+  - name: public-nginx-ingress
+    namespace: public-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.0.13
+    values:
+      - "../config/temp-privatek8s/public-nginx-ingress.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
