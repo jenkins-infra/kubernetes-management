@@ -10,7 +10,7 @@ targets:
     name: "Datadog Helm Chart"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
     scm:

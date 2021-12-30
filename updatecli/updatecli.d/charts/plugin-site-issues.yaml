@@ -10,7 +10,7 @@ targets:
     name: "Update the chart version for plugin-site-issues"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/plugin-site-issues((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/plugin-site-issues${1}version: {{ source `lastChartVersion` }}'
     scm:

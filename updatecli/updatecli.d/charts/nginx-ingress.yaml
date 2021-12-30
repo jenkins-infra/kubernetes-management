@@ -11,7 +11,7 @@ targets:
     name: "Update the version of the Helm chart ingress-nginx for public-ingress"
     kind: file
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
     scm:
