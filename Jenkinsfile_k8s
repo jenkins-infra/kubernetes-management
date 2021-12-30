@@ -12,9 +12,9 @@ pipeline {
   }
 
   stages {
-    stage('Parallel Stages') {
+    stage('Chore Tasks') {
       parallel {
-        stage('updatecli tasks') {
+        stage('Dependency Management') {
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
@@ -45,136 +45,81 @@ pipeline {
               }
             } // stage
           }
-        } // stage
-        stage('prodpublick8s Cluster') {
+        } // stage 'Dependency Management'
+        stage('Yaml Lint') {
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
               inheritFrom 'jnlp-linux'
-              defaultContainer 'helmfile'
+              defaultContainer 'yamllint'
             }
           }
-          environment {
-            K8S_CLUSTER           = 'prodpublick8s'
-            KUBECONFIG            = credentials('kubeconfig-prodpublick8s')
-            // Required for secret decryption
-            AZURE_TENANT_ID       = credentials('sops-tenant-id')
-            AZURE_CLIENT_ID       = credentials('sops-client-id')
-            AZURE_CLIENT_SECRET   = credentials('sops-client-secret')
+          steps {
+            sh 'yamllint --config-file yamllint.config config'
           }
-          stages {
-            stage('Prepare Environment'){
-              steps {
-                dir ('secrets'){
-                  // Init secrets
-                  git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
-                }
-                // The "chmod" operation allows "kubectl config use-context" to write the file
-                sh '''
-                chmod 0600 $KUBECONFIG
-                kubectl config use-context "${K8S_CLUSTER}"
-                chmod 0400 $KUBECONFIG
-                kubectl cluster-info
-                '''
-              }
-            }
-            stage('Yaml Lint') {
-              steps {
-                container('yamllint') {
-                  sh 'yamllint --config-file yamllint.config config'
-                }
-              }
-            }
-            stage('Helmfile Lint'){
-              steps {
-                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
-              }
-            } // stage
-            stage('Diff on PR'){
-              when { changeRequest() }
-              steps {
-                script {
-                  def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2 --concurrency=8', returnStdout: true).trim()
-                  // Note the GitHub markdown formatting for the diff, to have syntax coloration
-                  publishChecks name: "helmfile-diff-${K8S_CLUSTER}", title: "Helmfile Diff for cluster ${K8S_CLUSTER}", text: '```diff\n' + diff + '\n```'
-                }
-              }
-            } // stage
-            stage('Apply'){
-              when { branch 'main' }
-              steps {
-                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
-              }
-            } // stage
-          } // stages
-        } // stage
-
-        stage('cik8s Cluster') {
-          agent {
-            kubernetes {
-              yamlFile 'PodTemplates.yaml'
-              inheritFrom 'jnlp-linux'
-              defaultContainer 'helmfile'
-            }
-          }
-          environment {
-            K8S_CLUSTER           = 'cik8s'
-            KUBECONFIG            = credentials('kubeconfig-cik8s')
-            AWS_CONFIG_FILE       = credentials('eks_charter_awsconfig')
-            // Required for secret decryption
-            AZURE_TENANT_ID       = credentials('sops-tenant-id')
-            AZURE_CLIENT_ID       = credentials('sops-client-id')
-            AZURE_CLIENT_SECRET   = credentials('sops-client-secret')
-          }
-          stages {
-            stage('Prepare Environment'){
-              steps {
-                dir ('secrets'){
-                  // Init secrets
-                  git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
-                }
-                // The "chmod" operation allows "kubectl config use-context" to write the file
-                sh '''
-                mkdir -p ~/.aws ~/.kube
-                cp $AWS_CONFIG_FILE ~/.aws/credentials
-                chmod 0600 $KUBECONFIG
-                kubectl config use-context "${K8S_CLUSTER}"
-                chmod 0400 $KUBECONFIG
-                kubectl cluster-info
-                '''
-              }
-            }
-            stage('Yaml Lint') {
-              steps {
-                container('yamllint') {
-                  sh 'yamllint --config-file yamllint.config config'
-                }
-              }
-            }
-            stage('Helmfile Lint'){
-              steps {
-                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
-              }
-            } // stage
-            stage('Diff on PR'){
-              when { changeRequest() }
-              steps {
-                script {
-                  def diff = sh(script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2 --concurrency=8', returnStdout: true).trim()
-                  // Note the GitHub markdown formatting for the diff, to have syntax coloration
-                  publishChecks name: "helmfile-diff-${K8S_CLUSTER}", title: "Helmfile Diff for cluster ${K8S_CLUSTER}", text: '```diff\n' + diff + '\n```'
-                }
-              }
-            } // stage
-            stage('Apply'){
-              when { branch 'main' }
-              steps {
-                sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
-              }
-            } // stage
-          } // stages
-        } // stage
+        } // stage 'Yaml Lint'
       } // parallel
-    } // stage
+    } // stage 'Chore Tasks
+    stage('Kubernetes Management Tasks') {
+      matrix {
+        axes {
+          axis {
+            name 'K8S_CLUSTER'
+            values 'prodpublick8s', 'cik8s', 'temp-privatek8s'
+          }
+        } // axes
+        agent {
+          kubernetes {
+            yamlFile 'PodTemplates.yaml'
+            inheritFrom 'jnlp-linux'
+            defaultContainer 'helmfile'
+          }
+        }
+      environment {
+        KUBECONFIG            = credentials("kubeconfig-${K8S_CLUSTER}")
+        // Required for secret decryption
+        AZURE_TENANT_ID       = credentials('sops-tenant-id')
+        AZURE_CLIENT_ID       = credentials('sops-client-id')
+        AZURE_CLIENT_SECRET   = credentials('sops-client-secret')
+        // Required for AWS-hosted clusters
+        AWS_SHARED_CREDENTIALS_FILE       = credentials('eks_charter_awsconfig')
+      }
+        stages {
+          stage('Prepare Environment'){
+            steps {
+              // Retrieve the private repository holding the SOPS encrypted YAML secrets into the local directory "./secrets"
+              dir ('secrets'){
+                git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
+              }
+              sh 'kubectl cluster-info'
+            }
+          }
+          stage('Helmfile Lint'){
+            steps {
+              sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
+            }
+          } // stage
+          stage('Diff on Pull Request'){
+            when { changeRequest() }
+            steps {
+              script {
+                def diff = sh(
+                  script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2 --concurrency=8',
+                  returnStdout: true,
+                ).trim()
+                // Note the GitHub markdown formatting for the diff, to have syntax coloration
+                publishChecks name: "helmfile-diff-${K8S_CLUSTER}", title: "Helmfile Diff for cluster ${K8S_CLUSTER}", text: '```diff\n' + diff + '\n```'
+              }
+            }
+          } // stage
+          stage('Apply'){
+            when { branch 'main' }
+            steps {
+              sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
+            }
+          } // stage
+        } // stages
+      } // matrix
+    } // stage 'stage('Kubernetes Management Tasks'
   } // stages
 }
