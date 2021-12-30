@@ -2,7 +2,6 @@ service:
   type: LoadBalancer
   whitelisted_sources:
     - '10.0.32.0/19' # Kubernetes publick8s internal IPs
-    - '10.240.0.0/16' # Kubernetes private network's internal IPs
     - '35.196.175.89/32' # 2021-06-08 Allow new IP repo.jenkins-ci.org. The hosted Artifactory by JFrog
     - '34.75.131.248/32' # 2021-06-08 Allow new IP repo.jenkins-ci.org. The hosted Artifactory by JFrog
     - '73.71.177.172/32' # 106 accept inbound LDAPS request from spambot
@@ -17,6 +16,7 @@ service:
     - '34.211.101.61/32' # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32' # Accept inbound connections from Linux Foundation prod machine
     - '20.75.10.224/29' # Accept inbound connections from publick8s public IPs
+    - '20.72.105.159/32' # Accept inbound connections from temp-privatek8s
 image:
   slapd:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli

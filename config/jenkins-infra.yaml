@@ -251,10 +251,11 @@ controller:
                     secret: "${NETLIFY_AUTH_TOKEN}"
       agent-settings: |
         jenkins:
+          numExecutors: 0
           clouds:
             - kubernetes:
                 containerCapStr: "100"
-                jenkinsUrl: "https://infra.ci.jenkins.io"
+                jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc:8080"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
                 name: "kubernetes"
@@ -611,6 +612,8 @@ controller:
           nagDisabled: true
       pipeline-library: |
         unclassified:
+          location:
+            url: "http://jenkins-infra.jenkins-infra.svc:8080"
           globalLibraries:
             libraries:
             - defaultVersion: "master"

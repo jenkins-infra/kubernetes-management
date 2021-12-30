@@ -203,23 +203,6 @@ releases:
       - "../config/mirrorbits.yaml"
     secrets:
       - "../secrets/config/mirrorbits/secrets.yaml"
-  - name: jenkins-infra
-    namespace: jenkins-infra
-    chart: jenkins/jenkins
-    version: 3.10.2
-    set:
-      - name: namespace
-        value: jenkins-infra
-    values:
-      - "../config/jenkins-infra.yaml"
-  - name: jenkins-infra-additional
-    namespace: jenkins-infra
-    chart: jenkins-infra/jenkins-additional
-    version: 0.0.1
-    values:
-    - ../config/jenkins-infra-additional.yaml
-    secrets:
-      - "../secrets/config/jenkins-infra/jenkins.yaml"
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
