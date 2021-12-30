@@ -65,7 +65,7 @@ forceJenkinsIoHost: true
 images:
   en:
     repository: nginx
-    tag: 1.20.2-alpine
+    tag: 1.21.5-alpine
     pullPolicy: IfNotPresent
   zh:
     repository: nginx
