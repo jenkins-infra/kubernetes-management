@@ -7,11 +7,27 @@ sources:
       url: https://kubernetes.github.io/ingress-nginx
       name: ingress-nginx
 targets:
-  updateChartVersion:
+  updateChartVersionPublic:
     name: "Update the version of the Helm chart ingress-nginx for public-ingress"
     kind: file
     spec:
       file: clusters/publick8s.yaml
+      matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  updateChartVersionTempPrivate:
+    name: "Update the version of the Helm chart ingress-nginx for temp-privatek8s"
+    kind: file
+    spec:
+      file: clusters/temp-privatek8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
     scm:

@@ -8,7 +8,15 @@ repositories:
     url: https://charts.jenkins.io
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
 releases:
+  - name: private-nginx-ingress
+    namespace: private-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.0.13
+    values:
+      - "../config/temp-privatek8s/private-nginx-ingress.yaml"
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
