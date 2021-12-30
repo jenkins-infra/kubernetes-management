@@ -24,10 +24,6 @@ defaultBackend:
 controller:
   config:
     log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
-    # In order to use geoIP from the ingress controller,
-    # we need to provide a maxmind license key.
-    # I doubt we need it at the moment, hence this comment.
-    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
     use-geoip2: "true"
     hsts: "true"
     hsts-preload: "true"
