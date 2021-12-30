@@ -1,14 +1,13 @@
 service:
   type: LoadBalancer
   whitelisted_sources:
-    - '10.0.32.0/19' # Kubernetes publick8s internal IP
+    - '10.0.32.0/19' # Kubernetes publick8s internal IPs
+    - '10.240.0.0/16' # Kubernetes private network's internal IPs
     - '35.196.175.89/32' # 2021-06-08 Allow new IP repo.jenkins-ci.org. The hosted Artifactory by JFrog
     - '34.75.131.248/32' # 2021-06-08 Allow new IP repo.jenkins-ci.org. The hosted Artifactory by JFrog
     - '73.71.177.172/32' # 106 accept inbound LDAPS request from spambot
     - '140.211.15.101/32' # 107 accept inbound LDAPS request from accounts app
     - '140.211.9.94/32' # 107 accept inbound LDAPS request from puppet.jenkins.io puppet.jenkins.io
-    - '140.211.9.32/32' # 107 accept inbound LDAPS request from Confluence wiki.jenkins-ci.org
-    - '140.211.9.2/32' # 107 accept inbound LDAPS request from JIRA issues.jenkins-ci.org
     - '3.209.43.20/32' # 107 accept inbound LDAPS from trusted-ci
     - '52.71.231.250/32' # 107 accept inbound LDAPS from ci
     - '104.209.251.202/32' # accept inbound LDAPS from vpn.jenkins.io
@@ -18,7 +17,6 @@ service:
     - '34.211.101.61/32' # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32' # Accept inbound connections from Linux Foundation prod machine
     - '20.75.10.224/29' # Accept inbound connections from publick8s public IPs
-    - '40.85.158.127/32' # **Temporary** accept inbound connections olblak-confluence hosted on jenkins azure account. Please remove this entry once the machine is deleted
 image:
   slapd:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
