@@ -255,6 +255,7 @@ controller:
           clouds:
             - kubernetes:
                 containerCapStr: "100"
+                # Kubernetes internal URL to stay within private networks
                 jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc:8080"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
@@ -613,7 +614,7 @@ controller:
       pipeline-library: |
         unclassified:
           location:
-            url: "http://jenkins-infra.jenkins-infra.svc:8080"
+            url: "https://infra.ci.jenkins.io"
           globalLibraries:
             libraries:
             - defaultVersion: "master"
