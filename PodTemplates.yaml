@@ -59,7 +59,7 @@ spec:
       env:
         - name: "HOME"
           value: "/home/helm"
-      image: "ghcr.io/updatecli/updatecli:v0.16.1" # Do not update to 0.17.x+ until https://github.com/updatecli/updatecli/issues/431 is resolved
+      image: "ghcr.io/updatecli/updatecli:v0.17.1" # Do not update to 0.17.x+ until https://github.com/updatecli/updatecli/issues/431 is resolved
       imagePullPolicy: "IfNotPresent"
       name: "updatecli"
       resources:
