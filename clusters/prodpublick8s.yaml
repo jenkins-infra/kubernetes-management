@@ -127,14 +127,15 @@ releases:
       - "../config/plugin-site.yaml"
     secrets:
       - "../secrets/config/plugin-site/secrets.yaml"
-  - name: plugin-site-issues
-    namespace: plugin-site
-    chart: jenkins-infra/plugin-site-issues
-    version: 0.1.2
-    values:
-      - "../config/plugin-site-issues.yaml"
-    secrets:
-      - "../secrets/config/plugin-site-issues/secrets.yaml"
+  ## Commented until https://github.com/jenkins-infra/kubernetes-management/issues/1862 is solved
+  # - name: plugin-site-issues
+  #   namespace: plugin-site
+  #   chart: jenkins-infra/plugin-site-issues
+  #   version: 0.1.2
+  #   values:
+  #     - "../config/plugin-site-issues.yaml"
+  #   secrets:
+  #     - "../secrets/config/plugin-site-issues/secrets.yaml"
   - name: chatbot
     namespace: chatbot
     chart: jenkins-infra/chatbot
