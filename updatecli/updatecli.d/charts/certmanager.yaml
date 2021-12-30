@@ -6,11 +6,27 @@ sources:
       url: https://charts.jetstack.io
       name: cert-manager
 targets:
-  updateChartVersion:
+  updateChartVersionPublic:
     name: "jetstack/cert-manager Helm Chart"
     kind: file
     spec:
       file: clusters/prodpublick8s.yaml
+      matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  updateChartVersionPrivate:
+    name: "jetstack/cert-manager Helm Chart"
+    kind: file
+    spec:
+      file: clusters/temp-privatek8s.yaml
       matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
     scm:

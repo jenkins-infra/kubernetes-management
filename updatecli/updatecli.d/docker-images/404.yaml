@@ -16,7 +16,7 @@ conditions:
     spec:
       image: "jenkinsciinfra/404"
 targets:
-  updatePrivateNginxIngress404:
+  updatePrivateNginxIngress404Public:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
@@ -31,11 +31,41 @@ targets:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
-  updatePublicNginxIngress404:
+  updatePublicNginxIngress404Public:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
       file: "config/public-nginx-ingress.yaml"
+      key: "defaultBackend.image.tag"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  updatePrivateNginxIngress404Private:
+    name: "Update 404 docker image tag"
+    kind: yaml
+    spec:
+      file: "config/temp-privatek8s/private-nginx-ingress.yaml"
+      key: "defaultBackend.image.tag"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+  updatePublicNginxIngress404Private:
+    name: "Update 404 docker image tag"
+    kind: yaml
+    spec:
+      file: "config/temp-privatek8s/public-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
     scm:
       github:
