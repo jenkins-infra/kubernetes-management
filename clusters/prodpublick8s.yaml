@@ -258,6 +258,6 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.0
+    version: 0.3.1
     values:
       - "../config/wiki.yaml"
