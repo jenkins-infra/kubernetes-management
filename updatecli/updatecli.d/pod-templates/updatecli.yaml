@@ -24,7 +24,7 @@ conditions:
     disablesourceinput: true
     spec:
       file: "PodTemplates.yaml"
-      key: spec.containers[1].name
+      key: spec.containers[0].name
       value: "updatecli"
 targets:
   updateImage:
@@ -34,7 +34,7 @@ targets:
       - addPrefix: "ghcr.io/updatecli/updatecli:"
     spec:
       file: "PodTemplates.yaml"
-      key: spec.containers[1].image
+      key: spec.containers[0].image
     scm:
       github:
         user: "{{ .github.user }}"

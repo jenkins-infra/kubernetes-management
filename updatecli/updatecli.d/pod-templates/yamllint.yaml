@@ -27,7 +27,7 @@ targets:
       - addPrefix: "cytopia/yamllint:"
     spec:
       file: "PodTemplates.yaml"
-      key: spec.containers[2].image
+      key: spec.containers[0].image
     scm:
       github:
         user: "{{ .github.user }}"
