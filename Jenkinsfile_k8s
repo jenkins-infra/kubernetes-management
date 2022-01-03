@@ -18,7 +18,7 @@ pipeline {
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
-              inheritFrom 'jnlp-linux'
+              // inheritFrom 'jnlp-linux'
               defaultContainer 'updatecli'
             }
           }
@@ -50,7 +50,7 @@ pipeline {
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
-              inheritFrom 'jnlp-linux'
+              // inheritFrom 'jnlp-linux'
               defaultContainer 'yamllint'
             }
           }
@@ -71,7 +71,7 @@ pipeline {
         agent {
           kubernetes {
             yamlFile 'PodTemplates.yaml'
-            inheritFrom 'jnlp-linux'
+            // inheritFrom 'jnlp-linux'
             defaultContainer 'helmfile'
           }
         }
