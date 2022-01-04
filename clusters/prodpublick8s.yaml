@@ -31,8 +31,8 @@ releases:
     version: 2.28.11
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
-      - "../config/datadog.yaml.gotmpl"
-      - "../config/publick8s-datadog.yaml"
+      - "../config/ext_datadog.yaml.gotmpl"
+      - "../config/ext_publick8s-datadog.yaml"
     secrets:
       - "../secrets/config/datadog/secrets.yaml"
   - name: public-nginx-ingress
@@ -40,27 +40,27 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.0.13
     values:
-      - "../config/public-nginx-ingress.yaml"
+      - "../config/ext_public-nginx-ingress.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.0.13
     values:
-      - "../config/private-nginx-ingress.yaml"
+      - "../config/ext_private-nginx-ingress.yaml"
   - name: public-traefik
     namespace: public-traefik
     chart: traefik/traefik
     version: 10.9.1
     values:
-      - "../config/traefik.yaml"
-      - "../config/public-traefik.yaml"
+      - "../config/ext_traefik.yaml"
+      - "../config/ext_public-traefik.yaml"
   - name: private-traefik
     namespace: private-traefik
     chart: traefik/traefik
     version: 10.9.1
     values:
-      - "../config/traefik.yaml"
-      - "../config/private-traefik.yaml"
+      - "../config/ext_traefik.yaml"
+      - "../config/ext_private-traefik.yaml"
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
@@ -90,25 +90,25 @@ releases:
     chart: falco/falco
     version: 1.16.3
     values:
-      - "../config/falco.yaml"
+      - "../config/ext_falco.yaml"
   - name: loki
     namespace: loki
     chart: grafana/loki
     version: 2.8.4
     values:
-      - "../config/loki.yaml"
+      - "../config/ext_loki.yaml"
   - name: promtail
     namespace: loki
     chart: grafana/promtail
     version: 3.9.2
     values:
-      - "../config/promtail.yaml"
+      - "../config/ext_promtail.yaml"
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
     version: 6.20.4
     values:
-      - "../config/grafana.yaml"
+      - "../config/ext_grafana.yaml"
     secrets:
       - "../secrets/config/grafana/secrets.yaml"
   - name: jenkins-wiki-exporter
@@ -212,7 +212,7 @@ releases:
       - name: namespace
         value: release
     values:
-    - ../config/jenkins-release.yaml
+    - ../config/ext_jenkins-release.yaml
   - name: jenkins-infra-additional
     namespace: release
     chart: jenkins-infra/jenkins-additional
@@ -245,7 +245,7 @@ releases:
     version: 16.0.5
     timeout: 600
     values:
-      - "../config/keycloak.yaml"
+      - "../config/ext_keycloak.yaml"
     secrets:
       - "../secrets/config/keycloak/secrets.yaml"
   - name: keycloak-public # User: https://admin.accounts.jenkins.io/auth/realms/jenkins/account
