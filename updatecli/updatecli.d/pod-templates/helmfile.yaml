@@ -22,7 +22,7 @@ conditions:
     spec:
       file: "PodTemplates.yaml"
       key: spec.containers[0].name
-      value: "helmfile"
+      value: "jnlp"
 targets:
   updateImage:
     name: "Update helmfile container's image in PodTemplates.yaml"
