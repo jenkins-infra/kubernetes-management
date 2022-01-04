@@ -19,8 +19,8 @@ releases:
     version: 2.28.11
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
-      - "../config/datadog.yaml.gotmpl"
-      - "../config/cik8s-datadog.yaml"
+      - "../config/ext_datadog.yaml.gotmpl"
+      - "../config/ext_cik8s-datadog.yaml"
     secrets:
       - "../secrets/config/datadog/secrets.yaml"
   - name: jenkins-agents
@@ -32,10 +32,10 @@ releases:
     chart: autoscaler/cluster-autoscaler
     version: 9.11.0
     values:
-      - "../config/autoscaler.yaml"
+      - "../config/ext_autoscaler.yaml"
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
     version: 0.16.0
     values:
-      - "../config/aws-node-termination-handler.yaml"
+      - "../config/ext_aws-node-termination-handler.yaml"

@@ -20,7 +20,7 @@ targets:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/private-nginx-ingress.yaml"
+      file: "config/ext_private-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
     scm:
       github:
@@ -35,7 +35,7 @@ targets:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/public-nginx-ingress.yaml"
+      file: "config/ext_public-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
     scm:
       github:
@@ -50,7 +50,7 @@ targets:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/temp-privatek8s/private-nginx-ingress.yaml"
+      file: "config/temp-privatek8s/ext_private-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
     scm:
       github:
@@ -65,7 +65,7 @@ targets:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/temp-privatek8s/public-nginx-ingress.yaml"
+      file: "config/temp-privatek8s/ext_public-nginx-ingress.yaml"
       key: "defaultBackend.image.tag"
     scm:
       github:

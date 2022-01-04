@@ -13,7 +13,7 @@ targets:
     # As it's a yaml.gotmpl, we can't use 'kind: yaml', the parser fails on the first bracket
     kind: file
     spec:
-      file: config/datadog.yaml.gotmpl
+      file: config/ext_datadog.yaml.gotmpl
       matchPattern: 'repository: "jenkinsciinfra/datadog@sha256"((\r\n|\r|\n)(\s+))tag:.*'
       replacePattern: 'repository: "jenkinsciinfra/datadog@sha256"${1}tag: "{{ source `latestDigest` }}"'
     scm:

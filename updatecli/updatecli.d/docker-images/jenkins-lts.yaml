@@ -20,7 +20,7 @@ targets:
     name: "Update jenkinsciinfra/jenkins-lts docker image tag"
     kind: yaml
     spec:
-      file: "config/jenkins-release.yaml"
+      file: "config/ext_jenkins-release.yaml"
       key: "controller.tag"
     scm:
       github:
