@@ -1,4 +1,4 @@
 External charts config files are prefixed with "ext_" to be easily noticed.
 
-In these config, we're setting/surcharging and updating the image.tag with udpatecli (See ./updatecli/updatecli.d/docker-images).
+In these config, we're setting/surcharging and updating the image.tag with updatecli (See ./updatecli/updatecli.d/docker-images).
 In ours charts config, there isn't any image.tag as we're updating the docker images in the helm charts and the corresponding repository https://github.com/jenkins-infra/helm-charts, generating new helm charts versions, monitored by updatecli in this repository. (See ./updatecli/updatecli.d/charts)
