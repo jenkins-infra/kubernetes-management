@@ -228,7 +228,7 @@ releases:
   - name: custom-distribution-service
     namespace: custom-distribution-service
     chart: jenkins-infra/custom-distribution-service
-    version: 0.3.0
+    version: 0.3.1
     values:
       - "../config/custom-distribution-service.yaml"
   - name: incrementals-publisher
