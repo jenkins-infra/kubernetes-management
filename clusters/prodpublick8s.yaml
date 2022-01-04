@@ -67,7 +67,7 @@ releases:
     version: 15.0.2
     atomic: false
     values:
-      - "../config/prometheus.yaml"
+      - "../config/ext_prometheus.yaml"
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
@@ -82,7 +82,7 @@ releases:
     needs:
     - cert-manager
     values:
-      - "../config/cert-manager.yaml"
+      - "../config/ext_cert-manager.yaml"
     secrets:
       - "../secrets/config/acme/secrets.yaml"
   - name: falco
