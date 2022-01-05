@@ -1,4 +1,17 @@
 title: Bump nginx:stable docker image version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   latestRelease:
     kind: githubRelease
@@ -23,12 +36,14 @@ sources:
     #   versionFilter:
     #     kind: regexp
     #     pattern: '(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
+
 conditions:
   checkDockerImagePublished:
     name: "Test nginx:<latest_version> docker image tag"
     kind: dockerImage
     spec:
       image: "nginx"
+
 targets:
   updateENJenkinsio:
     name: "Update nginx:stable docker image version for jenkins.io"
@@ -36,72 +51,47 @@ targets:
     spec:
       file: config/jenkinsio.yaml
       key: images.en.tag
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updateZHJenkinsio:
     name: "Update nginx:stable docker image version for jenkins.io/zh"
     kind: yaml
     spec:
       file: config/jenkinsio.yaml
       key: images.zh.tag
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updateJavadoc:
     name: "Update nginx:stable docker image version for javadoc"
     kind: yaml
     spec:
       file: config/javadoc.yaml
       key: image.tag
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updatePluginsite:
     name: "Update nginx:stable docker image version for plugin-site"
     kind: yaml
     spec:
       file: config/plugin-site.yaml
       key: frontend.image.tag
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updateReports:
     name: "Update nginx:stable docker image version for reports"
     kind: yaml
     spec:
       file: config/reports.yaml
       key: image.tag
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateENJenkinsio
+      - updateZHJenkinsio
+      - updateJavadoc
+      - updatePluginsite
+      - updateReports
+    spec:
+      labels:
+        - dependencies
+        - nginx

@@ -1,10 +1,24 @@
 title: Bump cert-manager helm chart version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
       url: https://charts.jetstack.io
       name: cert-manager
+
 targets:
   updateChartVersionPublic:
     name: "jetstack/cert-manager Helm Chart"
@@ -13,15 +27,7 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
   updateChartVersionPrivate:
     name: "jetstack/cert-manager Helm Chart"
     kind: file
@@ -29,12 +35,16 @@ targets:
       file: clusters/temp-privatek8s.yaml
       matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersionPublic
+      - updateChartVersionPrivate
+    spec:
+      labels:
+        - dependencies
+        - certmanager

@@ -1,25 +1,42 @@
 
 title: Bump promtail helm chart version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
       url: https://grafana.github.io/helm-charts
       name: promtail
+
 targets:
   updateChartVersion:
     name: "grafana/promtail Helm Chart"
     kind: file
+    scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: grafana\/promtail((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: grafana/promtail${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersion
+    spec:
+      labels:
+        - dependencies
+        - promtail

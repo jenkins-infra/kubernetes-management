@@ -1,10 +1,24 @@
 title: "Bump jenkinsio Helm Chart Version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastChartVersion:
     kind: helmChart
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: jenkinsio
+
 targets:
   updateChartVersion:
     name: "Update the chart version for jenkinsio"
@@ -13,12 +27,15 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/jenkinsio((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/jenkinsio${1}version: {{ source `lastChartVersion` }}'
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersion
+    spec:
+      labels:
+        - dependencies
+        - jenkins.io

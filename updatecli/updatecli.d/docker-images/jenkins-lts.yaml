@@ -1,4 +1,17 @@
 title: "Bump Jenkins LTS docker image version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   latestRelease:
     name: "Get latest jenkins-lts version"
@@ -9,12 +22,14 @@ sources:
       repository: "docker-jenkins-lts"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
+
 conditions:
   checkDockerImagePublished:
     name: "Test jenkinsciinfra/jenkins-lts:<latest_version> docker image tag"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/jenkins-lts"
+
 targets:
   updateReleaseInConfig:
     name: "Update jenkinsciinfra/jenkins-lts docker image tag"
@@ -22,12 +37,15 @@ targets:
     spec:
       file: "config/ext_jenkins-release.yaml"
       key: "controller.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateReleaseInConfig
+    spec:
+      labels:
+        - dependencies
+        - jenkins-lts

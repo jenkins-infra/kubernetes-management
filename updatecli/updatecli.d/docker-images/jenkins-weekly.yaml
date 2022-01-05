@@ -1,4 +1,17 @@
 title: "Bump Jenkins weekly docker image version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   latestRelease:
     name: "Get latest jenkins-weekly version"
@@ -9,12 +22,14 @@ sources:
       repository: "docker-jenkins-weekly"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
+
 conditions:
   checkDockerImagePublished:
     name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag"
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/jenkins-weekly"
+
 targets:
   updateReleaseInConfig:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
@@ -22,12 +37,15 @@ targets:
     spec:
       file: "config/ext_jenkins-infra.yaml"
       key: "controller.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateReleaseInConfig
+    spec:
+      labels:
+        - dependencies
+        - docker-jenkins-weekly

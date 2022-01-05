@@ -1,5 +1,17 @@
----
 title: Bump jenkins-infra helmfile docker image
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
 sources:
   lastRelease:
     name: Get latest jenkinsciinfra/helmfile docker image version
@@ -9,12 +21,15 @@ sources:
       repository: "docker-helmfile"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
+
 conditions:
   checkDockerImage:
     name: Ensure that the image "jenkinsciinfra/helmfile:<found_version>" is published
     kind: dockerImage
+    sourceID: lastRelease
     spec:
       image: "jenkinsciinfra/helmfile"
+      ## tag come from the input source
   checkPodTemplate:
     name: "Is container 'helmfile' correctly defined in PodTemplates.yaml"
     kind: yaml
@@ -32,12 +47,15 @@ targets:
     spec:
       file: "PodTemplates.yaml"
       key: spec.containers[0].image
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersion
+    spec:
+      labels:
+        - dependencies
+        - acme
