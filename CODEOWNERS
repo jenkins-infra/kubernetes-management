@@ -26,8 +26,8 @@ accountapp.yaml @jenkins-infra/kubernetes
 uplink/ @jenkins-infra/kubernetes
 uplink.yaml @jenkins-infra/kubernetes
 
-chatbot/ @jenkins-infra/kubernetes @slide
-chatbot.yaml @jenkins-infra/kubernetes @slide
+ircbot/ @jenkins-infra/kubernetes @slide
+ircbot.yaml @jenkins-infra/kubernetes @slide
 
 incrementals-publisher/ @jenkins-infra/kubernetes @slide
 incrementals-publisher.yaml @jenkins-infra/kubernetes @slide
