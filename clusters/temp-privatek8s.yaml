@@ -27,7 +27,7 @@ releases:
     needs:
     - cert-manager
     values:
-      - "../config/ext_cert-manager.yaml"
+      - "../config/acme.yaml"
     secrets:
       - "../secrets/config/acme/secrets.yaml"
   - name: public-nginx-ingress
