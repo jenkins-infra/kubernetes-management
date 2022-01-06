@@ -135,14 +135,14 @@ releases:
       - "../config/plugin-site-issues.yaml"
     secrets:
       - "../secrets/config/plugin-site-issues/secrets.yaml"
-  - name: chatbot
-    namespace: chatbot
-    chart: jenkins-infra/chatbot
+  - name: ircbot
+    namespace: ircbot
+    chart: jenkins-infra/ircbot
     version: 0.1.0
     values:
-      - "../config/chatbot.yaml"
+      - "../config/ircbot.yaml"
     secrets:
-      - "../secrets/config/chatbot/secrets.yaml"
+      - "../secrets/config/ircbot/secrets.yaml"
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports

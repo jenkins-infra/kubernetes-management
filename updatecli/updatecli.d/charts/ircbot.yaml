@@ -1,4 +1,4 @@
-title: "Bump Account App Helm Chart Version"
+title: "Bump `ircbot` helm chart version"
 
 scms:
   default:
@@ -17,17 +17,17 @@ sources:
     kind: helmChart
     spec:
       url: https://jenkins-infra.github.io/helm-charts
-      name: chatbot
+      name: ircbot
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for chatbot"
+    name: "Update the chart version for ircbot"
     kind: file
     scmID: default
     spec:
       file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: jenkins-infra\/chatbot((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/chatbot${1}version: {{ source `lastChartVersion` }}'
+      matchPattern: 'chart: jenkins-infra\/ircbot((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/ircbot${1}version: {{ source `lastChartVersion` }}'
 
 pullrequests:
   default:
@@ -38,4 +38,4 @@ pullrequests:
     spec:
       labels:
         - dependencies
-        - chatbot
+        - ircbot
