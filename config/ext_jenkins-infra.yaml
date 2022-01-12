@@ -539,7 +539,7 @@ controller:
                             strategies {
                               buildChangeRequests {
                                 ignoreTargetOnlyChanges(true)
-                                ignoreUntrustedChanges(!allowUntrustedChanges)
+                                ignoreUntrustedChanges(!config.allowUntrustedChanges)
                               }
                               buildRegularBranches()
                               buildTags {
