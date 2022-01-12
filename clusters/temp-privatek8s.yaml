@@ -33,13 +33,13 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.0.13
+    version: 4.0.15
     values:
       - "../config/temp-privatek8s/ext_public-nginx-ingress.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.0.13
+    version: 4.0.15
     values:
       - "../config/temp-privatek8s/ext_private-nginx-ingress.yaml"
   - name: jenkins-infra
