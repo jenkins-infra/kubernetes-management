@@ -316,7 +316,43 @@ controller:
                 sshKeysCredentialsId: "ec2-agents-privkey"
                 useInstanceProfileForCredentials: false
                 templates:
-                  - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/blob/master/aws/ubuntu-18-agent.arm64.json
+                - ami: "ami-044daf96d9d93a7e8" # https://github.com/jenkins-infra/packer-images/
+                    amiOwners: "200564066411"
+                    amiType:
+                      unixData:
+                        sshPort: "22"
+                    associatePublicIp: true
+                    connectBySSHProcess: false
+                    connectionStrategy: PUBLIC_IP
+                    deleteRootOnTermination: true
+                    description: "AMD64 Ubuntu 20.04"
+                    ebsOptimized: false
+                    hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
+                    idleTerminationMinutes: "5"
+                    instanceCapStr: "10"
+                    labelString: "linux-amd64 linux-amd64-docker"
+                    launchTimeoutStr: "180"
+                    maxTotalUses: 1
+                    minimumNumberOfInstances: 0
+                    minimumNumberOfSpareInstances: 0
+                    mode: EXCLUSIVE
+                    monitoring: true
+                    numExecutors: 1
+                    remoteAdmin: "jenkins"
+                    remoteFS: "/home/jenkins"
+                    securityGroups: "ec2_agents_infraci"
+                    stopOnTerminate: false
+                    t2Unlimited: false
+                    tags:
+                    - name: "architecture"
+                      value: "amd64"
+                    - name: "os"
+                      value: "linux"
+                    - name: "jenkins"
+                      value: "infra.ci.jenkins.io"
+                    type: T4gMedium
+                    useEphemeralDevices: true
+                  - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/
                     amiOwners: "200564066411"
                     amiType:
                       unixData:
