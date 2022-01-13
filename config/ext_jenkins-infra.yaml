@@ -28,7 +28,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.36.3-2.328
+  tag: 0.37.0-2.330
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -527,9 +527,9 @@ controller:
                 [ name: 'Incrementals Publisher', GHOrganization: 'jenkins-infra', repository: 'incrementals-publisher', internalId: '2021042801', jenkinsfilePath: 'Jenkinsfile'],
                 [ name: 'K8s Cluster Management', GHOrganization: 'jenkins-infra', repository: 'kubernetes-management', internalId: '2019081601', jenkinsfilePath: 'Jenkinsfile_k8s'],
                 [ name: 'Helm Charts', GHOrganization: 'jenkins-infra', repository: 'helm-charts', internalId: '2021122217', jenkinsfilePath: 'Jenkinsfile_k8s'],
-                [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603', jenkinsfilePath: 'Jenkinsfile_k8s'],
+                [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603', jenkinsfilePath: 'Jenkinsfile_k8s', allowUntrustedChanges: true],
                 [ name: 'Packer Images', GHOrganization: 'jenkins-infra', repository: 'packer-images', internalId: '2021090101', jenkinsfilePath: 'Jenkinsfile_k8s'],
-                [ name: 'Jenkins.io', GHOrganization: 'jenkins-infra', repository: 'jenkins.io', internalId: '2021122501', jenkinsfilePath: 'Jenkinsfile_k8s'],
+                [ name: 'Jenkins.io', GHOrganization: 'jenkins-infra', repository: 'jenkins.io', internalId: '2021122501', jenkinsfilePath: 'Jenkinsfile_k8s', allowUntrustedChanges: true],
               ].each { config ->
                 multibranchPipelineJob(config.repository) {
                   displayName config.name
@@ -575,7 +575,7 @@ controller:
                             strategies {
                               buildChangeRequests {
                                 ignoreTargetOnlyChanges(true)
-                                ignoreUntrustedChanges(true)
+                                ignoreUntrustedChanges(!config.allowUntrustedChanges)
                               }
                               buildRegularBranches()
                               buildTags {

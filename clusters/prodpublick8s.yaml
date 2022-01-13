@@ -64,7 +64,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.0.2
+    version: 15.0.3
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -94,13 +94,13 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 2.8.5
+    version: 2.9.0
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
     namespace: loki
     chart: grafana/promtail
-    version: 3.9.2
+    version: 3.10.0
     values:
       - "../config/ext_promtail.yaml"
   - name: grafana
@@ -206,7 +206,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 3.10.2
+    version: 3.10.3
     timeout: 600
     set:
       - name: namespace
@@ -234,7 +234,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.4.4
+    version: 0.5.1
     values:
         - "../config/incrementals-publisher.yaml"
     secrets:
