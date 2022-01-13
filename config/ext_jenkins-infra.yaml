@@ -352,7 +352,7 @@ controller:
                       value: "infra.ci.jenkins.io"
                     type: T4gMedium
                     useEphemeralDevices: true
-                  - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/
+                  - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/blob/master/aws/ubuntu-18-agent.arm64.json
                     amiOwners: "200564066411"
                     amiType:
                       unixData:
