@@ -178,7 +178,7 @@ releases:
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 0.1.3
+    version: 0.1.5
     timeout: 600
     values:
       - "../config/ldap.yaml"
