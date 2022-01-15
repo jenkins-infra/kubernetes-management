@@ -352,7 +352,7 @@ controller:
                       value: "infra.ci.jenkins.io"
                     type: T3Medium
                     useEphemeralDevices: true
-                  - ami: "ami-091f656c070b5741f" # https://github.com/jenkins-infra/packer-images/blob/master/aws/ubuntu-18-agent.arm64.json
+                  - ami: "ami-0d2d7ce8555684cbb" # https://github.com/jenkins-infra/packer-images/
                     amiOwners: "200564066411"
                     amiType:
                       unixData:
@@ -361,9 +361,9 @@ controller:
                     connectBySSHProcess: false
                     connectionStrategy: PUBLIC_IP
                     deleteRootOnTermination: true
-                    description: "ARM64 Ubuntu 18.04"
+                    description: "ARM64 Ubuntu 20.04"
                     ebsOptimized: false
-                    hostKeyVerificationStrategy: CHECK_NEW_HARD           # Secure: even initial connection is checked against the EC2 console
+                    hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
                     idleTerminationMinutes: "5"
                     instanceCapStr: "10"
                     labelString: "arm64 linux-arm64 linux-arm64-docker"
@@ -388,7 +388,7 @@ controller:
                       value: "infra.ci.jenkins.io"
                     type: T4gMedium
                     useEphemeralDevices: true
-                  - ami: "ami-06f1bf39751cf944e" # https://github.com/jenkins-infra/packer-images/blob/master/aws/windows-2019-agent.amd64.json
+                  - ami: "ami-0c3f1d709a2270b04" # https://github.com/jenkins-infra/packer-images/
                     amiOwners: "200564066411"
                     amiType:
                       unixData:
