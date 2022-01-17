@@ -206,7 +206,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 3.10.3
+    version: 3.11.0
     timeout: 600
     set:
       - name: namespace
