@@ -11,38 +11,35 @@ scms:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
       branch: "{{ .github.branch }}"
+  nginxGithubMirror:
+    kind: git
+    spec:
+      url: "https://github.com/nginx/nginx"
+      branch: "master"
 
 sources:
   latestRelease:
-    kind: githubRelease
-    name: Get latest nginx/nginx version
-    # We should retrieve only the minor even version to get the stable, but it requires an updatecli fix on its regexp parser, adding unwanted backslashes
+    name: Get latest stable version of nginx
+    kind: gitTag
+    scmID: nginxGithubMirror
     spec:
-      owner: nginx
-      repository: nginx
-      token: "{{ requiredEnv .github.token }}"
-      username: "{{ .github.username }}"
       versionFilter:
-        kind: latest
+        kind: regex
+        ## Nginx stable version have the minor digit as an even number
+        pattern: 'release-(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
     transformers:
-    - trimPrefix: "release-"
-    - addSuffix: "-alpine"
-    # problem with nginxinc/docker-nginx repository: all tags aren't present in its releases
-    # spec:
-    #   owner: "nginxinc"
-    #   repository: "docker-nginx"
-    #   token: "{{ requiredEnv .github.token }}"
-    #   username: "{{ .github.username }}"
-    #   versionFilter:
-    #     kind: regexp
-    #     pattern: '(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
+      - trimPrefix: "release-"
+      - addSuffix: "-alpine"
 
 conditions:
   checkDockerImagePublished:
     name: "Test nginx:<latest_version> docker image tag"
     kind: dockerImage
+    sourceID: latestRelease
     spec:
       image: "nginx"
+      architecture: amd64
+      # tag comes from the source input value
 
 targets:
   updateENJenkinsio:
