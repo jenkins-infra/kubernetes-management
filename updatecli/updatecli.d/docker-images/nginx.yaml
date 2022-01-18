@@ -14,7 +14,7 @@ scms:
   nginxGithubMirror:
     kind: git
     spec:
-      url: "https://github.com/nginx/nginx.git"
+      url: "https://github.com/nginx/nginx"
       branch: "master"
 
 sources:
