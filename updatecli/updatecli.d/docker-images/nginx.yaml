@@ -11,7 +11,7 @@ scms:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
       branch: "{{ .github.branch }}"
-  nginx-gh-mirror:
+  nginxGithubMirror:
     kind: git
     spec:
       url: "https://github.com/nginx/nginx.git"
@@ -21,7 +21,7 @@ sources:
   latestRelease:
     name: Get latest stable version of nginx
     kind: gitTag
-    scmID: nginx-gh-mirror
+    scmID: nginxGithubMirror
     spec:
       versionFilter:
         kind: regex
