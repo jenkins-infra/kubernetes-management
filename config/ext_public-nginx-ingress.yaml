@@ -2,7 +2,7 @@ defaultBackend:
   enabled: true
   image:
     repository: jenkinsciinfra/404
-    tag: 0.3.9
+    tag: 0.3.12
     pullPolicy: IfNotPresent
   ## Unprivileged port as non root user and no escalation allowed
   port: 8080
