@@ -106,7 +106,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.20.6
+    version: 6.20.8
     values:
       - "../config/ext_grafana.yaml"
     secrets:
