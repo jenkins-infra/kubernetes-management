@@ -255,7 +255,7 @@ controller:
                   deleteRootOnTermination: true
                   description: "AMD64 Ubuntu 20.04"
                   ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
+                  hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
                   idleTerminationMinutes: "5"
                   instanceCapStr: "10"
                   labelString: "linux-amd64 linux-amd64-docker"
