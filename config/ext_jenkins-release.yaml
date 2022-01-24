@@ -176,7 +176,13 @@ controller:
                     privateKeySource:
                       directEntry:
                         privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-      k8s-settings: |
+                - aws:
+                    accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
+                    description: "This credential is used to provision dynamic agents on AWS EC2"
+                    id: "ec2-agents-credentials"
+                    scope: SYSTEM
+                    secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+      agent-settings: |
         jenkins:
           clouds:
             - kubernetes:
@@ -229,6 +235,125 @@ controller:
                           operator: "Equal"
                           value: "windows"
                           effect: "NoSchedule"
+            - amazonEC2:
+                cloudName: "aws-us-east-2"
+                credentialsId: "ec2-agents-credentials"
+                instanceCapStr: "20"
+                noDelayProvisioning: true
+                region: "us-east-2"
+                sshKeysCredentialsId: "ec2-agents-privkey"
+                useInstanceProfileForCredentials: false
+                templates:
+                - ami: "ami-07096113cf2ec6768" # https://github.com/jenkins-infra/packer-images/
+                  amiOwners: "200564066411"
+                  amiType:
+                    unixData:
+                      sshPort: "22"
+                  associatePublicIp: true
+                  connectBySSHProcess: false
+                  connectionStrategy: PUBLIC_IP
+                  deleteRootOnTermination: true
+                  description: "AMD64 Ubuntu 20.04"
+                  ebsOptimized: false
+                  hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
+                  idleTerminationMinutes: "5"
+                  instanceCapStr: "10"
+                  labelString: "linux-amd64 linux-amd64-docker"
+                  launchTimeoutStr: "180"
+                  maxTotalUses: 1
+                  minimumNumberOfInstances: 0
+                  minimumNumberOfSpareInstances: 0
+                  mode: EXCLUSIVE
+                  monitoring: true
+                  numExecutors: 1
+                  remoteAdmin: "jenkins"
+                  remoteFS: "/home/jenkins"
+                  securityGroups: "ec2_agents_infraci"
+                  stopOnTerminate: false
+                  t2Unlimited: false
+                  tags:
+                  - name: "architecture"
+                    value: "amd64"
+                  - name: "os"
+                    value: "linux"
+                  - name: "jenkins"
+                    value: "infra.ci.jenkins.io"
+                  type: T3Medium
+                  useEphemeralDevices: true
+                - ami: "ami-0d2d7ce8555684cbb" # https://github.com/jenkins-infra/packer-images/
+                  amiOwners: "200564066411"
+                  amiType:
+                    unixData:
+                      sshPort: "22"
+                  associatePublicIp: true
+                  connectBySSHProcess: false
+                  connectionStrategy: PUBLIC_IP
+                  deleteRootOnTermination: true
+                  description: "ARM64 Ubuntu 20.04"
+                  ebsOptimized: false
+                  hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
+                  idleTerminationMinutes: "5"
+                  instanceCapStr: "10"
+                  labelString: "arm64 linux-arm64 linux-arm64-docker"
+                  launchTimeoutStr: "180"
+                  maxTotalUses: 1
+                  minimumNumberOfInstances: 0
+                  minimumNumberOfSpareInstances: 0
+                  mode: EXCLUSIVE
+                  monitoring: true
+                  numExecutors: 1
+                  remoteAdmin: "jenkins"
+                  remoteFS: "/home/jenkins"
+                  securityGroups: "ec2_agents_infraci"
+                  stopOnTerminate: false
+                  t2Unlimited: false
+                  tags:
+                  - name: "architecture"
+                    value: "arm64"
+                  - name: "os"
+                    value: "linux"
+                  - name: "jenkins"
+                    value: "infra.ci.jenkins.io"
+                  type: T4gMedium
+                  useEphemeralDevices: true
+                - ami: "ami-0c3f1d709a2270b04" # https://github.com/jenkins-infra/packer-images/
+                  amiOwners: "200564066411"
+                  amiType:
+                    unixData:
+                      sshPort: "22"
+                  associatePublicIp: true
+                  connectBySSHProcess: false
+                  connectionStrategy: PUBLIC_IP
+                  deleteRootOnTermination: true
+                  description: "Windows 2019 AMD64"
+                  ebsOptimized: false
+                  hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
+                  idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
+                  instanceCapStr: "10"
+                  labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
+                  launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
+                  maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
+                  minimumNumberOfInstances: 0
+                  minimumNumberOfSpareInstances: 0
+                  mode: EXCLUSIVE
+                  monitoring: false
+                  numExecutors: 1
+                  remoteAdmin: "Administrator"
+                  remoteFS: "C:\\Jenkins"
+                  securityGroups: "ec2_agents_infraci"
+                  stopOnTerminate: false
+                  t2Unlimited: false
+                  tags:
+                  - name: "architecture"
+                    value: "amd64"
+                  - name: "os"
+                    value: "windows"
+                  - name: "jenkins"
+                    value: "infra.ci.jenkins.io"
+                  tenancy: Default
+                  tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
+                  type: T3Medium
+                  useEphemeralDevices: true
       jobs-settings: |
         jobs:
           - script: >
