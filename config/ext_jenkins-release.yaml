@@ -176,6 +176,14 @@ controller:
                     privateKeySource:
                       directEntry:
                         privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
+                - basicSSHUserPrivateKey:
+                    scope: SYSTEM
+                    id: "ec2-agents-privkey"
+                    username: "key"
+                    description: "SSH privkey used to connect to EC2 agents"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: "${EC2_AGENTS_PRIVKEY}"
                 - aws:
                     accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
                     description: "This credential is used to provision dynamic agents on AWS EC2"
@@ -268,7 +276,7 @@ controller:
                   numExecutors: 1
                   remoteAdmin: "jenkins"
                   remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_infraci"
+                  securityGroups: "ec2_agents_release"
                   stopOnTerminate: false
                   t2Unlimited: false
                   tags:
@@ -277,7 +285,7 @@ controller:
                   - name: "os"
                     value: "linux"
                   - name: "jenkins"
-                    value: "infra.ci.jenkins.io"
+                    value: "release.ci.jenkins.io"
                   type: T3Medium
                   useEphemeralDevices: true
                 - ami: "ami-0d2d7ce8555684cbb" # https://github.com/jenkins-infra/packer-images/
@@ -304,7 +312,7 @@ controller:
                   numExecutors: 1
                   remoteAdmin: "jenkins"
                   remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_infraci"
+                  securityGroups: "ec2_agents_release"
                   stopOnTerminate: false
                   t2Unlimited: false
                   tags:
@@ -313,7 +321,7 @@ controller:
                   - name: "os"
                     value: "linux"
                   - name: "jenkins"
-                    value: "infra.ci.jenkins.io"
+                    value: "release.ci.jenkins.io"
                   type: T4gMedium
                   useEphemeralDevices: true
                 - ami: "ami-0c3f1d709a2270b04" # https://github.com/jenkins-infra/packer-images/
@@ -340,7 +348,7 @@ controller:
                   numExecutors: 1
                   remoteAdmin: "Administrator"
                   remoteFS: "C:\\Jenkins"
-                  securityGroups: "ec2_agents_infraci"
+                  securityGroups: "ec2_agents_release"
                   stopOnTerminate: false
                   t2Unlimited: false
                   tags:
@@ -349,7 +357,7 @@ controller:
                   - name: "os"
                     value: "windows"
                   - name: "jenkins"
-                    value: "infra.ci.jenkins.io"
+                    value: "release.ci.jenkins.io"
                   tenancy: Default
                   tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
                   type: T3Medium
