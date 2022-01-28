@@ -435,7 +435,7 @@ controller:
           - script: >
               [
                 [ name: 'Docker Builds', GHOrganization: 'jenkins-infra', repoPattern: 'rating|docker-.*$', jenkinsfilePath: 'Jenkinsfile_k8s'],
-                [ name: 'Terraform Jobs', GHOrganization: 'jenkins-infra', repoPattern: 'aws|datadog$', jenkinsfilePath: 'Jenkinsfile_k8s'],
+                [ name: 'Terraform Jobs', GHOrganization: 'jenkins-infra', repoPattern: 'aws|datadog|digitalocean$', jenkinsfilePath: 'Jenkinsfile_k8s'],
               ].each { config ->
                 organizationFolder(config.name) {
                   description(config.name)
