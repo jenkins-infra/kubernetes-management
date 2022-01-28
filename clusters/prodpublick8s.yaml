@@ -242,7 +242,7 @@ releases:
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
     namespace: keycloak
     chart: codecentric/keycloak
-    version: 16.0.5
+    version: 16.1.0
     timeout: 600
     values:
       - "../config/ext_keycloak.yaml"
