@@ -154,6 +154,16 @@ controller:
                     secretBytes: "${base64:${CI_TERRAFORM_BACKEND_CONFIG}}"
                 - string:
                     scope: GLOBAL
+                    id: "ci-digitalocean-pat"
+                    secret: "${CI_TERRAFORM_DIGITALOCEAN_PAT}"
+                    description: Digital Ocean PAT for ci
+                - file:
+                    fileName: "backend-config"
+                    id: "ci-digitalocean-terraform-backend-config"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${CI_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
+                - string:
+                    scope: GLOBAL
                     id: "production-terraform-access-key"
                     secret: "${PRODUCTION_TERRAFORM_AWS_ACCESS_KEY_ID}"
                     description: AWS access key id for the account 'production-terraform'
@@ -167,6 +177,16 @@ controller:
                     id: "production-terraform-backend-config"
                     scope: GLOBAL
                     secretBytes: "${base64:${PRODUCTION_TERRAFORM_BACKEND_CONFIG}}"
+                - string:
+                    scope: GLOBAL
+                    id: "production-digitalocean-pat"
+                    secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
+                    description: Digital Ocean PAT for production
+                - file:
+                    fileName: "backend-config"
+                    id: "production-digitalocean-terraform-backend-config"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${PRODUCTION_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
                 - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-cik8s"
