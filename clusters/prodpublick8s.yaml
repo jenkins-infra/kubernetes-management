@@ -50,14 +50,14 @@ releases:
   - name: public-traefik
     namespace: public-traefik
     chart: traefik/traefik
-    version: 10.9.1
+    version: 10.10.0
     values:
       - "../config/ext_traefik.yaml"
       - "../config/ext_public-traefik.yaml"
   - name: private-traefik
     namespace: private-traefik
     chart: traefik/traefik
-    version: 10.9.1
+    version: 10.10.0
     values:
       - "../config/ext_traefik.yaml"
       - "../config/ext_private-traefik.yaml"
