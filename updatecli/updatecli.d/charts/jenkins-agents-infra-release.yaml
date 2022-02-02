@@ -77,6 +77,7 @@ targets:
   setUbuntuAgentAMIAmd64:
     name: "Bump AMI ID for AMD 64"
     kind: file
+    sourceID: getLatestUbuntuAgentAMIAmd64
     spec:
       file: config/ext_jenkins-infra.yaml
       matchPattern: '- ami: ".*"((.|\n)*)description: "AMD64'
@@ -85,6 +86,7 @@ targets:
   setUbuntuAgentAMIArm64:
     name: "Bump AMI ID for ARM 64"
     kind: file
+    sourceID: getLatestUbuntuAgentAMIArm64
     spec:
       file: config/ext_jenkins-infra.yaml
       matchPattern: '- ami: ".*"((.|\n)*)description: "ARM64'
@@ -93,6 +95,7 @@ targets:
   setWindowsAgentAMIamd64:
     name: "Bump AMI ID for Windows AMD 64"
     kind: file
+    sourceID: getLatestWindowsAgentAMIAmd64
     spec:
       file: config/ext_jenkins-infra.yaml
       matchPattern: '- ami: ".*"((.|\n)*)description: "Windows 2019 AMD64"'
