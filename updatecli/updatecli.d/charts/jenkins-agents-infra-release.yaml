@@ -1,5 +1,4 @@
-title: Bump agent templates version on jenkins-infra and jenkins-release
-
+title: Bump agent templates version on jenkins-infra
 scms:
   default:
     kind: github
