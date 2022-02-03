@@ -11,16 +11,6 @@ scms:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
       branch: "{{ .github.branch }}"
-  packerimages:
-    kind: github
-    spec:
-      user: "{{ .github.user }}"
-      email: "{{ .github.email }}"
-      owner: "{{ .github.owner }}"
-      repository: "packer-images"
-      token: "{{ requiredEnv .github.token }}"
-      username: "{{ .github.username }}"
-      branch: "{{ .github.branch }}"
 
 sources:
   packerImageVersion:
