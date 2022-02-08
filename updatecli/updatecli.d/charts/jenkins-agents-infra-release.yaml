@@ -1,0 +1,102 @@
+title: Bump agent templates version on jenkins-infra
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  packerImageVersion:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "packer-images"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+  getLatestUbuntuAgentAMIAmd64:
+    kind: aws/ami
+    depends_on:
+      - packerImageVersion
+    spec:
+      region: us-east-2
+      sortBy: creationDateAsc
+      filters:
+        - name: "name"
+          values: "jenkins-agent-ubuntu-20-amd64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+  getLatestWindowsAgentAMIAmd64:
+    kind: aws/ami
+    depends_on:
+      - packerImageVersion
+    spec:
+      region: us-east-2
+      sortBy: creationDateAsc
+      filters:
+        - name: "name"
+          values: "jenkins-agent-windows-2019-amd64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+  getLatestUbuntuAgentAMIArm64:
+    kind: aws/ami
+    depends_on:
+      - packerImageVersion
+    sortBy: creationDateAsc
+    spec:
+      region: us-east-2
+      filters:
+        - name: "name"
+          values: "jenkins-agent-ubuntu-20-arm64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+
+targets:
+  setUbuntuAgentAMIAmd64:
+    name: "Bump AMI ID for AMD 64"
+    kind: file
+    sourceID: getLatestUbuntuAgentAMIAmd64
+    spec:
+      file: config/ext_jenkins-infra.yaml
+      matchPattern: '- ami: ".*"((.|\n)*)description: "AMD64'
+      replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIAmd64` }}"${1}description: "AMD64'
+    scmID: default
+  setUbuntuAgentAMIArm64:
+    name: "Bump AMI ID for ARM 64"
+    kind: file
+    sourceID: getLatestUbuntuAgentAMIArm64
+    spec:
+      file: config/ext_jenkins-infra.yaml
+      matchPattern: '- ami: ".*"((.|\n)*)description: "ARM64'
+      replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}description: "ARM64'
+    scmID: default
+  setWindowsAgentAMIamd64:
+    name: "Bump AMI ID for Windows AMD 64"
+    kind: file
+    sourceID: getLatestWindowsAgentAMIAmd64
+    spec:
+      file: config/ext_jenkins-infra.yaml
+      matchPattern: '- ami: ".*"((.|\n)*)description: "Windows 2019 AMD64"'
+      replacePattern: '- ami: "{{ source `getLatestWindowsAgentAMIAmd64` }}"${1}description: "Windows 2019 AMD64"'
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - setUbuntuAgentAMIAmd64
+      - setUbuntuAgentAMIArm64
+      - setWindowsAgentAMIamd64
+ 

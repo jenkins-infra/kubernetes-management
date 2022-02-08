@@ -22,6 +22,9 @@ pipeline {
           }
           environment {
             UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
+            AWS_ACCESS_KEY_ID     = credentials('packer-aws-access-key-id')
+            AWS_SECRET_ACCESS_KEY = credentials('packer-aws-secret-access-key')
+            AWS_DEFAULT_REGION    = 'us-east-2'
           }
           stages {
             stage('Check Configuration Update') {
