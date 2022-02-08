@@ -203,16 +203,16 @@ releases:
       - "../config/mirrorbits.yaml"
     secrets:
       - "../secrets/config/mirrorbits/secrets.yaml"
-  - name: default-release-jenkins
-    namespace: release
-    chart: jenkins/jenkins
-    version: 3.11.3
-    timeout: 600
-    set:
-      - name: namespace
-        value: release
-    values:
-    - ../config/ext_jenkins-release.yaml
+#  - name: default-release-jenkins
+#    namespace: release
+#    chart: jenkins/jenkins
+#    version: 3.11.3
+#    timeout: 600
+#    set:
+#      - name: namespace
+#        value: release
+#    values:
+#    - ../config/ext_jenkins-release.yaml
   - name: jenkins-infra-additional
     namespace: release
     chart: jenkins-infra/jenkins-additional
