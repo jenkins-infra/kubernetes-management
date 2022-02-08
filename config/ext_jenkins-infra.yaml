@@ -336,7 +336,7 @@ controller:
                 sshKeysCredentialsId: "ec2-agents-privkey"
                 useInstanceProfileForCredentials: false
                 templates:
-                - ami: "ami-0320d578c21e1255c" # https://github.com/jenkins-infra/packer-images/
+                - ami: "ami-0b6c0945a681b0c9e" # https://github.com/jenkins-infra/packer-images/
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
