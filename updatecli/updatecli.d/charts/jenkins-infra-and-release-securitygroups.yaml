@@ -1,0 +1,64 @@
+title: Bump Security Groups on jenkins-infra AND release
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  getNewJenkinsInfraSecurityGroup:
+    kind: file
+    spec:
+      file: https://raw.githubusercontent.com/jenkins-infra/aws/main/ec2-agents.tf
+      #matchPattern: 'aws_security_group.*(?:\n|\n\r).*name.*"(.*)".*(?:\n|\n\r).*infra\.ci'
+      matchPattern: "aws_security_group.*(\n|\n\r).*name.*\"(.*)\".*(\n|\n\r).*infra\\.ci"
+    transformers:
+      - findSubMatch: 'name.*"(.*)"'
+      #- trimPrefix: "name.*="
+  getNewJenkinsReleaseSecurityGroup:
+    kind: file
+    spec:
+      file: https://raw.githubusercontent.com/jenkins-infra/aws/main/ec2-agents.tf
+      #matchPattern: 'aws_security_group.*(?:\n|\n\r).*name.*"(.*)".*(?:\n|\n\r).*release\.ci'
+      matchPattern: "aws_security_group.*(\n|\n\r).*name.*\"(.*)\".*(\n|\n\r).*release\\.ci"
+    transformers:
+      - findSubMatch: 'name.*"(.*)"'
+      #- trimPrefix: "name.*="
+
+targets:
+  setJenkinsInfraSecurityGroup:
+    name: "Bump infra Security Group"
+    kind: file
+    sourceID: getNewJenkinsInfraSecurityGroup
+    spec:
+      file: config/ext_jenkins-infra.yaml
+      matchPattern: 'securityGroups: ".*"'
+      replacePattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
+      #TODO check if all the occurence are changed (3) or just the first one
+    scmID: default
+  setJenkinsReleaseSecurityGroup:
+    name: "Bump Release Security Group"
+    kind: file
+    sourceID: getNewJenkinsReleaseSecurityGroup
+    spec:
+      file: config/ext_jenkins-release.yaml
+      matchPattern: 'securityGroups: ".*"'
+      replacePattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
+      #TODO check if all the occurence are changed (3) or just the first one
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - setJenkinsInfraSecurityGroup
+      - setJenkinsReleaseSecurityGroup
+ 
