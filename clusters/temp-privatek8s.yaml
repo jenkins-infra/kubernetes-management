@@ -56,6 +56,6 @@ releases:
   - name: jenkins-infra-additional
     namespace: jenkins-infra
     chart: jenkins-infra/jenkins-additional
-    version: 0.0.1
+    version: 0.0.3
     values:
     - ../config/jenkins-infra-additional.yaml
