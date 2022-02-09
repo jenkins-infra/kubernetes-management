@@ -34,7 +34,7 @@ networkPolicy:
       name: "release"
 controller:
   image: jenkinsciinfra/jenkins-lts
-  tag: 0.12.19-2.319.2
+  tag: 0.13.0-2.319.3
   pullPolicy: IfNotPresent
   resources:
     limits:
