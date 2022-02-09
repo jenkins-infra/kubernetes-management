@@ -128,52 +128,52 @@ controller:
                     description: Algolia credentials to write data for plugin site
                 - string:
                     scope: GLOBAL
-                    id: "ci-terraform-access-key"
+                    id: "ci-terraform-aws-access-key"
                     secret: "${CI_TERRAFORM_AWS_ACCESS_KEY_ID}"
                     description: AWS access key id for the account 'ci-terraform'
                 - string:
                     scope: GLOBAL
-                    id: "ci-terraform-secret-key"
+                    id: "ci-terraform-aws-secret-key"
                     secret: "${CI_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
                     description: AWS secret key for the account 'ci-terraform'
                 - file:
                     fileName: "backend-config"
-                    id: "ci-terraform-backend-config"
+                    id: "ci-terraform-aws-backend-config"
                     scope: GLOBAL
-                    secretBytes: "${base64:${CI_TERRAFORM_BACKEND_CONFIG}}"
+                    secretBytes: "${base64:${CI_TERRAFORM_AWS_BACKEND_CONFIG}}"
                 - string:
                     scope: GLOBAL
-                    id: "ci-digitalocean-pat"
+                    id: "ci-terraform-digitalocean-pat"
                     secret: "${CI_TERRAFORM_DIGITALOCEAN_PAT}"
                     description: Digital Ocean PAT for ci
                 - file:
                     fileName: "backend-config"
-                    id: "ci-digitalocean-terraform-backend-config"
+                    id: "ci-terraform-digitalocean-backend-config"
                     scope: GLOBAL
                     secretBytes: "${base64:${CI_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
                 - string:
                     scope: GLOBAL
-                    id: "production-terraform-access-key"
+                    id: "production-terraform-aws-access-key"
                     secret: "${PRODUCTION_TERRAFORM_AWS_ACCESS_KEY_ID}"
                     description: AWS access key id for the account 'production-terraform'
                 - string:
                     scope: GLOBAL
-                    id: "production-terraform-secret-key"
+                    id: "production-terraform-aws-secret-key"
                     secret: "${PRODUCTION_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
                     description: AWS secret key for the account 'production-terraform'
                 - file:
                     fileName: "backend-config"
-                    id: "production-terraform-backend-config"
+                    id: "production-terraform-aws-backend-config"
                     scope: GLOBAL
-                    secretBytes: "${base64:${PRODUCTION_TERRAFORM_BACKEND_CONFIG}}"
+                    secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWS_BACKEND_CONFIG}}"
                 - string:
                     scope: GLOBAL
-                    id: "production-digitalocean-pat"
+                    id: "production-terraform-digitalocean-pat"
                     secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
                     description: Digital Ocean PAT for production
                 - file:
                     fileName: "backend-config"
-                    id: "production-digitalocean-terraform-backend-config"
+                    id: "production-terraform-digitalocean-backend-config"
                     scope: GLOBAL
                     secretBytes: "${base64:${PRODUCTION_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
                 - file:
