@@ -10,14 +10,6 @@ rbac:
 persistence:
   enabled: true
   size: 50Gi
-  volumes:
-    - name: jenkins-secrets
-      secret:
-        secretName: jenkins-secrets
-  mounts:
-    - name: jenkins-secrets
-      mountPath: /var/jenkins_secrets
-      readOnly: true
 agent:
   componentName: "agent"
 networkPolicy:
@@ -47,11 +39,8 @@ controller:
   testEnabled: false
   runAsUser: 1000
   fsGroup: 1000
-  containerEnv:
-    - name: SECRETS
-      value: /var/jenkins_secrets
   overwritePlugins: true
-  secretsFilesSecret: "jenkins-secrets"
+
   serviceType: "ClusterIP"
   javaOpts: >
     -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
