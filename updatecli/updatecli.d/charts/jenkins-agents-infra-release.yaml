@@ -69,8 +69,8 @@ targets:
     sourceID: getLatestUbuntuAgentAMIAmd64
     spec:
       file: config/ext_jenkins-infra.yaml
-      matchPattern: '- ami: ".*"((.|\n)*)description: "AMD64'
-      replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIAmd64` }}"${1}description: "AMD64'
+      matchPattern: '- ami: ".*"((.|\n)*)description: "AMD64 Ubuntu 20.04"'
+      replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIAmd64` }}"${1}description: "AMD64 Ubuntu 20.04"'
     scmID: default
   setUbuntuAgentAMIArm64:
     name: "Bump AMI ID for ARM 64"
@@ -78,8 +78,8 @@ targets:
     sourceID: getLatestUbuntuAgentAMIArm64
     spec:
       file: config/ext_jenkins-infra.yaml
-      matchPattern: '- ami: ".*"((.|\n)*)description: "ARM64'
-      replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}description: "ARM64'
+      matchPattern: '- ami: ".*"((.|\n)*)description: "ARM64 Ubuntu 20.04"'
+      replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}description: "ARM64 Ubuntu 20.04"'
     scmID: default
   setWindowsAgentAMIamd64:
     name: "Bump AMI ID for Windows AMD 64"
