@@ -216,7 +216,7 @@ releases:
   - name: jenkins-infra-additional
     namespace: release
     chart: jenkins-infra/jenkins-additional
-    version: 0.0.1
+    version: 0.0.3
     secrets:
       - "../secrets/config/release/jenkins/secrets.yaml"
   - name: default-release-jenkins-env
