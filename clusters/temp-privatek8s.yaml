@@ -45,7 +45,7 @@ releases:
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
-    version: 3.11.3
+    version: 3.11.4
     set:
       - name: namespace
         value: jenkins-infra
