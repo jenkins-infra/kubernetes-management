@@ -22,8 +22,6 @@ repositories:
     url: https://charts.jetstack.io
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
-  - name: traefik
-    url: https://helm.traefik.io/traefik
 releases:
   - name: datadog
     namespace: datadog
@@ -47,20 +45,6 @@ releases:
     version: 4.0.16
     values:
       - "../config/ext_private-nginx-ingress.yaml"
-  - name: public-traefik
-    namespace: public-traefik
-    chart: traefik/traefik
-    version: 10.9.1
-    values:
-      - "../config/ext_traefik.yaml"
-      - "../config/ext_public-traefik.yaml"
-  - name: private-traefik
-    namespace: private-traefik
-    chart: traefik/traefik
-    version: 10.9.1
-    values:
-      - "../config/ext_traefik.yaml"
-      - "../config/ext_private-traefik.yaml"
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
