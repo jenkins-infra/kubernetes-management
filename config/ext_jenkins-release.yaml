@@ -26,7 +26,7 @@ networkPolicy:
       name: "release"
 controller:
   image: jenkinsciinfra/jenkins-lts
-  tag: 0.13.0-2.319.3
+  tag: 0.13.1-2.319.3
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -48,7 +48,6 @@ controller:
     runAsUser: 1000
     supplementalGroups: [1000]
   overwritePlugins: true
-
   serviceType: "ClusterIP"
   javaOpts: >
     -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
