@@ -306,7 +306,6 @@ controller:
                         resourceLimitMemory: "1024Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "1024Mi"
-                        args: "1d"
                         alwaysPullImage: true
                         workingDir: "C:\\Users\\jenkins"
                     yamlMergeStrategy: "merge"
