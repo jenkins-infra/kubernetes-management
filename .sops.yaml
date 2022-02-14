@@ -47,19 +47,6 @@ creation_rules:
             - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
             - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
 
-    - key_groups:
-        - azure_keyvault:
-          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
-            key: 'sops'
-            version: '252fc7e646ac40f184ab4a6016484725'
-          pgp:
-            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
-            - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
-            - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
-            - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
-            - '81B0C54A1BA2C92EAD985025A2B9560AF24FF1AD' # hlemeur
-            - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
-
     - path_regex: secrets/config/plugin-site-issues/secrets.yaml
       key_groups:
         - azure_keyvault:
@@ -74,4 +61,18 @@ creation_rules:
             - '81B0C54A1BA2C92EAD985025A2B9560AF24FF1AD' # hlemeur
             - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
             - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
+            - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
+
+    ## Default fallback (for all files not matched by previous rules)
+    - key_groups:
+        - azure_keyvault:
+          - vaultUrl: 'https://prodjenkinsinfra.vault.azure.net'
+            key: 'sops'
+            version: '252fc7e646ac40f184ab4a6016484725'
+          pgp:
+            - '56D8342434B84E2D1CCF53D96E9A025D52210D3D' # Olblak
+            - '6699E555C6730CAED9083B7AD40F4AD2F55AF15F' # timja
+            - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
+            - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
+            - '81B0C54A1BA2C92EAD985025A2B9560AF24FF1AD' # hlemeur
             - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
