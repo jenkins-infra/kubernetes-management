@@ -26,7 +26,9 @@ releases:
   - name: jenkins-agents
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.1.1
+    version: 0.2.0
+    secrets:
+      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler

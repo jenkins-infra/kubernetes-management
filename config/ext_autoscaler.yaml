@@ -2,7 +2,7 @@
 awsRegion: us-east-2
 
 nodeSelector:
-  node.kubernetes.io/lifecycle: normal
+  eks.amazonaws.com/capacityType: ON_DEMAND
   node.kubernetes.io/instance-type: t3a.xlarge
 
 rbac:
