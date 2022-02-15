@@ -3,4 +3,4 @@ datadog:
 clusterAgent:
   image:
     pullSecrets:
-    - name: "dockerhub-credential"
+      - name: "dockerhub-credential"
