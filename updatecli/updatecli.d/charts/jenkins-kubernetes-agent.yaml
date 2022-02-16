@@ -42,7 +42,8 @@ pullrequests:
     kind: github
     scmID: default
     targets:
-      - updateChartVersion
+      - updateCik8sChartVersion
+      - updateDoksChartVersion
     spec:
       labels:
         - dependencies
