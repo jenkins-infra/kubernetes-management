@@ -20,7 +20,7 @@ sources:
       name: jenkins-kubernetes-agents
 
 targets:
-  updateChartVersion:
+  updateCik8sChartVersion:
     name: "Update the chart version for jenkins kubernetes agent"
     kind: file
     spec:
@@ -28,13 +28,22 @@ targets:
       matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
     scmID: default
+  # updateDoksChartVersion:
+  #   name: "Update the chart version for jenkins kubernetes agent"
+  #   kind: file
+  #   spec:
+  #     file: clusters/doks.yaml
+  #     matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
+  #     replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
+  #   scmID: default
 
 pullrequests:
   default:
     kind: github
     scmID: default
     targets:
-      - updateChartVersion
+      - updateCik8sChartVersion
+      # - updateDoksChartVersion
     spec:
       labels:
         - dependencies

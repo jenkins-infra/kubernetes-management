@@ -64,7 +64,7 @@ pipeline {
         axes {
           axis {
             name 'K8S_CLUSTER'
-            values 'prodpublick8s', 'cik8s', 'temp-privatek8s'
+            values 'prodpublick8s', 'cik8s', 'temp-privatek8s', 'doks'
           }
         } // axes
         agent {
@@ -75,9 +75,10 @@ pipeline {
       environment {
         KUBECONFIG            = credentials("kubeconfig-${K8S_CLUSTER}")
         // Required for secret decryption
-        AZURE_TENANT_ID       = credentials('sops-tenant-id')
-        AZURE_CLIENT_ID       = credentials('sops-client-id')
-        AZURE_CLIENT_SECRET   = credentials('sops-client-secret')
+        AZURE_TENANT_ID           = credentials('sops-tenant-id')
+        AZURE_CLIENT_ID           = credentials('sops-client-id')
+        AZURE_CLIENT_SECRET       = credentials('sops-client-secret')
+        DIGITALOCEAN_ACCESS_TOKEN = credentials('production-terraform-digitalocean-pat')
         // Required for AWS-hosted clusters.
         // Variable name is constrained (ref. https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
         AWS_SHARED_CREDENTIALS_FILE       = credentials('eks_charter_awsconfig')
@@ -89,6 +90,7 @@ pipeline {
               dir ('secrets'){
                 git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
               }
+              sh 'if test "${K8S_CLUSTER}" = "doks"; then doctl auth init > /dev/null; fi'
               sh 'kubectl cluster-info'
             }
           }
