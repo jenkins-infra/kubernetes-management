@@ -89,7 +89,10 @@ pipeline {
               dir ('secrets'){
                 git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
               }
-              sh 'kubectl cluster-info'
+              withCredentials([string(credentialsId: 'ci-terraform-digitalocean-pat', variable: 'DIGITALOCEAN_ACCESS_TOKEN')]){
+                sh 'doctl auth init > /dev/null'
+                sh 'kubectl cluster-info'
+              }
             }
           }
           stage('Helmfile Lint'){
