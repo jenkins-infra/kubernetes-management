@@ -74,6 +74,7 @@ pipeline {
         }
       environment {
         KUBECONFIG            = credentials("kubeconfig-${K8S_CLUSTER}")
+        CURRENT_CLUSTER       = "${K8S_CLUSTER}"
         // Required for secret decryption
         AZURE_TENANT_ID       = credentials('sops-tenant-id')
         AZURE_CLIENT_ID       = credentials('sops-client-id')
@@ -90,7 +91,7 @@ pipeline {
                 git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
               }
               withCredentials([string(credentialsId: 'ci-terraform-digitalocean-pat', variable: 'DIGITALOCEAN_ACCESS_TOKEN')]){
-                sh 'doctl auth init > /dev/null'
+                sh '[[ ${CURRENT_CLUSTER} == "doks" ]] && doctl auth init > /dev/null'
                 sh 'kubectl cluster-info'
               }
             }
