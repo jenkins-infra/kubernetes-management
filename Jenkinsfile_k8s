@@ -74,11 +74,11 @@ pipeline {
         }
       environment {
         KUBECONFIG            = credentials("kubeconfig-${K8S_CLUSTER}")
-        CURRENT_CLUSTER       = "${K8S_CLUSTER}"
         // Required for secret decryption
-        AZURE_TENANT_ID       = credentials('sops-tenant-id')
-        AZURE_CLIENT_ID       = credentials('sops-client-id')
-        AZURE_CLIENT_SECRET   = credentials('sops-client-secret')
+        AZURE_TENANT_ID           = credentials('sops-tenant-id')
+        AZURE_CLIENT_ID           = credentials('sops-client-id')
+        AZURE_CLIENT_SECRET       = credentials('sops-client-secret')
+        DIGITALOCEAN_ACCESS_TOKEN = credentials('production-terraform-digitalocean-pat')
         // Required for AWS-hosted clusters.
         // Variable name is constrained (ref. https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
         AWS_SHARED_CREDENTIALS_FILE       = credentials('eks_charter_awsconfig')
@@ -90,10 +90,8 @@ pipeline {
               dir ('secrets'){
                 git branch: 'main', credentialsId: 'charts-secrets', url: 'git@github.com:jenkins-infra/charts-secrets.git'
               }
-              withCredentials([string(credentialsId: 'ci-terraform-digitalocean-pat', variable: 'DIGITALOCEAN_ACCESS_TOKEN')]){
-                sh '[[ ${CURRENT_CLUSTER} == "doks" ]] && doctl auth init > /dev/null'
-                sh 'kubectl cluster-info'
-              }
+              sh '[[ ${K8S_CLUSTER} == "doks" ]] && doctl auth init > /dev/null'
+              sh 'kubectl cluster-info'
             }
           }
           stage('Helmfile Lint'){
