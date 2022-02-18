@@ -545,6 +545,7 @@ controller:
                 [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603', jenkinsfilePath: 'Jenkinsfile_k8s', allowUntrustedChanges: true],
                 [ name: 'Packer Images', GHOrganization: 'jenkins-infra', repository: 'packer-images', internalId: '2021090101', jenkinsfilePath: 'Jenkinsfile_k8s'],
                 [ name: 'Jenkins.io', GHOrganization: 'jenkins-infra', repository: 'jenkins.io', internalId: '2021122501', jenkinsfilePath: 'Jenkinsfile_k8s', allowUntrustedChanges: true],
+                [ name: 'Shared Tools', GHOrganization: 'jenkins-infra', repository: 'shared-tools', internalId: '2022021801', jenkinsfilePath: 'Jenkinsfile_k8s'],
               ].each { config ->
                 multibranchPipelineJob(config.repository) {
                   displayName config.name
