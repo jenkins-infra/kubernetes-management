@@ -237,11 +237,6 @@ controller:
                     description: Datadog application key for infra.ci
                 - string:
                     scope: GLOBAL
-                    id: "terraform-datadog-azure-backend-account-key"
-                    secret: "${TERRAFORM_AZURE_BACKEND_ACCOUNT_KEY}"
-                    description: Account key for the Azure terraform backend used for datadog's management
-                - string:
-                    scope: GLOBAL
                     id: "packer-aws-access-key-id"
                     secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
                     description: AWS API key for the account ci-packer
