@@ -178,6 +178,11 @@ controller:
                     scope: GLOBAL
                     secretBytes: "${base64:${PRODUCTION_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
                 - file:
+                    fileName: "backend-config"
+                    id: "production-terraform-datadog-backend-config"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
+                - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-cik8s"
                     description: "Kubeconfig file for cik8s"
@@ -230,11 +235,6 @@ controller:
                     id: "datadog-app-key"
                     secret: "${DATADOG_APP_KEY}"
                     description: Datadog application key for infra.ci
-                - string:
-                    scope: GLOBAL
-                    id: "terraform-datadog-azure-backend-account-key"
-                    secret: "${TERRAFORM_AZURE_BACKEND_ACCOUNT_KEY}"
-                    description: Account key for the Azure terraform backend used for datadog's management
                 - string:
                     scope: GLOBAL
                     id: "packer-aws-access-key-id"
