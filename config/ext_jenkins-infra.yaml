@@ -534,7 +534,7 @@ controller:
                   }
                 }
               }
-          # List of MultiBranches, add your own as another map
+          # List of MultiBranches, add your own as another map, with internalId a date formated as "YYMMDDhh" for uniqueness
           - script: >
               [
                 [ name: 'Wiki Exporter', GHOrganization: 'jenkins-infra', repository: 'jenkins-wiki-exporter', internalId: '2021042801', jenkinsfilePath: 'Jenkinsfile'],
@@ -545,6 +545,7 @@ controller:
                 [ name: 'Plugin Site', GHOrganization: 'jenkins-infra', repository: 'plugin-site', internalId: '2019081603', jenkinsfilePath: 'Jenkinsfile_k8s', allowUntrustedChanges: true],
                 [ name: 'Packer Images', GHOrganization: 'jenkins-infra', repository: 'packer-images', internalId: '2021090101', jenkinsfilePath: 'Jenkinsfile_k8s'],
                 [ name: 'Jenkins.io', GHOrganization: 'jenkins-infra', repository: 'jenkins.io', internalId: '2021122501', jenkinsfilePath: 'Jenkinsfile_k8s', allowUntrustedChanges: true],
+                [ name: 'Shared Tools', GHOrganization: 'jenkins-infra', repository: 'shared-tools', internalId: '2022021801', jenkinsfilePath: 'Jenkinsfile_k8s'],
               ].each { config ->
                 multibranchPipelineJob(config.repository) {
                   displayName config.name
