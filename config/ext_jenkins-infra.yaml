@@ -534,8 +534,7 @@ controller:
                   }
                 }
               }
-          # List of MultiBranches, add your own as another map
-          # the internalId field is a human generated unique ID based on the current date
+          # List of MultiBranches, add your own as another map, with internalId a date formated as "YYMMDDhh" for uniqueness
           - script: >
               [
                 [ name: 'Wiki Exporter', GHOrganization: 'jenkins-infra', repository: 'jenkins-wiki-exporter', internalId: '2021042801', jenkinsfilePath: 'Jenkinsfile'],
