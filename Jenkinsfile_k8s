@@ -32,6 +32,7 @@ pipeline {
               steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                   updatecli(action: 'diff')
+                }
               }
             } // stage
             stage('Apply Configuration Update') {
@@ -43,7 +44,9 @@ pipeline {
                 }
               }
               steps {
-                updatecli(action: 'apply')
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                  updatecli(action: 'apply')
+                }
               }
             } // stage
           }
