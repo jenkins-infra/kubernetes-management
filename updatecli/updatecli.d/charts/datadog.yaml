@@ -20,7 +20,7 @@ sources:
       name: datadog
 
 targets:
-  updateChartVersion:
+  updateProdpublick8s:
     name: "Datadog Helm Chart"
     kind: file
     scmID: default
@@ -29,12 +29,32 @@ targets:
       matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
 
+  updateCik8s:
+    name: "Datadog Helm Chart"
+    kind: file
+    scmID: default
+    spec:
+      file: clusters/cik8s.yaml
+      matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
+
+  updateDoks:
+    name: "Datadog Helm Chart"
+    kind: file
+    scmID: default
+    spec:
+      file: clusters/doks.yaml
+      matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
+
 pullrequests:
   default:
     kind: github
     scmID: default
     targets:
-      - updateChartVersion
+      - updateProdpublick8s
+      - updateCik8s
+      - updateDoks
     spec:
       labels:
         - dependencies
