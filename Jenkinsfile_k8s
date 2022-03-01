@@ -1,3 +1,5 @@
+String cronPeriod = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
+
 pipeline {
   agent none
 
@@ -5,11 +7,10 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 30, unit: 'MINUTES')
     disableConcurrentBuilds()
-    pipelineTriggers(isBuildOnProductionBranch ? [cron('H/30 * * * *')] : [])
   }
 
   triggers {
-    cron (env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : '')
+    cron (cronPeriod)
   }
 
   stages {
