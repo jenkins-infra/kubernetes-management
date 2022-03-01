@@ -1,5 +1,3 @@
-String cronPeriod = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
-
 pipeline {
   agent none
 
@@ -10,7 +8,7 @@ pipeline {
   }
 
   triggers {
-    cron (cronPeriod)
+    cron ('H/30 * * * *')
   }
 
   stages {
@@ -39,11 +37,7 @@ pipeline {
             } // stage
             stage('Apply Configuration Update') {
               when {
-                allOf {
-                  branch 'main'
-                  // Only run updatecli's tasks when the pipeline is triggered by the "cron" routine
-                  triggeredBy 'TimerTrigger'
-                }
+                expression { env.BRANCH_IS_PRIMARY }
               }
               steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
