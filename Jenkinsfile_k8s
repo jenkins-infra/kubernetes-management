@@ -8,7 +8,7 @@ pipeline {
   }
 
   triggers {
-    cron(env.BRANCH_NAME == 'main' ? 'H/30 * * * *' : '')
+    cron(env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : '')
   }
 
   stages {
