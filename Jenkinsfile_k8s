@@ -8,8 +8,8 @@ pipeline {
   }
 
   triggers {
-    cron ('H/4 * * * *')
-    // cron (env.BRANCH_IS_PRIMARY ? 'H/4 * * * *' : '')
+    // cron ('H/4 * * * *')
+    cron (env.BRANCH_IS_PRIMARY ? 'H/5 * * * *' : '')
   }
 
   stages {
