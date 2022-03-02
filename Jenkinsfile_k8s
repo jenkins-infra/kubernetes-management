@@ -8,7 +8,6 @@ pipeline {
   }
 
   triggers {
-    // cron ('H/4 * * * *')
     cron (env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : '')
   }
 
