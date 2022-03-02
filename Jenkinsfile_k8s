@@ -9,7 +9,7 @@ pipeline {
 
   triggers {
     // cron ('H/4 * * * *')
-    cron (env.BRANCH_IS_PRIMARY ? 'H/5 * * * *' : '')
+    cron (env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : '')
   }
 
   stages {
