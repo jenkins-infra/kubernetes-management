@@ -6,7 +6,7 @@ pipeline {
     timeout(time: 30, unit: 'MINUTES')
     disableConcurrentBuilds()
   }
-  
+
   triggers {
     cron (env.BRANCH_IS_PRIMARY ? 'H/5 * * * *' : '')
   }
@@ -48,8 +48,9 @@ pipeline {
             } // stage
           }
         } // stage 'Dependency Management'
-        **/
+
         stage('Yaml Lint') {
+          **/
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
@@ -58,8 +59,10 @@ pipeline {
           steps {
             sh 'yamllint --config-file yamllint.config config'
           }
+        /**
         } // stage 'Yaml Lint'
-      // } // parallel
+      } // parallel
+      **/
     } // stage 'Chore Tasks
     /**
     stage('Kubernetes Management Tasks') {
