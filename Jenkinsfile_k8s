@@ -41,7 +41,7 @@ pipeline {
               }
               steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                  echo "updatecli(action: 'apply')"
+                  updatecli(action: 'apply')
                 }
               }
             } // stage
