@@ -12,9 +12,7 @@ pipeline {
   }
 
   stages {
-    stage('Chore Tasks') {
-      /**
-      
+    stage('Chore Tasks') {      
       parallel {
         stage('Dependency Management') {
           agent {
@@ -49,9 +47,7 @@ pipeline {
             } // stage
           }
         } // stage 'Dependency Management'
-
         stage('Yaml Lint') {
-          **/
           agent {
             kubernetes {
               yamlFile 'PodTemplates.yaml'
@@ -60,10 +56,8 @@ pipeline {
           steps {
             sh 'yamllint --config-file yamllint.config config'
           }
-        /**
         } // stage 'Yaml Lint'
       } // parallel
-      **/
     } // stage 'Chore Tasks
     /**
     stage('Kubernetes Management Tasks') {
