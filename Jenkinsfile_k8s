@@ -4,11 +4,11 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 30, unit: 'MINUTES')
-    // disableConcurrentBuilds()
+    disableConcurrentBuilds()
   }
   
   triggers {
-    cron (env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : '')
+    cron (env.BRANCH_IS_PRIMARY ? 'H/5 * * * *' : '')
   }
 
   stages {
@@ -59,6 +59,7 @@ pipeline {
         } // stage 'Yaml Lint'
       } // parallel
     } // stage 'Chore Tasks
+    /**
     stage('Kubernetes Management Tasks') {
       matrix {
         axes {
@@ -120,6 +121,7 @@ pipeline {
           } // stage
         } // stages
       } // matrix
-    } // stage 'stage('Kubernetes Management Tasks'
+    } // stage 'stage('Kubernetes Management Tasks')
+**/
   } // stages
 }
