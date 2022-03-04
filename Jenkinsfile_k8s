@@ -41,7 +41,7 @@ pipeline {
               }
               steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                  echo "DEBUG: updatecli(action: 'apply')"
+                  updatecli(action: 'apply')
                 }
               }
             } // stage
@@ -59,7 +59,6 @@ pipeline {
         } // stage 'Yaml Lint'
       } // parallel
     } // stage 'Chore Tasks
-    /**
     stage('Kubernetes Management Tasks') {
       matrix {
         axes {
@@ -116,12 +115,11 @@ pipeline {
           stage('Apply'){
             when { branch 'main' }
             steps {
-              echo 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
+              sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
             }
           } // stage
         } // stages
       } // matrix
     } // stage 'stage('Kubernetes Management Tasks')
-**/
   } // stages
 }
