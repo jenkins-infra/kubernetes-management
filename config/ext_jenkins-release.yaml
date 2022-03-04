@@ -614,6 +614,7 @@ controller:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
         jenkins:
+          quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
   sidecars:
