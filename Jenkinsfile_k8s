@@ -41,7 +41,7 @@ pipeline {
               }
               steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                  // updatecli(action: 'apply')
+                  echo "DEBUG: updatecli(action: 'apply')"
                 }
               }
             } // stage
@@ -115,7 +115,7 @@ pipeline {
           stage('Apply'){
             when { branch 'main' }
             steps {
-              // sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
+              echo 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
             }
           } // stage
         } // stages
