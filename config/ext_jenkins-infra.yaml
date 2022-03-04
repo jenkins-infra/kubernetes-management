@@ -484,7 +484,7 @@ controller:
                         }
                         gitHubExcludeArchivedRepositories()
                         pullRequestLabelsBlackListFilterTrait {
-                          labels('on-hold ci-skip')
+                          labels('on-hold ci-skip skip-ci')
                         }
                         // Select branches and tags to build based on these filters
                         headWildcardFilterWithPR {
@@ -575,7 +575,7 @@ controller:
                             pruneStaleBranchTrait()
                             gitHubTagDiscovery()
                             pullRequestLabelsBlackListFilterTrait {
-                              labels('on-hold ci-skip')
+                              labels('on-hold ci-skip skip-ci')
                             }
                             // Select branches and tags to build based on these filters
                             headWildcardFilterWithPR {
