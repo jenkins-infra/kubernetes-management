@@ -30,6 +30,7 @@ conditions:
     spec:
       image: "jenkinsciinfra/helmfile"
       ## tag come from the input source
+      architecture: amd64
   checkPodTemplate:
     name: "Is container 'helmfile' correctly defined in PodTemplates.yaml"
     kind: yaml
@@ -54,7 +55,7 @@ pullrequests:
     kind: github
     scmID: default
     targets:
-      - updateChartVersion
+      - updateImage
     spec:
       labels:
         - dependencies

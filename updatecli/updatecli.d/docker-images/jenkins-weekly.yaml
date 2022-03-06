@@ -29,6 +29,8 @@ conditions:
     kind: dockerImage
     spec:
       image: "jenkinsciinfra/jenkins-weekly"
+      ## Tag from source
+      architecture: amd64
 
 targets:
   updateReleaseInConfig:
