@@ -19,6 +19,7 @@ sources:
     spec:
       image: "jenkinsciinfra/datadog"
       tag: "latest"
+      architecture: amd64
 
 # no condition to test docker image availability as we're using a digest from docker hub
 
