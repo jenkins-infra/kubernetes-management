@@ -66,6 +66,12 @@ controller:
                     description: "GitHub App for infra.ci.jenkins.io"
                     id: "github-app-infra"
                     privateKey: "${GITHUB_APP_PRIVATE_KEY}"
+                - gitHubApp:
+                    appID: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_ID}"
+                    description: "GitHub App for updatecli tasks on jenkins-infra org"
+                    id: "github-app-updatecli-on-jenkins-infra"
+                    privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
+                    owner: "jenkins-infra"
                 - usernamePassword:
                     description: "GitHub access token for jenkinsadmin"
                     id: "github-access-token"
