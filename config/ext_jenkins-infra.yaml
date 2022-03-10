@@ -271,6 +271,15 @@ controller:
                     description: Auth token to communicate with netlify
                     id: netlify-auth-token
                     secret: "${NETLIFY_AUTH_TOKEN}"
+                - azure:
+                    azureEnvironmentName: "Azure"
+                    clientId: "${PACKER_AZURE_CLIENT_ID}"
+                    clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+                    description: "Azure Service Principal credential used by packer"
+                    id: "packer-azure-serviceprincipal"
+                    scope: GLOBAL
+                    subscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                    tenant: "${PACKER_AZURE_TENANT_ID}"
       agent-settings: |
         jenkins:
           numExecutors: 0
