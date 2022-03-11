@@ -16,21 +16,23 @@ sources:
   getNewJenkinsInfraSecurityGroup:
     kind: file
     spec:
-      file: https://raw.githubusercontent.com/jenkins-infra/aws/main/ec2-agents.tf
-      #matchPattern: 'aws_security_group.*(?:\n|\n\r).*name.*"(.*)".*(?:\n|\n\r).*infra\.ci'
-      matchPattern: "aws_security_group.*(\n|\n\r).*name.*\"(.*)\".*(\n|\n\r).*infra\\.ci"
-    transformers:
-      - findSubMatch: 'name.*"(.*)"'
-      #- trimPrefix: "name.*="
+      file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
+      matchPattern: 'aws_security_group.*\["(.*?):'
+    transformers: 
+      - findSubMatch: 
+          pattern: 'aws_security_group.*\["(.*?):'
+          captureIndex: 1
+      - addPrefix: 'ec2_agents_'
   getNewJenkinsReleaseSecurityGroup:
     kind: file
     spec:
-      file: https://raw.githubusercontent.com/jenkins-infra/aws/main/ec2-agents.tf
-      #matchPattern: 'aws_security_group.*(?:\n|\n\r).*name.*"(.*)".*(?:\n|\n\r).*release\.ci'
-      matchPattern: "aws_security_group.*(\n|\n\r).*name.*\"(.*)\".*(\n|\n\r).*release\\.ci"
-    transformers:
-      - findSubMatch: 'name.*"(.*)"'
-      #- trimPrefix: "name.*="
+      file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
+      matchPattern: 'aws_security_group.*\[".*", "(.*?):'
+    transformers: 
+      - findSubMatch: 
+          pattern: 'aws_security_group.*\[".*", "(.*?):'
+          captureIndex: 1
+      - addPrefix: 'ec2_agents_'
 
 targets:
   setJenkinsInfraSecurityGroup:
@@ -42,7 +44,7 @@ targets:
       matchPattern: 'securityGroups: ".*"'
       replacePattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
       #TODO check if all the occurence are changed (3) or just the first one
-    scmID: default
+    #scmID: default
   setJenkinsReleaseSecurityGroup:
     name: "Bump Release Security Group"
     kind: file
@@ -52,7 +54,7 @@ targets:
       matchPattern: 'securityGroups: ".*"'
       replacePattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
       #TODO check if all the occurence are changed (3) or just the first one
-    scmID: default
+    #scmID: default
 
 pullrequests:
   default:
@@ -61,4 +63,3 @@ pullrequests:
     targets:
       - setJenkinsInfraSecurityGroup
       - setJenkinsReleaseSecurityGroup
- 
