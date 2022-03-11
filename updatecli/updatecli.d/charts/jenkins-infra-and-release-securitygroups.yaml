@@ -43,8 +43,7 @@ targets:
       file: config/ext_jenkins-infra.yaml
       matchPattern: 'securityGroups: ".*"'
       replacePattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
-      #TODO check if all the occurence are changed (3) or just the first one
-    #scmID: default
+    scmID: default
   setJenkinsReleaseSecurityGroup:
     name: "Bump Release Security Group"
     kind: file
@@ -53,8 +52,7 @@ targets:
       file: config/ext_jenkins-release.yaml
       matchPattern: 'securityGroups: ".*"'
       replacePattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
-      #TODO check if all the occurence are changed (3) or just the first one
-    #scmID: default
+    scmID: default
 
 pullrequests:
   default:
