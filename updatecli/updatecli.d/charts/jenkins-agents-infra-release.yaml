@@ -99,4 +99,3 @@ pullrequests:
       - setUbuntuAgentAMIAmd64
       - setUbuntuAgentAMIArm64
       - setWindowsAgentAMIamd64
-
