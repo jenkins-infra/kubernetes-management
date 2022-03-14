@@ -253,21 +253,6 @@ controller:
                     description: AWS Secret key for the account ci-packer
                 - string:
                     scope: GLOBAL
-                    id: "packer-azure-client-id"
-                    secret: "${PACKER_AZURE_CLIENT_ID}"
-                    description: Azure client ID for the Service Principal "packer"
-                - string:
-                    scope: GLOBAL
-                    id: "packer-azure-client-secret"
-                    secret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-                    description: Azure client secret value for the Service Principal "packer"
-                - string:
-                    scope: GLOBAL
-                    id: "packer-azure-subscription-id"
-                    secret: "${PACKER_AZURE_SUBSCRIPTION_ID}"
-                    description: Azure subscription id value for the Service Principal "packer"
-                - string:
-                    scope: GLOBAL
                     description: Auth token to communicate with netlify
                     id: netlify-auth-token
                     secret: "${NETLIFY_AUTH_TOKEN}"
