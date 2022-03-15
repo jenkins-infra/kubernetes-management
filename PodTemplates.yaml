@@ -32,15 +32,15 @@ spec:
                 values:
                   - highmemlinux
   containers:
-    - image: "jenkinsciinfra/helmfile:2.3.10"
+    - image: "jenkinsciinfra/helmfile:2.3.7"
       imagePullPolicy: "IfNotPresent"
       name: "jnlp"
       resources:
         limits:
-          memory: "1512Mi"
-          cpu: "400m"
+          memory: "2048Mi"
+          cpu: "2"
         requests:
-          memory: "1512Mi"
-          cpu: "400m"
+          memory: "2048Mi"
+          cpu: "2"
       securityContext:
         privileged: false
