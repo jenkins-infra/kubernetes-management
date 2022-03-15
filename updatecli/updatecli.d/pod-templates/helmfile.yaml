@@ -39,8 +39,9 @@ conditions:
       file: "PodTemplates.yaml"
       key: spec.containers[0].name
       value: "jnlp"
+
 targets:
-  updateImage:
+  updatePodImage:
     name: "Update helmfile container's image in PodTemplates.yaml"
     kind: yaml
     transformers:
@@ -49,14 +50,25 @@ targets:
       file: "PodTemplates.yaml"
       key: spec.containers[0].image
     scmID: default
+  updatePipelineImage:
+    name: Update docker-helmfile in Jenkinsfile
+    kind: file
+    spec:
+      file: Jenkinsfile_k8s
+      # Please note that the patterns are specified as "block scalars" (>) with the last endline trimmed (-) to avoid tedious escaping of simple quotes
+      matchpattern: >-
+        'jenkinsciinfra/helmfile:(.*)'
+      replacepattern: >-
+        'jenkinsciinfra/helmfile:{{ source `lastRelease` }}'
+    scmID: default
 
 pullrequests:
   default:
     kind: github
     scmID: default
     targets:
-      - updateImage
+      - updatePodImage
+      - updatePipelineImage
     spec:
       labels:
         - dependencies
-        - acme
