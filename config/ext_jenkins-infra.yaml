@@ -284,7 +284,7 @@ controller:
                     clientId: "${STAGING_TERRAFORM_AZURE_CLIENT_ID}"
                     clientSecret: "${STAGING_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
                     description: "Azure Service Principal credential used by terraform for azure staging"
-                    id: "production-terraform-azure-serviceprincipal"
+                    id: "staging-terraform-azure-serviceprincipal"
                     scope: GLOBAL
                     subscriptionId: "${STAGING_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
                     tenant: "${STAGING_TERRAFORM_AZURE_TENANT_ID}"
