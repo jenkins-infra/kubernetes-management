@@ -265,6 +265,35 @@ controller:
                     scope: GLOBAL
                     subscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
                     tenant: "${PACKER_AZURE_TENANT_ID}"
+                - azure:
+                    azureEnvironmentName: "Azure"
+                    clientId: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_ID}"
+                    clientSecret: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
+                    description: "Azure Service Principal credential used by terraform for azure production"
+                    id: "production-terraform-azure-serviceprincipal"
+                    scope: GLOBAL
+                    subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
+                    tenant: "${PRODUCTION_TERRAFORM_AZURE_TENANT_ID}"
+                - file:
+                    fileName: "backend-config"
+                    id: "production-terraform-azure-backend-config"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${PRODUCTION_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+                - azure:
+                    azureEnvironmentName: "Azure"
+                    clientId: "${STAGING_TERRAFORM_AZURE_CLIENT_ID}"
+                    clientSecret: "${STAGING_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
+                    description: "Azure Service Principal credential used by terraform for azure staging"
+                    id: "production-terraform-azure-serviceprincipal"
+                    scope: GLOBAL
+                    subscriptionId: "${STAGING_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
+                    tenant: "${STAGING_TERRAFORM_AZURE_TENANT_ID}"
+                - file:
+                    fileName: "backend-config"
+                    id: "staging-terraform-azure-backend-config"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+
       agent-settings: |
         jenkins:
           numExecutors: 0
