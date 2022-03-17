@@ -136,28 +136,28 @@ controller:
                 - string:
                     scope: GLOBAL
                     id: "ci-terraform-aws-access-key"
-                    secret: "${CI_TERRAFORM_AWS_ACCESS_KEY_ID}"
+                    secret: "${STAGING_TERRAFORM_AWS_ACCESS_KEY_ID}"
                     description: AWS access key id for the account 'ci-terraform'
                 - string:
                     scope: GLOBAL
                     id: "ci-terraform-aws-secret-key"
-                    secret: "${CI_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
+                    secret: "${STAGING_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
                     description: AWS secret key for the account 'ci-terraform'
                 - file:
                     fileName: "backend-config"
                     id: "ci-terraform-aws-backend-config"
                     scope: GLOBAL
-                    secretBytes: "${base64:${CI_TERRAFORM_AWS_BACKEND_CONFIG}}"
+                    secretBytes: "${base64:${STAGING_TERRAFORM_AWS_BACKEND_CONFIG}}"
                 - string:
                     scope: GLOBAL
                     id: "ci-terraform-digitalocean-pat"
-                    secret: "${CI_TERRAFORM_DIGITALOCEAN_PAT}"
+                    secret: "${STAGING_TERRAFORM_DIGITALOCEAN_PAT}"
                     description: Digital Ocean PAT for ci
                 - file:
                     fileName: "backend-config"
                     id: "ci-terraform-digitalocean-backend-config"
                     scope: GLOBAL
-                    secretBytes: "${base64:${CI_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
+                    secretBytes: "${base64:${STAGING_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
                 - string:
                     scope: GLOBAL
                     id: "production-terraform-aws-access-key"
