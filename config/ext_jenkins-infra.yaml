@@ -496,15 +496,15 @@ controller:
 
                       traits {
                         gitHubSCMSourceStatusChecksTrait {
-                            // Note: changing this name might have impact on github branch protections if they specify status names
-                            name('[infra.ci.jenkins.io] ' + config.name)
-                            skip(false)
-                            // If this option is checked, the notifications sent by the GitHub Branch Source Plugin will be disabled.
-                            skipNotifications(false)
-                            skipProgressUpdates(false)
-                            // Default value: false. Warning: risk of secret leak in console if the build fails
-                            suppressLogs(true)
-                            unstableBuildNeutral(false)
+                          // Note: changing this name might have impact on github branch protections if they specify status names
+                          name('[infra.ci.jenkins.io] ' + config.name)
+                          skip(false)
+                          // If this option is checked, the notifications sent by the GitHub Branch Source Plugin will be disabled.
+                          skipNotifications(false)
+                          skipProgressUpdates(false)
+                          // Default value: false. Warning: risk of secret leak in console if the build fails
+                          suppressLogs(true)
+                          unstableBuildNeutral(false)
                         }
                         gitHubTagDiscovery()
                         cloneOptionTrait {
@@ -611,15 +611,15 @@ controller:
                           repository(config.repository)
                           traits {
                             gitHubSCMSourceStatusChecksTrait {
-                                // Note: changing this name might have impact on github branch protections if they specify status names
-                                name('[infra.ci.jenkins.io] ' + config.name)
-                                skip(false)
-                                // If this option is checked, the notifications sent by the GitHub Branch Source Plugin will be disabled.
-                                skipNotifications(false)
-                                skipProgressUpdates(false)
-                                // Default value: false. Warning: risk of secret leak in console if the build fails
-                                suppressLogs(true)
-                                unstableBuildNeutral(false)
+                              // Note: changing this name might have impact on github branch protections if they specify status names
+                              name('[infra.ci.jenkins.io] ' + config.name)
+                              skip(false)
+                              // If this option is checked, the notifications sent by the GitHub Branch Source Plugin will be disabled.
+                              skipNotifications(false)
+                              skipProgressUpdates(false)
+                              // Default value: false. Warning: risk of secret leak in console if the build fails
+                              suppressLogs(true)
+                              unstableBuildNeutral(false)
                             }
                             gitHubBranchDiscovery {
                               strategyId(1) // 1-only branches that are not pull requests
