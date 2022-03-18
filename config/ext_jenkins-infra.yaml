@@ -364,7 +364,7 @@ controller:
                 sshKeysCredentialsId: "ec2-agents-privkey"
                 useInstanceProfileForCredentials: false
                 templates:
-                - ami: "ami-0a11509f4a702d787" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
+                - ami: "ami-0a34eb36a82073cfa" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
@@ -400,7 +400,7 @@ controller:
                     value: "infra.ci.jenkins.io"
                   type: T3Medium
                   useEphemeralDevices: true
-                - ami: "ami-05e14994806ee6819" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
+                - ami: "ami-0b59d2201f429d9eb" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
@@ -436,7 +436,7 @@ controller:
                     value: "infra.ci.jenkins.io"
                   type: T4gMedium
                   useEphemeralDevices: true
-                - ami: "ami-0f2792367a1687a81" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
+                - ami: "ami-0ee9ee571c6c7f090" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
