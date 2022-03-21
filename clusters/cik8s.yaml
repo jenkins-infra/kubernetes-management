@@ -46,7 +46,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.16.1
+    version: 9.16.2
     values:
       - "../config/ext_autoscaler.yaml"
   - name: aws-node-termination-handler
