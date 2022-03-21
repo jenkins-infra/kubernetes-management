@@ -297,6 +297,28 @@ controller:
                     description: "Terraform backend configuration for the staging environment of jenkins-infra/azure"
                     scope: GLOBAL
                     secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+                - file:
+                    fileName: "backend-config"
+                    id: "staging-terraform-fastly-backend-config"
+                    description: "Terraform backend configuration for the staging environment of jenkins-infra/fastly"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${STAGING_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
+                - file:
+                    fileName: "backend-config"
+                    id: "production-terraform-fastly-backend-config"
+                    description: "Terraform backend configuration for the production environment of jenkins-infra/fastly"
+                    scope: GLOBAL
+                    secretBytes: "${base64:${PRODUCTION_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
+                - string:
+                    scope: GLOBAL
+                    id: "staging-terraform-fastly-api-key"
+                    secret: "${STAGING_TERRAFORM_FASTLY_API_KEY}"
+                    description: Fastly API key for staging (read-only)
+                - string:
+                    scope: GLOBAL
+                    id: "production-terraform-fastly-api-key"
+                    secret: "${PRODUCTION_TERRAFORM_FASTLY_API_KEY}"
+                    description: Fastly API key for production (full access)
       agent-settings: |
         jenkins:
           numExecutors: 0
