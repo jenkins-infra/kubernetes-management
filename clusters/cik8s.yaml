@@ -13,6 +13,13 @@ repositories:
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
 releases:
+  - name: docker-registry-secrets
+    chart: jenkins-infra/docker-registry-secrets
+    version: 0.1.0
+    values:
+      - "../config/ext_docker-registry-secrets.yaml"
+    secrets:
+      - "../secrets/config/docker-registry-secrets/secrets.yaml"
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
