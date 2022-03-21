@@ -1,2 +1,6 @@
 datadog:
   clusterName: 'cik8s'
+clusterAgent:
+  image:
+    pullSecrets:
+      - name: "dockerhub-credential"
