@@ -22,7 +22,7 @@ releases:
       - "../secrets/config/docker-registry-secrets/secrets.yaml"
   - name: datadog
     needs:
-      - docker-registry-secrets
+      - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
     version: 2.30.17
@@ -34,7 +34,7 @@ releases:
       - "../secrets/config/datadog/secrets.yaml"
   - name: jenkins-agents
     needs:
-      - docker-registry-secrets
+      - default/docker-registry-secrets
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 0.2.1
