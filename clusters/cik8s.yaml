@@ -14,6 +14,8 @@ repositories:
     url: https://jenkins-infra.github.io/helm-charts
 releases:
   - name: docker-registry-secrets
+    #this helmchart doesn't create any resources within the namespace specified below.
+    #specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
     namespace: default
     chart: jenkins-infra/docker-registry-secrets
     version: 0.1.0
