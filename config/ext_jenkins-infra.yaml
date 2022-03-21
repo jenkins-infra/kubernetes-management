@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.48.0-2.339
+  tag: 0.48.1-2.339
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -297,7 +297,6 @@ controller:
                     description: "Terraform backend configuration for the staging environment of jenkins-infra/azure"
                     scope: GLOBAL
                     secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG}}"
-
       agent-settings: |
         jenkins:
           numExecutors: 0
