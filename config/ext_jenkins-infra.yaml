@@ -119,7 +119,7 @@ controller:
                     username: jenkinsinfraadmin
                     password: "${DOCKER_HUB_TOKEN_PUSH}"
                 - usernamePassword:
-                    scope: GLOBAL 
+                    scope: GLOBAL
                     description: Docker hub credential for jenkinsinfra organisation PUSH
                     id: jenkinsciinfra-dockerhub-push
                     username: jenkinsinfraadmin
