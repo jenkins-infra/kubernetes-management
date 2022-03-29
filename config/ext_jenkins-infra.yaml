@@ -116,8 +116,20 @@ controller:
                     scope: GLOBAL
                     description: Docker hub credential for jenkinsinfra organisation
                     id: jenkins-dockerhub
-                    username: "${DOCKER_HUB_USERNAME}"
-                    password: "${DOCKER_HUB_TOKEN}"
+                    username: jenkinsinfraadmin
+                    password: "${DOCKER_HUB_TOKEN_PUSH}"
+                - usernamePassword:
+                    scope: GLOBAL 
+                    description: Docker hub credential for jenkinsinfra organisation PUSH
+                    id: jenkinsciinfra-dockerhub-push
+                    username: jenkinsinfraadmin
+                    password: "${DOCKER_HUB_TOKEN_PUSH}"
+                - usernamePassword:
+                    scope: GLOBAL
+                    description: Docker hub credential for jenkinsinfra organisation PULL
+                    id: infracijenkinsio-dockerhub-pull
+                    username: infracijenkinsio
+                    password: "${DOCKER_HUB_TOKEN_PULL}"
                 - string:
                     scope: GLOBAL
                     id: "algolia-plugins-app-id"
