@@ -319,6 +319,11 @@ controller:
                     id: "production-terraform-fastly-api-key"
                     secret: "${PRODUCTION_TERRAFORM_FASTLY_API_KEY}"
                     description: Fastly API key for production (full access)
+                - string:
+                    scope: GLOBAL
+                    id: "infracost-api-key"
+                    secret: "${INFRACOST_API_KEY}"
+                    description: Infracost API key
       agent-settings: |
         jenkins:
           numExecutors: 0
