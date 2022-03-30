@@ -235,7 +235,6 @@ releases:
     version: 0.3.5
     values:
       - "../config/wiki.yaml"
-  # weekly.ci.jenkins.io
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
@@ -246,3 +245,11 @@ releases:
       - "../config/ext_jenkins-weekly.yaml"
     secrets:
       - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
+  - name: rating
+    namespace: rating
+    chart: jenkins-infra/rating
+    version: 0.2.0
+    values:
+      - "../config/rating.yaml"
+    secrets:
+      - "../secrets/config/rating/secrets.yaml"
