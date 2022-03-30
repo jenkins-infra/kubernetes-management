@@ -69,47 +69,46 @@ jobsDefinition:
         name: Kubernetes Management
         description: Managing the Kubernetes-hosted applications
         credentials:
-        sops-client-id:
-          secret: "${SOPS_CLIENT_ID}"
-          description: Azure client ID used by sops to decrypt secrets
-        sops-client-secret:
-          secret: "${SOPS_CLIENT_SECRET}"
-          description: Azure client secret used by sops to decrypt secrets
-        sops-tenant-id:
-          secret: "${SOPS_TENANT_ID}"
-          description: Azure tenant id used by sops to decrypt secrets
-        charts-secrets:
-          username: ${SSH_CHARTS_SECRETS_USERNAME}
-          description: "SSH privkey used to access jenkins-infra/charts-secrets"
-          privateKey: "${SSH_CHARTS_SECRETS_PRIVKEY}"
-        # TODO: check if this credential is still required (as svc account is used for cik8s)
-        eks_charter_awsconfig:
-          fileName: "credentials"
-          secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
-        # Used by updatecli to retrieve AMIs
-        packer-aws-access-key-id:
-          description: AWS API key for the account ci-packer
-          secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
-        # Used by updatecli to retrieve AMIs
-        packer-aws-secret-access-key:
-          description: AWS Secret key for the account ci-packer
-          secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
-        kubeconfig-cik8s:
-          fileName: "kubeconfig"
-          description: "Kubeconfig file for cik8s"
-          secretBytes: "${base64:${KUBECONFIG_CIK8S}}"
-        kubeconfig-doks:
-          fileName: "kubeconfig"
-          description: "Kubeconfig file for doks"
-          secretBytes: "${base64:${KUBECONFIG_DOKS}}"
-        kubeconfig-prodpublick8s:
-          fileName: "kubeconfig"
-          description: "Kubeconfig file for prodpublick8s"
-          secretBytes: "${base64:${KUBECONFIG_PRODPUBLICK8S}}"
-        kubeconfig-temp-privatek8s:
-          fileName: "kubeconfig"
-          description: "Kubeconfig file for temp-privatek8s"
-          secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
+          sops-client-id:
+            secret: "${SOPS_CLIENT_ID}"
+            description: Azure client ID used by sops to decrypt secrets
+          sops-client-secret:
+            secret: "${SOPS_CLIENT_SECRET}"
+            description: Azure client secret used by sops to decrypt secrets
+          sops-tenant-id:
+            secret: "${SOPS_TENANT_ID}"
+            description: Azure tenant id used by sops to decrypt secrets
+          # Used by updatecli to retrieve AMIs
+          packer-aws-access-key-id:
+            description: AWS API key for the account ci-packer
+            secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
+          # Used by updatecli to retrieve AMIs
+          packer-aws-secret-access-key:
+            description: AWS Secret key for the account ci-packer
+            secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
+          production-terraform-digitalocean-pat:
+            secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
+            description: "Digital Ocean PAT for production"
+          # TODO: check if this credential is still required (as svc account is used for cik8s)
+          eks_charter_awsconfig:
+            fileName: "credentials"
+            secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
+          kubeconfig-cik8s:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for cik8s"
+            secretBytes: "${base64:${KUBECONFIG_CIK8S}}"
+          kubeconfig-doks:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for doks"
+            secretBytes: "${base64:${KUBECONFIG_DOKS}}"
+          kubeconfig-prodpublick8s:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for prodpublick8s"
+            secretBytes: "${base64:${KUBECONFIG_PRODPUBLICK8S}}"
+          kubeconfig-temp-privatek8s:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for temp-privatek8s"
+            secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra

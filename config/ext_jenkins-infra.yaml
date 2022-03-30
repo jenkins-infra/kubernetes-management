@@ -24,11 +24,13 @@ controller:
   pullPolicy: IfNotPresent
   resources:
     limits:
-      cpu: "2"
+      cpu: "4"
       memory: "4Gi"
     requests:
       cpu: "2"
       memory: "4Gi"
+  ## TODO: enable probes again
+  healthProbes: false
   probes:
     startupProbe:
       initialDelaySeconds: 120
@@ -74,6 +76,12 @@ controller:
                     privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
                     owner: "jenkins-infra"
                     scope: GLOBAL
+                - file:
+                    fileName: "kubeconfig"
+                    id: "kubeconfig-controller-temp-privatek8s"
+                    description: "Kubeconfig file for temp-privatek8s"
+                    scope: SYSTEM
+                    secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
                 - basicSSHUserPrivateKey:
                     scope: SYSTEM
                     id: "ec2-agents-privkey"
@@ -102,7 +110,7 @@ controller:
                 namespace: "jenkins-agents"
                 podRetention: "Never"
                 serverUrl: ${AGENTS_KUBERNETES_CLUSTER_URL}
-                credentialsId: "kubeconfig-temp-privatek8s"
+                credentialsId: "kubeconfig-controller-temp-privatek8s"
                 serverCertificate: |
                   ${AGENTS_KUBERNETES_CLUSTER_CERT}
                 podLabels:
