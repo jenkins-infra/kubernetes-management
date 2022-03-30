@@ -45,12 +45,6 @@ jobsDefinition:
       packer-images:
         name: Packer Images
         credentials:
-          packer-aws-access-key-id:
-            description: AWS API key for the account ci-packer
-            secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
-          packer-aws-secret-access-key:
-            description: AWS Secret key for the account ci-packer
-            secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
           packer-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
             clientId: "${PACKER_AZURE_CLIENT_ID}"
@@ -86,14 +80,6 @@ jobsDefinition:
         eks_charter_awsconfig:
           fileName: "credentials"
           secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
-        # Used by updatecli to retrieve AMIs
-        packer-aws-access-key-id:
-          description: AWS API key for the account ci-packer
-          secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
-        # Used by updatecli to retrieve AMIs
-        packer-aws-secret-access-key:
-          description: AWS Secret key for the account ci-packer
-          secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
         kubeconfig-cik8s:
           fileName: "kubeconfig"
           description: "Kubeconfig file for cik8s"
