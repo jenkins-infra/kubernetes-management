@@ -34,7 +34,7 @@ If you have the right to access the secrets, you can set up the local `./secrets
 git clone https://github.com/jenkins-infra/charts-secrets.git ./secrets
 ```
 
-Then, you can edit an app secret by using the `sops ./secrets/config/<app-name>/secrets.yaml` command that will create a blank secrets.yaml file ready to get encrypted as soon as it's saved and closed (you may need to add your ip on the azure key vault to get access).
+Then, you can edit an app secret by using the `sops ./secrets/config/<app-name>/secrets.yaml` command that will create a blank secrets.yaml file ready to get encrypted as soon as it's saved and closed (you may need to add your ip on the azure key vault to get access) [sops examples](https://github.com/mozilla/sops#creating-a-new-file). 
 
 ## Remarks
 
