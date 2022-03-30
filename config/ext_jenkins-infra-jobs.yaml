@@ -1,0 +1,269 @@
+jenkinsName: jenkins-infra
+jobsDefinition:
+  docker-jobs:
+    name: Docker Jobs
+    description: Folder hosting all the Docker jobs
+    kind: folder
+    credentials:
+      jenkins-dockerhub:
+        description: Docker hub credential for jenkinsinfra organisation
+        username: jenkinsinfraadmin
+        password: "${DOCKER_HUB_TOKEN_PUSH}"
+      jenkinsciinfra-dockerhub-push:
+        description: Docker hub credential for jenkinsinfra organisation PUSH
+        username: jenkinsinfraadmin
+        password: "${DOCKER_HUB_TOKEN_PUSH}"
+      infracijenkinsio-dockerhub-pull:
+        description: Docker hub credential for jenkinsinfra organisation PULL
+        username: infracijenkinsio
+        password: "${DOCKER_HUB_TOKEN_PULL}"
+    children:
+      docker-404:
+      docker-builder:
+      docker-confluence-data:
+      docker-crond:
+      docker-datadog:
+      docker-hashicorp-tools:
+      docker-helmfile:
+      docker-inbound-agents:
+      docker-jenkins-lts:
+      docker-jenkins-weekly:
+      docker-mamoto:
+      docker-mirrorbits:
+      docker-openvpn:
+      docker-packaging:
+      docker-plugin-site-issues:
+      docker-plugins-self-service:
+      docker-repo-proxy:
+      docker-rsyncd:
+      rating:
+  infra-tools:
+    name: Infrastructure Tooling Jobs
+    description: Folder hosting all the Infrastructure Tools jobs
+    kind: folder
+    children:
+      packer-images:
+        name: Packer Images
+        credentials:
+          packer-aws-access-key-id:
+            description: AWS API key for the account ci-packer
+            secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
+          packer-aws-secret-access-key:
+            description: AWS Secret key for the account ci-packer
+            secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
+          packer-azure-serviceprincipal:
+            azureEnvironmentName: "Azure"
+            clientId: "${PACKER_AZURE_CLIENT_ID}"
+            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+            description: "Azure Service Principal credential used by packer"
+            subscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+            tenant: "${PACKER_AZURE_TENANT_ID}"
+      shared-tools:
+        name: Shared Tools
+  kubernetes-jobs:
+    name: Kubernetes Jobs
+    description: Folder hosting all the Kubernetes-related jobs
+    kind: folder
+    children:
+      kubernetes-management:
+        name: Kubernetes Management
+        description: Managing the Kubernetes-hosted applications
+        credentials:
+        sops-client-id:
+          secret: "${SOPS_CLIENT_ID}"
+          description: Azure client ID used by sops to decrypt secrets
+        sops-client-secret:
+          secret: "${SOPS_CLIENT_SECRET}"
+          description: Azure client secret used by sops to decrypt secrets
+        sops-tenant-id:
+          secret: "${SOPS_TENANT_ID}"
+          description: Azure tenant id used by sops to decrypt secrets
+        charts-secrets:
+          username: ${SSH_CHARTS_SECRETS_USERNAME}
+          description: "SSH privkey used to access jenkins-infra/charts-secrets"
+          privateKey: "${SSH_CHARTS_SECRETS_PRIVKEY}"
+        # TODO: check if this credential is still required (as svc account is used for cik8s)
+        eks_charter_awsconfig:
+          fileName: "credentials"
+          secretBytes: "${base64:${EKS_CHARTER_AWSCONFIG}}"
+        # Used by updatecli to retrieve AMIs
+        packer-aws-access-key-id:
+          description: AWS API key for the account ci-packer
+          secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
+        # Used by updatecli to retrieve AMIs
+        packer-aws-secret-access-key:
+          description: AWS Secret key for the account ci-packer
+          secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
+        kubeconfig-cik8s:
+          fileName: "kubeconfig"
+          description: "Kubeconfig file for cik8s"
+          secretBytes: "${base64:${KUBECONFIG_CIK8S}}"
+        kubeconfig-doks:
+          fileName: "kubeconfig"
+          description: "Kubeconfig file for doks"
+          secretBytes: "${base64:${KUBECONFIG_DOKS}}"
+        kubeconfig-prodpublick8s:
+          fileName: "kubeconfig"
+          description: "Kubeconfig file for prodpublick8s"
+          secretBytes: "${base64:${KUBECONFIG_PRODPUBLICK8S}}"
+        kubeconfig-temp-privatek8s:
+          fileName: "kubeconfig"
+          description: "Kubeconfig file for temp-privatek8s"
+          secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
+      helm-charts:
+        name: Helm Charts
+        description: Custom Helm Charts of the Jenkins Infra
+  other-jobs:
+    name: Other Jobs
+    description: Folder hosting all the jobs not fitting any category
+    kind: folder
+    children:
+      custom-distribution-service:
+        name: Custom Distribution Service
+        repositoryOwner: jenkinsci
+        jenkinsfilePath: Jenkinsfile
+      incrementals-publisher:
+        name: Incrementals Publisher
+        jenkinsfilePath: Jenkinsfile
+      jenkins-wiki-exporter:
+        name: Wiki Exporter
+        jenkinsfilePath: Jenkinsfile
+  terraform-jobs:
+    name: Terraform Jobs
+    description: Folder hosting all the Terraform-related jobs
+    kind: folder
+    credentials:
+      infracost-api-key:
+        secret: "${INFRACOST_API_KEY}"
+        description: Infracost API key
+    children:
+      aws:
+        name: Terraform AWS
+        description: AWS resources managed by Terraform
+        credentials:
+          staging-terraform-aws-access-key:
+            secret: "${STAGING_TERRAFORM_AWS_ACCESS_KEY_ID}"
+            description: "AWS access key id for the staging terraform account for jenkins-infra/aws"
+          staging-terraform-aws-secret-key:
+            secret: "${STAGING_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
+            description: "AWS secret key for the staging terraform account for jenkins-infra/aws"
+          staging-terraform-aws-backend-config:
+            fileName: backend-config
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/aws"
+            secretBytes: "${base64:${STAGING_TERRAFORM_AWS_BACKEND_CONFIG}}"
+          production-terraform-aws-access-key:
+            secret: "${PRODUCTION_TERRAFORM_AWS_ACCESS_KEY_ID}"
+            description: "AWS access key id for the account production-terraform"
+          production-terraform-aws-secret-key:
+            secret: "${PRODUCTION_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
+            description: "AWS secret key for the account production-terraform"
+          production-terraform-aws-backend-config:
+            fileName: "backend-config"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWS_BACKEND_CONFIG}}"
+      azure:
+        name: Terraform Azure
+        description: "Azure resources managed by Terraform"
+        credentials:
+          production-terraform-azure-serviceprincipal:
+            azureEnvironmentName: "Azure"
+            clientId: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_ID}"
+            clientSecret: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
+            description: "Azure Service Principal credential used by terraform for azure production"
+            subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
+            tenant: "${PRODUCTION_TERRAFORM_AZURE_TENANT_ID}"
+          production-terraform-azure-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the production environment of jenkins-infra/azure"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+          staging-terraform-azure-serviceprincipal:
+            azureEnvironmentName: "Azure"
+            clientId: "${STAGING_TERRAFORM_AZURE_CLIENT_ID}"
+            clientSecret: "${STAGING_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
+            description: "Azure Service Principal credential used by terraform for azure staging"
+            subscriptionId: "${STAGING_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
+            tenant: "${STAGING_TERRAFORM_AZURE_TENANT_ID}"
+          staging-terraform-azure-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/azure"
+            secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+      datadog:
+        name: Terraform Datadog
+        description: "Datadog resources managed by Terraform"
+        credentials:
+          datadog-api-key:
+            secret: "${PRODUCTION_DATADOG_API_KEY}"
+            description: Datadog API key for infra.ci
+          datadog-app-key:
+            secret: "${PRODUCTION_DATADOG_APP_KEY}"
+            description: Datadog application key for infra.ci
+          production-terraform-datadog-backend-config:
+            fileName: "backend-config"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
+      digitalocean:
+        name: Terraform Digital Ocean
+        description: "Digital Ocean resources managed by Terraform"
+        credentials:
+          staging-terraform-digitalocean-pat:
+            secret: "${STAGING_TERRAFORM_DIGITALOCEAN_PAT}"
+            description: "Digital Ocean PAT for the staging environment of jenkins-infra/digitalocean"
+          staging-terraform-digitalocean-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/digitalocean"
+            secretBytes: "${base64:${STAGING_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
+          production-terraform-digitalocean-pat:
+            secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
+            description: "Digital Ocean PAT for production"
+          production-terraform-digitalocean-backend-config:
+            fileName: "backend-config"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
+      fastly:
+        name: Terraform Fastly
+        description: "Fastly resources managed by Terraform"
+        credentials:
+          staging-terraform-fastly-api-key:
+            secret: "${STAGING_TERRAFORM_FASTLY_API_KEY}"
+            description: Fastly API key for staging (read-only)
+          staging-terraform-fastly-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/fastly"
+            secretBytes: "${base64:${STAGING_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
+          production-terraform-fastly-api-key:
+            secret: "${PRODUCTION_TERRAFORM_FASTLY_API_KEY}"
+            description: Fastly API key for production (full access)
+          production-terraform-fastly-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the production environment of jenkins-infra/fastly"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
+  website-jobs:
+    name: Website Jobs
+    description: "Folder hosting all the Website jobs"
+    kind: folder
+    children:
+      jenkins.io:
+        name: Jenkins.io
+        description: "Jenkins.io Website"
+        allowUntrustedChanges: true
+        credentials:
+          netlify-auth-token:
+            description: "Auth token to communicate with netlify"
+            secret: "${NETLIFY_AUTH_TOKEN}"
+      jenkins-is-the-way:
+        name: Jenkins Is The Way
+        description: "Jenkins Is The Way Website"
+        allowUntrustedChanges: true
+      plugin-site:
+        name: Plugin Site
+        allowUntrustedChanges: true
+        credentials:
+          PLUGINSITE_STORAGEACCOUNTKEY:
+            secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
+            description: "Azure storage account key for plugin site"
+          algolia-plugins-app-id:
+            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_APP_ID}"
+            description: "Algolia app id for plugin site"
+          algolia-plugins-search-key:
+            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_SEARCH_KEY}"
+            description: "Algolia credentials to read data for plugin site (runtime)"
+          algolia-plugins-write-key:
+            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
+            description: "Algolia credentials to write data for plugin site"
