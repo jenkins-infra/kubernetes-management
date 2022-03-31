@@ -117,10 +117,6 @@ jobsDefinition:
     description: Folder hosting all the jobs not fitting any category
     kind: folder
     children:
-      custom-distribution-service:
-        name: Custom Distribution Service
-        repositoryOwner: jenkinsci
-        jenkinsfilePath: Jenkinsfile
       incrementals-publisher:
         name: Incrementals Publisher
         jenkinsfilePath: Jenkinsfile

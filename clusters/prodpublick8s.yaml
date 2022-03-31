@@ -64,7 +64,7 @@ releases:
     chart: jenkins-infra/acme
     version: 0.1.2
     needs:
-    - cert-manager
+      - cert-manager
     values:
       - "../config/acme.yaml"
     secrets:
@@ -205,20 +205,14 @@ releases:
     version: 0.1.1
     secrets:
       - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
-  - name: custom-distribution-service
-    namespace: custom-distribution-service
-    chart: jenkins-infra/custom-distribution-service
-    version: 0.3.1
-    values:
-      - "../config/custom-distribution-service.yaml"
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
     version: 0.5.1
     values:
-        - "../config/incrementals-publisher.yaml"
+      - "../config/incrementals-publisher.yaml"
     secrets:
-        - "../secrets/config/incrementals-publisher/secrets.yaml"
+      - "../secrets/config/incrementals-publisher/secrets.yaml"
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
     namespace: keycloak
     chart: codecentric/keycloak
