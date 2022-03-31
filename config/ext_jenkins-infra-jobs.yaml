@@ -123,6 +123,61 @@ jobsDefinition:
       jenkins-wiki-exporter:
         name: Wiki Exporter
         jenkinsfilePath: Jenkinsfile
+  reports:
+    name: Reports
+    description: Folder hosting all the reporting tasks jobs
+    kind: folder
+    children:
+      artifactory-users-report:
+        name: "Artifactory Users Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "artifactory-users-report/Jenkinsfile"
+        credentials:
+          artifactoryAdmin:
+            description: "Artifactory API for updating permissions"
+            username: "${ARTIFACTORY_API_INFRA_REPORTS_USERNAME}"
+            usernameSecret: true
+            password: "${ARTIFACTORY_API_INFRA_REPORTS_PASSWORD}"
+      fork-report:
+        name: "GitHub Forks Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "fork-report/Jenkinsfile"
+        credentials:
+          jenkins-infra-reports:
+            description: "Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+            appId: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
+            owner: "jenkinsci"
+            privateKey: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY}"
+      jira-users-report:
+        name: "Jira Users Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "jira-users-report/Jenkinsfile"
+        credentials:
+          jiraAuth:
+            description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
+            username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
+            usernameSecret: true
+            password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
+      maintainers-info-report:
+        name: "Maintainers Jira Info"
+        repository: "infra-reports"
+        jenkinsfilePath: "maintainers-info-report/Jenkinsfile"
+        credentials:
+          jiraAuth:
+            description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
+            username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
+            usernameSecret: true
+            password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
+      permissions-report:
+        name: "Maintainers Jira Info"
+        repository: "infra-reports"
+        jenkinsfilePath: "permissions-report/Jenkinsfile"
+        credentials:
+          jenkins-infra-reports:
+            description: "Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+            appID: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
+            owner: "jenkinsci"
+            privateKey: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY}"
   terraform-jobs:
     name: Terraform Jobs
     description: Folder hosting all the Terraform-related jobs
