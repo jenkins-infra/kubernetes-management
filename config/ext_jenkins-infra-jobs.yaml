@@ -233,15 +233,15 @@ jobsDefinition:
     name: Website Jobs
     description: "Folder hosting all the Website jobs"
     kind: folder
+    credentials:
+      netlify-auth-token:
+        description: "Auth token to communicate with netlify"
+        secret: "${NETLIFY_AUTH_TOKEN}"
     children:
       jenkins.io:
         name: Jenkins.io
         description: "Jenkins.io Website"
         allowUntrustedChanges: true
-        credentials:
-          netlify-auth-token:
-            description: "Auth token to communicate with netlify"
-            secret: "${NETLIFY_AUTH_TOKEN}"
       jenkins-is-the-way:
         name: Jenkins Is The Way
         description: "Jenkins Is The Way Website"
