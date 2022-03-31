@@ -2,32 +2,6 @@
 
 * @jenkins-infra/kubernetes
 
-jenkins-wiki-exporter/ @jenkins-infra/kubernetes @jenkins-infra/plugin-site
 jenkins-wiki-exporter.yaml @jenkins-infra/kubernetes @jenkins-infra/plugin-site
-
-reports/ @jenkins-infra/kubernetes
-reports.yaml @jenkins-infra/kubernetes
-
-plugin-site/ @jenkins-infra/kubernetes @jenkins-infra/plugin-site
 plugin-site.yaml @jenkins-infra/kubernetes @jenkins-infra/plugin-site
-
-plugin-site-issues/ @jenkins-infra/kubernetes @jenkins-infra/plugin-site
 plugin-site-issues.yaml @jenkins-infra/kubernetes @jenkins-infra/plugin-site
-
-jenkinsio/ @jenkins-infra/kubernetes
-jenkinsio.yaml @jenkins-infra/kubernetes
-
-javadoc/ @jenkins-infra/kubernetes
-javadoc.yaml @jenkins-infra/kubernetes
-
-accountapp/ @jenkins-infra/kubernetes
-accountapp.yaml @jenkins-infra/kubernetes
-
-uplink/ @jenkins-infra/kubernetes
-uplink.yaml @jenkins-infra/kubernetes
-
-ircbot/ @jenkins-infra/kubernetes @slide
-ircbot.yaml @jenkins-infra/kubernetes @slide
-
-incrementals-publisher/ @jenkins-infra/kubernetes @slide
-incrementals-publisher.yaml @jenkins-infra/kubernetes @slide
