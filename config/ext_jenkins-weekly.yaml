@@ -127,12 +127,10 @@ controller:
           authorizationStrategy:
             globalMatrix:
               permissions:
-                - "GROUP:Job/Build:authenticated"
-                - "GROUP:Job/ExtendedRead:authenticated"
-                - "GROUP:Job/Read:authenticated"
+                - "GROUP:Job/Read:anonymous"
                 - "GROUP:Overall/Administer:admins"
                 - "GROUP:Overall/Administer:jenkins-admins"
-                - "GROUP:Overall/Read:authenticated"
+                - "GROUP:Overall/Read:anonymous"
                 - "GROUP:Overall/SystemRead:authenticated"
       system-settings: |
         unclassified:
