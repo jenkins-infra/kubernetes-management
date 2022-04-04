@@ -115,6 +115,9 @@ controller:
               permissions:
                 - "GROUP:Job/Read:anonymous"
                 - "GROUP:Overall/Read:anonymous"
+                - "GROUP:Overall/Administer:admins"
+                - "GROUP:Overall/Administer:jenkins-admins"
+                - "GROUP:Overall/SystemRead:authenticated"
       system-settings: |
         unclassified:
           defaultFolderConfiguration:
