@@ -93,19 +93,6 @@ controller:
         jenkins:
           disabledAdministrativeMonitors:
             - com.cloudbees.jenkins.plugins.advisor.Reminder
-        advisor:
-          acceptToS: true
-          ccs:
-          - "damien.duportal@gmail.com"
-          email: "jenkins-infra-team@googlegroups.com"
-          excludedComponents:
-            - "ItemsContent"
-            - "GCLogs"
-            - "Agents"
-            - "RootCAs"
-            - "SlaveLogs"
-            - "HeapUsageHistogram"
-          nagDisabled: true
       pipeline-library: |
         unclassified:
           location:
