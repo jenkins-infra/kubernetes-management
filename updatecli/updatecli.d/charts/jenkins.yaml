@@ -20,7 +20,7 @@ sources:
       name: jenkins
 
 targets:
-  updateReleaseCIChartVersion:
+  updateReleaseAndWeeklyCIChartVersion:
     name: "jenkinsci/jenkins Helm Chart"
     kind: file
     spec:
@@ -42,11 +42,12 @@ pullrequests:
     kind: github
     scmID: default
     targets:
-      - updateReleaseCIChartVersion
+      - updateReleaseAndWeeklyCIChartVersion
       - updateInfraCIChartVersion
     spec:
       labels:
         - dependencies
         - infra.ci.jenkins.io
         - release.ci.jenkins.io
+        - weekly.ci.jenkins.io
         - jenkins
