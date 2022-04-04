@@ -242,7 +242,6 @@ releases:
     version: 3.11.8
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
-      - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
     values:
       - "../config/ext_jenkins-weekly.yaml"
     secrets:
