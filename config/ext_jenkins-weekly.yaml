@@ -150,16 +150,3 @@ controller:
       - hosts:
           - weekly.ci.jenkins.io
         secretName: weekly.ci.jenkins.io-cert
-  secondaryingress:
-    enabled: true
-    paths:
-      - /github-webhook
-    hostName: weekly-webhooks.ci.jenkins.io
-    ingressClassName: public-nginx
-    annotations:
-      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-      "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-    tls:
-      - hosts:
-          - weekly-webhooks.ci.jenkins.io
-        secretName: weekly-webhooks.ci.jenkins.io-cert
