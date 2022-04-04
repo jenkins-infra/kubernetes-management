@@ -2,8 +2,7 @@ serviceAccount:
   create: true
   name: jenkins-controller
 serviceAccountAgent:
-  create: true
-  name: jenkins-agent
+  create: false
 rbac:
   create: true
   readSecrets: true
