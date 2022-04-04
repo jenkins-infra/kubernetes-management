@@ -98,7 +98,7 @@ controller:
           acceptToS: true
           ccs:
           - "damien.duportal@gmail.com"
-          email: "jenkins@oblak.com"
+          email: "jenkins-infra-team@googlegroups.com"
           excludedComponents:
             - "ItemsContent"
             - "GCLogs"
