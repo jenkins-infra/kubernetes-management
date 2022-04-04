@@ -1,0 +1,41 @@
+title: "Bump jenkins-infra/jenkins-jobs Helm Chart Version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  lastChartVersion:
+    kind: helmChart
+    spec:
+      url: https://jenkins-infra.github.io/helm-charts
+      name: jenkins-jobs
+
+targets:
+  updateChartVersionPrivate:
+    name: "Update the chart version for jenkins-jobs"
+    kind: file
+    spec:
+      file: clusters/temp-privatek8s.yaml
+      matchPattern: 'chart: jenkins-infra\/jenkins-jobs((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jenkins-infra/jenkins-jobs${1}version: {{ source "lastChartVersion" }}'
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateChartVersionPrivate
+    spec:
+      labels:
+        - dependencies
+        - jenkins-jobs
