@@ -63,8 +63,8 @@ controller:
               - credentials:
                 - gitHubApp:
                     appID: "${GITHUB_APP_ID}"
-                    description: "GitHub App for infra.ci.jenkins.io"
-                    id: "github-app-infra"
+                    description: "GitHub App for weekly.ci.jenkins.io"
+                    id: "github-app-weekly"
                     privateKey: "${GITHUB_APP_PRIVATE_KEY}"
                     scope: GLOBAL
       agent-settings: |
