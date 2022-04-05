@@ -40,6 +40,13 @@ targets:
       file: "config/ext_jenkins-infra.yaml"
       key: "controller.tag"
     scmID: default
+  updateReleaseInWeeklyConfig:
+    name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
+    kind: yaml
+    spec:
+      file: "config/ext_jenkins-weekly.yaml"
+      key: "controller.tag"
+    scmID: default
 
 pullrequests:
   default:
@@ -47,6 +54,7 @@ pullrequests:
     scmID: default
     targets:
       - updateReleaseInConfig
+      - updateReleaseInWeeklyConfig
     spec:
       labels:
         - dependencies
