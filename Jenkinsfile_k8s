@@ -117,7 +117,7 @@ pipeline {
               }
             }
           } // stage
-          stage('Apply on "${K8S_CLUSTER}"'){
+          stage("Apply on '${K8S_CLUSTER}'"){
             when { branch 'main' }
             steps {
               sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
