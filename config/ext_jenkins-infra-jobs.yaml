@@ -45,10 +45,10 @@ jobsDefinition:
       packer-images:
         name: Packer Images
         credentials:
-          packer-aws-access-key-id:
+          packer-aws-access-key-id: &packer-aws-access-key-id-def
             description: AWS API key for the account ci-packer
             secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
-          packer-aws-secret-access-key:
+          packer-aws-secret-access-key: &packer-aws-secret-access-key-def
             description: AWS Secret key for the account ci-packer
             secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
           packer-azure-serviceprincipal:
@@ -79,13 +79,9 @@ jobsDefinition:
             secret: "${SOPS_TENANT_ID}"
             description: Azure tenant id used by sops to decrypt secrets
           # Used by updatecli to retrieve AMIs
-          packer-aws-access-key-id:
-            description: AWS API key for the account ci-packer
-            secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
+          packer-aws-access-key-id: *packer-aws-access-key-id-def
           # Used by updatecli to retrieve AMIs
-          packer-aws-secret-access-key:
-            description: AWS Secret key for the account ci-packer
-            secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
+          packer-aws-secret-access-key: *packer-aws-secret-access-key-def
           production-terraform-digitalocean-pat:
             secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
             description: "Digital Ocean PAT for production"
@@ -123,6 +119,57 @@ jobsDefinition:
       jenkins-wiki-exporter:
         name: Wiki Exporter
         jenkinsfilePath: Jenkinsfile
+  reports:
+    name: Reports
+    description: Folder hosting all the reporting tasks jobs
+    kind: folder
+    children:
+      artifactory-users-report:
+        name: "Artifactory Users Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "artifactory-users-report/Jenkinsfile"
+        credentials:
+          artifactoryAdmin:
+            description: "Artifactory API for updating permissions"
+            username: "${ARTIFACTORY_API_INFRA_REPORTS_USERNAME}"
+            usernameSecret: true
+            password: "${ARTIFACTORY_API_INFRA_REPORTS_PASSWORD}"
+      fork-report:
+        name: "GitHub Forks Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "fork-report/Jenkinsfile"
+        credentials:
+          jenkins-infra-reports: &jenkins-infra-reports-def
+            description: "Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+            appId: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
+            owner: "jenkinsci"
+            privateKey: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY}"
+      jira-users-report:
+        name: "Jira Users Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "jira-users-report/Jenkinsfile"
+        credentials:
+          jiraAuth:
+            description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
+            username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
+            usernameSecret: true
+            password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
+      maintainers-info-report:
+        name: "Maintainers Jira Info"
+        repository: "infra-reports"
+        jenkinsfilePath: "maintainers-info-report/Jenkinsfile"
+        credentials:
+          jiraAuth:
+            description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
+            username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
+            usernameSecret: true
+            password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
+      permissions-report:
+        name: "Maintainers Jira Info"
+        repository: "infra-reports"
+        jenkinsfilePath: "permissions-report/Jenkinsfile"
+        credentials:
+          jenkins-infra-reports: *jenkins-infra-reports-def
   terraform-jobs:
     name: Terraform Jobs
     description: Folder hosting all the Terraform-related jobs
