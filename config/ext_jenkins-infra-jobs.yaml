@@ -128,6 +128,7 @@ jobsDefinition:
         name: "Artifactory Users Report"
         repository: "infra-reports"
         jenkinsfilePath: "artifactory-users-report/Jenkinsfile"
+        disableGitHubChecks: true ## Only build status, no more
         credentials:
           artifactoryAdmin:
             description: "Artifactory API for updating permissions"
@@ -138,6 +139,7 @@ jobsDefinition:
         name: "GitHub Forks Report"
         repository: "infra-reports"
         jenkinsfilePath: "fork-report/Jenkinsfile"
+        disableGitHubChecks: true ## Only build status, no more
         credentials:
           jenkins-infra-reports: &jenkins-infra-reports-def
             description: "Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
@@ -148,6 +150,7 @@ jobsDefinition:
         name: "Jira Users Report"
         repository: "infra-reports"
         jenkinsfilePath: "jira-users-report/Jenkinsfile"
+        disableGitHubChecks: true ## Only build status, no more
         credentials:
           jiraAuth:
             description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
@@ -158,6 +161,7 @@ jobsDefinition:
         name: "Maintainers Jira Info"
         repository: "infra-reports"
         jenkinsfilePath: "maintainers-info-report/Jenkinsfile"
+        disableGitHubChecks: true ## Only build status, no more
         credentials:
           jiraAuth:
             description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
@@ -168,6 +172,7 @@ jobsDefinition:
         name: "Maintainers Jira Info"
         repository: "infra-reports"
         jenkinsfilePath: "permissions-report/Jenkinsfile"
+        disableGitHubChecks: true ## Only build status, no more
         credentials:
           jenkins-infra-reports: *jenkins-infra-reports-def
   terraform-jobs:
