@@ -8,7 +8,7 @@ rbac:
   readSecrets: true
 persistence:
   enabled: true
-  size: 50Gi
+  size: 8Gi
 agent:
   componentName: "agent"
 networkPolicy:
