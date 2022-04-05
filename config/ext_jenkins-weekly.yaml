@@ -62,7 +62,7 @@ controller:
                     scope: GLOBAL
       agent-settings: |
         jenkins:
-          numExecutors: 0 # Allow one build on controller for now
+          numExecutors: 0
           clouds: []
       ldap-settings: |
         jenkins:
