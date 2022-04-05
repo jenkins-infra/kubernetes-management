@@ -28,6 +28,7 @@ controller:
     requests:
       cpu: "2"
       memory: "4Gi"
+  healthProbes: false
   probes:
     startupProbe:
       initialDelaySeconds: 120
