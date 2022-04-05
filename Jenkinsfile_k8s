@@ -89,7 +89,7 @@ pipeline {
         AWS_SHARED_CREDENTIALS_FILE       = credentials('eks_charter_awsconfig')
       }
         stages {
-          stage('Prepare Environment'){
+          stage('Prepare Environment for "${K8S_CLUSTER}"'){
             steps {
               // Retrieve the private repository holding the SOPS encrypted YAML secrets into the local directory "./secrets"
               dir ('secrets'){
