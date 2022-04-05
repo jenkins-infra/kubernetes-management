@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.50.1-2.341
+  tag: 0.51.0-2.341
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -44,16 +44,7 @@ controller:
   overwritePlugins: true
   serviceType: "ClusterIP"
   javaOpts: >-
-    -XshowSettings:vm
-    -XX:+UseStringDeduplication
-    -XX:+ParallelRefProcEnabled
-    -XX:+DisableExplicitGC
-    -XX:MaxRAM=4g
-    -XX:+AlwaysPreTouch
-    -XX:+HeapDumpOnOutOfMemoryError
-    -XX:HeapDumpPath=/tmp/
-    -XX:+UseG1GC
-    -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
+    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
   JCasC:
     enabled: true
     defaultConfig: false
