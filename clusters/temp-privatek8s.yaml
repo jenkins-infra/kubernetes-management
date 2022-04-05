@@ -58,7 +58,7 @@ releases:
   - name: jenkins-jobs
     namespace: jenkins-infra
     chart: jenkins-infra/jenkins-jobs
-    version: 0.0.3
+    version: 0.0.4
     values:
       - "../config/ext_jenkins-infra-jobs.yaml"
   - name: jenkins-infra-additional
