@@ -26,7 +26,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.30.20
+    version: 2.31.0
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
@@ -78,7 +78,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 2.10.2
+    version: 2.10.3
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -90,7 +90,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.24.1
+    version: 6.25.1
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -190,7 +190,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 3.11.8
+    version: 3.11.9
     timeout: 600
     set:
       - name: namespace
@@ -235,3 +235,14 @@ releases:
     version: 0.3.2
     values:
       - "../config/wiki.yaml"
+  # weekly.ci.jenkins.io
+  - name: jenkins-weekly
+    namespace: jenkins-weekly
+    chart: jenkins/jenkins
+    version: 3.11.8
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
+    values:
+      - "../config/ext_jenkins-weekly.yaml"
+    secrets:
+      - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
