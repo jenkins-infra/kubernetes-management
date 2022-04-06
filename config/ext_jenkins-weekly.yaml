@@ -17,6 +17,7 @@ networkPolicy:
     allowed: true
     namespaceLabels:
       name: "jenkins-weekly"
+systemMessage: "Don't miss the <b>new Design Library</b> here: https://weekly.ci.jenkins.io/design-library"
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.52.0-2.342
@@ -28,7 +29,6 @@ controller:
     requests:
       cpu: "2"
       memory: "4Gi"
-  healthProbes: false
   probes:
     startupProbe:
       initialDelaySeconds: 120
@@ -100,7 +100,7 @@ controller:
                 modernSCM:
                   scm:
                     git:
-                      id: "github-app-weekly"
+                      credentialsId: "github-app-weekly"
                       remote: "https://github.com/jenkins-infra/pipeline-library.git"
       matrix-settings: |
         jenkins:
@@ -138,7 +138,7 @@ controller:
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-    ingressClassName: private-nginx
+    ingressClassName: public-nginx
     tls:
       - hosts:
           - weekly.ci.jenkins.io
