@@ -108,7 +108,9 @@ controller:
             globalMatrix:
               permissions:
                 - "GROUP:Job/Read:anonymous"
+                - "GROUP:Job/Read:authenticated"
                 - "GROUP:Overall/Read:anonymous"
+                - "GROUP:Overall/Read:authenticated"
                 - "GROUP:Overall/Administer:admins"
                 - "GROUP:Overall/Administer:jenkins-admins"
       system-settings: |
