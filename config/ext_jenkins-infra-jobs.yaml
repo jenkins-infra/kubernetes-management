@@ -123,6 +123,10 @@ jobsDefinition:
     name: Reports
     description: Folder hosting all the reporting tasks jobs
     kind: folder
+    credentials:
+      azure-reports-access-key:
+        description: "Azure Storage Key used by infra-reports to publish to a storage bucket"
+        secret: "${AZURE_INFRA_REPORTS_STORAGE_KEY}"
     children:
       artifactory-users-report:
         name: "Artifactory Users Report"
