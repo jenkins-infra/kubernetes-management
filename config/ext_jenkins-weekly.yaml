@@ -141,7 +141,7 @@ controller:
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-    ingressClassName: private-nginx
+    ingressClassName: public-nginx
     tls:
       - hosts:
           - weekly.ci.jenkins.io
