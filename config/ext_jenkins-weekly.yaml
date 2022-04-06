@@ -18,9 +18,17 @@ networkPolicy:
     namespaceLabels:
       name: "jenkins-weekly"
 primaryView:
-    all:
-      description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n<div style=\"background-color: #fbfbfb; border-radius: 8px; padding: 16px 20px; border: 1px solid #f8f8f8;\">\r\n<div style=\"text-align:center;\">\r\n<p>\r\n<img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n</p>\r\n</div>\r\n<p style=\"font-size: 18px;\"><a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n</div>\r\n"
-      name: "all"
+  all:
+    description: "<div style=\"width: 100%; display: flex;justify-content: center;\"\
+      >\r\n<div style=\"background-color: #fbfbfb; border-radius: 8px; padding:\
+      \ 16px 20px; border: 1px solid #f8f8f8;\">\r\n    <div style=\"text-align:\
+      \ center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"\
+      https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\"\
+      \ height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p\
+      \ style=\"font-size: 18px;\"><a href=\"/design-library/\"\
+      \ rel=\"nofollow\">Design Library</a> makes it easy for developers to build\
+      \ complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n</div>\r\n"
+    name: "all"
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.52.0-2.342
