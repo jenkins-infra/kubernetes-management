@@ -28,7 +28,6 @@ controller:
     requests:
       cpu: "2"
       memory: "4Gi"
-  healthProbes: false
   probes:
     startupProbe:
       initialDelaySeconds: 120
@@ -41,7 +40,6 @@ controller:
     runAsNonRoot: true
     runAsUser: 1000
     supplementalGroups: [1000]
-    fsGroupChangePolicy: "OnRootMismatch"
   overwritePlugins: true
   serviceType: "ClusterIP"
   javaOpts: >-
