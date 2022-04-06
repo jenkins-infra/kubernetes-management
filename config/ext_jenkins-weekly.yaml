@@ -17,7 +17,7 @@ networkPolicy:
     allowed: true
     namespaceLabels:
       name: "jenkins-weekly"
-systemMessage: "Don't miss the <b> new Design Library</b> here: https://weekly.ci.jenkins.io/design-library"
+systemMessage: "Don't miss the <b>new Design Library</b> here: https://weekly.ci.jenkins.io/design-library"
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.52.0-2.342
