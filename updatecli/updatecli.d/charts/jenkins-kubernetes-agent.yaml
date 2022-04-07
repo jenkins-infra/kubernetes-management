@@ -1,4 +1,4 @@
-title: "Bump Jenkins Kubernetes Agents Helm Chart Version"
+title: "Bump jenkins-kubernetes-agents Helm Chart Version"
 
 scms:
   default:
@@ -20,19 +20,13 @@ sources:
       name: jenkins-kubernetes-agents
 
 targets:
-  updateCik8sChartVersion:
+  updateChartVersion:
     name: "Update the chart version for jenkins kubernetes agent"
     kind: file
     spec:
-      file: clusters/cik8s.yaml
-      matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
-  updateDoksChartVersion:
-    name: "Update the chart version for jenkins kubernetes agent"
-    kind: file
-    spec:
-      file: clusters/doks.yaml
+      files:
+      - clusters/cik8s.yaml
+      - clusters/doks.yaml
       matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
     scmID: default
@@ -42,8 +36,7 @@ pullrequests:
     kind: github
     scmID: default
     targets:
-      - updateCik8sChartVersion
-      - updateDoksChartVersion
+      - updateChartVersion
     spec:
       labels:
         - dependencies
