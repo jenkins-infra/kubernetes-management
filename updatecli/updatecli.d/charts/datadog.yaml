@@ -23,7 +23,7 @@ targets:
   updateClusters:
     name: "Datadog Helm Chart"
     kind: file
-    scmID: default
+    scmid: default
     spec:
       files:
       - clusters/cik8s.yaml
@@ -35,7 +35,7 @@ targets:
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateClusters
     spec:

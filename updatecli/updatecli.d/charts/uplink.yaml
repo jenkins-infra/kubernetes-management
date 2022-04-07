@@ -27,12 +27,12 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins-infra\/uplink((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/uplink${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateChartVersion
     spec:

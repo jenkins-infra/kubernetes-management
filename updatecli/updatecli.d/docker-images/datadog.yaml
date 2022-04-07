@@ -32,12 +32,12 @@ targets:
       file: config/ext_datadog.yaml.gotmpl
       matchPattern: 'repository: "jenkinsciinfra/datadog@sha256"((\r\n|\r|\n)(\s+))tag:.*'
       replacePattern: 'repository: "jenkinsciinfra/datadog@sha256"${1}tag: "{{ source `latestDigest` }}"'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateDigestInConfig
     spec:

@@ -30,12 +30,12 @@ targets:
       - clusters/temp-privatek8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateChartVersion
     spec:
