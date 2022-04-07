@@ -23,7 +23,7 @@ targets:
   updateProdpublick8s:
     name: "Datadog Helm Chart"
     kind: file
-    scmID: default
+    scmid: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
@@ -32,7 +32,7 @@ targets:
   updateCik8s:
     name: "Datadog Helm Chart"
     kind: file
-    scmID: default
+    scmid: default
     spec:
       file: clusters/cik8s.yaml
       matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
@@ -41,7 +41,7 @@ targets:
   updateDoks:
     name: "Datadog Helm Chart"
     kind: file
-    scmID: default
+    scmid: default
     spec:
       file: clusters/doks.yaml
       matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
@@ -50,7 +50,7 @@ targets:
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateProdpublick8s
       - updateCik8s

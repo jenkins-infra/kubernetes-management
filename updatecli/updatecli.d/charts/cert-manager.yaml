@@ -1,4 +1,4 @@
-title: "Bump jenkins-wiki-exporter Helm Chart Version"
+title: Bump cert-manager helm chart version
 
 scms:
   default:
@@ -16,17 +16,19 @@ sources:
   lastChartVersion:
     kind: helmChart
     spec:
-      url: https://jenkins-infra.github.io/helm-charts
-      name: jenkins-wiki-exporter
+      url: https://charts.jetstack.io
+      name: cert-manager
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for jenkins-wiki-exporter"
+    name: "jetstack/cert-manager Helm Chart"
     kind: file
     spec:
-      file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: jenkins-infra\/jenkins-wiki-exporter((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/jenkins-wiki-exporter${1}version: {{ source `lastChartVersion` }}'
+      files:
+      - clusters/prodpublick8s.yaml
+      - clusters/temp-privatek8s.yaml
+      matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
+      replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
     scmid: default
 
 pullrequests:
@@ -38,4 +40,4 @@ pullrequests:
     spec:
       labels:
         - dependencies
-        - wiki-exporter
+        - cert-manager

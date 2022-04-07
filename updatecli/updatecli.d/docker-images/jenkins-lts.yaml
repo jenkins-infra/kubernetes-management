@@ -39,12 +39,12 @@ targets:
     spec:
       file: "config/ext_jenkins-release.yaml"
       key: "controller.tag"
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateReleaseInConfig
     spec:

@@ -27,7 +27,7 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
   updateChartVersionPrivate:
     name: "jetstack/cert-manager Helm Chart"
     kind: file
@@ -35,12 +35,12 @@ targets:
       file: clusters/temp-privatek8s.yaml
       matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateChartVersionPublic
       - updateChartVersionPrivate

@@ -27,7 +27,7 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: jenkins\/jenkins((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins/jenkins${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
   updateInfraCIChartVersion:
     name: "jenkinsci/jenkins Helm Chart"
     kind: file
@@ -35,12 +35,12 @@ targets:
       file: clusters/temp-privatek8s.yaml
       matchPattern: 'chart: jenkins\/jenkins((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins/jenkins${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateReleaseAndWeeklyCIChartVersion
       - updateInfraCIChartVersion

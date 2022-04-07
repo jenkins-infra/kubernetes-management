@@ -28,7 +28,7 @@ targets:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
   updateChartVersionPrivate:
     name: "Update the version of the Helm chart ingress-nginx for temp-privatek8s"
     kind: file
@@ -36,12 +36,12 @@ targets:
       file: clusters/temp-privatek8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateChartVersionPublic
       - updateChartVersionPrivate
