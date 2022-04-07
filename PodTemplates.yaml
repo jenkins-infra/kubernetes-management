@@ -32,7 +32,7 @@ spec:
                 values:
                   - highmemlinux
   containers:
-    - image: "jenkinsciinfra/helmfile:2.3.21"
+    - image: "jenkinsciinfra/helmfile:2.3.23"
       imagePullPolicy: "IfNotPresent"
       name: "jnlp"
       resources:
