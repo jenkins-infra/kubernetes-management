@@ -13,14 +13,6 @@ ingress:
     - secretName: rating-tls
       hosts:
         - rating.jenkins.io
-resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-replicaCount: 2
 image:
   tag: 0.0.7 # update with updatecli
 readinessProbe:
