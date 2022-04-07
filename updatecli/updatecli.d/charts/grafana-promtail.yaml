@@ -24,7 +24,7 @@ targets:
   updateChartVersion:
     name: "grafana/promtail Helm Chart"
     kind: file
-    scmID: default
+    scmid: default
     spec:
       file: clusters/prodpublick8s.yaml
       matchPattern: 'chart: grafana\/promtail((\r\n|\r|\n)(\s+))version: .*'
@@ -33,7 +33,7 @@ targets:
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateChartVersion
     spec:

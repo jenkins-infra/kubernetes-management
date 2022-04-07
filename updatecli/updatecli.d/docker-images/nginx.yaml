@@ -21,7 +21,7 @@ sources:
   latestRelease:
     name: Get latest stable version of nginx
     kind: gitTag
-    scmID: nginxGithubMirror
+    scmid: nginxGithubMirror
     spec:
       versionFilter:
         kind: regex
@@ -48,40 +48,40 @@ targets:
     spec:
       file: config/jenkinsio.yaml
       key: images.en.tag
-    scmID: default
+    scmid: default
   updateZHJenkinsio:
     name: "Update nginx:stable docker image version for jenkins.io/zh"
     kind: yaml
     spec:
       file: config/jenkinsio.yaml
       key: images.zh.tag
-    scmID: default
+    scmid: default
   updateJavadoc:
     name: "Update nginx:stable docker image version for javadoc"
     kind: yaml
     spec:
       file: config/javadoc.yaml
       key: image.tag
-    scmID: default
+    scmid: default
   updatePluginsite:
     name: "Update nginx:stable docker image version for plugin-site"
     kind: yaml
     spec:
       file: config/plugin-site.yaml
       key: frontend.image.tag
-    scmID: default
+    scmid: default
   updateReports:
     name: "Update nginx:stable docker image version for reports"
     kind: yaml
     spec:
       file: config/reports.yaml
       key: image.tag
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateENJenkinsio
       - updateZHJenkinsio

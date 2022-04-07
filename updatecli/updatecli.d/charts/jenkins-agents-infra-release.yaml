@@ -71,7 +71,7 @@ targets:
       file: config/ext_jenkins-infra.yaml
       matchPattern: '- ami: ".*"(.*)LINUXAMD64'
       replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIAmd64` }}"${1}LINUXAMD64'
-    scmID: default
+    scmid: default
   setUbuntuAgentAMIArm64:
     name: "Bump AMI ID for ARM 64"
     kind: file
@@ -80,7 +80,7 @@ targets:
       file: config/ext_jenkins-infra.yaml
       matchPattern: '- ami: ".*"(.*)LINUXARM64'
       replacePattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}LINUXARM64'
-    scmID: default
+    scmid: default
   setWindowsAgentAMIamd64:
     name: "Bump AMI ID for Windows AMD 64"
     kind: file
@@ -89,12 +89,12 @@ targets:
       file: config/ext_jenkins-infra.yaml
       matchPattern: '- ami: ".*"(.*)WINDOWSAMD64'
       replacePattern: '- ami: "{{ source `getLatestWindowsAgentAMIAmd64` }}"${1}WINDOWSAMD64'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - setUbuntuAgentAMIAmd64
       - setUbuntuAgentAMIArm64

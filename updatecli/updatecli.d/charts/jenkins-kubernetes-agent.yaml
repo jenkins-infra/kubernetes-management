@@ -27,7 +27,7 @@ targets:
       file: clusters/cik8s.yaml
       matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
   updateDoksChartVersion:
     name: "Update the chart version for jenkins kubernetes agent"
     kind: file
@@ -35,12 +35,12 @@ targets:
       file: clusters/doks.yaml
       matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateCik8sChartVersion
       - updateDoksChartVersion
