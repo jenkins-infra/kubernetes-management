@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.51.0-2.341
+  tag: 0.52.0-2.342
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -318,7 +318,7 @@ controller:
                 modernSCM:
                   scm:
                     git:
-                      id: "github-app-infra"
+                      credentialsId: "github-app-infra"
                       remote: "https://github.com/jenkins-infra/pipeline-library.git"
       matrix-settings: |
         jenkins:

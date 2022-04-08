@@ -49,7 +49,7 @@ targets:
     spec:
       file: "PodTemplates.yaml"
       key: spec.containers[0].image
-    scmID: default
+    scmid: default
   updatePipelineImage:
     name: Update docker-helmfile in Jenkinsfile
     kind: file
@@ -60,12 +60,12 @@ targets:
         'jenkinsciinfra/helmfile:(.*)'
       replacepattern: >-
         'jenkinsciinfra/helmfile:{{ source `lastRelease` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updatePodImage
       - updatePipelineImage

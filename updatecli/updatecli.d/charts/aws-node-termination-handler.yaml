@@ -23,7 +23,7 @@ targets:
   updateChartVersion:
     name: "eks/aws-node-termination-handler Helm Chart"
     kind: file
-    scmID: default
+    scmid: default
     spec:
       file: clusters/cik8s.yaml
       matchPattern: 'chart: eks\/aws-node-termination-handler((\r\n|\r|\n)(\s+))version: .*'
@@ -32,7 +32,7 @@ targets:
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
       - updateChartVersion
     spec:
