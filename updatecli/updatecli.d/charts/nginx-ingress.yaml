@@ -21,31 +21,24 @@ sources:
       name: ingress-nginx
 
 targets:
-  updateChartVersionPublic:
-    name: "Update the version of the Helm chart ingress-nginx for public-ingress"
+  updateChartVersion:
+    name: "Update the version of the Helm chart ingress-nginx"
     kind: file
     spec:
-      file: clusters/prodpublick8s.yaml
+      files:
+      - clusters/prodpublick8s.yaml
+      - clusters/temp-privatek8s.yaml
       matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
-  updateChartVersionPrivate:
-    name: "Update the version of the Helm chart ingress-nginx for temp-privatek8s"
-    kind: file
-    spec:
-      file: clusters/temp-privatek8s.yaml
-      matchPattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
-      - updateChartVersionPublic
-      - updateChartVersionPrivate
+      - updateChartVersion
     spec:
       labels:
         - dependencies
-        - nginx
+        - nginx-ingress

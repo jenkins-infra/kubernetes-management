@@ -20,30 +20,23 @@ sources:
       name: acme
 
 targets:
-  updateChartVersionPublic:
+  updateChartVersion:
     name: "Update the chart version for acme"
     kind: file
     spec:
-      file: clusters/prodpublick8s.yaml
+      files:
+      - clusters/prodpublick8s.yaml
+      - clusters/temp-privatek8s.yaml
       matchPattern: 'chart: jenkins-infra\/acme((\r\n|\r|\n)(\s+))version: .*'
       replacePattern: 'chart: jenkins-infra/acme${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
-  updateChartVersionPrivate:
-    name: "Update the chart version for acme"
-    kind: file
-    spec:
-      file: clusters/temp-privatek8s.yaml
-      matchPattern: 'chart: jenkins-infra\/acme((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/acme${1}version: {{ source `lastChartVersion` }}'
-    scmID: default
+    scmid: default
 
 pullrequests:
   default:
     kind: github
-    scmID: default
+    scmid: default
     targets:
-      - updateChartVersionPublic
-      - updateChartVersionPrivate
+      - updateChartVersion
     spec:
       labels:
         - dependencies
