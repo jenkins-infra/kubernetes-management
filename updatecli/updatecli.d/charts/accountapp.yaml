@@ -26,8 +26,8 @@ targets:
     scmid: default
     spec:
       file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: jenkins-infra\/accountapp((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/accountapp${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: jenkins-infra\/accountapp((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/accountapp${1}version: {{ source "lastChartVersion" }}'
 
 pullrequests:
   default:

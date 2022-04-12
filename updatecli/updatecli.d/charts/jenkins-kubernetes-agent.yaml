@@ -25,10 +25,10 @@ targets:
     kind: file
     spec:
       files:
-      - clusters/cik8s.yaml
-      - clusters/doks.yaml
-      matchPattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source `lastChartVersion` }}'
+        - clusters/cik8s.yaml
+        - clusters/doks.yaml
+      matchpattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:

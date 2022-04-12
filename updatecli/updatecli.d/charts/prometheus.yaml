@@ -25,8 +25,8 @@ targets:
     kind: file
     spec:
       file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: prometheus-community\/prometheus((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: prometheus-community/prometheus${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: prometheus-community\/prometheus((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: prometheus-community/prometheus${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:

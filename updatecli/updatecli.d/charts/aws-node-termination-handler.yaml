@@ -26,8 +26,8 @@ targets:
     scmid: default
     spec:
       file: clusters/cik8s.yaml
-      matchPattern: 'chart: eks\/aws-node-termination-handler((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: eks/aws-node-termination-handler${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: eks\/aws-node-termination-handler((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: eks/aws-node-termination-handler${1}version: {{ source "lastChartVersion" }}'
 
 pullrequests:
   default:

@@ -25,8 +25,8 @@ targets:
     kind: file
     spec:
       file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: grafana\/grafana((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: grafana/grafana${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: grafana\/grafana((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: grafana/grafana${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:

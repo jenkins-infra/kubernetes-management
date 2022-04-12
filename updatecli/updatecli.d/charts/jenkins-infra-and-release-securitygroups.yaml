@@ -17,41 +17,41 @@ sources:
     kind: file
     spec:
       file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
-      matchPattern: 'aws_security_group.*\["(.*?):'
-    transformers: 
-      - findSubMatch: 
+      matchpattern: 'aws_security_group.*\["(.*?):'
+    transformers:
+      - findSubMatch:
           pattern: 'aws_security_group.*\["(.*?):'
           captureIndex: 1
-      - addPrefix: 'ec2_agents_'
+      - addPrefix: "ec2_agents_"
   getNewJenkinsReleaseSecurityGroup:
     kind: file
     spec:
       file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
-      matchPattern: 'aws_security_group.*\[".*", "(.*?):'
-    transformers: 
-      - findSubMatch: 
+      matchpattern: 'aws_security_group.*\[".*", "(.*?):'
+    transformers:
+      - findSubMatch:
           pattern: 'aws_security_group.*\[".*", "(.*?):'
           captureIndex: 1
-      - addPrefix: 'ec2_agents_'
+      - addPrefix: "ec2_agents_"
 
 targets:
   setJenkinsInfraSecurityGroup:
     name: "Bump infra Security Group"
     kind: file
-    sourceID: getNewJenkinsInfraSecurityGroup
+    sourceid: getNewJenkinsInfraSecurityGroup
     spec:
       file: config/ext_jenkins-infra.yaml
-      matchPattern: 'securityGroups: ".*"'
-      replacePattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
+      matchpattern: 'securityGroups: ".*"'
+      replacepattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
     scmid: default
   setJenkinsReleaseSecurityGroup:
     name: "Bump Release Security Group"
     kind: file
-    sourceID: getNewJenkinsReleaseSecurityGroup
+    sourceid: getNewJenkinsReleaseSecurityGroup
     spec:
       file: config/ext_jenkins-release.yaml
-      matchPattern: 'securityGroups: ".*"'
-      replacePattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
+      matchpattern: 'securityGroups: ".*"'
+      replacepattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
     scmid: default
 
 pullrequests:

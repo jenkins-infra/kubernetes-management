@@ -25,10 +25,10 @@ targets:
     kind: file
     spec:
       files:
-      - clusters/prodpublick8s.yaml
-      - clusters/temp-privatek8s.yaml
-      matchPattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jetstack/cert-manager${1}version: {{ source `lastChartVersion` }}'
+        - clusters/prodpublick8s.yaml
+        - clusters/temp-privatek8s.yaml
+      matchpattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jetstack/cert-manager${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:

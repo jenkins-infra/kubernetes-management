@@ -25,8 +25,8 @@ targets:
     kind: file
     spec:
       file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: jenkins-infra\/ldap((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/ldap${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: jenkins-infra\/ldap((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/ldap${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:
