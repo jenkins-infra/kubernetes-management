@@ -303,9 +303,9 @@ jobsDefinition:
         name: Jenkins.io
         description: "Jenkins.io Website"
         allowUntrustedChanges: true
-      jenkins-is-the-way:
-        name: Jenkins Is The Way
-        description: "Jenkins Is The Way Website"
+      stories:
+        name: Jenkins User Stories
+        description: "Jenkins User Stories Website"
         allowUntrustedChanges: true
       plugin-site:
         name: Plugin Site
