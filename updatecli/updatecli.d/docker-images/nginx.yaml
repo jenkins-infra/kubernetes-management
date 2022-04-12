@@ -35,7 +35,7 @@ conditions:
   checkDockerImagePublished:
     name: "Test nginx:<latest_version> docker image tag"
     kind: dockerImage
-    sourceID: latestRelease
+    sourceid: latestRelease
     spec:
       image: "nginx"
       architecture: amd64

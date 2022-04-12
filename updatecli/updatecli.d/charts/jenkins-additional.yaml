@@ -25,8 +25,8 @@ targets:
     kind: file
     spec:
       file: clusters/temp-privatek8s.yaml
-      matchPattern: 'chart: jenkins-infra\/jenkins-additional((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/jenkins-additional${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: jenkins-infra\/jenkins-additional((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/jenkins-additional${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:

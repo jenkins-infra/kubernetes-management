@@ -26,11 +26,11 @@ targets:
     scmid: default
     spec:
       files:
-      - clusters/cik8s.yaml
-      - clusters/doks.yaml
-      - clusters/prodpublick8s.yaml
-      matchPattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: datadog/datadog${1}version: {{ source `lastChartVersion` }}'
+        - clusters/cik8s.yaml
+        - clusters/doks.yaml
+        - clusters/prodpublick8s.yaml
+      matchpattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: datadog/datadog${1}version: {{ source "lastChartVersion" }}'
 
 pullrequests:
   default:

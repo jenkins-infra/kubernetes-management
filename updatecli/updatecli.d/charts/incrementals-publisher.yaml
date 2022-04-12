@@ -25,8 +25,8 @@ targets:
     kind: file
     spec:
       file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: jenkins-infra\/incrementals-publisher((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: jenkins-infra/incrementals-publisher${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: jenkins-infra\/incrementals-publisher((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/incrementals-publisher${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:

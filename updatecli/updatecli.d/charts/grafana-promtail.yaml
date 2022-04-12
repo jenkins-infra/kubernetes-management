@@ -1,4 +1,3 @@
-
 title: Bump promtail helm chart version
 
 scms:
@@ -27,8 +26,8 @@ targets:
     scmid: default
     spec:
       file: clusters/prodpublick8s.yaml
-      matchPattern: 'chart: grafana\/promtail((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: grafana/promtail${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: grafana\/promtail((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: grafana/promtail${1}version: {{ source "lastChartVersion" }}'
 
 pullrequests:
   default:

@@ -26,8 +26,8 @@ targets:
     scmid: default
     spec:
       file: clusters/cik8s.yaml
-      matchPattern: 'chart: autoscaler\/cluster-autoscaler((\r\n|\r|\n)(\s+))version: .*'
-      replacePattern: 'chart: autoscaler/cluster-autoscaler${1}version: {{ source `lastChartVersion` }}'
+      matchpattern: 'chart: autoscaler\/cluster-autoscaler((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: autoscaler/cluster-autoscaler${1}version: {{ source "lastChartVersion" }}'
 
 pullrequests:
   default:
