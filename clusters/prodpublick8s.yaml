@@ -114,7 +114,7 @@ releases:
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
-    version: 0.1.5
+    version: 0.1.6
     values:
       - "../config/plugin-site-issues.yaml"
     secrets:
@@ -232,7 +232,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.2
+    version: 0.3.3
     values:
       - "../config/wiki.yaml"
   # weekly.ci.jenkins.io
