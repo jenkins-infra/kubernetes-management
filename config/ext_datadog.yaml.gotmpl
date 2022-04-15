@@ -34,6 +34,10 @@ agents:
     # we must skip version test while we use the docker image digest
     doNotCheckTag: true
     pullPolicy: IfNotPresent
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: "33%"
+    type: RollingUpdate
 clusterAgents:
   enabled: true
   metricsProvider:
