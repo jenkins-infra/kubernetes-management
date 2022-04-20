@@ -180,7 +180,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.7.1
+    version: 0.8.0
     timeout: 600
     atomic: false
     values:
