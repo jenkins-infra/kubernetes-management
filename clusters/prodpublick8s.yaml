@@ -48,7 +48,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.8.4
+    version: 15.8.5
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
