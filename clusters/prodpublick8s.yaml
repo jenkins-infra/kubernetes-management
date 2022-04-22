@@ -72,7 +72,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 1.17.5
+    version: 1.17.6
     values:
       - "../config/ext_falco.yaml"
   - name: loki
