@@ -23,7 +23,7 @@ primaryView:
     name: "all"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.54.6-2.344
+  tag: 0.55.1-2.345
   pullPolicy: IfNotPresent
   resources:
     limits:
