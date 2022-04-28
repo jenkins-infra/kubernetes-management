@@ -180,6 +180,12 @@ controller:
                     id: "ec2-agents-credentials"
                     scope: SYSTEM
                     secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - usernamePassword:
+                    scope: GLOBAL
+                    description: Docker hub credential for release.ci PULL
+                    id: releasecijenkinsio-dockerhub-pull
+                    username: releasecijenkinsio
+                    password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
       agent-settings: |
         jenkins:
           clouds:
