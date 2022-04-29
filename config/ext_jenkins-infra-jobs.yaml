@@ -9,7 +9,7 @@ jobsDefinition:
         description: Docker hub credential for jenkinsinfra organisation
         username: jenkinsinfraadmin
         password: "${DOCKER_HUB_TOKEN_PUSH}"
-      jenkinsciinfra-dockerhub-push:
+      jenkinsinfraadmin-dockerhub-push:
         description: Docker hub credential for jenkinsinfra organisation PUSH
         username: jenkinsinfraadmin
         password: "${DOCKER_HUB_TOKEN_PUSH}"
