@@ -1,0 +1,19 @@
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: rating.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: rating-tls
+      hosts:
+        - rating.jenkins.io
+image:
+  tag: 0.0.7 # update with updatecli
+readinessProbe:
+  enabled: false

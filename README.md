@@ -21,6 +21,23 @@ This project contains the following main directories:
 * `config`: This folder contains the specific configuration for our environments
 * `updatecli`: This folder contains the [updatecli](https://github.com/updatecli/updatecli/) manifests to keep all Helm charts and Docker images versions up to date
 
+## Requirements
+
+This project requires the following tools (more details within the [DockerFile](https://github.com/jenkins-infra/docker-helmfile/blob/main/Dockerfile)):
+
+* `az`
+* `awscli`
+* `doctl`
+* `kubectl`
+* `helm`
+* `helmfile`
+* `sops`
+* the 3 followings helm plugins:
+    * `helm-diff`
+    * `helm-secrets`
+    * `helm-git`
+
+
 ## Secrets
 
 Secrets are encrypted with [sops](https://github.com/mozilla/sops), a default configuration is defined in `.sops.yaml`.
@@ -34,7 +51,7 @@ If you have the right to access the secrets, you can set up the local `./secrets
 git clone https://github.com/jenkins-infra/charts-secrets.git ./secrets
 ```
 
-Then, you can edit an app secret by using the `sops ./secrets/config/<app-name>/secrets.yaml` command that will create a blank secrets.yaml file ready to get encrypted as soon as it's saved and closed (you may need to add your ip on the azure key vault to get access) [sops examples](https://github.com/mozilla/sops#creating-a-new-file). 
+Then, you can edit an app secret by using the `sops ./secrets/config/<app-name>/secrets.yaml` command that will create a blank secrets.yaml file ready to get encrypted as soon as it's saved and closed (you may need to add your ip on the azure key vault to get access) [sops examples](https://github.com/mozilla/sops#creating-a-new-file).
 
 ## Remarks
 
