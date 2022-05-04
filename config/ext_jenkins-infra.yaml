@@ -159,7 +159,7 @@ controller:
                 sshKeysCredentialsId: "ec2-agents-privkey"
                 useInstanceProfileForCredentials: false
                 templates:
-                - ami: "ami-06c6a1435899c9417" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
+                - ami: "ami-039869884fedd32b1" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
