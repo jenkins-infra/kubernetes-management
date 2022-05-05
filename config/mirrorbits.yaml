@@ -28,6 +28,11 @@ ingress:
         - path: /
           serviceNameSuffix: files
         - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
+    - host: mirrors.jenkins.io
+      paths:
+        - path: /
+          serviceNameSuffix: files
+        - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
     - host: fallback.get.jenkins.io
       paths:
         - path: /
@@ -36,6 +41,7 @@ ingress:
     - secretName: mirrorbits-tls
       hosts:
         - get.jenkins.io
+        - mirrors.jenkins.io
         - fallback.get.jenkins.io
 repository:
   name: mirrorbits-binary
