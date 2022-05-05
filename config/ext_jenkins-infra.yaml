@@ -314,6 +314,9 @@ controller:
             - defaultVersion: "master"
               implicit: true
               name: "pipeline-library"
+              includeInChangesets: false
+              cachingConfiguration:
+                refreshTimeMinutes: 180
               retriever:
                 modernSCM:
                   scm:
