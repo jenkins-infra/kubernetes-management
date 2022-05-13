@@ -231,7 +231,7 @@ controller:
                     value: "infra.ci.jenkins.io"
                   type: T4gMedium
                   useEphemeralDevices: true
-                - ami: "ami-04dbca661bb85a37b" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
+                - ami: "ami-083b19d58f08aedc7" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
