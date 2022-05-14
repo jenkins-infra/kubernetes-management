@@ -13,7 +13,7 @@ scms:
 
 sources:
   packerImageVersion:
-    kind: githubRelease
+    kind: githubrelease
     spec:
       owner: "jenkins-infra"
       repository: "packer-images"
@@ -25,10 +25,10 @@ sources:
       - packerImageVersion
     spec:
       region: us-east-2
-      sortBy: creationDateAsc
+      sortby: creationDateDesc
       filters:
         - name: "name"
-          values: "jenkins-agent-ubuntu-20-amd64-*"
+          values: "jenkins-agent-ubuntu-20.04-amd64-*"
         - name: "tag:build_type"
           values: "prod"
         - name: "tag:version"
@@ -39,7 +39,7 @@ sources:
       - packerImageVersion
     spec:
       region: us-east-2
-      sortBy: creationDateAsc
+      sortby: creationDateDesc
       filters:
         - name: "name"
           values: "jenkins-agent-windows-2019-amd64-*"
@@ -51,12 +51,12 @@ sources:
     kind: aws/ami
     depends_on:
       - packerImageVersion
-    sortBy: creationDateAsc
     spec:
       region: us-east-2
+      sortby: creationDateDesc
       filters:
         - name: "name"
-          values: "jenkins-agent-ubuntu-20-arm64-*"
+          values: "jenkins-agent-ubuntu-20.04-arm64-*"
         - name: "tag:build_type"
           values: "prod"
         - name: "tag:version"
