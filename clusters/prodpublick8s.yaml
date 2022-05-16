@@ -26,7 +26,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.33.4
+    version: 2.33.5
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
@@ -48,7 +48,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.8.5
+    version: 15.8.7
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -72,7 +72,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 1.18.2
+    version: 1.18.3
     values:
       - "../config/ext_falco.yaml"
   - name: loki
@@ -180,7 +180,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.8.0
+    version: 0.9.0
     timeout: 600
     atomic: false
     values:
