@@ -21,7 +21,7 @@ ingress:
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "nginx.ingress.kubernetes.io/ssl-redirect": "false"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
     - host: get.jenkins.io
       paths:
@@ -29,6 +29,11 @@ ingress:
           serviceNameSuffix: files
         - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
     - host: mirrors.jenkins.io
+      paths:
+        - path: /
+          serviceNameSuffix: files
+        - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
+    - host: mirrors.jenkins-ci.org
       paths:
         - path: /
           serviceNameSuffix: files
@@ -42,6 +47,7 @@ ingress:
       hosts:
         - get.jenkins.io
         - mirrors.jenkins.io
+        - mirrors.jenkins-ci.org
         - fallback.get.jenkins.io
 repository:
   name: mirrorbits-binary
