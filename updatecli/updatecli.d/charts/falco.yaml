@@ -14,7 +14,7 @@ scms:
 
 sources:
   lastChartVersion:
-    kind: helmChart
+    kind: helmchart
     spec:
       url: https://falcosecurity.github.io/charts
       name: falco

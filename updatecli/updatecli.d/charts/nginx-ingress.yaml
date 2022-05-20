@@ -15,7 +15,7 @@ scms:
 sources:
   lastChartVersion:
     name: "Retrieve latest version of the chart ingress-nginx"
-    kind: helmChart
+    kind: helmchart
     spec:
       url: https://kubernetes.github.io/ingress-nginx
       name: ingress-nginx

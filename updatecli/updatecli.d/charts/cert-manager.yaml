@@ -14,7 +14,7 @@ scms:
 
 sources:
   lastChartVersion:
-    kind: helmChart
+    kind: helmchart
     spec:
       url: https://charts.jetstack.io
       name: cert-manager
