@@ -14,7 +14,7 @@ scms:
 
 sources:
   lastChartVersion:
-    kind: helmChart
+    kind: helmchart
     spec:
       url: https://aws.github.io/eks-charts
       name: aws-node-termination-handler

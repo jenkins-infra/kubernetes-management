@@ -14,10 +14,9 @@ scms:
 
 sources:
   latestRelease:
-    kind: githubRelease
+    kind: githubrelease
     name: "Get latest jenkins-infra/docker-404 release"
     spec:
-      name: Get jenkins-infra/docker-404 latest version
       owner: "jenkins-infra"
       repository: "docker-404"
       token: "{{ requiredEnv .github.token }}"
@@ -26,7 +25,7 @@ sources:
 conditions:
   checkDockerImagePublished:
     name: "Test jenkinsciinfra/404:<latest_version> docker image tag"
-    kind: dockerImage
+    kind: dockerimage
     spec:
       image: "jenkinsciinfra/404"
       ## Tag from source

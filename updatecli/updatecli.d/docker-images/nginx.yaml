@@ -20,21 +20,21 @@ scms:
 sources:
   latestRelease:
     name: Get latest stable version of nginx
-    kind: gitTag
+    kind: gittag
     scmid: nginxGithubMirror
     spec:
-      versionFilter:
+      versionfilter:
         kind: regex
         ## Nginx stable version have the minor digit as an even number
         pattern: 'release-(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
     transformers:
-      - trimPrefix: "release-"
-      - addSuffix: "-alpine"
+      - trimprefix: "release-"
+      - addsuffix: "-alpine"
 
 conditions:
   checkDockerImagePublished:
     name: "Test nginx:<latest_version> docker image tag"
-    kind: dockerImage
+    kind: dockerimage
     sourceid: latestRelease
     spec:
       image: "nginx"

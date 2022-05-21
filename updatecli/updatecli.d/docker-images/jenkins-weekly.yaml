@@ -15,9 +15,8 @@ scms:
 sources:
   latestRelease:
     name: "Get latest jenkins-weekly version"
-    kind: githubRelease
+    kind: githubrelease
     spec:
-      name: Get jenkins-infra/docker-jenkins-weekly latest version
       owner: "jenkins-infra"
       repository: "docker-jenkins-weekly"
       token: "{{ requiredEnv .github.token }}"
@@ -26,7 +25,7 @@ sources:
 conditions:
   checkDockerImagePublished:
     name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag"
-    kind: dockerImage
+    kind: dockerimage
     spec:
       image: "jenkinsciinfra/jenkins-weekly"
       ## Tag from source

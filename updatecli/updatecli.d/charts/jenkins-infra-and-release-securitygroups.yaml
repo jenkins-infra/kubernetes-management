@@ -19,20 +19,20 @@ sources:
       file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
       matchpattern: 'aws_security_group.*\["(.*?):'
     transformers:
-      - findSubMatch:
+      - findsubmatch:
           pattern: 'aws_security_group.*\["(.*?):'
-          captureIndex: 1
-      - addPrefix: "ec2_agents_"
+          captureindex: 1
+      - addprefix: "ec2_agents_"
   getNewJenkinsReleaseSecurityGroup:
     kind: file
     spec:
       file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
       matchpattern: 'aws_security_group.*\[".*", "(.*?):'
     transformers:
-      - findSubMatch:
+      - findsubmatch:
           pattern: 'aws_security_group.*\[".*", "(.*?):'
-          captureIndex: 1
-      - addPrefix: "ec2_agents_"
+          captureindex: 1
+      - addprefix: "ec2_agents_"
 
 targets:
   setJenkinsInfraSecurityGroup:

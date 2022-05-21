@@ -14,7 +14,7 @@ scms:
 
 sources:
   latestDigest:
-    kind: dockerDigest
+    kind: dockerdigest
     name: "Get jenkinsciinfra/datadog:latest docker image digest"
     spec:
       image: "jenkinsciinfra/datadog"

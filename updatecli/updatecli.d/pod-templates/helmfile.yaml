@@ -15,7 +15,7 @@ scms:
 sources:
   lastRelease:
     name: Get latest jenkinsciinfra/helmfile docker image version
-    kind: githubRelease
+    kind: githubrelease
     spec:
       owner: "jenkins-infra"
       repository: "docker-helmfile"
@@ -25,7 +25,7 @@ sources:
 conditions:
   checkDockerImage:
     name: Ensure that the image "jenkinsciinfra/helmfile:<found_version>" is published
-    kind: dockerImage
+    kind: dockerimage
     sourceid: lastRelease
     spec:
       image: "jenkinsciinfra/helmfile"
@@ -45,7 +45,7 @@ targets:
     name: "Update helmfile container's image in PodTemplates.yaml"
     kind: yaml
     transformers:
-      - addPrefix: "jenkinsciinfra/helmfile:"
+      - addprefix: "jenkinsciinfra/helmfile:"
     spec:
       file: "PodTemplates.yaml"
       key: spec.containers[0].image

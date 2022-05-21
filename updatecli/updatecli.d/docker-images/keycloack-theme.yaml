@@ -14,10 +14,9 @@ scms:
 
 sources:
   latestRelease:
-    kind: githubRelease
+    kind: githubrelease
     name: "Get latest jenkins-infra/keycloak-theme release"
     spec:
-      name: Get jenkins-infra/keycloak-theme latest version
       owner: "jenkins-infra"
       repository: "keycloak-theme"
       token: "{{ requiredEnv .github.token }}"
@@ -26,7 +25,7 @@ sources:
 conditions:
   checkDockerImagePublished:
     name: "Test jenkinsciinfra/keycloak-theme:<latest_version> docker image tag"
-    kind: dockerImage
+    kind: dockerimage
     spec:
       image: "jenkinsciinfra/keycloak-theme"
       ## Tag from source
