@@ -254,7 +254,7 @@ releases:
     secrets:
       - "../secrets/config/rating/secrets.yaml"
   - name: jenkinsisthewayio-redirect
-    namespace: jenkinsisthewayio
+    namespace: jenkinsisthewayio-redirector
     chart: jenkins-infra/httpredirector
     version: 0.1.0
     values:
