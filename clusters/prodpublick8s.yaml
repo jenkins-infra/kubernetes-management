@@ -256,6 +256,8 @@ releases:
   - name: jenkinsisthewayio-redirect
     namespace: jenkinsisthewayio-redirector
     chart: jenkins-infra/httpredirector
-    version: 0.1.1
+    version: 0.2.0
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
       - "../config/jenkinsisthewayio.yaml"

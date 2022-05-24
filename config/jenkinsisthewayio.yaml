@@ -1,2 +1,3 @@
 urlredirect: https://stories.jenkins.io/
 host: jenkinsistheway.io
+ingressClassName: public-nginx
