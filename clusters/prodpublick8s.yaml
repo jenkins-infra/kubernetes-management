@@ -36,13 +36,13 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.1.1
+    version: 4.1.2
     values:
       - "../config/ext_public-nginx-ingress.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.1.1
+    version: 4.1.2
     values:
       - "../config/ext_private-nginx-ingress.yaml"
   - name: prometheus
@@ -84,7 +84,7 @@ releases:
   - name: promtail
     namespace: loki
     chart: grafana/promtail
-    version: 4.2.0
+    version: 4.2.1
     values:
       - "../config/ext_promtail.yaml"
   - name: grafana
@@ -232,7 +232,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.6
+    version: 0.3.7
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
