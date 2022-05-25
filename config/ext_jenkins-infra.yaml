@@ -133,7 +133,7 @@ controller:
                     instanceCapStr: "5"
                     containers:
                       - name: jnlp
-                        image: "jenkins/inbound-agent:windowsservercore-1809"
+                        image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
                         command: "powershell"
                         args: "Start-Sleep 999999"
                         resourceLimitCpu: "500m"
@@ -143,6 +143,7 @@ controller:
                         alwaysPullImage: true
                         workingDir: "C:\\Users\\jenkins"
                     yamlMergeStrategy: "merge"
+                    label: "windows-2019-kubernetes"
                     yaml: |-
                       spec:
                         tolerations:
