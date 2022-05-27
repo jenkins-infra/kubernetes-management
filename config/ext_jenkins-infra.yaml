@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.59.1-2.349
+  tag: 0.59.4-2.349
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -133,7 +133,7 @@ controller:
                     instanceCapStr: "5"
                     containers:
                       - name: jnlp
-                        image: "jenkins/inbound-agent:windowsservercore-1809"
+                        image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
                         command: "powershell"
                         args: "Start-Sleep 999999"
                         resourceLimitCpu: "500m"
@@ -143,6 +143,7 @@ controller:
                         alwaysPullImage: true
                         workingDir: "C:\\Users\\jenkins"
                     yamlMergeStrategy: "merge"
+                    label: "windows-2019-kubernetes"
                     yaml: |-
                       spec:
                         tolerations:
@@ -315,8 +316,6 @@ controller:
               implicit: true
               name: "pipeline-library"
               includeInChangesets: false
-              cachingConfiguration:
-                refreshTimeMinutes: 180
               retriever:
                 modernSCM:
                   scm:
