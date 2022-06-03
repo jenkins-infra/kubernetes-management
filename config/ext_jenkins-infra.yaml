@@ -21,7 +21,9 @@ networkPolicy:
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.60.1-2.350
-  pullPolicy: IfNotPresent
+  imagePullPolicy: IfNotPresent
+  nodeSelector:
+    kubernetes.io/os: linux
   resources:
     limits:
       cpu: "2"
