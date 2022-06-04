@@ -48,7 +48,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.9.0
+    version: 15.9.1
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -90,7 +90,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.29.5
+    version: 6.29.6
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -180,7 +180,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.10.1
+    version: 0.10.2
     timeout: 600
     atomic: false
     values:
@@ -232,7 +232,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.9
+    version: 0.3.11
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
