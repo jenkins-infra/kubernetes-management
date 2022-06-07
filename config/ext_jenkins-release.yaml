@@ -191,7 +191,7 @@ controller:
           clouds:
             - kubernetes:
                 containerCapStr: "100"
-                jenkinsUrl: "http://default-release-jenkins.svc.cluster.local:8080"
+                jenkinsUrl: "http://default-release-jenkins:8080"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
                 name: "kubernetes"
