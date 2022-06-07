@@ -24,7 +24,3 @@ htmlVolume:
     secretName: plugin-site
     shareName: pluginsite
     readOnly: true
-frontend:
-  image:
-    tag: 1.20.2-alpine
-    pullPolicy: IfNotPresent

@@ -29,6 +29,3 @@ htmlVolume:
     secretName: javadoc
     shareName: javadoc
     readOnly: true
-image:
-  tag: 1.20.2-alpine
-  pullPolicy: IfNotPresent
