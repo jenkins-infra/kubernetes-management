@@ -20,8 +20,10 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.59.8-2.349
-  pullPolicy: IfNotPresent
+  tag: 0.60.4-2.350
+  imagePullPolicy: IfNotPresent
+  nodeSelector:
+    kubernetes.io/os: linux
   resources:
     limits:
       cpu: "2"
@@ -100,7 +102,7 @@ controller:
             - kubernetes:
                 containerCapStr: "100"
                 # Kubernetes internal URL to stay within private networks
-                jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc:8080"
+                jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc.cluster.local:8080"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
                 name: "kubernetes"
@@ -116,7 +118,7 @@ controller:
                   - key: "jenkins/jenkins-infra-agent"
                     value: "true"
                 templates:
-                  - name: jnlp
+                  - name: jnlp-linux
                     nodeSelector: "kubernetes.io/os=linux"
                     containers:
                       - name: jnlp
@@ -135,22 +137,25 @@ controller:
                       - name: jnlp
                         image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
                         command: "powershell"
-                        args: "Start-Sleep 999999"
-                        resourceLimitCpu: "500m"
+                        args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
+                        resourceLimitCpu: "1"
                         resourceLimitMemory: "1024Mi"
-                        resourceRequestCpu: "500m"
+                        resourceRequestCpu: "1"
                         resourceRequestMemory: "1024Mi"
                         alwaysPullImage: true
                         workingDir: "C:\\Users\\jenkins"
                     yamlMergeStrategy: "merge"
                     label: "windows-2019-kubernetes"
                     yaml: |-
-                      spec:
-                        tolerations:
-                        - key: "os"
-                          operator: "Equal"
-                          value: "windows"
-                          effect: "NoSchedule"
+                      affinity:
+                        nodeAffinity:
+                          requiredDuringSchedulingIgnoredDuringExecution:
+                            nodeSelectorTerms:
+                            - matchExpressions:
+                              - key: kubernetes.io/os
+                                operator: In
+                                values:
+                                  - windows
             - amazonEC2:
                 cloudName: "aws-us-east-2"
                 credentialsId: "ec2-agents-credentials"

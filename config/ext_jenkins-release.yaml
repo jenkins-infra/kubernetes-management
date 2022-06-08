@@ -26,7 +26,7 @@ networkPolicy:
       name: "release"
 controller:
   image: jenkinsciinfra/jenkins-lts
-  tag: 0.16.22-2.332.3
+  tag: 0.16.27-2.332.3
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -199,12 +199,10 @@ controller:
                 podRetention: "Never"
                 serverUrl: "https://kubernetes.default"
                 podLabels:
-                  # Required to be jenkins/<helm-release>-jenkins-slave as defined here
-                  # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
                   - key: "jenkins/default-release-jenkins-agent"
                     value: "true"
                 templates:
-                  - name: jnlp
+                  - name: jnlp-linux
                     nodeSelector: "kubernetes.io/os=linux"
                     containers:
                       - name: jnlp
@@ -221,24 +219,26 @@ controller:
                     instanceCapStr: "5"
                     containers:
                       - name: jnlp
-                        image: "jenkins/inbound-agent:windowsservercore-1809"
+                        image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
                         command: "powershell"
-                        args: "Start-Sleep 999999"
-                        resourceLimitCpu: "500m"
+                        args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
+                        resourceLimitCpu: "1"
                         resourceLimitMemory: "1024Mi"
-                        resourceRequestCpu: "500m"
+                        resourceRequestCpu: "1"
                         resourceRequestMemory: "1024Mi"
-                        args: "1d"
                         alwaysPullImage: true
                         workingDir: "C:\\Users\\jenkins"
                     yamlMergeStrategy: "override"
                     yaml: |-
-                      spec:
-                        tolerations:
-                        - key: "os"
-                          operator: "Equal"
-                          value: "windows"
-                          effect: "NoSchedule"
+                      affinity:
+                        nodeAffinity:
+                          requiredDuringSchedulingIgnoredDuringExecution:
+                            nodeSelectorTerms:
+                            - matchExpressions:
+                              - key: kubernetes.io/os
+                                operator: In
+                                values:
+                                  - windows
             - amazonEC2:
                 cloudName: "aws-us-east-2"
                 credentialsId: "ec2-agents-credentials"
