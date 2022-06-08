@@ -285,6 +285,44 @@ jobsDefinition:
             fileName: "backend-config"
             description: "Terraform backend configuration for the production environment of jenkins-infra/fastly"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
+      oracle:
+        name: Terraform Oracle
+        description: Oracle resources managed by Terraform
+        credentials:
+          staging_oracle_oci_cli_user:
+            secret: "${STAGING_ORACLE_OCI_CLI_USER}"
+            description: "Oracle access user for the staging terraform account for jenkins-infra/oracle"
+          staging_oracle_oci_cli_fingerprint:
+            secret: "${STAGING_ORACLE_OCI_CLI_FINGERPRINT}"
+            description: "Oracle fingerkey for the staging terraform account for jenkins-infra/oracle"
+          staging_oracle_oci_cli_key_content:
+            username: "key"
+            privateKey: "${STAGING_ORACLE_OCI_CLI_KEY_CONTENT}"
+            description: "Oracle secret key for the staging terraform account for jenkins-infra/oracle"
+          staging_terraform_oracle_backend_config:
+            fileName: backend-config
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/oracle"
+            secretBytes: "${base64:${STAGING_TERRAFORM_ORACLE_BACKEND_CONFIG}}"
+          production_oracle_oci_cli_user:
+            secret: "${PRODUCTION_ORACLE_OCI_CLI_USER}"
+            description: "Oracle access user for the production terraform account for jenkins-infra/oracle"
+          production_oracle_oci_cli_fingerprint:
+            secret: "${PRODUCTION_ORACLE_OCI_CLI_FINGERPRINT}"
+            description: "Oracle fingerkey for the production terraform account for jenkins-infra/oracle"
+          production_oracle_oci_cli_key_content:
+            username: "key"
+            privateKey: "${PRODUCTION_ORACLE_OCI_CLI_KEY_CONTENT}"
+            description: "Oracle secret key for the production terraform account for jenkins-infra/oracle"
+          production_terraform_oracle_backend_config:
+            fileName: backend-config
+            description: "Terraform backend configuration for the production environment of jenkins-infra/oracle"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_ORACLE_BACKEND_CONFIG}}"
+          oracle_oci_cli_tenancy:
+            secret: "${ORACLE_OCI_CLI_TENANCY}"
+            description: "Oracle tenant OCI for the terraform account for jenkins-infra/oracle"
+          oracle_oci_cli_region:
+            secret: "${ORACLE_OCI_CLI_REGION}"
+            description: "Oracle region OCI for the terraform account for jenkins-infra/oracle"
   website-jobs:
     name: Website Jobs
     description: "Folder hosting all the Website jobs"
