@@ -296,7 +296,8 @@ jobsDefinition:
             secret: "${STAGING_ORACLE_OCI_CLI_FINGERPRINT}"
             description: "Oracle fingerkey for the staging terraform account for jenkins-infra/oracle"
           staging_oracle_oci_cli_key_content:
-            secret: "${STAGING_ORACLE_OCI_CLI_KEY_CONTENT}"
+            username: "key"
+            privateKey: "${STAGING_ORACLE_OCI_CLI_KEY_CONTENT}"
             description: "Oracle secret key for the staging terraform account for jenkins-infra/oracle"
           staging_terraform_oracle_backend_config:
             fileName: backend-config
@@ -309,7 +310,8 @@ jobsDefinition:
             secret: "${PRODUCTION_ORACLE_OCI_CLI_FINGERPRINT}"
             description: "Oracle fingerkey for the production terraform account for jenkins-infra/oracle"
           production_oracle_oci_cli_key_content:
-            secret: "${PRODUCTION_ORACLE_OCI_CLI_KEY_CONTENT}"
+            username: "key"
+            privateKey: "${PRODUCTION_ORACLE_OCI_CLI_KEY_CONTENT}"
             description: "Oracle secret key for the production terraform account for jenkins-infra/oracle"
           production_terraform_oracle_backend_config:
             fileName: backend-config
