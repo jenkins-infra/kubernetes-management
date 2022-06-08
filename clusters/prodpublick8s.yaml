@@ -84,7 +84,7 @@ releases:
   - name: promtail
     namespace: loki
     chart: grafana/promtail
-    version: 4.2.1
+    version: 5.1.0
     values:
       - "../config/ext_promtail.yaml"
   - name: grafana
