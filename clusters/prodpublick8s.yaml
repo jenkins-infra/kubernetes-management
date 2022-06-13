@@ -48,7 +48,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.9.3
+    version: 15.10.1
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -232,7 +232,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.11
+    version: 0.3.12
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
