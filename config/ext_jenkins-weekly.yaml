@@ -116,6 +116,10 @@ controller:
                 - "GROUP:Overall/Read:authenticated"
                 - "GROUP:Overall/Administer:admins"
                 - "GROUP:Overall/Administer:jenkins-admins"
+      timestamper-settings: |
+        unclassified:
+          timestamper:
+            allPipelines: true
       system-settings: |
         unclassified:
           defaultFolderConfiguration:

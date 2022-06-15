@@ -614,6 +614,10 @@ controller:
                 - "GROUP:Overall/SystemRead:authenticated"
                 - "GROUP:Overall/Read:authenticated"
                 - "GROUP:Job/Read:authenticated"
+      timestamper-settings: |
+        unclassified:
+          timestamper:
+            allPipelines: true
       system-settings: |
         unclassified:
           defaultFolderConfiguration:
