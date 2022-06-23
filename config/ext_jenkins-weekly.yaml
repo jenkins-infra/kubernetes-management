@@ -17,10 +17,6 @@ networkPolicy:
     allowed: true
     namespaceLabels:
       name: "jenkins-weekly"
-primaryView:
-  all:
-    description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\"><a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
-    name: "all"
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.63.0-2.356
@@ -129,6 +125,10 @@ controller:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
+        views:
+          - all:
+            description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\"><a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
+            name: "all"
   sidecars:
     configAutoReload:
       env:
