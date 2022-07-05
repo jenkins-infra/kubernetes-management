@@ -73,6 +73,7 @@ repository:
         - ReadWriteMany
       azureFile:
         secretName: mirrorbits-binary
+        secretNamespace: mirrorbits
         shareName: mirrorbits
         readOnly: true
       mountOptions:
