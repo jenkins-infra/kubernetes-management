@@ -202,7 +202,7 @@ releases:
   - name: default-release-jenkins-env
     namespace: release
     chart: jenkins-infra/env-jenkins-release
-    version: 0.1.1
+    version: 0.1.2
     secrets:
       - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
   - name: incrementals-publisher
