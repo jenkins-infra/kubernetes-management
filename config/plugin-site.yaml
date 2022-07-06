@@ -22,5 +22,6 @@ backend:
 htmlVolume:
   azureFile:
     secretName: plugin-site
+    secretNamespace: plugin-site
     shareName: pluginsite
     readOnly: true

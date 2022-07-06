@@ -27,5 +27,6 @@ resources:
 htmlVolume:
   azureFile:
     secretName: javadoc
+    secretNamespace: javadoc
     shareName: javadoc
     readOnly: true
