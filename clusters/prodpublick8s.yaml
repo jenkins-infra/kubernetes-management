@@ -26,7 +26,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.36.0
+    version: 2.36.1
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
@@ -90,7 +90,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.32.1
+    version: 6.32.2
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -202,7 +202,7 @@ releases:
   - name: default-release-jenkins-env
     namespace: release
     chart: jenkins-infra/env-jenkins-release
-    version: 0.1.1
+    version: 0.1.2
     secrets:
       - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
   - name: incrementals-publisher
