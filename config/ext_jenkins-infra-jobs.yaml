@@ -58,6 +58,9 @@ jobsDefinition:
             description: "Azure Service Principal credential used by packer"
             subscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
             tenant: "${PACKER_AZURE_TENANT_ID}"
+      jenkins-infra:
+        name: Puppet (jenkins-infra)
+        jenkinsfilePath: Jenkinsfile
       shared-tools:
         name: Shared Tools
   kubernetes-jobs:
