@@ -61,6 +61,7 @@ jobsDefinition:
       jenkins-infra:
         name: Puppet (jenkins-infra)
         jenkinsfilePath: Jenkinsfile
+        branchIncludes: "production staging updatecli_* PR-* main"
       shared-tools:
         name: Shared Tools
   kubernetes-jobs:
