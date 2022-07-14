@@ -339,10 +339,12 @@ controller:
                 - "GROUP:Overall/Administer:jenkins-admins"
                 - "GROUP:Overall/Read:authenticated"
                 - "GROUP:Overall/SystemRead:authenticated"
-      timestamper-settings: |
+      pipeline-settings: |
         unclassified:
           timestamper:
             allPipelines: true
+          shell:
+            shell: "/bin/bash"
       system-settings: |
         unclassified:
           defaultFolderConfiguration:
