@@ -183,6 +183,18 @@ jobsDefinition:
           githubapp-jenkins-infra-reports-app-identifier:
             description: "Identifier (integer) of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
             secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
+      plugin-migration:
+        name: "Plugin Migration Status Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "plugin-migration/Jenkinsfile"
+        disableGitHubChecks: true ## Only build status, no more
+        credentials:
+          githubapp-jenkins-infra-reports-private-key-b64:
+            description: "Base64 encoded private key of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+            secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY_B64}"
+          githubapp-jenkins-infra-reports-app-identifier:
+            description: "Identifier (integer) of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+            secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
   terraform-jobs:
     name: Terraform Jobs
     description: Folder hosting all the Terraform-related jobs
