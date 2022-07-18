@@ -159,7 +159,7 @@ controller:
             - amazonEC2:
                 cloudName: "aws-us-east-2"
                 credentialsId: "ec2-agents-credentials"
-                instanceCapStr: "20"
+                instanceCapStr: "50"
                 noDelayProvisioning: true
                 region: "us-east-2"
                 sshKeysCredentialsId: "ec2-agents-privkey"
@@ -178,7 +178,7 @@ controller:
                   ebsOptimized: false
                   hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
                   idleTerminationMinutes: "5"
-                  instanceCapStr: "10"
+                  instanceCapStr: "50"
                   labelString: "linux-amd64 linux-amd64-docker"
                   launchTimeoutStr: "180"
                   maxTotalUses: 1
@@ -214,7 +214,7 @@ controller:
                   ebsOptimized: false
                   hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
                   idleTerminationMinutes: "5"
-                  instanceCapStr: "10"
+                  instanceCapStr: "50"
                   labelString: "arm64 linux-arm64 linux-arm64-docker"
                   launchTimeoutStr: "180"
                   maxTotalUses: 1
@@ -250,7 +250,7 @@ controller:
                   ebsOptimized: false
                   hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
                   idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
-                  instanceCapStr: "10"
+                  instanceCapStr: "50"
                   labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
                   launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
                   maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
