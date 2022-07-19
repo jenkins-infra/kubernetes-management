@@ -263,6 +263,9 @@ jobsDefinition:
           datadog-app-key:
             secret: "${PRODUCTION_DATADOG_APP_KEY}"
             description: Datadog application key for infra.ci
+          datadog-jenkinsuser-password:
+            secret: "${PRODUCTION_DATADOG_JENKINSUSER_PASSWORD}"
+            description: datadog_monitoring Jenkins technical user password
           production-terraform-datadog-backend-config:
             fileName: "backend-config"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
