@@ -29,7 +29,7 @@ releases:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_doks-datadog.yaml"
     secrets:
-      - "../secrets/config/datadog/secrets.yaml"
+      - "../secrets/config/datadog/doks-secrets.yaml"
   - name: jenkins-agents
     needs:
       - default/docker-registry-secrets

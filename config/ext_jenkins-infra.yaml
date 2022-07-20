@@ -354,6 +354,21 @@ controller:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
+      datadog: |
+        unclassified:
+          datadogGlobalConfiguration:
+            ciInstanceName: "infra-ci-jenkins-io"
+            collectBuildLogs: false
+            emitConfigChangeEvents: false
+            emitSecurityEvents: true
+            emitSystemEvents: true
+            enableCiVisibility: false
+            refreshDogstatsdClient: false
+            reportWith: "DSD"
+            retryLogs: true
+            targetHost: "datadog.datadog.svc.cluster.local"
+            targetPort: 8125
+
   sidecars:
     configAutoReload:
       env:
