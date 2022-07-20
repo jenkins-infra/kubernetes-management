@@ -369,13 +369,10 @@ controller:
             emitSystemEvents: true
             enableCiVisibility: false
             refreshDogstatsdClient: false
-            reportWith: "HTTP"
+            reportWith: "DSD"
             retryLogs: true
-            targetApiURL: "https://api.datadoghq.com/api/"
-            targetHost: "localhost"
-            targetLogIntakeURL: "https://http-intake.logs.datadoghq.com/v1/input/"
+            targetHost: "datadog.datadog.svc.cluster.local"
             targetPort: 8125
-            targetCredentialsApiKey: "datadog-api-key-infra-ci-jenkins-io"
 
   sidecars:
     configAutoReload:
