@@ -95,6 +95,11 @@ controller:
                     id: "ec2-agents-credentials"
                     scope: SYSTEM
                     secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - string:
+                    description: "Datadog API key for infra.ci.jenkins.io"
+                    id: "datadog-api-key-infra-ci-jenkins-io"
+                    secret: "${DATADOG_API_KEY_INFRA_CI_JENKINS_IO}"
+                    scope: GLOBAL
       agent-settings: |
         jenkins:
           numExecutors: 0
@@ -354,6 +359,24 @@ controller:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
+      datadog: |
+        unclassified:
+          datadogGlobalConfiguration:
+            ciInstanceName: "infra-ci-jenkins-io"
+            collectBuildLogs: false
+            emitConfigChangeEvents: false
+            emitSecurityEvents: true
+            emitSystemEvents: true
+            enableCiVisibility: false
+            refreshDogstatsdClient: false
+            reportWith: "HTTP"
+            retryLogs: true
+            targetApiURL: "https://api.datadoghq.com/api/"
+            targetHost: "localhost"
+            targetLogIntakeURL: "https://http-intake.logs.datadoghq.com/v1/input/"
+            targetPort: 8125
+            targetCredentialsApiKey: "datadog-api-key-infra-ci-jenkins-io"
+
   sidecars:
     configAutoReload:
       env:
