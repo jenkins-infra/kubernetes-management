@@ -1,17 +1,3 @@
-templates:
-  default: &default
-    chart: stable/{{`{{ .Release.Name }}`}}
-    namespace: kube-system
-    # This prevents helmfile exiting when it encounters a missing file
-    # Valid values are "Error", "Warn", "Info", "Debug". The default is "Error"
-    # Use "Debug" to make missing files errors invisible at the default log level(--log-level=INFO)
-    missingFileHandler: Warn
-    values:
-    - config/{{`{{ .Release.Name }}`}}/values.yaml
-    - config/{{`{{ .Release.Name }}`}}/{{`{{ .Environment.Name }}`}}.yaml
-    secrets:
-    - config/{{`{{ .Release.Name }}`}}/secrets.yaml
-    - config/{{`{{ .Release.Name }}`}}/{{`{{ .Environment.Name }}`}}-secrets.yaml
 helmDefaults:
   atomic: true
   force: false
@@ -38,7 +24,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 2.36.1
+    version: 2.36.4
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_doks-datadog.yaml"
