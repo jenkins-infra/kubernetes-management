@@ -32,7 +32,7 @@ releases:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_publick8s-datadog.yaml"
     secrets:
-      - "../secrets/config/datadog/secrets.yaml"
+      - "../secrets/config/datadog/prodpublick8s-secrets.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
