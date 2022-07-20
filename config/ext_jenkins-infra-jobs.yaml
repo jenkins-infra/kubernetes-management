@@ -120,9 +120,6 @@ jobsDefinition:
       incrementals-publisher:
         name: Incrementals Publisher
         jenkinsfilePath: Jenkinsfile
-      jenkins-wiki-exporter:
-        name: Wiki Exporter
-        jenkinsfilePath: Jenkinsfile
   reports:
     name: Reports
     description: Folder hosting all the reporting tasks jobs
