@@ -26,13 +26,13 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.36.1
+    version: 2.36.4
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_publick8s-datadog.yaml"
     secrets:
-      - "../secrets/config/datadog/secrets.yaml"
+      - "../secrets/config/datadog/prodpublick8s-secrets.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
@@ -48,7 +48,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.10.3
+    version: 15.10.4
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -78,31 +78,23 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 2.12.2
+    version: 2.13.2
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
     namespace: loki
     chart: grafana/promtail
-    version: 6.0.2
+    version: 6.2.2
     values:
       - "../config/ext_promtail.yaml"
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.32.2
+    version: 6.32.3
     values:
       - "../config/ext_grafana.yaml"
     secrets:
       - "../secrets/config/grafana/secrets.yaml"
-  - name: jenkins-wiki-exporter
-    namespace: jenkins-wiki-exporter
-    chart: jenkins-infra/jenkins-wiki-exporter
-    version: 0.5.0
-    values:
-      - "../config/jenkins-wiki-exporter.yaml"
-    secrets:
-      - "../secrets/config/jenkins-wiki-exporter/secrets.yaml"
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
@@ -180,7 +172,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.13.1
+    version: 0.14.0
     timeout: 600
     atomic: false
     values:
@@ -190,7 +182,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.1.12
+    version: 4.1.13
     timeout: 600
     set:
       - name: namespace
@@ -216,7 +208,7 @@ releases:
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
     namespace: keycloak
     chart: codecentric/keycloak
-    version: 18.1.1
+    version: 18.2.1
     timeout: 600
     values:
       - "../config/ext_keycloak.yaml"
@@ -232,13 +224,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.15
+    version: 0.3.17
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.1.12
+    version: 4.1.13
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:

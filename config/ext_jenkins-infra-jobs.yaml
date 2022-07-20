@@ -58,6 +58,10 @@ jobsDefinition:
             description: "Azure Service Principal credential used by packer"
             subscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
             tenant: "${PACKER_AZURE_TENANT_ID}"
+      jenkins-infra:
+        name: Puppet (jenkins-infra)
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "production staging updatecli_* PR-* main"
       shared-tools:
         name: Shared Tools
   kubernetes-jobs:
@@ -116,9 +120,6 @@ jobsDefinition:
       incrementals-publisher:
         name: Incrementals Publisher
         jenkinsfilePath: Jenkinsfile
-      jenkins-wiki-exporter:
-        name: Wiki Exporter
-        jenkinsfilePath: Jenkinsfile
   reports:
     name: Reports
     description: Folder hosting all the reporting tasks jobs
@@ -172,6 +173,18 @@ jobsDefinition:
         name: "GitHub Permissions Report"
         repository: "infra-reports"
         jenkinsfilePath: "permissions-report/Jenkinsfile"
+        credentials:
+          githubapp-jenkins-infra-reports-private-key-b64:
+            description: "Base64 encoded private key of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+            secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY_B64}"
+          githubapp-jenkins-infra-reports-app-identifier:
+            description: "Identifier (integer) of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+            secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
+      plugin-migration:
+        name: "Plugin Migration Status Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "plugin-migration/Jenkinsfile"
+        disableGitHubChecks: true ## Only build status, no more
         credentials:
           githubapp-jenkins-infra-reports-private-key-b64:
             description: "Base64 encoded private key of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
@@ -247,6 +260,9 @@ jobsDefinition:
           datadog-app-key:
             secret: "${PRODUCTION_DATADOG_APP_KEY}"
             description: Datadog application key for infra.ci
+          datadog-jenkinsuser-password:
+            secret: "${PRODUCTION_DATADOG_JENKINSUSER_PASSWORD}"
+            description: datadog_monitoring Jenkins technical user password
           production-terraform-datadog-backend-config:
             fileName: "backend-config"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
