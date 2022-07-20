@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.69.0-2.360
+  tag: 0.69.1-2.360
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -368,7 +368,6 @@ controller:
             retryLogs: true
             targetHost: "datadog.datadog.svc.cluster.local"
             targetPort: 8125
-
   sidecars:
     configAutoReload:
       env:
