@@ -95,11 +95,6 @@ controller:
                     id: "ec2-agents-credentials"
                     scope: SYSTEM
                     secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
-                - string:
-                    description: "Datadog API key for infra.ci.jenkins.io"
-                    id: "datadog-api-key-infra-ci-jenkins-io"
-                    secret: "${DATADOG_API_KEY_INFRA_CI_JENKINS_IO}"
-                    scope: GLOBAL
       agent-settings: |
         jenkins:
           numExecutors: 0
