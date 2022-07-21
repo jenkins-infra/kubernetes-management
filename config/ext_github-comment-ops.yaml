@@ -12,4 +12,4 @@ ingress:
   tls:
     - secretName: github-comment-ops-tls
       hosts:
-        - webhook-github-comment-ops
+        - webhook-github-comment-ops.jenkins.io
