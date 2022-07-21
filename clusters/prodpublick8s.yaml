@@ -22,6 +22,8 @@ repositories:
     url: https://charts.jetstack.io
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
+  - name: github-comment-ops
+    url: https://timja.github.io/github-comment-ops/
 releases:
   - name: datadog
     namespace: datadog
@@ -253,3 +255,13 @@ releases:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
       - "../config/jenkinsisthewayio.yaml"
+  - name: github-comment-ops
+    namespace: github-comment-ops
+    chart: github-comment-ops/github-comment-ops
+    version: 1.2.0
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
+    values:
+      - "../config/ext_github-comment-ops.yaml"
+    secrets:
+      - "../secrets/config/github-comment-ops/secrets.yaml"
