@@ -9,7 +9,7 @@ jobsDefinition:
         description: Docker hub credential for jenkinsinfra organisation
         username: jenkinsinfraadmin
         password: "${DOCKER_HUB_TOKEN_PUSH}"
-      jenkinsinfraadmin-dockerhub-push:
+      jenkinsinfraadmin-dockerhub-push: &jenkinsinfraadmin-dockerhub-push-def
         description: Docker hub credential for jenkinsinfra organisation PUSH
         username: jenkinsinfraadmin
         password: "${DOCKER_HUB_TOKEN_PUSH}"
@@ -58,6 +58,7 @@ jobsDefinition:
             description: "Azure Service Principal credential used by packer"
             subscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
             tenant: "${PACKER_AZURE_TENANT_ID}"
+          jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
       jenkins-infra:
         name: Puppet (jenkins-infra)
         jenkinsfilePath: Jenkinsfile
