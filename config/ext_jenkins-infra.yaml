@@ -129,18 +129,44 @@ controller:
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
                     yamlMergeStrategy: "merge"
-                  - name: jnlp-beta
+                  - name: jnlp-beta-11
                     nodeSelector: "kubernetes.io/os=linux"
                     containers:
                       - name: jnlp-beta
                         image: "jenkinsciinfra/jenkins-agent-ubuntu-20.04"
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk11/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-11
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
                     yamlMergeStrategy: "merge"
-                    label: "ubuntu-20-04-beta"
+                    label: "ubuntu-20-04-beta-11"
+                  - name: jnlp-beta-17
+                    nodeSelector: "kubernetes.io/os=linux"
+                    containers:
+                      - name: jnlp-beta
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-20.04"
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk11/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17
+                        resourceLimitCpu: "500m"
+                        resourceLimitMemory: "512Mi"
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "512Mi"
+                        alwaysPullImage: true
+                    yamlMergeStrategy: "merge"
+                    label: "ubuntu-20-04-beta-17"
                   - name: jnlp-windows
                     nodeSelector: "kubernetes.io/os=windows"
                     instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
