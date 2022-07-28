@@ -140,7 +140,7 @@ controller:
                             value: "/opt/jdk11/bin/java"
                         - envVar:
                             key: "JAVA_HOME"
-                            value: "/opt/jdk-11
+                            value: "/opt/jdk-11"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
@@ -159,7 +159,7 @@ controller:
                             value: "/opt/jdk11/bin/java"
                         - envVar:
                             key: "JAVA_HOME"
-                            value: "/opt/jdk-17
+                            value: "/opt/jdk-17"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
