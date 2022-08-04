@@ -50,7 +50,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.10.5
+    version: 15.12.0
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -80,7 +80,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 2.13.2
+    version: 2.13.3
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.17
+    version: 0.3.19
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
