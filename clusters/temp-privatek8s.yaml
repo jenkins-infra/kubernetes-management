@@ -45,7 +45,7 @@ releases:
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
-    version: 4.1.13
+    version: 4.1.14
     needs:
       - jenkins-infra-additional # Required to allow the Jenkins controller to spawn kubernetes pods in the current cluster
       - jenkins-jobs # Required to generate the job definition in a configmap
