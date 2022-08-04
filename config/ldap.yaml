@@ -28,3 +28,10 @@ image:
     repository: jenkinsciinfra/ldap@sha256
     tag: d662790b4a5f1ca979c186241005e816ff86ccedf8161d9f11df43501f077f31
     pullPolicy: IfNotPresent
+resources:
+  limits:
+    cpu: 500m
+    memory: 1536Mi
+  requests:
+    cpu: 500m
+    memory: 1536Mi
