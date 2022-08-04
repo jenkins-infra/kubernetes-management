@@ -1,4 +1,4 @@
-title: "Bump jenkins-wiki-exporter Helm Chart Version"
+title: "Bump github-comment-ops Helm Chart Version"
 
 scms:
   default:
@@ -16,17 +16,17 @@ sources:
   lastChartVersion:
     kind: helmchart
     spec:
-      url: https://jenkins-infra.github.io/helm-charts
-      name: jenkins-wiki-exporter
+      url: https://timja.github.io/github-comment-ops
+      name: github-comment-ops
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for jenkins-wiki-exporter"
+    name: "Update the chart version for github-comment-ops"
     kind: file
     spec:
       file: clusters/prodpublick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/jenkins-wiki-exporter((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/jenkins-wiki-exporter${1}version: {{ source "lastChartVersion" }}'
+      matchpattern: 'chart: github-comment-ops\/github-comment-ops((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: github-comment-ops/github-comment-ops${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:
@@ -38,4 +38,4 @@ pullrequests:
     spec:
       labels:
         - dependencies
-        - wiki-exporter
+        - github-comment-ops
