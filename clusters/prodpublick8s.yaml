@@ -28,7 +28,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.36.4
+    version: 2.37.1
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
@@ -50,7 +50,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.10.5
+    version: 15.12.0
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -80,7 +80,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 2.13.2
+    version: 2.13.3
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -92,7 +92,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.32.6
+    version: 6.32.11
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -184,7 +184,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.1.13
+    version: 4.1.14
     timeout: 600
     set:
       - name: namespace
@@ -226,13 +226,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.17
+    version: 0.3.19
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.1.13
+    version: 4.1.14
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -258,7 +258,7 @@ releases:
   - name: github-comment-ops
     namespace: github-comment-ops
     chart: github-comment-ops/github-comment-ops
-    version: 1.2.1
+    version: 1.2.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
     values:
