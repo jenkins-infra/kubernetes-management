@@ -399,17 +399,25 @@ controller:
       datadog: |
         unclassified:
           datadogGlobalConfiguration:
-            ciInstanceName: "infra-ci-jenkins-io"
+            ciInstanceName: "infra.ci.jenkins.io"
             collectBuildLogs: false
-            emitConfigChangeEvents: false
+            # Send events on configuration changes to jobs or changes to jenkins. These events include changes by the system which may be frequent and redundant.
+            emitConfigChangeEvents: true
             emitSecurityEvents: true
             emitSystemEvents: true
-            enableCiVisibility: false
-            refreshDogstatsdClient: false
+            enableCiVisibility: true
+            hostname: "infra.ci.jenkins.io"
+            # A list of tags to apply globally to all submissions.
+            globalTags: "controller:infra.ci.jenkins.io"
+            # Refresh Dogstatsd Client when your agent IP changes
+            refreshDogstatsdClient: true
             reportWith: "DSD"
             retryLogs: true
+            targetApiURL: "https://api.datadoghq.com/api/"
             targetHost: "datadog.datadog.svc.cluster.local"
+            targetLogIntakeURL: "https://http-intake.logs.datadoghq.com/v1/input/"
             targetPort: 8125
+            targetTraceCollectionPort: 8126
   sidecars:
     configAutoReload:
       env:
