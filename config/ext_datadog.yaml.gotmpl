@@ -11,7 +11,7 @@ datadog:
     processCollection: true
   logs:
     enabled: true
-    configContainerCollectAll: true
+    containerCollectAll: true
   {{- if .Values }}
   {{- if hasKey .Values.datadog "kubelet" }}
   kubelet:
