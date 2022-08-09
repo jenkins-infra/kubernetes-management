@@ -57,6 +57,10 @@ controller:
             approvedSignatures:
               - "method org.jenkinsci.plugins.workflow.steps.FlowInterruptedException getCauses"
               - "new java.lang.RuntimeException java.lang.Throwable"
+          gitHostKeyVerificationConfiguration:
+            sshHostKeyVerificationStrategy:
+              manuallyProvidedKeyVerificationStrategy:
+                approvedHostKeys: "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
       credentials: |
         credentials:
           system:
