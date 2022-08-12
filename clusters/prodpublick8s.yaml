@@ -28,7 +28,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.37.2
+    version: 2.37.3
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
@@ -74,13 +74,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.0.15
+    version: 2.0.16
     values:
       - "../config/ext_falco.yaml"
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 2.13.3
+    version: 2.14.0
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.20
+    version: 0.3.21
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly

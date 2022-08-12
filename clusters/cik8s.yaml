@@ -28,7 +28,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 2.37.2
+    version: 2.37.3
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_cik8s-datadog.yaml"
@@ -45,7 +45,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.19.2
+    version: 9.19.3
     values:
       - "../config/ext_autoscaler.yaml"
   - name: aws-node-termination-handler
