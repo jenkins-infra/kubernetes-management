@@ -207,6 +207,10 @@ controller:
                     containers:
                       - name: jnlp
                         image: "jenkins/inbound-agent:latest-jdk11"
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/java/openjdk/bin/java"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
@@ -220,6 +224,13 @@ controller:
                     containers:
                       - name: jnlp
                         image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "C:/openjdk-11"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "C:/openjdk-11"
                         command: "powershell"
                         args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
                         resourceLimitCpu: "1"
@@ -253,6 +264,7 @@ controller:
                   amiType:
                     unixData:
                       sshPort: "22"
+                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
                   associatePublicIp: true
                   connectBySSHProcess: false
                   connectionStrategy: PUBLIC_IP
@@ -289,6 +301,7 @@ controller:
                   amiType:
                     unixData:
                       sshPort: "22"
+                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
                   associatePublicIp: true
                   connectBySSHProcess: false
                   connectionStrategy: PUBLIC_IP
@@ -325,6 +338,8 @@ controller:
                   amiType:
                     unixData:
                       sshPort: "22"
+                      # Windows VM agent are not supported yet: https://issues.jenkins.io/browse/JENKINS-69304
+                      # slaveCommandPrefix: "PATH=C:/tools/jdk-11/bin:^${PATH}"
                   associatePublicIp: true
                   connectBySSHProcess: false
                   connectionStrategy: PUBLIC_IP
