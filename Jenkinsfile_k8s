@@ -33,7 +33,7 @@ pipeline {
               steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                   updatecli(action: 'diff', cronTriggerExpression: cronExpr,
-                    updatecliDockerImage: 'jenkinsciinfra/helmfile:2.4.55', // Tracked by updatecli
+                    updatecliDockerImage: 'jenkinsciinfra/helmfile:2.4.57', // Tracked by updatecli
                   )
                 }
               }
@@ -45,7 +45,7 @@ pipeline {
               steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                   updatecli(action: 'apply', cronTriggerExpression: cronExpr,
-                    updatecliDockerImage: 'jenkinsciinfra/helmfile:2.4.55', // Tracked by updatecli,
+                    updatecliDockerImage: 'jenkinsciinfra/helmfile:2.4.57', // Tracked by updatecli,
                   )
                 }
               }
