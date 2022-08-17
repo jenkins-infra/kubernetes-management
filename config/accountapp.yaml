@@ -1,6 +1,5 @@
 image:
-  # https://github.com/jenkins-infra/kubernetes-management/issues/1668
-  tag: 169-buildca55e3
+  tag: 0.0.1
   pullPolicy: IfNotPresent
 
 ingress:
