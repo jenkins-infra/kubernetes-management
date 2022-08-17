@@ -18,6 +18,7 @@ jobsDefinition:
         username: infracijenkinsio
         password: "${DOCKER_HUB_TOKEN_PULL}"
     children:
+      account-app:
       docker-404:
       docker-builder:
       docker-confluence-data:
