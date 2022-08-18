@@ -223,7 +223,6 @@ controller:
                   amiType:
                     unixData:
                       sshPort: "22"
-                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
                   associatePublicIp: true
                   connectBySSHProcess: false
                   connectionStrategy: PUBLIC_IP
@@ -233,6 +232,7 @@ controller:
                   hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
                   idleTerminationMinutes: "5"
                   instanceCapStr: "50"
+                  javaPath: "/opt/jdk-11/bin/java"
                   labelString: "linux-amd64 linux-amd64-docker"
                   launchTimeoutStr: "180"
                   maxTotalUses: 1
@@ -259,7 +259,6 @@ controller:
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
-                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
                       sshPort: "22"
                   associatePublicIp: true
                   connectBySSHProcess: false
@@ -270,6 +269,7 @@ controller:
                   hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
                   idleTerminationMinutes: "5"
                   instanceCapStr: "50"
+                  javaPath: "/opt/jdk-11/bin/java"
                   labelString: "arm64 linux-arm64 linux-arm64-docker"
                   launchTimeoutStr: "180"
                   maxTotalUses: 1
@@ -296,8 +296,6 @@ controller:
                   amiOwners: "200564066411"
                   amiType:
                     unixData:
-                      # Windows VM agent are not supported yet: https://issues.jenkins.io/browse/JENKINS-69304
-                      # slaveCommandPrefix: "PATH=C:/tools/jdk-11/bin:^${PATH}"
                       sshPort: "22"
                   associatePublicIp: true
                   connectBySSHProcess: false
@@ -308,6 +306,7 @@ controller:
                   hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
                   idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
                   instanceCapStr: "50"
+                  javaPath: "C:/tools/jdk-11/bin/java.exe"
                   labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
                   launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
                   maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
@@ -317,7 +316,7 @@ controller:
                   monitoring: false
                   numExecutors: 1
                   remoteAdmin: "Administrator"
-                  remoteFS: "C:\\Jenkins"
+                  remoteFS: "C:/Jenkins"
                   securityGroups: "ec2_agents_infraci"
                   stopOnTerminate: false
                   t2Unlimited: false
@@ -329,7 +328,7 @@ controller:
                   - name: "jenkins"
                     value: "infra.ci.jenkins.io"
                   tenancy: Default
-                  tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
+                  tmpDir: "C:/Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
                   type: T3Medium
                   useEphemeralDevices: true
       ldap-settings: |
