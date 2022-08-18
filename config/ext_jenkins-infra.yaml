@@ -328,7 +328,7 @@ controller:
                   - name: "jenkins"
                     value: "infra.ci.jenkins.io"
                   tenancy: Default
-                  tmpDir: "C:/Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
+                  tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
                   type: T3Medium
                   useEphemeralDevices: true
       ldap-settings: |
