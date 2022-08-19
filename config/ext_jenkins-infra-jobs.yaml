@@ -35,7 +35,6 @@ jobsDefinition:
       docker-packaging:
       docker-plugin-site-issues:
       docker-plugins-self-service:
-      docker-repo-proxy:
       docker-rsyncd:
       rating:
   infra-tools:
