@@ -1,7 +1,6 @@
 image:
-  tag: 0.0.1
+  tag: 0.0.2
   pullPolicy: IfNotPresent
-
 ingress:
   enabled: true
   className: public-nginx
@@ -9,7 +8,6 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
     "nginx.ingress.kubernetes.io/affinity": "cookie"
-
   hosts:
     - host: accounts.jenkins.io
       paths:
@@ -17,16 +15,12 @@ ingress:
     - host: accounts.jenkins-ci.org
       paths:
         - path: /
-
   tls:
     - secretName: accounts-tls
       hosts:
         - accounts.jenkins.io
         - accounts.jenkins-ci.org
-
-
 replicaCount: 2
-
 resources:
   limits:
     cpu: 2000m
