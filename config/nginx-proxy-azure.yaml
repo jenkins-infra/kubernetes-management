@@ -10,6 +10,8 @@ ingress:
     "nginx.ingress.kubernetes.io/cors-allow-origin": "*"
   hosts:
     - host: repo.azure.jenkins.io
+      paths:
+        - path: /
   tls:
     - secretName: nginx-proxy-azure-tls
       hosts:
