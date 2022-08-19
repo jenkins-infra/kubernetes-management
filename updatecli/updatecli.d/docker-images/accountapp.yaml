@@ -1,0 +1,53 @@
+title: Bump account-app docker image version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  latestRelease:
+    kind: githubrelease
+    name: "Get latest jenkins-infra/account-app release"
+    spec:
+      owner: "jenkins-infra"
+      repository: "account-app"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+
+conditions:
+  checkDockerImagePublished:
+    name: "Test jenkinsciinfra/account-app:<latest_version> docker image tag"
+    kind: dockerimage
+    spec:
+      image: "jenkinsciinfra/account-app"
+      ## Tag from source
+      architecture: amd64
+
+targets:
+  updateRelease:
+    name: "Update account-app docker image tag"
+    kind: yaml
+    spec:
+      file: "config/accountapp.yaml"
+      key: "image.tag"
+    scmid: default
+
+pullrequests:
+  default:
+    kind: github
+    scmid: default
+    title: Bump account-app docker version to {{ source "latestRelease" }}
+    targets:
+      - updateRelease
+    spec:
+      labels:
+        - dependencies
+        - account-app
