@@ -220,9 +220,6 @@ controller:
                 templates:
                 - ami: "ami-0efe0668ca5417fa3" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
                   amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
                   associatePublicIp: true
                   connectBySSHProcess: false
                   connectionStrategy: PUBLIC_IP
@@ -257,9 +254,6 @@ controller:
                   useEphemeralDevices: true
                 - ami: "ami-0eac99aed8889ae4f" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
                   amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
                   associatePublicIp: true
                   connectBySSHProcess: false
                   connectionStrategy: PUBLIC_IP
@@ -294,9 +288,6 @@ controller:
                   useEphemeralDevices: true
                 - ami: "ami-07953a05f39334c69" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
                   amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
                   associatePublicIp: true
                   connectBySSHProcess: false
                   connectionStrategy: PUBLIC_IP
