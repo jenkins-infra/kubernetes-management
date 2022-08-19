@@ -44,7 +44,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump account-app docker version to {{ source "lastReleaseVersion" }}
+    title: Bump account-app docker version to {{ source "latestRelease" }}
     targets:
       - updateRelease
     spec:
