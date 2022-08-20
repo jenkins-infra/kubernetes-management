@@ -18,6 +18,16 @@ jobsDefinition:
         username: infracijenkinsio
         password: "${DOCKER_HUB_TOKEN_PULL}"
     children:
+      acceptance-test-harness:
+        name: "Jenkins CI Acceptance Test Harness (ATH) Docker Image"
+        jenkinsfilePath: Jenkinsfile.infra.ci.jenkins.io
+        owner: "jenkinsci"
+        credentials:
+          jenkinsci-ath-ghapp:
+            description: "Github App installed on jenkinsci org for https://github.com/jenkinsci/acceptance-test-harness Docker Image build"
+            appId: "${GITHUB_APP_JENKINSCI_ID}"
+            owner: "jenkinsci"
+            privateKey: "${GITHUB_APP_JENKINSCI_PRIVATE_KEY}"
       account-app:
       docker-404:
       docker-builder:
@@ -35,7 +45,6 @@ jobsDefinition:
       docker-packaging:
       docker-plugin-site-issues:
       docker-plugins-self-service:
-      docker-repo-proxy:
       docker-rsyncd:
       rating:
   infra-tools:
