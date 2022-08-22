@@ -20,8 +20,9 @@ jobsDefinition:
     children:
       acceptance-test-harness:
         name: "Jenkins CI Acceptance Test Harness (ATH) Docker Image"
+        githubCredentialsId: jenkinsci-ath-ghapp
         jenkinsfilePath: Jenkinsfile.infra.ci.jenkins.io
-        owner: "jenkinsci"
+        repoOwner: "jenkinsci"
         credentials:
           jenkinsci-ath-ghapp:
             description: "Github App installed on jenkinsci org for https://github.com/jenkinsci/acceptance-test-harness Docker Image build"
