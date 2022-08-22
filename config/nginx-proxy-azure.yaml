@@ -12,6 +12,7 @@ ingress:
     - host: repo.azure.jenkins.io
       paths:
         - path: /
+          pathType: Prefix
   tls:
     - secretName: nginx-proxy-azure-tls
       hosts:
