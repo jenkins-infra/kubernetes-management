@@ -265,3 +265,9 @@ releases:
       - "../config/ext_github-comment-ops.yaml"
     secrets:
       - "../secrets/config/github-comment-ops/secrets.yaml"
+  - name: nginx-proxy-azure
+    namespace: nginx-proxy-azure
+    chart: jenkins-infra/nginx-proxy
+    version: 0.1.2
+    values:
+      - "../config/nginx-proxy-azure.yaml"

@@ -1,0 +1,19 @@
+ingress:
+  enabled: true
+  className: public-nginx # TODO: change to a dedicated ingressClassName
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "88.172.134.5/32"
+  hosts:
+    - host: repo.azure.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: nginx-proxy-azure-tls
+      hosts:
+        - repo.azure.jenkins.io
