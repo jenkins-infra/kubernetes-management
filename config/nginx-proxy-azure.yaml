@@ -3,7 +3,6 @@ ingress:
   className: public-nginx # TODO: change to a dedicated ingressClassName
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
