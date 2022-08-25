@@ -270,4 +270,7 @@ releases:
     chart: jenkins-infra/nginx-proxy
     version: 0.1.2
     values:
+      - "../config/nginx-proxy-common.yaml"
       - "../config/nginx-proxy-azure.yaml"
+    secrets:
+      - "../secrets/config/nginx-proxy/secrets.yaml"
