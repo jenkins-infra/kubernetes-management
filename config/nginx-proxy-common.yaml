@@ -1,0 +1,11 @@
+# Common values for all nginx-proxies
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+cache:
+  maxSize: "25g"
