@@ -17,6 +17,3 @@ ingress:
     - secretName: nginx-proxy-azure-tls
       hosts:
         - repo.azure.jenkins.io
-
-auth:
-  enabled: true
