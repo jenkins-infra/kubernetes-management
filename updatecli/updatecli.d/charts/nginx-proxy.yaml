@@ -1,0 +1,46 @@
+title: "Bump `nginx-proxy` helm chart version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  lastChartVersion:
+    kind: helmchart
+    spec:
+      url: https://jenkins-infra.github.io/helm-charts
+      name: nginx-proxy
+
+targets:
+  updateChartVersion:
+    name: "Update the chart version for nginx-proxy"
+    kind: file
+    scmid: default
+    spec:
+      files:
+      - clusters/cik8s.yaml
+      - clusters/doks.yaml
+      - clusters/prodpublick8s.yaml
+      - clusters/temp-privatek8s.yaml
+      matchpattern: 'chart: jenkins-infra\/nginx-proxy((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/nginx-proxy${1}version: {{ source "lastChartVersion" }}'
+
+pullrequests:
+  default:
+    kind: github
+    scmid: default
+    title: Bump `nginx-proxy` helm chart version {{ source lastChartVersion }}
+    targets:
+      - updateChartVersion
+    spec:
+      labels:
+        - dependencies
+        - nginx-proxy
