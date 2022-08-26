@@ -13,4 +13,6 @@ persistence:
 securityContext:
   runAsUser: 1000
   runAsGroup: 3000
+
+podSecurityContext:
   fsGroup: 2000
