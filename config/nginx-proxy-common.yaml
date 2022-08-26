@@ -7,5 +7,5 @@ resources:
     cpu: 2
     memory: 256Mi
 
-cache:
-  maxSize: "25g"
+persistence:
+  size: 50
