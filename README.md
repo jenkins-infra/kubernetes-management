@@ -17,7 +17,7 @@ Any issues can be reported on our [JIRA issue tracker](https://issues.jenkins-ci
 
 This project contains the following main directories:
 
-* `clusters`: This folder contains the per-cluster [helmfiles](https://github.com/roboll/helmfile) with the releases to apply per cluster
+* `clusters`: This folder contains the per-cluster [helmfiles](https://github.com/helmfile/helmfile) with the releases to apply per cluster
 * `config`: This folder contains the specific configuration for our environments
 * `updatecli`: This folder contains the [updatecli](https://github.com/updatecli/updatecli/) manifests to keep all Helm charts and Docker images versions up to date
 
@@ -72,7 +72,7 @@ kubectl get secrets -n release  default-release-jenkins -o json
 
 ## Links
 
-* [Helmfile](https://github.com/roboll/helmfile)
+* [Helmfile](https://github.com/helmfile/helmfile)
 * [Kubernetes management](https://github.com/helm/kubernetes-management)
 * [Helm Charts](https://github.com/helm/helm-charts)
 * [Sops](https://github.com/mozilla/sops)
