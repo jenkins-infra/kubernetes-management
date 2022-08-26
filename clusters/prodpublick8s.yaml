@@ -268,7 +268,7 @@ releases:
   - name: nginx-proxy-azure
     namespace: nginx-proxy-azure
     chart: jenkins-infra/nginx-proxy
-    version: 0.2.2
+    version: 0.3.0
     values:
       - "../config/nginx-proxy-common.yaml"
       - "../config/nginx-proxy-azure.yaml"
