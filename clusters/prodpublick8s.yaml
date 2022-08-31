@@ -276,7 +276,7 @@ releases:
       - "../secrets/config/artifact-caching-proxy/secrets.yaml"
   - name: artifact-caching-proxy-azure-ss
     namespace: artifact-caching-proxy-azure-ss
-    chart: jenkins-infra/artifact-caching-proxy-ss
+    chart: jenkins-infra/artifact-caching-proxy
     version: 0.0.2
     values:
       - "../config/artifact-caching-proxy-common.yaml"
