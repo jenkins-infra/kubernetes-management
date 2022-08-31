@@ -268,7 +268,7 @@ releases:
   - name: artifact-caching-proxy-azure
     namespace: artifact-caching-proxy-azure
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.3
+    version: 0.0.4
     values:
       - "../config/artifact-caching-proxy-common.yaml"
       - "../config/artifact-caching-proxy-azure.yaml"
@@ -279,7 +279,7 @@ releases:
   - name: artifact-caching-proxy-azure-ss
     namespace: artifact-caching-proxy-azure-ss
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.3
+    version: 0.0.4
     values:
       - "../config/artifact-caching-proxy-common.yaml"
       - "../config/artifact-caching-proxy-azure.yaml"
