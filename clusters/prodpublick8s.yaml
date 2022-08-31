@@ -265,12 +265,24 @@ releases:
       - "../config/ext_github-comment-ops.yaml"
     secrets:
       - "../secrets/config/github-comment-ops/secrets.yaml"
-#  - name: nginx-proxy-azure
-#    namespace: nginx-proxy-azure
-#    chart: jenkins-infra/nginx-proxy
-#    version: 0.3.0
-#    values:
-#      - "../config/nginx-proxy-common.yaml"
-#      - "../config/nginx-proxy-azure.yaml"
-#    secrets:
-#      - "../secrets/config/nginx-proxy/secrets.yaml"
+  - name: artifact-caching-proxy-azure
+    namespace: artifact-caching-proxy-azure
+    chart: jenkins-infra/artifact-caching-proxy
+    version: 0.0.2
+    values:
+      - "../config/artifact-caching-proxy-common.yaml"
+      - "../config/artifact-caching-proxy-azure.yaml"
+    secrets:
+      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
+  - name: artifact-caching-proxy-azure-ss
+    namespace: artifact-caching-proxy-azure-ss
+    chart: jenkins-infra/artifact-caching-proxy
+    version: 0.0.2
+    values:
+      - "../config/artifact-caching-proxy-common.yaml"
+      - "../config/artifact-caching-proxy-azure.yaml"
+      - ingress:
+          enabled: false
+      - templateType: StatefulSet
+    secrets:
+      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
