@@ -268,21 +268,26 @@ releases:
   - name: artifact-caching-proxy-azure
     namespace: artifact-caching-proxy-azure
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.2
+    version: 0.0.3
     values:
       - "../config/artifact-caching-proxy-common.yaml"
       - "../config/artifact-caching-proxy-azure.yaml"
+      - template:
+          mountConfigMap: false
     secrets:
       - "../secrets/config/artifact-caching-proxy/secrets.yaml"
   - name: artifact-caching-proxy-azure-ss
     namespace: artifact-caching-proxy-azure-ss
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.2
+    version: 0.0.3
     values:
       - "../config/artifact-caching-proxy-common.yaml"
       - "../config/artifact-caching-proxy-azure.yaml"
       - ingress:
           enabled: false
-      - templateType: StatefulSet
+      - template:
+          type: StatefulSet
+          mountConfigMap: false
     secrets:
       - "../secrets/config/artifact-caching-proxy/secrets.yaml"
+
