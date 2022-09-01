@@ -7,15 +7,14 @@ resources:
     cpu: 2
     memory: 256Mi
 
-service:
-  port: 8080
-
 persistence:
   enabled: true
   size: 50
 
-podSecurityContext:
-  runAsUser: 1001
-  runAsGroup: 1001
-  fsGroup: 1001
-  fsGroupChangePolicy: "OnRootMismatch"
+# securityContext:
+#   fsGroup: 1002
+#   fsGroupChangePolicy: "OnRootMismatch"
+
+# podSecurityContext:
+#   runAsUser: 1001
+#   runAsGroup: 1002
