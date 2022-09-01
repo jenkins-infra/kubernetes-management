@@ -19,4 +19,4 @@ ingress:
         - repo.azure.jenkins.io
 
 persistence:
-  storageClass: azurefile-csi-premium
+  storageClass: managed-csi-premium
