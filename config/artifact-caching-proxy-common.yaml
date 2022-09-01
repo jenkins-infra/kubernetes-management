@@ -7,13 +7,14 @@ resources:
     cpu: 2
     memory: 256Mi
 
+service:
+  port: 8080
+
 persistence:
   enabled: true
   size: 50
 
-securityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
-
 podSecurityContext:
-  fsGroup: 1000
+  runAsUser: 1001
+  runAsGroup: 1001
+  fsGroup: 1001
