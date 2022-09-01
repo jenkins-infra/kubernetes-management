@@ -107,8 +107,13 @@ pipeline {
           }
           stage('Helmfile Lint'){
             when {
-              anyOf {
-                changeset "clusters/${K8S_CLUSTER}.yaml"
+              anyOf {              
+                expression {
+                    sh(returnStatus: true, script: '''
+                      git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                      '''
+                    ) == 0
+                }
                 changeset "config/**"
               }
             }
@@ -121,7 +126,12 @@ pipeline {
               allOf {
                 changeRequest()
                 anyOf {
-                  changeset "clusters/${K8S_CLUSTER}.yaml"
+                  expression {
+                      sh(returnStatus: true, script: '''
+                        git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                        '''
+                      ) == 0
+                  }
                   changeset "config/**"
                 }
               }
@@ -142,7 +152,12 @@ pipeline {
               allOf {
                 branch 'main'
                 anyOf {
-                  changeset "clusters/${K8S_CLUSTER}.yaml"
+                  expression {
+                      sh(returnStatus: true, script: '''
+                        git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                        '''
+                      ) == 0
+                  }
                   changeset "config/**"
                 }
               }
