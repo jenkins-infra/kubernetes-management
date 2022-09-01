@@ -95,7 +95,7 @@ pipeline {
                 changeset "config/**"
                 expression {
                     sh(returnStatus: true, script: '''
-                      git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                      git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
                       '''
                     ) == 0
                 }
@@ -116,7 +116,7 @@ pipeline {
                 changeset "config/**"
                 expression {
                     sh(returnStatus: true, script: '''
-                      git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                      git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
                       '''
                     ) == 0
                 }
@@ -134,7 +134,7 @@ pipeline {
                   changeset "config/**"
                   expression {
                       sh(returnStatus: true, script: '''
-                        git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                        git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
                         '''
                       ) == 0
                   }
@@ -160,7 +160,7 @@ pipeline {
                   changeset "config/**"
                   expression {
                       sh(returnStatus: true, script: '''
-                        git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                        git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
                         '''
                       ) == 0
                   }
