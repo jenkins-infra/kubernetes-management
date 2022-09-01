@@ -265,3 +265,12 @@ releases:
       - "../config/ext_github-comment-ops.yaml"
     secrets:
       - "../secrets/config/github-comment-ops/secrets.yaml"
+  - name: artifact-caching-proxy-azure
+    namespace: artifact-caching-proxy-azure
+    chart: jenkins-infra/artifact-caching-proxy
+    version: 0.0.5
+    values:
+      - "../config/artifact-caching-proxy-common.yaml"
+      - "../config/artifact-caching-proxy-azure.yaml"
+    secrets:
+      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
