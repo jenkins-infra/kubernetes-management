@@ -92,8 +92,13 @@ pipeline {
           stage('Prepare Environment'){
             when {
               anyOf {
-                  changeset "clusters/${K8S_CLUSTER}.yaml"
-                  changeset "config/**"
+                changeset "config/**"
+                expression {
+                    sh(returnStatus: true, script: '''
+                      git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                      '''
+                    ) == 0
+                }
               }
             }
             steps {
@@ -107,9 +112,14 @@ pipeline {
           }
           stage('Helmfile Lint'){
             when {
-              anyOf {
-                changeset "clusters/${K8S_CLUSTER}.yaml"
+              anyOf {              
                 changeset "config/**"
+                expression {
+                    sh(returnStatus: true, script: '''
+                      git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                      '''
+                    ) == 0
+                }
               }
             }
             steps {
@@ -121,8 +131,13 @@ pipeline {
               allOf {
                 changeRequest()
                 anyOf {
-                  changeset "clusters/${K8S_CLUSTER}.yaml"
                   changeset "config/**"
+                  expression {
+                      sh(returnStatus: true, script: '''
+                        git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                        '''
+                      ) == 0
+                  }
                 }
               }
             }
@@ -142,8 +157,13 @@ pipeline {
               allOf {
                 branch 'main'
                 anyOf {
-                  changeset "clusters/${K8S_CLUSTER}.yaml"
                   changeset "config/**"
+                  expression {
+                      sh(returnStatus: true, script: '''
+                        git status -s | grep --quiet "^${K8S_CLUSTER}/.*"
+                        '''
+                      ) == 0
+                  }
                 }
               }
             }
