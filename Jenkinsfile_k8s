@@ -90,6 +90,12 @@ pipeline {
       }
         stages {
           stage('Prepare Environment'){
+            when {
+              anyOf {
+                  changeset "clusters/${K8S_CLUSTER}.yaml"
+                  changeset "config/**"
+              }
+            }
             steps {
               // Retrieve the private repository holding the SOPS encrypted YAML secrets into the local directory "./secrets"
               dir ('secrets'){
@@ -100,12 +106,26 @@ pipeline {
             }
           }
           stage('Helmfile Lint'){
+            when {
+              anyOf {
+                changeset "clusters/${K8S_CLUSTER}.yaml"
+                changeset "config/**"
+              }
+            }
             steps {
               sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
             }
           } // stage
           stage('Diff on Pull Request'){
-            when { changeRequest() }
+            when {
+              allOf {
+                changeRequest()
+                anyOf {
+                  changeset "clusters/${K8S_CLUSTER}.yaml"
+                  changeset "config/**"
+                }
+              }
+            }
             steps {
               script {
                 def diff = sh(
@@ -118,7 +138,15 @@ pipeline {
             }
           } // stage
           stage('Apply'){
-            when { branch 'main' }
+            when {
+              allOf {
+                branch 'main'
+                anyOf {
+                  changeset "clusters/${K8S_CLUSTER}.yaml"
+                  changeset "config/**"
+                }
+              }
+            }
             steps {
               sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
             }
