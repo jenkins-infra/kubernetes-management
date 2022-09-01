@@ -90,17 +90,6 @@ pipeline {
       }
         stages {
           stage('Prepare Environment'){
-            when {
-              anyOf {
-                changeset "config/**"
-                expression {
-                    sh(returnStatus: true, script: '''
-                      git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
-                      '''
-                    ) == 0
-                }
-              }
-            }
             steps {
               // Retrieve the private repository holding the SOPS encrypted YAML secrets into the local directory "./secrets"
               dir ('secrets'){
@@ -111,35 +100,13 @@ pipeline {
             }
           }
           stage('Helmfile Lint'){
-            when {
-              anyOf {              
-                changeset "config/**"
-                expression {
-                    sh(returnStatus: true, script: '''
-                      git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
-                      '''
-                    ) == 0
-                }
-              }
-            }
             steps {
               sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
             }
           } // stage
           stage('Diff on Pull Request'){
             when {
-              allOf {
-                changeRequest()
-                anyOf {
-                  changeset "config/**"
-                  expression {
-                      sh(returnStatus: true, script: '''
-                        git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
-                        '''
-                      ) == 0
-                  }
-                }
-              }
+              changeRequest()
             }
             steps {
               script {
@@ -154,18 +121,7 @@ pipeline {
           } // stage
           stage('Apply'){
             when {
-              allOf {
-                branch 'main'
-                anyOf {
-                  changeset "config/**"
-                  expression {
-                      sh(returnStatus: true, script: '''
-                        git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
-                        '''
-                      ) == 0
-                  }
-                }
-              }
+              branch 'main'
             }
             steps {
               sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
