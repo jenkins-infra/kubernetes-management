@@ -27,7 +27,7 @@ releases:
     version: 2.37.6
     values:
       - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_doks-datadog.yaml"
+      - "../config/ext_datadog-doks.yaml"
     secrets:
       - "../secrets/config/datadog/doks-secrets.yaml"
   - name: jenkins-agents

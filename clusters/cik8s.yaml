@@ -31,7 +31,7 @@ releases:
     version: 2.37.6
     values:
       - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_cik8s-datadog.yaml"
+      - "../config/ext_datadog-cik8s.yaml"
     secrets:
       - "../secrets/config/datadog/cik8s-secrets.yaml"
   - name: jenkins-agents

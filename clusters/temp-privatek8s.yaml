@@ -39,7 +39,7 @@ releases:
     timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_temp-privatek8s-datadog.yaml"
+      - "../config/ext_datadog-temp-privatek8s.yaml"
     secrets:
       - "../secrets/config/datadog/temp-privatek8s-secrets.yaml"
   - name: jenkins-infra
