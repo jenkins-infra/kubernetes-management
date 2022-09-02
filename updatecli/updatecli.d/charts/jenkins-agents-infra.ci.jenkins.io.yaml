@@ -1,4 +1,4 @@
-title: Bump agent templates version on jenkins-infra
+title: Bump agent templates version for infra.ci.jenkins.io
 scms:
   default:
     kind: github
@@ -95,6 +95,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
+    title: Bump agent templates for infra.ci.jenkins.io (packer-image {{ source packerImageVersion }})
     targets:
       - setUbuntuAgentAMIAmd64
       - setUbuntuAgentAMIArm64

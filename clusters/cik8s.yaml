@@ -28,7 +28,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 2.37.4
+    version: 2.37.9
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_cik8s-datadog.yaml"
@@ -51,6 +51,6 @@ releases:
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
-    version: 0.19.0
+    version: 0.19.1
     values:
       - "../config/ext_aws-node-termination-handler.yaml"
