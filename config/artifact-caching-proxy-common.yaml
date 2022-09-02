@@ -1,0 +1,20 @@
+# Common values for all nginx-proxies
+resources:
+  limits:
+    cpu: 2
+    memory: 256Mi
+  requests:
+    cpu: 2
+    memory: 256Mi
+
+persistence:
+  enabled: true
+  size: 50
+
+# securityContext:
+#   fsGroup: 1002
+#   fsGroupChangePolicy: "OnRootMismatch"
+
+# podSecurityContext:
+#   runAsUser: 1001
+#   runAsGroup: 1002
