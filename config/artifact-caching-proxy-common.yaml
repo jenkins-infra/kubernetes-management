@@ -11,9 +11,10 @@ persistence:
   enabled: true
   size: 50
 
-securityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
+# securityContext:
+#   fsGroup: 1002
+#   fsGroupChangePolicy: "OnRootMismatch"
 
-podSecurityContext:
-  fsGroup: 1000
+# podSecurityContext:
+#   runAsUser: 1001
+#   runAsGroup: 1002
