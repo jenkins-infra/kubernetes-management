@@ -105,7 +105,9 @@ pipeline {
             }
           } // stage
           stage('Diff on Pull Request'){
-            when { changeRequest() }
+            when {
+              changeRequest()
+            }
             steps {
               script {
                 def diff = sh(
@@ -118,7 +120,9 @@ pipeline {
             }
           } // stage
           stage('Apply'){
-            when { branch 'main' }
+            when {
+              branch 'main'
+            }
             steps {
               sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" apply --suppress-secrets --concurrency=8'
             }
