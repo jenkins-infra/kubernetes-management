@@ -92,7 +92,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.36.1
+    version: 6.36.2
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.23
+    version: 0.3.24
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
