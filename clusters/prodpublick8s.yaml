@@ -28,11 +28,10 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 2.37.5
-    timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
+    version: 2.37.9
     values:
       - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_publick8s-datadog.yaml"
+      - "../config/ext_datadog_publick8s.yaml"
     secrets:
       - "../secrets/config/datadog/prodpublick8s-secrets.yaml"
   - name: public-nginx-ingress
@@ -40,13 +39,13 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.2.1
     values:
-      - "../config/ext_public-nginx-ingress.yaml"
+      - "../config/ext_public-nginx-ingress_prodpublick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.2.1
     values:
-      - "../config/ext_private-nginx-ingress.yaml"
+      - "../config/ext_private-nginx-ingress_prodpublick8s.yaml"
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
@@ -74,13 +73,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.0.16
+    version: 2.0.17
     values:
       - "../config/ext_falco.yaml"
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 2.14.1
+    version: 2.16.0
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -92,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.33.0
+    version: 6.36.3
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -174,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.16.0
+    version: 0.16.3
     timeout: 600
     atomic: false
     values:
@@ -226,7 +225,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.22
+    version: 0.3.24
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
@@ -265,12 +264,25 @@ releases:
       - "../config/ext_github-comment-ops.yaml"
     secrets:
       - "../secrets/config/github-comment-ops/secrets.yaml"
-  - name: nginx-proxy-azure
-    namespace: nginx-proxy-azure
-    chart: jenkins-infra/nginx-proxy
-    version: 0.1.2
+  - name: artifact-caching-proxy-azure
+    namespace: artifact-caching-proxy-azure
+    chart: jenkins-infra/artifact-caching-proxy
+    version: 0.0.10
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
-      - "../config/nginx-proxy-common.yaml"
-      - "../config/nginx-proxy-azure.yaml"
+      - "../config/artifact-caching-proxy-common.yaml"
+      - "../config/artifact-caching-proxy-azure.yaml"
     secrets:
-      - "../secrets/config/nginx-proxy/secrets.yaml"
+      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
+  - name: artifact-caching-proxy-test
+    namespace: artifact-caching-test
+    chart: jenkins-infra/artifact-caching-proxy
+    version: 0.0.10
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
+    values:
+      - "../config/artifact-caching-proxy-common.yaml"
+      - "../config/artifact-caching-proxy-test.yaml"
+    secrets:
+      - "../secrets/config/artifact-caching-proxy/secrets.yaml"

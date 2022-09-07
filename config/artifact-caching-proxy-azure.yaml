@@ -14,6 +14,9 @@ ingress:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: nginx-proxy-azure-tls
+    - secretName: tls-secret
       hosts:
         - repo.azure.jenkins.io
+
+persistence:
+  storageClass: managed-csi-premium
