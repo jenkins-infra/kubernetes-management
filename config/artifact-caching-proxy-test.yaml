@@ -19,4 +19,4 @@ ingress:
         - repo.test.jenkins.io
 
 persistence:
-  storageClass: managed-csi-premium
+  enabled: false

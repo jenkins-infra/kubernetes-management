@@ -2,10 +2,10 @@
 resources:
   limits:
     cpu: 2
-    memory: 256Mi
+    memory: 1024MGi
   requests:
     cpu: 2
-    memory: 256Mi
+    memory: 1024Mi
 
 persistence:
   enabled: true
