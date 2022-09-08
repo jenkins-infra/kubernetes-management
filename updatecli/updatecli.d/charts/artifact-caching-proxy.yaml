@@ -1,4 +1,4 @@
-title: "Bump `nginx-proxy` helm chart version"
+title: "Bump `artifact-caching-proxy` helm chart version"
 
 scms:
   default:
@@ -17,30 +17,30 @@ sources:
     kind: helmchart
     spec:
       url: https://jenkins-infra.github.io/helm-charts
-      name: nginx-proxy
+      name: artifact-caching-proxy
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for nginx-proxy"
+    name: "Update the chart version for artifact-caching-proxy"
     kind: file
     scmid: default
     spec:
       files:
-      - clusters/cik8s.yaml
-      - clusters/doks.yaml
-      - clusters/prodpublick8s.yaml
-      - clusters/temp-privatek8s.yaml
-      matchpattern: 'chart: jenkins-infra\/nginx-proxy((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/nginx-proxy${1}version: {{ source "lastChartVersion" }}'
+        # TODO:
+        # - clusters/cik8s.yaml
+        - clusters/doks.yaml
+        - clusters/prodpublick8s.yaml
+      matchpattern: 'chart: jenkins-infra\/artifact-caching-proxy((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/artifact-caching-proxy${1}version: {{ source "lastChartVersion" }}'
 
 pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump `nginx-proxy` helm chart version to {{ source lastChartVersion }}
+    title: Bump `artifact-caching-proxy` helm chart version to {{ source `lastChartVersion` }}
     targets:
       - updateChartVersion
     spec:
       labels:
         - dependencies
-        - nginx-proxy
+        - artifact-caching-proxy
