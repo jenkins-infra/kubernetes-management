@@ -31,7 +31,7 @@ releases:
     version: 2.37.9
     values:
       - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_cik8s-datadog.yaml"
+      - "../config/ext_datadog_cik8s.yaml"
     secrets:
       - "../secrets/config/datadog/cik8s-secrets.yaml"
   - name: jenkins-agents
@@ -45,12 +45,12 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.19.4
+    version: 9.21.0
     values:
       - "../config/ext_autoscaler.yaml"
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
-    version: 0.19.1
+    version: 0.19.2
     values:
       - "../config/ext_aws-node-termination-handler.yaml"
