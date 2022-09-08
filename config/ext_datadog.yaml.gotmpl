@@ -38,9 +38,10 @@ agents:
     rollingUpdate:
       maxUnavailable: "33%"
     type: RollingUpdate
-clusterAgents:
-  enabled: true
+clusterAgent:
   metricsProvider:
     enabled: true
   rbac:
     create: true
+  # Run the clusterAgent in HA mode
+  replicas: 2
