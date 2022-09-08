@@ -36,10 +36,9 @@ releases:
     namespace: datadog
     chart: datadog/datadog
     version: 2.37.9
-    timeout: 840 # Should be <= 14 min (because the job runs every 15 min)
     values:
       - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_temp-privatek8s-datadog.yaml"
+      - "../config/ext_datadog_temp-privatek8s.yaml"
     secrets:
       - "../secrets/config/datadog/temp-privatek8s-secrets.yaml"
   - name: jenkins-infra
@@ -72,10 +71,10 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.2.1
     values:
-      - "../config/temp-privatek8s/ext_public-nginx-ingress.yaml"
+      - "../config/ext_public-nginx-ingress_temp-privatek8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.2.1
     values:
-      - "../config/temp-privatek8s/ext_private-nginx-ingress.yaml"
+      - "../config/ext_private-nginx-ingress_temp-privatek8s.yaml"
