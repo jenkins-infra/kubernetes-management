@@ -32,32 +32,39 @@ conditions:
       architecture: amd64
 
 targets:
-  updatePrivateNginxIngress404Public:
+  updatePrivateNginxIngress404ProdPublicK8s:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/ext_private-nginx-ingress.yaml"
+      file: "config/ext_private-nginx-ingress_prodpublick8s.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
-  updatePublicNginxIngress404Public:
+  updatePublicNginxIngress404ProdPublicK8s:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/ext_public-nginx-ingress.yaml"
+      file: "config/ext_public-nginx-ingress_prodpublick8s.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
-  updatePrivateNginxIngress404Private:
+  updatePrivateNginxIngress404TempPrivateK8s:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/temp-privatek8s/ext_private-nginx-ingress.yaml"
+      file: "config/ext_private-nginx-ingress_temp-privatek8s.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
-  updatePublicNginxIngress404Private:
+  updatePublicNginxIngress404TempPrivateK8s:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/temp-privatek8s/ext_public-nginx-ingress.yaml"
+      file: "config/ext_public-nginx-ingress_temp-privatek8s.yaml"
+      key: "defaultBackend.image.tag"
+    scmid: default
+  updatePublicNginxIngress404Doks:
+    name: "Update 404 docker image tag"
+    kind: yaml
+    spec:
+      file: "config/ext_public-nginx-ingress_doks.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
 
@@ -66,10 +73,11 @@ pullrequests:
     kind: github
     scmid: default
     targets:
-      - updatePrivateNginxIngress404Public
-      - updatePublicNginxIngress404Public
-      - updatePrivateNginxIngress404Private
-      - updatePublicNginxIngress404Private
+      - updatePrivateNginxIngress404ProdPublicK8s
+      - updatePublicNginxIngress404ProdPublicK8s
+      - updatePrivateNginxIngress404TempPrivateK8s
+      - updatePublicNginxIngress404TempPrivateK8s
+      - updatePublicNginxIngress404Doks
     spec:
       labels:
         - dependencies
