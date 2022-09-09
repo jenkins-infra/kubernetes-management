@@ -139,9 +139,6 @@ pipeline {
                 }
               }
             }
-            when {
-              changeRequest()
-            }
             steps {
               script {
                 def diff = sh(
