@@ -28,3 +28,6 @@ controller:
     enabled: true
     default: false
     name: public-nginx
+  service:
+    annotations:
+      kubernetes.digitalocean.com/load-balancer-id: 5f752a5c-028c-4b83-8fb6-64560567779b
