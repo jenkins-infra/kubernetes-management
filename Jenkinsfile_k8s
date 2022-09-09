@@ -100,11 +100,45 @@ pipeline {
             }
           }
           stage('Helmfile Lint'){
+            // Always lint on main branch
+            // Lint on pull requests only if the current cluster helmfile or any of the chart configurations files have changed
+            when {
+              anyOf {
+                branch 'main'
+                allOf {
+                  changeRequest()
+                  anyOf {
+                    changeset "config/**"
+                    expression {
+                      sh(returnStatus: true, script: '''
+                        git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
+                        '''
+                      ) == 0
+                    }
+                  }
+                }
+              }
+            }
             steps {
               sh 'helmfile -f "clusters/${K8S_CLUSTER}.yaml" lint'
             }
           } // stage
           stage('Diff on Pull Request'){
+            // Diff on pull requests only if the current cluster helmfile or any of the chart configurations files have changed
+            when {
+              allOf {
+                changeRequest()
+                anyOf {
+                  changeset "config/**"
+                  expression {
+                    sh(returnStatus: true, script: '''
+                      git status -s | grep "^clusters/${K8S_CLUSTER}.yaml"
+                      '''
+                    ) == 0
+                  }
+                }
+              }
+            }
             when {
               changeRequest()
             }
