@@ -140,9 +140,6 @@ jobsDefinition:
           packer-aws-access-key-id: *packer-aws-access-key-id-def
           # Used by updatecli to retrieve AMIs
           packer-aws-secret-access-key: *packer-aws-secret-access-key-def
-          production-terraform-digitalocean-pat:
-            secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
-            description: "Digital Ocean PAT for production"
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
