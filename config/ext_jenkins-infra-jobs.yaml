@@ -122,7 +122,7 @@ jobsDefinition:
             description: "Kubeconfig file for temp-privatek8s"
             secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
       kubernetes-management-updatecli:
-        name: Kubernetes Management Dependencies Management
+        name: Kubernetes Management Dependencies
         repository: kubernetes-management
         jenkinsfilePath: Jenkinsfile_updatecli
         description: Managing the dependencies of Kubernetes-hosted applications with updatecli
