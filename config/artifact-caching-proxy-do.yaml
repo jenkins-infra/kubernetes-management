@@ -1,6 +1,6 @@
 ingress:
   enabled: true
-  className: public-nginx # TODO: change to a dedicated ingressClassName
+  className: public-nginx
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -9,14 +9,14 @@ ingress:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/whitelist-source-range: "88.172.134.5/32"
   hosts:
-    - host: repo.test.jenkins.io
+    - host: repo.do.jenkins.io
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: tls-secret
       hosts:
-        - repo.test.jenkins.io
+        - repo.do.jenkins.io
 
 persistence:
-  enabled: false
+  storageClass: do-block-storage

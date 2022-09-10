@@ -12,6 +12,8 @@ datadog:
   logs:
     enabled: true
     containerCollectAll: true
+  networkMonitoring:
+    enabled: true
   {{- if .Values }}
   {{- if hasKey .Values.datadog "kubelet" }}
   kubelet:
@@ -30,17 +32,20 @@ agents:
   image:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: "jenkinsciinfra/datadog@sha256"
-    tag: "333dca983aa54de865d3c46e6285b65093632acf382b336620777a4896fb9313"
+    tag: "d23fdab769bfa5d4061bf9edc068d924de2d010a4c1402ffa1e4cc2c486c5b13"
     # we must skip version test while we use the docker image digest
     doNotCheckTag: true
     pullPolicy: IfNotPresent
+  # The updateStrategy ensures that there are no rollback, even when auto-scalingup/down the clusters (as the agent is deployed as DaemonSet by default)
   updateStrategy:
     rollingUpdate:
       maxUnavailable: "33%"
     type: RollingUpdate
-clusterAgents:
-  enabled: true
+clusterAgent:
   metricsProvider:
     enabled: true
   rbac:
     create: true
+  # Run the clusterAgent in HA mode
+  replicas: 2
+  createPodDisruptionBudget: true

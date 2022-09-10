@@ -95,7 +95,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump agent templates for infra.ci.jenkins.io (packer-image {{ source packerImageVersion }})
+    title: Bump agent templates for infra.ci.jenkins.io (packer-image {{ source `packerImageVersion` }})
     targets:
       - setUbuntuAgentAMIAmd64
       - setUbuntuAgentAMIArm64
