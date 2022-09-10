@@ -267,7 +267,7 @@ releases:
   - name: artifact-caching-proxy-azure
     namespace: artifact-caching-proxy-azure
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.11
+    version: 0.0.10
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
@@ -278,7 +278,7 @@ releases:
   - name: artifact-caching-proxy-test
     namespace: artifact-caching-test
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.11
+    version: 0.0.10
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
