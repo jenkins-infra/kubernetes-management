@@ -55,7 +55,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump jenkins-infra helmfile docker image to {{ source lastRelease }}
+    title: Bump jenkins-infra helmfile docker image to {{ source `lastRelease` }}
     targets:
       - updatePodImage
       - updatePipelineImage
