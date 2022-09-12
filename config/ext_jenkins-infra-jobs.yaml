@@ -124,6 +124,17 @@ jobsDefinition:
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
+  updatecli:
+    name: Dependencies Management with Updatecli
+    kind: folder
+    credentials:
+      # Used by updatecli to retrieve AMIs
+      packer-aws-access-key-id: *packer-aws-access-key-id-def
+      # Used by updatecli to retrieve AMIs
+      packer-aws-secret-access-key: *packer-aws-secret-access-key-def
+    children:
+      kubernetes-management:
+        jenkinsfilePath: Jenkinsfile_updatecli
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
