@@ -79,19 +79,19 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.0.1
+    version: 3.0.3
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
     namespace: loki
     chart: grafana/promtail
-    version: 6.3.0
+    version: 6.4.0
     values:
       - "../config/ext_promtail.yaml"
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.37.2
+    version: 6.38.0
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -183,7 +183,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.1.17
+    version: 4.1.18
     timeout: 600
     set:
       - name: namespace
@@ -231,7 +231,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.1.17
+    version: 4.1.18
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
