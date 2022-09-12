@@ -121,28 +121,20 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for temp-privatek8s"
             secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
-      kubernetes-management-updatecli:
-        name: Kubernetes Management Dependencies
-        repository: kubernetes-management
-        jenkinsfilePath: Jenkinsfile_updatecli
-        description: Managing the dependencies of Kubernetes-hosted applications with updatecli
-        credentials:
-          sops-client-id:
-            secret: "${SOPS_CLIENT_ID}"
-            description: Azure client ID used by sops to decrypt secrets
-          sops-client-secret:
-            secret: "${SOPS_CLIENT_SECRET}"
-            description: Azure client secret used by sops to decrypt secrets
-          sops-tenant-id:
-            secret: "${SOPS_TENANT_ID}"
-            description: Azure tenant id used by sops to decrypt secrets
-          # Used by updatecli to retrieve AMIs
-          packer-aws-access-key-id: *packer-aws-access-key-id-def
-          # Used by updatecli to retrieve AMIs
-          packer-aws-secret-access-key: *packer-aws-secret-access-key-def
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
+  updatecli:
+    name: Kubernetes Management Dependencies
+    kind: folder
+    credentials:
+      # Used by updatecli to retrieve AMIs
+      packer-aws-access-key-id: *packer-aws-access-key-id-def
+      # Used by updatecli to retrieve AMIs
+      packer-aws-secret-access-key: *packer-aws-secret-access-key-def
+    children:
+      kubernetes-management:
+        jenkinsfilePath: Jenkinsfile_updatecli
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
