@@ -54,7 +54,7 @@ targets:
     name: Update docker-helmfile in Jenkinsfile
     kind: file
     spec:
-      file: Jenkinsfile_k8s
+      file: Jenkinsfile_updatecli
       # Please note that the patterns are specified as "block scalars" (>) with the last endline trimmed (-) to avoid tedious escaping of simple quotes
       matchpattern: >-
         'jenkinsciinfra/helmfile:(.*)'
@@ -72,3 +72,4 @@ pullrequests:
     spec:
       labels:
         - dependencies
+        - docker-helmfile
