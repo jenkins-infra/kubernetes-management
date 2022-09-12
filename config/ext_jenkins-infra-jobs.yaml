@@ -125,7 +125,7 @@ jobsDefinition:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
   updatecli:
-    name: Kubernetes Management Dependencies
+    name: Dependencies Management with Updatecli
     kind: folder
     credentials:
       # Used by updatecli to retrieve AMIs
