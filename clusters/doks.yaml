@@ -68,7 +68,7 @@ releases:
   - name: artifact-caching-proxy-do
     namespace: artifact-caching-proxy-do
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.10
+    version: 0.0.12
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
