@@ -1,0 +1,13 @@
+ingress:
+  hosts:
+    - host: repo.aws.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: tls-secret
+      hosts:
+        - repo.aws.jenkins.io
+
+persistence:
+  storageClass: gp2

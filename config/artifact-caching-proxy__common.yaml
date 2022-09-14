@@ -1,3 +1,16 @@
+# Common values for all nginx-proxies
+resources:
+  limits:
+    cpu: 2
+    memory: 1024Mi
+  requests:
+    cpu: 2
+    memory: 1024Mi
+
+persistence:
+  enabled: true
+  size: 50
+
 ingress:
   enabled: true
   className: public-nginx
@@ -7,15 +20,11 @@ ingress:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-  hosts:
-    - host: repo.do.jenkins.io
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: tls-secret
-      hosts:
-        - repo.do.jenkins.io
 
-persistence:
-  storageClass: do-block-storage
+# securityContext:
+#   fsGroup: 1002
+#   fsGroupChangePolicy: "OnRootMismatch"
+
+# podSecurityContext:
+#   runAsUser: 1001
+#   runAsGroup: 1002

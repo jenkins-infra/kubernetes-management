@@ -54,3 +54,20 @@ releases:
     version: 0.19.2
     values:
       - "../config/ext_aws-node-termination-handler.yaml"
+  - name: public-nginx-ingress
+    namespace: public-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.2.1
+    values:
+      - "../config/ext_public-nginx-ingress_doks.yaml"
+  - name: artifact-caching-proxy-aws
+    namespace: artifact-caching-proxy-aws
+    chart: jenkins-infra/artifact-caching-proxy
+    version: 0.0.13
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
+    values:
+      - "../config/artifact-caching-proxy__common.yaml"
+      - "../config/artifact-caching-proxy_aws.yaml"
+    secrets:
+      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
