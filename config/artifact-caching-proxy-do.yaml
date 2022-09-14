@@ -7,7 +7,6 @@ ingress:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-    nginx.ingress.kubernetes.io/whitelist-source-range: "88.172.134.5/32"
   hosts:
     - host: repo.do.jenkins.io
       paths:
