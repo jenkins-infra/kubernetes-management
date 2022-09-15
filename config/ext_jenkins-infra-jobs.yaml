@@ -48,6 +48,7 @@ jobsDefinition:
       docker-plugins-self-service:
       docker-rsyncd:
       rating:
+      plugin-health-scoring:
   infra-tools:
     name: Infrastructure Tooling Jobs
     description: Folder hosting all the Infrastructure Tools jobs
