@@ -27,9 +27,7 @@ releases:
     needs:
       - cert-manager
     values:
-      - "../config/acme.yaml"
-    secrets:
-      - "../secrets/config/acme/secrets.yaml"
+      - "../config/acme_doks.yaml"
   - name: docker-registry-secrets
     #this helmchart doesn't create any resources within the namespace specified below.
     #specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
@@ -66,7 +64,7 @@ releases:
     values:
       - "../config/ext_public-nginx-ingress_doks.yaml"
   - name: artifact-caching-proxy-do
-    namespace: artifact-caching-proxy-do
+    namespace: artifact-caching-proxy-doks
     chart: jenkins-infra/artifact-caching-proxy
     version: 0.0.13
     needs:
