@@ -72,7 +72,7 @@ releases:
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
-      - "../config/artifact-caching-proxy-common.yaml"
-      - "../config/artifact-caching-proxy-do.yaml"
+      - "../config/artifact-caching-proxy__common.yaml"
+      - "../config/artifact-caching-proxy_do.yaml"
     secrets:
       - "../secrets/config/artifact-caching-proxy/secrets.yaml"

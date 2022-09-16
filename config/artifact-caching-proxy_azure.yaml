@@ -1,0 +1,13 @@
+ingress:
+  hosts:
+    - host: repo.azure.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: tls-secret
+      hosts:
+        - repo.azure.jenkins.io
+
+persistence:
+  storageClass: managed-csi-premium
