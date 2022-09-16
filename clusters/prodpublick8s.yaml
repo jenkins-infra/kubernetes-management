@@ -49,7 +49,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.12.0
+    version: 15.12.2
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -79,7 +79,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.0.4
+    version: 3.0.6
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.38.1
+    version: 6.38.3
     values:
       - "../config/ext_grafana.yaml"
     secrets:
