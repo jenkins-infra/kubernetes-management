@@ -28,7 +28,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.1.1
+    version: 3.1.2
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -49,7 +49,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.12.0
+    version: 15.12.2
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -79,7 +79,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.0.3
+    version: 3.0.4
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.38.1
+    version: 6.38.3
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -183,7 +183,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.2.1
+    version: 4.2.2
     timeout: 600
     set:
       - name: namespace
@@ -231,7 +231,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.2.1
+    version: 4.2.2
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
