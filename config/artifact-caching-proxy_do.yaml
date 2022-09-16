@@ -1,0 +1,13 @@
+ingress:
+  hosts:
+    - host: repo.do.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: tls-secret
+      hosts:
+        - repo.do.jenkins.io
+
+persistence:
+  storageClass: do-block-storage

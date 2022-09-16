@@ -47,6 +47,7 @@ jobsDefinition:
       docker-plugin-site-issues:
       docker-plugins-self-service:
       docker-rsyncd:
+      plugin-health-scoring:
       rating:
   infra-tools:
     name: Infrastructure Tooling Jobs
