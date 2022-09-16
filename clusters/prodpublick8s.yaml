@@ -79,7 +79,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.0.4
+    version: 3.0.6
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
