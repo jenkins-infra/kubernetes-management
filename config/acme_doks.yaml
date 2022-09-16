@@ -8,9 +8,9 @@ acme:
     name: letsencrypt-prod
   # Enable the HTTP-01 challenge provider
   solvers:
-  - http01:
-      ingress:
-        class:  nginx
+    - http01:
+        ingress:
+          class: nginx
   clientSecrets:
-  - name: acme-secret-do-jenkins-io
-    value: password
+    - name: acme-secret-do-jenkins-io
+      value: password
