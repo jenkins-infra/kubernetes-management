@@ -48,7 +48,6 @@ jobsDefinition:
       docker-plugins-self-service:
       docker-rsyncd:
       plugin-health-scoring:
-        jenkinsfilePath: Jenkinsfile
       rating:
   infra-tools:
     name: Infrastructure Tooling Jobs
