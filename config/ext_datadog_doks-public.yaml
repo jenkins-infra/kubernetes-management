@@ -1,0 +1,6 @@
+datadog:
+  clusterName: 'doks-public'
+clusterAgent:
+  image:
+    pullSecrets:
+      - name: "dockerhub-credential"
