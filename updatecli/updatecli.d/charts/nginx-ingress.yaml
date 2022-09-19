@@ -27,7 +27,7 @@ targets:
     spec:
       files:
         - clusters/cik8s.yaml
-        - clusters/doks.yaml
+        - clusters/doks-public.yaml
         - clusters/prodpublick8s.yaml
         - clusters/temp-privatek8s.yaml
       matchpattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'

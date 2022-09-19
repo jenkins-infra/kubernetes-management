@@ -62,8 +62,8 @@ releases:
     version: 4.2.5
     values:
       - "../config/ext_public-nginx-ingress_doks.yaml"
-  - name: artifact-caching-proxy-aws
-    namespace: artifact-caching-proxy-aws
+  - name: artifact-caching-proxy
+    namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
     version: 0.0.13
     needs:

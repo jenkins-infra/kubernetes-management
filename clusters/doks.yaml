@@ -6,28 +6,9 @@ helmDefaults:
 repositories:
   - name: datadog
     url: https://helm.datadoghq.com
-  - name: ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
-  - name: jetstack
-    url: https://charts.jetstack.io
 releases:
-  - name: cert-manager
-    namespace: cert-manager
-    chart: jetstack/cert-manager
-    version: v1.9.1
-    set:
-      - name: installCRDs
-        value: true
-  - name: acme
-    namespace: cert-manager
-    chart: jenkins-infra/acme
-    version: 0.1.2
-    needs:
-      - cert-manager
-    values:
-      - "../config/acme_doks.yaml"
   - name: docker-registry-secrets
     #this helmchart doesn't create any resources within the namespace specified below.
     #specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
@@ -57,20 +38,3 @@ releases:
     version: 0.2.1
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
-  - name: public-nginx-ingress
-    namespace: public-nginx-ingress
-    chart: ingress-nginx/ingress-nginx
-    version: 4.2.5
-    values:
-      - "../config/ext_public-nginx-ingress_doks.yaml"
-  - name: artifact-caching-proxy-do
-    namespace: artifact-caching-proxy-doks
-    chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.13
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
-    values:
-      - "../config/artifact-caching-proxy__common.yaml"
-      - "../config/artifact-caching-proxy_do.yaml"
-    secrets:
-      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
