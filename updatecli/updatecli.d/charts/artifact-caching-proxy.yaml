@@ -26,7 +26,7 @@ targets:
     scmid: default
     spec:
       files:
-        - clusters/doks.yaml
+        - clusters/doks-public.yaml
         - clusters/prodpublick8s.yaml
       matchpattern: 'chart: jenkins-infra\/artifact-caching-proxy((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/artifact-caching-proxy${1}version: {{ source "lastChartVersion" }}'
