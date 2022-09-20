@@ -64,7 +64,7 @@ targets:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/ext_public-nginx-ingress_doks.yaml"
+      file: "config/ext_public-nginx-ingress_doks-public.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
   updatePublicNginxIngress404Cik8s:

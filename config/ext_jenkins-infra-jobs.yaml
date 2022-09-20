@@ -48,6 +48,7 @@ jobsDefinition:
       docker-plugins-self-service:
       docker-rsyncd:
       plugin-health-scoring:
+        jenkinsfilePath: Jenkinsfile
       rating:
   infra-tools:
     name: Infrastructure Tooling Jobs
@@ -114,6 +115,10 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for doks"
             secretBytes: "${base64:${KUBECONFIG_DOKS}}"
+          kubeconfig-doks-public:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for doks-public"
+            secretBytes: "${base64:${KUBECONFIG_DOKS_PUBLIC}}"
           kubeconfig-prodpublick8s:
             fileName: "kubeconfig"
             description: "Kubeconfig file for prodpublick8s"

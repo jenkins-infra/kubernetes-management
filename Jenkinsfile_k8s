@@ -29,7 +29,7 @@ pipeline {
         axes {
           axis {
             name 'K8S_CLUSTER'
-            values 'prodpublick8s', 'cik8s', 'temp-privatek8s', 'doks'
+            values 'prodpublick8s', 'cik8s', 'temp-privatek8s', 'doks', 'doks-public'
           }
         } // axes
         agent {
@@ -55,7 +55,7 @@ pipeline {
               dir ('secrets'){
                 git branch: 'main', credentialsId: 'github-app-infra', url: 'https://github.com/jenkins-infra/charts-secrets.git'
               }
-              sh 'if test "${K8S_CLUSTER}" = "doks"; then doctl auth init > /dev/null; fi'
+              sh 'if (test "${K8S_CLUSTER}" = "doks" || test "${K8S_CLUSTER}" = "doks-public"); then doctl auth init > /dev/null; echo "INFO: command doctl auth init executed."; fi'
               sh 'kubectl cluster-info'
             }
           }

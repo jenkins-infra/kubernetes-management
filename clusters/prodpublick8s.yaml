@@ -28,7 +28,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.1.2
+    version: 3.1.3
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -79,7 +79,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.0.6
+    version: 3.0.7
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.38.3
+    version: 6.38.5
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -183,7 +183,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.2.2
+    version: 4.2.4
     timeout: 600
     set:
       - name: namespace
@@ -225,13 +225,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.25
+    version: 0.3.26
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.2.2
+    version: 4.2.4
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -264,8 +264,8 @@ releases:
       - "../config/ext_github-comment-ops.yaml"
     secrets:
       - "../secrets/config/github-comment-ops/secrets.yaml"
-  - name: artifact-caching-proxy-azure
-    namespace: artifact-caching-proxy-azure
+  - name: artifact-caching-proxy
+    namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
     version: 0.0.13
     needs:
