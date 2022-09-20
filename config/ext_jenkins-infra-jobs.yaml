@@ -116,7 +116,7 @@ jobsDefinition:
             secretBytes: "${base64:${KUBECONFIG_DOKS}}"
           kubeconfig-doks-public:
             fileName: "kubeconfig"
-            description: "Kubeconfig file for doks"
+            description: "Kubeconfig file for doks-public"
             secretBytes: "${base64:${KUBECONFIG_DOKS_PUBLIC}}"
           kubeconfig-prodpublick8s:
             fileName: "kubeconfig"
