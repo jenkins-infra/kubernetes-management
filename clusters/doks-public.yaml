@@ -20,7 +20,10 @@ releases:
     chart: jenkins-infra/docker-registry-secrets
     version: 0.1.0
     values:
-      - "../config/docker-registry-secrets.yaml"
+      - imageCredentials:
+          enabled: true
+          namespaces:
+            - datadog
     secrets:
       - "../secrets/config/docker-registry-secrets/secrets.yaml"
   - name: cert-manager
@@ -39,11 +42,11 @@ releases:
     values:
       - "../config/acme_doks-public.yaml"
   - name: datadog
-    needs:
-      - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
     version: 3.1.2
+    needs:
+      - default/docker-registry-secrets
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_doks-public.yaml"
