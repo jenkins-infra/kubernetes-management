@@ -49,7 +49,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.12.2
+    version: 15.13.0
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -73,13 +73,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.0.17
+    version: 2.0.18
     values:
       - "../config/ext_falco.yaml"
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.0.7
+    version: 3.0.8
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.38.5
+    version: 6.38.6
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -173,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.17.0
+    version: 0.17.2
     timeout: 600
     atomic: false
     values:
