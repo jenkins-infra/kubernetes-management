@@ -1,0 +1,40 @@
+title: "Bump plugin-health-scoring Helm Chart Version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  lastChartVersion:
+    kind: helmchart
+    spec:
+      url: https://jenkins-infra.github.io/helm-charts
+      name: plugin-health-scoring
+
+targets:
+  updateChartVersion:
+    name: "Update the chart version for plugin-health-scoring"
+    kind: file
+    spec:
+      file: clusters/prodpublick8s.yaml
+      matchpattern: 'chart: jenkins-infra\/plugin-health-scoring((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/plugin-health-scoring${1}version: {{ source "lastChartVersion" }}'
+    scmid: default
+
+pullrequests:
+  default:
+    kind: github
+    scmid: default
+    title: "Bump plugin-health-scoring helm chart version to {{ source `lastChartVersion` }}"
+    spec:
+      labels:
+        - dependencies
+        - plugin-health-scoring
