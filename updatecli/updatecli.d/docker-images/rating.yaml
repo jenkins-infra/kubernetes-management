@@ -1,0 +1,51 @@
+title: Bump rating docker image version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  latestRelease:
+    kind: githubrelease
+    name: "Get latest jenkins-infra/rating release"
+    spec:
+      owner: "jenkins-infra"
+      repository: "rating"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+
+conditions:
+  checkDockerImagePublished:
+    name: "Test jenkinsciinfra/rating:<latest_version> docker image tag"
+    kind: dockerimage
+    spec:
+      image: "jenkinsciinfra/rating"
+      ## Tag from source
+      architecture: amd64
+
+targets:
+  updateRelease:
+    name: "Update rating docker image tag"
+    kind: yaml
+    spec:
+      file: "config/rating.yaml"
+      key: "image.tag"
+    scmid: default
+
+pullrequests:
+  default:
+    kind: github
+    scmid: default
+    title: Bump rating docker version to {{ source "latestRelease" }}
+    spec:
+      labels:
+        - dependencies
+        - rating

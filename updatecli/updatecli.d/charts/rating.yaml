@@ -1,0 +1,40 @@
+title: "Bump rating Helm Chart Version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  lastChartVersion:
+    kind: helmchart
+    spec:
+      url: https://jenkins-infra.github.io/helm-charts
+      name: rating
+
+targets:
+  updateChartVersion:
+    name: "Update the chart version for rating"
+    kind: file
+    spec:
+      file: clusters/prodpublick8s.yaml
+      matchpattern: 'chart: jenkins-infra\/rating((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/rating${1}version: {{ source "lastChartVersion" }}'
+    scmid: default
+
+pullrequests:
+  default:
+    kind: github
+    scmid: default
+    title: "Bump rating Helm chart to {{ source `lastChartVersion` }}"
+    spec:
+      labels:
+        - dependencies
+        - rating
