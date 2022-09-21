@@ -1,0 +1,18 @@
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: plugin-health.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: plugin-health-scoring-tls
+      hosts:
+        - plugin-health.jenkins.io
+
+image:
+  tag: 0.0.1 # maintained with updatecli
