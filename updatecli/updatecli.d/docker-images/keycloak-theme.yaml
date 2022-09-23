@@ -1,4 +1,4 @@
-title: Bump keycloak-theme docker image version
+name: Bump `keycloak-theme` docker image version
 
 scms:
   default:
@@ -45,9 +45,8 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateReleaseInConfig
+    title: Bump `keycloak-theme` docker image version to {{ source "latestRelease" }}
     spec:
       labels:
         - dependencies
-        - certmanager
+        - keycloak-theme

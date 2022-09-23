@@ -1,4 +1,4 @@
-title: Bump nginx-ingress helm chart
+name: Bump nginx-ingress helm chart
 
 scms:
   default:
@@ -16,6 +16,7 @@ sources:
   lastChartVersion:
     name: "Retrieve latest version of the chart ingress-nginx"
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://kubernetes.github.io/ingress-nginx
       name: ingress-nginx
@@ -37,8 +38,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `nginx-ingress` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies

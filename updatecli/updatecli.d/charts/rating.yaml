@@ -1,4 +1,4 @@
-name: Bump Jenkins Upstream Helm Charts
+title: "Bump rating Helm Chart Version"
 
 scms:
   default:
@@ -17,30 +17,25 @@ sources:
     kind: helmchart
     name: get last chart version
     spec:
-      url: https://charts.jenkins.io
-      name: jenkins
+      url: https://jenkins-infra.github.io/helm-charts
+      name: rating
 
 targets:
   updateChartVersion:
-    name: "jenkinsci/jenkins Helm Chart"
+    name: "Update the chart version for rating"
     kind: file
     spec:
-      files:
-        - clusters/prodpublick8s.yaml
-        - clusters/temp-privatek8s.yaml
-      matchpattern: 'chart: jenkins\/jenkins((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins/jenkins${1}version: {{ source "lastChartVersion" }}'
+      file: clusters/prodpublick8s.yaml
+      matchpattern: 'chart: jenkins-infra\/rating((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/rating${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
 pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump `jenkins` helm chart version to {{ source "lastChartVersion" }}
+    title: Bump `rating` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
-        - infra.ci.jenkins.io
-        - release.ci.jenkins.io
-        - weekly.ci.jenkins.io
-        - jenkins
+        - rating

@@ -1,4 +1,4 @@
-title: "Bump Jenkins LTS docker image version"
+name: "Bump Jenkins LTS docker image version"
 
 scms:
   default:
@@ -44,8 +44,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateReleaseInConfig
+    title: Bump Jenkins LTS docker image version to {{ source "latestRelease" }}
     spec:
       labels:
         - dependencies

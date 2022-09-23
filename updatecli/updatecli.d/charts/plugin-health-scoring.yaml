@@ -1,4 +1,4 @@
-title: "Bump plugin-health-scoring Helm Chart Version"
+name: "Bump plugin-health-scoring Helm Chart Version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: plugin-health-scoring
@@ -33,7 +34,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    title: "Bump plugin-health-scoring helm chart version to {{ source `lastChartVersion` }}"
+    title: Bump `plugin-health-scoring` helm chart version to {{ source `lastChartVersion` }}
     spec:
       labels:
         - dependencies

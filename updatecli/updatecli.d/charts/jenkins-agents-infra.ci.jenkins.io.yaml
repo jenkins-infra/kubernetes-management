@@ -1,4 +1,5 @@
-title: Bump agent templates version for infra.ci.jenkins.io
+name: Bump agent templates version for infra.ci.jenkins.io
+
 scms:
   default:
     kind: github
@@ -14,6 +15,7 @@ scms:
 sources:
   packerImageVersion:
     kind: githubrelease
+    name: get last packer-image release
     spec:
       owner: "jenkins-infra"
       repository: "packer-images"
@@ -21,7 +23,8 @@ sources:
       username: "{{ .github.username }}"
   getLatestUbuntuAgentAMIAmd64:
     kind: aws/ami
-    depends_on:
+    name: get latest Ubuntu amd64 agent AMI
+    dependson:
       - packerImageVersion
     spec:
       region: us-east-2
@@ -35,7 +38,8 @@ sources:
           values: '{{ source "packerImageVersion" }}'
   getLatestWindowsAgentAMIAmd64:
     kind: aws/ami
-    depends_on:
+    name: get latest Windows amd64 agent AMI
+    dependson:
       - packerImageVersion
     spec:
       region: us-east-2
@@ -49,7 +53,8 @@ sources:
           values: '{{ source "packerImageVersion" }}'
   getLatestUbuntuAgentAMIArm64:
     kind: aws/ami
-    depends_on:
+    name: get latest Ubuntu arm64 agent AMI
+    dependson:
       - packerImageVersion
     spec:
       region: us-east-2
@@ -96,7 +101,7 @@ pullrequests:
     kind: github
     scmid: default
     title: Bump agent templates for infra.ci.jenkins.io (packer-image {{ source `packerImageVersion` }})
-    targets:
-      - setUbuntuAgentAMIAmd64
-      - setUbuntuAgentAMIArm64
-      - setWindowsAgentAMIamd64
+    spec:
+      labels:
+        - dependencies
+        - agent-templates

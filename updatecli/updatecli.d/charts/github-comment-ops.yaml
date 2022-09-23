@@ -1,4 +1,4 @@
-title: "Bump github-comment-ops Helm Chart Version"
+name: "Bump github-comment-ops Helm Chart Version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://timja.github.io/github-comment-ops
       name: github-comment-ops
@@ -33,8 +34,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `github-comment-ops` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies

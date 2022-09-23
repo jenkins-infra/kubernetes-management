@@ -1,4 +1,4 @@
-title: "Bump env-jenkins-release Helm Chart Version"
+name: "Bump env-jenkins-release Helm Chart Version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: env-jenkins-release
@@ -33,9 +34,8 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `env-jenkins-release` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
-        - env-jenkins
+        - env-jenkins-release

@@ -1,4 +1,4 @@
-title: "Bump jenkinsistheway.io redirection Helm Chart Version"
+name: "Bump jenkinsistheway.io redirection Helm Chart Version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: httpredirector
@@ -33,9 +34,9 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump jenkinsistheway.io redirection helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
         - jenkinsisthewayio-redirection
+        - httpredirector

@@ -1,4 +1,4 @@
-title: Bump aws-node-termination-handler helm chart version
+name: Bump aws-node-termination-handler helm chart version
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://aws.github.io/eks-charts
       name: aws-node-termination-handler
@@ -33,9 +34,8 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `aws-node-termination-handler` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
-        - aws-node-termination
+        - aws-node-termination-handler
