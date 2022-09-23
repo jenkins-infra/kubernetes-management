@@ -1,0 +1,17 @@
+name: PR Updater
+
+on:
+    push:
+        branches: 
+            - main
+
+jobs:
+    autoupdate:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v1
+        - name: update all pull requests except those with the label 'prevent-pr-updater'
+            uses: maxkomarychev/pr-updater-action@v1.0.0
+            if: !contains(github.event.pull_request.labels.*.name, 'prevent-pr-updater')
+            with:
+                token: ${{ secrets.USER_TOKEN }}
