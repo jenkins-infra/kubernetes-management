@@ -1,4 +1,4 @@
-title: "Bump rating Helm Chart Version"
+name: "Bump rating Helm Chart Version"
 
 scms:
   default:
@@ -15,7 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
-    name: get last chart version
+    name: "Get the latest helm chart version"
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: rating
