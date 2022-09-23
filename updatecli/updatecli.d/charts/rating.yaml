@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: "Get the latest helm chart version"
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: rating
