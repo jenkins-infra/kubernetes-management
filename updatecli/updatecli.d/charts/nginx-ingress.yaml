@@ -16,7 +16,6 @@ sources:
   lastChartVersion:
     name: "Retrieve latest version of the chart ingress-nginx"
     kind: helmchart
-    name: get last chart version
     spec:
       url: https://kubernetes.github.io/ingress-nginx
       name: ingress-nginx

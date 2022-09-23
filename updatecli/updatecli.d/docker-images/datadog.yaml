@@ -38,7 +38,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump `datadog`` docker image version to {{ source "latestRelease" }}
+    title: Bump `datadog` docker image version to {{ source "latestDigest" }}
     spec:
       labels:
         - dependencies
