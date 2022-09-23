@@ -1,0 +1,34 @@
+defaultBackend:
+  enabled: true
+  image:
+    repository: jenkinsciinfra/404
+    tag: 0.3.55
+    pullPolicy: IfNotPresent
+  ## Unprivileged port as non root user and no escalation allowed
+  port: 8080
+  ## Volumes are required because rootfs is readonly
+  extraVolumeMounts:
+    - name: nginx-cache
+      mountPath: /var/cache/nginx
+    - name: nginx-rundir
+      mountPath: /var/run/nginx
+    - name: nginx-logs
+      mountPath: /var/logs/nginx
+  extraVolumes:
+    - name: nginx-cache
+      emptyDir: {}
+    - name: nginx-rundir
+      emptyDir: {}
+    - name: nginx-logs
+      emptyDir: {}
+controller:
+  publishService:
+    enabled: true
+  ingressClassResource:
+    enabled: true
+    default: false
+    name: public-nginx
+  # service:
+  #   annotations:
+  #     # LB id obtained from the build logs of https://github.com/jenkins-infra/digitalocean/commit/2d20ee873d12fbfc33dec479d84aca6acdc2fd52
+  #     kubernetes.digitalocean.com/load-balancer-id: 6e5fe5f9-d1ae-457c-a1f7-eca3e4a69e58
