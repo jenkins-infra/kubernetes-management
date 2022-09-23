@@ -1,4 +1,4 @@
-title: Bump datadog docker image digest
+name: Bump `datadog` docker image digest
 
 scms:
   default:
@@ -38,8 +38,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateDigestInConfig
+    title: Bump `datadog` docker image version to {{ source "latestDigest" }}
     spec:
       labels:
         - dependencies

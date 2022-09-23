@@ -1,4 +1,4 @@
-title: Bump cert-manager helm chart version
+name: Bump cert-manager helm chart version
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://charts.jetstack.io
       name: cert-manager
@@ -35,8 +36,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `cert-manager` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies

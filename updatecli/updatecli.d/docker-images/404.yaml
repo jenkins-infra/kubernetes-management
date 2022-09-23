@@ -1,4 +1,4 @@
-title: Bump 404 docker image version
+name: Bump `404` docker image version
 
 scms:
   default:
@@ -79,13 +79,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updatePrivateNginxIngress404ProdPublicK8s
-      - updatePublicNginxIngress404ProdPublicK8s
-      - updatePrivateNginxIngress404TempPrivateK8s
-      - updatePublicNginxIngress404TempPrivateK8s
-      - updatePublicNginxIngress404Doks
-      - updatePublicNginxIngress404Cik8s
+    title: Bump `404` docker image version to {{ source "latestRelease" }}
     spec:
       labels:
         - dependencies

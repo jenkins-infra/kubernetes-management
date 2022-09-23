@@ -1,4 +1,4 @@
-title: "Bump Acme Helm Chart Version"
+name: "Bump Acme Helm Chart Version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: acme
@@ -36,8 +37,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `acme` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies

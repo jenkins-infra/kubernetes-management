@@ -1,4 +1,4 @@
-title: Bump Security Groups on jenkins-infra AND release
+name: Bump Security Groups on jenkins-infra AND release
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   getNewJenkinsInfraSecurityGroup:
     kind: file
+    name: get new Jenkins Infra Security Group
     spec:
       file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
       matchpattern: 'aws_security_group.*\["(.*?):'
@@ -25,6 +26,7 @@ sources:
       - addprefix: "ec2_agents_"
   getNewJenkinsReleaseSecurityGroup:
     kind: file
+    name: get new Jenkins Release Security Group
     spec:
       file: https://raw.githubusercontent.com/jenkins-infra/aws/main/locals.tf
       matchpattern: 'aws_security_group.*\[".*", "(.*?):'
@@ -58,6 +60,10 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - setJenkinsInfraSecurityGroup
-      - setJenkinsReleaseSecurityGroup
+    title: Bump Security Groups on Jenkins Infra and Release
+    spec:
+      labels:
+        - dependencies
+        - security-groups
+        - infra.ci.jenkins.io
+        - release.ci.jenkins.io

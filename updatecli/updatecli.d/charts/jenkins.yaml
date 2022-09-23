@@ -1,4 +1,4 @@
-title: Bump Jenkins Upstream Helm Charts
+name: Bump Jenkins Upstream Helm Charts
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://charts.jenkins.io
       name: jenkins
@@ -35,8 +36,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `jenkins` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies

@@ -1,4 +1,4 @@
-title: "Bump jenkins-infra-keycloak Helm Chart Version"
+name: "Bump jenkins-infra-keycloak Helm Chart Version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: keycloak
@@ -33,9 +34,8 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `jenkins-infra-keycloak` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
-        - keycloak
+        - jenkins-infra-keycloak

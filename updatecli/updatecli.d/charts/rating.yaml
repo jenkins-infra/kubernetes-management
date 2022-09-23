@@ -34,7 +34,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    title: "Bump rating Helm chart to {{ source `lastChartVersion` }}"
+    title: Bump `rating` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies

@@ -1,4 +1,4 @@
-title: "Bump `artifact-caching-proxy` helm chart version"
+name: "Bump `artifact-caching-proxy` helm chart version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: artifact-caching-proxy
@@ -36,8 +37,6 @@ pullrequests:
     kind: github
     scmid: default
     title: Bump `artifact-caching-proxy` helm chart version to {{ source `lastChartVersion` }}
-    targets:
-      - updateChartVersion
     spec:
       labels:
         - dependencies

@@ -1,4 +1,4 @@
-title: Bump datadog helm chart
+name: Bump datadog helm chart
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://helm.datadoghq.com
       name: datadog
@@ -37,8 +38,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateClusters
+    title: Bump `datadog` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies

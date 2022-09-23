@@ -1,4 +1,4 @@
-title: "Bump jenkins-kubernetes-agents Helm Chart Version"
+name: "Bump jenkins-kubernetes-agents Helm Chart Version"
 
 scms:
   default:
@@ -15,6 +15,7 @@ scms:
 sources:
   lastChartVersion:
     kind: helmchart
+    name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
       name: jenkins-kubernetes-agents
@@ -35,8 +36,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    targets:
-      - updateChartVersion
+    title: Bump `jenkins-kubernetes-agents` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
