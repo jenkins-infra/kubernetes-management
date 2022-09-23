@@ -12,6 +12,6 @@ jobs:
         - uses: actions/checkout@v1
         - name: update all pull requests except those with the label 'prevent-pr-updater' and those in draft
             uses: maxkomarychev/pr-updater-action@v1.0.0
-            if: !contains(github.event.pull_request.labels.*.name, 'prevent-pr-updater') &&  if: !github.event.pull_request.draft
+            if: !contains(github.event.pull_request.labels.*.name, 'prevent-pr-updater') && !github.event.pull_request.draft
             with:
                 token: ${{ secrets.USER_TOKEN }}
