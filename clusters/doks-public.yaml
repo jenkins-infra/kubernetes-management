@@ -51,7 +51,7 @@ releases:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_doks-public.yaml"
     secrets:
-      - "../secrets/config/datadog/doks-secrets.yaml"
+      - "../secrets/config/datadog/doks-public-secrets.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
