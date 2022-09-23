@@ -14,4 +14,4 @@ jobs:
             uses: maxkomarychev/pr-updater-action@v1.0.0
             if: !contains(github.event.pull_request.labels.*.name, 'prevent-pr-updater') && !github.event.pull_request.draft
             with:
-                token: ${{ secrets.USER_TOKEN }}
+                token: ${{ secrets.GITHUB_TOKEN }}
