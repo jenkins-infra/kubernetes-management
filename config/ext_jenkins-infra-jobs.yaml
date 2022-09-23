@@ -111,6 +111,10 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for cik8s"
             secretBytes: "${base64:${KUBECONFIG_CIK8S}}"
+          kubeconfig-eks-public:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for eks-public"
+            secretBytes: "${base64:${KUBECONFIG_EKS_PUBLIC}}"
           kubeconfig-doks:
             fileName: "kubeconfig"
             description: "Kubeconfig file for doks"
