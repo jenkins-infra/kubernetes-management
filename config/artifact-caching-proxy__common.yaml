@@ -1,11 +1,11 @@
 # Common values for all nginx-proxies
 resources:
   limits:
-    cpu: 2
-    memory: 1024Mi
+    cpu: 3
+    memory: 6146Mi
   requests:
-    cpu: 2
-    memory: 1024Mi
+    cpu: 3
+    memory: 6146Mi
 
 persistence:
   enabled: true
