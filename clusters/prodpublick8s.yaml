@@ -79,7 +79,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.0.8
+    version: 3.0.9
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.38.6
+    version: 6.38.7
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -183,7 +183,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.2.4
+    version: 4.2.5
     timeout: 600
     set:
       - name: namespace
@@ -231,7 +231,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.2.4
+    version: 4.2.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -267,7 +267,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.13
+    version: 0.0.14
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
@@ -278,7 +278,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 1.2.1
+    version: 1.2.2
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
