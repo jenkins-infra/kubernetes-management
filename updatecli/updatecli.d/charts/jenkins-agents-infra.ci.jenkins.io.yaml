@@ -24,7 +24,9 @@ sources:
   getLatestUbuntuAgentAMIAmd64:
     kind: aws/ami
     name: get latest Ubuntu amd64 agent AMI
-    dependson:
+    # On hold until Updatecli 0.34.0 is released
+    # dependson:
+    depends_on:
       - packerImageVersion
     spec:
       region: us-east-2
@@ -39,7 +41,9 @@ sources:
   getLatestWindowsAgentAMIAmd64:
     kind: aws/ami
     name: get latest Windows amd64 agent AMI
-    dependson:
+    # On hold until Updatecli 0.34.0 is released
+    #dependson:
+    depends_on:
       - packerImageVersion
     spec:
       region: us-east-2
