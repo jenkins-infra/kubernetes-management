@@ -44,7 +44,8 @@ releases:
   # helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=jenkins-infra-public-ENRZrfwf -n kube-system
   - name: aws-load-balancer-controller
     namespace: kube-system
-    version: 2.4.3
+    chart: eks/aws-load-balancer-controller
+    version: 2.4.4
     values:
       - "../config/ext_aws-load-balancer-controller.yaml"
   - name: cert-manager
@@ -72,7 +73,7 @@ releases:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_eks-public.yaml"
     secrets:
-      - "../secrets/config/datadog/eks-secrets.yaml"
+      - "../secrets/config/datadog/eks-public-secrets.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
