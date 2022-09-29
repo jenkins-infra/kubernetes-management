@@ -45,7 +45,7 @@ releases:
   - name: aws-load-balancer-controller
     namespace: kube-system
     chart: eks/aws-load-balancer-controller
-    version: 2.4.4
+    version: 1.4.5
     values:
       - "../config/ext_aws-load-balancer-controller.yaml"
   - name: cert-manager
