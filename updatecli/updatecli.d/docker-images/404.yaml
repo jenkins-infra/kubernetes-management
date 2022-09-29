@@ -86,7 +86,7 @@ pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump `404` docker image version to {{ source "latestRelease" }}
+    title: Bump 404 docker image version to {{ source "latestRelease" }}
     spec:
       labels:
         - dependencies
