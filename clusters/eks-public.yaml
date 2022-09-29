@@ -41,7 +41,7 @@ releases:
       - "../config/ext_aws-node-termination-handler_eks-public.yaml"
   # https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
   # # If not using IAM Roles for service account
-  # helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=jenkins-infra-public-ENRZrfwf -n kube-system
+  # helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=jenkins-infra-public-Y9wILECh -n kube-system
   - name: aws-load-balancer-controller
     namespace: kube-system
     chart: eks/aws-load-balancer-controller
