@@ -1,7 +1,7 @@
 helmDefaults:
   atomic: true
   force: false
-  timeout: 300
+  timeout: 600
   wait: true
 repositories:
   - name: autoscaler
@@ -18,8 +18,8 @@ repositories:
     url: https://charts.jetstack.io
 releases:
   - name: docker-registry-secrets
-    #this helmchart doesn't create any resources within the namespace specified below.
-    #specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
+    # This helm chart doesn't create any resources within the namespace specified below.
+    # Specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
     namespace: default
     chart: jenkins-infra/docker-registry-secrets
     version: 0.1.0
@@ -42,10 +42,12 @@ releases:
   # https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
   # # If not using IAM Roles for service account
   # helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=jenkins-infra-public-Y9wILECh -n kube-system
+  # Prerequisite: install CRDs with
+  # kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
   - name: aws-load-balancer-controller
-    namespace: kube-system
+    namespace: nlb
     chart: eks/aws-load-balancer-controller
-    version: 1.4.5
+    version: 1.4.4
     values:
       - "../config/ext_aws-load-balancer-controller.yaml"
   - name: cert-manager
@@ -55,39 +57,39 @@ releases:
     set:
       - name: installCRDs
         value: true
-  - name: acme
-    namespace: cert-manager
-    chart: jenkins-infra/acme
-    version: 0.1.2
-    needs:
-      - cert-manager
-    values:
-      - "../config/acme_eks-public.yaml"
-  - name: datadog
-    namespace: datadog
-    chart: datadog/datadog
-    version: 3.1.2
-    needs:
-      - default/docker-registry-secrets
-    values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_eks-public.yaml"
-    secrets:
-      - "../secrets/config/datadog/eks-public-secrets.yaml"
-  - name: public-nginx-ingress
-    namespace: public-nginx-ingress
-    chart: ingress-nginx/ingress-nginx
-    version: 4.2.5
-    values:
-      - "../config/ext_public-nginx-ingress_eks-public.yaml"
-  - name: artifact-caching-proxy
-    namespace: artifact-caching-proxy
-    chart: jenkins-infra/artifact-caching-proxy
-    version: 0.0.14
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
-    values:
-      - "../config/artifact-caching-proxy__common.yaml"
-      - "../config/artifact-caching-proxy_aws.yaml"
-    secrets:
-      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
+  # - name: acme
+  #   namespace: cert-manager
+  #   chart: jenkins-infra/acme
+  #   version: 0.1.2
+  #   needs:
+  #     - cert-manager
+  #   values:
+  #     - "../config/acme_eks-public.yaml"
+  # - name: datadog
+  #   namespace: datadog
+  #   chart: datadog/datadog
+  #   version: 3.1.2
+  #   needs:
+  #     - default/docker-registry-secrets
+  #   values:
+  #     - "../config/ext_datadog.yaml.gotmpl"
+  #     - "../config/ext_datadog_eks-public.yaml"
+  #   secrets:
+  #     - "../secrets/config/datadog/eks-public-secrets.yaml"
+  # - name: public-nginx-ingress
+  #   namespace: public-nginx-ingress
+  #   chart: ingress-nginx/ingress-nginx
+  #   version: 4.2.5
+  #   values:
+  #     - "../config/ext_public-nginx-ingress_eks-public.yaml"
+  # - name: artifact-caching-proxy
+  #   namespace: artifact-caching-proxy
+  #   chart: jenkins-infra/artifact-caching-proxy
+  #   version: 0.1.0
+  #   # needs:
+  #   #   - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
+  #   values:
+  #     - "../config/artifact-caching-proxy__common.yaml"
+  #     - "../config/artifact-caching-proxy_aws.yaml"
+  #   secrets:
+  #     - "../secrets/config/artifact-caching-proxy/secrets.yaml"

@@ -1,5 +1,6 @@
 defaultBackend:
-  enabled: true
+  # disabled as not compatible with arm
+  enabled: false
   image:
     repository: jenkinsciinfra/404
     tag: 0.3.55
@@ -28,7 +29,8 @@ controller:
     enabled: true
     default: false
     name: public-nginx
-  # service:
-  #   annotations:
-  #     # LB id obtained from the build logs of https://github.com/jenkins-infra/digitalocean/commit/2d20ee873d12fbfc33dec479d84aca6acdc2fd52
-  #     kubernetes.digitalocean.com/load-balancer-id: 6e5fe5f9-d1ae-457c-a1f7-eca3e4a69e58
+  service:
+    annotations:
+      # service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+      service.beta.kubernetes.io/aws-load-balancer-type: "external"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"

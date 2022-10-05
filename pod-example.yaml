@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+        app.kubernetes.io/name: hello-world
+    spec:
+      serviceAccount: aws-load-balancer-controller
+      containers:
+      - name: hello-world-pod
+        image: nginx
+        ports: 
+        - containerPort: 80
+        - containerPort: 443
