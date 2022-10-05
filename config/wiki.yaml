@@ -27,5 +27,4 @@ resources:
     memory: 128Mi
 replicaCount: 2
 image:
-  tag: 0.0.13
   pullPolicy: IfNotPresent
