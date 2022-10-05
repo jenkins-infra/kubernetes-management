@@ -15,5 +15,4 @@ ingress:
       hosts:
         - customize.jenkins.io
 image:
-  tag: "0.0.5"
   pullPolicy: IfNotPresent

@@ -13,6 +13,3 @@ ingress:
     - secretName: plugin-health-scoring-tls
       hosts:
         - plugin-health.jenkins.io
-
-image:
-  tag: 0.0.1 # maintained with updatecli

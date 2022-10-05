@@ -13,7 +13,6 @@ ingress:
     - secretName: rating-tls
       hosts:
         - rating.jenkins.io
-image:
-  tag: 0.0.7 # update with updatecli
+
 readinessProbe:
   enabled: false
