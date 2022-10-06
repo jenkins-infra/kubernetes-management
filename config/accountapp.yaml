@@ -1,5 +1,4 @@
 image:
-  tag: 0.0.7
   pullPolicy: IfNotPresent
 ingress:
   enabled: true
