@@ -85,13 +85,13 @@ releases:
   - name: promtail
     namespace: loki
     chart: grafana/promtail
-    version: 6.4.0
+    version: 6.5.0
     values:
       - "../config/ext_promtail.yaml"
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.40.0
+    version: 6.40.4
     values:
       - "../config/ext_grafana.yaml"
     secrets:
