@@ -20,6 +20,7 @@ releases:
   - name: docker-registry-secrets
     # This helm chart doesn't create any resources within the namespace specified below.
     # Specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
+    # NOTE: ensure a 'datadog' namespace exists before deploying a release of this chart to avoid errors
     namespace: default
     chart: jenkins-infra/docker-registry-secrets
     version: 0.1.0
@@ -27,12 +28,13 @@ releases:
       - "../config/docker-registry-secrets.yaml"
     secrets:
       - "../secrets/config/docker-registry-secrets/secrets.yaml"
-  # - name: autoscaler
-  #   namespace: autoscaler
-  #   chart: autoscaler/cluster-autoscaler
-  #   version: 9.21.0
-  #   values:
-  #     - "../config/ext_autoscaler_eks-public.yaml"
+  - name: autoscaler
+    namespace: autoscaler
+    chart: autoscaler/cluster-autoscaler
+    version: 9.21.0
+    values:
+      - "../config/ext_autoscaler_eks-public.yaml"
+      - clusterName: public-blessed-bullfrog
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
@@ -45,27 +47,27 @@ releases:
   # Prerequisite: install CRDs with
   # kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
   - name: aws-load-balancer-controller
-    namespace: nlb
+    namespace: aws-load-balancer
     chart: eks/aws-load-balancer-controller
     version: 1.4.5
     values:
       - "../config/ext_aws-load-balancer-controller.yaml"
       - clusterName: public-blessed-bullfrog
-  # - name: cert-manager
-  #   namespace: cert-manager
-  #   chart: jetstack/cert-manager
-  #   version: v1.9.1
-  #   set:
-  #     - name: installCRDs
-  #       value: true
-  # - name: acme
-  #   namespace: cert-manager
-  #   chart: jenkins-infra/acme
-  #   version: 0.1.2
-  #   needs:
-  #     - cert-manager
-  #   values:
-  #     - "../config/acme_eks-public.yaml"
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.9.1
+    set:
+      - name: installCRDs
+        value: true
+  - name: acme
+    namespace: cert-manager
+    chart: jenkins-infra/acme
+    version: 0.1.2
+    needs:
+      - cert-manager
+    values:
+      - "../config/acme_eks-public.yaml"
   # - name: datadog
   #   namespace: datadog
   #   chart: datadog/datadog
@@ -86,9 +88,9 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.1.0
-    # needs:
-    #   - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
+    version: 0.1.1
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
       - "../config/artifact-caching-proxy__common.yaml"
       - "../config/artifact-caching-proxy_aws.yaml"
