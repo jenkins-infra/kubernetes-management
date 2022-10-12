@@ -34,7 +34,9 @@ releases:
     version: 9.21.0
     values:
       - "../config/ext_autoscaler_eks-public.yaml"
-      - clusterName: public-blessed-bullfrog
+    set:
+      - name: autoDiscovery.clusterName
+        value: public-model-hermit
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
