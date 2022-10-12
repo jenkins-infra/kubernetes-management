@@ -1,0 +1,6 @@
+datadog:
+  clusterName: 'eks-public'
+clusterAgent:
+  image:
+    pullSecrets:
+      - name: "dockerhub-credential"

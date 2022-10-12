@@ -1,4 +1,4 @@
-name: "Bump Acme Helm Chart Version"
+name: Bump aws-load-balancer-controller helm chart version
 
 scms:
   default:
@@ -14,32 +14,29 @@ scms:
 
 sources:
   lastChartVersion:
-    kind: helmchart
     name: get last chart version
+    kind: helmchart
     spec:
-      url: https://jenkins-infra.github.io/helm-charts
-      name: acme
+      url: https://aws.github.io/eks-charts
+      name: aws-load-balancer-controller
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for acme"
+    name: "eks/aws-load-balancer-controller Helm Chart"
     kind: file
+    scmid: default
     spec:
       files:
-        - clusters/doks-public.yaml
         - clusters/eks-public.yaml
-        - clusters/prodpublick8s.yaml
-        - clusters/temp-privatek8s.yaml
-      matchpattern: 'chart: jenkins-infra\/acme((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/acme${1}version: {{ source "lastChartVersion" }}'
-    scmid: default
+      matchpattern: 'chart: eks\/aws-load-balancer-controller((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: eks/aws-load-balancer-controller${1}version: {{ source "lastChartVersion" }}'
 
 pullrequests:
   default:
     kind: github
     scmid: default
-    title: Bump `acme` helm chart version to {{ source "lastChartVersion" }}
+    title: Bump `aws-load-balancer-controller` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
-        - acme
+        - aws-load-balancer-controller

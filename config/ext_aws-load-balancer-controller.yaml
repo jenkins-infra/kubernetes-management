@@ -1,0 +1,7 @@
+# https://github.com/jenkins-infra/aws/blob/e17045dab632d8e939f16ca7ade65ecf65ac4118/eks-public-cluster.tf#L11
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+  annotations:
+    # This value should match the ARN of the role created by module.iam_assumable_role_admin in iam-role-nlb.tf
+    eks.amazonaws.com/role-arn: "arn:aws:iam::200564066411:role/aws-load-balancer-controller"

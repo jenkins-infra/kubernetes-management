@@ -26,7 +26,9 @@ targets:
     kind: file
     scmid: default
     spec:
-      file: clusters/cik8s.yaml
+      files:
+        - clusters/cik8s.yaml
+        - clusters/eks-public.yaml
       matchpattern: 'chart: autoscaler\/cluster-autoscaler((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: autoscaler/cluster-autoscaler${1}version: {{ source "lastChartVersion" }}'
 
