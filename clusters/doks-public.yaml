@@ -20,10 +20,7 @@ releases:
     chart: jenkins-infra/docker-registry-secrets
     version: 0.1.0
     values:
-      - imageCredentials:
-          enabled: true
-          namespaces:
-            - datadog
+      - "../config/docker-registry-secrets.yaml"
     secrets:
       - "../secrets/config/docker-registry-secrets/secrets.yaml"
   - name: cert-manager

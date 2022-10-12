@@ -1,0 +1,18 @@
+---
+awsRegion: us-east-2
+
+nodeSelector:
+  eks.amazonaws.com/capacityType: ON_DEMAND
+  node.kubernetes.io/instance-type: t4g.xlarge
+
+rbac:
+  create: true
+  serviceAccount:
+    # This value is defined in https://github.com/jenkins-infra/aws/blob/905a94ade784122cf7a7aa3c798576a820c5600f/locals.tf#L10
+    name: cluster-autoscaler-aws-cluster-autoscaler-chart
+    annotations:
+      # This value should match the ARN of the role created by module.iam_assumable_role_admin
+      eks.amazonaws.com/role-arn: "arn:aws:iam::200564066411:role/cluster-autoscaler-eks-public"
+
+autoDiscovery:
+  enabled: true

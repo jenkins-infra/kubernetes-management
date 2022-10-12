@@ -1,0 +1,18 @@
+defaultBackend:
+  # disabled as not compatible with arm64/aarch64
+  enabled: false
+controller:
+  publishService:
+    enabled: true
+  ingressClassResource:
+    enabled: true
+    default: false
+    name: public-nginx
+  service:
+    annotations:
+      # NLB is balancing at Layer 4 (no need for an ALB-layer 7)
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+      # Using "ip" instead of instance ensures that balancing is NOT handled
+      # by the cluster iptables, but by the external LB itself through CNI
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
