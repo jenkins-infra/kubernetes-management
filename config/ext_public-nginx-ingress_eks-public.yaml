@@ -1,27 +1,6 @@
 defaultBackend:
-  # disabled as not compatible with arm
+  # disabled as not compatible with arm64/aarch64
   enabled: false
-  image:
-    repository: jenkinsciinfra/404
-    tag: 0.3.55
-    pullPolicy: IfNotPresent
-  ## Unprivileged port as non root user and no escalation allowed
-  port: 8080
-  ## Volumes are required because rootfs is readonly
-  extraVolumeMounts:
-    - name: nginx-cache
-      mountPath: /var/cache/nginx
-    - name: nginx-rundir
-      mountPath: /var/run/nginx
-    - name: nginx-logs
-      mountPath: /var/logs/nginx
-  extraVolumes:
-    - name: nginx-cache
-      emptyDir: {}
-    - name: nginx-rundir
-      emptyDir: {}
-    - name: nginx-logs
-      emptyDir: {}
 controller:
   publishService:
     enabled: true
@@ -31,8 +10,9 @@ controller:
     name: public-nginx
   service:
     annotations:
-      # service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+      # NLB is balancing at Layer 4 (no need for an ALB-layer 7)
       service.beta.kubernetes.io/aws-load-balancer-type: nlb
       service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-      # service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-      # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+      # Using "ip" instead of instance ensures that balancing is NOT handled
+      # by the cluster iptables, but by the external LB itself through CNI
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
