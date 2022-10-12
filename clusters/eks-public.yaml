@@ -54,7 +54,9 @@ releases:
     version: 1.4.5
     values:
       - "../config/ext_aws-load-balancer-controller.yaml"
-      - clusterName: public-blessed-bullfrog
+    set:
+      - name: clusterName
+        value: public-blessed-bullfrog
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
