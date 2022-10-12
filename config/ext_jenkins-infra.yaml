@@ -218,7 +218,7 @@ controller:
                 sshKeysCredentialsId: "ec2-agents-privkey"
                 useInstanceProfileForCredentials: false
                 templates:
-                - ami: "ami-0f4393a128e206971" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
+                - ami: "ami-05271aff7e6f4ba71" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
                   amiOwners: "200564066411"
                   associatePublicIp: true
                   connectBySSHProcess: false
@@ -252,7 +252,7 @@ controller:
                     value: "infra.ci.jenkins.io"
                   type: T3Medium
                   useEphemeralDevices: true
-                - ami: "ami-0cde36a8948d6c3b7" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
+                - ami: "ami-0e35eed065a0a2a9d" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
                   amiOwners: "200564066411"
                   associatePublicIp: true
                   connectBySSHProcess: false
@@ -286,7 +286,7 @@ controller:
                     value: "infra.ci.jenkins.io"
                   type: T4gMedium
                   useEphemeralDevices: true
-                - ami: "ami-0b152f16f46c75778" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
+                - ami: "ami-047fa08b568e21b04" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
                   amiOwners: "200564066411"
                   associatePublicIp: true
                   connectBySSHProcess: false
