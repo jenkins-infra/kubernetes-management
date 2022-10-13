@@ -72,17 +72,17 @@ releases:
       - cert-manager
     values:
       - "../config/acme_eks-public.yaml"
-  # - name: datadog
-  #   namespace: datadog
-  #   chart: datadog/datadog
-  #   version: 3.1.2
-  #   needs:
-  #     - default/docker-registry-secrets
-  #   values:
-  #     - "../config/ext_datadog.yaml.gotmpl"
-  #     - "../config/ext_datadog_eks-public.yaml"
-  #   secrets:
-  #     - "../secrets/config/datadog/eks-public-secrets.yaml"
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 3.1.2
+    needs:
+      - default/docker-registry-secrets
+    values:
+      - "../config/ext_datadog.yaml.gotmpl"
+      - "../config/ext_datadog_eks-public.yaml"
+    secrets:
+      - "../secrets/config/datadog/eks-public-secrets.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
