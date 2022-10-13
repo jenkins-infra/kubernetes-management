@@ -3,4 +3,4 @@ awsRegion: us-east-2
 
 nodeSelector:
   node.kubernetes.io/lifecycle: normal
-  node.kubernetes.io/instance-type: t4g.xlarge
+  node.kubernetes.io/instance-type: t3a.xlarge
