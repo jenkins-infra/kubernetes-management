@@ -47,6 +47,8 @@ jobsDefinition:
       docker-plugin-site-issues:
       docker-plugins-self-service:
       docker-rsyncd:
+      ircbot:
+        jenkinsfilePath: Jenkinsfile
       plugin-health-scoring:
         jenkinsfilePath: Jenkinsfile
       rating:
