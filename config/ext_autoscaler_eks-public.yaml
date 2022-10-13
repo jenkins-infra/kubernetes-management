@@ -3,7 +3,7 @@ awsRegion: us-east-2
 
 nodeSelector:
   eks.amazonaws.com/capacityType: ON_DEMAND
-  node.kubernetes.io/instance-type: t4g.xlarge
+  node.kubernetes.io/instance-type: t3a.xlarge
 
 rbac:
   create: true

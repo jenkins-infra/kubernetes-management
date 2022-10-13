@@ -15,5 +15,4 @@ rbac:
       eks.amazonaws.com/role-arn: "arn:aws:iam::200564066411:role/cluster-autoscaler"
 
 autoDiscovery:
-  clusterName: jenkins-infra-eks-ENRZrfwf
   enabled: true
