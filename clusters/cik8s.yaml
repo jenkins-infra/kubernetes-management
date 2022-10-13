@@ -51,6 +51,9 @@ releases:
     version: 9.21.0
     values:
       - "../config/ext_autoscaler_cik8s.yaml"
+    set:
+      - name: autoDiscovery.clusterName
+        value: jenkins-infra-eks-ENRZrfwf
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
