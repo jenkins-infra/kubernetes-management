@@ -173,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.19.1
+    version: 0.19.2
     timeout: 600
     atomic: false
     values:
@@ -225,7 +225,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.30
+    version: 0.3.31
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
