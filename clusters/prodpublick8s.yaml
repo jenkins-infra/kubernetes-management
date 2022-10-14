@@ -115,7 +115,7 @@ releases:
   - name: ircbot
     namespace: ircbot
     chart: jenkins-infra/ircbot
-    version: 0.1.0
+    version: 0.1.1
     values:
       - "../config/ircbot.yaml"
     secrets:
@@ -267,7 +267,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.1.1
+    version: 0.1.2
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
