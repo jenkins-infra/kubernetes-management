@@ -1,5 +1,4 @@
 image:
-  tag: 165-buildbc1736
   pullPolicy: IfNotPresent
 
 resources:
