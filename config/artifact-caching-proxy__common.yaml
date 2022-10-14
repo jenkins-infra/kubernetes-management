@@ -20,11 +20,3 @@ ingress:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-
-# securityContext:
-#   fsGroup: 1002
-#   fsGroupChangePolicy: "OnRootMismatch"
-
-# podSecurityContext:
-#   runAsUser: 1001
-#   runAsGroup: 1002

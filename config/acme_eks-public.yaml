@@ -10,7 +10,7 @@ acme:
   solvers:
     - http01:
         ingress:
-          class: nginx
+          serviceType: ClusterIP
   clientSecrets:
     - name: acme-secret-aws-jenkins-io
       value: password

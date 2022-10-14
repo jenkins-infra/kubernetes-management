@@ -11,6 +11,3 @@ ingress:
 
 persistence:
   storageClass: gp2
-
-initContainers:
-  enabled: true
