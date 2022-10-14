@@ -115,7 +115,7 @@ releases:
   - name: ircbot
     namespace: ircbot
     chart: jenkins-infra/ircbot
-    version: 0.1.0
+    version: 0.1.1
     values:
       - "../config/ircbot.yaml"
     secrets:
