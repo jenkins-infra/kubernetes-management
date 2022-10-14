@@ -39,13 +39,6 @@ targets:
       file: "config/ext_private-nginx-ingress_prodpublick8s.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
-  updatePublicNginxIngress404ProdPublicK8s:
-    name: "Update 404 docker image tag"
-    kind: yaml
-    spec:
-      file: "config/ext_public-nginx-ingress_prodpublick8s.yaml"
-      key: "defaultBackend.image.tag"
-    scmid: default
   updatePrivateNginxIngress404TempPrivateK8s:
     name: "Update 404 docker image tag"
     kind: yaml
@@ -53,32 +46,11 @@ targets:
       file: "config/ext_private-nginx-ingress_temp-privatek8s.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
-  updatePublicNginxIngress404TempPrivateK8s:
+  updatePublicNginxIngress404Common:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/ext_public-nginx-ingress_temp-privatek8s.yaml"
-      key: "defaultBackend.image.tag"
-    scmid: default
-  updatePublicNginxIngress404Doks:
-    name: "Update 404 docker image tag"
-    kind: yaml
-    spec:
-      file: "config/ext_public-nginx-ingress_doks-public.yaml"
-      key: "defaultBackend.image.tag"
-    scmid: default
-  updatePublicNginxIngress404Cik8s:
-    name: "Update 404 docker image tag"
-    kind: yaml
-    spec:
-      file: "config/ext_public-nginx-ingress_cik8s.yaml"
-      key: "defaultBackend.image.tag"
-    scmid: default
-  updatePublicNginxIngress404EksPublic:
-    name: "Update 404 docker image tag"
-    kind: yaml
-    spec:
-      file: "config/ext_public-nginx-ingress_eks-public.yaml"
+      file: "config/ext_public-nginx-ingress__common.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
 

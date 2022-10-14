@@ -54,6 +54,7 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.2.5
     values:
+      - "../config/ext_public-nginx-ingress__common.yaml"
       - "../config/ext_public-nginx-ingress_doks-public.yaml"
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
