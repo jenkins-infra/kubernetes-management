@@ -36,7 +36,7 @@ releases:
       - "../config/ext_autoscaler_eks-public.yaml"
     set:
       - name: autoDiscovery.clusterName
-        value: public-model-hermit
+        value: public-mint-ape
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
@@ -56,7 +56,7 @@ releases:
       - "../config/ext_aws-load-balancer-controller.yaml"
     set:
       - name: clusterName
-        value: public-model-hermit
+        value: public-mint-ape
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
@@ -76,8 +76,6 @@ releases:
     namespace: datadog
     chart: datadog/datadog
     version: 3.1.10
-    needs:
-      - default/docker-registry-secrets
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_eks-public.yaml"
