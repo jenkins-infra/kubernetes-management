@@ -1,0 +1,30 @@
+defaultBackend:
+  enabled: true
+  image:
+    repository: jenkinsciinfra/404
+    tag: 0.3.58
+    pullPolicy: IfNotPresent
+  ## Unprivileged port as non root user and no escalation allowed
+  port: 8080
+  ## Volumes are required because rootfs is readonly
+  extraVolumeMounts:
+    - name: nginx-cache
+      mountPath: /var/cache/nginx
+    - name: nginx-rundir
+      mountPath: /var/run/nginx
+    - name: nginx-logs
+      mountPath: /var/logs/nginx
+  extraVolumes:
+    - name: nginx-cache
+      emptyDir: {}
+    - name: nginx-rundir
+      emptyDir: {}
+    - name: nginx-logs
+      emptyDir: {}
+controller:
+  publishService:
+    enabled: true
+  ingressClassResource:
+    enabled: true
+    default: false
+    name: public-nginx
