@@ -67,7 +67,7 @@ releases:
     needs:
       - cert-manager
     values:
-      - "../config/acme_prodpublick8s.yaml"
+      - "../config/acme.yaml"
     secrets:
       - "../secrets/config/acme/secrets.yaml"
   - name: falco
