@@ -49,7 +49,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.16.0
+    version: 15.16.1
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
