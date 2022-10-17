@@ -49,7 +49,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.16.0
+    version: 15.16.1
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -85,7 +85,7 @@ releases:
   - name: promtail
     namespace: loki
     chart: grafana/promtail
-    version: 6.5.0
+    version: 6.5.1
     values:
       - "../config/ext_promtail.yaml"
   - name: grafana
@@ -115,7 +115,7 @@ releases:
   - name: ircbot
     namespace: ircbot
     chart: jenkins-infra/ircbot
-    version: 0.1.1
+    version: 0.2.0
     values:
       - "../config/ircbot.yaml"
     secrets:
@@ -267,7 +267,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.1.2
+    version: 0.2.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
