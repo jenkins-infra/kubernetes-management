@@ -225,7 +225,6 @@ jobsDefinition:
         name: "Plugin Migration Status Report"
         repository: "infra-reports"
         jenkinsfilePath: "plugin-migration/Jenkinsfile"
-        disableGitHubChecks: true ## Only build status, no more
         credentials:
           githubapp-jenkins-infra-reports-private-key-b64:
             description: "Base64 encoded private key of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
