@@ -71,6 +71,7 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.2.5
     values:
+      - "../config/ext_public-nginx-ingress__common.yaml"
       - "../config/ext_public-nginx-ingress_temp-privatek8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress

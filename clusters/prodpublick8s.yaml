@@ -39,6 +39,7 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.2.5
     values:
+      - "../config/ext_public-nginx-ingress__common.yaml"
       - "../config/ext_public-nginx-ingress_prodpublick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
@@ -91,7 +92,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.40.4
+    version: 6.42.2
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -115,7 +116,7 @@ releases:
   - name: ircbot
     namespace: ircbot
     chart: jenkins-infra/ircbot
-    version: 0.2.0
+    version: 0.2.1
     values:
       - "../config/ircbot.yaml"
     secrets:
@@ -278,7 +279,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 1.2.4
+    version: 1.2.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
