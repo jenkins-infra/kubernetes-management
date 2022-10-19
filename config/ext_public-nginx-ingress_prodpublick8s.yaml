@@ -1,26 +1,3 @@
-defaultBackend:
-  enabled: true
-  image:
-    repository: jenkinsciinfra/404
-    tag: 0.3.58
-    pullPolicy: IfNotPresent
-  ## Unprivileged port as non root user and no escalation allowed
-  port: 8080
-  ## Volumes are required because rootfs is readonly
-  extraVolumeMounts:
-    - name: nginx-cache
-      mountPath: /var/cache/nginx
-    - name: nginx-rundir
-      mountPath: /var/run/nginx
-    - name: nginx-logs
-      mountPath: /var/logs/nginx
-  extraVolumes:
-    - name: nginx-cache
-      emptyDir: {}
-    - name: nginx-rundir
-      emptyDir: {}
-    - name: nginx-logs
-      emptyDir: {}
 controller:
   config:
     log-format-upstream: '[$proxy_add_x_forwarded_for] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status $req_id'
@@ -39,10 +16,7 @@ controller:
   # This section refers to the creation of the IngressClass resource
   # IngressClass resources are supported since k8s >= 1.18
   ingressClassResource:
-    enabled: true
-    default: false
     controllerValue: k8s.io/ingress-public-nginx
-    name: public-nginx
     # Parameters is a link to a custom resource containing additional
     # configuration for the controller. This is optional if the controller
     # does not require extra parameters.

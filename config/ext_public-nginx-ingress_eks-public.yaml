@@ -1,13 +1,4 @@
-defaultBackend:
-  # disabled as not compatible with arm64/aarch64
-  enabled: false
 controller:
-  publishService:
-    enabled: true
-  ingressClassResource:
-    enabled: true
-    default: false
-    name: public-nginx
   service:
     annotations:
       # NLB is balancing at Layer 4 (no need for an ALB-layer 7)

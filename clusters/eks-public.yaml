@@ -36,7 +36,7 @@ releases:
       - "../config/ext_autoscaler_eks-public.yaml"
     set:
       - name: autoDiscovery.clusterName
-        value: public-model-hermit
+        value: public-mint-ape
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
@@ -56,7 +56,7 @@ releases:
       - "../config/ext_aws-load-balancer-controller.yaml"
     set:
       - name: clusterName
-        value: public-model-hermit
+        value: public-mint-ape
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
@@ -72,27 +72,26 @@ releases:
       - cert-manager
     values:
       - "../config/acme_eks-public.yaml"
-  # - name: datadog
-  #   namespace: datadog
-  #   chart: datadog/datadog
-  #   version: 3.1.2
-  #   needs:
-  #     - default/docker-registry-secrets
-  #   values:
-  #     - "../config/ext_datadog.yaml.gotmpl"
-  #     - "../config/ext_datadog_eks-public.yaml"
-  #   secrets:
-  #     - "../secrets/config/datadog/eks-public-secrets.yaml"
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 3.1.10
+    values:
+      - "../config/ext_datadog.yaml.gotmpl"
+      - "../config/ext_datadog_eks-public.yaml"
+    secrets:
+      - "../secrets/config/datadog/eks-public-secrets.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.3.0
     values:
+      - "../config/ext_public-nginx-ingress__common.yaml"
       - "../config/ext_public-nginx-ingress_eks-public.yaml"
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.1.1
+    version: 0.2.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
