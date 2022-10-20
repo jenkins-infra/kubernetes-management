@@ -55,11 +55,10 @@ releases:
     version: 4.2.5
     values:
       - "../config/ext_public-nginx-ingress__common.yaml"
-      - "../config/ext_public-nginx-ingress_doks-public.yaml"
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.2.0
+    version: 0.2.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
