@@ -124,7 +124,7 @@ releases:
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports
-    version: 0.1.1
+    version: 0.1.2
     values:
       - "../config/reports.yaml"
     secrets:
