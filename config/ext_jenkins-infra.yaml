@@ -79,6 +79,12 @@ controller:
                     privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
                     owner: "jenkins-infra"
                     scope: GLOBAL
+                - usernamePassword:
+                    description: "Credentials to access an artifact caching proxy"
+                    id: "artifact-caching-proxy-credentials"
+                    password: "${ARTIFACT_CACHING_PROXY_PASSWORD}"
+                    scope: GLOBAL
+                    username: "MY-USERNAME"
                 - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-controller-temp-privatek8s"
@@ -374,6 +380,88 @@ controller:
                     git:
                       credentialsId: "github-app-infra"
                       remote: "https://github.com/jenkins-infra/pipeline-library.git"
+      artifact-caching-proxy: |
+        unclassified:
+          globalConfigFiles:
+            configs:
+            - mavenSettings:
+                comment: "Artifact caching proxy settings for the AWS provider"
+                content: |
+                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+                    <mirrors>
+                      <mirror>
+                          <id>aws-proxy</id>
+                          <url>https://repo.aws.jenkins.io/public/</url>
+                          <mirrorOf>repo.jenkins-ci.org</mirrorOf>
+                      </mirror>
+                      <mirror>
+                          <id>aws-proxy-incrementals</id>
+                          <url>https://repo.aws.jenkins.io/incrementals/</url>
+                          <mirrorOf>incrementals</mirrorOf>
+                      </mirror>
+                    </mirrors>
+                  </settings>
+                id: "artifact-caching-proxy-aws"
+                isReplaceAll: true
+                name: "AWS Artifact Caching Proxy"
+                providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+                serverCredentialMappings:
+                - credentialsId: "artifact-caching-proxy-credentials"
+                  serverId: "aws-proxy"
+                - credentialsId: "artifact-caching-proxy-credentials"
+                  serverId: "aws-proxy-incrementals"
+            - mavenSettings:
+                comment: "Artifact caching proxy settings for the Azure provider"
+                content: |
+                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+                    <mirrors>
+                      <mirror>
+                          <id>azure-proxy</id>
+                          <url>https://repo.azure.jenkins.io/public/</url>
+                          <mirrorOf>repo.jenkins-ci.org</mirrorOf>
+                      </mirror>
+                      <mirror>
+                          <id>azure-proxy-incrementals</id>
+                          <url>https://repo.azure.jenkins.io/incrementals/</url>
+                          <mirrorOf>incrementals</mirrorOf>
+                      </mirror>
+                    </mirrors>
+                  </settings>
+                id: "artifact-caching-proxy-azure"
+                isReplaceAll: true
+                name: "Azure Artifact Caching Proxy"
+                providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+                serverCredentialMappings:
+                - credentialsId: "artifact-caching-proxy-credentials"
+                  serverId: "azure-proxy"
+                - credentialsId: "artifact-caching-proxy-credentials"
+                  serverId: "azure-proxy-incrementals"
+            - mavenSettings:
+                comment: "Artifact caching proxy settings for the DigitalOcean provider"
+                content: |
+                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+                    <mirrors>
+                      <mirror>
+                          <id>do-proxy</id>
+                          <url>https://repo.do.jenkins.io/public/</url>
+                          <mirrorOf>repo.jenkins-ci.org</mirrorOf>
+                      </mirror>
+                      <mirror>
+                          <id>do-proxy-incrementals</id>
+                          <url>https://repo.do.jenkins.io/incrementals/</url>
+                          <mirrorOf>incrementals</mirrorOf>
+                      </mirror>
+                    </mirrors>
+                  </settings>
+                id: "artifact-caching-proxy-do"
+                isReplaceAll: true
+                name: "DigitalOcean Artifact Caching Proxy"
+                providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+                serverCredentialMappings:
+                - credentialsId: "artifact-caching-proxy-credentials"
+                  serverId: "do-proxy"
+                - credentialsId: "artifact-caching-proxy-credentials"
+                  serverId: "do-proxy-incrementals"
       matrix-settings: |
         jenkins:
           authorizationStrategy:
