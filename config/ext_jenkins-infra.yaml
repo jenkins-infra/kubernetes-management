@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.83.1-2.374
+  tag: 0.83.2-2.374
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -571,7 +571,6 @@ controller:
                   installers:
                   - maven:
                       id: "3.8.6"
-
   sidecars:
     configAutoReload:
       env:
