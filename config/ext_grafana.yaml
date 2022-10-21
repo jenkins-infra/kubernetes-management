@@ -32,13 +32,6 @@ datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
-      - name: Loki
-        type: loki
-        access: proxy
-        url: http://loki.loki:3100
-        jsonData:
-          maxLines: 30000
-        editable: false
       - name: Prometheus
         type: prometheus
         access: proxy
