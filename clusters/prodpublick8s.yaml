@@ -74,7 +74,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.0.18
+    version: 2.1.0
     values:
       - "../config/ext_falco.yaml"
   - name: loki
@@ -92,7 +92,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.42.2
+    version: 6.42.3
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -148,7 +148,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.1.4
+    version: 0.1.7
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.33
+    version: 0.3.35
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
