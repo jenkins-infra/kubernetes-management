@@ -80,7 +80,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 3.2.1
+    version: 3.2.2
     values:
       - "../config/ext_loki.yaml"
   - name: promtail
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.35
+    version: 0.3.36
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
