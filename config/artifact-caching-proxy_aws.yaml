@@ -10,4 +10,4 @@ ingress:
         - repo.aws.jenkins.io
 
 persistence:
-  storageClass: gp2
+  storageClass: ebs-gp3
