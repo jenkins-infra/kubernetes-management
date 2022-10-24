@@ -21,6 +21,10 @@ spec:
       operator: "Equal"
       value: "infra.ci.jenkins.io"
       effect: "NoSchedule"
+    - key: "kubernetes.azure.com/scalesetpriority"
+      operator: "Equal"
+      value: "spot"
+      effect: "NoSchedule"
   containers:
     - image: "jenkinsciinfra/helmfile:2.5.7"
       imagePullPolicy: "IfNotPresent"
