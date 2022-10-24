@@ -5,32 +5,9 @@ metadata:
     jenkins: "agent"
     job: "helmfile"
 spec:
-  tolerations:
-    - key: "os"
-      operator: "Equal"
-      value: "linux"
-      effect: "NoSchedule"
-    - key: "profile"
-      operator: "Equal"
-      value: "highmem"
-      effect: "NoSchedule"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: kubernetes.io/os
-                operator: In
-                values:
-                  - linux
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: agentpool
-                operator: In
-                values:
-                  - highmemlinux
+  nodeSelector:
+    kubernetes.azure.com/agentpool: infracipool
+    kubernetes.io/os: linux
   containers:
     - image: "jenkinsciinfra/helmfile:2.5.7"
       imagePullPolicy: "IfNotPresent"
