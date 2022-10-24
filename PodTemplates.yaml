@@ -8,6 +8,19 @@ spec:
   nodeSelector:
     kubernetes.azure.com/agentpool: infracipool
     kubernetes.io/os: linux
+  tolerations:
+    - key: "os"
+      operator: "Equal"
+      value: "linux"
+      effect: "NoSchedule"
+    - key: "spot"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "jenkins"
+      operator: "Equal"
+      value: "infra.ci.jenkins.io"
+      effect: "NoSchedule"
   containers:
     - image: "jenkinsciinfra/helmfile:2.5.7"
       imagePullPolicy: "IfNotPresent"
