@@ -281,4 +281,4 @@ releases:
     values:
       - "../config/rss2twitter.yaml"
     secrets:
-      - "../secrets/config/rss2twitter/secrets.yaml"
+      - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
