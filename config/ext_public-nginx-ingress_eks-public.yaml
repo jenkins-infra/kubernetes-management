@@ -9,3 +9,5 @@ controller:
       # Using "ip" instead of instance ensures that balancing is NOT handled
       # by the cluster iptables, but by the external LB itself through CNI
       service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+      service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-03f3f5c43b4e312df
+      service.beta.kubernetes.io/aws-load-balancer-eip-allocations: eipalloc-03bcda5de8989b2a7
