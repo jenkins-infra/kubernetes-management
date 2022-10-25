@@ -12,7 +12,7 @@ rbac:
     name: cluster-autoscaler-aws-cluster-autoscaler-chart
     annotations:
       # This value should match the ARN of the role created by module.iam_assumable_role_admin
-      eks.amazonaws.com/role-arn: "arn:aws:iam::200564066411:role/cluster-autoscaler-eks-public"
+      eks.amazonaws.com/role-arn: "arn:aws:iam::200564066411:role/cluster-autoscaler-aws-cluster-autoscaler-chart-eks-public"
 
 autoDiscovery:
   enabled: true

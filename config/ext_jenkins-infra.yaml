@@ -24,6 +24,7 @@ controller:
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
+    kubernetes.azure.com/agentpool: linuxpool
   resources:
     limits:
       cpu: "2"

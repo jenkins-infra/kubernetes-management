@@ -5,42 +5,36 @@ metadata:
     jenkins: "agent"
     job: "helmfile"
 spec:
+  nodeSelector:
+    kubernetes.azure.com/agentpool: infracipool
+    kubernetes.io/os: linux
   tolerations:
     - key: "os"
       operator: "Equal"
       value: "linux"
       effect: "NoSchedule"
-    - key: "profile"
+    - key: "spot"
       operator: "Equal"
-      value: "highmem"
+      value: "true"
       effect: "NoSchedule"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: kubernetes.io/os
-                operator: In
-                values:
-                  - linux
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: agentpool
-                operator: In
-                values:
-                  - highmemlinux
+    - key: "jenkins"
+      operator: "Equal"
+      value: "infra.ci.jenkins.io"
+      effect: "NoSchedule"
+    - key: "kubernetes.azure.com/scalesetpriority"
+      operator: "Equal"
+      value: "spot"
+      effect: "NoSchedule"
   containers:
     - image: "jenkinsciinfra/helmfile:2.5.7"
       imagePullPolicy: "IfNotPresent"
       name: "jnlp"
       resources:
         limits:
-          memory: "2048Mi"
+          memory: "1024Mi"
           cpu: "2"
         requests:
-          memory: "2048Mi"
-          cpu: "2"
+          memory: "256Mi"
+          cpu: "0.5"
       securityContext:
         privileged: false
