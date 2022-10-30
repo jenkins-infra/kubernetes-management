@@ -3,6 +3,6 @@ env:
   rssRefreshRate: 1m
   template: |
     {{.Title}}
-    {{.Link}}?utm_source=rss2twitter&utm_medium=twitter"
+    {{.Link}}?utm_source=rss2twitter&utm_medium=twitter
   # disables publishing to twitter and sends updates to logger only
   dryMode: false
