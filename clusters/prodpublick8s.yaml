@@ -168,7 +168,7 @@ releases:
     values:
       - "../config/mirrorbits.yaml"
     secrets:
-      - "../secrets/config/mirrorbits/secrets.yaml
+      - "../secrets/config/mirrorbits/secrets.yaml"
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
