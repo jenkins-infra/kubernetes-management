@@ -169,6 +169,24 @@ releases:
       - "../config/mirrorbits.yaml"
     secrets:
       - "../secrets/config/mirrorbits/secrets.yaml"
+  - name: default-release-jenkins
+    namespace: release
+    chart: jenkins/jenkins
+    version: 4.2.10
+    timeout: 600
+    set:
+      - name: namespace
+        value: release
+    values:
+      - ../config/ext_jenkins-release.yaml
+    secrets:
+      - "../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml"
+  - name: default-release-jenkins-env
+    namespace: release
+    chart: jenkins-infra/env-jenkins-release
+    version: 0.1.2
+    secrets:
+      - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
