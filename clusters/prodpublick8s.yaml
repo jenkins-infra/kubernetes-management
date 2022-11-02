@@ -203,7 +203,8 @@ releases:
     values:
       - "../config/ext_keycloak.yaml"
     secrets:
-      - "../secrets/config/keycloak/secrets.yaml"
+      - "../secrets/config/keycloak/db.yaml"
+      - "../secrets/config/keycloak/http.yaml"
   - name: keycloak-public # User: https://admin.accounts.jenkins.io/auth/realms/jenkins/account
     namespace: keycloak
     chart: jenkins-infra/keycloak
