@@ -19,7 +19,7 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.84.7-2.375
+  tag: 0.85.0-2.376
   pullPolicy: IfNotPresent
   resources:
     limits:
