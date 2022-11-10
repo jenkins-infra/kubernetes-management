@@ -11,3 +11,5 @@ ingress:
 
 persistence:
   storageClass: managed-csi-premium
+
+replicaCount: 2
