@@ -221,6 +221,7 @@ controller:
                     containers:
                       - name: "jnlp"
                         image: "jenkinsciinfra/builder@sha256:230919e6a856373c43ed01c4f967cab6274599f6457cd1ea49850ea759e67aa4"
+                        command: "/usr/local/bin/jenkins-agent"
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_OPTS"
@@ -233,7 +234,7 @@ controller:
                             value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
                         - envVar:
                             key: "ARTIFACT_CACHING_PROXY_PROVIDER"
-                            value: "do"
+                            value: "azure"
                         resourceLimitCpu: "2"
                         resourceLimitMemory: "4G"
                         resourceRequestCpu: "2"
