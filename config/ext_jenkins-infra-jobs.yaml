@@ -402,6 +402,7 @@ jobsDefinition:
         name: Jenkins User Stories
         description: "Jenkins User Stories Website"
         allowUntrustedChanges: true
+        jenkinsfilePath: Jenkinsfile
       plugin-site:
         name: Plugin Site
         allowUntrustedChanges: true
