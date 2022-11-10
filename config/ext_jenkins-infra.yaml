@@ -216,6 +216,30 @@ controller:
                                 operator: In
                                 values:
                                   - windows
+                  - name: "jnlp-webbuilder"
+                    nodeSelector: "kubernetes.io/os=linux"
+                    containers:
+                      - name: "jnlp"
+                        image: "jenkinsciinfra/builder@sha256:230919e6a856373c43ed01c4f967cab6274599f6457cd1ea49850ea759e67aa4"
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_OPTS"
+                            value: "-XX:+PrintCommandLineFlags"
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/java/openjdk/bin/java"
+                        - envVar:
+                            key: "PATH"
+                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+                        - envVar:
+                            key: "ARTIFACT_CACHING_PROXY_PROVIDER"
+                            value: "do"
+                        resourceLimitCpu: "2"
+                        resourceLimitMemory: "4G"
+                        resourceRequestCpu: "2"
+                        resourceRequestMemory: "4G"
+                    label: "container kubernetes node ruby webbuilder"
+                    yamlMergeStrategy: "merge"
             - amazonEC2:
                 cloudName: "aws-us-east-2"
                 credentialsId: "ec2-agents-credentials"
