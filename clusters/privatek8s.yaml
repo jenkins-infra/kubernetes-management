@@ -1,0 +1,83 @@
+helmDefaults:
+  atomic: true
+  force: false
+  timeout: 300
+  wait: true
+repositories:
+  - name: datadog
+    url: https://helm.datadoghq.com
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: jenkins
+    url: https://charts.jenkins.io
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/helm-charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+releases:
+  - name: acme
+    namespace: cert-manager
+    chart: jenkins-infra/acme
+    version: 0.1.2
+    needs:
+      - cert-manager/cert-manager
+    values:
+      - "../config/acme.yaml"
+    secrets:
+      - "../secrets/config/acme/secrets.yaml"
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.10.0
+    set:
+      - name: installCRDs
+        value: true
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 3.2.2
+    values:
+      - "../config/ext_datadog.yaml.gotmpl"
+      - "../config/ext_datadog_privatek8s.yaml"
+    secrets:
+      - "../secrets/config/datadog/privatek8s-secrets.yaml"
+  - name: jenkins-infra
+    namespace: jenkins-infra
+    chart: jenkins/jenkins
+    version: 4.2.12
+    needs:
+      - jenkins-infra-additional # Required to allow the Jenkins controller to spawn kubernetes pods in the current cluster
+      ## TODO: uncomment the following line when switching from temp-privatek8s to privatek8s
+      # - jenkins-jobs # Required to generate the job definition in a configmap
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
+      - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
+    values:
+      - "../config/ext_jenkins-infra.yaml"
+    secrets:
+      - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"
+  - name: jenkins-infra-additional
+    namespace: jenkins-infra
+    chart: jenkins-infra/jenkins-additional
+    version: 0.0.3
+    values:
+      - ../config/jenkins-infra-additional.yaml
+  ## TODO: uncomment the following line when switching from temp-privatek8s to privatek8s
+  # - name: jenkins-jobs
+  #   namespace: jenkins-infra
+  #   chart: jenkins-infra/jenkins-jobs
+  #   version: 0.4.0
+  #   values:
+  #     - "../config/ext_jenkins-infra-jobs.yaml"
+  - name: public-nginx-ingress
+    namespace: public-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.4.0
+    values:
+      - "../config/ext_public-nginx-ingress__common.yaml"
+      - "../config/ext_public-nginx-ingress_privatek8s.yaml"
+  - name: private-nginx-ingress
+    namespace: private-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.4.0
+    values:
+      - "../config/ext_private-nginx-ingress_privatek8s.yaml"

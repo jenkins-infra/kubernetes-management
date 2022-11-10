@@ -29,7 +29,7 @@ pipeline {
         axes {
           axis {
             name 'K8S_CLUSTER'
-            values 'prodpublick8s', 'cik8s', 'eks-public', 'temp-privatek8s', 'doks', 'doks-public'
+            values 'prodpublick8s', 'cik8s', 'eks-public', 'temp-privatek8s', 'doks', 'doks-public' //, 'privatek8s'
           }
         } // axes
         agent {

@@ -40,9 +40,12 @@ controller:
     readinessProbe:
       initialDelaySeconds: 120
   testEnabled: false
+  # TODO: remove this block as soon as we switch from temp-privatek8s to privatek8s.
+  # The default values include runAsNonRoot, runAsUser and fsGroup; supplementalGroups isn't needed.
   podSecurityContextOverride:
     runAsNonRoot: true
     runAsUser: 1000
+    fsGroup: 1000
     supplementalGroups: [1000]
   overwritePlugins: true
   serviceType: "ClusterIP"
