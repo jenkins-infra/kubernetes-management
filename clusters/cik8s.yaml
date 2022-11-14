@@ -45,6 +45,9 @@ releases:
     version: 0.3.0
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
+    set:
+      - name: "quotas.pods"
+        value: "120"
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
