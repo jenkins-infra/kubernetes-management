@@ -74,7 +74,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.2.0
+    version: 2.3.0
     values:
       - "../config/ext_falco.yaml"
   - name: grafana
