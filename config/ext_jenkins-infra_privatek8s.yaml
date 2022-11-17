@@ -1,7 +1,7 @@
 controller:
   JCasC:
     configScripts:
-      credentials: |
+      cluster-credentials: |
         credentials:
           system:
             domainCredentials:
