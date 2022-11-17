@@ -39,6 +39,14 @@ targets:
       file: "config/ext_jenkins-infra.yaml"
       key: "controller.tag"
     scmid: default
+  ## TODO: remove the following target when switching from temp-privatek8s to privatek8s
+  updateReleaseInPrivateK8SConfig:
+    name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
+    kind: yaml
+    spec:
+      file: "config/ext_jenkins-infra_privatek8s.yaml"
+      key: "controller.tag"
+    scmid: default
   updateReleaseInWeeklyConfig:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
     kind: yaml
