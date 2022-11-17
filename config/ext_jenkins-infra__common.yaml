@@ -101,6 +101,7 @@ controller:
           numExecutors: 0
           clouds:
             - kubernetes:
+                credentialsId: "kubeconfig-controller"
                 containerCapStr: "100"
                 # Kubernetes internal URL to stay within private networks
                 jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc.cluster.local:8080"
