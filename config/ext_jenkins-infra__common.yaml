@@ -1,4 +1,3 @@
-## TODO: rename this file to ext_jenkins-infra.yaml and get rid of the old one when the switch from temp-privatek8s to privatek8s is done
 serviceAccount:
   create: true
   name: jenkins-controller
