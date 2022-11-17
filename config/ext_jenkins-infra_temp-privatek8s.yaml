@@ -10,11 +10,11 @@ controller:
               - credentials:
                 - file:
                     fileName: "kubeconfig"
-                    id: "kubeconfig-controller-privatek8s"
+                    id: "kubeconfig-controller-temp-privatek8s"
                     description: "Kubeconfig file for privatek8s"
                     scope: SYSTEM
-                    secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
+                    secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
         jenkins:
           clouds:
             - kubernetes:
-                credentialsId: "kubeconfig-controller-privatek8s"
+                credentialsId: "kubeconfig-controller-temp-privatek8s"

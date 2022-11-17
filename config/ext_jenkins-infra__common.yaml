@@ -1,3 +1,4 @@
+## TODO: rename this file to ext_jenkins-infra.yaml and get rid of the old one when the switch from temp-privatek8s to privatek8s is done
 serviceAccount:
   create: true
   name: jenkins-controller
@@ -40,10 +41,6 @@ controller:
     readinessProbe:
       initialDelaySeconds: 120
   testEnabled: false
-  podSecurityContextOverride:
-    runAsNonRoot: true
-    runAsUser: 1000
-    supplementalGroups: [1000]
   overwritePlugins: true
   serviceType: "ClusterIP"
   javaOpts: >-
@@ -86,12 +83,6 @@ controller:
                     password: "${ARTIFACT_CACHING_PROXY_PASSWORD}"
                     scope: GLOBAL
                     username: "MY-USERNAME"
-                - file:
-                    fileName: "kubeconfig"
-                    id: "kubeconfig-controller-temp-privatek8s"
-                    description: "Kubeconfig file for temp-privatek8s"
-                    scope: SYSTEM
-                    secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
                 - basicSSHUserPrivateKey:
                     scope: SYSTEM
                     id: "ec2-agents-privkey"
@@ -120,7 +111,6 @@ controller:
                 namespace: "jenkins-agents"
                 podRetention: "Never"
                 serverUrl: ${AGENTS_KUBERNETES_CLUSTER_URL}
-                credentialsId: "kubeconfig-controller-temp-privatek8s"
                 serverCertificate: |
                   ${AGENTS_KUBERNETES_CLUSTER_CERT}
                 podLabels:
