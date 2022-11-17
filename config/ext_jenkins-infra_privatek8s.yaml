@@ -1,0 +1,19 @@
+controller:
+  JCasC:
+    configScripts:
+      credentials: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                - file:
+                    fileName: "kubeconfig"
+                    id: "kubeconfig-controller-privatek8s"
+                    description: "Kubeconfig file for privatek8s"
+                    scope: SYSTEM
+                    secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
+      agent-settings: |
+        jenkins:
+          clouds:
+            - kubernetes:
+                credentialsId: "kubeconfig-controller-privatek8s"
