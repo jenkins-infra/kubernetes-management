@@ -1,4 +1,7 @@
 controller:
+  config:
+    ## Only allow GitHub's webhooks requests - https://github.blog/changelog/2019-04-09-webhooks-ip-changes/
+    whitelist-source-range: "140.82.112.0/20,192.30.252.0/22"
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
