@@ -1,5 +1,6 @@
 controller:
   replicaCount: 2
+  ingressClass: private-ingress
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal-subnet: data-tier
