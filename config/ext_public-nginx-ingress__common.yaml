@@ -32,9 +32,8 @@ controller:
     hsts: "true"
     hsts-preload: "true"
     hsts-include-subdomains: "true"
-    # Should be 2 years as per https://hstspreload.org/
-    # 24 hours, as a first gradual HSTS deployment - see INFRA-2998
-    hsts-max-age: "86400"
+    # Strict-Transport-Security "max-age" directive recommended value is 2592000 (30 days).
+    hsts-max-age: "2592000"
   replicaCount: 1
   ingressClassResource:
     enabled: true
