@@ -225,10 +225,10 @@ controller:
                         - envVar:
                             key: "ARTIFACT_CACHING_PROXY_PROVIDER"
                             value: "azure"
-                        resourceLimitCpu: "2"
-                        resourceLimitMemory: "4G"
-                        resourceRequestCpu: "2"
-                        resourceRequestMemory: "4G"
+                        resourceLimitCpu: "4"
+                        resourceLimitMemory: "8G"
+                        resourceRequestCpu: "4"
+                        resourceRequestMemory: "8G"
                     label: "container kubernetes node ruby webbuilder"
                     yamlMergeStrategy: "merge"
             - amazonEC2:
