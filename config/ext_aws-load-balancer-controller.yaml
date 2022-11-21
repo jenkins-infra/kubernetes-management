@@ -5,3 +5,5 @@ serviceAccount:
   annotations:
     # This value should match the ARN of the role created by module.iam_assumable_role_admin in iam-role-nlb.tf
     eks.amazonaws.com/role-arn: "arn:aws:iam::200564066411:role/aws-load-balancer-controller-eks-public"
+# In order to avoid a ALB as we use Nginx for ingress
+createIngressClassResource: false
