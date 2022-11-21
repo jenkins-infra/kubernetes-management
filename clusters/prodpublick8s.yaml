@@ -28,7 +28,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.2.2
+    version: 3.3.1
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -46,6 +46,7 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.4.0
     values:
+      - "../config/ext_private-nginx-ingress__common.yaml"
       - "../config/ext_private-nginx-ingress_prodpublick8s.yaml"
   - name: prometheus
     namespace: prometheus
@@ -80,7 +81,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.43.5
+    version: 6.44.6
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -104,7 +105,7 @@ releases:
   - name: ircbot
     namespace: ircbot
     chart: jenkins-infra/ircbot
-    version: 0.2.5
+    version: 0.2.6
     values:
       - "../config/ircbot.yaml"
     secrets:
@@ -136,7 +137,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.1.20
+    version: 0.2.3
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -162,7 +163,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.20.4
+    version: 0.21.1
     timeout: 600
     atomic: false
     values:
@@ -172,7 +173,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.2.12
+    version: 4.2.14
     timeout: 600
     set:
       - name: namespace
@@ -215,13 +216,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.39
+    version: 0.3.42
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.2.12
+    version: 4.2.14
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -268,7 +269,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 1.2.5
+    version: 1.2.6
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:

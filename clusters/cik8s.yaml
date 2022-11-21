@@ -31,7 +31,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 3.2.2
+    version: 3.3.1
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_cik8s.yaml"
@@ -42,9 +42,12 @@ releases:
       - default/docker-registry-secrets
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.2.1
+    version: 0.3.0
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
+    set:
+      - name: "quotas.pods"
+        value: "120"
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
