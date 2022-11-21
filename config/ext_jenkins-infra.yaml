@@ -430,7 +430,10 @@ controller:
             url: "https://infra.ci.jenkins.io"
           globalLibraries:
             libraries:
-            - defaultVersion: "master"
+            - cachingConfiguration:
+                excludedVersionsStr: "pull/"
+                refreshTimeMinutes: 180
+              defaultVersion: "master"
               implicit: true
               name: "pipeline-library"
               includeInChangesets: false
