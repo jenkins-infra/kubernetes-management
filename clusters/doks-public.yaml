@@ -4,18 +4,22 @@ helmDefaults:
   timeout: 300
   wait: true
 repositories:
+  # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
+  # https://github.com/cert-manager/cert-manager/
   - name: jetstack
     url: https://charts.jetstack.io
 releases:
   - name: docker-registry-secrets
-    #this helmchart doesn't create any resources within the namespace specified below.
-    #specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
+    # This helm chart doesn't create any resources within the namespace specified below.
+    # Specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
     namespace: default
     chart: jenkins-infra/docker-registry-secrets
     version: 0.1.0
