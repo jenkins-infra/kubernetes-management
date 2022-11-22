@@ -296,7 +296,7 @@ controller:
                   idleTerminationMinutes: "5"
                   instanceCapStr: "50"
                   javaPath: "/opt/jdk-11/bin/java"
-                  labelString: "linux-amd64-big linux-amd64-docker-big"
+                  labelString: "linux-amd64-big linux-amd64-docker-big highmem"
                   launchTimeoutStr: "180"
                   maxTotalUses: 1
                   minimumNumberOfInstances: 0
