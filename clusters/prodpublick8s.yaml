@@ -38,7 +38,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.3.1
+    version: 3.3.3
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.44.6
+    version: 6.44.8
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -173,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.21.1
+    version: 0.21.2
     timeout: 600
     atomic: false
     values:
