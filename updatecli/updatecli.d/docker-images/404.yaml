@@ -32,21 +32,14 @@ conditions:
       architecture: amd64
 
 targets:
-  updatePrivateNginxIngress404ProdPublicK8s:
+  updatePrivateNginxIngress404:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/ext_private-nginx-ingress_prodpublick8s.yaml"
+      file: "config/ext_private-nginx-ingress__common.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
-  updatePrivateNginxIngress404TempPrivateK8s:
-    name: "Update 404 docker image tag"
-    kind: yaml
-    spec:
-      file: "config/ext_private-nginx-ingress_temp-privatek8s.yaml"
-      key: "defaultBackend.image.tag"
-    scmid: default
-  updatePublicNginxIngress404Common:
+  updatePublicNginxIngress404:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:

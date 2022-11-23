@@ -4,31 +4,41 @@ helmDefaults:
   timeout: 300
   wait: true
 repositories:
+  # https://github.com/codecentric/helm-charts/
   - name: codecentric
     url: https://codecentric.github.io/helm-charts
+  # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/falcosecurity/charts/
   - name: falco
     url: https://falcosecurity.github.io/charts
-  - name: grafana
-    url: https://grafana.github.io/helm-charts
-  - name: ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
-  - name: jenkins
-    url: https://charts.jenkins.io
-  - name: jenkins-infra
-    url: https://jenkins-infra.github.io/helm-charts
-  - name: jetstack
-    url: https://charts.jetstack.io
-  - name: prometheus-community
-    url: https://prometheus-community.github.io/helm-charts
+  # https://github.com/timja/github-comment-ops/
   - name: github-comment-ops
     url: https://timja.github.io/github-comment-ops/
+  # https://github.com/grafana/helm-charts/
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  # https://github.com/kubernetes/ingress-nginx/
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  # https://github.com/jenkinsci/helm-charts/
+  - name: jenkins
+    url: https://charts.jenkins.io
+  # https://github.com/jenkins-infra/helm-charts/
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/helm-charts
+  # https://github.com/cert-manager/cert-manager/
+  - name: jetstack
+    url: https://charts.jetstack.io
+  # https://github.com/prometheus-community/helm-charts/
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
 releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.2.2
+    version: 3.3.3
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -46,6 +56,7 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.4.0
     values:
+      - "../config/ext_private-nginx-ingress__common.yaml"
       - "../config/ext_private-nginx-ingress_prodpublick8s.yaml"
   - name: prometheus
     namespace: prometheus
@@ -57,7 +68,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.10.0
+    version: v1.10.1
     set:
       - name: installCRDs
         value: true
@@ -80,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.43.5
+    version: 6.44.8
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -104,7 +115,7 @@ releases:
   - name: ircbot
     namespace: ircbot
     chart: jenkins-infra/ircbot
-    version: 0.2.5
+    version: 0.2.6
     values:
       - "../config/ircbot.yaml"
     secrets:
@@ -136,7 +147,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.1.20
+    version: 0.2.3
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -162,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.20.4
+    version: 0.21.2
     timeout: 600
     atomic: false
     values:
@@ -172,7 +183,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.2.12
+    version: 4.2.15
     timeout: 600
     set:
       - name: namespace
@@ -215,13 +226,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.39
+    version: 0.3.42
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.2.12
+    version: 4.2.15
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -268,7 +279,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 1.2.5
+    version: 1.2.7
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:

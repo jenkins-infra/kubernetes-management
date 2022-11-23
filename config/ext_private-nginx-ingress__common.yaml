@@ -29,24 +29,19 @@ controller:
     # I doubt we need it at the moment, hence this comment.
     # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-geoip2
     use-geoip2: "true"
-    hsts: "true"
-    hsts-preload: "true"
-    hsts-include-subdomains: "true"
-    # Strict-Transport-Security "max-age" directive recommended value is 2592000 (30 days).
-    hsts-max-age: "2592000"
   replicaCount: 1
   ingressClassResource:
     enabled: true
-    default: false
-    name: public-nginx
-    controllerValue: k8s.io/ingress-public-nginx
+    default: true
+    controllerValue: k8s.io/ingress-private-nginx
+    name: private-nginx
     # Parameters is a link to a custom resource containing additional
     # configuration for the controller. This is optional if the controller
     # does not require extra parameters.
     parameters: {}
-  publishService:
-    enabled: true
   service:
     annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: true
       prometheus.io/scrape: "true"
       prometheus.io/port: "10254"
+    externalTrafficPolicy: Local

@@ -4,16 +4,22 @@ helmDefaults:
   timeout: 600
   wait: true
 repositories:
+  # https://github.com/kubernetes/autoscaler/
   - name: autoscaler
     url: https://kubernetes.github.io/autoscaler
+  # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/aws/eks-charts/
   - name: eks
     url: https://aws.github.io/eks-charts
+  # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
+  # https://github.com/cert-manager/cert-manager/
   - name: jetstack
     url: https://charts.jetstack.io
 releases:
@@ -40,7 +46,7 @@ releases:
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
-    version: 0.19.3
+    version: 0.20.0
     values:
       - "../config/ext_aws-node-termination-handler_eks-public.yaml"
   # https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
@@ -51,7 +57,7 @@ releases:
   - name: aws-load-balancer-controller
     namespace: aws-load-balancer
     chart: eks/aws-load-balancer-controller
-    version: 1.4.5
+    version: 1.4.6
     values:
       - "../config/ext_aws-load-balancer-controller.yaml"
     set:
@@ -75,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.2.2
+    version: 3.3.3
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_eks-public.yaml"
