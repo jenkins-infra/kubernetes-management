@@ -294,6 +294,32 @@ jobsDefinition:
             fileName: "backend-config"
             description: "Terraform backend configuration for the staging environment of jenkins-infra/azure"
             secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+      azure-net:
+        name: Terraform Azure-net
+        description: "Azure-net resources managed by Terraform"
+        credentials:
+          production-terraform-azure-net-serviceprincipal:
+            azureEnvironmentName: "Azure-net"
+            clientId: "${PRODUCTION_TERRAFORM_AZURE_NET_CLIENT_ID}"
+            clientSecret: "${PRODUCTION_TERRAFORM_AZURE_NET_CLIENT_SECRET_VALUE}"
+            description: "Azure Service Principal credential used by terraform for azure-net production"
+            subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_NET_SUBSCRIPTION_ID}"
+            tenant: "${PRODUCTION_TERRAFORM_AZURE_NET_TENANT_ID}"
+          production-terraform-azure-net-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the production environment of jenkins-infra/azure-net"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
+          staging-terraform-azure-net-serviceprincipal:
+            azureEnvironmentName: "Azure-net"
+            clientId: "${STAGING_TERRAFORM_AZURE_NET_CLIENT_ID}"
+            clientSecret: "${STAGING_TERRAFORM_AZURE_NET_CLIENT_SECRET_VALUE}"
+            description: "Azure Service Principal credential used by terraform for azure-net staging"
+            subscriptionId: "${STAGING_TERRAFORM_AZURE_NET_SUBSCRIPTION_ID}"
+            tenant: "${STAGING_TERRAFORM_AZURE_NET_TENANT_ID}"
+          staging-terraform-azure-net-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/azure-net"
+            secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
       datadog:
         name: Terraform Datadog
         description: "Datadog resources managed by Terraform"
@@ -406,6 +432,7 @@ jobsDefinition:
         name: Jenkins User Stories
         description: "Jenkins User Stories Website"
         allowUntrustedChanges: true
+        jenkinsfilePath: Jenkinsfile
       plugin-site:
         name: Plugin Site
         allowUntrustedChanges: true

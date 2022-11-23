@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.87.1-2.378
+  tag: 0.88.0-2.379
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -144,44 +144,19 @@ controller:
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
                     yamlMergeStrategy: "merge"
-                  - name: jnlp-beta-11
-                    nodeSelector: "kubernetes.io/os=linux"
-                    containers:
-                      - name: jnlp-beta
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-20.04"
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk11/bin/java"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "/opt/jdk-11"
-                        resourceLimitCpu: "500m"
-                        resourceLimitMemory: "512Mi"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "512Mi"
-                        alwaysPullImage: true
-                    yamlMergeStrategy: "merge"
-                    label: "ubuntu-20-04-beta-11"
-                  - name: jnlp-beta-17
-                    nodeSelector: "kubernetes.io/os=linux"
-                    containers:
-                      - name: jnlp-beta
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-20.04"
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk11/bin/java"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "/opt/jdk-17"
-                        resourceLimitCpu: "500m"
-                        resourceLimitMemory: "512Mi"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "512Mi"
-                        alwaysPullImage: true
-                    yamlMergeStrategy: "merge"
-                    label: "ubuntu-20-04-beta-17"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
                   - name: jnlp-windows
                     nodeSelector: "kubernetes.io/os=windows"
                     instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
@@ -218,6 +193,19 @@ controller:
                                   - windows
                   - name: "jnlp-webbuilder"
                     nodeSelector: "kubernetes.io/os=linux"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
                     containers:
                       - name: "jnlp"
                         image: "jenkinsciinfra/builder@sha256:230919e6a856373c43ed01c4f967cab6274599f6457cd1ea49850ea759e67aa4"
@@ -235,10 +223,10 @@ controller:
                         - envVar:
                             key: "ARTIFACT_CACHING_PROXY_PROVIDER"
                             value: "azure"
-                        resourceLimitCpu: "2"
-                        resourceLimitMemory: "4G"
-                        resourceRequestCpu: "2"
-                        resourceRequestMemory: "4G"
+                        resourceLimitCpu: "4"
+                        resourceLimitMemory: "8G"
+                        resourceRequestCpu: "4"
+                        resourceRequestMemory: "8G"
                     label: "container kubernetes node ruby webbuilder"
                     yamlMergeStrategy: "merge"
             - amazonEC2:
@@ -296,7 +284,7 @@ controller:
                   idleTerminationMinutes: "5"
                   instanceCapStr: "50"
                   javaPath: "/opt/jdk-11/bin/java"
-                  labelString: "linux-amd64-big linux-amd64-docker-big"
+                  labelString: "linux-amd64-big linux-amd64-docker-big highmem"
                   launchTimeoutStr: "180"
                   maxTotalUses: 1
                   minimumNumberOfInstances: 0
@@ -430,7 +418,10 @@ controller:
             url: "https://infra.ci.jenkins.io"
           globalLibraries:
             libraries:
-            - defaultVersion: "master"
+            - cachingConfiguration:
+                excludedVersionsStr: "pull/"
+                refreshTimeMinutes: 180
+              defaultVersion: "master"
               implicit: true
               name: "pipeline-library"
               includeInChangesets: false
