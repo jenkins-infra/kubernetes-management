@@ -180,7 +180,7 @@ jobsDefinition:
             password: "${ARTIFACTORY_API_INFRA_REPORTS_PASSWORD}"
       backend-extension-indexer:
         name: "Backend Extension Indexer"
-        jenkinsfilePath: Jenkinsfile.infra.ci.jenkins.io
+        jenkinsfilePath: Jenkinsfile
       fork-report:
         name: "GitHub Forks Report"
         repository: "infra-reports"
@@ -224,7 +224,7 @@ jobsDefinition:
             secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
       pipeline-steps-doc-generator:
         name: "Pipeline Steps Documentation Generator"
-        jenkinsfilePath: Jenkinsfile.infra.ci.jenkins.io
+        jenkinsfilePath: Jenkinsfile
       plugin-migration:
         name: "Plugin Migration Status Report"
         repository: "infra-reports"
