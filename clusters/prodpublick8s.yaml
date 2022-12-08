@@ -147,7 +147,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.2.10
+    version: 0.2.12
     values:
       - "../config/accountapp.yaml"
     secrets:
