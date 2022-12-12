@@ -106,7 +106,7 @@ controller:
           authorizationStrategy:
             globalMatrix:
               permissions:
-                - "GROUP:Job/Read:anonymous"
+                - "USER:Job/Read:anonymous"
                 - "GROUP:Job/Read:authenticated"
                 - "GROUP:Overall/Read:anonymous"
                 - "GROUP:Overall/Read:authenticated"
