@@ -108,7 +108,7 @@ controller:
               permissions:
                 - "USER:Job/Read:anonymous"
                 - "GROUP:Job/Read:authenticated"
-                - "GROUP:Overall/Read:anonymous"
+                - "USER:Overall/Read:anonymous"
                 - "GROUP:Overall/Read:authenticated"
                 - "GROUP:Overall/Administer:admins"
                 - "GROUP:Overall/Administer:jenkins-admins"
