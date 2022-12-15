@@ -83,5 +83,3 @@ helmfile template --no-color -f clusters/<cluster-name>.yaml -l name=<release-na
 * [Helm Charts](https://github.com/helm/helm-charts)
 * [Sops](https://github.com/mozilla/sops)
 * [Updatecli](https://github.com/updatecli/updatecli)
-
-
