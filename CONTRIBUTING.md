@@ -25,7 +25,7 @@ Date:   Thu Feb 2 11:41:15 2018 -0800
 ## How to Contribute
 
 
-- If you want to report an issue or a bug with one of the services run by the Jenkins project, opening an issue on here! https://github.com/jenkins-infra/helpdesk and explaining the goal and expect results, before the PR
+- If you want to contribute, to report an issue or a bug with one of the services run by the Jenkins project, open an issue on [the jenkins-infra/helpdesk repository](https://github.com/jenkins-infra/helpdesk] and explain the goal and expect results, before sending a Pull Request
 
 - The jenkins-infra chart contributions are described in another repository (link: https://github.com/jenkins-infra/helm-charts/blob/main/CONTRIBUTING.md)
 
