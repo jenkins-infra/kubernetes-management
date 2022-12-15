@@ -21,11 +21,13 @@ Date:   Thu Feb 2 11:41:15 2018 -0800
 
     Signed-off-by: Joe Smith <joe.smith@example.com>
 
-## How to debug deployments
 
-```
-helmfile template --no-color -f clusters/<cluster-name>.yaml -l name=<release-name>
-```
+## How to Contribute
+
+
+- If you want to report an issue or a bug with one of the services run by the Jenkins project, opening an issue on here! github.com/jenkins-infra/helpdesk explaining the goal, before the PR
+
+- The jenkins-infra chart contributions are described in another repository (link: https://github.com/jenkins-infra/helm-charts/blob/main/CONTRIBUTING.md)
 
 ### Technical Requirements
 
