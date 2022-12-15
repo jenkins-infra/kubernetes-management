@@ -19,7 +19,7 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.91.1-2.382
+  tag: 0.91.2-2.382
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -108,7 +108,7 @@ controller:
               permissions:
                 - "USER:Job/Read:anonymous"
                 - "GROUP:Job/Read:authenticated"
-                - "GROUP:Overall/Read:anonymous"
+                - "USER:Overall/Read:anonymous"
                 - "GROUP:Overall/Read:authenticated"
                 - "GROUP:Overall/Administer:admins"
                 - "GROUP:Overall/Administer:jenkins-admins"
