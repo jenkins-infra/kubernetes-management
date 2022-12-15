@@ -70,6 +70,12 @@ kubectl -n release port-forward default-release-jenkins-77fd54976f-ns2c6 8081:80
 kubectl get secrets -n release  default-release-jenkins -o json
 ```
 
+## How to debug deployments
+
+```
+helmfile template --no-color -f clusters/<cluster-name>.yaml -l name=<release-name>
+```
+
 ## Links
 
 * [Helmfile](https://github.com/helmfile/helmfile)
@@ -77,3 +83,5 @@ kubectl get secrets -n release  default-release-jenkins -o json
 * [Helm Charts](https://github.com/helm/helm-charts)
 * [Sops](https://github.com/mozilla/sops)
 * [Updatecli](https://github.com/updatecli/updatecli)
+
+
