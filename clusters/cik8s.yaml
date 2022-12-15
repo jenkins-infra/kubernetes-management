@@ -64,6 +64,6 @@ releases:
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
-    version: 0.20.1
+    version: 0.20.2
     values:
       - "../config/ext_aws-node-termination-handler_cik8s.yaml"
