@@ -21,14 +21,11 @@ Date:   Thu Feb 2 11:41:15 2018 -0800
 
     Signed-off-by: Joe Smith <joe.smith@example.com>
 
-## How to Contribute to an Existing Chart
+## How to debug deployments
 
-1. Fork this repository, develop and test your Chart changes.
-2. Remember to sign off your commits as described in the "Sign Your Work" chapter.
-3. Ensure your Chart changes follow the technical and documentation guidelines, described below.
-4. Submit a pull request.
-
-NOTE: In order to make testing and merging of PRs easier, please submit changes to multiple charts in separate PRs.
+```
+helmfile template --no-color -f clusters/<cluster-name>.yaml -l name=<release-name>
+```
 
 ### Technical Requirements
 
