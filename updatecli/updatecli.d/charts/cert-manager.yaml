@@ -26,6 +26,7 @@ targets:
     kind: file
     spec:
       files:
+        - clusters/privatek8s.yaml
         - clusters/prodpublick8s.yaml
         - clusters/temp-privatek8s.yaml
       matchpattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
