@@ -38,7 +38,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.3.1
+    version: 3.6.4
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -61,14 +61,14 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 15.18.0
+    version: 19.0.2
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.10.0
+    version: v1.10.1
     set:
       - name: installCRDs
         value: true
@@ -85,13 +85,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.2.0
+    version: 2.4.3
     values:
       - "../config/ext_falco.yaml"
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.44.6
+    version: 6.48.0
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -147,7 +147,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.2.3
+    version: 0.2.17
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -173,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.21.1
+    version: 0.22.2
     timeout: 600
     atomic: false
     values:
@@ -183,7 +183,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.2.15
+    version: 4.2.17
     timeout: 600
     set:
       - name: namespace
@@ -209,7 +209,7 @@ releases:
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
     namespace: keycloak
     chart: codecentric/keycloak
-    version: 18.3.0
+    version: 18.4.0
     timeout: 600
     values:
       - "../config/ext_keycloak.yaml"
@@ -226,13 +226,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.42
+    version: 0.3.48
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.2.15
+    version: 4.2.17
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -279,7 +279,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 1.2.6
+    version: 1.4.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:

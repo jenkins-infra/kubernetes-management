@@ -37,7 +37,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.21.0
+    version: 9.21.1
     values:
       - "../config/ext_autoscaler_eks-public.yaml"
     set:
@@ -46,7 +46,7 @@ releases:
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
-    version: 0.20.0
+    version: 0.20.2
     values:
       - "../config/ext_aws-node-termination-handler_eks-public.yaml"
   # https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
@@ -81,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.3.1
+    version: 3.6.4
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_eks-public.yaml"

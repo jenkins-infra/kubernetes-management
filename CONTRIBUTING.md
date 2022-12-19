@@ -21,14 +21,13 @@ Date:   Thu Feb 2 11:41:15 2018 -0800
 
     Signed-off-by: Joe Smith <joe.smith@example.com>
 
-## How to Contribute to an Existing Chart
 
-1. Fork this repository, develop and test your Chart changes.
-2. Remember to sign off your commits as described in the "Sign Your Work" chapter.
-3. Ensure your Chart changes follow the technical and documentation guidelines, described below.
-4. Submit a pull request.
+## How to Contribute
 
-NOTE: In order to make testing and merging of PRs easier, please submit changes to multiple charts in separate PRs.
+
+- If you want to contribute, to report an issue or a bug with one of the services run by the Jenkins project, open an issue on [the jenkins-infra/helpdesk repository](https://github.com/jenkins-infra/helpdesk) and explain the goal and expect results, before sending a Pull Request
+
+- The jenkins-infra chart contributions are described in another repository (link: https://github.com/jenkins-infra/helm-charts/blob/main/CONTRIBUTING.md)
 
 ### Technical Requirements
 
