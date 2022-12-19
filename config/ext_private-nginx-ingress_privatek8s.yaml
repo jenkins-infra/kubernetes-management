@@ -1,0 +1,5 @@
+controller:
+  service:
+    annotations:
+      # azurerm_subnet.privatek8s_tier in https://github.com/jenkins-infra/azure/blob/main/privatek8s.tf
+      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: privatek8s-tier

@@ -4,14 +4,19 @@ helmDefaults:
   timeout: 300
   wait: true
 repositories:
+  # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  # https://github.com/jenkinsci/helm-charts/
   - name: jenkins
     url: https://charts.jenkins.io
+  # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
+  # https://github.com/cert-manager/cert-manager/
   - name: jetstack
     url: https://charts.jetstack.io
 releases:
