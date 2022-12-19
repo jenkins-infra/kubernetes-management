@@ -42,7 +42,7 @@ releases:
       - "../config/ext_autoscaler_eks-public.yaml"
     set:
       - name: autoDiscovery.clusterName
-        value: public-mint-ape
+        value: public-happy-polliwog
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
@@ -51,7 +51,7 @@ releases:
       - "../config/ext_aws-node-termination-handler_eks-public.yaml"
   # https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
   # # If not using IAM Roles for service account
-  # helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=jenkins-infra-public-Y9wILECh -n kube-system
+  # helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=<cluster name> -n kube-system
   # Prerequisite: install CRDs with
   # kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
   - name: aws-load-balancer-controller
@@ -62,7 +62,7 @@ releases:
       - "../config/ext_aws-load-balancer-controller.yaml"
     set:
       - name: clusterName
-        value: public-mint-ape
+        value: public-happy-polliwog
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
