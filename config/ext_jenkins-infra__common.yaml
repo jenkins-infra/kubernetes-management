@@ -40,10 +40,6 @@ controller:
     readinessProbe:
       initialDelaySeconds: 120
   testEnabled: false
-  podSecurityContextOverride:
-    runAsNonRoot: true
-    runAsUser: 1000
-    supplementalGroups: [1000]
   overwritePlugins: true
   serviceType: "ClusterIP"
   javaOpts: >-
@@ -86,12 +82,6 @@ controller:
                     password: "${ARTIFACT_CACHING_PROXY_PASSWORD}"
                     scope: GLOBAL
                     username: "MY-USERNAME"
-                - file:
-                    fileName: "kubeconfig"
-                    id: "kubeconfig-controller-temp-privatek8s"
-                    description: "Kubeconfig file for temp-privatek8s"
-                    scope: SYSTEM
-                    secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
                 - basicSSHUserPrivateKey:
                     scope: SYSTEM
                     id: "ec2-agents-privkey"
@@ -111,6 +101,7 @@ controller:
           numExecutors: 0
           clouds:
             - kubernetes:
+                credentialsId: "kubeconfig-controller"
                 containerCapStr: "100"
                 # Kubernetes internal URL to stay within private networks
                 jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc.cluster.local:8080"
@@ -120,7 +111,6 @@ controller:
                 namespace: "jenkins-agents"
                 podRetention: "Never"
                 serverUrl: ${AGENTS_KUBERNETES_CLUSTER_URL}
-                credentialsId: "kubeconfig-controller-temp-privatek8s"
                 serverCertificate: |
                   ${AGENTS_KUBERNETES_CLUSTER_CERT}
                 podLabels:
