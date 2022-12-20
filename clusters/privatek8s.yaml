@@ -10,6 +10,9 @@ repositories:
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  # https://github.com/jenkinsci/helm-charts/
+  - name: jenkins
+    url: https://charts.jenkins.io
   # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
