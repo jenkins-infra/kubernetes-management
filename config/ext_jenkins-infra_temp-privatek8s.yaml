@@ -1,0 +1,52 @@
+controller:
+  JCasC:
+    configScripts:
+      credentials: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                - gitHubApp:
+                    appID: "${GITHUB_APP_ID}"
+                    description: "GitHub App for infra.ci.jenkins.io"
+                    id: "github-app-infra"
+                    privateKey: "${GITHUB_APP_PRIVATE_KEY}"
+                    scope: GLOBAL
+                - gitHubApp:
+                    appID: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_ID}"
+                    description: "GitHub App for updatecli tasks on jenkins-infra org"
+                    id: "github-app-updatecli-on-jenkins-infra"
+                    privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
+                    owner: "jenkins-infra"
+                    scope: GLOBAL
+                - usernamePassword:
+                    description: "Credentials to access an artifact caching proxy"
+                    id: "artifact-caching-proxy-credentials"
+                    password: "${ARTIFACT_CACHING_PROXY_PASSWORD}"
+                    scope: GLOBAL
+                    username: "MY-USERNAME"
+                - basicSSHUserPrivateKey:
+                    scope: SYSTEM
+                    id: "ec2-agents-privkey"
+                    username: "key"
+                    description: "SSH privkey used to connect to EC2 agents"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: "${EC2_AGENTS_PRIVKEY}"
+                - aws:
+                    accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
+                    description: "This credential is used to provision dynamic agents on AWS EC2"
+                    id: "ec2-agents-credentials"
+                    scope: SYSTEM
+                    secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - file:
+                    fileName: "kubeconfig"
+                    id: "kubeconfig-controller"
+                    description: "Kubeconfig file for temp-privatek8s"
+                    scope: SYSTEM
+                    secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
+  # Can be omitted, here to avoid modifying temp-privatek8s config
+  podSecurityContextOverride:
+    runAsNonRoot: true
+    runAsUser: 1000
+    supplementalGroups: [1000]

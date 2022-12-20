@@ -25,7 +25,9 @@ targets:
     name: "Update the chart version for jenkins-jobs"
     kind: file
     spec:
-      file: clusters/temp-privatek8s.yaml
+      files:
+        - clusters/privatek8s.yaml
+        - clusters/temp-privatek8s.yaml
       matchpattern: 'chart: jenkins-infra\/jenkins-jobs((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/jenkins-jobs${1}version: {{ source "lastChartVersion" }}'
     scmid: default
