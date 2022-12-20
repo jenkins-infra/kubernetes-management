@@ -57,7 +57,7 @@ releases:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
     values:
-      - "../config/ext_jenkins-infra__common.yaml"
+      - "../config/ext_jenkins-infra__common.yaml.gotmpl"
       - "../config/ext_jenkins-infra_privatek8s.yaml"
     secrets:
       - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"

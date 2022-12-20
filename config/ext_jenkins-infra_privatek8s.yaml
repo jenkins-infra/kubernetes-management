@@ -1,6 +1,3 @@
-kubeconfigFileCredential: &kubeconfigFileCredential
-  fileName: "kubeconfig"
-  id: "kubeconfig-controller"
-  description: "Kubeconfig file for privatek8s"
-  scope: SYSTEM
-  secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
+jenkinsInfra:
+  clusterName: "privatek8s"
+  secret: "${base64:${KUBECONFIG_PRIVATEK8S}}"

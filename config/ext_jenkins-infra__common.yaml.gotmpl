@@ -87,7 +87,11 @@ controller:
                     scope: SYSTEM
                     secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
                 - file:
-                    <<: *kubeconfigFileCredential
+                    fileName: "kubeconfig"
+                    id: "kubeconfig-controller"
+                    description: "Kubeconfig file for {{ .Values | get "jenkinsInfra.clusterName" "aClusterName" }}"
+                    scope: SYSTEM
+                    secretBytes: {{ .Values | get "jenkinsInfra.secret" "aSecret" }}
       security: |
         security:
           scriptApproval:

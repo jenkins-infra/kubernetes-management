@@ -4,9 +4,6 @@ controller:
     runAsNonRoot: true
     runAsUser: 1000
     supplementalGroups: [1000]
-kubeconfigFileCredential:
-  fileName: "kubeconfig"
-  id: "kubeconfig-controller"
-  description: "Kubeconfig file for temp-privatek8s"
-  scope: SYSTEM
-  secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
+kubeconfigFileCredential: &kubeconfigFileCredential
+  clusterName: "temp-privatek8s"
+  secret: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
