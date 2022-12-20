@@ -1,3 +1,0 @@
-jenkinsInfra:
-  clusterName: "privatek8s"
-  secret: "${base64:${KUBECONFIG_PRIVATEK8S}}"

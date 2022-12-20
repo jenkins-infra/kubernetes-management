@@ -1,0 +1,1 @@
+{{ readFile "values.yaml" | fromYaml | setValueAtPath "kubeconfigFileCredential.description" "temp-privatek8s kubeconfig file" | setValueAtPath "kubeconfigFileCredential.secretBytes" "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}" | toYaml }}

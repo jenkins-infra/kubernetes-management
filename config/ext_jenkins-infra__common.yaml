@@ -18,6 +18,9 @@ networkPolicy:
     allowed: true
     namespaceLabels:
       name: "jenkins-infra"
+kubeconfigFileCredential: &kubeconfigFileCredential
+  description: "aCluster kubeconfig file"
+  secretBytes: "${base64:${A_CLUSTER_KUBECONFIG}}"
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.91.5-2.382
@@ -89,9 +92,8 @@ controller:
                 - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-controller"
-                    description: "Kubeconfig file for {{ .Values | get "jenkinsInfra.clusterName" "aClusterName" }}"
                     scope: SYSTEM
-                    secretBytes: {{ .Values | get "jenkinsInfra.secret" "aSecret" }}
+                    <<: *kubeconfigFileCredential
       security: |
         security:
           scriptApproval:
