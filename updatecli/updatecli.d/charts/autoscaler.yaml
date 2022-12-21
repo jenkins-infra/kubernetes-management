@@ -32,9 +32,9 @@ targets:
       matchpattern: 'chart: autoscaler\/cluster-autoscaler((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: autoscaler/cluster-autoscaler${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `autoscaler` helm chart version to {{ source "lastChartVersion" }}
     spec:

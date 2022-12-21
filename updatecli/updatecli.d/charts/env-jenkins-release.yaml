@@ -30,9 +30,9 @@ targets:
       matchpattern: 'chart: jenkins-infra\/env-jenkins-release((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/env-jenkins-release${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `env-jenkins-release` helm chart version to {{ source "lastChartVersion" }}
     spec:

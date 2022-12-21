@@ -30,9 +30,9 @@ targets:
       replacepattern: 'chart: grafana/grafana${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `grafana` helm chart version to {{ source "lastChartVersion" }}
     spec:

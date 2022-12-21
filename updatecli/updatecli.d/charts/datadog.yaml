@@ -37,9 +37,9 @@ targets:
       matchpattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: datadog/datadog${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `datadog` helm chart version to {{ source "lastChartVersion" }}
     spec:

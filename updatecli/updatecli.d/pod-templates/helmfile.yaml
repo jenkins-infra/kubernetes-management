@@ -51,9 +51,9 @@ targets:
       key: spec.containers[0].image
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump jenkins-infra helmfile docker image to {{ source `lastRelease` }}
     spec:

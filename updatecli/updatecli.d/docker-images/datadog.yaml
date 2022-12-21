@@ -36,9 +36,9 @@ targets:
       replacepattern: 'repository: "jenkinsciinfra/datadog@sha256"${1}tag: "{{ source `latestDigest` }}"'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `datadog` docker image version to {{ source "latestDigest" }}
     spec:

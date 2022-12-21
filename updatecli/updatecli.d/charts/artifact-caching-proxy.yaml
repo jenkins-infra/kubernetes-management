@@ -33,9 +33,9 @@ targets:
       matchpattern: 'chart: jenkins-infra\/artifact-caching-proxy((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/artifact-caching-proxy${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `artifact-caching-proxy` helm chart version to {{ source `lastChartVersion` }}
     spec:

@@ -47,9 +47,9 @@ targets:
       key: "defaultBackend.image.tag"
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump 404 docker image version to {{ source "latestRelease" }}
     spec:

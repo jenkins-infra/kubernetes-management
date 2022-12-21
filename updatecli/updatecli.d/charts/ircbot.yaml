@@ -30,9 +30,9 @@ targets:
       matchpattern: 'chart: jenkins-infra\/ircbot((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/ircbot${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `ircbot` helm chart version to {{ source "lastChartVersion" }}
     spec:
