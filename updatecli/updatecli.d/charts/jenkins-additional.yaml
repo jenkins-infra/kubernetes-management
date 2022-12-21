@@ -32,9 +32,9 @@ targets:
       replacepattern: 'chart: jenkins-infra/jenkins-additional${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `jenkins-additional` helm chart version to {{ source "lastChartVersion" }}
     spec:

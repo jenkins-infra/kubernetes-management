@@ -35,9 +35,9 @@ targets:
       replacepattern: 'chart: jenkins-infra/acme${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `acme` helm chart version to {{ source "lastChartVersion" }}
     spec:

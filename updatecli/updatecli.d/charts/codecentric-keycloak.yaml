@@ -30,9 +30,9 @@ targets:
       matchpattern: 'chart: codecentric\/keycloak((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: codecentric/keycloak${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `keycloak` helm chart version to {{ source "lastChartVersion" }}
     spec:
