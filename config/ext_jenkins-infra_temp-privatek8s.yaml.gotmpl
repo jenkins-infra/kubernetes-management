@@ -1,1 +1,1 @@
-{{ readFile "config/ext_jenkins-infra__common.yaml" | fromYaml | setValueAtPath "kubeconfigFileCredential.description" "temp-privatek8s kubeconfig file" | setValueAtPath "kubeconfigFileCredential.secretBytes" "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}" | toYaml }}
+{{ readFile "ext_jenkins-infra__common.yaml" | fromYaml | setValueAtPath "kubeconfigFileCredential.description" "temp-privatek8s kubeconfig file" | setValueAtPath "kubeconfigFileCredential.secretBytes" "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}" | toYaml }}
