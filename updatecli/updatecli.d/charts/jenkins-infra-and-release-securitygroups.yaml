@@ -56,9 +56,9 @@ targets:
       replacepattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump Security Groups on Jenkins Infra and Release
     spec:

@@ -32,9 +32,9 @@ targets:
       matchpattern: 'chart: eks\/aws-node-termination-handler((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: eks/aws-node-termination-handler${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `aws-node-termination-handler` helm chart version to {{ source "lastChartVersion" }}
     spec:

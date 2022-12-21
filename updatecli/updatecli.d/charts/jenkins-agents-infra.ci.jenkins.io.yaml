@@ -100,9 +100,9 @@ targets:
       replacepattern: '- ami: "{{ source `getLatestWindowsAgentAMIAmd64` }}"${1}WINDOWSAMD64'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump agent templates for infra.ci.jenkins.io (packer-image {{ source `packerImageVersion` }})
     spec:

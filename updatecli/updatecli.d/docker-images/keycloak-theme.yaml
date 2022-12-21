@@ -41,9 +41,9 @@ targets:
       replacepattern: 'image: jenkinsciinfra/keycloak-theme:{{ source "latestRelease" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `keycloak-theme` docker image version to {{ source "latestRelease" }}
     spec:

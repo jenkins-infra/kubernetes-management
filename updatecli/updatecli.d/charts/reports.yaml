@@ -30,9 +30,9 @@ targets:
       replacepattern: 'chart: jenkins-infra/reports${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `reports` helm chart version to {{ source "lastChartVersion" }}
     spec:

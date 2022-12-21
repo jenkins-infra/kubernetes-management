@@ -35,9 +35,9 @@ targets:
       replacepattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `nginx-ingress` helm chart version to {{ source "lastChartVersion" }}
     spec:

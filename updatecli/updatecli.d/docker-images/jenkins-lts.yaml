@@ -40,9 +40,9 @@ targets:
       key: "controller.tag"
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump Jenkins LTS docker image version to {{ source "latestRelease" }}
     spec:

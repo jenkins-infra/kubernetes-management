@@ -33,9 +33,9 @@ targets:
       replacepattern: 'chart: jetstack/cert-manager${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `cert-manager` helm chart version to {{ source "lastChartVersion" }}
     spec:

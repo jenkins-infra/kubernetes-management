@@ -30,9 +30,9 @@ targets:
       matchpattern: 'chart: falco\/falco((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: falco/falco${1}version: {{ source "lastChartVersion" }}'
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `falco` helm chart version to {{ source "lastChartVersion" }}
     spec:

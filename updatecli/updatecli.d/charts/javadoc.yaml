@@ -30,9 +30,9 @@ targets:
       replacepattern: 'chart: jenkins-infra/javadoc${1}version: {{ source "lastChartVersion" }}'
     scmid: default
 
-pullrequests:
+actions:
   default:
-    kind: github
+    kind: github/pullrequest
     scmid: default
     title: Bump `javadoc` helm chart version to {{ source "lastChartVersion" }}
     spec:
