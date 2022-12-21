@@ -42,7 +42,7 @@ targets:
     kind: file
     sourceid: getNewJenkinsInfraSecurityGroup
     spec:
-      file: config/ext_jenkins-infra.yaml
+      file: config/ext_jenkins-infra__common.yaml
       matchpattern: 'securityGroups: ".*"'
       replacepattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
     scmid: default
