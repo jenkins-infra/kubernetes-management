@@ -38,7 +38,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.6.4
+    version: 3.6.5
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -147,7 +147,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.2.18
+    version: 0.2.19
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.49
+    version: 0.3.50
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
