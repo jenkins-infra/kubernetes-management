@@ -26,7 +26,7 @@ spec:
       value: "spot"
       effect: "NoSchedule"
   containers:
-    - image: "jenkinsciinfra/helmfile:2.5.36"
+    - image: "jenkinsciinfra/helmfile:2.5.38"
       imagePullPolicy: "IfNotPresent"
       name: "jnlp"
       resources:
