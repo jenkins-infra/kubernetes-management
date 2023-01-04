@@ -35,7 +35,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 3.6.7
+    version: 3.6.8
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_cik8s.yaml"
