@@ -38,7 +38,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.6.4
+    version: 3.6.5
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_publick8s.yaml"
@@ -61,7 +61,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 19.0.2
+    version: 19.2.2
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.48.0
+    version: 6.48.2
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -147,7 +147,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.2.18
+    version: 0.2.20
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -173,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.22.3
+    version: 0.23.1
     timeout: 600
     atomic: false
     values:
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.49
+    version: 0.3.50
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
