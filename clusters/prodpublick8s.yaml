@@ -68,7 +68,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.10.1
+    version: v1.10.2
     set:
       - name: installCRDs
         value: true
@@ -85,13 +85,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.4.3
+    version: 2.4.6
     values:
       - "../config/ext_falco.yaml"
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.49.0
+    version: 6.50.0
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -183,7 +183,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.2.19
+    version: 4.2.20
     timeout: 600
     set:
       - name: namespace
@@ -232,7 +232,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.2.19
+    version: 4.2.20
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
