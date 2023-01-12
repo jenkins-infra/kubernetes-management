@@ -24,9 +24,7 @@ sources:
   getLatestUbuntuAgentAMIAmd64:
     kind: aws/ami
     name: get latest Ubuntu amd64 agent AMI
-    # On hold until Updatecli 0.34.0 is released
-    # dependson:
-    depends_on:
+    dependson:
       - packerImageVersion
     spec:
       region: us-east-2
@@ -41,9 +39,7 @@ sources:
   getLatestWindowsAgentAMIAmd64:
     kind: aws/ami
     name: get latest Windows amd64 agent AMI
-    # On hold until Updatecli 0.34.0 is released
-    #dependson:
-    depends_on:
+    dependson:
       - packerImageVersion
     spec:
       region: us-east-2
@@ -60,6 +56,50 @@ sources:
     name: get latest Ubuntu arm64 agent AMI
     dependson:
       - packerImageVersion
+    spec:
+      region: us-east-2
+      sortby: creationDateDesc
+      filters:
+        - name: "name"
+          values: "jenkins-agent-ubuntu-20.04-arm64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+
+conditions:
+  LatestUbuntuAgentAMIAmd64:
+    name: "Test if getLatestUbuntuAgentAMIAmd64 Image Published on AWS"
+    kind: aws/ami
+    sourceid: getLatestUbuntuAgentAMIAmd64
+    spec:
+      region: us-east-2
+      sortby: creationDateDesc
+      filters:
+        - name: "name"
+          values: "jenkins-agent-ubuntu-20.04-amd64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+  LatestWindowsAgentAMIAmd64:
+    name: "Test if getLatestWindowsAgentAMIAmd64 Image Published on AWS"
+    kind: aws/ami
+    sourceid: getLatestWindowsAgentAMIAmd64
+    spec:
+      region: us-east-2
+      sortby: creationDateDesc
+      filters:
+        - name: "name"
+          values: "jenkins-agent-windows-2019-amd64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+  LatestUbuntuAgentAMIArm64:
+    name: "Test if getLatestUbuntuAgentAMIArm64 Image Published on AWS"
+    kind: aws/ami
+    sourceid: getLatestUbuntuAgentAMIArm64
     spec:
       region: us-east-2
       sortby: creationDateDesc
