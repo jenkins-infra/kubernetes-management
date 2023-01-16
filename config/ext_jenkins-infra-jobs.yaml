@@ -449,3 +449,15 @@ jobsDefinition:
           algolia-plugins-write-key:
             secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
             description: "Algolia credentials to write data for plugin site"
+      jenkins-io-components:
+        name: Jenkins.io Web Components
+        allowUntrustedChanges: true
+        credentials:
+          jenkinsci-npm-token:
+            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+            description: "NPM automation token to publish jenkins.io Web Components"
+          jenkins-io-components-ghapp:
+            description: "Github App installed on jenkins-infra/jenkins-io-components"
+            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+            owner: "jenkins-infra"
+            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
