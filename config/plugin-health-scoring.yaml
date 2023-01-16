@@ -13,3 +13,13 @@ ingress:
     - secretName: plugin-health-scoring-tls
       hosts:
         - plugin-health.jenkins.io
+
+database:
+  username: plugin_health
+  server: public.postgres.database.azure.com
+  name: plugin_health
+config:
+  github:
+    # https://github.com/apps/plugins-health-scoring
+    appId: 281243
+    appInstallationName: Plugins Health Scoring
