@@ -22,4 +22,5 @@ config:
   github:
     # https://github.com/apps/plugins-health-scoring
     appId: 281243
-    appInstallationName: Plugins Health Scoring
+    # app owner
+    appInstallationName: jenkinsci
