@@ -452,6 +452,7 @@ jobsDefinition:
       jenkins-io-components:
         name: Jenkins.io Web Components
         allowUntrustedChanges: true
+        jenkinsfilePath: Jenkinsfile
         credentials:
           jenkinsci-npm-token:
             secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
