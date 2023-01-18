@@ -56,18 +56,14 @@ controller:
           numExecutors: 0
           clouds:
             - kubernetes:
-                credentialsId: "kubeconfig-controller"
                 containerCapStr: "100"
                 # Kubernetes internal URL to stay within private networks
                 jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc.cluster.local:8080"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
                 name: "kubernetes"
-                namespace: "jenkins-agents"
+                namespace: "jenkins-infra-agents"
                 podRetention: "Never"
-                serverUrl: ${AGENTS_KUBERNETES_CLUSTER_URL}
-                serverCertificate: |
-                  ${AGENTS_KUBERNETES_CLUSTER_CERT}
                 podLabels:
                   # Required to be jenkins/<helm-release>-jenkins-slave as defined here
                   # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
