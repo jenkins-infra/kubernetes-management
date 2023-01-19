@@ -147,7 +147,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.2.29
+    version: 0.2.30
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -279,7 +279,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.0.3
+    version: 2.0.4
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
