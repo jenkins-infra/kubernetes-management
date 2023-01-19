@@ -28,7 +28,6 @@ targets:
       files:
         - clusters/privatek8s.yaml
         - clusters/prodpublick8s.yaml
-        - clusters/temp-privatek8s.yaml
       matchpattern: 'chart: jenkins\/jenkins((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins/jenkins${1}version: {{ source "lastChartVersion" }}'
     scmid: default

@@ -52,13 +52,11 @@ releases:
     version: 4.2.21
     needs:
       - jenkins-infra-additional # Required to allow the Jenkins controller to spawn kubernetes pods in the current cluster
-      ## TODO: uncomment the following line when switching from temp-privatek8s to privatek8s
-      # - jenkins-jobs # Required to generate the job definition in a configmap
+      - jenkins-infra-jobs # Required to generate the job definition in a configmap
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
     values:
-      - "../config/ext_jenkins-infra__common.yaml"
-      - "../config/ext_jenkins-infra_privatek8s.yaml"
+      - "../config/ext_jenkins-infra.yaml"
     secrets:
       - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"
   - name: jenkins-infra-additional
@@ -75,13 +73,12 @@ releases:
       - "../config/jenkins-kubernetes-agents.yaml"
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
-  ## TODO: uncomment the following line when switching from temp-privatek8s to privatek8s
-  # - name: jenkins-jobs
-  #   namespace: jenkins-infra
-  #   chart: jenkins-infra/jenkins-jobs
-  #   version: 0.4.0
-  #   values:
-  #     - "../config/ext_jenkins-infra-jobs.yaml"
+  - name: jenkins-infra-jobs
+    namespace: jenkins-infra
+    chart: jenkins-infra/jenkins-jobs
+    version: 0.4.0
+    values:
+      - "../config/ext_jenkins-infra-jobs.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx

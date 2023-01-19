@@ -133,10 +133,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for prodpublick8s"
             secretBytes: "${base64:${KUBECONFIG_PRODPUBLICK8S}}"
-          kubeconfig-temp-privatek8s:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for temp-privatek8s"
-            secretBytes: "${base64:${KUBECONFIG_TEMP_PRIVATEK8S}}"
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
