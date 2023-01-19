@@ -1,12 +1,6 @@
 controller:
   JCasC:
     configScripts:
-      # TODO: remove this "cluster-credentials" section (?)
-      cluster-credentials: |
-        credentials:
-          system:
-            domainCredentials:
-              - credentials:
       credentials: |
         credentials:
           system:
