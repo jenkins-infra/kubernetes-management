@@ -68,8 +68,6 @@ releases:
     values:
       - ../config/jenkins-infra-additional.yaml
   - name: jenkins-infra-agents
-    needs:
-      - default/docker-registry-secrets
     namespace: jenkins-infra-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 0.4.0
