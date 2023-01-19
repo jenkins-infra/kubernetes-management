@@ -60,6 +60,14 @@ releases:
       - "../config/ext_jenkins-infra_privatek8s.yaml"
     secrets:
       - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"
+  - name: jenkins-infra-additional
+    namespace: jenkins-infra
+    chart: jenkins-infra/jenkins-additional
+    version: 0.0.1
+    values:
+    - ../config/jenkins-infra-additional.yaml
+    secrets:
+      - "../secrets/config/jenkins-infra/jenkins.yaml"
   - name: jenkins-infra-agents
     needs:
       - default/docker-registry-secrets
