@@ -98,7 +98,7 @@ controller:
           clouds:
             - kubernetes:
                 containerCapStr: "100"
-                #  Controller URL to alllow agent to connect to it. Prefers using the Kubernetes Service as an internal URL.
+                # Controller URL to allow agent to connect to it. Prefers using the Kubernetes Service as an internal URL.
                 jenkinsUrl: "http://jenkins-infra.jenkins-infra.svc.cluster.local:8080"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
