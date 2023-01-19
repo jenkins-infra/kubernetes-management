@@ -117,7 +117,7 @@ targets:
     kind: file
     sourceid: getLatestUbuntuAgentAMIAmd64
     spec:
-      file: config/ext_jenkins-infra__common.yaml
+      file: config/ext_jenkins-infra.yaml
       matchpattern: '- ami: ".*"(.*)LINUXAMD64'
       replacepattern: '- ami: "{{ source `getLatestUbuntuAgentAMIAmd64` }}"${1}LINUXAMD64'
     scmid: default
@@ -126,7 +126,7 @@ targets:
     kind: file
     sourceid: getLatestUbuntuAgentAMIArm64
     spec:
-      file: config/ext_jenkins-infra__common.yaml
+      file: config/ext_jenkins-infra.yaml
       matchpattern: '- ami: ".*"(.*)LINUXARM64'
       replacepattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}LINUXARM64'
     scmid: default
@@ -135,7 +135,7 @@ targets:
     kind: file
     sourceid: getLatestWindowsAgentAMIAmd64
     spec:
-      file: config/ext_jenkins-infra__common.yaml
+      file: config/ext_jenkins-infra.yaml
       matchpattern: '- ami: ".*"(.*)WINDOWSAMD64'
       replacepattern: '- ami: "{{ source `getLatestWindowsAgentAMIAmd64` }}"${1}WINDOWSAMD64'
     scmid: default

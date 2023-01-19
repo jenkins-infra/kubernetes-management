@@ -33,7 +33,6 @@ targets:
         - clusters/eks-public.yaml
         - clusters/privatek8s.yaml
         - clusters/prodpublick8s.yaml
-        - clusters/temp-privatek8s.yaml
       matchpattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: datadog/datadog${1}version: {{ source "lastChartVersion" }}'
 

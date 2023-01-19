@@ -30,7 +30,6 @@ targets:
         - clusters/eks-public.yaml
         - clusters/privatek8s.yaml
         - clusters/prodpublick8s.yaml
-        - clusters/temp-privatek8s.yaml
       matchpattern: 'chart: jenkins-infra\/acme((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/acme${1}version: {{ source "lastChartVersion" }}'
     scmid: default
