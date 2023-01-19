@@ -28,6 +28,7 @@ targets:
       files:
         - clusters/cik8s.yaml
         - clusters/doks.yaml
+        - clusters/privatek8s.yaml
       matchpattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source "lastChartVersion" }}'
     scmid: default
