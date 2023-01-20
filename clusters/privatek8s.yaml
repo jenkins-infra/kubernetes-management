@@ -51,7 +51,6 @@ releases:
     chart: jenkins/jenkins
     version: 4.2.21
     needs:
-      - jenkins-infra-additional # Required to allow the Jenkins controller to spawn kubernetes pods in the current cluster
       - jenkins-infra-jobs # Required to generate the job definition in a configmap
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
@@ -59,12 +58,6 @@ releases:
       - "../config/ext_jenkins-infra.yaml"
     secrets:
       - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"
-  - name: jenkins-infra-additional
-    namespace: jenkins-infra
-    chart: jenkins-infra/jenkins-additional
-    version: 0.0.3
-    values:
-      - ../config/jenkins-infra-additional.yaml
   - name: jenkins-infra-agents
     namespace: jenkins-infra-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
