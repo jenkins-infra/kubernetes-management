@@ -2,8 +2,6 @@ service:
   type: LoadBalancer
   whitelisted_sources:
     - '10.0.32.0/19' # Kubernetes publick8s internal IPs
-    - '35.196.175.89/32' # 2021-06-08 Allow new IP repo.jenkins-ci.org. The hosted Artifactory by JFrog # TODO: remove when https://github.com/jenkins-infra/helpdesk/issues/3288 is completed
-    - '34.75.131.248/32' # 2021-06-08 Allow new IP repo.jenkins-ci.org. The hosted Artifactory by JFrog # TODO: remove when https://github.com/jenkins-infra/helpdesk/issues/3288 is completed
     - '73.71.177.172/32' # 106 accept inbound LDAPS request from spambot
     - '140.211.15.101/32' # 107 accept inbound LDAPS request from accounts.jenkins.io
     - '140.211.9.94/32' # 107 accept inbound LDAPS request from puppet.jenkins.io
