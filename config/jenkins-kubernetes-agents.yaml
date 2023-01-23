@@ -1,1 +1,1 @@
-existingServiceAccount: jenkins-infra:jenkins-controller
+existingServiceAccount: jenkins-infra:jenkins-infra-controller
