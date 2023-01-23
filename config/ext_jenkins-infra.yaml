@@ -1,15 +1,15 @@
 serviceAccount:
   create: true
-  name: jenkins-controller
+  name: jenkins-infra-controller
 serviceAccountAgent:
-  create: true
-  name: jenkins-agent
+  create: false
 rbac:
   create: true
   readSecrets: true
 persistence:
   enabled: true
   size: 50Gi
+  storageClass: managed-csi-premium-retain
 agent:
   componentName: "agent"
 networkPolicy:
@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.95.4-2.386
+  tag: 0.95.6-2.387
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux

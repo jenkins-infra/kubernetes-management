@@ -40,7 +40,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.8.0
+    version: 3.8.1
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_privatek8s.yaml"
@@ -49,7 +49,8 @@ releases:
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
-    version: 4.2.21
+    version: 4.3.0
+    timeout: 600
     needs:
       - jenkins-infra-jobs # Required to generate the job definition in a configmap
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
