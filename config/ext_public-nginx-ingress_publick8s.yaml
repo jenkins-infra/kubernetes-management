@@ -1,0 +1,7 @@
+controller:
+  replicaCount: 2
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: false
+    loadBalancerIP: 52.167.253.43
+    externalTrafficPolicy: Local

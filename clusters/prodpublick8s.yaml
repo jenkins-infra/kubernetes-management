@@ -41,7 +41,7 @@ releases:
     version: 3.9.0
     values:
       - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_publick8s.yaml"
+      - "../config/ext_datadog_prodpublick8s.yaml"
     secrets:
       - "../secrets/config/datadog/prodpublick8s-secrets.yaml"
   - name: public-nginx-ingress

@@ -28,6 +28,7 @@ targets:
       files:
         - clusters/privatek8s.yaml
         - clusters/prodpublick8s.yaml
+        - clusters/publick8s.yaml
       matchpattern: 'chart: jetstack\/cert-manager((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jetstack/cert-manager${1}version: {{ source "lastChartVersion" }}'
     scmid: default
