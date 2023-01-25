@@ -61,7 +61,7 @@ releases:
   - name: prometheus
     namespace: prometheus
     chart: prometheus-community/prometheus
-    version: 19.3.1
+    version: 19.3.3
     atomic: false
     values:
       - "../config/ext_prometheus.yaml"
@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.50.3
+    version: 6.50.4
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -268,7 +268,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.5.0
+    version: 0.7.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
