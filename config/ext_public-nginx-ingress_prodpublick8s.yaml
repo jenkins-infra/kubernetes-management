@@ -3,5 +3,7 @@ controller:
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
     loadBalancerIP: 52.167.253.43
     externalTrafficPolicy: Local

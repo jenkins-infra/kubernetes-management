@@ -1,0 +1,9 @@
+controller:
+  replicaCount: 2
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: false
+    # azurerm_public_ip.publick8s_ipv4.ip_address in https://github.com/jenkins-infra/azure/blob/main/privatek8s.tf
+    loadBalancerIP: 20.119.232.75
+    externalTrafficPolicy: Local
+    ipFamilyPolicy: PreferDualStack
