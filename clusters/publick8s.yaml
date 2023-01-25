@@ -7,6 +7,8 @@ repositories:
   # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/kubernetes/ingress-nginx/
+  - name: ingress-nginx
   # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
@@ -40,3 +42,10 @@ releases:
       - "../config/acme.yaml"
     secrets:
       - "../secrets/config/acme/secrets.yaml"
+  - name: public-nginx-ingress
+    namespace: public-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.4.2
+    values:
+      - "../config/ext_public-nginx-ingress__common.yaml"
+      - "../config/ext_public-nginx-ingress_publick8s.yaml"

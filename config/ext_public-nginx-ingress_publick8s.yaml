@@ -3,7 +3,6 @@ controller:
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "10254"
-    loadBalancerIP: 52.167.253.43
+    # azurerm_public_ip.publick8s_ipv4.ip_address in https://github.com/jenkins-infra/azure/blob/main/privatek8s.tf
+    loadBalancerIP: 20.15.118.70
     externalTrafficPolicy: Local

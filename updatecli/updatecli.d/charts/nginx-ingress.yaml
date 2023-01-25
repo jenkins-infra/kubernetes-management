@@ -30,6 +30,7 @@ targets:
         - clusters/eks-public.yaml
         - clusters/privatek8s.yaml
         - clusters/prodpublick8s.yaml
+        - clusters/publick8s.yaml
       matchpattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source "lastChartVersion" }}'
     scmid: default
