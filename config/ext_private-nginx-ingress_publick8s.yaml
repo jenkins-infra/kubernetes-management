@@ -1,0 +1,7 @@
+controller:
+  replicaCount: 2
+  ingressClass: private-ingress
+  service:
+    annotations:
+      # azure-net:vnets.tf/public-vnet-data-tier
+      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: public-vnet-data-tier
