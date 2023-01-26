@@ -7,6 +7,9 @@ repositories:
   # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/falcosecurity/charts/
+  - name: falco
+    url: https://falcosecurity.github.io/charts
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
@@ -57,3 +60,9 @@ releases:
     values:
       - "../config/ext_private-nginx-ingress__common.yaml"
       - "../config/ext_private-nginx-ingress_prodpublick8s.yaml"
+  - name: falco
+    namespace: falco
+    chart: falco/falco
+    version: 2.5.2
+    values:
+      - "../config/ext_falco.yaml"
