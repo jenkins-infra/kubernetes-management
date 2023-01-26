@@ -147,7 +147,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.2.32
+    version: 0.2.33
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -268,7 +268,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.7.0
+    version: 0.8.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
