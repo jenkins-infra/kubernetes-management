@@ -59,7 +59,7 @@ releases:
     version: 4.4.2
     values:
       - "../config/ext_private-nginx-ingress__common.yaml"
-      - "../config/ext_private-nginx-ingress_prodpublick8s.yaml"
+      - "../config/ext_private-nginx-ingress_publick8s.yaml"
   - name: falco
     namespace: falco
     chart: falco/falco
