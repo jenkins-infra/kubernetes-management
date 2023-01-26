@@ -26,6 +26,8 @@ targets:
     kind: file
     spec:
       files:
+        - clusters/doks-public.yaml
+        - clusters/eks-public.yaml
         - clusters/privatek8s.yaml
         - clusters/prodpublick8s.yaml
         - clusters/publick8s.yaml

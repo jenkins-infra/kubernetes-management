@@ -27,6 +27,7 @@ targets:
     scmid: default
     spec:
       file: clusters/prodpublick8s.yaml
+      file: clusters/publick8s.yaml
       matchpattern: 'chart: falco\/falco((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: falco/falco${1}version: {{ source "lastChartVersion" }}'
 
