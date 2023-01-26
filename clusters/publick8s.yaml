@@ -64,5 +64,3 @@ releases:
     namespace: falco
     chart: falco/falco
     version: 2.5.2
-    values:
-      - "../config/ext_falco.yaml"
