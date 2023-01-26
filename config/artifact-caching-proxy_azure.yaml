@@ -10,6 +10,6 @@ ingress:
         - repo.azure.jenkins.io
 
 persistence:
-  storageClass: managed-csi-premium
+  storageClass: managed-csi-premium-retain
 
 replicaCount: 2
