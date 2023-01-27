@@ -13,18 +13,12 @@ repositories:
   # https://github.com/falcosecurity/charts/
   - name: falco
     url: https://falcosecurity.github.io/charts
-  # https://github.com/timja/github-comment-ops/
-  - name: github-comment-ops
-    url: https://timja.github.io/github-comment-ops/
   # https://github.com/grafana/helm-charts/
   - name: grafana
     url: https://grafana.github.io/helm-charts
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
-  # https://github.com/jenkinsci/helm-charts/
-  - name: jenkins
-    url: https://charts.jenkins.io
   # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
@@ -112,14 +106,6 @@ releases:
       - "../config/plugin-site-issues.yaml"
     secrets:
       - "../secrets/config/plugin-site-issues/secrets.yaml"
-  - name: ircbot
-    namespace: ircbot
-    chart: jenkins-infra/ircbot
-    version: 0.2.8
-    values:
-      - "../config/ircbot.yaml"
-    secrets:
-      - "../secrets/config/ircbot/secrets.yaml"
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports
@@ -255,16 +241,6 @@ releases:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
       - "../config/jenkinsisthewayio.yaml"
-  - name: github-comment-ops
-    namespace: github-comment-ops
-    chart: github-comment-ops/github-comment-ops
-    version: 1.4.0
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
-    values:
-      - "../config/ext_github-comment-ops.yaml"
-    secrets:
-      - "../secrets/config/github-comment-ops/secrets.yaml"
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
@@ -275,11 +251,3 @@ releases:
       - "../config/plugin-health-scoring.yaml"
     secrets:
       - "../secrets/config/plugin-health-scoring/secrets.yaml"
-  - name: rss2twitter
-    namespace: rss2twitter
-    chart: jenkins-infra/rss2twitter
-    version: 0.0.3
-    values:
-      - "../config/rss2twitter.yaml"
-    secrets:
-      - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials

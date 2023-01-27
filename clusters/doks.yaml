@@ -7,6 +7,9 @@ repositories:
   # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/falcosecurity/charts/
+  - name: falco
+    url: https://falcosecurity.github.io/charts
   # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
@@ -46,3 +49,7 @@ releases:
     set:
       - name: "quotas.pods"
         value: "30"
+  - name: falco
+    namespace: falco
+    chart: falco/falco
+    version: 2.5.2

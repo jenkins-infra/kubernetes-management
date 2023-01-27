@@ -26,6 +26,11 @@ targets:
     kind: file
     scmid: default
     spec:
+      file: clusters/cik8s.yaml
+      file: clusters/doks-public.yaml
+      file: clusters/doks.yaml
+      file: clusters/eks-public.yaml
+      file: clusters/privatek8s.yaml
       file: clusters/prodpublick8s.yaml
       file: clusters/publick8s.yaml
       matchpattern: 'chart: falco\/falco((\r\n|\r|\n)(\s+))version: .*'
