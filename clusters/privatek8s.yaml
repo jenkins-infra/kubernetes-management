@@ -87,3 +87,11 @@ releases:
     values:
       - "../config/ext_private-nginx-ingress__common.yaml"
       - "../config/ext_private-nginx-ingress_privatek8s.yaml"
+  - name: rss2twitter
+    namespace: rss2twitter
+    chart: jenkins-infra/rss2twitter
+    version: 0.0.3
+    values:
+      - "../config/rss2twitter.yaml"
+    secrets:
+      - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
