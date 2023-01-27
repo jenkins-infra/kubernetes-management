@@ -87,3 +87,13 @@ releases:
     values:
       - "../config/ext_private-nginx-ingress__common.yaml"
       - "../config/ext_private-nginx-ingress_privatek8s.yaml"
+  - name: github-comment-ops
+    namespace: github-comment-ops
+    chart: github-comment-ops/github-comment-ops
+    version: 1.4.0
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
+    values:
+      - "../config/ext_github-comment-ops.yaml"
+    secrets:
+      - "../secrets/config/github-comment-ops/secrets.yaml"
