@@ -38,7 +38,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.10.0
+    version: 3.10.1
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_prodpublick8s.yaml"
@@ -226,7 +226,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.55
+    version: 0.3.56
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
