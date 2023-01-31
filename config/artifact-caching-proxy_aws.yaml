@@ -1,4 +1,7 @@
 ingress:
+  enabled: true
+  annotations:
+    acme.cert-manager.io/http01-edit-in-place: "true"
   hosts:
     - host: repo.aws.jenkins.io
       paths:
