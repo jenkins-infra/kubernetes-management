@@ -55,7 +55,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.22.0
+    version: 9.23.0
     values:
       - "../config/ext_autoscaler_cik8s.yaml"
     set:
