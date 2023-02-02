@@ -37,7 +37,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.21.1
+    version: 9.23.0
     values:
       - "../config/ext_autoscaler_eks-public.yaml"
     set:
