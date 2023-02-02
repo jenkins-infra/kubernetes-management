@@ -46,7 +46,7 @@ releases:
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
-    version: 0.20.3
+    version: 0.21.0
     values:
       - "../config/ext_aws-node-termination-handler_eks-public.yaml"
   # https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
@@ -97,7 +97,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.8.0
+    version: 0.10.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:

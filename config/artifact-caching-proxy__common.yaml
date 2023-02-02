@@ -14,7 +14,6 @@ persistence:
 ingress:
   enabled: true
   className: public-nginx
-  healthPath: /health
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"

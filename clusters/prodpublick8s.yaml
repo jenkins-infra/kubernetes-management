@@ -91,7 +91,7 @@ releases:
   - name: grafana
     namespace: grafana
     chart: grafana/grafana
-    version: 6.50.6
+    version: 6.50.5
     values:
       - "../config/ext_grafana.yaml"
     secrets:
@@ -173,7 +173,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.25.1
+    version: 0.25.2
     timeout: 600
     atomic: false
     values:
