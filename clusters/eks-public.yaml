@@ -37,7 +37,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.21.1
+    version: 9.23.0
     values:
       - "../config/ext_autoscaler_eks-public.yaml"
     set:
@@ -46,7 +46,7 @@ releases:
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
-    version: 0.20.3
+    version: 0.21.0
     values:
       - "../config/ext_aws-node-termination-handler_eks-public.yaml"
   # https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
@@ -81,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.10.0
+    version: 3.10.5
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_eks-public.yaml"
@@ -97,7 +97,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.8.0
+    version: 0.10.3
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
