@@ -16,9 +16,6 @@ repositories:
   # https://github.com/timja/github-comment-ops/
   - name: github-comment-ops
     url: https://timja.github.io/github-comment-ops/
-  # https://github.com/grafana/helm-charts/
-  - name: grafana
-    url: https://grafana.github.io/helm-charts
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
@@ -31,9 +28,6 @@ repositories:
   # https://github.com/cert-manager/cert-manager/
   - name: jetstack
     url: https://charts.jetstack.io
-  # https://github.com/prometheus-community/helm-charts/
-  - name: prometheus-community
-    url: https://prometheus-community.github.io/helm-charts
 releases:
   - name: datadog
     namespace: datadog
@@ -58,13 +52,6 @@ releases:
     values:
       - "../config/ext_private-nginx-ingress__common.yaml"
       - "../config/ext_private-nginx-ingress_prodpublick8s.yaml"
-  - name: prometheus
-    namespace: prometheus
-    chart: prometheus-community/prometheus
-    version: 19.3.3
-    atomic: false
-    values:
-      - "../config/ext_prometheus.yaml"
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
@@ -88,14 +75,6 @@ releases:
     version: 2.5.2
     values:
       - "../config/ext_falco.yaml"
-  - name: grafana
-    namespace: grafana
-    chart: grafana/grafana
-    version: 6.50.5
-    values:
-      - "../config/ext_grafana.yaml"
-    secrets:
-      - "../secrets/config/grafana/secrets.yaml"
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
