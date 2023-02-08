@@ -12,7 +12,7 @@ ingress:
         - repo.aws.jenkins.io
 
 persistence:
-  storageClass: ebs-sc
+  storageClass: ebs-sc-az1-retain
   ## TODO: find a way to helmfile apply this YAML storageclass definition
   ##########
   # apiVersion: storage.k8s.io/v1
