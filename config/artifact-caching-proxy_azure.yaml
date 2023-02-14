@@ -11,5 +11,3 @@ ingress:
 
 persistence:
   storageClass: managed-csi-premium-retain
-
-replicaCount: 2
