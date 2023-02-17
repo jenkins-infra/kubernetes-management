@@ -5,6 +5,10 @@ nodeSelector:
   eks.amazonaws.com/capacityType: ON_DEMAND
   node.kubernetes.io/instance-type: t3a.xlarge
 
+extraArgs:
+  balance-similar-node-groups: true
+replicaCount: 2
+
 rbac:
   create: true
   serviceAccount:

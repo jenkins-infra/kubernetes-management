@@ -35,7 +35,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 3.10.4
+    version: 3.10.8
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_cik8s.yaml"
@@ -55,7 +55,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.23.0
+    version: 9.24.0
     values:
       - "../config/ext_autoscaler_cik8s.yaml"
     set:
