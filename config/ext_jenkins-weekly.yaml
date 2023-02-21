@@ -1,154 +1,154 @@
 serviceAccount:
-  create: true
-  name: jenkins-controller
+    create: true
+    name: jenkins-controller
 serviceAccountAgent:
-  create: false
+    create: false
 rbac:
-  create: true
-  readSecrets: true
+    create: true
+    readSecrets: true
 persistence:
-  enabled: true
-  size: 8Gi
+    enabled: true
+    size: 8Gi
 agent:
-  componentName: "agent"
+    componentName: "agent"
 networkPolicy:
-  enabled: true
-  internalAgents:
-    allowed: true
-    namespaceLabels:
-      name: "jenkins-weekly"
+    enabled: true
+    internalAgents:
+        allowed: true
+        namespaceLabels:
+            name: "jenkins-weekly"
 controller:
-  image: jenkinsciinfra/jenkins-weekly
-  tag: 0.99.1-2.391
-  pullPolicy: IfNotPresent
-  resources:
-    limits:
-      cpu: "2"
-      memory: "4Gi"
-    requests:
-      cpu: "2"
-      memory: "4Gi"
-  probes:
-    startupProbe:
-      initialDelaySeconds: 120
-    livenessProbe:
-      initialDelaySeconds: 120
-    readinessProbe:
-      initialDelaySeconds: 120
-  testEnabled: false
-  podSecurityContextOverride:
-    runAsNonRoot: true
-    runAsUser: 1000
-    supplementalGroups: [1000]
-  overwritePlugins: true
-  serviceType: "ClusterIP"
-  javaOpts: >-
-    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
-  JCasC:
-    enabled: true
-    defaultConfig: false
-    configScripts:
-      credentials: |
-        credentials:
-          system:
-            domainCredentials:
-              - credentials:
-                - gitHubApp:
-                    appID: "${GITHUB_APP_ID}"
-                    description: "GitHub App for weekly.ci.jenkins.io"
-                    id: "github-app-weekly"
-                    privateKey: "${GITHUB_APP_PRIVATE_KEY}"
-                    scope: GLOBAL
-      agent-settings: |
-        jenkins:
-          numExecutors: 0
-          clouds: []
-      ldap-settings: |
-        jenkins:
-          securityRealm:
-            ldap:
-              configurations:
-                - server: "${LDAP_SERVER}"
-                  rootDN: "${LDAP_ROOT_DN}"
-                  managerDN: "${LDAP_MANAGER_DN}"
-                  managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
-                  mailAddressAttributeName: "mail"
-                  userSearch: cn={0}
-                  userSearchBase: "ou=people"
-                  groupSearchBase: "ou=groups"
-              disableMailAddressResolver: false
-              groupIdStrategy: "caseInsensitive"
-              userIdStrategy: "caseInsensitive"
-              cache:
-                size: 100
-                ttl: 300
-      advisor-settings: |
-        jenkins:
-          disabledAdministrativeMonitors:
-            - com.cloudbees.jenkins.plugins.advisor.Reminder
-      pipeline-library: |
-        unclassified:
-          location:
-            url: "https://weekly.ci.jenkins.io"
-          globalLibraries:
-            libraries:
-            - defaultVersion: "master"
-              implicit: true
-              name: "pipeline-library"
-              retriever:
-                modernSCM:
-                  scm:
-                    git:
-                      credentialsId: "github-app-weekly"
-                      remote: "https://github.com/jenkins-infra/pipeline-library.git"
-      matrix-settings: |
-        jenkins:
-          authorizationStrategy:
-            globalMatrix:
-              permissions:
-                - "USER:Job/Read:anonymous"
-                - "GROUP:Job/Read:authenticated"
-                - "USER:Overall/Read:anonymous"
-                - "GROUP:Overall/Read:authenticated"
-                - "GROUP:Overall/Administer:admins"
-                - "GROUP:Overall/Administer:jenkins-admins"
-      timestamper-settings: |
-        unclassified:
-          timestamper:
-            allPipelines: true
-      system-settings: |
-        unclassified:
-          defaultFolderConfiguration:
-            # Keep healthMetrics an empty list to ensure weather is disabled
-            healthMetrics: []
-        jenkins:
-          quietPeriod: 0 # No need to wait between build scheduling
-          disabledAdministrativeMonitors:
-            - "jenkins.security.QueueItemAuthenticatorMonitor"
-          views:
-            - all:
-                description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
-                name: "all"
-  sidecars:
-    configAutoReload:
-      env:
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: METHOD
-          # Polling mode (instead of watching kube API)
-          value: "SLEEP"
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: SLEEP_TIME
-          # Time in seconds between two polls
-          value: "60"
-  installPlugins: false
-  ingress:
-    enabled: true
-    hostName: weekly.ci.jenkins.io
-    annotations:
-      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-      "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-    ingressClassName: public-nginx
-    tls:
-      - hosts:
-          - weekly.ci.jenkins.io
-        secretName: weekly.ci.jenkins.io-cert
+    image: jenkinsciinfra/jenkins-weekly
+    tag: 0.99.2-2.391
+    pullPolicy: IfNotPresent
+    resources:
+        limits:
+            cpu: "2"
+            memory: "4Gi"
+        requests:
+            cpu: "2"
+            memory: "4Gi"
+    probes:
+        startupProbe:
+            initialDelaySeconds: 120
+        livenessProbe:
+            initialDelaySeconds: 120
+        readinessProbe:
+            initialDelaySeconds: 120
+    testEnabled: false
+    podSecurityContextOverride:
+        runAsNonRoot: true
+        runAsUser: 1000
+        supplementalGroups: [1000]
+    overwritePlugins: true
+    serviceType: "ClusterIP"
+    javaOpts: >-
+        -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
+    JCasC:
+        enabled: true
+        defaultConfig: false
+        configScripts:
+            credentials: |
+                credentials:
+                  system:
+                    domainCredentials:
+                      - credentials:
+                        - gitHubApp:
+                            appID: "${GITHUB_APP_ID}"
+                            description: "GitHub App for weekly.ci.jenkins.io"
+                            id: "github-app-weekly"
+                            privateKey: "${GITHUB_APP_PRIVATE_KEY}"
+                            scope: GLOBAL
+            agent-settings: |
+                jenkins:
+                  numExecutors: 0
+                  clouds: []
+            ldap-settings: |
+                jenkins:
+                  securityRealm:
+                    ldap:
+                      configurations:
+                        - server: "${LDAP_SERVER}"
+                          rootDN: "${LDAP_ROOT_DN}"
+                          managerDN: "${LDAP_MANAGER_DN}"
+                          managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                          mailAddressAttributeName: "mail"
+                          userSearch: cn={0}
+                          userSearchBase: "ou=people"
+                          groupSearchBase: "ou=groups"
+                      disableMailAddressResolver: false
+                      groupIdStrategy: "caseInsensitive"
+                      userIdStrategy: "caseInsensitive"
+                      cache:
+                        size: 100
+                        ttl: 300
+            advisor-settings: |
+                jenkins:
+                  disabledAdministrativeMonitors:
+                    - com.cloudbees.jenkins.plugins.advisor.Reminder
+            pipeline-library: |
+                unclassified:
+                  location:
+                    url: "https://weekly.ci.jenkins.io"
+                  globalLibraries:
+                    libraries:
+                    - defaultVersion: "master"
+                      implicit: true
+                      name: "pipeline-library"
+                      retriever:
+                        modernSCM:
+                          scm:
+                            git:
+                              credentialsId: "github-app-weekly"
+                              remote: "https://github.com/jenkins-infra/pipeline-library.git"
+            matrix-settings: |
+                jenkins:
+                  authorizationStrategy:
+                    globalMatrix:
+                      permissions:
+                        - "USER:Job/Read:anonymous"
+                        - "GROUP:Job/Read:authenticated"
+                        - "USER:Overall/Read:anonymous"
+                        - "GROUP:Overall/Read:authenticated"
+                        - "GROUP:Overall/Administer:admins"
+                        - "GROUP:Overall/Administer:jenkins-admins"
+            timestamper-settings: |
+                unclassified:
+                  timestamper:
+                    allPipelines: true
+            system-settings: |
+                unclassified:
+                  defaultFolderConfiguration:
+                    # Keep healthMetrics an empty list to ensure weather is disabled
+                    healthMetrics: []
+                jenkins:
+                  quietPeriod: 0 # No need to wait between build scheduling
+                  disabledAdministrativeMonitors:
+                    - "jenkins.security.QueueItemAuthenticatorMonitor"
+                  views:
+                    - all:
+                        description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
+                        name: "all"
+    sidecars:
+        configAutoReload:
+            env:
+                # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+                - name: METHOD
+                  # Polling mode (instead of watching kube API)
+                  value: "SLEEP"
+                # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+                - name: SLEEP_TIME
+                  # Time in seconds between two polls
+                  value: "60"
+    installPlugins: false
+    ingress:
+        enabled: true
+        hostName: weekly.ci.jenkins.io
+        annotations:
+            "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+            "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+        ingressClassName: public-nginx
+        tls:
+            - hosts:
+                - weekly.ci.jenkins.io
+              secretName: weekly.ci.jenkins.io-cert
