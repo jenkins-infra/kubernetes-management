@@ -157,7 +157,7 @@ jobsDefinition:
     kind: folder
     credentials:
       jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
-      jenkinsinfraadmin-dockerhub-pull: *jenkinsinfraadmin-dockerhub-pull-def
+      infracijenkinsio-dockerhub-pull: *jenkinsinfraadmin-dockerhub-pull-def
     children:
       incrementals-publisher:
         name: Incrementals Publisher
