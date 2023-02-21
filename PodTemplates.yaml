@@ -1,40 +1,40 @@
 apiVersion: "v1"
 kind: "Pod"
 metadata:
-  labels:
-    jenkins: "agent"
-    job: "helmfile"
+    labels:
+        jenkins: "agent"
+        job: "helmfile"
 spec:
-  nodeSelector:
-    kubernetes.azure.com/agentpool: infracipool
-    kubernetes.io/os: linux
-  tolerations:
-    - key: "os"
-      operator: "Equal"
-      value: "linux"
-      effect: "NoSchedule"
-    - key: "spot"
-      operator: "Equal"
-      value: "true"
-      effect: "NoSchedule"
-    - key: "jenkins"
-      operator: "Equal"
-      value: "infra.ci.jenkins.io"
-      effect: "NoSchedule"
-    - key: "kubernetes.azure.com/scalesetpriority"
-      operator: "Equal"
-      value: "spot"
-      effect: "NoSchedule"
-  containers:
-    - image: "jenkinsciinfra/helmfile:2.5.62"
-      imagePullPolicy: "IfNotPresent"
-      name: "jnlp"
-      resources:
-        limits:
-          memory: "1024Mi"
-          cpu: "2"
-        requests:
-          memory: "256Mi"
-          cpu: "0.5"
-      securityContext:
-        privileged: false
+    nodeSelector:
+        kubernetes.azure.com/agentpool: infracipool
+        kubernetes.io/os: linux
+    tolerations:
+        - key: "os"
+          operator: "Equal"
+          value: "linux"
+          effect: "NoSchedule"
+        - key: "spot"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+        - key: "jenkins"
+          operator: "Equal"
+          value: "infra.ci.jenkins.io"
+          effect: "NoSchedule"
+        - key: "kubernetes.azure.com/scalesetpriority"
+          operator: "Equal"
+          value: "spot"
+          effect: "NoSchedule"
+    containers:
+        - image: "jenkinsciinfra/helmfile:2.5.63"
+          imagePullPolicy: "IfNotPresent"
+          name: "jnlp"
+          resources:
+            limits:
+                memory: "1024Mi"
+                cpu: "2"
+            requests:
+                memory: "256Mi"
+                cpu: "0.5"
+          securityContext:
+            privileged: false
