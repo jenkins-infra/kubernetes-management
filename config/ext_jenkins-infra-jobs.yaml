@@ -155,6 +155,8 @@ jobsDefinition:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
     kind: folder
+    credentials:
+      jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
     children:
       incrementals-publisher:
         name: Incrementals Publisher
