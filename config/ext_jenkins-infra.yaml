@@ -28,10 +28,10 @@ controller:
     resources:
         limits:
             cpu: "2"
-            memory: "4Gi"
+            memory: "8Gi"
         requests:
             cpu: "2"
-            memory: "4Gi"
+            memory: "8Gi"
     probes:
         startupProbe:
             initialDelaySeconds: 120
@@ -43,7 +43,7 @@ controller:
     overwritePlugins: true
     serviceType: "ClusterIP"
     javaOpts: >-
-        -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60 -Djava.net.preferIPv4Stack=true
+        -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
     JCasC:
         enabled: true
         defaultConfig: false
