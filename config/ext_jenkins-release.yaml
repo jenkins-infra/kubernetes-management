@@ -31,10 +31,10 @@ controller:
     resources:
         limits:
             cpu: "2"
-            memory: "8Gi"
+            memory: "4Gi"
         requests:
             cpu: "2"
-            memory: "8Gi"
+            memory: "4Gi"
     probes:
         startupProbe:
             initialDelaySeconds: 120
