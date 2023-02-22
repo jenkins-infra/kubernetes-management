@@ -668,5 +668,5 @@ controller:
             "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
         tls:
             - hosts:
-                - release.ci.jenkins.io
+                  - release.ci.jenkins.io
               secretName: release.ci.jenkins.io-cert
