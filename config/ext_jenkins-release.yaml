@@ -1,672 +1,672 @@
 serviceAccount:
-  create: true
-  name: jenkins-controller
+    create: true
+    name: jenkins-controller
 serviceAccountAgent:
-  create: true
-  name: jenkins-agent
+    create: true
+    name: jenkins-agent
 rbac:
-  create: true
-  readSecrets: true
+    create: true
+    readSecrets: true
 persistence:
-  enabled: true
-  size: 50Gi
+    enabled: true
+    size: 50Gi
 agent:
-  componentName: "agent"
+    componentName: "agent"
 networkPolicy:
-  # As of today, 2020-06-19, network policy is not supported for windows node
-  # https://docs.microsoft.com/en-us/azure/aks/windows-node-limitations#are-all-features-supported-with-windows-nodes
-  # This is a blocker for the release environment as in the current state,
-  # windows containers are not allowed to connect on main Jenkins.
-  # I disable it for now
-  # enabled: true
-  enabled: false
-  internalAgents:
-    allowed: true
-    namespaceLabels:
-      name: "release"
+    # As of today, 2020-06-19, network policy is not supported for windows node
+    # https://docs.microsoft.com/en-us/azure/aks/windows-node-limitations#are-all-features-supported-with-windows-nodes
+    # This is a blocker for the release environment as in the current state,
+    # windows containers are not allowed to connect on main Jenkins.
+    # I disable it for now
+    # enabled: true
+    enabled: false
+    internalAgents:
+        allowed: true
+        namespaceLabels:
+            name: "release"
 controller:
-  image: jenkinsciinfra/jenkins-lts
-  tag: 0.27.4-2.375.3
-  pullPolicy: IfNotPresent
-  resources:
-    limits:
-      cpu: "2"
-      memory: "4Gi"
-    requests:
-      cpu: "2"
-      memory: "4Gi"
-  probes:
-    startupProbe:
-      initialDelaySeconds: 120
-    livenessProbe:
-      initialDelaySeconds: 120
-    readinessProbe:
-      initialDelaySeconds: 120
-  testEnabled: false
-  podSecurityContextOverride:
-    runAsNonRoot: true
-    runAsUser: 1000
-    supplementalGroups: [1000]
-  overwritePlugins: true
-  serviceType: "ClusterIP"
-  javaOpts: >
-    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxRAM=4g -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60
+    image: jenkinsciinfra/jenkins-lts
+    tag: 0.27.10-2.375.3
+    pullPolicy: IfNotPresent
+    resources:
+        limits:
+            cpu: "2"
+            memory: "4Gi"
+        requests:
+            cpu: "2"
+            memory: "4Gi"
+    probes:
+        startupProbe:
+            initialDelaySeconds: 120
+        livenessProbe:
+            initialDelaySeconds: 120
+        readinessProbe:
+            initialDelaySeconds: 120
+    testEnabled: false
+    podSecurityContextOverride:
+        runAsNonRoot: true
+        runAsUser: 1000
+        supplementalGroups: [1000]
+    overwritePlugins: true
+    serviceType: "ClusterIP"
+    javaOpts: >
+        -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
 
-  JCasC:
-    enabled: true
-    defaultConfig: false
-    configScripts:
-      credentials: |
-        credentials:
-          system:
-            domainCredentials:
-              - credentials:
-                - usernamePassword:
-                    description: "GitHub access token for jenkinsadmin"
-                    id: "github-access-token"
-                    username: "${GITHUB_USERNAME}"
-                    password: "${GITHUB_PASSWORD}"
-                    scope: GLOBAL
-                - string:
-                    scope: GLOBAL
-                    id: "azure-vault-client-id"
-                    secret: "${AZURE_VAULT_CLIENT_ID}"
-                    description: Azure Service Principale client id used to retrieve gpg key
-                - string:
-                    scope: GLOBAL
-                    id: "azure-vault-client-secret"
-                    secret: "${AZURE_VAULT_CLIENT_SECRET}"
-                    description: Azure Service Principale client secret used to retrieve gpg key
-                - string:
-                    scope: GLOBAL
-                    id: "azure-vault-tenant-id"
-                    secret: "${AZURE_VAULT_TENANT_ID}"
-                    description: Azure Service Principale tenant id used to retrieve gpg key
-                - string:
-                    scope: GLOBAL
-                    id: "fastly-api-token"
-                    secret: "${FASTLY_API_TOKEN}"
-                    description: Fastly api token used to purge pkg.jenkins.io cache
-                - string:
-                    scope: GLOBAL
-                    id: "fastly_pkgserver_service_id"
-                    secret: "${FASTLY_PKGSERVER_SERVICE_ID}"
-                    description: Fastly pkgserver service id used for invalidating pkg.jenkins.io
-                - string:
-                    scope: GLOBAL
-                    id: "release-gpg-passphrase"
-                    secret: "${RELEASE_GPG_PASSPHRASE}"
-                    description: Release GPG Key passphrase
-                - string:
-                    scope: GLOBAL
-                    id: "release-storage-account-key"
-                    secret: "${RELEASE_STORAGE_ACCOUNT_KEY}"
-                    description: Password used by maven to upload war files
-                - string:
-                    scope: GLOBAL
-                    id: "gpg-storage-account-key"
-                    secret: "${GPG_STORAGE_ACCOUNT_KEY}"
-                    description: GPG storage account key
-                - string:
-                    scope: GLOBAL
-                    id: "maven-repository-username"
-                    secret: "${MAVEN_REPOSITORY_USERNAME}"
-                    description: "Username used by maven release plugin to publish artifacts on a maven repository"
-                - string:
-                    scope: GLOBAL
-                    id: "maven-repository-password"
-                    secret: "${MAVEN_REPOSITORY_PASSWORD}"
-                    description: "PASSWORD used by maven release plugin to publish artifacts on a maven repository"
-                - string:
-                    scope: GLOBAL
-                    id: "maven-repository-username"
-                    secret: "${MAVEN_REPOSITORY_USERNAME}"
-                    description: GPG storage account key
-                - string:
-                    scope: GLOBAL
-                    id: "sops-client-id"
-                    secret: "${SOPS_CLIENT_ID}"
-                    description: Azure client ID used by sops to decrypt secrets
-                - string:
-                    scope: GLOBAL
-                    id: "sops-client-secret"
-                    secret: "${SOPS_CLIENT_SECRET}"
-                    description: Azure client secret used by sops to decrypt secrets
-                - string:
-                    scope: GLOBAL
-                    id: "sops-tenant-id"
-                    secret: "${SOPS_TENANT_ID}"
-                    description: Azure tenant id used by sops to decrypt secrets
-                - string:
-                    scope: GLOBAL
-                    id: "signing-cert-pass"
-                    secret: "${RELEASE_CERTIFICATE_PASSWORD}"
-                    description: Password used by maven signer plugin to unlock the signing certificate
-                - basicSSHUserPrivateKey:
-                    scope: GLOBAL
-                    id: "release-key"
-                    username: ${SSH_RELEASE_USERNAME}
-                    description: "SSH private key to commit on jenkinsci/jenkins"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: ${SSH_RELEASE_PRIVKEY}
-                - basicSSHUserPrivateKey:
-                    scope: GLOBAL
-                    id: "pkgserver"
-                    username: ${SSH_PKGSERVER_USERNAME}
-                    description: "SSH private key used to upload artifacts on pkg.jenkins.io"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: ${SSH_PKGSERVER_PRIVKEY}
-                - basicSSHUserPrivateKey:
-                    scope: GLOBAL
-                    id: "charts-secrets"
-                    username: ${SSH_CHARTS_SECRETS_USERNAME}
-                    description: "SSH privkey used to access jenkins-infra/charts-secret"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-                - basicSSHUserPrivateKey:
-                    scope: SYSTEM
-                    id: "ec2-agents-privkey"
-                    username: "key"
-                    description: "SSH privkey used to connect to EC2 agents"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: "${EC2_AGENTS_PRIVKEY}"
-                - aws:
-                    accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
-                    description: "This credential is used to provision dynamic agents on AWS EC2"
-                    id: "ec2-agents-credentials"
-                    scope: SYSTEM
-                    secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
-                - usernamePassword:
-                    scope: GLOBAL
-                    description: Docker hub credential for release.ci PULL
-                    id: releasecijenkinsio-dockerhub-pull
-                    username: releasecijenkinsio
-                    password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
-      agent-settings: |
-        jenkins:
-          clouds:
-            - kubernetes:
-                containerCapStr: "100"
-                jenkinsUrl: "http://default-release-jenkins:8080"
-                maxRequestsPerHostStr: "300"
-                webSocket: true
-                name: "kubernetes"
-                namespace: "release"
-                podRetention: "Never"
-                serverUrl: "https://kubernetes.default"
-                podLabels:
-                  - key: "jenkins/default-release-jenkins-agent"
-                    value: "true"
-                templates:
-                  - name: jnlp-linux
-                    nodeSelector: "kubernetes.io/os=linux"
-                    containers:
-                      - name: jnlp
-                        image: "jenkins/inbound-agent:latest-jdk11"
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/java/openjdk/bin/java"
-                        resourceLimitCpu: "500m"
-                        resourceLimitMemory: "512Mi"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "512Mi"
-                        args: "1d"
-                        alwaysPullImage: true
-                  - name: jnlp-windows
-                    nodeSelector: "kubernetes.io/os=windows"
-                    instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
-                    instanceCapStr: "5"
-                    containers:
-                      - name: jnlp
-                        image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "C:/openjdk-11"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "C:/openjdk-11"
-                        command: "powershell"
-                        args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
-                        resourceLimitCpu: "1"
-                        resourceLimitMemory: "1024Mi"
-                        resourceRequestCpu: "1"
-                        resourceRequestMemory: "1024Mi"
-                        alwaysPullImage: true
-                        workingDir: "C:\\Users\\jenkins"
-                    yamlMergeStrategy: "override"
-                    yaml: |-
-                      affinity:
-                        nodeAffinity:
-                          requiredDuringSchedulingIgnoredDuringExecution:
-                            nodeSelectorTerms:
-                            - matchExpressions:
-                              - key: kubernetes.io/os
-                                operator: In
-                                values:
-                                  - windows
-            - amazonEC2:
-                cloudName: "aws-us-east-2"
-                credentialsId: "ec2-agents-credentials"
-                instanceCapStr: "20"
-                noDelayProvisioning: true
-                region: "us-east-2"
-                sshKeysCredentialsId: "ec2-agents-privkey"
-                useInstanceProfileForCredentials: false
-                templates:
-                - ami: "ami-07096113cf2ec6768" # https://github.com/jenkins-infra/packer-images/
-                  amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
-                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "AMD64 Ubuntu 20.04"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
-                  idleTerminationMinutes: "5"
-                  instanceCapStr: "10"
-                  labelString: "linux-amd64 linux-amd64-docker"
-                  launchTimeoutStr: "180"
-                  maxTotalUses: 1
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: true
-                  numExecutors: 1
-                  remoteAdmin: "jenkins"
-                  remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_release"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "amd64"
-                  - name: "os"
-                    value: "linux"
-                  - name: "jenkins"
-                    value: "release.ci.jenkins.io"
-                  type: T3Medium
-                  useEphemeralDevices: true
-                - ami: "ami-0d2d7ce8555684cbb" # https://github.com/jenkins-infra/packer-images/
-                  amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
-                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "ARM64 Ubuntu 20.04"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
-                  idleTerminationMinutes: "5"
-                  instanceCapStr: "10"
-                  labelString: "arm64 linux-arm64 linux-arm64-docker"
-                  launchTimeoutStr: "180"
-                  maxTotalUses: 1
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: true
-                  numExecutors: 1
-                  remoteAdmin: "jenkins"
-                  remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_release"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "arm64"
-                  - name: "os"
-                    value: "linux"
-                  - name: "jenkins"
-                    value: "release.ci.jenkins.io"
-                  type: T4gMedium
-                  useEphemeralDevices: true
-                - ami: "ami-0c3f1d709a2270b04" # https://github.com/jenkins-infra/packer-images/
-                  amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
-                      # Windows VM agent are not supported yet: https://issues.jenkins.io/browse/JENKINS-69304
-                      # slaveCommandPrefix: "PATH=C:/tools/jdk-11/bin:^${PATH}"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "Windows 2019 AMD64"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
-                  idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
-                  instanceCapStr: "10"
-                  labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
-                  launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
-                  maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: false
-                  numExecutors: 1
-                  remoteAdmin: "Administrator"
-                  remoteFS: "C:\\Jenkins"
-                  securityGroups: "ec2_agents_release"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "amd64"
-                  - name: "os"
-                    value: "windows"
-                  - name: "jenkins"
-                    value: "release.ci.jenkins.io"
-                  tenancy: Default
-                  tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
-                  type: T3Medium
-                  useEphemeralDevices: true
-      jobs-settings: |
-        jobs:
-          - script: >
-              folder('components') {
-                displayName('Components')
-                description('Folder containing Jenkins components release job')
-              }
+    JCasC:
+        enabled: true
+        defaultConfig: false
+        configScripts:
+            credentials: |
+                credentials:
+                  system:
+                    domainCredentials:
+                      - credentials:
+                        - usernamePassword:
+                            description: "GitHub access token for jenkinsadmin"
+                            id: "github-access-token"
+                            username: "${GITHUB_USERNAME}"
+                            password: "${GITHUB_PASSWORD}"
+                            scope: GLOBAL
+                        - string:
+                            scope: GLOBAL
+                            id: "azure-vault-client-id"
+                            secret: "${AZURE_VAULT_CLIENT_ID}"
+                            description: Azure Service Principale client id used to retrieve gpg key
+                        - string:
+                            scope: GLOBAL
+                            id: "azure-vault-client-secret"
+                            secret: "${AZURE_VAULT_CLIENT_SECRET}"
+                            description: Azure Service Principale client secret used to retrieve gpg key
+                        - string:
+                            scope: GLOBAL
+                            id: "azure-vault-tenant-id"
+                            secret: "${AZURE_VAULT_TENANT_ID}"
+                            description: Azure Service Principale tenant id used to retrieve gpg key
+                        - string:
+                            scope: GLOBAL
+                            id: "fastly-api-token"
+                            secret: "${FASTLY_API_TOKEN}"
+                            description: Fastly api token used to purge pkg.jenkins.io cache
+                        - string:
+                            scope: GLOBAL
+                            id: "fastly_pkgserver_service_id"
+                            secret: "${FASTLY_PKGSERVER_SERVICE_ID}"
+                            description: Fastly pkgserver service id used for invalidating pkg.jenkins.io
+                        - string:
+                            scope: GLOBAL
+                            id: "release-gpg-passphrase"
+                            secret: "${RELEASE_GPG_PASSPHRASE}"
+                            description: Release GPG Key passphrase
+                        - string:
+                            scope: GLOBAL
+                            id: "release-storage-account-key"
+                            secret: "${RELEASE_STORAGE_ACCOUNT_KEY}"
+                            description: Password used by maven to upload war files
+                        - string:
+                            scope: GLOBAL
+                            id: "gpg-storage-account-key"
+                            secret: "${GPG_STORAGE_ACCOUNT_KEY}"
+                            description: GPG storage account key
+                        - string:
+                            scope: GLOBAL
+                            id: "maven-repository-username"
+                            secret: "${MAVEN_REPOSITORY_USERNAME}"
+                            description: "Username used by maven release plugin to publish artifacts on a maven repository"
+                        - string:
+                            scope: GLOBAL
+                            id: "maven-repository-password"
+                            secret: "${MAVEN_REPOSITORY_PASSWORD}"
+                            description: "PASSWORD used by maven release plugin to publish artifacts on a maven repository"
+                        - string:
+                            scope: GLOBAL
+                            id: "maven-repository-username"
+                            secret: "${MAVEN_REPOSITORY_USERNAME}"
+                            description: GPG storage account key
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-client-id"
+                            secret: "${SOPS_CLIENT_ID}"
+                            description: Azure client ID used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-client-secret"
+                            secret: "${SOPS_CLIENT_SECRET}"
+                            description: Azure client secret used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "sops-tenant-id"
+                            secret: "${SOPS_TENANT_ID}"
+                            description: Azure tenant id used by sops to decrypt secrets
+                        - string:
+                            scope: GLOBAL
+                            id: "signing-cert-pass"
+                            secret: "${RELEASE_CERTIFICATE_PASSWORD}"
+                            description: Password used by maven signer plugin to unlock the signing certificate
+                        - basicSSHUserPrivateKey:
+                            scope: GLOBAL
+                            id: "release-key"
+                            username: ${SSH_RELEASE_USERNAME}
+                            description: "SSH private key to commit on jenkinsci/jenkins"
+                            privateKeySource:
+                              directEntry:
+                                privateKey: ${SSH_RELEASE_PRIVKEY}
+                        - basicSSHUserPrivateKey:
+                            scope: GLOBAL
+                            id: "pkgserver"
+                            username: ${SSH_PKGSERVER_USERNAME}
+                            description: "SSH private key used to upload artifacts on pkg.jenkins.io"
+                            privateKeySource:
+                              directEntry:
+                                privateKey: ${SSH_PKGSERVER_PRIVKEY}
+                        - basicSSHUserPrivateKey:
+                            scope: GLOBAL
+                            id: "charts-secrets"
+                            username: ${SSH_CHARTS_SECRETS_USERNAME}
+                            description: "SSH privkey used to access jenkins-infra/charts-secret"
+                            privateKeySource:
+                              directEntry:
+                                privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
+                        - basicSSHUserPrivateKey:
+                            scope: SYSTEM
+                            id: "ec2-agents-privkey"
+                            username: "key"
+                            description: "SSH privkey used to connect to EC2 agents"
+                            privateKeySource:
+                              directEntry:
+                                privateKey: "${EC2_AGENTS_PRIVKEY}"
+                        - aws:
+                            accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
+                            description: "This credential is used to provision dynamic agents on AWS EC2"
+                            id: "ec2-agents-credentials"
+                            scope: SYSTEM
+                            secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                        - usernamePassword:
+                            scope: GLOBAL
+                            description: Docker hub credential for release.ci PULL
+                            id: releasecijenkinsio-dockerhub-pull
+                            username: releasecijenkinsio
+                            password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
+            agent-settings: |
+                jenkins:
+                  clouds:
+                    - kubernetes:
+                        containerCapStr: "100"
+                        jenkinsUrl: "http://default-release-jenkins:8080"
+                        maxRequestsPerHostStr: "300"
+                        webSocket: true
+                        name: "kubernetes"
+                        namespace: "release"
+                        podRetention: "Never"
+                        serverUrl: "https://kubernetes.default"
+                        podLabels:
+                          - key: "jenkins/default-release-jenkins-agent"
+                            value: "true"
+                        templates:
+                          - name: jnlp-linux
+                            nodeSelector: "kubernetes.io/os=linux"
+                            containers:
+                              - name: jnlp
+                                image: "jenkins/inbound-agent:latest-jdk11"
+                                envVars:
+                                - envVar:
+                                    key: "JENKINS_JAVA_BIN"
+                                    value: "/opt/java/openjdk/bin/java"
+                                resourceLimitCpu: "500m"
+                                resourceLimitMemory: "512Mi"
+                                resourceRequestCpu: "500m"
+                                resourceRequestMemory: "512Mi"
+                                args: "1d"
+                                alwaysPullImage: true
+                          - name: jnlp-windows
+                            nodeSelector: "kubernetes.io/os=windows"
+                            instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
+                            instanceCapStr: "5"
+                            containers:
+                              - name: jnlp
+                                image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
+                                envVars:
+                                - envVar:
+                                    key: "JENKINS_JAVA_BIN"
+                                    value: "C:/openjdk-11"
+                                - envVar:
+                                    key: "JAVA_HOME"
+                                    value: "C:/openjdk-11"
+                                command: "powershell"
+                                args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
+                                resourceLimitCpu: "1"
+                                resourceLimitMemory: "1024Mi"
+                                resourceRequestCpu: "1"
+                                resourceRequestMemory: "1024Mi"
+                                alwaysPullImage: true
+                                workingDir: "C:\\Users\\jenkins"
+                            yamlMergeStrategy: "override"
+                            yaml: |-
+                              affinity:
+                                nodeAffinity:
+                                  requiredDuringSchedulingIgnoredDuringExecution:
+                                    nodeSelectorTerms:
+                                    - matchExpressions:
+                                      - key: kubernetes.io/os
+                                        operator: In
+                                        values:
+                                          - windows
+                    - amazonEC2:
+                        cloudName: "aws-us-east-2"
+                        credentialsId: "ec2-agents-credentials"
+                        instanceCapStr: "20"
+                        noDelayProvisioning: true
+                        region: "us-east-2"
+                        sshKeysCredentialsId: "ec2-agents-privkey"
+                        useInstanceProfileForCredentials: false
+                        templates:
+                        - ami: "ami-07096113cf2ec6768" # https://github.com/jenkins-infra/packer-images/
+                          amiOwners: "200564066411"
+                          amiType:
+                            unixData:
+                              sshPort: "22"
+                              slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
+                          associatePublicIp: true
+                          connectBySSHProcess: false
+                          connectionStrategy: PUBLIC_IP
+                          deleteRootOnTermination: true
+                          description: "AMD64 Ubuntu 20.04"
+                          ebsOptimized: false
+                          hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
+                          idleTerminationMinutes: "5"
+                          instanceCapStr: "10"
+                          labelString: "linux-amd64 linux-amd64-docker"
+                          launchTimeoutStr: "180"
+                          maxTotalUses: 1
+                          minimumNumberOfInstances: 0
+                          minimumNumberOfSpareInstances: 0
+                          mode: EXCLUSIVE
+                          monitoring: true
+                          numExecutors: 1
+                          remoteAdmin: "jenkins"
+                          remoteFS: "/home/jenkins"
+                          securityGroups: "ec2_agents_release"
+                          stopOnTerminate: false
+                          t2Unlimited: false
+                          tags:
+                          - name: "architecture"
+                            value: "amd64"
+                          - name: "os"
+                            value: "linux"
+                          - name: "jenkins"
+                            value: "release.ci.jenkins.io"
+                          type: T3Medium
+                          useEphemeralDevices: true
+                        - ami: "ami-0d2d7ce8555684cbb" # https://github.com/jenkins-infra/packer-images/
+                          amiOwners: "200564066411"
+                          amiType:
+                            unixData:
+                              sshPort: "22"
+                              slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
+                          associatePublicIp: true
+                          connectBySSHProcess: false
+                          connectionStrategy: PUBLIC_IP
+                          deleteRootOnTermination: true
+                          description: "ARM64 Ubuntu 20.04"
+                          ebsOptimized: false
+                          hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
+                          idleTerminationMinutes: "5"
+                          instanceCapStr: "10"
+                          labelString: "arm64 linux-arm64 linux-arm64-docker"
+                          launchTimeoutStr: "180"
+                          maxTotalUses: 1
+                          minimumNumberOfInstances: 0
+                          minimumNumberOfSpareInstances: 0
+                          mode: EXCLUSIVE
+                          monitoring: true
+                          numExecutors: 1
+                          remoteAdmin: "jenkins"
+                          remoteFS: "/home/jenkins"
+                          securityGroups: "ec2_agents_release"
+                          stopOnTerminate: false
+                          t2Unlimited: false
+                          tags:
+                          - name: "architecture"
+                            value: "arm64"
+                          - name: "os"
+                            value: "linux"
+                          - name: "jenkins"
+                            value: "release.ci.jenkins.io"
+                          type: T4gMedium
+                          useEphemeralDevices: true
+                        - ami: "ami-0c3f1d709a2270b04" # https://github.com/jenkins-infra/packer-images/
+                          amiOwners: "200564066411"
+                          amiType:
+                            unixData:
+                              sshPort: "22"
+                              # Windows VM agent are not supported yet: https://issues.jenkins.io/browse/JENKINS-69304
+                              # slaveCommandPrefix: "PATH=C:/tools/jdk-11/bin:^${PATH}"
+                          associatePublicIp: true
+                          connectBySSHProcess: false
+                          connectionStrategy: PUBLIC_IP
+                          deleteRootOnTermination: true
+                          description: "Windows 2019 AMD64"
+                          ebsOptimized: false
+                          hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
+                          idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
+                          instanceCapStr: "10"
+                          labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
+                          launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
+                          maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
+                          minimumNumberOfInstances: 0
+                          minimumNumberOfSpareInstances: 0
+                          mode: EXCLUSIVE
+                          monitoring: false
+                          numExecutors: 1
+                          remoteAdmin: "Administrator"
+                          remoteFS: "C:\\Jenkins"
+                          securityGroups: "ec2_agents_release"
+                          stopOnTerminate: false
+                          t2Unlimited: false
+                          tags:
+                          - name: "architecture"
+                            value: "amd64"
+                          - name: "os"
+                            value: "windows"
+                          - name: "jenkins"
+                            value: "release.ci.jenkins.io"
+                          tenancy: Default
+                          tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
+                          type: T3Medium
+                          useEphemeralDevices: true
+            jobs-settings: |
+                jobs:
+                  - script: >
+                      folder('components') {
+                        displayName('Components')
+                        description('Folder containing Jenkins components release job')
+                      }
 
-          - script: >
-              multibranchPipelineJob('components/remoting') {
-                displayName "Remoting"
-                description "Jenkins Remoting"
-                branchSources {
-                  github {
-                    id('2020052601')
-                    scanCredentialsId('github-access-token')
-                    repoOwner('jenkins-infra')
-                    repository('release')
-                    includes('master')
-                  }
-                }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile.d/components/remoting')
-                  }
-                }
-                configure {
-                  it / sources / 'data' / 'jenkins.branch.BranchSource' << {
-                      strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
-                          properties(class: 'java.util.Arrays$ArrayList') {
-                              a(class: 'jenkins.branch.BranchProperty-array') {
-                                  'jenkins.branch.NoTriggerBranchProperty'()
+                  - script: >
+                      multibranchPipelineJob('components/remoting') {
+                        displayName "Remoting"
+                        description "Jenkins Remoting"
+                        branchSources {
+                          github {
+                            id('2020052601')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('release')
+                            includes('master')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile.d/components/remoting')
+                          }
+                        }
+                        configure {
+                          it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                              strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                                  properties(class: 'java.util.Arrays$ArrayList') {
+                                      a(class: 'jenkins.branch.BranchProperty-array') {
+                                          'jenkins.branch.NoTriggerBranchProperty'()
+                                      }
+                                  }
                               }
                           }
+                        }
                       }
-                  }
-                }
-              }
 
-          - script: >
-              folder('core') {
-                displayName('Core')
-                description('Folder containing Jenkins core release job')
-              }
+                  - script: >
+                      folder('core') {
+                        displayName('Core')
+                        description('Folder containing Jenkins core release job')
+                      }
 
-          - script: >
-              folder('core/weekly') {
-                displayName('Weekly')
-                description('Folder for weekly releases')
-              }
+                  - script: >
+                      folder('core/weekly') {
+                        displayName('Weekly')
+                        description('Folder for weekly releases')
+                      }
 
-          - script: >
-              folder('core/stable') {
-                displayName('Stable')
-                description('Folder for stable releases')
-              }
-          - script: >
-              folder('core/stable-rc') {
-                displayName('Stable Release Candidates')
-                description('Folder for stable release candidates')
-              }
+                  - script: >
+                      folder('core/stable') {
+                        displayName('Stable')
+                        description('Folder for stable releases')
+                      }
+                  - script: >
+                      folder('core/stable-rc') {
+                        displayName('Stable Release Candidates')
+                        description('Folder for stable release candidates')
+                      }
 
-          - script: >
-              multibranchPipelineJob('core/package') {
-                displayName "Core Package"
-                description "Jenkins Core Packaging"
-                branchSources {
-                  github {
-                    id('2019092401')
-                    scanCredentialsId('github-access-token')
-                    repoOwner('jenkins-infra')
-                    repository('release')
-                  }
-                }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile.d/core/package')
-                  }
-                }
-                configure {
-                  it / sources / 'data' / 'jenkins.branch.BranchSource' << {
-                      strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
-                          properties(class: 'java.util.Arrays$ArrayList') {
-                              a(class: 'jenkins.branch.BranchProperty-array') {
-                                  'jenkins.branch.NoTriggerBranchProperty'()
+                  - script: >
+                      multibranchPipelineJob('core/package') {
+                        displayName "Core Package"
+                        description "Jenkins Core Packaging"
+                        branchSources {
+                          github {
+                            id('2019092401')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('release')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile.d/core/package')
+                          }
+                        }
+                        configure {
+                          it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                              strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                                  properties(class: 'java.util.Arrays$ArrayList') {
+                                      a(class: 'jenkins.branch.BranchProperty-array') {
+                                          'jenkins.branch.NoTriggerBranchProperty'()
+                                      }
+                                  }
                               }
                           }
+                        }
                       }
-                  }
-                }
-              }
-          - script: >
-              multibranchPipelineJob('core/release') {
-                displayName "Core Release"
-                description "Jenkins Core Release"
-                branchSources {
-                  github {
-                    id('2019092402')
-                    scanCredentialsId('github-access-token')
-                    repoOwner('jenkins-infra')
-                    repository('release')
-                  }
-                }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile.d/core/release')
-                  }
-                }
-                configure {
-                  it / sources / 'data' / 'jenkins.branch.BranchSource' << {
-                      strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
-                          properties(class: 'java.util.Arrays$ArrayList') {
-                              a(class: 'jenkins.branch.BranchProperty-array') {
-                                  'jenkins.branch.NoTriggerBranchProperty'()
+                  - script: >
+                      multibranchPipelineJob('core/release') {
+                        displayName "Core Release"
+                        description "Jenkins Core Release"
+                        branchSources {
+                          github {
+                            id('2019092402')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('release')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile.d/core/release')
+                          }
+                        }
+                        configure {
+                          it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                              strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                                  properties(class: 'java.util.Arrays$ArrayList') {
+                                      a(class: 'jenkins.branch.BranchProperty-array') {
+                                          'jenkins.branch.NoTriggerBranchProperty'()
+                                      }
+                                  }
                               }
                           }
+                        }
                       }
-                  }
-                }
-              }
 
-          - script: >
-              multibranchPipelineJob('core/weekly/release') {
-                displayName "Release"
-                description "Jenkins Core Release"
-                branchSources {
-                  github {
-                    id('2019092402')
-                    scanCredentialsId('github-access-token')
-                    repoOwner('jenkins-infra')
-                    repository('release')
-                    includes('master')
-                  }
-                }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile.d/core/weekly')
-                  }
-                }
-                configure {
-                  it / sources / 'data' / 'jenkins.branch.BranchSource' << {
-                      strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
-                          properties(class: 'java.util.Arrays$ArrayList') {
-                              a(class: 'jenkins.branch.BranchProperty-array') {
-                                  'jenkins.branch.NoTriggerBranchProperty'()
+                  - script: >
+                      multibranchPipelineJob('core/weekly/release') {
+                        displayName "Release"
+                        description "Jenkins Core Release"
+                        branchSources {
+                          github {
+                            id('2019092402')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('release')
+                            includes('master')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile.d/core/weekly')
+                          }
+                        }
+                        configure {
+                          it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                              strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                                  properties(class: 'java.util.Arrays$ArrayList') {
+                                      a(class: 'jenkins.branch.BranchProperty-array') {
+                                          'jenkins.branch.NoTriggerBranchProperty'()
+                                      }
+                                  }
                               }
                           }
+                        }
                       }
-                  }
-                }
-              }
-          - script: >
-              multibranchPipelineJob('core/stable/release') {
-                displayName "Release"
-                description "Jenkins Core Release"
-                branchSources {
-                  github {
-                    id('2019092402')
-                    scanCredentialsId('github-access-token')
-                    repoOwner('jenkins-infra')
-                    repository('release')
-                  }
-                }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile.d/core/stable')
-                  }
-                }
-                configure {
-                  it / sources / 'data' / 'jenkins.branch.BranchSource' << {
-                      strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
-                          properties(class: 'java.util.Arrays$ArrayList') {
-                              a(class: 'jenkins.branch.BranchProperty-array') {
-                                  'jenkins.branch.NoTriggerBranchProperty'()
+                  - script: >
+                      multibranchPipelineJob('core/stable/release') {
+                        displayName "Release"
+                        description "Jenkins Core Release"
+                        branchSources {
+                          github {
+                            id('2019092402')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('release')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile.d/core/stable')
+                          }
+                        }
+                        configure {
+                          it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                              strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                                  properties(class: 'java.util.Arrays$ArrayList') {
+                                      a(class: 'jenkins.branch.BranchProperty-array') {
+                                          'jenkins.branch.NoTriggerBranchProperty'()
+                                      }
+                                  }
                               }
                           }
+                        }
                       }
-                  }
-                }
-              }
-          - script: >
-              multibranchPipelineJob('core/stable-rc/release') {
-                displayName "Release"
-                description "Jenkins Core Release"
-                branchSources {
-                  github {
-                    id('2020121601')
-                    scanCredentialsId('github-access-token')
-                    repoOwner('jenkins-infra')
-                    repository('release')
-                  }
-                }
-                factory {
-                  workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile.d/core/stable-rc')
-                  }
-                }
-                configure {
-                  it / sources / 'data' / 'jenkins.branch.BranchSource' << {
-                      strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
-                          properties(class: 'java.util.Arrays$ArrayList') {
-                              a(class: 'jenkins.branch.BranchProperty-array') {
-                                  'jenkins.branch.NoTriggerBranchProperty'()
+                  - script: >
+                      multibranchPipelineJob('core/stable-rc/release') {
+                        displayName "Release"
+                        description "Jenkins Core Release"
+                        branchSources {
+                          github {
+                            id('2020121601')
+                            scanCredentialsId('github-access-token')
+                            repoOwner('jenkins-infra')
+                            repository('release')
+                          }
+                        }
+                        factory {
+                          workflowBranchProjectFactory {
+                            scriptPath('Jenkinsfile.d/core/stable-rc')
+                          }
+                        }
+                        configure {
+                          it / sources / 'data' / 'jenkins.branch.BranchSource' << {
+                              strategy(class: 'jenkins.branch.DefaultBranchPropertyStrategy') {
+                                  properties(class: 'java.util.Arrays$ArrayList') {
+                                      a(class: 'jenkins.branch.BranchProperty-array') {
+                                          'jenkins.branch.NoTriggerBranchProperty'()
+                                      }
+                                  }
                               }
                           }
+                        }
                       }
-                  }
-                }
-              }
-      ldap-settings: |
-        jenkins:
-          securityRealm:
-            ldap:
-              configurations:
-                - server: "${LDAP_SERVER}"
-                  rootDN: "${LDAP_ROOT_DN}"
-                  managerDN: "${LDAP_MANAGER_DN}"
-                  managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
-                  mailAddressAttributeName: "mail"
-                  userSearch: cn={0}
-                  userSearchBase: "ou=people"
-                  groupSearchBase: "ou=groups"
-              disableMailAddressResolver: false
-              groupIdStrategy: "caseInsensitive"
-              userIdStrategy: "caseInsensitive"
-              cache:
-                size: 100
-                ttl: 300
-      advisor-settings: |
-        jenkins:
-          disabledAdministrativeMonitors:
-            - com.cloudbees.jenkins.plugins.advisor.Reminder
-        advisor:
-          acceptToS: true
-          ccs:
-          - "damien.duportal@gmail.com"
-          email: "jenkins@oblak.com"
-          excludedComponents:
-            - "ItemsContent"
-            - "GCLogs"
-            - "Agents"
-            - "RootCAs"
-            - "SlaveLogs"
-            - "HeapUsageHistogram"
-          nagDisabled: true
-      matrix-settings: |
-        jenkins:
-          authorizationStrategy:
-            globalMatrix:
-              permissions:
-                - "GROUP:Overall/Administer:release-core"
-                - "GROUP:Overall/Administer:admins"
-                - "GROUP:Overall/Administer:jenkins-admins"
-                - "GROUP:Overall/SystemRead:authenticated"
-                - "GROUP:Overall/Read:authenticated"
-                - "GROUP:Job/Read:authenticated"
-      timestamper-settings: |
-        unclassified:
-          timestamper:
-            allPipelines: true
-      system-settings: |
-        unclassified:
-          defaultFolderConfiguration:
-            # Keep healthMetrics an empty list to ensure weather is disabled
-            healthMetrics: []
-        jenkins:
-          quietPeriod: 0 # No need to wait between build scheduling
-          disabledAdministrativeMonitors:
-            - "jenkins.security.QueueItemAuthenticatorMonitor"
-        security:
-          gitHostKeyVerificationConfiguration:
-            sshHostKeyVerificationStrategy:
-              manuallyProvidedKeyVerificationStrategy:
-                approvedHostKeys: "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
-  sidecars:
-    configAutoReload:
-      env:
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: METHOD
-          # Polling mode (instead of watching kube API)
-          value: "SLEEP"
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: SLEEP_TIME
-          # Time in seconds between two polls
-          value: "60"
-  installPlugins: false
-  ingress:
-    enabled: true
-    hostName: release.ci.jenkins.io
-    ingressClassName: private-nginx
-    annotations:
-      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-      "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
-    tls:
-      - hosts:
-          - release.ci.jenkins.io
-        secretName: release.ci.jenkins.io-cert
+            ldap-settings: |
+                jenkins:
+                  securityRealm:
+                    ldap:
+                      configurations:
+                        - server: "${LDAP_SERVER}"
+                          rootDN: "${LDAP_ROOT_DN}"
+                          managerDN: "${LDAP_MANAGER_DN}"
+                          managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                          mailAddressAttributeName: "mail"
+                          userSearch: cn={0}
+                          userSearchBase: "ou=people"
+                          groupSearchBase: "ou=groups"
+                      disableMailAddressResolver: false
+                      groupIdStrategy: "caseInsensitive"
+                      userIdStrategy: "caseInsensitive"
+                      cache:
+                        size: 100
+                        ttl: 300
+            advisor-settings: |
+                jenkins:
+                  disabledAdministrativeMonitors:
+                    - com.cloudbees.jenkins.plugins.advisor.Reminder
+                advisor:
+                  acceptToS: true
+                  ccs:
+                  - "damien.duportal@gmail.com"
+                  email: "jenkins@oblak.com"
+                  excludedComponents:
+                    - "ItemsContent"
+                    - "GCLogs"
+                    - "Agents"
+                    - "RootCAs"
+                    - "SlaveLogs"
+                    - "HeapUsageHistogram"
+                  nagDisabled: true
+            matrix-settings: |
+                jenkins:
+                  authorizationStrategy:
+                    globalMatrix:
+                      permissions:
+                        - "GROUP:Overall/Administer:release-core"
+                        - "GROUP:Overall/Administer:admins"
+                        - "GROUP:Overall/Administer:jenkins-admins"
+                        - "GROUP:Overall/SystemRead:authenticated"
+                        - "GROUP:Overall/Read:authenticated"
+                        - "GROUP:Job/Read:authenticated"
+            timestamper-settings: |
+                unclassified:
+                  timestamper:
+                    allPipelines: true
+            system-settings: |
+                unclassified:
+                  defaultFolderConfiguration:
+                    # Keep healthMetrics an empty list to ensure weather is disabled
+                    healthMetrics: []
+                jenkins:
+                  quietPeriod: 0 # No need to wait between build scheduling
+                  disabledAdministrativeMonitors:
+                    - "jenkins.security.QueueItemAuthenticatorMonitor"
+                security:
+                  gitHostKeyVerificationConfiguration:
+                    sshHostKeyVerificationStrategy:
+                      manuallyProvidedKeyVerificationStrategy:
+                        approvedHostKeys: "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
+    sidecars:
+        configAutoReload:
+            env:
+                # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+                - name: METHOD
+                  # Polling mode (instead of watching kube API)
+                  value: "SLEEP"
+                # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+                - name: SLEEP_TIME
+                  # Time in seconds between two polls
+                  value: "60"
+    installPlugins: false
+    ingress:
+        enabled: true
+        hostName: release.ci.jenkins.io
+        ingressClassName: private-nginx
+        annotations:
+            "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+            "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+        tls:
+            - hosts:
+                  - release.ci.jenkins.io
+              secretName: release.ci.jenkins.io-cert

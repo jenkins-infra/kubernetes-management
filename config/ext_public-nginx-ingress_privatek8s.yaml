@@ -5,6 +5,6 @@ controller:
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
-    # azurerm_public_ip.public_privatek8s.ip_address in https://github.com/jenkins-infra/azure/blob/main/privatek8s.tf
-    loadBalancerIP: 20.15.118.70
+      # azurerm_public_ip.public_privatek8s.ip_address in https://github.com/jenkins-infra/azure/blob/main/privatek8s.tf
+      service.beta.kubernetes.io/azure-load-balancer-ipv4: 20.15.118.70
     externalTrafficPolicy: Local
