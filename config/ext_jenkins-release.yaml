@@ -26,7 +26,7 @@ networkPolicy:
             name: "release"
 controller:
     image: jenkinsciinfra/jenkins-lts
-    tag: 0.27.10-2.375.3
+    tag: 0.27.11-2.375.3
     pullPolicy: IfNotPresent
     resources:
         limits:
@@ -668,5 +668,5 @@ controller:
             "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
         tls:
             - hosts:
-                  - release.ci.jenkins.io
+                - release.ci.jenkins.io
               secretName: release.ci.jenkins.io-cert
