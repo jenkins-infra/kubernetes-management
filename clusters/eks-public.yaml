@@ -57,7 +57,7 @@ releases:
   - name: aws-load-balancer-controller
     namespace: aws-load-balancer
     chart: eks/aws-load-balancer-controller
-    version: 1.4.7
+    version: 1.4.8
     values:
       - "../config/ext_aws-load-balancer-controller.yaml"
     set:
