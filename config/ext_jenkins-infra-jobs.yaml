@@ -13,7 +13,7 @@ jobsDefinition:
         description: Docker hub credential for jenkinsinfra organisation PUSH
         username: jenkinsinfraadmin
         password: "${DOCKER_HUB_TOKEN_PUSH}"
-      infracijenkinsio-dockerhub-pull:
+      infracijenkinsio-dockerhub-pull: &jenkinsinfraadmin-dockerhub-pull-def
         description: Docker hub credential for jenkinsinfra organisation PULL
         username: infracijenkinsio
         password: "${DOCKER_HUB_TOKEN_PULL}"
@@ -155,6 +155,9 @@ jobsDefinition:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
     kind: folder
+    credentials:
+      jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
+      infracijenkinsio-dockerhub-pull: *jenkinsinfraadmin-dockerhub-pull-def
     children:
       incrementals-publisher:
         name: Incrementals Publisher
