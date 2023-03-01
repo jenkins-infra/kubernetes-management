@@ -635,7 +635,7 @@ controller:
         ingressClassName: private-nginx
         tls:
             - hosts:
-                - infra.ci.jenkins.io
+                  - infra.ci.jenkins.io
               secretName: infra.ci.jenkins.io-cert
     secondaryingress:
         enabled: true
