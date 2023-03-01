@@ -150,5 +150,5 @@ controller:
         ingressClassName: public-nginx
         tls:
             - hosts:
-                - weekly.ci.jenkins.io
+                  - weekly.ci.jenkins.io
               secretName: weekly.ci.jenkins.io-cert
