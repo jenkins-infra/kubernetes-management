@@ -456,6 +456,7 @@ jobsDefinition:
         name: Jenkins.io Web Components
         allowUntrustedChanges: true
         jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main alpha beta PR-*"
         credentials:
           jenkinsci-npm-token:
             secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
