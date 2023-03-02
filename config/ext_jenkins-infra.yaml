@@ -613,7 +613,7 @@ controller:
                       - installSource:
                           installers:
                           - maven:
-                              id: "3.8.6"
+                              id: "3.9.0"
     sidecars:
         configAutoReload:
             env:
