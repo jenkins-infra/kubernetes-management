@@ -151,6 +151,10 @@ jobsDefinition:
     children:
       kubernetes-management:
         jenkinsfilePath: Jenkinsfile_updatecli
+      jenkins-infra:
+        name: Puppet (jenkins-infra)
+        jenkinsfilePath: Jenkinsfile_updatecli
+        branchIncludes: "production staging updatecli_* PR-* main"
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
@@ -456,6 +460,7 @@ jobsDefinition:
         name: Jenkins.io Web Components
         allowUntrustedChanges: true
         jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main alpha beta PR-*"
         credentials:
           jenkinsci-npm-token:
             secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
