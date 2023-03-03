@@ -220,7 +220,7 @@ controller:
                         sshKeysCredentialsId: "ec2-agents-privkey"
                         useInstanceProfileForCredentials: false
                         templates:
-                        - ami: "ami-00c38513ae479ef7b" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
+                        - ami: "ami-052c40dbe26599674" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
                           amiOwners: "200564066411"
                           associatePublicIp: true
                           connectBySSHProcess: false
@@ -254,7 +254,7 @@ controller:
                             value: "infra.ci.jenkins.io"
                           type: T3Medium # 2 vCPUs / 4 Gb
                           useEphemeralDevices: true
-                        - ami: "ami-00c38513ae479ef7b" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
+                        - ami: "ami-052c40dbe26599674" # https://github.com/jenkins-infra/packer-images/ LINUXAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L73)
                           amiOwners: "200564066411"
                           associatePublicIp: true
                           connectBySSHProcess: false
@@ -288,7 +288,7 @@ controller:
                             value: "infra.ci.jenkins.io"
                           type: T3Xlarge # 4 vCPUs / 16 Gb
                           useEphemeralDevices: true
-                        - ami: "ami-0f322d4952107ff14" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
+                        - ami: "ami-0c650ac47097ece27" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
                           amiOwners: "200564066411"
                           associatePublicIp: true
                           connectBySSHProcess: false
@@ -322,7 +322,7 @@ controller:
                             value: "infra.ci.jenkins.io"
                           type: T4gMedium # 2 vCPUs ARM64 Graviton / 4 Gb
                           useEphemeralDevices: true
-                        - ami: "ami-0c1d7c4c0343e8b3b" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
+                        - ami: "ami-0583a6ddf770176a9" # https://github.com/jenkins-infra/packer-images/ WINDOWSAMD64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L91)
                           amiOwners: "200564066411"
                           associatePublicIp: true
                           connectBySSHProcess: false
@@ -435,7 +435,7 @@ controller:
                               <mirror>
                                   <id>aws-proxy</id>
                                   <url>https://repo.aws.jenkins.io/public/</url>
-                                  <mirrorOf>repo.jenkins-ci.org</mirrorOf>
+                                  <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots</mirrorOf>
                               </mirror>
                               <mirror>
                                   <id>aws-proxy-incrementals</id>
@@ -461,7 +461,7 @@ controller:
                               <mirror>
                                   <id>azure-proxy</id>
                                   <url>https://repo.azure.jenkins.io/public/</url>
-                                  <mirrorOf>repo.jenkins-ci.org</mirrorOf>
+                                  <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots</mirrorOf>
                               </mirror>
                               <mirror>
                                   <id>azure-proxy-incrementals</id>
@@ -487,7 +487,7 @@ controller:
                               <mirror>
                                   <id>do-proxy</id>
                                   <url>https://repo.do.jenkins.io/public/</url>
-                                  <mirrorOf>repo.jenkins-ci.org</mirrorOf>
+                                  <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots</mirrorOf>
                               </mirror>
                               <mirror>
                                   <id>do-proxy-incrementals</id>
@@ -613,7 +613,7 @@ controller:
                       - installSource:
                           installers:
                           - maven:
-                              id: "3.8.6"
+                              id: "3.9.0"
     sidecars:
         configAutoReload:
             env:
