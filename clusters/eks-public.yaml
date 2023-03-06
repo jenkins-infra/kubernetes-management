@@ -13,6 +13,9 @@ repositories:
   # https://github.com/aws/eks-charts/
   - name: eks
     url: https://aws.github.io/eks-charts
+  # https://github.com/falcosecurity/charts/
+  - name: falco
+    url: https://falcosecurity.github.io/charts
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
@@ -105,3 +108,7 @@ releases:
       - "../config/artifact-caching-proxy_aws.yaml"
     secrets:
       - "../secrets/config/artifact-caching-proxy/secrets.yaml"
+  - name: falco
+    namespace: falco
+    chart: falco/falco
+    version: 2.5.2
