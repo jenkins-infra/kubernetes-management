@@ -9,7 +9,7 @@ resources:
 
 persistence:
   enabled: true
-  size: 50
+  size: 100
 
 ingress:
   enabled: true
