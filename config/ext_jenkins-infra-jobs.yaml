@@ -466,7 +466,7 @@ jobsDefinition:
             secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
             description: "NPM automation token to publish jenkins.io Web Components"
           jenkins-io-components-ghapp:
-            description: "Github App installed on jenkins-infra/jenkins-io-components"
+            description: "Github App for semantic-release"
             appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
@@ -480,7 +480,7 @@ jobsDefinition:
             secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
             description: "NPM automation token to publish jenkins.io Web Components"
           jenkins-io-components-ghapp:
-            description: "Github App installed on jenkins-infra/jenkins-io-components"
+            description: "Github App for semantic-release"
             appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
