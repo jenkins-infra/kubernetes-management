@@ -49,9 +49,9 @@ releases:
     version: 0.4.0
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
-    set:
-      - name: "quotas.pods"
-        value: "{{ .Values.quotas.pods.cik8s }}"
+    values:
+      - "../config/ext_jenkins-agents_cik8s.yaml.gotmpl"
+      - "./values.yaml"
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
