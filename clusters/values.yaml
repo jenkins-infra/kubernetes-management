@@ -1,0 +1,4 @@
+quotas:
+    pods:
+      cik8s: "150"
+      doks: "150"
