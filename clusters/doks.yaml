@@ -44,4 +44,4 @@ releases:
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
     values:
-      - "../config/jenkins-kubernetes-agents_cik8s.yaml"
+      - "../config/jenkins-kubernetes-agents_doks.yaml"
