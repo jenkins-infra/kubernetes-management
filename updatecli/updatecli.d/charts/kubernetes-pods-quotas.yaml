@@ -1,0 +1,56 @@
+name: "Bump kubernetes-pods-quotas"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  cik8s_maxcapacity:
+    kind: yaml
+    name: get pods number for cik8s in ci
+    spec:
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/azure.ci.jenkins.io.yaml"
+      key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.cik8s.max_capacity"
+  doks_maxcapacity:
+    kind: yaml
+    name: get pods number for doks in ci
+    spec:
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/azure.ci.jenkins.io.yaml"
+      key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.doks.max_capacity"
+
+targets:
+  quotas_cik8s_maxcapacity:
+    name: "Update the pods quotas in kubernetes for cik8s"
+    kind: yaml
+    sourceid: cik8s_maxcapacity
+    spec:
+      file: clusters/values.yaml
+      key: 'quotas.pods.cik8s'
+    scmid: default
+  quotas_doks_maxcapacity:
+    name: "Update the pods quotas in kubernetes for doks"
+    kind: yaml
+    sourceid: doks_maxcapacity
+    spec:
+      file: clusters/values.yaml
+      key: 'quotas.pods.doks'
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump `quotas` for kubernetes pods within cik8s and/or doks {{ source "lastChartVersion" }}
+    spec:
+      labels:
+        - dependencies
+        - jenkins-kubernetes-agents
+        - pods
