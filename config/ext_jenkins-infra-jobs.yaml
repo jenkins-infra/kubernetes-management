@@ -470,3 +470,17 @@ jobsDefinition:
             appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+      gatsby-plugin-jenkins-layout:
+        name: Gatsby plugin for standard Jenkins.io layout
+        allowUntrustedChanges: true
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main alpha beta PR-*"
+        credentials:
+          jenkinsci-npm-token:
+            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+            description: "NPM automation token to publish jenkins.io Web Components"
+          jenkins-io-components-ghapp:
+            description: "Github App installed on jenkins-infra/jenkins-io-components"
+            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+            owner: "jenkins-infra"
+            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
