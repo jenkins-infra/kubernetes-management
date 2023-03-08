@@ -26,7 +26,7 @@ targets:
     kind: file
     scmid: default
     spec:
-      file: clusters/prodpublick8s.yaml
+      file: clusters/privatek8s.yaml
       matchpattern: 'chart: jenkins-infra\/ircbot((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/ircbot${1}version: {{ source "lastChartVersion" }}'
 
