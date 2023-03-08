@@ -1,41 +1,42 @@
-name: "Bump rss2twitter Helm Chart Version"
+## Commented until https://github.com/jenkins-infra/kubernetes-management/pull/3526 is merged
+# name: "Bump rss2twitter Helm Chart Version"
 
-scms:
-  default:
-    kind: github
-    spec:
-      user: "{{ .github.user }}"
-      email: "{{ .github.email }}"
-      owner: "{{ .github.owner }}"
-      repository: "{{ .github.repository }}"
-      token: "{{ requiredEnv .github.token }}"
-      username: "{{ .github.username }}"
-      branch: "{{ .github.branch }}"
+# scms:
+#   default:
+#     kind: github
+#     spec:
+#       user: "{{ .github.user }}"
+#       email: "{{ .github.email }}"
+#       owner: "{{ .github.owner }}"
+#       repository: "{{ .github.repository }}"
+#       token: "{{ requiredEnv .github.token }}"
+#       username: "{{ .github.username }}"
+#       branch: "{{ .github.branch }}"
 
-sources:
-  lastChartVersion:
-    kind: helmchart
-    name: get last chart version
-    spec:
-      url: https://jenkins-infra.github.io/helm-charts
-      name: rss2twitter
+# sources:
+#   lastChartVersion:
+#     kind: helmchart
+#     name: get last chart version
+#     spec:
+#       url: https://jenkins-infra.github.io/helm-charts
+#       name: rss2twitter
 
-targets:
-  updateChartVersion:
-    name: "Update the chart version for rss2twitter"
-    kind: file
-    spec:
-      file: clusters/prodpublick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/rss2twitter((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/rss2twitter${1}version: {{ source "lastChartVersion" }}'
-    scmid: default
+# targets:
+#   updateChartVersion:
+#     name: "Update the chart version for rss2twitter"
+#     kind: file
+#     spec:
+#       file: clusters/prodpublick8s.yaml
+#       matchpattern: 'chart: jenkins-infra\/rss2twitter((\r\n|\r|\n)(\s+))version: .*'
+#       replacepattern: 'chart: jenkins-infra/rss2twitter${1}version: {{ source "lastChartVersion" }}'
+#     scmid: default
 
-actions:
-  default:
-    kind: github/pullrequest
-    scmid: default
-    title: Bump `rss2twitter` helm chart version to {{ source `lastChartVersion` }}
-    spec:
-      labels:
-        - dependencies
-        - rss2twitter
+# actions:
+#   default:
+#     kind: github/pullrequest
+#     scmid: default
+#     title: Bump `rss2twitter` helm chart version to {{ source `lastChartVersion` }}
+#     spec:
+#       labels:
+#         - dependencies
+#         - rss2twitter
