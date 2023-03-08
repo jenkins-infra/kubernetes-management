@@ -48,7 +48,7 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump `quotas` for kubernetes pods within cik8s and/or doks {{ source "lastChartVersion" }}
+    title: Bump `quotas` for kubernetes pods within cik8s {{ source "quotas_cik8s_maxcapacity" }} and/or doks {{ source "quotas_doks_maxcapacity" }}
     spec:
       labels:
         - dependencies
