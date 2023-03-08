@@ -32,16 +32,16 @@ targets:
     kind: yaml
     sourceid: cik8s_maxcapacity
     spec:
-      file: clusters/values.yaml
-      key: 'quotas.pods.cik8s'
+      file: config/jenkins-agents_cik8s.yaml
+      key: 'quotas.pods'
     scmid: default
   quotas_doks_maxcapacity:
     name: "Update the pods quotas in kubernetes for doks"
     kind: yaml
     sourceid: doks_maxcapacity
     spec:
-      file: clusters/values.yaml
-      key: 'quotas.pods.doks'
+      file: config/jenkins-agents_doks.yaml
+      key: 'quotas.pods'
     scmid: default
 
 actions:
