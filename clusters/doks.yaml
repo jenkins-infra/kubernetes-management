@@ -45,4 +45,4 @@ releases:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
     set:
       - name: "quotas.pods"
-        value: "150"
+        value: "{{ .quotas.pods.doks }}"
