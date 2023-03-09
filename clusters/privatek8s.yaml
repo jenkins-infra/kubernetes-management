@@ -85,7 +85,6 @@ releases:
     #   - name: namespace
     #     value: release
     needs:
-      - jenkins-release-jobs # Required to generate the job definition in a configmap
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
     values:
@@ -100,12 +99,6 @@ releases:
     # TODO: uncomment this section when the migration is completed (ref: https://github.com/jenkins-infra/helpdesk/issues/2844)
     # secrets:
     #   - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
-  - name: jenkins-release-jobs
-    namespace: jenkins-release
-    chart: jenkins-infra/jenkins-jobs
-    version: 0.4.0
-    values:
-      - "../config/ext_jenkins-release-jobs.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
