@@ -13,9 +13,6 @@ repositories:
   # https://github.com/falcosecurity/charts/
   - name: falco
     url: https://falcosecurity.github.io/charts
-  # https://github.com/timja/github-comment-ops/
-  - name: github-comment-ops
-    url: https://timja.github.io/github-comment-ops/
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
@@ -32,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.11.0
+    version: 3.16.2
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_prodpublick8s.yaml"
@@ -91,14 +88,6 @@ releases:
       - "../config/plugin-site-issues.yaml"
     secrets:
       - "../secrets/config/plugin-site-issues/secrets.yaml"
-  - name: ircbot
-    namespace: ircbot
-    chart: jenkins-infra/ircbot
-    version: 0.2.8
-    values:
-      - "../config/ircbot.yaml"
-    secrets:
-      - "../secrets/config/ircbot/secrets.yaml"
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports
@@ -126,7 +115,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.2.40
+    version: 0.2.44
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -152,7 +141,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.29.2
+    version: 0.31.1
     timeout: 600
     atomic: false
     values:
@@ -162,7 +151,7 @@ releases:
   - name: default-release-jenkins
     namespace: release
     chart: jenkins/jenkins
-    version: 4.3.2
+    version: 4.3.5
     timeout: 600
     set:
       - name: namespace
@@ -205,13 +194,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.62
+    version: 0.3.63
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.3.2
+    version: 4.3.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -234,16 +223,6 @@ releases:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
       - "../config/jenkinsisthewayio.yaml"
-  - name: github-comment-ops
-    namespace: github-comment-ops
-    chart: github-comment-ops/github-comment-ops
-    version: 1.4.0
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
-    values:
-      - "../config/ext_github-comment-ops.yaml"
-    secrets:
-      - "../secrets/config/github-comment-ops/secrets.yaml"
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
@@ -254,11 +233,3 @@ releases:
       - "../config/plugin-health-scoring.yaml"
     secrets:
       - "../secrets/config/plugin-health-scoring/secrets.yaml"
-  - name: rss2twitter
-    namespace: rss2twitter
-    chart: jenkins-infra/rss2twitter
-    version: 0.0.3
-    values:
-      - "../config/rss2twitter.yaml"
-    secrets:
-      - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
