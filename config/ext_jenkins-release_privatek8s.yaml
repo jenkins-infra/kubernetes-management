@@ -635,6 +635,10 @@ controller:
             - "SlaveLogs"
             - "HeapUsageHistogram"
           nagDisabled: true
+      jenkins-url: |
+        unclassified:
+          location:
+            url: "https://release.ci.jenkins.io"
       matrix-settings: |
         jenkins:
           authorizationStrategy:
