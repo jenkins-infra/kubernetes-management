@@ -188,207 +188,207 @@ controller:
       #               id: releasecijenkinsio-dockerhub-pull
       #               username: releasecijenkinsio
       #               password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
-      agent-settings: |
-        jenkins:
-          clouds:
-            - kubernetes:
-                containerCapStr: "100"
-                jenkinsUrl: "http://jenkins-release.jenkins-release.svc.cluster.local:8080"
-                maxRequestsPerHostStr: "300"
-                webSocket: true
-                name: "kubernetes"
-                namespace: "jenkins-release-agents"
-                podRetention: "Never"
-                podLabels:
-                  - key: "jenkins/jenkins-release-agent"
-                    value: "true"
-                templates:
-                  - name: jnlp-linux
-                    nodeSelector: "kubernetes.io/os=linux"
-                    containers:
-                      - name: jnlp
-                        image: "jenkins/inbound-agent:latest-jdk11"
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/java/openjdk/bin/java"
-                        resourceLimitCpu: "500m"
-                        resourceLimitMemory: "512Mi"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "512Mi"
-                        args: "1d"
-                        alwaysPullImage: true
-                    yamlMergeStrategy: "merge"
-                    yaml: |-
-                      apiVersion: v1
-                      kind: Pod
-                      spec:
-                        tolerations:
-                        - key: "jenkins"
-                          operator: "Equal"
-                          value: "release.ci.jenkins.io"
-                          effect: "NoSchedule"
-                        - key: "kubernetes.azure.com/scalesetpriority"
-                          operator: "Equal"
-                          value: "spot"
-                          effect: "NoSchedule"
-                  - name: jnlp-windows
-                    nodeSelector: "kubernetes.io/os=windows"
-                    instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
-                    instanceCapStr: "5"
-                    containers:
-                      - name: jnlp
-                        image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "C:/openjdk-11"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "C:/openjdk-11"
-                        command: "powershell"
-                        args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
-                        resourceLimitCpu: "1"
-                        resourceLimitMemory: "1024Mi"
-                        resourceRequestCpu: "1"
-                        resourceRequestMemory: "1024Mi"
-                        alwaysPullImage: true
-                        workingDir: "C:\\Users\\jenkins"
-                    yamlMergeStrategy: "override"
-                    label: "windows-2019-kubernetes"
-                    yaml: |-
-                      affinity:
-                        nodeAffinity:
-                          requiredDuringSchedulingIgnoredDuringExecution:
-                            nodeSelectorTerms:
-                            - matchExpressions:
-                              - key: kubernetes.io/os
-                                operator: In
-                                values:
-                                  - windows
-            - amazonEC2:
-                cloudName: "aws-us-east-2"
-                credentialsId: "ec2-agents-credentials"
-                instanceCapStr: "20"
-                noDelayProvisioning: true
-                region: "us-east-2"
-                sshKeysCredentialsId: "ec2-agents-privkey"
-                useInstanceProfileForCredentials: false
-                templates:
-                - ami: "ami-07096113cf2ec6768" # https://github.com/jenkins-infra/packer-images/
-                  amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
-                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "AMD64 Ubuntu 20.04"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
-                  idleTerminationMinutes: "5"
-                  instanceCapStr: "10"
-                  labelString: "linux-amd64 linux-amd64-docker"
-                  launchTimeoutStr: "180"
-                  maxTotalUses: 1
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: true
-                  numExecutors: 1
-                  remoteAdmin: "jenkins"
-                  remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_release"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "amd64"
-                  - name: "os"
-                    value: "linux"
-                  - name: "jenkins"
-                    value: "release.ci.jenkins.io"
-                  type: T3Medium
-                  useEphemeralDevices: true
-                - ami: "ami-0d2d7ce8555684cbb" # https://github.com/jenkins-infra/packer-images/
-                  amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
-                      slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "ARM64 Ubuntu 20.04"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
-                  idleTerminationMinutes: "5"
-                  instanceCapStr: "10"
-                  labelString: "arm64 linux-arm64 linux-arm64-docker"
-                  launchTimeoutStr: "180"
-                  maxTotalUses: 1
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: true
-                  numExecutors: 1
-                  remoteAdmin: "jenkins"
-                  remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_release"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "arm64"
-                  - name: "os"
-                    value: "linux"
-                  - name: "jenkins"
-                    value: "release.ci.jenkins.io"
-                  type: T4gMedium
-                  useEphemeralDevices: true
-                - ami: "ami-0c3f1d709a2270b04" # https://github.com/jenkins-infra/packer-images/
-                  amiOwners: "200564066411"
-                  amiType:
-                    unixData:
-                      sshPort: "22"
-                      # Windows VM agent are not supported yet: https://issues.jenkins.io/browse/JENKINS-69304
-                      # slaveCommandPrefix: "PATH=C:/tools/jdk-11/bin:^${PATH}"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "Windows 2019 AMD64"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
-                  idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
-                  instanceCapStr: "10"
-                  labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
-                  launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
-                  maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: false
-                  numExecutors: 1
-                  remoteAdmin: "Administrator"
-                  remoteFS: "C:\\Jenkins"
-                  securityGroups: "ec2_agents_release"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "amd64"
-                  - name: "os"
-                    value: "windows"
-                  - name: "jenkins"
-                    value: "release.ci.jenkins.io"
-                  tenancy: Default
-                  tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
-                  type: T3Medium
-                  useEphemeralDevices: true
+      # agent-settings: |
+      #   jenkins:
+      #     clouds:
+      #       - kubernetes:
+      #           containerCapStr: "100"
+      #           jenkinsUrl: "http://jenkins-release.jenkins-release.svc.cluster.local:8080"
+      #           maxRequestsPerHostStr: "300"
+      #           webSocket: true
+      #           name: "kubernetes"
+      #           namespace: "jenkins-release-agents"
+      #           podRetention: "Never"
+      #           podLabels:
+      #             - key: "jenkins/jenkins-release-agent"
+      #               value: "true"
+      #           templates:
+      #             - name: jnlp-linux
+      #               nodeSelector: "kubernetes.io/os=linux"
+      #               containers:
+      #                 - name: jnlp
+      #                   image: "jenkins/inbound-agent:latest-jdk11"
+      #                   envVars:
+      #                   - envVar:
+      #                       key: "JENKINS_JAVA_BIN"
+      #                       value: "/opt/java/openjdk/bin/java"
+      #                   resourceLimitCpu: "500m"
+      #                   resourceLimitMemory: "512Mi"
+      #                   resourceRequestCpu: "500m"
+      #                   resourceRequestMemory: "512Mi"
+      #                   args: "1d"
+      #                   alwaysPullImage: true
+      #               yamlMergeStrategy: "merge"
+      #               yaml: |-
+      #                 apiVersion: v1
+      #                 kind: Pod
+      #                 spec:
+      #                   tolerations:
+      #                   - key: "jenkins"
+      #                     operator: "Equal"
+      #                     value: "release.ci.jenkins.io"
+      #                     effect: "NoSchedule"
+      #                   - key: "kubernetes.azure.com/scalesetpriority"
+      #                     operator: "Equal"
+      #                     value: "spot"
+      #                     effect: "NoSchedule"
+      #             - name: jnlp-windows
+      #               nodeSelector: "kubernetes.io/os=windows"
+      #               instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
+      #               instanceCapStr: "5"
+      #               containers:
+      #                 - name: jnlp
+      #                   image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
+      #                   envVars:
+      #                   - envVar:
+      #                       key: "JENKINS_JAVA_BIN"
+      #                       value: "C:/openjdk-11"
+      #                   - envVar:
+      #                       key: "JAVA_HOME"
+      #                       value: "C:/openjdk-11"
+      #                   command: "powershell"
+      #                   args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
+      #                   resourceLimitCpu: "1"
+      #                   resourceLimitMemory: "1024Mi"
+      #                   resourceRequestCpu: "1"
+      #                   resourceRequestMemory: "1024Mi"
+      #                   alwaysPullImage: true
+      #                   workingDir: "C:\\Users\\jenkins"
+      #               yamlMergeStrategy: "override"
+      #               label: "windows-2019-kubernetes"
+      #               yaml: |-
+      #                 affinity:
+      #                   nodeAffinity:
+      #                     requiredDuringSchedulingIgnoredDuringExecution:
+      #                       nodeSelectorTerms:
+      #                       - matchExpressions:
+      #                         - key: kubernetes.io/os
+      #                           operator: In
+      #                           values:
+      #                             - windows
+      #       - amazonEC2:
+      #           cloudName: "aws-us-east-2"
+      #           credentialsId: "ec2-agents-credentials"
+      #           instanceCapStr: "20"
+      #           noDelayProvisioning: true
+      #           region: "us-east-2"
+      #           sshKeysCredentialsId: "ec2-agents-privkey"
+      #           useInstanceProfileForCredentials: false
+      #           templates:
+      #           - ami: "ami-07096113cf2ec6768" # https://github.com/jenkins-infra/packer-images/
+      #             amiOwners: "200564066411"
+      #             amiType:
+      #               unixData:
+      #                 sshPort: "22"
+      #                 slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
+      #             associatePublicIp: true
+      #             connectBySSHProcess: false
+      #             connectionStrategy: PUBLIC_IP
+      #             deleteRootOnTermination: true
+      #             description: "AMD64 Ubuntu 20.04"
+      #             ebsOptimized: false
+      #             hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
+      #             idleTerminationMinutes: "5"
+      #             instanceCapStr: "10"
+      #             labelString: "linux-amd64 linux-amd64-docker"
+      #             launchTimeoutStr: "180"
+      #             maxTotalUses: 1
+      #             minimumNumberOfInstances: 0
+      #             minimumNumberOfSpareInstances: 0
+      #             mode: EXCLUSIVE
+      #             monitoring: true
+      #             numExecutors: 1
+      #             remoteAdmin: "jenkins"
+      #             remoteFS: "/home/jenkins"
+      #             securityGroups: "ec2_agents_release"
+      #             stopOnTerminate: false
+      #             t2Unlimited: false
+      #             tags:
+      #             - name: "architecture"
+      #               value: "amd64"
+      #             - name: "os"
+      #               value: "linux"
+      #             - name: "jenkins"
+      #               value: "release.ci.jenkins.io"
+      #             type: T3Medium
+      #             useEphemeralDevices: true
+      #           - ami: "ami-0d2d7ce8555684cbb" # https://github.com/jenkins-infra/packer-images/
+      #             amiOwners: "200564066411"
+      #             amiType:
+      #               unixData:
+      #                 sshPort: "22"
+      #                 slaveCommandPrefix: "PATH=/opt/jdk-11/bin:^${PATH}"
+      #             associatePublicIp: true
+      #             connectBySSHProcess: false
+      #             connectionStrategy: PUBLIC_IP
+      #             deleteRootOnTermination: true
+      #             description: "ARM64 Ubuntu 20.04"
+      #             ebsOptimized: false
+      #             hostKeyVerificationStrategy: ACCEPT_NEW # Secure: more flexible to save some time at startup
+      #             idleTerminationMinutes: "5"
+      #             instanceCapStr: "10"
+      #             labelString: "arm64 linux-arm64 linux-arm64-docker"
+      #             launchTimeoutStr: "180"
+      #             maxTotalUses: 1
+      #             minimumNumberOfInstances: 0
+      #             minimumNumberOfSpareInstances: 0
+      #             mode: EXCLUSIVE
+      #             monitoring: true
+      #             numExecutors: 1
+      #             remoteAdmin: "jenkins"
+      #             remoteFS: "/home/jenkins"
+      #             securityGroups: "ec2_agents_release"
+      #             stopOnTerminate: false
+      #             t2Unlimited: false
+      #             tags:
+      #             - name: "architecture"
+      #               value: "arm64"
+      #             - name: "os"
+      #               value: "linux"
+      #             - name: "jenkins"
+      #               value: "release.ci.jenkins.io"
+      #             type: T4gMedium
+      #             useEphemeralDevices: true
+      #           - ami: "ami-0c3f1d709a2270b04" # https://github.com/jenkins-infra/packer-images/
+      #             amiOwners: "200564066411"
+      #             amiType:
+      #               unixData:
+      #                 sshPort: "22"
+      #                 # Windows VM agent are not supported yet: https://issues.jenkins.io/browse/JENKINS-69304
+      #                 # slaveCommandPrefix: "PATH=C:/tools/jdk-11/bin:^${PATH}"
+      #             associatePublicIp: true
+      #             connectBySSHProcess: false
+      #             connectionStrategy: PUBLIC_IP
+      #             deleteRootOnTermination: true
+      #             description: "Windows 2019 AMD64"
+      #             ebsOptimized: false
+      #             hostKeyVerificationStrategy: ACCEPT_NEW     # TODO: set it CHECK_NEW_HARD (slower but safer)
+      #             idleTerminationMinutes: "30"                # Windows instances are billed per hour, let's reuse
+      #             instanceCapStr: "10"
+      #             labelString: "windows windows-amd64 windows-amd64-docker docker-windows"
+      #             launchTimeoutStr: "600"                     # Wait for Windows to start all the EC2 launch services
+      #             maxTotalUses: 10                            # Windows instances are billed per hour, let's reuse
+      #             minimumNumberOfInstances: 0
+      #             minimumNumberOfSpareInstances: 0
+      #             mode: EXCLUSIVE
+      #             monitoring: false
+      #             numExecutors: 1
+      #             remoteAdmin: "Administrator"
+      #             remoteFS: "C:\\Jenkins"
+      #             securityGroups: "ec2_agents_release"
+      #             stopOnTerminate: false
+      #             t2Unlimited: false
+      #             tags:
+      #             - name: "architecture"
+      #               value: "amd64"
+      #             - name: "os"
+      #               value: "windows"
+      #             - name: "jenkins"
+      #               value: "release.ci.jenkins.io"
+      #             tenancy: Default
+      #             tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
+      #             type: T3Medium
+      #             useEphemeralDevices: true
       jobs-settings: |
         jobs:
           - script: >
