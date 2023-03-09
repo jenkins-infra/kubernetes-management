@@ -1,4 +1,3 @@
-# Commented until https://github.com/jenkins-infra/kubernetes-management/pull/3527 is merged
 name: "Bump `ircbot` helm chart version"
 
 scms:

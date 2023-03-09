@@ -1,4 +1,3 @@
-# Commented until https://github.com/jenkins-infra/kubernetes-management/pull/3525 is merged
 name: "Bump github-comment-ops Helm Chart Version"
 
 scms:
