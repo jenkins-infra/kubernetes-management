@@ -49,10 +49,6 @@ controller:
     readinessProbe:
       initialDelaySeconds: 120
   testEnabled: false
-  podSecurityContextOverride:
-    runAsNonRoot: true
-    runAsUser: 1000
-    supplementalGroups: [1000]
   overwritePlugins: true
   serviceType: "ClusterIP"
   javaOpts: >
