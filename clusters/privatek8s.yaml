@@ -7,6 +7,9 @@ repositories:
   # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
+  # https://github.com/timja/github-comment-ops/
+  - name: github-comment-ops
+    url: https://timja.github.io/github-comment-ops/
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
@@ -95,3 +98,21 @@ releases:
       - "../config/rss2twitter.yaml"
     secrets:
       - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
+  - name: github-comment-ops
+    namespace: github-comment-ops
+    chart: github-comment-ops/github-comment-ops
+    version: 1.4.0
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
+    values:
+      - "../config/ext_github-comment-ops.yaml"
+    secrets:
+      - "../secrets/config/github-comment-ops/secrets.yaml"
+  - name: ircbot
+    namespace: ircbot
+    chart: jenkins-infra/ircbot
+    version: 0.2.8
+    values:
+      - "../config/ircbot.yaml"
+    secrets:
+      - "../secrets/config/ircbot/secrets.yaml"
