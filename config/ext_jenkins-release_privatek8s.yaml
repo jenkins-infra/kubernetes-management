@@ -29,7 +29,7 @@ networkPolicy:
 controller:
   image: jenkinsciinfra/jenkins-lts
   tag: 0.28.0-2.387.1
-  pullPolicy: IfNotPresent
+  imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
     kubernetes.azure.com/agentpool: linuxpool
