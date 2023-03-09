@@ -87,3 +87,11 @@ releases:
     values:
       - "../config/ext_private-nginx-ingress__common.yaml"
       - "../config/ext_private-nginx-ingress_privatek8s.yaml"
+  - name: ircbot
+    namespace: ircbot
+    chart: jenkins-infra/ircbot
+    version: 0.2.8
+    values:
+      - "../config/ircbot.yaml"
+    secrets:
+      - "../secrets/config/ircbot/secrets.yaml"
