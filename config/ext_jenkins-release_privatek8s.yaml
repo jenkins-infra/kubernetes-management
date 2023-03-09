@@ -12,6 +12,7 @@ rbac:
 persistence:
   enabled: true
   size: 50Gi
+  storageClass: managed-csi-premium-retain
 agent:
   componentName: "agent"
 networkPolicy:
