@@ -393,7 +393,7 @@ controller:
         jobs:
           - script: >
               folder('components') {
-                displayName('Components')
+                displayName('Components (on privatek8s)')
                 description('Folder containing Jenkins components release job')
               }
 
