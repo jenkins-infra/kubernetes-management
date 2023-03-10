@@ -49,7 +49,6 @@ controller:
     readinessProbe:
       initialDelaySeconds: 120
   testEnabled: false
-  numExecutors: 0
   overwritePlugins: true
   serviceType: "ClusterIP"
   javaOpts: >
@@ -189,7 +188,9 @@ controller:
       #               id: releasecijenkinsio-dockerhub-pull
       #               username: releasecijenkinsio
       #               password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
-      # agent-settings: |
+      agent-settings: |
+        jenkins:
+          numExecutors: 0
       #     clouds:
       #       - kubernetes:
       #           containerCapStr: "100"
