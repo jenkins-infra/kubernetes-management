@@ -1,4 +1,4 @@
-name: "Bump kubernetes-pods-quotas"
+name: Update pods quotas on the clusters used by ci.jenkins.io
 
 scms:
   default:
@@ -48,7 +48,7 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump `quotas` for kubernetes pods within cik8s {{ source "cik8s_maxcapacity" }} and/or doks {{ source "doks_maxcapacity" }}
+    title: Update `quotas.pods` within `cik8s` cluster to {{ source "cik8s_maxcapacity" }} and/or `doks` cluster to {{ source "doks_maxcapacity" }}
     spec:
       labels:
         - dependencies
