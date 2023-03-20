@@ -1,4 +1,4 @@
-name: Update pods quotas on `cik8s` and/or `doks` clusters
+name: Update pods quotas on the clusters used by ci.jenkins.io
 
 scms:
   default:
