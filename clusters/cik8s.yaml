@@ -47,10 +47,10 @@ releases:
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 0.4.0
+    values:
+      - "../config/jenkins-kubernetes-agents_ci-jenkins-io_cik8s.yaml"
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
-    values:
-      - "../config/jenkins-kubernetes-agents_cik8s.yaml"
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
