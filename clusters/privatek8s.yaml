@@ -43,7 +43,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.20.2
+    version: 3.20.3
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_privatek8s.yaml"
@@ -76,6 +76,12 @@ releases:
     version: 0.4.0
     values:
       - "../config/ext_jenkins-infra-jobs.yaml"
+  - name: jenkins-release-core-package
+    namespace: jenkins-release
+    chart: jenkins-infra/env-jenkins-release
+    version: 0.2.0
+    secrets:
+      - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
