@@ -58,136 +58,136 @@ controller:
     enabled: true
     defaultConfig: false
     configScripts:
-      # credentials: |
-      #   credentials:
-      #     system:
-      #       domainCredentials:
-      #         - credentials:
-      #           - usernamePassword:
-      #               description: "GitHub access token for jenkinsadmin"
-      #               id: "github-access-token"
-      #               username: "${GITHUB_USERNAME}"
-      #               password: "${GITHUB_PASSWORD}"
-      #               scope: GLOBAL
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "azure-vault-client-id"
-      #               secret: "${AZURE_VAULT_CLIENT_ID}"
-      #               description: Azure Service Principale client id used to retrieve gpg key
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "azure-vault-client-secret"
-      #               secret: "${AZURE_VAULT_CLIENT_SECRET}"
-      #               description: Azure Service Principale client secret used to retrieve gpg key
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "azure-vault-tenant-id"
-      #               secret: "${AZURE_VAULT_TENANT_ID}"
-      #               description: Azure Service Principale tenant id used to retrieve gpg key
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "fastly-api-token"
-      #               secret: "${FASTLY_API_TOKEN}"
-      #               description: Fastly api token used to purge pkg.jenkins.io cache
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "fastly_pkgserver_service_id"
-      #               secret: "${FASTLY_PKGSERVER_SERVICE_ID}"
-      #               description: Fastly pkgserver service id used for invalidating pkg.jenkins.io
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "release-gpg-passphrase"
-      #               secret: "${RELEASE_GPG_PASSPHRASE}"
-      #               description: Release GPG Key passphrase
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "release-storage-account-key"
-      #               secret: "${RELEASE_STORAGE_ACCOUNT_KEY}"
-      #               description: Password used by maven to upload war files
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "gpg-storage-account-key"
-      #               secret: "${GPG_STORAGE_ACCOUNT_KEY}"
-      #               description: GPG storage account key
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "maven-repository-username"
-      #               secret: "${MAVEN_REPOSITORY_USERNAME}"
-      #               description: "Username used by maven release plugin to publish artifacts on a maven repository"
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "maven-repository-password"
-      #               secret: "${MAVEN_REPOSITORY_PASSWORD}"
-      #               description: "PASSWORD used by maven release plugin to publish artifacts on a maven repository"
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "maven-repository-username"
-      #               secret: "${MAVEN_REPOSITORY_USERNAME}"
-      #               description: GPG storage account key
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "sops-client-id"
-      #               secret: "${SOPS_CLIENT_ID}"
-      #               description: Azure client ID used by sops to decrypt secrets
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "sops-client-secret"
-      #               secret: "${SOPS_CLIENT_SECRET}"
-      #               description: Azure client secret used by sops to decrypt secrets
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "sops-tenant-id"
-      #               secret: "${SOPS_TENANT_ID}"
-      #               description: Azure tenant id used by sops to decrypt secrets
-      #           - string:
-      #               scope: GLOBAL
-      #               id: "signing-cert-pass"
-      #               secret: "${RELEASE_CERTIFICATE_PASSWORD}"
-      #               description: Password used by maven signer plugin to unlock the signing certificate
-      #           - basicSSHUserPrivateKey:
-      #               scope: GLOBAL
-      #               id: "release-key"
-      #               username: ${SSH_RELEASE_USERNAME}
-      #               description: "SSH private key to commit on jenkinsci/jenkins"
-      #               privateKeySource:
-      #                 directEntry:
-      #                   privateKey: ${SSH_RELEASE_PRIVKEY}
-      #           - basicSSHUserPrivateKey:
-      #               scope: GLOBAL
-      #               id: "pkgserver"
-      #               username: ${SSH_PKGSERVER_USERNAME}
-      #               description: "SSH private key used to upload artifacts on pkg.jenkins.io"
-      #               privateKeySource:
-      #                 directEntry:
-      #                   privateKey: ${SSH_PKGSERVER_PRIVKEY}
-      #           - basicSSHUserPrivateKey:
-      #               scope: GLOBAL
-      #               id: "charts-secrets"
-      #               username: ${SSH_CHARTS_SECRETS_USERNAME}
-      #               description: "SSH privkey used to access jenkins-infra/charts-secret"
-      #               privateKeySource:
-      #                 directEntry:
-      #                   privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-      #           - basicSSHUserPrivateKey:
-      #               scope: SYSTEM
-      #               id: "ec2-agents-privkey"
-      #               username: "key"
-      #               description: "SSH privkey used to connect to EC2 agents"
-      #               privateKeySource:
-      #                 directEntry:
-      #                   privateKey: "${EC2_AGENTS_PRIVKEY}"
-      #           - aws:
-      #               accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
-      #               description: "This credential is used to provision dynamic agents on AWS EC2"
-      #               id: "ec2-agents-credentials"
-      #               scope: SYSTEM
-      #               secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
-      #           - usernamePassword:
-      #               scope: GLOBAL
-      #               description: Docker hub credential for release.ci PULL
-      #               id: releasecijenkinsio-dockerhub-pull
-      #               username: releasecijenkinsio
-      #               password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
+      credentials: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                - usernamePassword:
+                    description: "GitHub access token for jenkinsadmin"
+                    id: "github-access-token"
+                    username: "${GITHUB_USERNAME}"
+                    password: "${GITHUB_PASSWORD}"
+                    scope: GLOBAL
+                - string:
+                    scope: GLOBAL
+                    id: "azure-vault-client-id"
+                    secret: "${AZURE_VAULT_CLIENT_ID}"
+                    description: Azure Service Principale client id used to retrieve gpg key
+                - string:
+                    scope: GLOBAL
+                    id: "azure-vault-client-secret"
+                    secret: "${AZURE_VAULT_CLIENT_SECRET}"
+                    description: Azure Service Principale client secret used to retrieve gpg key
+                - string:
+                    scope: GLOBAL
+                    id: "azure-vault-tenant-id"
+                    secret: "${AZURE_VAULT_TENANT_ID}"
+                    description: Azure Service Principale tenant id used to retrieve gpg key
+                - string:
+                    scope: GLOBAL
+                    id: "fastly-api-token"
+                    secret: "${FASTLY_API_TOKEN}"
+                    description: Fastly api token used to purge pkg.jenkins.io cache
+                - string:
+                    scope: GLOBAL
+                    id: "fastly_pkgserver_service_id"
+                    secret: "${FASTLY_PKGSERVER_SERVICE_ID}"
+                    description: Fastly pkgserver service id used for invalidating pkg.jenkins.io
+                - string:
+                    scope: GLOBAL
+                    id: "release-gpg-passphrase"
+                    secret: "${RELEASE_GPG_PASSPHRASE}"
+                    description: Release GPG Key passphrase
+                - string:
+                    scope: GLOBAL
+                    id: "release-storage-account-key"
+                    secret: "${RELEASE_STORAGE_ACCOUNT_KEY}"
+                    description: Password used by maven to upload war files
+                - string:
+                    scope: GLOBAL
+                    id: "gpg-storage-account-key"
+                    secret: "${GPG_STORAGE_ACCOUNT_KEY}"
+                    description: GPG storage account key
+                - string:
+                    scope: GLOBAL
+                    id: "maven-repository-username"
+                    secret: "${MAVEN_REPOSITORY_USERNAME}"
+                    description: "Username used by maven release plugin to publish artifacts on a maven repository"
+                - string:
+                    scope: GLOBAL
+                    id: "maven-repository-password"
+                    secret: "${MAVEN_REPOSITORY_PASSWORD}"
+                    description: "PASSWORD used by maven release plugin to publish artifacts on a maven repository"
+                - string:
+                    scope: GLOBAL
+                    id: "maven-repository-username"
+                    secret: "${MAVEN_REPOSITORY_USERNAME}"
+                    description: GPG storage account key
+                - string:
+                    scope: GLOBAL
+                    id: "sops-client-id"
+                    secret: "${SOPS_CLIENT_ID}"
+                    description: Azure client ID used by sops to decrypt secrets
+                - string:
+                    scope: GLOBAL
+                    id: "sops-client-secret"
+                    secret: "${SOPS_CLIENT_SECRET}"
+                    description: Azure client secret used by sops to decrypt secrets
+                - string:
+                    scope: GLOBAL
+                    id: "sops-tenant-id"
+                    secret: "${SOPS_TENANT_ID}"
+                    description: Azure tenant id used by sops to decrypt secrets
+                - string:
+                    scope: GLOBAL
+                    id: "signing-cert-pass"
+                    secret: "${RELEASE_CERTIFICATE_PASSWORD}"
+                    description: Password used by maven signer plugin to unlock the signing certificate
+                - basicSSHUserPrivateKey:
+                    scope: GLOBAL
+                    id: "release-key"
+                    username: ${SSH_RELEASE_USERNAME}
+                    description: "SSH private key to commit on jenkinsci/jenkins"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: ${SSH_RELEASE_PRIVKEY}
+                - basicSSHUserPrivateKey:
+                    scope: GLOBAL
+                    id: "pkgserver"
+                    username: ${SSH_PKGSERVER_USERNAME}
+                    description: "SSH private key used to upload artifacts on pkg.jenkins.io"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: ${SSH_PKGSERVER_PRIVKEY}
+                - basicSSHUserPrivateKey:
+                    scope: GLOBAL
+                    id: "charts-secrets"
+                    username: ${SSH_CHARTS_SECRETS_USERNAME}
+                    description: "SSH privkey used to access jenkins-infra/charts-secret"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
+                - basicSSHUserPrivateKey:
+                    scope: SYSTEM
+                    id: "ec2-agents-privkey"
+                    username: "key"
+                    description: "SSH privkey used to connect to EC2 agents"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: "${EC2_AGENTS_PRIVKEY}"
+                - aws:
+                    accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
+                    description: "This credential is used to provision dynamic agents on AWS EC2"
+                    id: "ec2-agents-credentials"
+                    scope: SYSTEM
+                    secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - usernamePassword:
+                    scope: GLOBAL
+                    description: Docker hub credential for release.ci PULL
+                    id: releasecijenkinsio-dockerhub-pull
+                    username: releasecijenkinsio
+                    password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
       agent-settings: |
         jenkins:
           numExecutors: 0
