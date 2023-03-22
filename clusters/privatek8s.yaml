@@ -95,10 +95,9 @@ releases:
   - name: jenkins-release-core-package
     namespace: jenkins-release
     chart: jenkins-infra/env-jenkins-release
-    version: 0.1.2
-    # TODO: uncomment this section when the migration is completed (ref: https://github.com/jenkins-infra/helpdesk/issues/2844)
-    # secrets:
-    #   - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
+    version: 0.2.0
+    secrets:
+      - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
