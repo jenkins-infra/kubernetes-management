@@ -85,7 +85,7 @@ releases:
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: jenkins-release-core-package
-    namespace: jenkins-release
+    namespace: jenkins-release-agents
     chart: jenkins-infra/env-jenkins-release
     version: 0.2.0
     secrets:
