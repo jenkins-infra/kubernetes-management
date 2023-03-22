@@ -191,82 +191,82 @@ controller:
       agent-settings: |
         jenkins:
           numExecutors: 0
-      #     clouds:
-      #       - kubernetes:
-      #           containerCapStr: "100"
-      #           jenkinsUrl: "http://jenkins-release.jenkins-release.svc.cluster.local:8080"
-      #           maxRequestsPerHostStr: "300"
-      #           webSocket: true
-      #           name: "kubernetes"
-      #           namespace: "jenkins-release-agents"
-      #           podRetention: "Never"
-      #           podLabels:
-      #             - key: "jenkins/jenkins-release-agent"
-      #               value: "true"
-      #           templates:
-      #             - name: jnlp-linux
-      #               nodeSelector: "kubernetes.io/os=linux"
-      #               containers:
-      #                 - name: jnlp
-      #                   image: "jenkins/inbound-agent:latest-jdk11"
-      #                   envVars:
-      #                   - envVar:
-      #                       key: "JENKINS_JAVA_BIN"
-      #                       value: "/opt/java/openjdk/bin/java"
-      #                   resourceLimitCpu: "500m"
-      #                   resourceLimitMemory: "512Mi"
-      #                   resourceRequestCpu: "500m"
-      #                   resourceRequestMemory: "512Mi"
-      #                   args: "1d"
-      #                   alwaysPullImage: true
-      #               yamlMergeStrategy: "merge"
-      #               yaml: |-
-      #                 apiVersion: v1
-      #                 kind: Pod
-      #                 spec:
-      #                   tolerations:
-      #                   - key: "jenkins"
-      #                     operator: "Equal"
-      #                     value: "release.ci.jenkins.io"
-      #                     effect: "NoSchedule"
-      #                   - key: "kubernetes.azure.com/scalesetpriority"
-      #                     operator: "Equal"
-      #                     value: "spot"
-      #                     effect: "NoSchedule"
-      #             - name: jnlp-windows
-      #               nodeSelector: "kubernetes.io/os=windows"
-      #               instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
-      #               instanceCapStr: "5"
-      #               containers:
-      #                 - name: jnlp
-      #                   image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
-      #                   envVars:
-      #                   - envVar:
-      #                       key: "JENKINS_JAVA_BIN"
-      #                       value: "C:/openjdk-11"
-      #                   - envVar:
-      #                       key: "JAVA_HOME"
-      #                       value: "C:/openjdk-11"
-      #                   command: "powershell"
-      #                   args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
-      #                   resourceLimitCpu: "1"
-      #                   resourceLimitMemory: "1024Mi"
-      #                   resourceRequestCpu: "1"
-      #                   resourceRequestMemory: "1024Mi"
-      #                   alwaysPullImage: true
-      #                   workingDir: "C:\\Users\\jenkins"
-      #               yamlMergeStrategy: "override"
-      #               label: "windows-2019-kubernetes"
-      #               yaml: |-
-      #                 affinity:
-      #                   nodeAffinity:
-      #                     requiredDuringSchedulingIgnoredDuringExecution:
-      #                       nodeSelectorTerms:
-      #                       - matchExpressions:
-      #                         - key: kubernetes.io/os
-      #                           operator: In
-      #                           values:
-      #                             - windows
+          clouds:
+            - kubernetes:
+                containerCapStr: "100"
+                jenkinsUrl: "http://jenkins-release.jenkins-release.svc.cluster.local:8080"
+                maxRequestsPerHostStr: "300"
+                webSocket: true
+                name: "kubernetes"
+                namespace: "jenkins-release-agents"
+                podRetention: "Never"
+                podLabels:
+                  - key: "jenkins/jenkins-release-agent"
+                    value: "true"
+                templates:
+                  - name: jnlp-linux
+                    nodeSelector: "kubernetes.io/os=linux"
+                    containers:
+                      - name: jnlp
+                        image: "jenkins/inbound-agent:latest-jdk11"
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/java/openjdk/bin/java"
+                        resourceLimitCpu: "500m"
+                        resourceLimitMemory: "512Mi"
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "512Mi"
+                        args: "1d"
+                        alwaysPullImage: true
+                    yamlMergeStrategy: "merge"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "release.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
+                  - name: jnlp-windows
+                    nodeSelector: "kubernetes.io/os=windows"
+                    instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
+                    instanceCapStr: "5"
+                    containers:
+                      - name: jnlp
+                        image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "C:/openjdk-11"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "C:/openjdk-11"
+                        command: "powershell"
+                        args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
+                        resourceLimitCpu: "1"
+                        resourceLimitMemory: "1024Mi"
+                        resourceRequestCpu: "1"
+                        resourceRequestMemory: "1024Mi"
+                        alwaysPullImage: true
+                        workingDir: "C:\\Users\\jenkins"
+                    yamlMergeStrategy: "override"
+                    label: "windows-2019-kubernetes"
+                    yaml: |-
+                      affinity:
+                        nodeAffinity:
+                          requiredDuringSchedulingIgnoredDuringExecution:
+                            nodeSelectorTerms:
+                            - matchExpressions:
+                              - key: kubernetes.io/os
+                                operator: In
+                                values:
+                                  - windows
       #       - amazonEC2:
       #           cloudName: "aws-us-east-2"
       #           credentialsId: "ec2-agents-credentials"
