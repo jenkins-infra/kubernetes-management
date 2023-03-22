@@ -95,9 +95,9 @@ controller:
                 - usernamePassword:
                     description: "Credentials to access the azure agents VMs"
                     id: "azure-login"
-                    password: "${AZURE-LOGIN-VM-PASS}"
+                    password: "${AZURE_LOGIN_VM_PASS}"
                     scope: GLOBAL
-                    username: "${AZURE-LOGIN-VM-USER}"
+                    username: "${AZURE_LOGIN_VM_USER}"
                 - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-controller"
@@ -370,9 +370,6 @@ controller:
                   tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
                   type: T3Medium # 2 vCPUs / 4 Gb
                   useEphemeralDevices: true
-            - azure-vm-agents:
-                azureCredentialsId: "az-agents-credentials"
-                resource_group: "infra-ci-agents"
       security: |
         security:
           scriptApproval:
