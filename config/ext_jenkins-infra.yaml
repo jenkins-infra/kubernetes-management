@@ -86,6 +86,18 @@ controller:
                     id: "ec2-agents-credentials"
                     scope: SYSTEM
                     secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - azureServicePrincipal:
+                    credentialsId: "az-agents-credentials"
+                    clientIdVariable : "${JENKINSINFRA_AZURE_CLIENT_ID}"
+                    clientSecretVariable : "${JENKINSINFRA_AZURE_CLIENT_SECRET_VALUE}"
+                    subscriptionIdVariable : "${JENKINSINFRA_AZURE_SUBSCRIPTION_ID}"
+                    tenantIdVariable : "${JENKINSINFRA_AZURE_TENANT_ID}"
+                - usernamePassword:
+                    description: "Credentials to access the azure agents VMs"
+                    id: "azure-login"
+                    password: "${AZURE-LOGIN-VM-PASS}"
+                    scope: GLOBAL
+                    username: "${AZURE-LOGIN-VM-USER}"
                 - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-controller"
@@ -358,6 +370,40 @@ controller:
                   tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
                   type: T3Medium # 2 vCPUs / 4 Gb
                   useEphemeralDevices: true
+            - azure-vm-agents:
+                azureCredentialsId: "az-agents-credentials"
+                resource_group: "infra-ci-agents"
+                agent_definitions:
+                  - name: "ubuntu"
+                    description: "Ubuntu 20.04 LTS (jdk11-default)"
+                    imageDefinition: jenkins-agent-ubuntu-20.04
+                    os: "ubuntu"
+                    storageAccount: TOFINDOUT ******************************************************************************
+                    location: "East US 2"
+                    instanceType: Standard_DS4_v2 # 8 vCPUS / 28 Gb
+                    spotInstance: false
+                    architecture: amd64
+                    labels:
+                      - linux
+                    maxInstances: 10 # Quota of 80 vCPUs
+                    useAsMuchAsPossible: true
+                    credentialsId: "azure-login"
+                    usePrivateIP: false
+                  - name: "win-2019" # The name must not contains "windows" or Azure API complains :facepalm:
+                    description: "Windows 2019"
+                    imageDefinition: jenkins-agent-windows-2019
+                    os: "windows"
+                    storageAccount: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAYjS5rZbvhOSp/e5QLkABkH5XgzFku3L7imaagPnUFcCyIvX+cgXms14GsJ3rvRaHoiyOk8ovtiPwTQ7J4LuoBgVBOSkHcCEJLbaHHNdn74JWO3owVzfHuSojN9AzVWTd8Jf/1gKWG7tzbTjIkJQMhKsH33FTtyEN63WjGqo1wEEhqSFKlsUleyfE+D+aBe1AeDp42J8+RB7LxobINQi965vfjuFjHIS3ix7GUvir/KkRV1rshWt26TA9SabAY5KiLlEHrxjgtAGbJGdraqblmOZHjc5a/BGXJqGEQyHGMWdf2xLxUOgNXoX5O5+1lWfOMl9pBDuEpYhJ1qR00WpunTA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBBVqd7WM6EjxJ+Fy0wn4SPUgBCrYZUZoU8TDYppNLoSnrur]
+                    location: "East US 2"
+                    instanceType: Standard_DS4_v2 # 8 vCPUS / 28 Gb
+                    spotInstance: false
+                    architecture: amd64
+                    labels:
+                      - windows
+                    maxInstances: 10 # Quota of 80 vCPUs
+                    useAsMuchAsPossible: true
+                    credentialsId: "azure-login"
+                    usePrivateIP: false
       security: |
         security:
           scriptApproval:
