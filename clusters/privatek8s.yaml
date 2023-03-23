@@ -81,9 +81,6 @@ releases:
     chart: jenkins/jenkins
     version: 4.3.5
     timeout: 600
-    # set:
-    #   - name: namespace
-    #     value: release
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
