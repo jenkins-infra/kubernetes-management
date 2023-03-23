@@ -88,8 +88,7 @@ releases:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
     values:
-      # TODO: rename to ext_jenkins-release.yaml when the migration is completed (ref: https://github.com/jenkins-infra/helpdesk/issues/2844)
-      - ../config/ext_jenkins-release_privatek8s.yaml
+      - ../config/ext_jenkins-release.yaml
     secrets:
       - "../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml"
   - name: jenkins-release-agents
