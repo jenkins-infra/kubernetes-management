@@ -13,17 +13,21 @@ repositories:
 releases:
   - name: docker-registry-secrets
     # This helm chart doesn't create any resources within the namespace specified below.
-    # Specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
-    namespace: default
-    chart: jenkins-infra/docker-registry-secrets
-    version: 0.1.0
-    values:
-      - "../config/docker-registry-secrets.yaml"
-    set:
-      - name: "imageCredentials.namespaces[1]"
-        value: jenkins-agents
-    secrets:
-      - "../secrets/config/docker-registry-secrets/secrets.yaml"
+    # Specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)                                                                                                                                                                                                                                                                                                                                        
+namespace:
+  create: true
+  name: jenkins-agents
+
+chart: jenkins-infra/docker-registry-secrets 
+version: 0.1.0 
+values: 
+  - "../config/docker-registry-secrets.yaml" 
+  - imageCredentials:
+      namespaces:
+        - default
+        - jenkins-agents  # add jenkins-agents as second namespace
+secrets: 
+  - "../secrets/config/docker-registry-secrets/secrets.yaml"
   - name: datadog
     needs:
       - default/docker-registry-secrets
