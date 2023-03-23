@@ -1,9 +1,6 @@
 serviceAccount:
   create: true
   name: jenkins-release-controller
-# serviceAccountAgent:
-#   create: true
-#   name: jenkins-agent
 serviceAccountAgent:
   create: false
 rbac:
