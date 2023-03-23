@@ -43,7 +43,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.20.3
+    version: 3.21.0
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_privatek8s.yaml"
@@ -67,7 +67,7 @@ releases:
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 0.4.0
     values:
-      - "../config/jenkins-kubernetes-agents.yaml"
+      - "../config/jenkins-kubernetes-agents_infra-ci-jenkins-io.yaml"
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: jenkins-infra-jobs
@@ -92,8 +92,16 @@ releases:
       - ../config/ext_jenkins-release_privatek8s.yaml
     secrets:
       - "../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml"
+  - name: jenkins-release-agents
+    namespace: jenkins-release-agents
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 0.4.0
+    values:
+      - "../config/jenkins-kubernetes-agents_release-ci-jenkins-io.yaml"
+    secrets:
+      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: jenkins-release-core-package
-    namespace: jenkins-release
+    namespace: jenkins-release-agents
     chart: jenkins-infra/env-jenkins-release
     version: 0.2.0
     secrets:

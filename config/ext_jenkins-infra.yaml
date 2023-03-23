@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.104.4-2.395
+  tag: 0.105.0-2.396
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -86,6 +86,21 @@ controller:
                     id: "ec2-agents-credentials"
                     scope: SYSTEM
                     secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - azure:
+                    azureEnvironmentName: "Azure"
+                    clientId: "${JENKINSINFRA_AZURE_CLIENT_ID}"
+                    clientSecret: "${JENKINSINFRA_AZURE_CLIENT_SECRET_VALUE}"
+                    description: "azure Service Principal"
+                    id: "az-agents-credentials"
+                    scope: SYSTEM
+                    subscriptionId: "${JENKINSINFRA_AZURE_SUBSCRIPTION_ID}"
+                    tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+                - usernamePassword:
+                    description: "Credentials to access the azure agents VMs"
+                    id: "azure-login"
+                    password: "${AZURE_LOGIN_VM_PASS}"
+                    scope: SYSTEM
+                    username: "${AZURE_LOGIN_VM_USER}"
                 - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-controller"
