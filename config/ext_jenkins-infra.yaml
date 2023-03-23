@@ -86,6 +86,18 @@ controller:
                     id: "ec2-agents-credentials"
                     scope: SYSTEM
                     secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
+                - azureServicePrincipal:
+                    credentialsId: "az-agents-credentials"
+                    clientIdVariable : "${JENKINSINFRA_AZURE_CLIENT_ID}"
+                    clientSecretVariable : "${JENKINSINFRA_AZURE_CLIENT_SECRET_VALUE}"
+                    subscriptionIdVariable : "${JENKINSINFRA_AZURE_SUBSCRIPTION_ID}"
+                    tenantIdVariable : "${JENKINSINFRA_AZURE_TENANT_ID}"
+                - usernamePassword:
+                    description: "Credentials to access the azure agents VMs"
+                    id: "azure-login"
+                    password: "${AZURE_LOGIN_VM_PASS}"
+                    scope: GLOBAL
+                    username: "${AZURE_LOGIN_VM_USER}"
                 - file:
                     fileName: "kubeconfig"
                     id: "kubeconfig-controller"
