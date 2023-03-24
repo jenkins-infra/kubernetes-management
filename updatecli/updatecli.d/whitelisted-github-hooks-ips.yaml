@@ -1,0 +1,40 @@
+name: Update whitelisted GitHub hooks IPs
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  githubHooksIps:
+    kind: shell
+    name: get GtiHub hooks IPs
+    spec:
+      command: curl https://api.github.com/meta | jq -r '.hooks | sort | join(",")'
+
+targets:
+  whitelist:
+    name: Update whitelisted IPs
+    kind: yaml
+    scmid: default
+    spec:
+      file: config/ext_public-nginx-ingress_privatek8s.yaml
+      key: controller.config.whitelist-source-range
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update whitelisted GitHub hooks IPs in the public Nginx of privatek8s
+    spec:
+      labels:
+        - public-nginx
+        - privatek8s
+        - github-hooks-ips
