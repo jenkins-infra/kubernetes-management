@@ -15,7 +15,7 @@ scms:
 sources:
   githubHooksIps:
     kind: shell
-    name: get GtiHub hooks IPs
+    name: get GitHub hooks IPs
     spec:
       command: curl https://api.github.com/meta | jq -r '.hooks | sort | join(",")'
 
