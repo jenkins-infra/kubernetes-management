@@ -46,15 +46,15 @@ targets:
       matchpattern: 'securityGroups: ".*"'
       replacepattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
     scmid: default
-  setJenkinsReleaseSecurityGroup:
-    name: "Bump Release Security Group"
-    kind: file
-    sourceid: getNewJenkinsReleaseSecurityGroup
-    spec:
-      file: config/ext_jenkins-release.yaml
-      matchpattern: 'securityGroups: ".*"'
-      replacepattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
-    scmid: default
+  # setJenkinsReleaseSecurityGroup:
+  #   name: "Bump Release Security Group"
+  #   kind: file
+  #   sourceid: getNewJenkinsReleaseSecurityGroup
+  #   spec:
+  #     file: config/ext_jenkins-release.yaml
+  #     matchpattern: 'securityGroups: ".*"'
+  #     replacepattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
+  #   scmid: default
 
 actions:
   default:
