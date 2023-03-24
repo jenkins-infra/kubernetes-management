@@ -373,6 +373,65 @@ controller:
                   tmpDir: "C:\\\\Temp"                          # Mandatory because EC2 plugins assumes SSH = Unix and searches for /tmp
                   type: T3Medium # 2 vCPUs / 4 Gb
                   useEphemeralDevices: true
+            - azureVM:
+                azureCredentialsId: "az-agents-credentials"
+                cloudName: "azure cloud"
+                deploymentTimeout: 1200
+                existingResourceGroupName: "infra-agents"
+                maxVirtualMachinesLimit: 10
+                resourceGroupReferenceType: "existing"
+                vmTemplates:
+                - agentLaunchMethod: "SSH"
+                  agentWorkspace: "/home/jenkins"
+                  builtInImage: "Ubuntu 20.04 LTS"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-ubuntu-20.04"
+                    galleryImageVersion: "0.63.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    #!/bin/bash
+                    set -eux
+                    echo "START CLOUDINIT"
+                    sed 's/api_key:.*/api_key: c854e711c9aac3086b5b29ade72473a2/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+                    systemctl stop datadog-agent.service
+                    mkdir -p /var/log/datadog /etc/datadog-agent
+                    chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+                    chmod 640 /etc/datadog-agent/datadog.yaml
+                    chown dd-agent:dd-agent /var/log/datadog
+                    chmod 770 /var/log/datadog
+                    systemctl start datadog-agent.service
+                    rm -f /etc/sudoers.d/90-cloud-init-users
+                    echo "END CLOUDINIT"
+                  javaPath: "/opt/jdk-11/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "smerletestUbuntu2004"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 11
+                  existingStorageAccountName: "infraciagents"
+                  noOfParallelJobs: 1
+                  osDiskSize: 150
+                  osDiskStorageAccountType: "Premium_LRS"
+                  osType: "Linux"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: true
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "privatek8s-tier"
+                  templateDesc: "Dynamically provisioned Ubuntu 20.04 LTS machine"
+                  templateName: "ubuntu-20"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4s_v3"
+                  virtualNetworkName: "private-vnet"
+                  virtualNetworkResourceGroupName: "private"
       security: |
         security:
           scriptApproval:
