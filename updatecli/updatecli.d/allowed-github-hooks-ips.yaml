@@ -1,4 +1,4 @@
-name: Update whitelisted GitHub hooks IPs
+name: Update allowed GitHub hooks IPs
 
 scms:
   default:
@@ -20,10 +20,10 @@ sources:
       command: curl https://api.github.com/meta | jq -r '.hooks | sort | join(",")'
 
 targets:
-  whitelist:
-    name: Update whitelisted IPs
+  allowIPs:
+    name: Update allowed IPs
     kind: yaml
-    scmid: default
+    # scmid: default
     spec:
       file: config/ext_public-nginx-ingress_privatek8s.yaml
       key: controller.config.whitelist-source-range
@@ -32,7 +32,7 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update whitelisted GitHub hooks IPs in the public Nginx of privatek8s
+    title: Update allowed GitHub hooks IPs in the public Nginx of privatek8s
     spec:
       labels:
         - public-nginx
