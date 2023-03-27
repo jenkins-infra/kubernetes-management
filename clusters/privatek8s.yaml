@@ -79,7 +79,7 @@ releases:
   - name: jenkins-release
     namespace: jenkins-release
     chart: jenkins/jenkins
-    version: 4.3.5
+    version: 4.3.9
     timeout: 600
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
