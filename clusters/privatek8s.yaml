@@ -76,6 +76,18 @@ releases:
     version: 0.4.0
     values:
       - "../config/ext_jenkins-infra-jobs.yaml"
+  - name: jenkins-release
+    namespace: jenkins-release
+    chart: jenkins/jenkins
+    version: 4.3.5
+    timeout: 600
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
+      - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
+    values:
+      - ../config/ext_jenkins-release.yaml
+    secrets:
+      - "../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml"
   - name: jenkins-release-agents
     namespace: jenkins-release-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
