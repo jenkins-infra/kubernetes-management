@@ -21,36 +21,6 @@ sources:
       repository: "packer-images"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
-  getLatestUbuntuAgentAMIAmd64:
-    kind: aws/ami
-    name: get latest Ubuntu amd64 agent AMI
-    dependson:
-      - packerImageVersion
-    spec:
-      region: us-east-2
-      sortby: creationDateDesc
-      filters:
-        - name: "name"
-          values: "jenkins-agent-ubuntu-20.04-amd64-*"
-        - name: "tag:build_type"
-          values: "prod"
-        - name: "tag:version"
-          values: '{{ source "packerImageVersion" }}'
-  getLatestWindowsAgentAMIAmd64:
-    kind: aws/ami
-    name: get latest Windows amd64 agent AMI
-    dependson:
-      - packerImageVersion
-    spec:
-      region: us-east-2
-      sortby: creationDateDesc
-      filters:
-        - name: "name"
-          values: "jenkins-agent-windows-2019-amd64-*"
-        - name: "tag:build_type"
-          values: "prod"
-        - name: "tag:version"
-          values: '{{ source "packerImageVersion" }}'
   getLatestUbuntuAgentAMIArm64:
     kind: aws/ami
     name: get latest Ubuntu arm64 agent AMI
@@ -68,34 +38,6 @@ sources:
           values: '{{ source "packerImageVersion" }}'
 
 conditions:
-  LatestUbuntuAgentAMIAmd64:
-    name: "Test if getLatestUbuntuAgentAMIAmd64 Image Published on AWS"
-    kind: aws/ami
-    sourceid: getLatestUbuntuAgentAMIAmd64
-    spec:
-      region: us-east-2
-      sortby: creationDateDesc
-      filters:
-        - name: "name"
-          values: "jenkins-agent-ubuntu-20.04-amd64-*"
-        - name: "tag:build_type"
-          values: "prod"
-        - name: "tag:version"
-          values: '{{ source "packerImageVersion" }}'
-  LatestWindowsAgentAMIAmd64:
-    name: "Test if getLatestWindowsAgentAMIAmd64 Image Published on AWS"
-    kind: aws/ami
-    sourceid: getLatestWindowsAgentAMIAmd64
-    spec:
-      region: us-east-2
-      sortby: creationDateDesc
-      filters:
-        - name: "name"
-          values: "jenkins-agent-windows-2019-amd64-*"
-        - name: "tag:build_type"
-          values: "prod"
-        - name: "tag:version"
-          values: '{{ source "packerImageVersion" }}'
   LatestUbuntuAgentAMIArm64:
     name: "Test if getLatestUbuntuAgentAMIArm64 Image Published on AWS"
     kind: aws/ami
@@ -112,15 +54,6 @@ conditions:
           values: '{{ source "packerImageVersion" }}'
 
 targets:
-  setUbuntuAgentAMIAmd64:
-    name: "Bump AMI ID for AMD 64"
-    kind: file
-    sourceid: getLatestUbuntuAgentAMIAmd64
-    spec:
-      file: config/ext_jenkins-infra.yaml
-      matchpattern: '- ami: ".*"(.*)LINUXAMD64'
-      replacepattern: '- ami: "{{ source `getLatestUbuntuAgentAMIAmd64` }}"${1}LINUXAMD64'
-    scmid: default
   setUbuntuAgentAMIArm64:
     name: "Bump AMI ID for ARM 64"
     kind: file
@@ -129,15 +62,6 @@ targets:
       file: config/ext_jenkins-infra.yaml
       matchpattern: '- ami: ".*"(.*)LINUXARM64'
       replacepattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}LINUXARM64'
-    scmid: default
-  setWindowsAgentAMIamd64:
-    name: "Bump AMI ID for Windows AMD 64"
-    kind: file
-    sourceid: getLatestWindowsAgentAMIAmd64
-    spec:
-      file: config/ext_jenkins-infra.yaml
-      matchpattern: '- ami: ".*"(.*)WINDOWSAMD64'
-      replacepattern: '- ami: "{{ source `getLatestWindowsAgentAMIAmd64` }}"${1}WINDOWSAMD64'
     scmid: default
 
 actions:
