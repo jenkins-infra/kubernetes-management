@@ -1,7 +1,7 @@
 image:
   pullPolicy: IfNotPresent
-  # TODO: remove as soon as a new version of the account-app is published
-  tag: 0.2.63
+  # TODO: remove as soon as a version above 0.2.56 of the account-app helm chart is published
+  tag: 0.2.64
 ingress:
   enabled: true
   className: public-nginx
