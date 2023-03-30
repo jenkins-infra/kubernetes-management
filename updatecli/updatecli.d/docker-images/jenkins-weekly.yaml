@@ -36,20 +36,9 @@ targets:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
     kind: yaml
     spec:
-<<<<<<< HEAD
       files:
       - config/jenkins_infra.ci.jenkins.io.yaml
       - config/jenkins_weekly.ci.jenkins.io.yaml
-=======
-      file: "config/jenkins-infra.yaml"
-      key: "controller.tag"
-    scmid: default
-  updateReleaseInWeeklyConfig:
-    name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
-    kind: yaml
-    spec:
-      file: "config/jenkins-weekly.yaml"
->>>>>>> 6854f90c (cleanup: remove ext_ prefix from external helm chart config filenames)
       key: "controller.tag"
     scmid: default
 
