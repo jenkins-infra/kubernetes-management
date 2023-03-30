@@ -641,12 +641,16 @@ controller:
           authorizationStrategy:
             globalMatrix:
               permissions:
-                - "GROUP:Overall/Administer:release-core"
                 - "GROUP:Overall/Administer:admins"
                 - "GROUP:Overall/Administer:jenkins-admins"
-                - "GROUP:Overall/SystemRead:authenticated"
+                - "GROUP:Overall/Administer:release-core"
                 - "GROUP:Overall/Read:authenticated"
+                - "GROUP:Overall/Read:release-core-dev"
+                - "GROUP:Overall/SystemRead:authenticated"
+                - "GROUP:Job/Build:release-core-dev"
+                - "GROUP:Job/Cancel:release-core-dev"
                 - "GROUP:Job/Read:authenticated"
+                - "GROUP:Job/Read:release-core-dev"
       timestamper-settings: |
         unclassified:
           timestamper:
