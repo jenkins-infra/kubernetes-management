@@ -36,14 +36,9 @@ targets:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
     kind: yaml
     spec:
-      file: "config/jenkins_infra.ci.jenkins.io.yaml"
-      key: "controller.tag"
-    scmid: default
-  updateReleaseInWeeklyConfig:
-    name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
-    kind: yaml
-    spec:
-      file: "config/jenkins_weekly.ci.jenkins.io.yaml"
+      files:
+      - config/jenkins_infra.ci.jenkins.io.yaml
+      - config/jenkins_weekly.ci.jenkins.io.yaml
       key: "controller.tag"
     scmid: default
 
