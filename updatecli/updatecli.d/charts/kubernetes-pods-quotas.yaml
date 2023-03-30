@@ -32,7 +32,7 @@ targets:
     kind: yaml
     sourceid: cik8s_maxcapacity
     spec:
-      file: config/jenkins-kubernetes-agents_ci-jenkins-io_cik8s.yaml
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s.yaml
       key: 'quotas.pods'
     scmid: default
   quotas_doks_maxcapacity:
@@ -40,7 +40,7 @@ targets:
     kind: yaml
     sourceid: doks_maxcapacity
     spec:
-      file: config/jenkins-kubernetes-agents_ci-jenkins-io_doks.yaml
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_doks.yaml
       key: 'quotas.pods'
     scmid: default
 
