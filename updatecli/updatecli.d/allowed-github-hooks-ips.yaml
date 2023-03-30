@@ -25,7 +25,7 @@ targets:
     kind: yaml
     scmid: default
     spec:
-      file: config/ext_public-nginx-ingress_privatek8s.yaml
+      file: config/public-nginx-ingress_privatek8s.yaml
       key: controller.config.whitelist-source-range
 
 actions:

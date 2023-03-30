@@ -45,8 +45,8 @@ releases:
     chart: datadog/datadog
     version: 3.24.0
     values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_privatek8s.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_privatek8s.yaml"
     secrets:
       - "../secrets/config/datadog/privatek8s-secrets.yaml"
   - name: jenkins-infra
@@ -59,7 +59,7 @@ releases:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
     values:
-      - "../config/ext_jenkins-infra.yaml"
+      - "../config/jenkins_infra-ci-jenkins-io.yaml"
     secrets:
       - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"
   - name: jenkins-infra-agents
@@ -75,7 +75,7 @@ releases:
     chart: jenkins-infra/jenkins-jobs
     version: 0.4.0
     values:
-      - "../config/ext_jenkins-infra-jobs.yaml"
+      - "../config/jenkins-infra-jobs.yaml"
   - name: jenkins-release
     namespace: jenkins-release
     chart: jenkins/jenkins
@@ -85,7 +85,7 @@ releases:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
     values:
-      - ../config/ext_jenkins-release.yaml
+      - ../config/jenkins_release-ci-jenkins-io.yaml
     secrets:
       - "../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml"
   - name: jenkins-release-agents
@@ -107,15 +107,15 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.5.2
     values:
-      - "../config/ext_public-nginx-ingress__common.yaml"
-      - "../config/ext_public-nginx-ingress_privatek8s.yaml"
+      - "../config/public-nginx-ingress__common.yaml"
+      - "../config/public-nginx-ingress_privatek8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.5.2
     values:
-      - "../config/ext_private-nginx-ingress__common.yaml"
-      - "../config/ext_private-nginx-ingress_privatek8s.yaml"
+      - "../config/private-nginx-ingress__common.yaml"
+      - "../config/private-nginx-ingress_privatek8s.yaml"
   - name: rss2twitter
     namespace: rss2twitter
     chart: jenkins-infra/rss2twitter
@@ -131,7 +131,7 @@ releases:
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
     values:
-      - "../config/ext_github-comment-ops.yaml"
+      - "../config/github-comment-ops.yaml"
     secrets:
       - "../secrets/config/github-comment-ops/secrets.yaml"
   - name: ircbot

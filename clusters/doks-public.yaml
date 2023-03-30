@@ -49,8 +49,8 @@ releases:
     needs:
       - default/docker-registry-secrets
     values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_doks-public.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_doks-public.yaml"
     secrets:
       - "../secrets/config/datadog/doks-public-secrets.yaml"
   - name: public-nginx-ingress
@@ -58,8 +58,8 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.5.2
     values:
-      - "../config/ext_public-nginx-ingress__common.yaml"
-      - "../config/ext_public-nginx-ingress_doks-public.yaml"
+      - "../config/public-nginx-ingress__common.yaml"
+      - "../config/public-nginx-ingress_doks-public.yaml"
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy

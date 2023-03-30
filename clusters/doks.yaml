@@ -31,8 +31,8 @@ releases:
     chart: datadog/datadog
     version: 3.24.0
     values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_doks.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_doks.yaml"
     secrets:
       - "../secrets/config/datadog/doks-secrets.yaml"
   - name: jenkins-agents
