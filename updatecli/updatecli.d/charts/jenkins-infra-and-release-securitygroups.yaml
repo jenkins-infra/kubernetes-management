@@ -42,7 +42,7 @@ targets:
     kind: file
     sourceid: getNewJenkinsInfraSecurityGroup
     spec:
-      file: config/jenkins-infra.yaml
+      file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: 'securityGroups: ".*"'
       replacepattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
     scmid: default
@@ -51,7 +51,7 @@ targets:
     kind: file
     sourceid: getNewJenkinsReleaseSecurityGroup
     spec:
-      file: config/jenkins-release.yaml
+      file: config/jenkins_release.ci.jenkins.io.yaml
       matchpattern: 'securityGroups: ".*"'
       replacepattern: 'securityGroups: "{{ source `getNewJenkinsReleaseSecurityGroup` }}"'
     scmid: default

@@ -48,7 +48,7 @@ targets:
     kind: file
     sourceid: getMavenVersionFromPackerImages
     spec:
-      file: config/jenkins-infra.yaml
+      file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: '- maven:((\r\n|\r|\n)(\s+))id: .*'
       replacepattern: '- maven:${1}id: "{{ source "getMavenVersionFromPackerImages" }}"'
     scmid: default
