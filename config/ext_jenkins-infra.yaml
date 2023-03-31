@@ -235,7 +235,7 @@ controller:
                 sshKeysCredentialsId: "ec2-agents-privkey"
                 useInstanceProfileForCredentials: false
                 templates:
-                - ami: "ami-0aeadfbb8d9a65727" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
+                - ami: "ami-0ae35a16a5023978b" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
                   amiOwners: "200564066411"
                   associatePublicIp: true
                   connectBySSHProcess: false
@@ -285,7 +285,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-20.04"
-                    galleryImageVersion: "0.63.0"
+                    galleryImageVersion: "0.64.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -335,7 +335,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019"
-                    galleryImageVersion: "0.63.0"
+                    galleryImageVersion: "0.64.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
