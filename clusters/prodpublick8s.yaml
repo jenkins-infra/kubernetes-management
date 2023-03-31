@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.24.0
+    version: 3.25.0
     values:
       - "../config/ext_datadog.yaml.gotmpl"
       - "../config/ext_datadog_prodpublick8s.yaml"
@@ -141,7 +141,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.34.1
+    version: 0.34.2
     timeout: 600
     atomic: false
     values:
@@ -176,7 +176,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.67
+    version: 0.3.68
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
