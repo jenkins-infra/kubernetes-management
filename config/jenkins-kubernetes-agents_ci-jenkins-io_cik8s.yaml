@@ -1,2 +1,2 @@
 quotas:
-  pods: 30
+  pods: "150"
