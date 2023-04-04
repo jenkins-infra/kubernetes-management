@@ -98,6 +98,11 @@ controller:
                     description: Release GPG Key passphrase
                 - string:
                     scope: GLOBAL
+                    id: "release-gpg-passphrase-2023"
+                    secret: "${RELEASE_GPG_PASSPHRASE_2023}"
+                    description: Release GPG Key passphrase 2023 version
+                - string:
+                    scope: GLOBAL
                     id: "release-storage-account-key"
                     secret: "${RELEASE_STORAGE_ACCOUNT_KEY}"
                     description: Password used by maven to upload war files
@@ -141,6 +146,11 @@ controller:
                     id: "signing-cert-pass"
                     secret: "${RELEASE_CERTIFICATE_PASSWORD}"
                     description: Password used by maven signer plugin to unlock the signing certificate
+                - string:
+                    scope: GLOBAL
+                    id: "signing-cert-pass-2023"
+                    secret: "${RELEASE_CERTIFICATE_PASSWORD_2023}"
+                    description: Password used by maven signer plugin to unlock the signing certificate 2023 version
                 - basicSSHUserPrivateKey:
                     scope: GLOBAL
                     id: "release-key"
