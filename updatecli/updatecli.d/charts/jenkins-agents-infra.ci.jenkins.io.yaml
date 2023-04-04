@@ -31,7 +31,7 @@ sources:
       sortby: creationDateDesc
       filters:
         - name: "name"
-          values: "jenkins-agent-ubuntu-20.04-arm64-*"
+          values: "jenkins-agent-ubuntu-22.04-arm64-*"
         - name: "tag:build_type"
           values: "prod"
         - name: "tag:version"
@@ -47,7 +47,7 @@ conditions:
       sortby: creationDateDesc
       filters:
         - name: "name"
-          values: "jenkins-agent-ubuntu-20.04-arm64-*"
+          values: "jenkins-agent-ubuntu-22.04-arm64-*"
         - name: "tag:build_type"
           values: "prod"
         - name: "tag:version"
