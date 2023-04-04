@@ -1,4 +1,4 @@
-name: Bump Security Groups on jenkins-infra AND release
+name: Bump Security Groups
 
 scms:
   default:
@@ -40,10 +40,9 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump Security Groups on Jenkins Infra and Release
+    title: Update Security Groups on infra.ci.jenkins.io
     spec:
       labels:
         - dependencies
         - security-groups
         - infra.ci.jenkins.io
-        - release.ci.jenkins.io
