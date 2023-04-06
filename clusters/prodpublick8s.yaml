@@ -31,8 +31,8 @@ releases:
     chart: datadog/datadog
     version: 3.25.1
     values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_prodpublick8s.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_prodpublick8s.yaml"
     secrets:
       - "../secrets/config/datadog/prodpublick8s-secrets.yaml"
   - name: public-nginx-ingress
@@ -40,15 +40,15 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.5.2
     values:
-      - "../config/ext_public-nginx-ingress__common.yaml"
-      - "../config/ext_public-nginx-ingress_prodpublick8s.yaml"
+      - "../config/public-nginx-ingress__common.yaml"
+      - "../config/public-nginx-ingress_prodpublick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.5.2
     values:
-      - "../config/ext_private-nginx-ingress__common.yaml"
-      - "../config/ext_private-nginx-ingress_prodpublick8s.yaml"
+      - "../config/private-nginx-ingress__common.yaml"
+      - "../config/private-nginx-ingress_prodpublick8s.yaml"
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
@@ -71,7 +71,7 @@ releases:
     chart: falco/falco
     version: 2.5.2
     values:
-      - "../config/ext_falco.yaml"
+      - "../config/falco.yaml"
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
@@ -162,7 +162,7 @@ releases:
     version: 18.4.0
     timeout: 600
     values:
-      - "../config/ext_keycloak.yaml"
+      - "../config/keycloak.yaml"
     secrets:
       - "../secrets/config/keycloak/db.yaml"
       - "../secrets/config/keycloak/http.yaml"
@@ -186,7 +186,7 @@ releases:
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
-      - "../config/ext_jenkins-weekly.yaml"
+      - "../config/jenkins_weekly.ci.jenkins.io.yaml"
     secrets:
       - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
   - name: rating

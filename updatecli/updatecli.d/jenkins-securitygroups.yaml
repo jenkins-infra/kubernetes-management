@@ -1,4 +1,4 @@
-name: Bump Security Groups on jenkins-infra AND release
+name: Update Security Groups
 
 scms:
   default:
@@ -27,11 +27,11 @@ sources:
 
 targets:
   setJenkinsInfraSecurityGroup:
-    name: "Bump infra Security Group"
+    name: "Update Security Group"
     kind: file
     sourceid: getNewJenkinsInfraSecurityGroup
     spec:
-      file: config/ext_jenkins-infra.yaml
+      file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: 'securityGroups: ".*"'
       replacepattern: 'securityGroups: "{{ source `getNewJenkinsInfraSecurityGroup` }}"'
     scmid: default
@@ -40,10 +40,9 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump Security Groups on Jenkins Infra and Release
+    title: Update Security Groups
     spec:
       labels:
         - dependencies
         - security-groups
         - infra.ci.jenkins.io
-        - release.ci.jenkins.io

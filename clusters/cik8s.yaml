@@ -37,8 +37,8 @@ releases:
     chart: datadog/datadog
     version: 3.25.1
     values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_cik8s.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_cik8s.yaml"
     secrets:
       - "../secrets/config/datadog/cik8s-secrets.yaml"
   - name: jenkins-agents
@@ -56,7 +56,7 @@ releases:
     chart: autoscaler/cluster-autoscaler
     version: 9.27.0
     values:
-      - "../config/ext_autoscaler_cik8s.yaml"
+      - "../config/autoscaler_cik8s.yaml"
     set:
       - name: autoDiscovery.clusterName
         value: jenkins-infra-eks-ENRZrfwf
@@ -65,4 +65,4 @@ releases:
     chart: eks/aws-node-termination-handler
     version: 0.21.0
     values:
-      - "../config/ext_aws-node-termination-handler_cik8s.yaml"
+      - "../config/aws-node-termination-handler_cik8s.yaml"

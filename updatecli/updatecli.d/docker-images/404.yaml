@@ -36,14 +36,14 @@ targets:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/ext_private-nginx-ingress__common.yaml"
+      file: "config/private-nginx-ingress__common.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
   updatePublicNginxIngress404:
     name: "Update 404 docker image tag"
     kind: yaml
     spec:
-      file: "config/ext_public-nginx-ingress__common.yaml"
+      file: "config/public-nginx-ingress__common.yaml"
       key: "defaultBackend.image.tag"
     scmid: default
 

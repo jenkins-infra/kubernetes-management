@@ -25,8 +25,8 @@ releases:
     chart: datadog/datadog
     version: 3.25.1
     values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_publick8s.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_publick8s.yaml"
     secrets:
       - "../secrets/config/datadog/publick8s-secrets.yaml"
   - name: cert-manager
@@ -51,15 +51,15 @@ releases:
     chart: ingress-nginx/ingress-nginx
     version: 4.5.2
     values:
-      - "../config/ext_public-nginx-ingress__common.yaml"
-      - "../config/ext_public-nginx-ingress_publick8s.yaml"
+      - "../config/public-nginx-ingress__common.yaml"
+      - "../config/public-nginx-ingress_publick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.5.2
     values:
-      - "../config/ext_private-nginx-ingress__common.yaml"
-      - "../config/ext_private-nginx-ingress_publick8s.yaml"
+      - "../config/private-nginx-ingress__common.yaml"
+      - "../config/private-nginx-ingress_publick8s.yaml"
   - name: falco
     namespace: falco
     chart: falco/falco
