@@ -59,7 +59,7 @@ targets:
     kind: file
     sourceid: getLatestUbuntuAgentAMIArm64
     spec:
-      file: config/ext_jenkins-infra.yaml
+      file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: '- ami: ".*"(.*)LINUXARM64'
       replacepattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}LINUXARM64'
     scmid: default
@@ -68,7 +68,7 @@ targets:
     name: "Bump Azure Gallery Image Version for azureVM"
     kind: file
     spec:
-      file: config/ext_jenkins-infra.yaml
+      file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: 'galleryImageVersion: ".*"'
       replacepattern: 'galleryImageVersion: "{{ source `packerImageVersion` }}"'
     scmid: default

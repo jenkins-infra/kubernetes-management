@@ -31,8 +31,8 @@ releases:
     chart: datadog/datadog
     version: 3.25.1
     values:
-      - "../config/ext_datadog.yaml.gotmpl"
-      - "../config/ext_datadog_doks.yaml"
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_doks.yaml"
     secrets:
       - "../secrets/config/datadog/doks-secrets.yaml"
   - name: jenkins-agents
@@ -42,6 +42,6 @@ releases:
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 0.4.0
     values:
-      - "../config/jenkins-kubernetes-agents_ci-jenkins-io_doks.yaml"
+      - "../config/jenkins-kubernetes-agents_ci.jenkins.io_doks.yaml"
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"

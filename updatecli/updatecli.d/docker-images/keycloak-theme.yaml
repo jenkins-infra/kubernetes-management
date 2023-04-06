@@ -36,7 +36,7 @@ targets:
     name: "Update keycloak-theme docker image tag"
     kind: file
     spec:
-      file: config/ext_keycloak.yaml
+      file: config/keycloak.yaml
       matchpattern: "image: jenkinsciinfra/keycloak-theme:.*"
       replacepattern: 'image: jenkinsciinfra/keycloak-theme:{{ source "latestRelease" }}'
     scmid: default
