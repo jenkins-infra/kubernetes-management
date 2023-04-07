@@ -14,7 +14,7 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  getPackerImageDeployedVersion:
+  getDeployedPackerImageVersion:
     kind: file
     name: Retrieve the current version of the Packer images used in production
     spec:
@@ -27,9 +27,9 @@ sources:
     kind: file
     name: Get the latest Maven version set in packer-images
     dependson:
-      - getPackerImageDeployedVersion
+      - getDeployedPackerImageVersion
     spec:
-      file: https://raw.githubusercontent.com/jenkins-infra/packer-images/{{ source "getPackerImageDeployedVersion" }}/provisioning/tools-versions.yml
+      file: https://raw.githubusercontent.com/jenkins-infra/packer-images/{{ source "getDeployedPackerImageVersion" }}/provisioning/tools-versions.yml
       matchpattern: 'maven_version:\s"(.*)"'
     transformers:
       - findsubmatch:
