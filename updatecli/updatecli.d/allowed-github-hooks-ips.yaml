@@ -13,20 +13,38 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  githubHooksIps:
+  githubHooksIpV4:
     kind: shell
-    name: get GitHub hooks IPs
+    name: get GitHub hooks IPv4s
     spec:
-      command: curl https://api.github.com/meta | jq -r '.hooks | sort | join(",")'
+      command: curl --silent --show-error https://api.github.com/meta | jq -r '.hooks | map(select(contains(":") | not)) | sort | join(",")'
+  githubHooksIpV4YamlArray:
+    kind: shell
+    dependson:
+      - githubHooksIpV4
+    name: Format the IP list
+    spec:
+      command: echo {{ source `githubHooksIpV4` }} | sed 's/,/", "/g'
 
 targets:
-  allowIPs:
+  allowIPsIngress:
     name: Update allowed IPs
     kind: yaml
+    sourceid: githubHooksIpV4
     scmid: default
     spec:
       file: config/public-nginx-ingress_privatek8s.yaml
       key: controller.config.whitelist-source-range
+  allowIPsLB:
+    name: Update allowed IPs
+    # It does not seem possible to split a string to a YAML array so using regexp in file mode instead
+    kind: file
+    sourceid: githubHooksIpV4YamlArray
+    scmid: default
+    spec:
+      file: config/public-nginx-ingress_privatek8s.yaml
+      matchpattern: 'loadBalancerSourceRanges(.*)'
+      replacepattern: 'loadBalancerSourceRanges: ["{{ source `githubHooksIpV4YamlArray` }}"]'
 
 actions:
   default:
