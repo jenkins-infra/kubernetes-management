@@ -4,3 +4,10 @@ clusterAgent:
   image:
     pullSecrets:
       - name: "dockerhub-credential"
+agents:
+  tolerations:
+    # These tolerations are needed to run the agents on the bom node pool
+    - key: "ci.jenkins.io/bom"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
