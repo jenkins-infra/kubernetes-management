@@ -284,7 +284,7 @@ controller:
                   doNotUseMachineIfInitFails: true
                   executeInitScriptAsRoot: true
                   imageReference:
-                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04"
+                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
                     galleryImageVersion: "1.2.2"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
