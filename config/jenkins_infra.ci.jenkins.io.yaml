@@ -334,7 +334,7 @@ controller:
                   doNotUseMachineIfInitFails: true
                   executeInitScriptAsRoot: true
                   imageReference:
-                    galleryImageDefinition: "jenkins-agent-windows-2019"
+                    galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
                     galleryImageVersion: "1.2.2"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
