@@ -285,7 +285,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.2.2"
+                    galleryImageVersion: "1.3.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -335,7 +335,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.2.2"
+                    galleryImageVersion: "1.3.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
