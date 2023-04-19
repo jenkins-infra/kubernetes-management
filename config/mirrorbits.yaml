@@ -1,21 +1,21 @@
 replicaCount:
-  mirrorbits: 3
-  files: 3
+  mirrorbits: 2
+  files: 2
 resources:
   mirrorbits:
     limits:
-      cpu: 2000m
-      memory: 2048Mi
+      cpu: 500m
+      memory: 1024Mi
     requests:
-      cpu: 2000m
-      memory: 2048Mi
+      cpu: 500m
+      memory: 1024Mi
   files:
     limits:
-      cpu: 500m
-      memory: 256Mi
+      cpu: 2000m
+      memory: 2048Mi
     requests:
-      cpu: 500m
-      memory: 256Mi
+      cpu: 2000m
+      memory: 2048Mi
 ingress:
   enabled: true
   className: public-nginx
