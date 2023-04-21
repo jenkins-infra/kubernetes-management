@@ -176,7 +176,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.71
+    version: 0.3.72
     values:
       - "../config/wiki.yaml"
   - name: jenkins-weekly
