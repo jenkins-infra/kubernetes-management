@@ -30,3 +30,6 @@ resources:
   requests:
     cpu: 500m
     memory: 512Mi
+smtp:
+  server: smtp.mailgun.org
+  port: 587
