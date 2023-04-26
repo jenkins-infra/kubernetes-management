@@ -30,6 +30,7 @@ resources:
   requests:
     cpu: 500m
     memory: 512Mi
-# smtp:
-  # server: smtp.mailgun.org
-  # port: 587
+smtp:
+  server: smtp.mailgun.org
+  sender: accounts@jenkins.io
+  port: 587
