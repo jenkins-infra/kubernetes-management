@@ -46,7 +46,7 @@ pipeline {
         DIGITALOCEAN_ACCESS_TOKEN = credentials('production-terraform-digitalocean-pat')
         // Required for AWS-hosted clusters.
         // Variable name is constrained (ref. https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
-        AWS_SHARED_CREDENTIALS_FILE       =   "${K8S_CLUSTER == 'cik8s' || K8S_CLUSTER == 'eks-public' ? credentials("${K8S_CLUSTER}-charter-awsconfig") : ''}"
+        AWS_SHARED_CREDENTIALS_FILE       =   credentials("${env.K8S_CLUSTER == 'eks-public' ? 'eks-public-charter-awsconfig': 'cik8s-charter-awsconfig'}")
       }
         stages {
           stage('Prepare Environment'){
