@@ -25,9 +25,6 @@ releases:
     version: 0.1.0
     values:
       - "../config/docker-registry-secrets.yaml"
-    set:
-      - name: "imageCredentials.namespaces[1]"
-        value: jenkins-agents
     secrets:
       - "../secrets/config/docker-registry-secrets/secrets.yaml"
   - name: datadog
@@ -67,7 +64,7 @@ releases:
       - "../config/autoscaler_cik8s.yaml"
     set:
       - name: autoDiscovery.clusterName
-        value: jenkins-infra-eks-ENRZrfwf
+        value: cik8s-ENRZrfwf
   - name: aws-node-termination-handler
     namespace: eks
     chart: eks/aws-node-termination-handler
