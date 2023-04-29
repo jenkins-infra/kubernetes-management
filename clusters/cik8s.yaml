@@ -56,6 +56,14 @@ releases:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-bom.yaml"
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
+  - name: jenkins-agents-experiments
+    namespace: jenkins-agents-experiments
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 0.5.0
+    values:
+      - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-bom.yaml"
+    secrets:
+      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
