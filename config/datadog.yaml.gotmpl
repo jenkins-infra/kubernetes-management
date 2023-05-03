@@ -29,13 +29,6 @@ datadog:
 agents:
   rbac:
     create: true
-  image:
-    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
-    repository: "jenkinsciinfra/datadog@sha256"
-    tag: "6ac576aa0c74fe3d8e09fad2af476dff2a242456190746635def14c6566fbe73"
-    # we must skip version test while we use the docker image digest
-    doNotCheckTag: true
-    pullPolicy: IfNotPresent
   # The updateStrategy ensures that there are no rollback, even when auto-scalingup/down the clusters (as the agent is deployed as DaemonSet by default)
   updateStrategy:
     rollingUpdate:
