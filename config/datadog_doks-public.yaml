@@ -4,7 +4,7 @@ clusterAgent:
   image:
     pullSecrets:
       - name: "dockerhub-credential"
-agent:
+agents:
   image:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: "jenkinsciinfra/datadog@sha256"

@@ -8,7 +8,7 @@ datadog:
     hostCAPath: /etc/kubernetes/certs/kubeletserver.crt
     # Required as of Agent 7.35 because Kubelet certificates in AKS do not have a Subject Alternative Name (SAN) set.
     tlsVerify: false
-agent:
+agents:
   image:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
     repository: "jenkinsciinfra/datadog@sha256"
