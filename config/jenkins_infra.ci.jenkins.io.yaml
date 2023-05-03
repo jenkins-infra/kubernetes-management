@@ -277,7 +277,7 @@ controller:
                 maxVirtualMachinesLimit: 50
                 resourceGroupReferenceType: "existing"
                 vmTemplates:
-                - agentLaunchMethod: "SSH"
+                - launcher: "ssh"
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
@@ -327,7 +327,7 @@ controller:
                   virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
-                - agentLaunchMethod: "SSH"
+                - launcher: "ssh"
                   agentWorkspace: "C:/Jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
