@@ -4,3 +4,10 @@ clusterAgent:
   image:
     pullSecrets:
       - name: "dockerhub-credential"
+agent:
+  image:
+    # official image without custom checks
+    repository: "datadog/agent"
+    tag: "7"
+    # we don't have to skip version test as we're not using the docker image digest
+    doNotCheckTag: false
