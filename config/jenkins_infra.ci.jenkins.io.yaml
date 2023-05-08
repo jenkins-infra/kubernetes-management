@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.108.3-2.400
+  tag: 0.111.2-2.403
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -235,7 +235,7 @@ controller:
                 sshKeysCredentialsId: "ec2-agents-privkey"
                 useInstanceProfileForCredentials: false
                 templates:
-                - ami: "ami-07ac290ffc3e579ff" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
+                - ami: "ami-09c8f98ffb3090f75" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
                   amiOwners: "200564066411"
                   associatePublicIp: true
                   connectBySSHProcess: false
@@ -277,15 +277,15 @@ controller:
                 maxVirtualMachinesLimit: 50
                 resourceGroupReferenceType: "existing"
                 vmTemplates:
-                - agentLaunchMethod: "SSH"
+                - launcher: "ssh"
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
                   doNotUseMachineIfInitFails: true
                   executeInitScriptAsRoot: true
                   imageReference:
-                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04"
-                    galleryImageVersion: "1.2.1"
+                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
+                    galleryImageVersion: "1.4.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -327,15 +327,15 @@ controller:
                   virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
-                - agentLaunchMethod: "SSH"
+                - launcher: "ssh"
                   agentWorkspace: "C:/Jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
                   doNotUseMachineIfInitFails: true
                   executeInitScriptAsRoot: true
                   imageReference:
-                    galleryImageDefinition: "jenkins-agent-windows-2019"
-                    galleryImageVersion: "1.2.1"
+                    galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
+                    galleryImageVersion: "1.4.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -362,6 +362,56 @@ controller:
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
+                  virtualNetworkName: "private-vnet"
+                  virtualNetworkResourceGroupName: "private"
+                - launcher: "ssh"
+                  agentWorkspace: "/home/jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+                    galleryImageVersion: "1.4.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    #!/bin/bash
+                    set -eux
+                    echo "START CLOUDINIT"
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+                    systemctl stop datadog-agent.service
+                    mkdir -p /var/log/datadog /etc/datadog-agent
+                    chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+                    chmod 640 /etc/datadog-agent/datadog.yaml
+                    chown dd-agent:dd-agent /var/log/datadog
+                    chmod 770 /var/log/datadog
+                    systemctl start datadog-agent.service
+                    rm -f /etc/sudoers.d/90-cloud-init-users
+                    echo "END CLOUDINIT"
+                  javaPath: "/opt/jdk-11/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "linux-arm64 linux-arm64-docker"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
+                  noOfParallelJobs: 1
+                  osDiskSize: 128
+                  osDiskStorageAccountType: "Premium_LRS"
+                  osType: "Linux"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: true
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "privatek8s-tier"
+                  templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS ARM machine"
+                  templateName: "ubuntu-22-arm64"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4ps_v5" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
       security: |
@@ -531,6 +581,36 @@ controller:
             shell: "/bin/bash"
       system-settings: |
         unclassified:
+          lockableResourcesManager:
+            declaredResources:
+            - description: "first entry for packer image builder dev"
+              labels: "dev-packerimage"
+              name: "dev-1"
+              reservedBy: "PackerImages"
+            - description: "second entry for packer image builder dev"
+              labels: "dev-packerimage"
+              name: "dev-2"
+              reservedBy: "PackerImages"
+            - description: "third entry for packer image builder dev"
+              labels: "dev-packerimage"
+              name: "dev-3"
+              reservedBy: "PackerImages"
+            - description: "fourth entry for packer image builder dev"
+              labels: "dev-packerimage"
+              name: "dev-4"
+              reservedBy: "PackerImages"
+            - description: "fifh entry for packer image builder dev"
+              labels: "dev-packerimage"
+              name: "dev-5"
+              reservedBy: "PackerImages"
+            - description: "first entry for packer image builder staging"
+              labels: "staging-packerimage"
+              name: "staging-1"
+              reservedBy: "PackerImages"
+            - description: "first entry for packer image builder prod"
+              labels: "prod-packerimage"
+              name: "prod-1"
+              reservedBy: "PackerImages"
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
