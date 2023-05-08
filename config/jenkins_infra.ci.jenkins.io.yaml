@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.111.0-2.403
+  tag: 0.111.2-2.403
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -362,6 +362,56 @@ controller:
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
+                  virtualNetworkName: "private-vnet"
+                  virtualNetworkResourceGroupName: "private"
+                - launcher: "ssh"
+                  agentWorkspace: "/home/jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+                    galleryImageVersion: "1.4.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    #!/bin/bash
+                    set -eux
+                    echo "START CLOUDINIT"
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+                    systemctl stop datadog-agent.service
+                    mkdir -p /var/log/datadog /etc/datadog-agent
+                    chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+                    chmod 640 /etc/datadog-agent/datadog.yaml
+                    chown dd-agent:dd-agent /var/log/datadog
+                    chmod 770 /var/log/datadog
+                    systemctl start datadog-agent.service
+                    rm -f /etc/sudoers.d/90-cloud-init-users
+                    echo "END CLOUDINIT"
+                  javaPath: "/opt/jdk-11/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "linux-arm64 linux-arm64-docker"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
+                  noOfParallelJobs: 1
+                  osDiskSize: 128
+                  osDiskStorageAccountType: "Premium_LRS"
+                  osType: "Linux"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: true
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "privatek8s-tier"
+                  templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS ARM machine"
+                  templateName: "ubuntu-22-arm64"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4ps_v5" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
       security: |
