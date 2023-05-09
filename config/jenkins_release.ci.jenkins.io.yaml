@@ -240,7 +240,7 @@ controller:
                     instanceCapStr: "5"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/inbound-agent:windowsservercore-1809"
+                        image: "jenkins/inbound-agent:jdk11-windowsservercore-ltsc2019"
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
