@@ -247,7 +247,7 @@ controller:
                   idleTerminationMinutes: "5"
                   instanceCapStr: "50"
                   javaPath: "/opt/jdk-11/bin/java"
-                  labelString: "arm64 linux-arm64 linux-arm64-docker"
+                  labelString: "arm64 linux-arm64 linux-arm64-docker aws"
                   launchTimeoutStr: "180"
                   maxTotalUses: 1
                   minimumNumberOfInstances: 0
@@ -394,7 +394,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-11/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64 linux-arm64-docker"
+                  labels: "linux-arm64 linux-arm64-docker azure"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
