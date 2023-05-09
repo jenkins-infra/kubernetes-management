@@ -491,7 +491,7 @@ controller:
                       <mirror>
                           <id>aws-proxy</id>
                           <url>https://repo.aws.jenkins.io/public/</url>
-                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk</mirrorOf>
+                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!in-project,!local</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>aws-proxy-incrementals</id>
@@ -517,7 +517,7 @@ controller:
                       <mirror>
                           <id>azure-proxy</id>
                           <url>https://repo.azure.jenkins.io/public/</url>
-                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk</mirrorOf>
+                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!in-project,!local</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>azure-proxy-incrementals</id>
@@ -543,7 +543,7 @@ controller:
                       <mirror>
                           <id>do-proxy</id>
                           <url>https://repo.do.jenkins.io/public/</url>
-                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk</mirrorOf>
+                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!in-project,!local</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>do-proxy-incrementals</id>
