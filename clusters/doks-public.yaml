@@ -51,6 +51,7 @@ releases:
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_doks-public.yaml"
+      - "../config/datadog_confd_checksd.yaml"
     secrets:
       - "../secrets/config/datadog/doks-public-secrets.yaml"
   - name: public-nginx-ingress
