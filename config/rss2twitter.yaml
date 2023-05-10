@@ -6,3 +6,6 @@ env:
     {{.Link}}?utm_source=rss2twitter&utm_medium=twitter
   # disables publishing to twitter and sends updates to logger only
   dryMode: false
+
+nodeSelector:
+  agentpool: linuxpool

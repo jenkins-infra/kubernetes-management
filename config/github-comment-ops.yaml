@@ -13,3 +13,6 @@ ingress:
     - secretName: github-comment-ops-tls
       hosts:
         - webhook-github-comment-ops.jenkins.io
+
+nodeSelector:
+  agentpool: linuxpool
