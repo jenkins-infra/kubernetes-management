@@ -151,7 +151,7 @@ datadog:
             min_collection_interval: 60
           - package: windows-stable
             min_collection_interval: 60
-    http_check.d/jenkins.yaml: |-
+    http_check_jenkins.yaml: |-
       init_config:
 
       instances:
@@ -336,7 +336,7 @@ datadog:
           tags:
             - production
             - jenkins.io
-    http_check.d/mirrors.yaml: |-
+    http_check_mirrors.yaml: |-
       init_config:
 
       instances:
