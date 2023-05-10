@@ -85,6 +85,7 @@ releases:
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_eks-public.yaml"
+      - "../config/datadog_confd_checksd.yaml"
     secrets:
       - "../secrets/config/datadog/eks-public-secrets.yaml"
   - name: public-nginx-ingress

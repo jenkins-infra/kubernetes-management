@@ -33,6 +33,7 @@ releases:
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_prodpublick8s.yaml"
+      - "../config/datadog_confd_checksd.yaml"
     secrets:
       - "../secrets/config/datadog/prodpublick8s-secrets.yaml"
   - name: public-nginx-ingress
