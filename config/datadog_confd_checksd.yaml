@@ -45,11 +45,11 @@ datadog:
               except URLError as err:
                   self.warning(f"Error when building tree from metadata url: {err}")
 
-          def get_latest_weekly_version(self):    
+          def get_latest_weekly_version(self):
               if not self.root:
                   self.root = self.build_tree()
               return self.root.find('versioning/latest').text
-              
+
           def get_latest_stable_version(self):
               """
               Input: a list of Jenkins versions
@@ -65,7 +65,7 @@ datadog:
               versions = self.root.findall('versioning/versions/version')
               stable_versions = [version.text for version in versions if version.text.count('.') == 2]
 
-              def as_version(ele):           
+              def as_version(ele):
                   major, minor, patch = ele.split('.')
                   if not patch.isdigit():
                       return [int(major), int(minor)]
@@ -91,7 +91,7 @@ datadog:
                   'opensuse-stable': f'https://{hostname}/opensuse-stable/jenkins-{stable_version}-1.2.noarch.rpm',
                   'war-stable': f'https://{hostname}/war-stable/{stable_version}/jenkins.war',
               }
-              return endpoints 
+              return endpoints
 
           def check(self, instance):
               """
