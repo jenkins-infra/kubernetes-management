@@ -34,13 +34,11 @@ jobsDefinition:
       docker-builder:
       docker-confluence-data:
       docker-crond:
-      docker-datadog:
       docker-hashicorp-tools:
       docker-helmfile:
       docker-inbound-agents:
       docker-jenkins-lts:
       docker-jenkins-weekly:
-      docker-mamoto:
       docker-mirrorbits:
       docker-openvpn:
       docker-packaging:
