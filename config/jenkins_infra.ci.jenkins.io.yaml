@@ -72,20 +72,6 @@ controller:
                     password: "${ARTIFACT_CACHING_PROXY_PASSWORD}"
                     scope: GLOBAL
                     username: "MY-USERNAME"
-                - basicSSHUserPrivateKey:
-                    scope: SYSTEM
-                    id: "ec2-agents-privkey"
-                    username: "key"
-                    description: "SSH privkey used to connect to EC2 agents"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: "${EC2_AGENTS_PRIVKEY}"
-                - aws:
-                    accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
-                    description: "This credential is used to provision dynamic agents on AWS EC2"
-                    id: "ec2-agents-credentials"
-                    scope: SYSTEM
-                    secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
                 - azure:
                     azureEnvironmentName: "Azure"
                     clientId: "${JENKINSINFRA_AZURE_CLIENT_ID}"
