@@ -21,48 +21,8 @@ sources:
       repository: "packer-images"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
-  getLatestUbuntuAgentAMIArm64:
-    kind: aws/ami
-    name: get latest Ubuntu arm64 agent AMI
-    dependson:
-      - packerImageVersion
-    spec:
-      region: us-east-2
-      sortby: creationDateDesc
-      filters:
-        - name: "name"
-          values: "jenkins-agent-ubuntu-22.04-arm64-*"
-        - name: "tag:build_type"
-          values: "prod"
-        - name: "tag:version"
-          values: '{{ source "packerImageVersion" }}'
-
-conditions:
-  LatestUbuntuAgentAMIArm64:
-    name: "Test if getLatestUbuntuAgentAMIArm64 Image Published on AWS"
-    kind: aws/ami
-    sourceid: getLatestUbuntuAgentAMIArm64
-    spec:
-      region: us-east-2
-      sortby: creationDateDesc
-      filters:
-        - name: "name"
-          values: "jenkins-agent-ubuntu-22.04-arm64-*"
-        - name: "tag:build_type"
-          values: "prod"
-        - name: "tag:version"
-          values: '{{ source "packerImageVersion" }}'
 
 targets:
-  setUbuntuAgentAMIArm64:
-    name: "Bump AMI ID for ARM 64"
-    kind: file
-    sourceid: getLatestUbuntuAgentAMIArm64
-    spec:
-      file: config/jenkins_infra.ci.jenkins.io.yaml
-      matchpattern: '- ami: ".*"(.*)LINUXARM64'
-      replacepattern: '- ami: "{{ source `getLatestUbuntuAgentAMIArm64` }}"${1}LINUXARM64'
-    scmid: default
   setAzureGalleryImageVersion:
     sourceid: packerImageVersion
     name: "Bump Azure Gallery Image Version for azureVM"
