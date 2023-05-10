@@ -151,7 +151,7 @@ datadog:
             min_collection_interval: 60
           - package: windows-stable
             min_collection_interval: 60
-    http_check.d/jenkins.yaml: |-
+    http_check.yaml: |-
       init_config:
 
       instances:
@@ -336,10 +336,6 @@ datadog:
           tags:
             - production
             - jenkins.io
-    http_check.d/mirrors.yaml: |-
-      init_config:
-
-      instances:
         - name: ftp.belnet.be
           timeout: 10
           threshold: 3
