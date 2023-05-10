@@ -226,49 +226,6 @@ controller:
                         resourceRequestMemory: "8G"
                     label: "container kubernetes node ruby webbuilder"
                     yamlMergeStrategy: "merge"
-            - amazonEC2:
-                cloudName: "aws-us-east-2"
-                credentialsId: "ec2-agents-credentials"
-                instanceCapStr: "50"
-                noDelayProvisioning: true
-                region: "us-east-2"
-                sshKeysCredentialsId: "ec2-agents-privkey"
-                useInstanceProfileForCredentials: false
-                templates:
-                - ami: "ami-09c8f98ffb3090f75" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
-                  amiOwners: "200564066411"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "ARM64 Ubuntu 22.04"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
-                  idleTerminationMinutes: "5"
-                  instanceCapStr: "50"
-                  javaPath: "/opt/jdk-11/bin/java"
-                  labelString: "arm64 linux-arm64 linux-arm64-docker aws"
-                  launchTimeoutStr: "180"
-                  maxTotalUses: 1
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: true
-                  numExecutors: 1
-                  remoteAdmin: "jenkins"
-                  remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_infraci"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "arm64"
-                  - name: "os"
-                    value: "linux"
-                  - name: "jenkins"
-                    value: "infra.ci.jenkins.io"
-                  type: T4gMedium # 2 vCPUs ARM64 Graviton / 4 Gb
-                  useEphemeralDevices: true
             - azureVM:
                 azureCredentialsId: "az-agents-credentials"
                 cloudName: "azure cloud"
