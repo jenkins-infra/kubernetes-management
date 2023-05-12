@@ -10,7 +10,7 @@ service:
     - '104.209.251.202/32'  # accept inbound LDAPS from vpn.jenkins.io
     - '172.176.126.194/32'  # accept inbound LDAPS from private.vpn.jenkins.io
     - '104.210.5.242/32'  # accept inbound LDAPS from cert.ci.jenkins.io
-    - '104.208.238.39/32'  # Accept inbound LDAPS from azure.ci.jenkins.io
+    - '104.208.238.39/32'  # Accept inbound LDAPS from ci.jenkins.io
     - '52.167.253.43/32'  # Accept inbound LDAPS from public.aks.jenkins.io
     - '34.211.101.61/32'  # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32'  # Accept inbound connections from Linux Foundation prod machine
