@@ -13,6 +13,9 @@ repositories:
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  # https://github.com/jenkinsci/helm-charts/
+  - name: jenkins
+    url: https://charts.jenkins.io
   # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
@@ -76,3 +79,13 @@ releases:
       - "../config/artifact-caching-proxy_azure.yaml"
     secrets:
       - "../secrets/config/artifact-caching-proxy/secrets.yaml"
+  - name: jenkins-weekly
+    namespace: jenkins-weekly
+    chart: jenkins/jenkins
+    version: 4.3.23
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
+    values:
+      - "../config/jenkins_weekly.ci.jenkins.io.yaml"
+    secrets:
+      - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
