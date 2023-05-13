@@ -150,6 +150,7 @@ controller:
               pipelineJob('folder/failing-pipeline') {
                 definition {
                   cps {
+                    sandbox()
                     script("""\
                       pipeline {
                         agent any
@@ -168,6 +169,7 @@ controller:
               pipelineJob('pipeline') {
                definition {
                   cps {
+                    sandbox()
                     script("""\
                       pipeline {
                         agent any
