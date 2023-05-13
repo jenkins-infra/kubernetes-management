@@ -129,6 +129,36 @@ controller:
             - all:
                 description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
                 name: "all"
+      jobs-settings: |
+        jobs:
+          - script: >
+              folder('folder') {
+                displayName('folder')
+                description('This is an example folder')
+              }
+          - script: >
+              freeStyleJob('folder/freestyle') {
+                displayName('Hello World')
+                steps {
+                  shell 'echo Hello World'
+                }
+              }
+          - script: >
+              pipelineJob('pipeline') {
+                definition {
+                  cpsFlowDefinition {
+                    script('''
+                    node() {
+                      stage('Hello World') {
+                        echo 'Hello World'
+                      }
+                    }
+                    ''')
+                  }
+                }
+              }
+
+
   sidecars:
     configAutoReload:
       env:
