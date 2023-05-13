@@ -129,6 +129,9 @@ controller:
             - all:
                 description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
                 name: "all"
+          markupFormatter:
+            rawHtml:
+              disableSyntaxHighlighting: false
       jobs-settings: |
         jobs:
           - script: >
@@ -144,16 +147,42 @@ controller:
                 }
               }
           - script: >
-              pipelineJob('pipeline') {
+              pipelineJob('folder/failing-pipeline') {
                 definition {
-                  cpsFlowDefinition {
-                    script('''
-                    node() {
-                      stage('Hello World') {
-                        echo 'Hello World'
-                      }
-                    }
-                    ''')
+                  cps {
+                    script("""\
+                      pipeline {
+                        agent any
+                        stages {
+                          stage ('Failure') {
+                            steps {
+                              echo "This build fails."
+                              sh 'false'
+                            }
+                          }
+                      }""".stripIndent())
+                  }
+                }
+              }
+          - script: >
+              pipelineJob('pipeline') {
+               definition {
+                  cps {
+                    script("""\
+                      pipeline {
+                        agent any
+                        stages {
+                          stage ('Hello World') {
+                            steps {
+                              echo "Hello World"
+                            }
+                          }
+                          stage ('Hello World 2')
+                            steps {
+                              echo "Hello World 2"
+                            }
+                        }
+                      }""".stripIndent())
                   }
                 }
               }
