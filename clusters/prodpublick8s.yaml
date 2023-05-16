@@ -102,14 +102,6 @@ releases:
       - "../config/jenkinsio.yaml"
     secrets:
       - "../secrets/config/jenkinsio/secrets.yaml"
-  - name: javadoc
-    namespace: javadoc
-    chart: jenkins-infra/javadoc
-    version: 0.1.2
-    values:
-      - "../config/javadoc.yaml"
-    secrets:
-      - "../secrets/config/javadoc/secrets.yaml"
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
