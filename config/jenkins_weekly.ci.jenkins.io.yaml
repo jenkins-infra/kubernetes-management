@@ -19,7 +19,7 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.112.1-2.404
+  tag: 0.113.0-2.405
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -188,8 +188,6 @@ controller:
                   }
                 }
               }
-
-
   sidecars:
     configAutoReload:
       env:
