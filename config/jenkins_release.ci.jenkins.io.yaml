@@ -26,7 +26,7 @@ networkPolicy:
       name: "jenkins-release"
 controller:
   image: jenkinsciinfra/jenkins-lts
-  tag: 0.29.14-2.387.3
+  tag: 0.29.15-2.387.3
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
