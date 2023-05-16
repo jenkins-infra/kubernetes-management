@@ -89,3 +89,11 @@ releases:
       - "../config/jenkins_weekly.ci.jenkins.io.yaml"
     secrets:
       - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
+  - name: javadoc
+    namespace: javadoc
+    chart: jenkins-infra/javadoc
+    version: 0.1.2
+    values:
+      - "../config/javadoc.yaml"
+    secrets:
+      - "../secrets/config/javadoc/secrets.yaml"
