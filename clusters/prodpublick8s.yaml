@@ -177,14 +177,6 @@ releases:
       - "../config/rating.yaml"
     secrets:
       - "../secrets/config/rating/secrets.yaml"
-  - name: jenkinsisthewayio-redirect
-    namespace: jenkinsisthewayio-redirector
-    chart: jenkins-infra/httpredirector
-    version: 0.3.1
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
-    values:
-      - "../config/jenkinsisthewayio.yaml"
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
