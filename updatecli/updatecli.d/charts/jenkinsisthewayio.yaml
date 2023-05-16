@@ -25,7 +25,7 @@ targets:
     name: "Update the chart version for jenkinsistheway.io redirection"
     kind: file
     spec:
-      file: clusters/prodpublick8s.yaml
+      file: clusters/publick8s.yaml
       matchpattern: 'chart: jenkins-infra\/httpredirector((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/httpredirector${1}version: {{ source "lastChartVersion" }}'
     scmid: default
