@@ -163,12 +163,6 @@ releases:
     timeout: 150
     values:
       - "../config/keycloak-public.yaml"
-  - name: wiki
-    namespace: wiki
-    chart: jenkins-infra/wiki
-    version: 0.3.75
-    values:
-      - "../config/wiki.yaml"
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
