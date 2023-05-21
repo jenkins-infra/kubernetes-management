@@ -121,7 +121,7 @@ controller:
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
-          theme-manager:
+          themeManager:
             disableUserThemes: false
             theme: "darkSystem"
         jenkins:
