@@ -121,6 +121,9 @@ controller:
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
+          theme-manager:
+            disableUserThemes: false
+            theme: "darkSystem"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
