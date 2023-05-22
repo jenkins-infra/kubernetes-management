@@ -124,6 +124,17 @@ controller:
           themeManager:
             disableUserThemes: false
             theme: "darkSystem"
+          customHeaderConfiguration:
+            enabled: true
+            headerColor:
+              backgroundColor: "#3B3B3B"
+              color: "white"
+              hoverColor: "grey"
+            logo:
+              symbol:
+                symbol: "symbol-jenkins"
+            logoText: "Jenkins"
+            title: "with the customizable-header plugin 🚀"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
