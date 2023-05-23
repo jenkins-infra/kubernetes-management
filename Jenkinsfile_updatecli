@@ -21,17 +21,13 @@ pipeline {
     AWS_ACCESS_KEY_ID     = credentials('packer-aws-access-key-id')
     AWS_SECRET_ACCESS_KEY = credentials('packer-aws-secret-access-key')
     AWS_DEFAULT_REGION    = 'us-east-2'
-    PRODUCTION_TERRAFORM_AZURE_CLIENT_ID = credentials('production_terraform_azure_client_id')
-    PRODUCTION_TERRAFORM_AZURE_CLIENT_SECRET_VALUE = credentials('production_terraform_azure_client_secret_value')
-    PRODUCTION_TERRAFORM_AZURE_TENANT_ID = credentials('production_terraform_azure_tenant_id')
+    UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal')
   }
   stages {
     stage('Azure Login') {
       steps {
-        az login --service-principal \
-                -u "${PRODUCTION_TERRAFORM_AZURE_CLIENT_ID}" \
-                -p "${PRODUCTION_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}" \
-                -t "${PRODUCTION_TERRAFORM_AZURE_TENANT_ID}"
+        sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+        sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
       }
     }
     stage('Check Configuration Update') {
