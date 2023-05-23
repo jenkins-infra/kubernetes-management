@@ -24,16 +24,12 @@ pipeline {
     UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal')
   }
   stages {
-    stage('Azure Login') {
-      steps {
-        sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
-        sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
-      }
-    }
     stage('Check Configuration Update') {
       // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+          sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
           updatecli(action: 'diff', cronTriggerExpression: cronExpr)
         }
       }
@@ -43,6 +39,8 @@ pipeline {
         expression { env.BRANCH_IS_PRIMARY }
       }
       steps {
+        sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+        sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
         updatecli(action: 'apply', cronTriggerExpression: cronExpr)
       }
     }
