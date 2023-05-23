@@ -22,6 +22,29 @@ sources:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 
+conditions:
+  checkifazureimagejenkins-agent-ubuntu-22.04-amd64isavailable:
+    kind: shell
+    disablesourceinput: true
+    spec:
+      environments:
+        - name: PATH
+      command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-ubuntu-22.04-amd64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
+  checkifazureimagejenkins-agent-windows-2019-amd64isavailable:
+    kind: shell
+    disablesourceinput: true
+    spec:
+      environments:
+        - name: PATH
+      command: echo az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-windows-2019-amd64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
+  checkifazureimagejenkins-agent-ubuntu-22.04-arm64isavailable:
+    kind: shell
+    disablesourceinput: true
+    spec:
+      environments:
+        - name: PATH
+      command: echo az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-ubuntu-22.04-arm64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
+
 targets:
   setAzureGalleryImageVersion:
     sourceid: packerImageVersion
