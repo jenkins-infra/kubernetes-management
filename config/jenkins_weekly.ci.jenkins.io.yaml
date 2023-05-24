@@ -134,7 +134,7 @@ controller:
               symbol:
                 symbol: "symbol-jenkins"
             logoText: "Jenkins"
-            title: "with the customizable-header plugin 🚀"
+            title: "with the customizable-header plugin"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
