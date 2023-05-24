@@ -19,7 +19,7 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.113.4-2.405
+  tag: 0.114.0-2.406
   pullPolicy: IfNotPresent
   resources:
     limits:
@@ -116,36 +116,7 @@ controller:
         unclassified:
           timestamper:
             allPipelines: true
-      system-settings: |
-        unclassified:
-          defaultFolderConfiguration:
-            # Keep healthMetrics an empty list to ensure weather is disabled
-            healthMetrics: []
-          themeManager:
-            disableUserThemes: false
-            theme: "darkSystem"
-          customHeaderConfiguration:
-            enabled: true
-            headerColor:
-              backgroundColor: "#3B3B3B"
-              color: "white"
-              hoverColor: "grey"
-            logo:
-              symbol:
-                symbol: "symbol-jenkins"
-            logoText: "Jenkins"
-            title: "with the customizable-header plugin 🚀"
-        jenkins:
-          quietPeriod: 0 # No need to wait between build scheduling
-          disabledAdministrativeMonitors:
-            - "jenkins.security.QueueItemAuthenticatorMonitor"
-          views:
-            - all:
-                description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
-                name: "all"
-          markupFormatter:
-            rawHtml:
-              disableSyntaxHighlighting: false
+      system-settings: "unclassified:\n  defaultFolderConfiguration:\n    # Keep healthMetrics an empty list to ensure weather is disabled\n    healthMetrics: []\n  themeManager:\n    disableUserThemes: false\n    theme: \"darkSystem\"\n  customHeaderConfiguration:\n    enabled: true\n    headerColor:\n      backgroundColor: \"#3B3B3B\"\n      color: \"white\"\n      hoverColor: \"grey\"\n    logo:\n      symbol:\n        symbol: \"symbol-jenkins\"\n    logoText: \"Jenkins\"\n    title: \"with the customizable-header plugin \U0001F680\"\njenkins:\n  quietPeriod: 0 # No need to wait between build scheduling\n  disabledAdministrativeMonitors:\n    - \"jenkins.security.QueueItemAuthenticatorMonitor\"\n  views:\n    - all:\n        description: \"<div style=\\\"width: 100%; display: flex;justify-content: center;\\\">\\r\\n    <div style=\\\"text-align: center;\\\">\\r\\n        <p>\\r\\n            <img alt=\\\"Design Library\\\" src=\\\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\\\" height=\\\"100\\\" width=\\\"280\\\" />\\r\\n        </p>\\r\\n    </div>\\r\\n    <p style=\\\"font-size: 18px;\\\">The <a href=\\\"/design-library/\\\" rel=\\\"nofollow\\\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\\r\\n</div>\\r\\n\"\n        name: \"all\"\n  markupFormatter:\n    rawHtml:\n      disableSyntaxHighlighting: false\n"
       jobs-settings: |
         jobs:
           - script: >
