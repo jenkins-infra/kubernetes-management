@@ -28,7 +28,6 @@ pipeline {
       // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          //updatecli(action: 'diff', cronTriggerExpression: cronExpr)
           script {
             withCredentials([
               usernamePassword(
@@ -41,9 +40,6 @@ pipeline {
               sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
               sh 'updatecli version'
               sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
-              if (env.BRANCH_IS_PRIMARY) {
-                sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
-              }
             }
           }
         }
@@ -54,7 +50,6 @@ pipeline {
         expression { env.BRANCH_IS_PRIMARY }
       }
       steps {
-        // updatecli(action: 'apply', cronTriggerExpression: cronExpr)
         script {
             withCredentials([
               usernamePassword(
@@ -67,9 +62,7 @@ pipeline {
               sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
               sh 'updatecli version'
               sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
-              if (env.BRANCH_IS_PRIMARY) {
-                sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
-              }
+              sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
             }
           }
       }
