@@ -4,9 +4,6 @@ helmDefaults:
   timeout: 300
   wait: true
 repositories:
-  # https://github.com/codecentric/helm-charts/
-  - name: codecentric
-    url: https://codecentric.github.io/helm-charts
   # https://github.com/DataDog/helm-charts/
   - name: datadog
     url: https://helm.datadoghq.com
@@ -26,7 +23,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.29.3
+    version: 3.30.7
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_prodpublick8s.yaml"
@@ -131,7 +128,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.45.1
+    version: 0.46.1
     timeout: 600
     atomic: false
     values:
@@ -146,23 +143,6 @@ releases:
       - "../config/incrementals-publisher.yaml"
     secrets:
       - "../secrets/config/incrementals-publisher/secrets.yaml"
-  - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
-    namespace: keycloak
-    chart: codecentric/keycloak
-    version: 18.4.3
-    timeout: 600
-    values:
-      - "../config/keycloak.yaml"
-    secrets:
-      - "../secrets/config/keycloak/db.yaml"
-      - "../secrets/config/keycloak/http.yaml"
-  - name: keycloak-public # User: https://admin.accounts.jenkins.io/auth/realms/jenkins/account
-    namespace: keycloak
-    chart: jenkins-infra/keycloak
-    version: 0.1.1
-    timeout: 150
-    values:
-      - "../config/keycloak-public.yaml"
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
@@ -174,7 +154,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.1.4
+    version: 2.1.7
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
