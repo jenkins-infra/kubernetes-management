@@ -18,9 +18,6 @@ pipeline {
   }
 
   environment {
-    AWS_ACCESS_KEY_ID     = credentials('packer-aws-access-key-id')
-    AWS_SECRET_ACCESS_KEY = credentials('packer-aws-secret-access-key')
-    AWS_DEFAULT_REGION    = 'us-east-2'
     UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal') //needed for az login
   }
   stages {
