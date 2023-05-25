@@ -28,10 +28,20 @@ pipeline {
       // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
-          sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
-          sh 'updatecli version'
-          sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+          script {
+            withCredentials([
+              usernamePassword(
+                //credentialsId: 'github-app-updatecli-on-jenkins-infra',
+                usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
+                passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
+              )
+            ]) {
+              sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+              sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
+              sh 'updatecli version'
+              sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+            }
+          }
         }
       }
     } // stage
@@ -40,11 +50,21 @@ pipeline {
         expression { env.BRANCH_IS_PRIMARY }
       }
       steps {
-        sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
-        sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
-        sh 'updatecli version'
-        sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
-        sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+        script {
+            withCredentials([
+              usernamePassword(
+                //credentialsId: 'github-app-updatecli-on-jenkins-infra',
+                usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
+                passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
+              )
+            ]) {
+              sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+              sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
+              sh 'updatecli version'
+              sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+              sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+            }
+          }
       }
     }
   }
