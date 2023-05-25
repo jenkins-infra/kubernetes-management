@@ -110,6 +110,10 @@ controller:
                 - "GROUP:Job/Read:authenticated"
                 - "USER:Overall/Read:anonymous"
                 - "GROUP:Overall/Read:authenticated"
+                - "USER:Overall/SystemRead:anonymous"
+                - "GROUP:Overall/SystemRead:authenticated"
+                - "USER:Job/ExtendedRead:anonymous"
+                - "GROUP:Job/ExtendedRead:authenticated"
                 - "GROUP:Overall/Administer:admins"
                 - "GROUP:Overall/Administer:jenkins-admins"
       timestamper-settings: |
