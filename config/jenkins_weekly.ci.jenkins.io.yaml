@@ -130,9 +130,7 @@ controller:
               backgroundColor: "#3B3B3B"
               color: "white"
               hoverColor: "grey"
-            logo:
-              symbol:
-                symbol: "symbol-jenkins"
+            logo: "default"
             logoText: "Jenkins"
             title: "with the customizable-header plugin"
         jenkins:
