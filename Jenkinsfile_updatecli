@@ -21,7 +21,7 @@ pipeline {
     AWS_ACCESS_KEY_ID     = credentials('packer-aws-access-key-id')
     AWS_SECRET_ACCESS_KEY = credentials('packer-aws-secret-access-key')
     AWS_DEFAULT_REGION    = 'us-east-2'
-    //UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal')
+    UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal') //needed for az login
   }
   stages {
     stage('Check Configuration Update') {
@@ -31,7 +31,7 @@ pipeline {
           script {
             withCredentials([
               usernamePassword(
-                credentialsId: 'github-app-updatecli-on-jenkins-infra',
+                credentialsId: 'github-app-updatecli-on-jenkins-infra', //needed for updatecli
                 usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
                 passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
               )
@@ -53,7 +53,7 @@ pipeline {
         script {
             withCredentials([
               usernamePassword(
-                credentialsId: 'github-app-updatecli-on-jenkins-infra',
+                credentialsId: 'github-app-updatecli-on-jenkins-infra', //needed for updatecli
                 usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
                 passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
               )
