@@ -61,7 +61,6 @@ pipeline {
               sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
               sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
               sh 'updatecli version'
-              sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
               sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
             }
           }
