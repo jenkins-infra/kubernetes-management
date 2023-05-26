@@ -136,3 +136,11 @@ releases:
       - "../config/plugin-health-scoring.yaml"
     secrets:
       - "../secrets/config/plugin-health-scoring/secrets.yaml"
+  - name: incrementals-publisher
+    namespace: incrementals-publisher
+    chart: jenkins-infra/incrementals-publisher
+    version: 0.5.1
+    values:
+      - "../config/incrementals-publisher.yaml"
+    secrets:
+      - "../secrets/config/incrementals-publisher/secrets.yaml"

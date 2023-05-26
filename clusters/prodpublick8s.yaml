@@ -135,14 +135,6 @@ releases:
       - "../config/mirrorbits.yaml"
     secrets:
       - "../secrets/config/mirrorbits/secrets.yaml"
-  - name: incrementals-publisher
-    namespace: incrementals-publisher
-    chart: jenkins-infra/incrementals-publisher
-    version: 0.5.1
-    values:
-      - "../config/incrementals-publisher.yaml"
-    secrets:
-      - "../secrets/config/incrementals-publisher/secrets.yaml"
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
