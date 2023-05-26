@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.30.8
+    version: 3.30.9
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -126,3 +126,13 @@ releases:
       #- "../secrets/config/keycloak/db.yaml"
       - "../secrets/config/keycloak/public-db.yaml"
       - "../secrets/config/keycloak/http.yaml"
+  - name: plugin-health-scoring
+    namespace: plugin-health-scoring
+    chart: jenkins-infra/plugin-health-scoring
+    version: 2.1.7
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the service
+    values:
+      - "../config/plugin-health-scoring.yaml"
+    secrets:
+      - "../secrets/config/plugin-health-scoring/secrets.yaml"
