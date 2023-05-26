@@ -126,13 +126,18 @@ controller:
             theme: "darkSystem"
           customHeaderConfiguration:
             enabled: true
+            header:
+              context:
+                showFolderWeather: true
+                showJobWeather: true
             headerColor:
               backgroundColor: "#3B3B3B"
               color: "white"
               hoverColor: "grey"
             logo: "default"
             logoText: "Jenkins"
-            title: "with the customizable-header plugin"
+            title: "with the <a href=\"https://plugins.jenkins.io/customizable-header/\">customizable-header</a>\
+              \ plugin"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
