@@ -144,3 +144,11 @@ releases:
       - "../config/incrementals-publisher.yaml"
     secrets:
       - "../secrets/config/incrementals-publisher/secrets.yaml"
+  - name: rating
+    namespace: rating
+    chart: jenkins-infra/rating
+    version: 0.2.0
+    values:
+      - "../config/rating.yaml"
+    secrets:
+      - "../secrets/config/rating/secrets.yaml"
