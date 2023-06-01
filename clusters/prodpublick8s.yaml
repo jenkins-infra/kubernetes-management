@@ -23,7 +23,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.30.9
+    version: 3.30.10
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_prodpublick8s.yaml"
@@ -102,7 +102,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.5.3
+    version: 0.5.4
     values:
       - "../config/accountapp.yaml"
     secrets:
