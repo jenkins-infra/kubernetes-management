@@ -116,15 +116,6 @@ releases:
       - "../config/ldap.yaml"
     secrets:
       - "../secrets/config/ldap/secrets.yaml"
-  - name: uplink
-    namespace: uplink
-    chart: jenkins-infra/uplink
-    version: 0.1.2
-    timeout: 600
-    values:
-      - "../config/uplink.yaml"
-    secrets:
-      - "../secrets/config/uplink/secrets.yaml"
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits

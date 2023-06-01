@@ -152,3 +152,12 @@ releases:
       - "../config/rating.yaml"
     secrets:
       - "../secrets/config/rating/secrets.yaml"
+  - name: uplink
+    namespace: uplink
+    chart: jenkins-infra/uplink
+    version: 0.1.2
+    timeout: 600
+    values:
+      - "../config/uplink.yaml"
+    secrets:
+      - "../secrets/config/uplink/secrets.yaml"
