@@ -23,7 +23,7 @@ controller:
   pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
-    kubernetes.azure.com/agentpool: arm64small
+    kubernetes.azure.com/agentpool: x86medium
   resources:
     limits:
       cpu: "2"

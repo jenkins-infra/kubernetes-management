@@ -13,4 +13,4 @@ persistence:
   storageClass: managed-csi-premium-retain
 
 nodeSelector:
-  agentpool: arm64small
+  agentpool: x86medium

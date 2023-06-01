@@ -14,4 +14,4 @@ ingress:
         - incrementals.jenkins.io
 
 nodeSelector:
-  agentpool: publicpool
+  agentpool: x86medium

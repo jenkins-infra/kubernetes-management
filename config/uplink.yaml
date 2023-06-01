@@ -22,4 +22,4 @@ image:
 replicaCount: 5
 
 nodeSelector:
-  agentpool: arm64small
+  agentpool: x86medium

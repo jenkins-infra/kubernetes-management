@@ -27,7 +27,7 @@ resources:
 replicas: 1
 
 nodeSelector:
-  agentpool: publicpool
+  agentpool: x86medium
 
 extraInitContainers: |
   - name: theme-provider

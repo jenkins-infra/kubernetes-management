@@ -15,7 +15,7 @@ ingress:
         - plugin-health.jenkins.io
 
 nodeSelector:
-  agentpool: publicpool
+  agentpool: x86medium
 
 database:
   username: plugin_health
