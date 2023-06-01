@@ -12,3 +12,6 @@ ingress:
     - secretName: incrementals-tls
       hosts:
         - incrementals.jenkins.io
+
+nodeSelector:
+  agentpool: x86medium
