@@ -11,3 +11,6 @@ ingress:
 
 persistence:
   storageClass: managed-csi-premium-retain
+
+nodeSelector:
+  agentpool: arm64small

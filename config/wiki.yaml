@@ -18,6 +18,7 @@ ingress:
       hosts:
         - wiki.jenkins.io
         - wiki.jenkins-ci.org
+
 resources:
   limits:
     cpu: 200m
@@ -25,6 +26,11 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-replicaCount: 2
+
 image:
   pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+nodeSelector:
+  agentpool: arm64small

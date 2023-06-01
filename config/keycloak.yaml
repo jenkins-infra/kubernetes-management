@@ -1,5 +1,3 @@
-replicas: 1
-
 ingress:
   enabled: true
   ingressClassName: private-nginx
@@ -17,6 +15,19 @@ ingress:
     - hosts:
         - admin.accounts.jenkins.io
       secretName: keycloak-cert
+
+resources:
+  limits:
+    cpu: 1500m
+    memory: 2048Mi
+  requests:
+    cpu: 1500m
+    memory: 2048Mi
+
+replicas: 1
+
+nodeSelector:
+  agentpool: publicpool
 
 extraInitContainers: |
   - name: theme-provider
@@ -40,13 +51,6 @@ extraVolumeMounts: |
 extraVolumes: |
   - name: theme
     emptyDir: {}
-resources:
-  limits:
-    cpu: 1500m
-    memory: 2048Mi
-  requests:
-    cpu: 1500m
-    memory: 2048Mi
 
 ## Database Setup
 # We already have a postgresql database
