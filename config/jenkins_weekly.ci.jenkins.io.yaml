@@ -20,7 +20,7 @@ networkPolicy:
 controller:
   image: jenkinsciinfra/jenkins-weekly
   tag: 0.116.1-2.407
-  pullPolicy: IfNotPresent
+  imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
     kubernetes.azure.com/agentpool: x86medium
