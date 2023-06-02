@@ -169,3 +169,11 @@ releases:
       - "../config/reports.yaml"
     secrets:
       - "../secrets/config/reports/secrets.yaml"
+  - name: accountapp
+    namespace: accountapp
+    chart: jenkins-infra/accountapp
+    version: 0.5.4
+    values:
+      - "../config/accountapp.yaml"
+    secrets:
+      - "../secrets/config/accountapp/secrets.yaml"

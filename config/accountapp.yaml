@@ -22,7 +22,7 @@ ingress:
       hosts:
         - accounts.jenkins.io
         - accounts.jenkins-ci.org
-replicaCount: 2
+
 resources:
   limits:
     cpu: 2000m
@@ -34,3 +34,8 @@ smtp:
   server: smtp.mailgun.org
   sender: accounts@jenkins.io
   port: 587
+
+replicaCount: 2
+
+nodeSelector:
+  agentpool: x86medium
