@@ -83,14 +83,6 @@ releases:
       - "../config/plugin-site-issues.yaml"
     secrets:
       - "../secrets/config/plugin-site-issues/secrets.yaml"
-  - name: reports
-    namespace: reports
-    chart: jenkins-infra/reports
-    version: 0.1.2
-    values:
-      - "../config/reports.yaml"
-    secrets:
-      - "../secrets/config/reports/secrets.yaml"
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio

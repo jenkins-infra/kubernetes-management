@@ -161,3 +161,11 @@ releases:
       - "../config/uplink.yaml"
     secrets:
       - "../secrets/config/uplink/secrets.yaml"
+  - name: reports
+    namespace: reports
+    chart: jenkins-infra/reports
+    version: 0.1.2
+    values:
+      - "../config/reports.yaml"
+    secrets:
+      - "../secrets/config/reports/secrets.yaml"
