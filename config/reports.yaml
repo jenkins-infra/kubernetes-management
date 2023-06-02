@@ -8,9 +8,6 @@ ingress:
     - host: reports.jenkins.io
       paths:
         - path: /
-    - host: reports.jenkins-ci.org
-      paths:
-        - path: /
   tls:
     - secretName: reports-tls
       hosts:
