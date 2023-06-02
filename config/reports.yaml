@@ -16,7 +16,7 @@ ingress:
       hosts:
         - reports.jenkins.io
         - reports.jenkins-ci.org
-replicaCount: 2
+
 resources:
   limits:
     cpu: 200m
@@ -29,3 +29,8 @@ htmlVolume:
     secretName: reports
     shareName: reports
     readOnly: true
+
+replicaCount: 2
+
+nodeSelector:
+  agentpool: x86medium
