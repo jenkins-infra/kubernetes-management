@@ -15,7 +15,6 @@ ingress:
     - secretName: reports-tls
       hosts:
         - reports.jenkins.io
-        - reports.jenkins-ci.org
 
 resources:
   limits:
