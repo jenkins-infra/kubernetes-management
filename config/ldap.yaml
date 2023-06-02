@@ -5,7 +5,7 @@ service:
     - '73.71.177.172/32'  # 106 accept inbound LDAPS request from spambot
     - '140.211.15.101/32'  # 107 accept inbound LDAPS request from accounts.jenkins.io
     - '20.12.27.65/32'  # 107 accept inbound LDAPS request from puppet.jenkins.io
-    - '3.209.43.20/32'  # 107 accept inbound LDAPS from trusted-ci
+    - '20.10.13.69/32'  # 107 accept inbound LDAPS from (controller.)trusted.ci.jenkins.io
     - '52.71.231.250/32'  # 107 accept inbound LDAPS from (AWS) ci.jenkins.io # TODO: sounds like we can remove this one
     - '104.209.251.202/32'  # accept inbound LDAPS from vpn.jenkins.io
     - '172.176.126.194/32'  # accept inbound LDAPS from private.vpn.jenkins.io
