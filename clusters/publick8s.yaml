@@ -25,6 +25,9 @@ repositories:
   # https://github.com/codecentric/helm-charts/
   - name: codecentric
     url: https://codecentric.github.io/helm-charts
+  # https://github.com/bitnami/charts/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
 releases:
   - name: datadog
     namespace: datadog
@@ -242,3 +245,11 @@ releases:
       - "../config/updates.jenkins.io.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/secrets.yaml"
+  - name: matomo
+    namespace: matomo
+    chart: bitnami/matomo
+    version: 1.1.4
+    values:
+      - "../config/matomo.yaml"
+    secrets:
+      - "../secrets/config/matomo/secrets.yaml"

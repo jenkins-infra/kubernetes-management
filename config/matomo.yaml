@@ -1,0 +1,292 @@
+image:
+  registry: ghcr.io
+  repository: halkeye-docker/matomo
+  tag: v1.2.0
+persistence:
+  enabled: false
+extraEnvVars:
+  - name: MATOMO_DATABASE_ENABLE_SSL
+    value: "1"
+  - name: MATOMO_DATABASE_SSL_NO_VERIFY
+    value: "1"
+  - name: MATOMO_TRUSTED_HOSTS
+    value: "matomo.jenkins.io"
+  - name: MATOMO_GENERAL_FORCE_SSL
+    value: "1"
+  - name: MATOMO_GENERAL_ASSUME_SECURE_PROTOCOL
+    value: "1"
+extraEnvVarsSecret: "matomo-extra"
+matomoSkipInstall: yes
+mariadb:
+  enabled: false
+#smtpUser:
+#smtpPort:
+#smtpPassword:
+#smtpProtocol:
+#smtpExistingSecret:
+service:
+  type: ClusterIP
+ingress:
+  enabled: true
+  ingressClassName: public-nginx
+  hostname: matomo.jenkins.io
+
+initContainers:
+  - name: geoipupdate
+    image: ghcr.io/maxmind/geoipupdate:v5.1.1
+    envFrom:
+      - secretRef:
+          name: matomo-maxmind
+    volumeMounts:
+    - name: dbip-city
+      mountPath: /usr/share/GeoIP
+extraVolumeMounts:
+  - name: dbip-city
+    mountPath: /usr/share/GeoIP
+extraVolumes:
+  - name: dbip-city
+    emptyDir: {}
+extraDeploy:
+  - |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: matomo-maxmind
+      namespace: {{ include "common.names.namespace" . | quote }}
+      labels: {{- include "common.labels.standard" . | nindent 4 }}
+        {{- if .Values.commonLabels }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+        {{- end }}
+      {{- if .Values.commonAnnotations }}
+      annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+      {{- end }}
+    type: Opaque
+    data:
+      GEOIPUPDATE_ACCOUNT_ID: {{ .Values.maxmind.account_id | toString | b64enc | quote }}
+      GEOIPUPDATE_LICENSE_KEY: {{ .Values.maxmind.license_key | toString | b64enc | quote }}
+      GEOIPUPDATE_EDITION_IDS: {{ "GeoLite2-ASN GeoLite2-City GeoLite2-Country" | b64enc | quote }}
+  - |
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: matomo-extra
+      namespace: {{ include "common.names.namespace" . | quote }}
+      labels: {{- include "common.labels.standard" . | nindent 4 }}
+        {{- if .Values.commonLabels }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+        {{- end }}
+      {{- if .Values.commonAnnotations }}
+      annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+      {{- end }}
+    type: Opaque
+    data:
+      MATOMO_SALT: {{ .Values.matomoSalt | toString | b64enc | quote }}
+  - |
+    apiVersion: batch/v1
+    kind: CronJob
+    metadata:
+      name: {{ include "common.names.fullname" . }}-scheduled-tasks
+      namespace: {{ include "common.names.namespace" . | quote }}
+      labels: {{- include "common.labels.standard" . | nindent 4 }}
+        {{- if .Values.commonLabels }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+        {{- end }}
+      {{- if .Values.commonAnnotations }}
+      annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+      {{- end }}
+    spec:
+      concurrencyPolicy: Forbid
+      schedule: "*/20 * * * *"
+      jobTemplate:
+        spec:
+          template:
+            spec:
+              restartPolicy: OnFailure
+              containers:
+                - name: {{ include "common.names.fullname" . }}-scheduled-tasks
+                  image: {{ template "matomo.image" . }}
+                  imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+                  command: ["/bin/sh"]
+                  args:
+                    - -c
+                    - /entrypoint.sh && /usr/local/bin/php /var/www/html/console scheduled-tasks:run
+                  {{- if .Values.containerSecurityContext.enabled }}
+                  securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 16 }}
+                  {{- end }}
+                  env:
+                    - name: BITNAMI_DEBUG
+                      value: {{ ternary "true" "false" .Values.image.debug | quote }}
+                    - name: ALLOW_EMPTY_PASSWORD
+                      value: {{ ternary "yes" "no" .Values.allowEmptyPassword | quote }}
+                    - name: APACHE_HTTP_PORT_NUMBER
+                      value: {{ .Values.containerPorts.http | quote }}
+                    - name: APACHE_HTTPS_PORT_NUMBER
+                      value: {{ .Values.containerPorts.https | quote }}
+                    - name: MATOMO_DATABASE_HOST
+                      value: {{ include "matomo.databaseHost" . | quote }}
+                    - name: MATOMO_DATABASE_PORT_NUMBER
+                      value: {{ include "matomo.databasePort" . | quote }}
+                    - name: MATOMO_DATABASE_NAME
+                      value: {{ include "matomo.databaseName" . | quote }}
+                    - name: MATOMO_DATABASE_USER
+                      value: {{ include "matomo.databaseUser" . | quote }}
+                    - name: MATOMO_DATABASE_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                          name: {{ include "matomo.databaseSecretName" . }}
+                          key: {{ include "matomo.databasePasswordKey" . | quote }}
+                    - name: MATOMO_SKIP_BOOTSTRAP
+                      value: {{ ternary "yes" "no" .Values.matomoSkipInstall | quote }}
+                    - name: MATOMO_USERNAME
+                      value: {{ .Values.matomoUsername | quote }}
+                    - name: MATOMO_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                          name: {{ include "matomo.secretName" . }}
+                          key: matomo-password
+                    - name: MATOMO_EMAIL
+                      value: {{ .Values.matomoEmail | quote }}
+                    - name: MATOMO_WEBSITE_NAME
+                      value: {{ .Values.matomoWebsiteName | quote }}
+                    - name: MATOMO_WEBSITE_HOST
+                      value: {{ .Values.matomoWebsiteHost | quote }}
+                    {{- if .Values.smtpHost }}
+                    - name: MATOMO_SMTP_HOST
+                      value: {{ .Values.smtpHost | quote }}
+                    {{- end }}
+                    {{- if .Values.smtpPort }}
+                    - name: MATOMO_SMTP_PORT
+                      value: {{ .Values.smtpPort | quote }}
+                    {{- end }}
+                    {{- if .Values.smtpUser }}
+                    - name: MATOMO_SMTP_USER
+                      value: {{ .Values.smtpUser | quote }}
+                    {{- end }}
+                    {{- if or .Values.smtpPassword .Values.smtpExistingSecret }}
+                    - name: MATOMO_SMTP_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                          name: {{ include "matomo.smtpSecretName" . }}
+                          key: smtp-password
+                    {{- end }}
+                    {{- if .Values.smtpProtocol }}
+                    - name: MATOMO_SMTP_PROTOCOL
+                      value: {{ .Values.smtpProtocol | quote }}
+                    {{- end }}
+                    {{- if .Values.extraEnvVars }}
+                    {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 16 }}
+                    {{- end }}
+                  envFrom:
+                    {{- if .Values.extraEnvVarsCM }}
+                    - configMapRef:
+                        name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsCM "context" $) }}
+                    {{- end }}
+                    {{- if .Values.extraEnvVarsSecret }}
+                    - secretRef:
+                        name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
+                    {{- end }}
+  - |
+    apiVersion: batch/v1
+    kind: CronJob
+    metadata:
+      name: {{ include "common.names.fullname" . }}-core-archive
+      namespace: {{ include "common.names.namespace" . | quote }}
+      labels: {{- include "common.labels.standard" . | nindent 4 }}
+        {{- if .Values.commonLabels }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+        {{- end }}
+      {{- if .Values.commonAnnotations }}
+      annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+      {{- end }}
+    spec:
+      concurrencyPolicy: Forbid
+      schedule: "5 * * * *"
+      jobTemplate:
+        spec:
+          template:
+            spec:
+              restartPolicy: OnFailure
+              containers:
+                - name: {{ include "common.names.fullname" . }}-core-archive
+                  image: {{ template "matomo.image" . }}
+                  imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+                  command: ["/bin/sh"]
+                  args:
+                    - -c
+                    - /entrypoint.sh && /usr/local/bin/php /var/www/html/console core:archive
+                  {{- if .Values.containerSecurityContext.enabled }}
+                  securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 16 }}
+                  {{- end }}
+                  env:
+                    - name: BITNAMI_DEBUG
+                      value: {{ ternary "true" "false" .Values.image.debug | quote }}
+                    - name: ALLOW_EMPTY_PASSWORD
+                      value: {{ ternary "yes" "no" .Values.allowEmptyPassword | quote }}
+                    - name: APACHE_HTTP_PORT_NUMBER
+                      value: {{ .Values.containerPorts.http | quote }}
+                    - name: APACHE_HTTPS_PORT_NUMBER
+                      value: {{ .Values.containerPorts.https | quote }}
+                    - name: MATOMO_DATABASE_HOST
+                      value: {{ include "matomo.databaseHost" . | quote }}
+                    - name: MATOMO_DATABASE_PORT_NUMBER
+                      value: {{ include "matomo.databasePort" . | quote }}
+                    - name: MATOMO_DATABASE_NAME
+                      value: {{ include "matomo.databaseName" . | quote }}
+                    - name: MATOMO_DATABASE_USER
+                      value: {{ include "matomo.databaseUser" . | quote }}
+                    - name: MATOMO_DATABASE_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                          name: {{ include "matomo.databaseSecretName" . }}
+                          key: {{ include "matomo.databasePasswordKey" . | quote }}
+                    - name: MATOMO_SKIP_BOOTSTRAP
+                      value: {{ ternary "yes" "no" .Values.matomoSkipInstall | quote }}
+                    - name: MATOMO_USERNAME
+                      value: {{ .Values.matomoUsername | quote }}
+                    - name: MATOMO_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                          name: {{ include "matomo.secretName" . }}
+                          key: matomo-password
+                    - name: MATOMO_EMAIL
+                      value: {{ .Values.matomoEmail | quote }}
+                    - name: MATOMO_WEBSITE_NAME
+                      value: {{ .Values.matomoWebsiteName | quote }}
+                    - name: MATOMO_WEBSITE_HOST
+                      value: {{ .Values.matomoWebsiteHost | quote }}
+                    {{- if .Values.smtpHost }}
+                    - name: MATOMO_SMTP_HOST
+                      value: {{ .Values.smtpHost | quote }}
+                    {{- end }}
+                    {{- if .Values.smtpPort }}
+                    - name: MATOMO_SMTP_PORT
+                      value: {{ .Values.smtpPort | quote }}
+                    {{- end }}
+                    {{- if .Values.smtpUser }}
+                    - name: MATOMO_SMTP_USER
+                      value: {{ .Values.smtpUser | quote }}
+                    {{- end }}
+                    {{- if or .Values.smtpPassword .Values.smtpExistingSecret }}
+                    - name: MATOMO_SMTP_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                          name: {{ include "matomo.smtpSecretName" . }}
+                          key: smtp-password
+                    {{- end }}
+                    {{- if .Values.smtpProtocol }}
+                    - name: MATOMO_SMTP_PROTOCOL
+                      value: {{ .Values.smtpProtocol | quote }}
+                    {{- end }}
+                    {{- if .Values.extraEnvVars }}
+                    {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 16 }}
+                    {{- end }}
+                  envFrom:
+                    {{- if .Values.extraEnvVarsCM }}
+                    - configMapRef:
+                        name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsCM "context" $) }}
+                    {{- end }}
+                    {{- if .Values.extraEnvVarsSecret }}
+                    - secretRef:
+                        name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
+                    {{- end }}
+
