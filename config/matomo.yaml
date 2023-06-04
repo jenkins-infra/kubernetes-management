@@ -16,14 +16,14 @@ extraEnvVars:
   - name: MATOMO_GENERAL_ASSUME_SECURE_PROTOCOL
     value: "1"
 extraEnvVarsSecret: "matomo-extra"
-matomoSkipInstall: yes
+matomoSkipInstall: "yes"
 mariadb:
   enabled: false
-#smtpUser:
-#smtpPort:
-#smtpPassword:
-#smtpProtocol:
-#smtpExistingSecret:
+# smtpUser:
+# smtpPort:
+# smtpPassword:
+# smtpProtocol:
+# smtpExistingSecret:
 service:
   type: ClusterIP
 ingress:
@@ -38,8 +38,8 @@ initContainers:
       - secretRef:
           name: matomo-maxmind
     volumeMounts:
-    - name: dbip-city
-      mountPath: /usr/share/GeoIP
+      - name: dbip-city
+        mountPath: /usr/share/GeoIP
 extraVolumeMounts:
   - name: dbip-city
     mountPath: /usr/share/GeoIP
@@ -289,4 +289,3 @@ extraDeploy:
                     - secretRef:
                         name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
                     {{- end }}
-
