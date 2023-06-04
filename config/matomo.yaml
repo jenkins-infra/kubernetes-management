@@ -16,7 +16,7 @@ extraEnvVars:
   - name: MATOMO_GENERAL_ASSUME_SECURE_PROTOCOL
     value: "1"
 extraEnvVarsSecret: "matomo-extra"
-matomoSkipInstall: "yes"
+matomoSkipInstall: true
 mariadb:
   enabled: false
 # smtpUser:
@@ -40,6 +40,8 @@ initContainers:
     volumeMounts:
       - name: dbip-city
         mountPath: /usr/share/GeoIP
+metrics:
+  enabled: true
 extraVolumeMounts:
   - name: dbip-city
     mountPath: /usr/share/GeoIP
