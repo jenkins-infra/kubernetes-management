@@ -33,4 +33,4 @@ htmlVolume:
 replicaCount: 2
 
 nodeSelector:
-  agentpool: x86medium
+  agentpool: arm64small
