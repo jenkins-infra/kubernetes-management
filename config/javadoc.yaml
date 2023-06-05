@@ -33,4 +33,5 @@ htmlVolume:
 replicaCount: 2
 
 nodeSelector:
-  agentpool: arm64small
+  kubernetes.azure.com/agentpool: arm64small
+  kubernetes.io/arch: amd64
