@@ -177,13 +177,3 @@ releases:
       - "../config/accountapp.yaml"
     secrets:
       - "../secrets/config/accountapp/secrets.yaml"
-  - name: ldap
-    namespace: ldap
-    chart: jenkins-infra/ldap
-    version: 0.1.6
-    timeout: 600
-    values:
-      - "../config/ldap.yaml"
-    secrets:
-      # TODO: rename to secrets.yaml when the migration is completed: https://github.com/jenkins-infra/helpdesk/issues/3351
-      - "../secrets/config/ldap/secrets_publick8s.yaml"
