@@ -21,7 +21,6 @@ service:
     - '34.201.191.93/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.233.58.83/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '54.236.124.56/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
-
 image:
   slapd:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
@@ -33,7 +32,6 @@ image:
     repository: jenkinsciinfra/ldap@sha256
     tag: d662790b4a5f1ca979c186241005e816ff86ccedf8161d9f11df43501f077f31
     pullPolicy: IfNotPresent
-
 resources:
   limits:
     cpu: 500m
