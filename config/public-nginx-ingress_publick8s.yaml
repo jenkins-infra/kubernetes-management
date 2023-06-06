@@ -12,3 +12,8 @@ controller:
       - IPv4
       - IPv6
     ipFamilyPolicy: PreferDualStack
+  nodeSelector:
+    agentpool: x86medium
+defaultBackend:
+  nodeSelector:
+    agentpool: x86medium

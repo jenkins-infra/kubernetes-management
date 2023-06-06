@@ -5,3 +5,8 @@ controller:
     annotations:
       # azure-net:vnets.tf/public-vnet-data-tier
       service.beta.kubernetes.io/azure-load-balancer-internal-subnet: public-vnet-data-tier
+  nodeSelector:
+    agentpool: x86medium
+defaultBackend:
+  nodeSelector:
+    agentpool: x86medium
