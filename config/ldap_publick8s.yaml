@@ -1,5 +1,7 @@
 service:
   type: LoadBalancer
+  # Public IPv4 defined as code in https://github.com/jenkins-infra/azure/blob/main/ldap.jenkins.io.tf instead of requesting a random new public IP, useful for DNS setup and changes
+  IP: 104.209.245.168
   whitelisted_sources:
     - '10.0.32.0/19'  # Kubernetes publick8s internal IPs
     - '73.71.177.172/32'  # 106 accept inbound LDAPS request from spambot
