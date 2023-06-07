@@ -25,7 +25,9 @@ targets:
     name: "Update the chart version for ldap"
     kind: file
     spec:
-      file: clusters/prodpublick8s.yaml
+      files:
+      - clusters/prodpublick8s.yaml
+      - clusters/publick8s.yaml
       matchpattern: 'chart: jenkins-infra\/ldap((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/ldap${1}version: {{ source "lastChartVersion" }}'
     scmid: default
