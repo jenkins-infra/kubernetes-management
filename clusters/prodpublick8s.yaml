@@ -91,15 +91,6 @@ releases:
       - "../config/jenkinsio.yaml"
     secrets:
       - "../secrets/config/jenkinsio/secrets.yaml"
-  - name: ldap
-    namespace: ldap
-    chart: jenkins-infra/ldap
-    version: 0.1.6
-    timeout: 600
-    values:
-      - "../config/ldap.yaml"
-    secrets:
-      - "../secrets/config/ldap/secrets.yaml"
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
