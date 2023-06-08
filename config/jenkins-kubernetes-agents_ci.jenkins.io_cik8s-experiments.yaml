@@ -1,2 +1,2 @@
 quotas:
-  pods: "345"
+  pods: 345
