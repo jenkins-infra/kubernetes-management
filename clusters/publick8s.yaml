@@ -183,8 +183,6 @@ releases:
     version: 0.1.6
     timeout: 600
     values:
-      # TODO: rename to ldap.yaml when the migration is completed: https://github.com/jenkins-infra/helpdesk/issues/3351
-      - "../config/ldap_publick8s.yaml"
+      - "../config/ldap.yaml"
     secrets:
-      # TODO: rename to secrets.yaml when the migration is completed: https://github.com/jenkins-infra/helpdesk/issues/3351
-      - "../secrets/config/ldap/secrets_publick8s.yaml"
+      - "../secrets/config/ldap/secrets.yaml"

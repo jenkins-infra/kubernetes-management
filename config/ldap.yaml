@@ -1,5 +1,7 @@
 service:
   type: LoadBalancer
+  # Public IPv4 defined as code in https://github.com/jenkins-infra/azure/blob/main/ldap.jenkins.io.tf instead of requesting a random new public IP, useful for DNS setup and changes
+  IP: 20.10.205.3
   whitelisted_sources:
     - '10.0.32.0/19'  # Kubernetes publick8s internal IPs
     - '73.71.177.172/32'  # 106 accept inbound LDAPS request from spambot
@@ -21,6 +23,7 @@ service:
     - '34.201.191.93/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.233.58.83/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '54.236.124.56/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
+
 image:
   slapd:
     # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
@@ -32,6 +35,7 @@ image:
     repository: jenkinsciinfra/ldap@sha256
     tag: d662790b4a5f1ca979c186241005e816ff86ccedf8161d9f11df43501f077f31
     pullPolicy: IfNotPresent
+
 resources:
   limits:
     cpu: 500m
@@ -39,3 +43,6 @@ resources:
   requests:
     cpu: 500m
     memory: 1536Mi
+
+nodeSelector:
+  agentpool: x86medium
