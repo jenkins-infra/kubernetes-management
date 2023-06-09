@@ -104,7 +104,7 @@ datadog:
               tags = ["package:" + package,]
 
               if package in endpoints:
-                  self.gauge(metric, is_exist(package, endpoints[package]), tags)helpdes
+                  self.gauge(metric, is_exist(package, endpoints[package]), tags)
               else:
                   self.warning(f"PackageCanDownload: Package {package} is not supported")
 
