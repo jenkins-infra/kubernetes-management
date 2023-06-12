@@ -196,3 +196,11 @@ releases:
       - "../config/mirrorbits.yaml"
     secrets:
       - "../secrets/config/mirrorbits/secrets.yaml"
+  - name: plugin-site-issues
+    namespace: plugin-site
+    chart: jenkins-infra/plugin-site-issues
+    version: 0.1.6
+    values:
+      - "../config/plugin-site-issues.yaml"
+    secrets:
+      - "../secrets/config/plugin-site-issues/secrets.yaml"

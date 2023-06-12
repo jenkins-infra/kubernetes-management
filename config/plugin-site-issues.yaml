@@ -21,3 +21,6 @@ ingress:
       hosts:
         - plugin-site-issues.origin.jenkins.io
         - plugin-site-issues.jenkins.io
+
+nodeSelector:
+  agentpool: x86medium
