@@ -91,13 +91,3 @@ releases:
       - "../config/jenkinsio.yaml"
     secrets:
       - "../secrets/config/jenkinsio/secrets.yaml"
-  - name: mirrorbits
-    namespace: mirrorbits
-    chart: jenkins-infra/mirrorbits
-    version: 0.46.2
-    timeout: 600
-    atomic: false
-    values:
-      - "../config/mirrorbits.yaml"
-    secrets:
-      - "../secrets/config/mirrorbits/secrets.yaml"
