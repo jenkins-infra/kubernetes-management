@@ -1,9 +1,0 @@
-controller:
-  replicaCount: 2
-  service:
-    annotations:
-      service.beta.kubernetes.io/azure-load-balancer-internal: false
-      service.beta.kubernetes.io/azure-load-balancer-ipv4: 52.167.253.43
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "10254"
-    externalTrafficPolicy: Local
