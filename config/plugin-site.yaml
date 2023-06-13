@@ -24,3 +24,6 @@ htmlVolume:
     secretName: plugin-site
     shareName: pluginsite
     readOnly: true
+
+nodeSelector:
+  agentpool: x86medium
