@@ -147,7 +147,7 @@ releases:
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
-    version: 0.2.0
+    version: 0.2.1
     values:
       - "../config/rating.yaml"
     secrets:
