@@ -131,10 +131,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for privatek8s"
             secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
-          kubeconfig-prodpublick8s:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for prodpublick8s"
-            secretBytes: "${base64:${KUBECONFIG_PRODPUBLICK8S}}"
           kubeconfig-publick8s:
             fileName: "kubeconfig"
             description: "Kubeconfig file for publick8s"
