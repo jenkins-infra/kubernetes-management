@@ -212,3 +212,11 @@ releases:
       - "../config/plugin-site.yaml"
     secrets:
       - "../secrets/config/plugin-site/secrets.yaml"
+  - name: jenkinsio
+    namespace: jenkinsio
+    chart: jenkins-infra/jenkinsio
+    version: 0.3.0
+    values:
+      - "../config/jenkinsio.yaml"
+    secrets:
+      - "../secrets/config/jenkinsio/secrets.yaml"

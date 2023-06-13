@@ -13,9 +13,6 @@ repositories:
   # https://github.com/kubernetes/ingress-nginx/
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
-  # https://github.com/jenkins-infra/helm-charts/
-  - name: jenkins-infra
-    url: https://jenkins-infra.github.io/helm-charts
   # https://github.com/cert-manager/cert-manager/
   - name: jetstack
     url: https://charts.jetstack.io
@@ -67,11 +64,3 @@ releases:
     version: 2.5.2
     values:
       - "../config/falco.yaml"
-  - name: jenkinsio
-    namespace: jenkinsio
-    chart: jenkins-infra/jenkinsio
-    version: 0.3.0
-    values:
-      - "../config/jenkinsio.yaml"
-    secrets:
-      - "../secrets/config/jenkinsio/secrets.yaml"
