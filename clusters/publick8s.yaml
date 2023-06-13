@@ -70,7 +70,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 2.5.2
+    version: 3.2.1
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
