@@ -456,15 +456,3 @@ datadog:
           check_certificate_expiration: true
           tags:
             - mirror
-        - name: mirror.azure.jenkins.io
-          timeout: 10
-          threshold: 3
-          window: 5
-          days_warning: 10
-          days_critical: 5
-          url: https://mirror.azure.jenkins.io/TIME
-          method: get
-          collect_response_time: true
-          check_certificate_expiration: true
-          tags:
-            - mirror
