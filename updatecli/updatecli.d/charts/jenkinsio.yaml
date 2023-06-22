@@ -25,7 +25,7 @@ targets:
     name: "Update the chart version for jenkinsio"
     kind: file
     spec:
-      file: clusters/prodpublick8s.yaml
+      file: clusters/publick8s.yaml
       matchpattern: 'chart: jenkins-infra\/jenkinsio((\r\n|\r|\n)(\s+))version: .*'
       replacepattern: 'chart: jenkins-infra/jenkinsio${1}version: {{ source "lastChartVersion" }}'
     scmid: default
