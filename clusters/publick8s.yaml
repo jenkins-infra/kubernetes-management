@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.32.2
+    version: 3.32.4
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -74,7 +74,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.10.4
+    version: 0.11.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
@@ -85,7 +85,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.3.24
+    version: 4.3.28
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -111,7 +111,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.79
+    version: 0.3.81
     values:
       - "../config/wiki.yaml"
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
@@ -129,7 +129,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.1.7
+    version: 2.1.9
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -139,7 +139,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.5.1
+    version: 0.5.2
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -147,7 +147,7 @@ releases:
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
-    version: 0.2.0
+    version: 0.2.1
     values:
       - "../config/rating.yaml"
     secrets:
@@ -172,7 +172,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.5.9
+    version: 0.5.12
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -189,7 +189,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.47.0
+    version: 0.49.1
     timeout: 600
     atomic: false
     values:
@@ -199,7 +199,7 @@ releases:
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
-    version: 0.1.6
+    version: 0.1.7
     values:
       - "../config/plugin-site-issues.yaml"
     secrets:

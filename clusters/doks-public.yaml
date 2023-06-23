@@ -45,7 +45,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.32.2
+    version: 3.32.4
     needs:
       - default/docker-registry-secrets
     values:
@@ -64,7 +64,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.10.4
+    version: 0.11.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
