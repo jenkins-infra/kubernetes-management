@@ -32,6 +32,13 @@ htmlVolume:
 
 replicaCount: 2
 
-nodeSelector:
-  kubernetes.azure.com/agentpool: arm64small
-  kubernetes.io/arch: arm64
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 1
+      preference:
+        matchExpressions:
+        - key: kubernetes.io/arch
+          operator: In
+          values:
+          - arm64
