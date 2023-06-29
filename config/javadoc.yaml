@@ -31,3 +31,12 @@ htmlVolume:
     readOnly: true
 
 replicaCount: 2
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+    - key: "pool"
+      operator: "Equal"
+      value: "small"
+      effect: "NoSchedule"
