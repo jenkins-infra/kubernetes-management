@@ -38,7 +38,7 @@ nodeSelector:
 
 # soft toleration to be able to use the arm64 node pool and to avoid it's usage for intel deployement
 tolerations:
-    - key: "kubernetes.io/arch"
-      operator: "Equal"
-      value: "arm64"
-      effect: "NoSchedule"
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
