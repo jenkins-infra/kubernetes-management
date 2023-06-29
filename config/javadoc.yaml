@@ -31,7 +31,3 @@ htmlVolume:
     readOnly: true
 
 replicaCount: 2
-
-nodeSelector:
-  kubernetes.azure.com/agentpool: arm64small
-  kubernetes.io/arch: arm64
