@@ -32,9 +32,11 @@ htmlVolume:
 
 replicaCount: 2
 
+# hard selector to force usage of arm64 node pool to save money
 nodeSelector:
   kubernetes.io/arch: arm64
 
+# soft toleration to be able to use the arm64 node pool and to avoid it's usage for intel deployement
 tolerations:
     - key: "kubernetes.io/arch"
       operator: "Equal"
