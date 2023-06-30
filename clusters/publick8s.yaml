@@ -111,7 +111,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.82
+    version: 0.3.84
     values:
       - "../config/wiki.yaml"
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
