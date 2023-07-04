@@ -1,0 +1,458 @@
+datadog:
+  checksd:
+    packageCanBeDownloaded.py: |-
+      #!/usr/bin/env python3
+      # Require Python 3.8
+
+      from urllib.request import urlopen
+      from urllib.error import URLError, HTTPError
+
+      import xml.etree.ElementTree as ET
+
+      from datadog_checks.base.checks import AgentCheck
+
+
+      def is_exist(distribution, url):
+          '''
+              is_exist test if a specific artifact exist on the destination
+          '''
+          try:
+              return_code = urlopen(url).code
+              if return_code != 200:
+                  print(f'return code should be 200 but is {return_code}')
+              return 1
+          except HTTPError as err:
+              if err.code == 404:
+                  print(f'{distribution} package not found on {url}')
+              else:
+                  print(f'Something went wrong with url {url} for {distribution} package: {err}')
+              return 0
+
+
+      class PackageCanBeDownloaded(AgentCheck):
+          """
+              Tests that the latest jenkins packages can be downloaded
+          """
+
+          root = None
+
+          def build_tree(self, metadataUrl='https://repo.jenkins-ci.org/releases/org/jenkins-ci/main/jenkins-war/maven-metadata.xml'):
+              try:
+                  tree = ET.parse(urlopen(metadataUrl))
+                  root = tree.getroot()
+                  return root
+
+              except URLError as err:
+                  self.warning(f"Error when building tree from metadata url: {err}")
+
+          def get_latest_weekly_version(self):
+              if not self.root:
+                  self.root = self.build_tree()
+              return self.root.find('versioning/latest').text
+
+          def get_latest_stable_version(self):
+              """
+              Input: a list of Jenkins versions
+              Output: returns the latest stable version
+
+              Jenkins versions follow the pattern X.Y.Z where:
+                  - X.Y is a weekly version
+                  - X.Y.Z is a stable version
+              That is why we filter for stable versions with count('.') == 2.
+              """
+              if not self.root:
+                  self.root = self.build_tree()
+              versions = self.root.findall('versioning/versions/version')
+              stable_versions = [version.text for version in versions if version.text.count('.') == 2]
+
+              def as_version(ele):
+                  major, minor, patch = ele.split('.')
+                  if not patch.isdigit():
+                      return [int(major), int(minor)]
+                  return [int(major), int(minor), int(patch)]
+
+              stable_versions.sort(key=as_version, reverse=True)
+              return stable_versions[0]
+
+
+          def create_endpoints(self, hostname='get.jenkins.io'):
+              weekly_version = self.get_latest_weekly_version()
+              stable_version = self.get_latest_stable_version()
+
+              endpoints = {
+                  'debian': f'https://{hostname}/debian/jenkins_{weekly_version}_all.deb',
+                  'redhat': f'https://{hostname}/redhat/jenkins-{weekly_version}-1.1.noarch.rpm',
+                  'opensuse': f'https://{hostname}/opensuse/jenkins-{weekly_version}-1.2.noarch.rpm',
+                  'windows': f'https://{hostname}/windows/{weekly_version}/jenkins.msi',
+                  'war': f'https://{hostname}/war/{weekly_version}/jenkins.war',
+                  'debian-stable': f'https://{hostname}/debian-stable/jenkins_{stable_version}_all.deb',
+                  'redhat-stable': f'https://{hostname}/redhat-stable/jenkins-{stable_version}-1.1.noarch.rpm',
+                  'windows-stable': f'https://{hostname}/windows-stable/{stable_version}/jenkins.msi',
+                  'opensuse-stable': f'https://{hostname}/opensuse-stable/jenkins-{stable_version}-1.2.noarch.rpm',
+                  'war-stable': f'https://{hostname}/war-stable/{stable_version}/jenkins.war',
+              }
+              return endpoints
+
+          def check(self, instance):
+              """
+                  Datadog custom check
+              """
+              endpoints = self.create_endpoints()
+              metric = 'jenkins.package.available'
+              package = instance['package']
+              self.warning(f"PackageAvailable: {package}")
+              tags = ["package:" + package,]
+
+              if package in endpoints:
+                  self.gauge(metric, is_exist(package, endpoints[package]), tags)
+              else:
+                  self.warning(f"PackageCanDownload: Package {package} is not supported")
+
+
+      if __name__ == "__main__":
+          '''
+              This exists only for testing purposes
+          '''
+          p = PackageCanBeDownloaded()
+          weekly_version = p.get_latest_weekly_version()
+          stable_version = p.get_latest_stable_version()
+          print(f"Latest weekly version: {weekly_version}")
+          print(f"Latest stable version: {stable_version}")
+
+          endpoints = p.create_endpoints()
+          for package, message in endpoints.items():
+              if not is_exist(package, message):
+                  print(f"Latest version for package {package} not available from {message}")
+              else:
+                  print(f"Latest version for package {package} available from {message}")
+
+  confd:
+    packageCanBeDownloaded.yaml: |-
+      init_config:
+
+      instances:
+          - package: debian
+            min_collection_interval: 60
+          - package: debian-stable
+            min_collection_interval: 60
+          - package: opensuse
+            min_collection_interval: 60
+          - package: opensuse-stable
+            min_collection_interval: 60
+          - package: redhat
+            min_collection_interval: 60
+          - package: redhat-stable
+            min_collection_interval: 60
+          - package: war
+            min_collection_interval: 60
+          - package: war-stable
+            min_collection_interval: 60
+          - package: windows
+            min_collection_interval: 60
+          - package: windows-stable
+            min_collection_interval: 60
+    http_check.yaml: |-
+      init_config:
+
+      instances:
+        - name: issues.jenkins.io
+          url: https://issues.jenkins.io/status
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: javadoc.io
+          url: http://javadoc.jenkins.io/script.js
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: jenkins.io
+          url: https://www.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: pkg.jenkins.io
+          url: https://pkg.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: plugins.jenkins.io
+          url: https://plugins.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: rating.jenkins.io
+          url: https://rating.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          http_response_status_code: 403
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: repo.jenkins-ci.org
+          url: https://repo.jenkins-ci.org/api/system/ping
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins-ci.org
+        - name: reports.jenkins.io
+          url: https://reports.jenkins.io/artifactory-ldap-users-report.json
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: status.jenkins.io
+          url: https://status.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: updates.jenkins.io
+          url: https://updates.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: updates.jenkins-ci.org
+          url: https://updates.jenkins-ci.org
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins-ci.org
+        - name: uplink.jenkins.io
+          url: https://uplink.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: usage.jenkins.io
+          url: https://usage.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: wiki.jenkins-ci.org
+          url: https://wiki.jenkins-ci.org/status
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins-ci.org
+        - name: wiki.jenkins.io
+          url: https://wiki.jenkins.io/status
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: ftp.belnet.be
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://ftp.belnet.be/pub/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: mirror.serverion.com
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://mirror.serverion.com/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: mirror.esuni.jp
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://mirror.esuni.jp/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: mirrors.tuna.tsinghua.edu.cn
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://mirrors.tuna.tsinghua.edu.cn/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: mirror.xmission.com
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://mirror.xmission.com/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: ftp-nyc.osuosl.org
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://ftp-nyc.osuosl.org/pub/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror:ftp-nyc.osuosl.org
+        - name: ftp-chi.osuosl.org
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://ftp-chi.osuosl.org/pub/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: ftp.yz.yamagata-u.ac.jp
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://ftp.yz.yamagata-u.ac.jp/pub/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: mirror.gruenehoelle.nl
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://mirror.gruenehoelle.nl/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror
+        - name: ftp.halifax.rwth-aachen.de
+          timeout: 10
+          threshold: 3
+          window: 5
+          days_warning: 10
+          days_critical: 5
+          url: https://ftp.halifax.rwth-aachen.de/jenkins/TIME
+          method: get
+          collect_response_time: true
+          check_certificate_expiration: true
+          tags:
+            - mirror

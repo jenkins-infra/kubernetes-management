@@ -16,7 +16,7 @@ ingress:
       hosts:
         - javadoc.jenkins.io
         - javadoc.jenkins-ci.org
-replicaCount: 2
+
 resources:
   limits:
     cpu: 200m
@@ -29,3 +29,9 @@ htmlVolume:
     secretName: javadoc
     shareName: javadoc
     readOnly: true
+
+replicaCount: 2
+
+nodeSelector:
+  kubernetes.azure.com/agentpool: arm64small
+  kubernetes.io/arch: arm64

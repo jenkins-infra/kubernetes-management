@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.111.2-2.403
+  tag: 0.120.3-2.412
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -72,20 +72,6 @@ controller:
                     password: "${ARTIFACT_CACHING_PROXY_PASSWORD}"
                     scope: GLOBAL
                     username: "MY-USERNAME"
-                - basicSSHUserPrivateKey:
-                    scope: SYSTEM
-                    id: "ec2-agents-privkey"
-                    username: "key"
-                    description: "SSH privkey used to connect to EC2 agents"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: "${EC2_AGENTS_PRIVKEY}"
-                - aws:
-                    accessKey: "${EC2_AWS_ACCESS_KEY_ID}"
-                    description: "This credential is used to provision dynamic agents on AWS EC2"
-                    id: "ec2-agents-credentials"
-                    scope: SYSTEM
-                    secretKey: "${EC2_AWS_SECRET_ACCESS_KEY}"
                 - azure:
                     azureEnvironmentName: "Azure"
                     clientId: "${JENKINSINFRA_AZURE_CLIENT_ID}"
@@ -226,49 +212,6 @@ controller:
                         resourceRequestMemory: "8G"
                     label: "container kubernetes node ruby webbuilder"
                     yamlMergeStrategy: "merge"
-            - amazonEC2:
-                cloudName: "aws-us-east-2"
-                credentialsId: "ec2-agents-credentials"
-                instanceCapStr: "50"
-                noDelayProvisioning: true
-                region: "us-east-2"
-                sshKeysCredentialsId: "ec2-agents-privkey"
-                useInstanceProfileForCredentials: false
-                templates:
-                - ami: "ami-09c8f98ffb3090f75" # https://github.com/jenkins-infra/packer-images/ LINUXARM64 (DO NOT DELETE OR EDIT THIS COMMENT, USED BY UPDATECLI: https://github.com/jenkins-infra/kubernetes-management/blob/cd7e4132eef4095ca287e8c17b284d3c04234cb4/updatecli/updatecli.d/charts/jenkins-agents-infra-release.yaml#L82)
-                  amiOwners: "200564066411"
-                  associatePublicIp: true
-                  connectBySSHProcess: false
-                  connectionStrategy: PUBLIC_IP
-                  deleteRootOnTermination: true
-                  description: "ARM64 Ubuntu 22.04"
-                  ebsOptimized: false
-                  hostKeyVerificationStrategy: ACCEPT_NEW           # Secure: more flexible to save some time at startup
-                  idleTerminationMinutes: "5"
-                  instanceCapStr: "50"
-                  javaPath: "/opt/jdk-11/bin/java"
-                  labelString: "arm64 linux-arm64 linux-arm64-docker"
-                  launchTimeoutStr: "180"
-                  maxTotalUses: 1
-                  minimumNumberOfInstances: 0
-                  minimumNumberOfSpareInstances: 0
-                  mode: EXCLUSIVE
-                  monitoring: true
-                  numExecutors: 1
-                  remoteAdmin: "jenkins"
-                  remoteFS: "/home/jenkins"
-                  securityGroups: "ec2_agents_infraci"
-                  stopOnTerminate: false
-                  t2Unlimited: false
-                  tags:
-                  - name: "architecture"
-                    value: "arm64"
-                  - name: "os"
-                    value: "linux"
-                  - name: "jenkins"
-                    value: "infra.ci.jenkins.io"
-                  type: T4gMedium # 2 vCPUs ARM64 Graviton / 4 Gb
-                  useEphemeralDevices: true
             - azureVM:
                 azureCredentialsId: "az-agents-credentials"
                 cloudName: "azure cloud"
@@ -285,7 +228,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.4.0"
+                    galleryImageVersion: "1.13.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -335,7 +278,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.4.0"
+                    galleryImageVersion: "1.13.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -372,7 +315,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "1.4.0"
+                    galleryImageVersion: "1.13.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -394,7 +337,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-11/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64 linux-arm64-docker"
+                  labels: "linux-arm64 linux-arm64-docker azure"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
@@ -491,7 +434,7 @@ controller:
                       <mirror>
                           <id>aws-proxy</id>
                           <url>https://repo.aws.jenkins.io/public/</url>
-                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk</mirrorOf>
+                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!local,!jitpack.io</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>aws-proxy-incrementals</id>
@@ -517,7 +460,7 @@ controller:
                       <mirror>
                           <id>azure-proxy</id>
                           <url>https://repo.azure.jenkins.io/public/</url>
-                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk</mirrorOf>
+                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!local,!jitpack.io</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>azure-proxy-incrementals</id>
@@ -543,7 +486,7 @@ controller:
                       <mirror>
                           <id>do-proxy</id>
                           <url>https://repo.do.jenkins.io/public/</url>
-                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk</mirrorOf>
+                          <mirrorOf>*,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!local,!jitpack.io</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>do-proxy-incrementals</id>
@@ -614,6 +557,9 @@ controller:
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
+          customHeaderConfiguration:
+            enabled: false
+            logo: "default"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
@@ -699,7 +645,7 @@ controller:
               - installSource:
                   installers:
                   - maven:
-                      id: "3.9.1"
+                      id: "3.9.3"
   sidecars:
     configAutoReload:
       env:

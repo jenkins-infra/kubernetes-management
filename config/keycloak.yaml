@@ -1,5 +1,3 @@
-replicas: 1
-
 ingress:
   enabled: true
   ingressClassName: private-nginx
@@ -18,10 +16,18 @@ ingress:
         - admin.accounts.jenkins.io
       secretName: keycloak-cert
 
-image:
-  # https://twitter.com/keycloak/status/1471815630655528968?s=20
-  # Until the 16.x versions are available for the helm chart
-  tag: 15.1.1
+resources:
+  limits:
+    cpu: 1500m
+    memory: 2048Mi
+  requests:
+    cpu: 1500m
+    memory: 2048Mi
+
+replicas: 1
+
+nodeSelector:
+  agentpool: x86medium
 
 extraInitContainers: |
   - name: theme-provider
@@ -45,13 +51,6 @@ extraVolumeMounts: |
 extraVolumes: |
   - name: theme
     emptyDir: {}
-resources:
-  limits:
-    cpu: 1500m
-    memory: 2048Mi
-  requests:
-    cpu: 1500m
-    memory: 2048Mi
 
 ## Database Setup
 # We already have a postgresql database
@@ -60,16 +59,17 @@ postgresql:
 extraEnv: |
   - name: PROXY_ADDRESS_FORWARDING
     value: "true"
-  - name: JGROUPS_DISCOVERY_PROTOCOL
-    value: dns.DNS_PING
-  - name: JGROUPS_DISCOVERY_PROPERTIES
-    value: 'dns_query={{ include "keycloak.serviceDnsName" . }}'
-  - name: CACHE_OWNERS_COUNT
-    value: "2"
-  - name: CACHE_OWNERS_AUTH_SESSIONS_COUNT
-    value: "2"
   - name: KEYCLOAK_STATISTICS
     value: all
+  - name: JAVA_OPTS
+    value: >-
+      -Djava.net.preferIPv4Stack=false
+      -Djava.net.preferIPv6Addresses=true
+      -Djboss.bind.address.private=::1
+      -Djboss.bind.address.management=::
+      -Djboss.bind.address=::
+      -Djboss.modules.system.pkgs=org.jboss.byteman
+      -Djava.awt.headless=true
 
 extraEnvFrom: |
   - secretRef:

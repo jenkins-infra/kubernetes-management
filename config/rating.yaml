@@ -14,5 +14,8 @@ ingress:
       hosts:
         - rating.jenkins.io
 
+nodeSelector:
+  agentpool: x86medium
+
 readinessProbe:
   enabled: false

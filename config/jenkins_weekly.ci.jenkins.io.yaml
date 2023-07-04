@@ -19,8 +19,11 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.111.2-2.403
-  pullPolicy: IfNotPresent
+  tag: 0.120.3-2.412
+  imagePullPolicy: IfNotPresent
+  nodeSelector:
+    kubernetes.io/os: linux
+    kubernetes.azure.com/agentpool: x86medium
   resources:
     limits:
       cpu: "2"
@@ -121,6 +124,23 @@ controller:
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
+          themeManager:
+            disableUserThemes: false
+            theme: "darkSystem"
+          customHeaderConfiguration:
+            enabled: true
+            header:
+              context:
+                showFolderWeather: true
+                showJobWeather: true
+            headerColor:
+              backgroundColor: "#3B3B3B"
+              color: "white"
+              hoverColor: "grey"
+            logo: "default"
+            logoText: "Jenkins"
+            title: "with the <a href=\"https://plugins.jenkins.io/customizable-header/\">customizable-header</a>\
+              \ plugin"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
@@ -129,6 +149,65 @@ controller:
             - all:
                 description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
                 name: "all"
+          markupFormatter:
+            rawHtml:
+              disableSyntaxHighlighting: false
+      jobs-settings: |
+        jobs:
+          - script: >
+              folder('folder') {
+                displayName('folder')
+                description('This is an example folder')
+              }
+          - script: >
+              freeStyleJob('folder/freestyle') {
+                displayName('Hello World')
+                steps {
+                  shell 'echo Hello World'
+                }
+              }
+          - script: >
+              pipelineJob('folder/failing-pipeline') {
+                definition {
+                  cps {
+                    sandbox()
+                    script("""\
+                      pipeline {
+                        agent any
+                        stages {
+                          stage ('Failure') {
+                            steps {
+                              echo "This build fails."
+                              sh 'false'
+                            }
+                          }
+                      }""".stripIndent())
+                  }
+                }
+              }
+          - script: >
+              pipelineJob('pipeline') {
+               definition {
+                  cps {
+                    sandbox()
+                    script("""\
+                      pipeline {
+                        agent any
+                        stages {
+                          stage ('Hello World') {
+                            steps {
+                              echo "Hello World"
+                            }
+                          }
+                          stage ('Hello World 2')
+                            steps {
+                              echo "Hello World 2"
+                            }
+                        }
+                      }""".stripIndent())
+                  }
+                }
+              }
   sidecars:
     configAutoReload:
       env:

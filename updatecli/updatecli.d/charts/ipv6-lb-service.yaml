@@ -1,4 +1,4 @@
-name: "Bump jenkins-infra-keycloak Helm Chart Version"
+name: "Bump `ipv6-lb-service` helm chart version"
 
 scms:
   default:
@@ -18,24 +18,24 @@ sources:
     name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
-      name: keycloak
+      name: ipv6-lb-service
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for jenkins-infra-keycloak"
+    name: "Update the chart version for ipv6-lb-service"
     kind: file
-    spec:
-      file: clusters/prodpublick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/keycloak((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/keycloak${1}version: {{ source "lastChartVersion" }}'
     scmid: default
+    spec:
+      file: clusters/publick8s.yaml
+      matchpattern: 'chart: jenkins-infra\/ipv6-lb-service((\r\n|\r|\n)(\s+))version: .*'
+      replacepattern: 'chart: jenkins-infra/ipv6-lb-service${1}version: {{ source "lastChartVersion" }}'
 
 actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump `jenkins-infra-keycloak` helm chart version to {{ source "lastChartVersion" }}
+    title: Bump `ipv6-lb-service` helm chart version to {{ source `lastChartVersion` }}
     spec:
       labels:
         - dependencies
-        - jenkins-infra-keycloak
+        - ipv6-lb-service

@@ -14,9 +14,12 @@ ingress:
       hosts:
         - plugin-health.jenkins.io
 
+nodeSelector:
+  agentpool: x86medium
+
 database:
   username: plugin_health
-  server: public.postgres.database.azure.com
+  server: public-db.postgres.database.azure.com
   name: plugin_health
 config:
   github:

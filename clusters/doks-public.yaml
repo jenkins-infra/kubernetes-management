@@ -30,7 +30,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.11.1
+    version: v1.12.2
     set:
       - name: installCRDs
         value: true
@@ -45,25 +45,26 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.28.1
+    version: 3.32.7
     needs:
       - default/docker-registry-secrets
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_doks-public.yaml"
+      - "../config/datadog_confd_checksd.yaml"
     secrets:
       - "../secrets/config/datadog/doks-public-secrets.yaml"
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.6.1
+    version: 4.7.1
     values:
       - "../config/public-nginx-ingress__common.yaml"
       - "../config/public-nginx-ingress_doks-public.yaml"
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.10.4
+    version: 0.11.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:

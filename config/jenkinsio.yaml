@@ -46,7 +46,9 @@ ingress:
         - jenkins.io
         - www.jenkins-ci.org
         - www.origin.jenkins.io
+
 replicaCount: 5
+
 resources:
   limits:
     cpu: 500m
@@ -54,14 +56,20 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+
 htmlVolume:
   azureFile:
     secretName: jenkinsio
     shareName: jenkinsio
     readOnly: true
+
 zhHtmlVolume:
   azureFile:
     secretName: jenkinsio
     shareName: zhjenkinsio
     readOnly: true
+
 forceJenkinsIoHost: true
+
+nodeSelector:
+  agentpool: x86medium

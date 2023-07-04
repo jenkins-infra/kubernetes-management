@@ -34,13 +34,11 @@ jobsDefinition:
       docker-builder:
       docker-confluence-data:
       docker-crond:
-      docker-datadog:
       docker-hashicorp-tools:
       docker-helmfile:
       docker-inbound-agents:
       docker-jenkins-lts:
       docker-jenkins-weekly:
-      docker-mamoto:
       docker-mirrorbits:
       docker-openvpn:
       docker-packaging:
@@ -133,10 +131,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for privatek8s"
             secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
-          kubeconfig-prodpublick8s:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for prodpublick8s"
-            secretBytes: "${base64:${KUBECONFIG_PRODPUBLICK8S}}"
           kubeconfig-publick8s:
             fileName: "kubeconfig"
             description: "Kubeconfig file for publick8s"
@@ -159,6 +153,14 @@ jobsDefinition:
         branchIncludes: "production staging updatecli_* PR-* main"
       kubernetes-management:
         jenkinsfilePath: Jenkinsfile_updatecli
+        credentials:
+          updatecli-azure-serviceprincipal:
+            azureEnvironmentName: "Azure"
+            clientId: "${PACKER_AZURE_CLIENT_ID}"
+            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+            description: "Azure Service Principal credential used by updatecli"
+            subscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+            tenant: "${PACKER_AZURE_TENANT_ID}"
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
   other-jobs:
