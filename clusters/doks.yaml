@@ -29,7 +29,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 3.30.3
+    version: 3.32.7
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_doks.yaml"
@@ -40,7 +40,7 @@ releases:
       - default/docker-registry-secrets
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.5.0
+    version: 0.5.1
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_doks.yaml"
     secrets:

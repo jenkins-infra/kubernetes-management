@@ -8,10 +8,6 @@ ingress:
     "nginx.ingress.kubernetes.io/cors-allow-methods": "GET, OPTIONS"
     "nginx.ingress.kubernetes.io/cors-allow-origin": "*"
   hosts:
-    - host: plugin-site-issues.origin.jenkins.io
-      paths:
-        - path: /
-          pathType: Prefix
     - host: plugin-site-issues.jenkins.io
       paths:
         - path: /
@@ -19,5 +15,7 @@ ingress:
   tls:
     - secretName: plugin-site-issues-tls
       hosts:
-        - plugin-site-issues.origin.jenkins.io
         - plugin-site-issues.jenkins.io
+
+nodeSelector:
+  agentpool: x86medium

@@ -104,7 +104,7 @@ datadog:
               tags = ["package:" + package,]
 
               if package in endpoints:
-                  self.gauge(metric, is_exist(package, endpoints[package]), tags)helpdes
+                  self.gauge(metric, is_exist(package, endpoints[package]), tags)
               else:
                   self.warning(f"PackageCanDownload: Package {package} is not supported")
 
@@ -451,18 +451,6 @@ datadog:
           days_warning: 10
           days_critical: 5
           url: https://ftp.halifax.rwth-aachen.de/jenkins/TIME
-          method: get
-          collect_response_time: true
-          check_certificate_expiration: true
-          tags:
-            - mirror
-        - name: mirror.azure.jenkins.io
-          timeout: 10
-          threshold: 3
-          window: 5
-          days_warning: 10
-          days_critical: 5
-          url: https://mirror.azure.jenkins.io/TIME
           method: get
           collect_response_time: true
           check_certificate_expiration: true

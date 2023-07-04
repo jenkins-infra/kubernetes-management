@@ -18,16 +18,27 @@ pipeline {
   }
 
   environment {
-    AWS_ACCESS_KEY_ID     = credentials('packer-aws-access-key-id')
-    AWS_SECRET_ACCESS_KEY = credentials('packer-aws-secret-access-key')
-    AWS_DEFAULT_REGION    = 'us-east-2'
+    UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal') //needed for az login
   }
   stages {
     stage('Check Configuration Update') {
       // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          updatecli(action: 'diff', cronTriggerExpression: cronExpr)
+          script {
+            withCredentials([
+              usernamePassword(
+                credentialsId: 'github-app-updatecli-on-jenkins-infra', //needed for updatecli
+                usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
+                passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
+              )
+            ]) {
+              sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+              sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
+              sh 'updatecli version'
+              sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+            }
+          }
         }
       }
     } // stage
@@ -36,7 +47,20 @@ pipeline {
         expression { env.BRANCH_IS_PRIMARY }
       }
       steps {
-        updatecli(action: 'apply', cronTriggerExpression: cronExpr)
+        script {
+            withCredentials([
+              usernamePassword(
+                credentialsId: 'github-app-updatecli-on-jenkins-infra', //needed for updatecli
+                usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
+                passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
+              )
+            ]) {
+              sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+              sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
+              sh 'updatecli version'
+              sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+            }
+          }
       }
     }
   }

@@ -1,21 +1,13 @@
-replicaCount:
-  mirrorbits: 2
-  files: 2
-resources:
+image:
   mirrorbits:
-    limits:
-      cpu: 500m
-      memory: 1024Mi
-    requests:
-      cpu: 500m
-      memory: 1024Mi
+    tag: v0.1.2
+    pullPolicy: IfNotPresent
   files:
-    limits:
-      cpu: 2000m
-      memory: 2048Mi
-    requests:
-      cpu: 2000m
-      memory: 2048Mi
+    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
+    repository: httpd@sha256
+    tag: f70876d78442771406d7245b8d3425e8b0a86891c79811af94fb2e12af0fadeb
+    pullPolicy: IfNotPresent
+
 ingress:
   enabled: true
   className: public-nginx
@@ -49,6 +41,23 @@ ingress:
         - mirrors.jenkins.io
         - mirrors.jenkins-ci.org
         - fallback.get.jenkins.io
+
+resources:
+  mirrorbits:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 500m
+      memory: 1024Mi
+  files:
+    limits:
+      cpu: 2000m
+      memory: 2048Mi
+    requests:
+      cpu: 2000m
+      memory: 2048Mi
+
 repository:
   name: mirrorbits-binary
   persistentVolumeClaim:
@@ -89,12 +98,10 @@ repository:
         - nobrl
         - serverino
         - cache=strict
-image:
-  mirrorbits:
-    tag: v0.1.2
-    pullPolicy: IfNotPresent
-  files:
-    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
-    repository: httpd@sha256
-    tag: f70876d78442771406d7245b8d3425e8b0a86891c79811af94fb2e12af0fadeb
-    pullPolicy: IfNotPresent
+
+replicaCount:
+  mirrorbits: 2
+  files: 2
+
+nodeSelector:
+  agentpool: x86medium

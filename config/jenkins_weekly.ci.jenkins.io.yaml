@@ -19,8 +19,11 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.113.4-2.405
-  pullPolicy: IfNotPresent
+  tag: 0.120.3-2.412
+  imagePullPolicy: IfNotPresent
+  nodeSelector:
+    kubernetes.io/os: linux
+    kubernetes.azure.com/agentpool: x86medium
   resources:
     limits:
       cpu: "2"
@@ -126,15 +129,18 @@ controller:
             theme: "darkSystem"
           customHeaderConfiguration:
             enabled: true
+            header:
+              context:
+                showFolderWeather: true
+                showJobWeather: true
             headerColor:
               backgroundColor: "#3B3B3B"
               color: "white"
               hoverColor: "grey"
-            logo:
-              symbol:
-                symbol: "symbol-jenkins"
+            logo: "default"
             logoText: "Jenkins"
-            title: "with the customizable-header plugin 🚀"
+            title: "with the <a href=\"https://plugins.jenkins.io/customizable-header/\">customizable-header</a>\
+              \ plugin"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
