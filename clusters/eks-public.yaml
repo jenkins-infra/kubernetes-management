@@ -37,7 +37,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.28.0
+    version: 9.29.1
     values:
       - "../config/autoscaler_eks-public.yaml"
     set:
@@ -57,7 +57,7 @@ releases:
   - name: aws-load-balancer-controller
     namespace: aws-load-balancer
     chart: eks/aws-load-balancer-controller
-    version: 1.4.8
+    version: 1.5.4
     values:
       - "../config/aws-load-balancer-controller.yaml"
     set:

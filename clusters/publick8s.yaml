@@ -139,7 +139,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.5.2
+    version: 0.5.7
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -172,7 +172,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.5.15
+    version: 0.5.16
     values:
       - "../config/accountapp.yaml"
     secrets:
@@ -189,7 +189,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.49.3
+    version: 0.50.1
     timeout: 600
     atomic: false
     values:
