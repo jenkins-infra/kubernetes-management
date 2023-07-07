@@ -114,6 +114,15 @@ releases:
     version: 0.3.84
     values:
       - "../config/wiki.yaml"
+  - name: ldap
+    namespace: ldap
+    chart: jenkins-infra/ldap
+    version: 0.1.6
+    timeout: 600
+    values:
+      - "../config/ldap.yaml"
+    secrets:
+      - "../secrets/config/ldap/secrets.yaml"
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
     namespace: keycloak
     chart: codecentric/keycloak
@@ -121,6 +130,8 @@ releases:
     timeout: 600
     values:
       - "../config/keycloak.yaml"
+    needs:
+      - ldap/ldap
     secrets:
       ## TODO: delete db.yaml once fully migrated
       #- "../secrets/config/keycloak/db.yaml"
@@ -173,19 +184,12 @@ releases:
     namespace: accountapp
     chart: jenkins-infra/accountapp
     version: 0.5.16
+    needs:
+      - ldap/ldap
     values:
       - "../config/accountapp.yaml"
     secrets:
       - "../secrets/config/accountapp/secrets.yaml"
-  - name: ldap
-    namespace: ldap
-    chart: jenkins-infra/ldap
-    version: 0.1.6
-    timeout: 600
-    values:
-      - "../config/ldap.yaml"
-    secrets:
-      - "../secrets/config/ldap/secrets.yaml"
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
