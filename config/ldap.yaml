@@ -1,21 +1,20 @@
 service:
   type: LoadBalancer
   # Public IPv4 defined as code in https://github.com/jenkins-infra/azure/blob/main/ldap.jenkins.io.tf instead of requesting a random new public IP, useful for DNS setup and changes
-  IP: 20.10.205.3
+  IP: 20.7.180.148
   whitelisted_sources:
-    - '10.0.32.0/19'  # Kubernetes publick8s internal IPs
+    - '20.85.71.108/32'  # Accept inbound connections from publick8s public outbound IP
+    - '10.100.0.0/16'  # publick8s Pod CIDR (internal IPs) for intrnal access
     - '73.71.177.172/32'  # 106 accept inbound LDAPS request from spambot
     - '140.211.15.101/32'  # 107 accept inbound LDAPS request from accounts.jenkins.io
     - '20.12.27.65/32'  # 107 accept inbound LDAPS request from puppet.jenkins.io
     - '104.209.128.236/32'  # 107 accept inbound LDAPS from trusted NAT gateway for trusted.ci.jenkins.io
-    - '52.71.231.250/32'  # 107 accept inbound LDAPS from (AWS) ci.jenkins.io # TODO: sounds like we can remove this one
     - '104.209.251.202/32'  # accept inbound LDAPS from vpn.jenkins.io
     - '172.176.126.194/32'  # accept inbound LDAPS from private.vpn.jenkins.io
     - '104.210.5.242/32'  # accept inbound LDAPS from cert.ci.jenkins.io
-    - '104.208.238.39/32'  # Accept inbound LDAPS from ci.jenkins.io
+    - '52.252.104.110/32'  # Accept inbound LDAPS from ci.jenkins.io
     - '34.211.101.61/32'  # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32'  # Accept inbound connections from Linux Foundation prod machine
-    - '20.62.24.45/32'  # Accept inbound connections from publick8s public outbound IP
     - '20.96.66.246/32'  # Accept inbound connections from privatek8s # TODO: find out how to retrieve this IP from terraform
     - '18.214.241.149/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.201.191.93/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)

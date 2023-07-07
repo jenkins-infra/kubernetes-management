@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.32.7
+    version: 3.32.8
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -114,6 +114,15 @@ releases:
     version: 0.3.85
     values:
       - "../config/wiki.yaml"
+  - name: ldap
+    namespace: ldap
+    chart: jenkins-infra/ldap
+    version: 0.1.6
+    timeout: 600
+    values:
+      - "../config/ldap.yaml"
+    secrets:
+      - "../secrets/config/ldap/secrets.yaml"
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
     namespace: keycloak
     chart: codecentric/keycloak
@@ -121,6 +130,8 @@ releases:
     timeout: 600
     values:
       - "../config/keycloak.yaml"
+    needs:
+      - ldap/ldap
     secrets:
       ## TODO: delete db.yaml once fully migrated
       #- "../secrets/config/keycloak/db.yaml"
@@ -139,7 +150,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.5.5
+    version: 0.5.7
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -172,24 +183,17 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.5.15
+    version: 0.5.16
+    needs:
+      - ldap/ldap
     values:
       - "../config/accountapp.yaml"
     secrets:
       - "../secrets/config/accountapp/secrets.yaml"
-  - name: ldap
-    namespace: ldap
-    chart: jenkins-infra/ldap
-    version: 0.1.6
-    timeout: 600
-    values:
-      - "../config/ldap.yaml"
-    secrets:
-      - "../secrets/config/ldap/secrets.yaml"
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.50.0
+    version: 0.50.1
     timeout: 600
     atomic: false
     values:
