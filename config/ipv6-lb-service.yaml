@@ -1,5 +1,5 @@
 # azurerm_public_ip.publick8s_ipv6.ip_address in https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
-ipv6: 2603:1030:408:7::44
+ipv6: 2603:1030:408:5::15a
 app:
   name: "ingress-nginx"
   component: "controller"

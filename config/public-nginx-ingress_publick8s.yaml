@@ -4,9 +4,9 @@ controller:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
       # azurerm_public_ip.publick8s_ipv4.ip_address in https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
-      service.beta.kubernetes.io/azure-load-balancer-ipv4: 20.119.232.75
+      service.beta.kubernetes.io/azure-load-balancer-ipv4: 20.7.178.24
       # azurerm_public_ip.publick8s_ipv6.ip_address in https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
-      service.beta.kubernetes.io/azure-load-balancer-ipv6: 2603:1030:408:7::44
+      service.beta.kubernetes.io/azure-load-balancer-ipv6: 2603:1030:408:5::15a
     externalTrafficPolicy: Local
     ipFamilies:
       - IPv4
