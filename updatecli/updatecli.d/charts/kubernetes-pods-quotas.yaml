@@ -17,25 +17,25 @@ sources:
     kind: yaml
     name: get pods number for cik8s in ci.jenkins.io, namespace 'jenkins-agents'
     spec:
-      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/azure.ci.jenkins.io.yaml"
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.ci.jenkins.io.yaml"
       key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.cik8s.max_capacity"
   cik8s_bom_maxcapacity:
     kind: yaml
     name: get pods number for cik8s in ci.jenkins.io, namespace 'jenkins-agents-bom'
     spec:
-      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/azure.ci.jenkins.io.yaml"
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.ci.jenkins.io.yaml"
       key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.cik8s-bom.max_capacity"
   cik8s_experiments_maxcapacity:
     kind: yaml
     name: get pods number for cik8s in ci.jenkins.io, namespace 'jenkins-agents-experiments'
     spec:
-      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/azure.ci.jenkins.io.yaml"
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.ci.jenkins.io.yaml"
       key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.cik8s-experiments.max_capacity"
   doks_maxcapacity:
     kind: yaml
     name: get pods number for doks in ci.jenkins.io
     spec:
-      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/azure.ci.jenkins.io.yaml"
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.ci.jenkins.io.yaml"
       key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.doks.max_capacity"
 
 targets:
