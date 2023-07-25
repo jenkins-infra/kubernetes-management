@@ -57,7 +57,7 @@ releases:
   - name: aws-load-balancer-controller
     namespace: aws-load-balancer
     chart: eks/aws-load-balancer-controller
-    version: 1.5.4
+    version: 1.5.5
     values:
       - "../config/aws-load-balancer-controller.yaml"
     set:
@@ -81,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.33.1
+    version: 3.33.3
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_eks-public.yaml"

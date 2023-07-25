@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.33.1
+    version: 3.33.3
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -85,7 +85,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.4.0
+    version: 4.4.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -111,7 +111,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.85
+    version: 0.3.86
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -140,7 +140,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.1.9
+    version: 2.1.10
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -193,7 +193,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.50.2
+    version: 0.51.1
     timeout: 600
     atomic: false
     values:
