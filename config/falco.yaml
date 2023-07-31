@@ -19,3 +19,8 @@ customRules:
       condition: not container.image.repository in (allowed_docker_image_repository) and k8s.ns.name in (monitored_namespaces)
       output: Unauthorized container %container.image.repository running in namespace %k8s.ns.name (command=%proc.cmdline pid=%proc.pid file=%fd.name %container.info image=%container.image registry=%container.image.repository)
       priority: ALERT
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
