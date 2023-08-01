@@ -30,10 +30,9 @@ replicaCount: 2
 
 # Specify the "hard" scheduling constraints
 nodeSelector:
-  # Ensure ARM64 is used to decrease cloud bill (instead of using `amd64`
+  # arm64 is cheaper than x86
   kubernetes.io/arch: arm64
 
-# Tolerates to run on tainted `arm64` nodes
 tolerations:
   - key: "kubernetes.io/arch"
     operator: "Equal"
