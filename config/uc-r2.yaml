@@ -1,0 +1,90 @@
+image:
+  mirrorbits:
+    tag: v0.1.2
+    pullPolicy: IfNotPresent
+  files:
+    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
+    repository: httpd@sha256
+    tag: f70876d78442771406d7245b8d3425e8b0a86891c79811af94fb2e12af0fadeb
+    pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: test-hlm-uc-r2
+      paths:
+        - path: /
+          serviceNameSuffix: files
+        - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
+  tls:
+    - secretName: uc-r2-tls
+      hosts:
+        - test-hlm-uc-r2.jenkins.io
+
+resources:
+  mirrorbits:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 500m
+      memory: 1024Mi
+  files:
+    limits:
+      cpu: 2000m
+      memory: 2048Mi
+    requests:
+      cpu: 2000m
+      memory: 2048Mi
+
+repository:
+  name: mirrorbits-binary
+  persistentVolumeClaim:
+    enabled: true
+    spec:
+      accessModes:
+        - ReadWriteMany
+      storageClassName: azurefile-csi-premium
+      resources:
+        requests:
+          storage: 1000Gi
+      volumeName: mirrorbits-binary
+  persistentVolume:
+    enabled: true
+    spec:
+      capacity:
+        storage: 1000Gi
+      storageClassName: azurefile-csi-premium
+      accessModes:
+        - ReadWriteMany
+      persistentVolumeReclaimPolicy: Retain
+      csi:
+        driver: file.csi.azure.com
+        readOnly: false
+        volumeHandle: mirrorbits-binary  # make sure this volumeid is unique for every identical share in the cluster
+        volumeAttributes:
+          resourceGroup: prod-core-releases
+          shareName: mirrorbits
+        nodeStageSecretRef:
+          name: mirrorbits-binary
+          namespace: mirrorbits
+      mountOptions:
+        - dir_mode=0755
+        - file_mode=0644
+        - uid=1000
+        - gid=1000
+        - mfsymlinks
+        - nobrl
+        - serverino
+        - cache=strict
+
+replicaCount:
+  mirrorbits: 2
+  files: 2
+
+nodeSelector:
+  agentpool: x86medium
