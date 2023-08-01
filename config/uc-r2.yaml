@@ -42,7 +42,7 @@ resources:
       memory: 2048Mi
 
 repository:
-  name: mirrorbits-binary
+  name: uc-r2-binary
   persistentVolumeClaim:
     enabled: true
     spec:
@@ -52,7 +52,7 @@ repository:
       resources:
         requests:
           storage: 1000Gi
-      volumeName: mirrorbits-binary
+      volumeName: uc-r2-binary
   persistentVolume:
     enabled: true
     spec:
@@ -65,13 +65,13 @@ repository:
       csi:
         driver: file.csi.azure.com
         readOnly: false
-        volumeHandle: mirrorbits-binary  # make sure this volumeid is unique for every identical share in the cluster
+        volumeHandle: uc-r2-binary  # make sure this volumeid is unique for every identical share in the cluster
         volumeAttributes:
-          resourceGroup: prod-core-releases
-          shareName: mirrorbits
+          resourceGroup: test-hlm-uc-r2
+          shareName: uc-r2
         nodeStageSecretRef:
-          name: mirrorbits-binary
-          namespace: mirrorbits
+          name: uc-r2-binary
+          namespace: uc-r2
       mountOptions:
         - dir_mode=0755
         - file_mode=0644
