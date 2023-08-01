@@ -1,0 +1,41 @@
+name: "Bump mirrorbits httpd docker image version"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  latestDockerDigest:
+    name: "Get latest httpd docker digest"
+    kind: dockerdigest
+    spec:
+      image: "docker-library/httpd"
+      tag: "latest"
+      architecture: "amd64"
+
+targets:
+  updateDigestInConfig:
+    name: "Update docker-library/httpd docker image version"
+    kind: yaml
+    spec:
+      file: "config/mirrorbits.yaml"
+      key: "image.files.tag"
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump mirrorbits httpd docker image version
+    spec:
+      labels:
+        - dependencies
+        - httpd
