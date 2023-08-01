@@ -51,13 +51,13 @@ repository:
       storageClassName: azurefile-csi-premium
       resources:
         requests:
-          storage: 1000Gi
+          storage: 1Gi
       volumeName: uc-r2-binary
   persistentVolume:
     enabled: true
     spec:
       capacity:
-        storage: 1000Gi
+        storage: 1Gi
       storageClassName: azurefile-csi-premium
       accessModes:
         - ReadWriteMany
