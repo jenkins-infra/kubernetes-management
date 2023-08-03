@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.33.5
+    version: 3.33.6
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -71,6 +71,8 @@ releases:
     namespace: falco
     chart: falco/falco
     version: 2.5.2
+    values:
+      - "../config/falco.yaml"
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
@@ -111,7 +113,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.87
+    version: 0.3.88
     values:
       - "../config/wiki.yaml"
   - name: ldap

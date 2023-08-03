@@ -32,6 +32,14 @@ htmlVolume:
 
 replicaCount: 2
 
+# Specify the "hard" scheduling constraints
 nodeSelector:
-  kubernetes.azure.com/agentpool: arm64small
+  # Ensure ARM64 is used to decrease cloud bill (instead of using `amd64`
   kubernetes.io/arch: arm64
+
+# Tolerates to run on tainted `arm64` nodes
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"

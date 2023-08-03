@@ -28,5 +28,13 @@ htmlVolume:
 
 replicaCount: 2
 
+# Specify the "hard" scheduling constraints
 nodeSelector:
-  agentpool: x86medium
+  # arm64 is cheaper than x86
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
