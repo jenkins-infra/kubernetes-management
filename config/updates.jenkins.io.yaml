@@ -49,6 +49,7 @@ repository:
       accessModes:
         - ReadWriteOnce
       storageClassName: managed-csi-premium-retain # Info: the "-retain" SC has volumeBindingMode: Immediate (vs 'WaitForFirstConsumer' for the one without retain)
+      volumeName: updates-jenkins-io-binary
       resources:
         requests:
           storage: 1Gi
