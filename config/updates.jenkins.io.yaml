@@ -15,15 +15,15 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: test-hlm-uc-r2
+    - host: azure.updates.jenkins.io
       paths:
         - path: /
           serviceNameSuffix: files
         # - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
   tls:
-    - secretName: uc-r2-tls
+    - secretName: updates-jenkins-io-tls
       hosts:
-        - test-hlm-uc-r2.jenkins.io
+        - azure.updates.jenkins.io
 
 resources:
   mirrorbits:
@@ -42,49 +42,20 @@ resources:
       memory: 2048Mi
 
 repository:
-  name: uc-r2-binary
+  name: updates-jenkins-io-binary
   persistentVolumeClaim:
     enabled: true
     spec:
       accessModes:
-        - ReadWriteMany
-      storageClassName: azurefile-csi-premium
+        - ReadWriteOnce
+      storageClassName: managed-csi-premium-retain # Info: the "-retain" SC has volumeBindingMode: Immediate (vs 'WaitForFirstConsumer' for the one without retain)
       resources:
         requests:
           storage: 1Gi
-      volumeName: uc-r2-binary
-  persistentVolume:
-    enabled: true
-    spec:
-      capacity:
-        storage: 1Gi
-      storageClassName: azurefile-csi-premium
-      accessModes:
-        - ReadWriteMany
-      persistentVolumeReclaimPolicy: Retain
-      csi:
-        driver: file.csi.azure.com
-        readOnly: false
-        volumeHandle: uc-r2-binary  # make sure this volumeid is unique for every identical share in the cluster
-        volumeAttributes:
-          resourceGroup: test-hlm-uc-r2
-          shareName: uc-r2
-        nodeStageSecretRef:
-          name: uc-r2-binary
-          namespace: uc-r2
-      mountOptions:
-        - dir_mode=0755
-        - file_mode=0644
-        - uid=1000
-        - gid=1000
-        - mfsymlinks
-        - nobrl
-        - serverino
-        - cache=strict
 
 replicaCount:
-  mirrorbits: 2
-  files: 2
+  mirrorbits: 1 #2
+  files: 1 #2
 
 nodeSelector:
   agentpool: x86medium

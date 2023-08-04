@@ -234,13 +234,13 @@ releases:
       - public-nginx-ingress/public-nginx-ingress
     values:
       - "../config/ipv6-lb-service.yaml"
-  - name: uc-r2
-    namespace: uc-r2
+  - name: updates-jenkins-io
+    namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
     version: 0.52.0
     timeout: 600
     atomic: false
     values:
-      - "../config/uc-r2.yaml"
+      - "../config/updates.jenkins.io.yaml"
     secrets:
-      - "../secrets/config/uc-r2/secrets.yaml"
+      - "../secrets/config/updates.jenkins.io/secrets.yaml"
