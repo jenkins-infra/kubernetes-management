@@ -238,8 +238,6 @@ releases:
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
     version: 0.52.0
-    timeout: 600
-    atomic: false
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
