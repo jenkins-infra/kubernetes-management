@@ -47,12 +47,43 @@ repository:
     enabled: true
     spec:
       accessModes:
-        - ReadWriteOnce
-      storageClassName: managed-csi-premium-retain # Info: the "-retain" SC has volumeBindingMode: Immediate (vs 'WaitForFirstConsumer' for the one without retain)
+        - ReadWriteMany
+      storageClassName: azurefile-csi-premium
       volumeName: updates-jenkins-io-binary
       resources:
         requests:
           storage: 1Gi
+  # As the storage account is independently declared and created elsewhere (jenkins-infra/azure/updates.jenkins.io.tf),
+  # we're adding the PV definition to rattach the PVC to the existing storage account without creating a new one
+  # and especially without deleting it when the cluster has to be recreated.
+  persistentVolume:
+    enabled: true
+    spec:
+      capacity:
+        storage: 1Gi
+      storageClassName: azurefile-csi-premium
+      accessModes:
+        - ReadWriteMany
+      persistentVolumeReclaimPolicy: Retain
+      csi:
+        driver: file.csi.azure.com
+        readOnly: false
+        volumeHandle: updates-jenkins-io-binary  # make sure this volumeid is unique for every identical share in the cluster
+        volumeAttributes:
+          resourceGroup: updates-jenkins-io
+          shareName: updates-jenkins-io
+        nodeStageSecretRef:
+          name: updates-jenkins-io
+          namespace: updates-jenkins-io
+      mountOptions:
+        - dir_mode=0755
+        - file_mode=0644
+        - uid=1000
+        - gid=1000
+        - mfsymlinks
+        - nobrl
+        - serverino
+        - cache=strict
 
 replicaCount:
   mirrorbits: 1 #2
