@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.33.1
+    version: 3.33.7
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.2
+    version: v1.12.3
     set:
       - name: installCRDs
         value: true
@@ -71,6 +71,8 @@ releases:
     namespace: falco
     chart: falco/falco
     version: 2.5.2
+    values:
+      - "../config/falco.yaml"
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
@@ -85,7 +87,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.4.0
+    version: 4.5.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -111,7 +113,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.85
+    version: 0.3.88
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -140,7 +142,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.1.9
+    version: 2.1.10
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -183,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.5.18
+    version: 0.5.25
     needs:
       - ldap/ldap
     values:
@@ -193,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.50.2
+    version: 0.52.2
     timeout: 600
     atomic: false
     values:

@@ -30,7 +30,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.2
+    version: v1.12.3
     set:
       - name: installCRDs
         value: true
@@ -45,7 +45,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.33.1
+    version: 3.33.7
     needs:
       - default/docker-registry-secrets
     values:
