@@ -152,7 +152,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.5.7
+    version: 0.5.8
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.52.2
+    version: 0.53.0
     timeout: 600
     atomic: false
     values:
