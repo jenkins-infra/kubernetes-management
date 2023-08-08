@@ -50,7 +50,7 @@ repository:
       volumeName: updates-jenkins-io-binary
       resources:
         requests:
-          storage: 1Gi
+          storage: 2Gi # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
   # As the storage account is independently declared and created elsewhere (jenkins-infra/azure/updates.jenkins.io.tf),
   # we're adding the PV definition to rattach the PVC to the existing storage account without creating a new one
   # and especially without deleting it when the cluster has to be recreated.
@@ -58,7 +58,7 @@ repository:
     enabled: true
     spec:
       capacity:
-        storage: 1Gi
+        storage: 2Gi # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
       storageClassName: azurefile-csi-premium
       accessModes:
         - ReadWriteMany
