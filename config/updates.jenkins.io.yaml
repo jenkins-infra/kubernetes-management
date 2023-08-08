@@ -73,7 +73,7 @@ repository:
           resourceGroup: updates-jenkins-io
           shareName: updates-jenkins-io
         nodeStageSecretRef:
-          name: updates-jenkins-io
+          name: updates-jenkins-io-binary
           namespace: updates-jenkins-io
       mountOptions:
         - dir_mode=0755
