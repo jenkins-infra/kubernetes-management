@@ -1,3 +1,5 @@
+fullnameOverride: updates-jenkins-io
+
 image:
   mirrorbits:
     tag: v0.1.2
