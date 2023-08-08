@@ -645,7 +645,7 @@ controller:
               - installSource:
                   installers:
                   - maven:
-                      id: "3.9.3"
+                      id: "3.9.4"
   sidecars:
     configAutoReload:
       env:
