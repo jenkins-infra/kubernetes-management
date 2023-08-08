@@ -45,7 +45,7 @@ repository:
     enabled: true
     spec:
       accessModes:
-        - ReadWriteMany
+        - ReadOnlyMany
       storageClassName: azurefile-csi-premium
       volumeName: updates-jenkins-io-binary
       resources:
@@ -61,7 +61,7 @@ repository:
         storage: 2Gi # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
       storageClassName: azurefile-csi-premium
       accessModes:
-        - ReadWriteMany
+        - ReadOnlyMany
       persistentVolumeReclaimPolicy: Retain
       csi:
         driver: file.csi.azure.com
