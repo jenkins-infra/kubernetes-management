@@ -17,7 +17,8 @@ ingress:
       paths:
         - path: /
           serviceNameSuffix: files
-        # - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
+        - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
+          pathType: ImplementationSpecific
   tls:
     - secretName: updates-jenkins-io-tls
       hosts:
