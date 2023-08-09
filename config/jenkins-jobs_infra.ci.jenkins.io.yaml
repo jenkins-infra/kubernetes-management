@@ -103,14 +103,6 @@ jobsDefinition:
           production-terraform-digitalocean-pat:
             secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
             description: "Digital Ocean PAT for production"
-          # Used by AWS terraform and kubernetes-management
-          eks-public-charter-awsconfig:
-            fileName: "credentials"
-            secretBytes: "${base64:${EKS_PUBLIC_CHARTER_AWSCONFIG}}"
-          # Used by AWS terraform and kubernetes-management
-          cik8s-charter-awsconfig:
-            fileName: "credentials"
-            secretBytes: "${base64:${CIK8S_CHARTER_AWSCONFIG}}"
           kubeconfig-cik8s:
             fileName: "kubeconfig"
             description: "Kubeconfig file for cik8s"
