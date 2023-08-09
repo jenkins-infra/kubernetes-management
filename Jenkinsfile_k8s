@@ -43,10 +43,6 @@ pipeline {
         AZURE_TENANT_ID           = credentials('sops-tenant-id')
         AZURE_CLIENT_ID           = credentials('sops-client-id')
         AZURE_CLIENT_SECRET       = credentials('sops-client-secret')
-        DIGITALOCEAN_ACCESS_TOKEN = credentials('production-terraform-digitalocean-pat')
-        // Required for AWS-hosted clusters.
-        // Variable name is constrained (ref. https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
-        AWS_SHARED_CREDENTIALS_FILE       =   credentials("${env.K8S_CLUSTER == 'eks-public' ? 'eks-public-charter-awsconfig': 'cik8s-charter-awsconfig'}")
       }
         stages {
           stage('Prepare Environment'){
