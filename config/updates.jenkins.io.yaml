@@ -1,4 +1,4 @@
-fullnameOverride: updates-jenkins-io
+nameOverride: updates-jenkins-io
 
 image:
   mirrorbits:
