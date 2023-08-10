@@ -1,11 +1,5 @@
 nameOverride: updates-jenkins-io
 
-image:
-  mirrorbits:
-    pullPolicy: IfNotPresent
-  files:
-    pullPolicy: IfNotPresent
-
 ingress:
   enabled: true
   className: public-nginx
