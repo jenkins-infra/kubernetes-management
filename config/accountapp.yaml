@@ -1,5 +1,3 @@
-image:
-  pullPolicy: IfNotPresent
 ingress:
   enabled: true
   className: public-nginx
