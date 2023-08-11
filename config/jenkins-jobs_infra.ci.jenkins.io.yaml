@@ -96,13 +96,6 @@ jobsDefinition:
           sops-tenant-id:
             secret: "${SOPS_TENANT_ID}"
             description: Azure tenant id used by sops to decrypt secrets
-          # Used by updatecli to retrieve AMIs
-          packer-aws-access-key-id: *packer-aws-access-key-id-def
-          # Used by updatecli to retrieve AMIs
-          packer-aws-secret-access-key: *packer-aws-secret-access-key-def
-          production-terraform-digitalocean-pat:
-            secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
-            description: "Digital Ocean PAT for production"
           kubeconfig-cik8s:
             fileName: "kubeconfig"
             description: "Kubeconfig file for cik8s"
