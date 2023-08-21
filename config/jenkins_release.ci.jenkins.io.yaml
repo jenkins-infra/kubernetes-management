@@ -26,7 +26,7 @@ networkPolicy:
       name: "jenkins-release"
 controller:
   image: jenkinsciinfra/jenkins-lts
-  tag: 0.32.10-2.401.3
+  tag: 1.0.1-2.401.3
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -208,7 +208,7 @@ controller:
                     nodeSelector: "kubernetes.io/os=linux"
                     containers:
                       - name: jnlp
-                        image: "jenkins/inbound-agent:latest-jdk11"
+                        image: "jenkins/inbound-agent:latest-jdk17"
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
@@ -239,14 +239,14 @@ controller:
                     instanceCapStr: "5"
                     containers:
                       - name: jnlp
-                        image: "jenkins/inbound-agent:jdk11-windowsservercore-ltsc2019"
+                        image: "jenkins/inbound-agent:jdk17-windowsservercore-ltsc2019"
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
-                            value: "C:/openjdk-11"
+                            value: "C:/openjdk-17"
                         - envVar:
                             key: "JAVA_HOME"
-                            value: "C:/openjdk-11"
+                            value: "C:/openjdk-17"
                         command: "powershell"
                         args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
                         resourceLimitCpu: "1"
