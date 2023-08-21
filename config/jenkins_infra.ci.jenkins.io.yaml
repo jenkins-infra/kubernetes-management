@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 0.127.3-2.419
+  tag: 1.0.2-2.419
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -116,7 +116,7 @@ controller:
                     nodeSelector: "kubernetes.io/os=linux"
                     containers:
                       - name: jnlp
-                        image: "jenkins/inbound-agent:latest-jdk11"
+                        image: "jenkins/inbound-agent:latest-jdk17"
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
@@ -150,10 +150,10 @@ controller:
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
-                            value: "C:/openjdk-11"
+                            value: "C:/openjdk-17"
                         - envVar:
                             key: "JAVA_HOME"
-                            value: "C:/openjdk-11"
+                            value: "C:/openjdk-17"
                         command: "powershell"
                         args: "C:/ProgramData/Jenkins/jenkins-agent.ps1"
                         resourceLimitCpu: "1"
@@ -248,7 +248,7 @@ controller:
                     systemctl start datadog-agent.service
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-11/bin/java"
+                  javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "linux-amd64 linux-amd64-docker"
                   location: "East US 2"
@@ -285,7 +285,7 @@ controller:
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
-                  javaPath: "C:/tools/jdk-11/bin/java"
+                  javaPath: "C:/tools/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows"
                   location: "East US 2"
@@ -335,7 +335,7 @@ controller:
                     systemctl start datadog-agent.service
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-11/bin/java"
+                  javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "linux-arm64 linux-arm64-docker azure"
                   location: "East US 2"
