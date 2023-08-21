@@ -703,6 +703,19 @@ controller:
               whiteB: "#FFFFFF"
               yellow: "#CDCD00"
               yellowB: "#FFFF00"
+      custom-header: |
+        unclassified:
+          customHeaderConfiguration:
+            enabled: true
+            header: "logo"
+            headerColor:
+              backgroundColor: "linear-gradient(90deg, rgba(239,192,92,1) 0%, rgba(171,28,28,1) 100%);"
+              color: "white"
+              hoverColor: "grey"
+            logo:
+              svg:
+                logoPath: "https://www.jenkins.io/images/logos/beekeeper/beekeeper.svg"
+            logoText: "Jenkins Infra"
   sidecars:
     configAutoReload:
       env:
