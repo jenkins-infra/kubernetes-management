@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 0.58.1
+    version: 0.59.1
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:

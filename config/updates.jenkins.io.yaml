@@ -88,14 +88,6 @@ rsyncd:
     enabled: true
     type: ClusterIP
     port: 873
-  ingress:
-    enabled: true
-    annotations:
-      "cert-manager.io/cluster-issuer": "letsencrypt-staging"
-    hosts:
-      - host: rsyncd.updates.jenkins.io
-    tls:
-      - secretName: rsyncd-releasemirror-tls
-
+    IP: 127.0.0.0 # TODO: set from output of https://github.com/jenkins-infra/azure/pull/459>
 nodeSelector:
   agentpool: x86medium
