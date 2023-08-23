@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.0.4-2.419
+  tag: 1.1.0-2.420
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
