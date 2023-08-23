@@ -88,7 +88,7 @@ rsyncd:
     enabled: true
     type: ClusterIP
     port: 873
-    IP: 127.0.0.0 # TODO: set from output of https://github.com/jenkins-infra/azure/pull/459>
+    IP: 172.176.204.85 # rsyncd_jenkins_io_ipv4_address defined in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
   configurationFiles:
     rsyncdConf:
       # override: true
