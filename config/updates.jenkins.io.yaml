@@ -89,5 +89,13 @@ rsyncd:
     type: ClusterIP
     port: 873
     IP: 127.0.0.0 # TODO: set from output of https://github.com/jenkins-infra/azure/pull/459>
+  configurationFiles:
+    rsyncdConf:
+      # override: true
+      # content: "TODO"
+    jenkinsMotd:
+      # override: true
+      # content: "TODO"
+
 nodeSelector:
   agentpool: x86medium
