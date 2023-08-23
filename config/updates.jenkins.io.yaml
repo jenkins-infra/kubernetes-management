@@ -81,6 +81,21 @@ repository:
 replicaCount:
   mirrorbits: 1 #2
   files: 1 #2
+  rsyncd: 1
+
+rsyncd:
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 873
+  ingress:
+    enabled: true
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-staging"
+    hosts:
+      - host: rsyncd.updates.jenkins.io
+    tls:
+      - secretName: rsyncd-releasemirror-tls
 
 nodeSelector:
   agentpool: x86medium
