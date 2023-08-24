@@ -87,15 +87,7 @@ rsyncd:
   service:
     enabled: true
     type: LoadBalancer
-    port: 873
     IP: 172.176.204.85 # rsyncd_jenkins_io_ipv4_address defined in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
-  configurationFiles:
-    rsyncdConf:
-      # override: true
-      # content: "TODO"
-    jenkinsMotd:
-      # override: true
-      # content: "TODO"
 
 nodeSelector:
   agentpool: x86medium
