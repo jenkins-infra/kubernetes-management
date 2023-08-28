@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.59.1
+    version: 0.61.0
     timeout: 600
     atomic: false
     values:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 0.59.1
+    version: 0.61.0
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
