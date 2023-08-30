@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.1.1-2.420
+  tag: 1.2.1-2.421
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -109,13 +109,25 @@ controller:
         jenkins:
           authorizationStrategy:
             globalMatrix:
-              permissions:
-                - "USER:Job/Read:anonymous"
-                - "GROUP:Job/Read:authenticated"
-                - "USER:Overall/Read:anonymous"
-                - "GROUP:Overall/Read:authenticated"
-                - "GROUP:Overall/Administer:admins"
-                - "GROUP:Overall/Administer:jenkins-admins"
+              entries:
+              - group:
+                  name: "admins"
+                  permissions:
+                  - "Overall/Administer"
+              - group:
+                  name: "authenticated"
+                  permissions:
+                  - "Job/Read"
+                  - "Overall/Read"
+              - group:
+                  name: "jenkins-admins"
+                  permissions:
+                  - "Overall/Administer"
+              - user:
+                  name: "anonymous"
+                  permissions:
+                  - "Job/Read"
+                  - "Overall/Read"
       timestamper-settings: |
         unclassified:
           timestamper:

@@ -84,10 +84,11 @@ replicaCount:
   rsyncd: 1
 
 rsyncd:
-  service:
-    enabled: true
-    type: LoadBalancer
-    IP: 172.176.204.85 # rsyncd_jenkins_io_ipv4_address defined in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+  enabled: true
+  volumes:
+    datadir:
+      persistentVolumeClaim:
+        claimName: updates-jenkins-io-binary
 
 nodeSelector:
   agentpool: x86medium

@@ -26,7 +26,7 @@ networkPolicy:
       name: "jenkins-release"
 controller:
   image: jenkinsciinfra/jenkins-lts
-  tag: 1.0.5-2.414.1
+  tag: 1.0.6-2.414.1
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -520,15 +520,30 @@ controller:
         jenkins:
           authorizationStrategy:
             globalMatrix:
-              permissions:
-                - "GROUP:Overall/Administer:admins"
-                - "GROUP:Overall/Administer:jenkins-admins"
-                - "GROUP:Overall/Administer:release-core"
-                - "GROUP:Overall/Read:authenticated"
-                - "GROUP:Overall/SystemRead:authenticated"
-                - "GROUP:Job/Build:release-core-dev"
-                - "GROUP:Job/Cancel:release-core-dev"
-                - "GROUP:Job/Read:authenticated"
+              entries:
+              - group:
+                  name: "admins"
+                  permissions:
+                  - "Overall/Administer"
+              - group:
+                  name: "authenticated"
+                  permissions:
+                  - "Job/Read"
+                  - "Overall/Read"
+                  - "Overall/SystemRead"
+              - group:
+                  name: "jenkins-admins"
+                  permissions:
+                  - "Overall/Administer"
+              - group:
+                  name: "release-core-dev"
+                  permissions:
+                  - "Job/Build"
+                  - "Job/Cancel"
+              - group:
+                  name: "release-core"
+                  permissions:
+                  - "Overall/Administer"
       timestamper-settings: |
         unclassified:
           timestamper:
