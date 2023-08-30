@@ -508,14 +508,23 @@ controller:
         jenkins:
           authorizationStrategy:
             globalMatrix:
-              permissions:
-                - "GROUP:Job/Build:authenticated"
-                - "GROUP:Job/ExtendedRead:authenticated"
-                - "GROUP:Job/Read:authenticated"
-                - "GROUP:Overall/Administer:admins"
-                - "GROUP:Overall/Administer:jenkins-admins"
-                - "GROUP:Overall/Read:authenticated"
-                - "GROUP:Overall/SystemRead:authenticated"
+              entries:
+              - group:
+                  name: "admins"
+                  permissions:
+                  - "Overall/Administer"
+              - group:
+                  name: "authenticated"
+                  permissions:
+                  - "Job/Build"
+                  - "Job/ExtendedRead"
+                  - "Job/Read"
+                  - "Overall/Read"
+                  - "Overall/SystemRead"
+              - group:
+                  name: "jenkins-admins"
+                  permissions:
+                  - "Overall/Administer"
       pipeline-settings: |
         unclassified:
           timestamper:
