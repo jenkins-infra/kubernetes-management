@@ -109,13 +109,25 @@ controller:
         jenkins:
           authorizationStrategy:
             globalMatrix:
-              permissions:
-                - "USER:Job/Read:anonymous"
-                - "GROUP:Job/Read:authenticated"
-                - "USER:Overall/Read:anonymous"
-                - "GROUP:Overall/Read:authenticated"
-                - "GROUP:Overall/Administer:admins"
-                - "GROUP:Overall/Administer:jenkins-admins"
+              entries:
+              - group:
+                  name: "admins"
+                  permissions:
+                  - "Overall/Administer"
+              - group:
+                  name: "authenticated"
+                  permissions:
+                  - "Job/Read"
+                  - "Overall/Read"
+              - group:
+                  name: "jenkins-admins"
+                  permissions:
+                  - "Overall/Administer"
+              - user:
+                  name: "anonymous"
+                  permissions:
+                  - "Job/Read"
+                  - "Overall/Read"
       timestamper-settings: |
         unclassified:
           timestamper:
