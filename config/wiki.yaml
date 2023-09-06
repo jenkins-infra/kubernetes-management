@@ -33,4 +33,10 @@ image:
 replicaCount: 2
 
 nodeSelector:
-  agentpool: x86medium
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
