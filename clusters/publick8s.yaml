@@ -242,3 +242,11 @@ releases:
   #     - "../config/updates.jenkins.io.yaml"
   #   secrets:
   #     - "../secrets/config/updates.jenkins.io/secrets.yaml"
+  - name: updates-jenkins-io
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/mirrorbits-parent
+    version: 0.0.1
+    values:
+      - "../config/updates.jenkins.io-parent.yaml"
+    secrets:
+      - "../secrets/config/updates.jenkins.io-parent/secrets.yaml"
