@@ -1,7 +1,7 @@
 mirrorbits-lite:
   enabled: true
-  fullnameOverride: updates-jenkins-io
-  nameOverride: nupdates-jenkins-io
+  # fullnameOverride: updates-jenkins-io
+  nameOverride: updates-jenkins-io
 
   ingress:
     enabled: true
@@ -78,8 +78,8 @@ mirrorbits-lite:
 
 httpd:
   enabled: true
-  fullnameOverride: updates-jenkins-io-files
-  nameOverride: nupdates-jenkins-io-files
+  # fullnameOverride: updates-jenkins-io-files
+  nameOverride: updates-jenkins-io-files
 
   resources:
     limits:
@@ -99,8 +99,8 @@ httpd:
 
 rsyncd:
   enabled: true
-  fullnameOverride: updates-jenkins-io-rsyncd
-  nameOverride: nupdates-jenkins-io-rsyncd
+  # fullnameOverride: updates-jenkins-io-rsyncd
+  nameOverride: updates-jenkins-io-rsyncd
 
   volumes:
     datadir:
