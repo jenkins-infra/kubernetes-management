@@ -104,6 +104,17 @@ rsyncd:
           persistentVolumeClaim:
             claimName: updates-jenkins-io-binary
 
+  podSecurityContext:
+    runAsUser: 65534 # User 'nobody'
+    runAsGroup: 65534 # Group 'nogroup'
+    runAsNonRoot: true
+  containerSecurityContext:
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+
   resources:
     limits:
       cpu: 100m
