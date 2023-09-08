@@ -1,6 +1,5 @@
 mirrorbits-lite:
   enabled: true
-  # nameOverride: updates-jenkins-io
 
   ingress:
     enabled: true
@@ -39,7 +38,7 @@ mirrorbits-lite:
         volumeName: updates-jenkins-io-binary
         resources:
           requests:
-            storage: 2Gi # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+            storage: 2Gi  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
     # As the storage account is independently declared and created elsewhere (jenkins-infra/azure/updates.jenkins.io.tf),
     # we're adding the PV definition to rattach the PVC to the existing storage account without creating a new one
     # and especially without deleting it when the cluster has to be recreated.
@@ -47,7 +46,7 @@ mirrorbits-lite:
       enabled: true
       spec:
         capacity:
-          storage: 2Gi # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+          storage: 2G  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
         storageClassName: azurefile-csi-premium
         accessModes:
           - ReadOnlyMany
@@ -77,7 +76,6 @@ mirrorbits-lite:
 
 httpd:
   enabled: true
-  # nameOverride: updates-jenkins-io-files
 
   resources:
     limits:
@@ -96,8 +94,6 @@ httpd:
 
 rsyncd:
   enabled: true
-  # fullnameOverride: updates-jenkins-io-rsyncd
-  # nameOverride: updates-jenkins-io-rsyncd
 
   volumes:
     datadir:
@@ -114,10 +110,3 @@ rsyncd:
 
   nodeSelector:
     agentpool: x86medium
-
-
-# MountVolume.SetUp failed for volume "rsyncd-conf" : configmap "update
-# s-jenkins-io-updates-jenkins-io-rsyncd-conf" not found                                                                                    
-                                                                            
-# MountVolume.SetUp failed for volume "rsyncd-conf" : configmap "updates-jenkin
-# s-io-rsyncd-conf" not found                                   
