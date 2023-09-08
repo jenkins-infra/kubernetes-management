@@ -95,10 +95,14 @@ httpd:
 rsyncd:
   enabled: true
 
-  volumes:
-    datadir:
-      persistentVolumeClaim:
-        claimName: updates-jenkins-io-binary
+  configuration:
+    components:
+      - name: jenkins
+        path: /rsyncd/data/jenkins
+        comment: "Jenkins Read-Only Mirror"
+        volume:
+          persistentVolumeClaim:
+            claimName: updates-jenkins-io-binary
 
   resources:
     limits:
