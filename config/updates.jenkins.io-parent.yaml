@@ -46,7 +46,7 @@ mirrorbits-lite:
       enabled: true
       spec:
         capacity:
-          storage: 2G  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+          storage: 2Gi  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
         storageClassName: azurefile-csi-premium
         accessModes:
           - ReadOnlyMany
