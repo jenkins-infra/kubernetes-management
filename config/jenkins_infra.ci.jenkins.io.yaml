@@ -711,10 +711,10 @@ controller:
             headerColor:
               backgroundColor: "linear-gradient(90deg, rgba(239,192,92,1) 0%, rgba(171,28,28,1) 100%);"
               color: "white"
-              hoverColor: "grey"
+              hoverColor: "#D0763F"
             logo:
-              svg:
-                logoPath: "https://www.jenkins.io/images/logos/beekeeper/beekeeper.svg"
+              image:
+                logoPath: "https://www.jenkins.io/images/logos/beekeeper/beekeeper.png"
             logoText: "Jenkins Infra"
   sidecars:
     configAutoReload:
