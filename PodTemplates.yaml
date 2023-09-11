@@ -28,7 +28,7 @@ spec:
   containers:
     - image: "jenkinsciinfra/helmfile:2.5.105"
       imagePullPolicy: "IfNotPresent"
-      name: "jnlp"
+      name: jnlp
       resources:
         limits:
           memory: "1024Mi"
