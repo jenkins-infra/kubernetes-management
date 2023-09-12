@@ -142,7 +142,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.1.10
+    version: 2.1.11
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
