@@ -26,6 +26,9 @@ datadog:
     {{- end }}
   {{- end }}
   {{- end }}
+remoteConfiguration:
+  # We don't want Datadog to be able to access agents through their UI
+  enabled: false
 agents:
   rbac:
     create: true
