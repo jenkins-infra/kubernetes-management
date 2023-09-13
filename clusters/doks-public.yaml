@@ -76,5 +76,7 @@ releases:
     namespace: updates-jenkins-io-mirror
     chart: jenkins-infra/mirrorbits-parent
     version: 0.0.8
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
       - "../config/updates.jenkins.io-mirror_doks-public.yaml"
