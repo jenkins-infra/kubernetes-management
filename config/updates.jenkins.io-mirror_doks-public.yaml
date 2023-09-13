@@ -145,8 +145,8 @@ httpd:
         hosts:
           - digitalocean.updates.jenkins.io
 
-  nodeSelector:
-    agentpool: x86medium
+  # nodeSelector:
+  #   agentpool: x86medium
 
 rsyncd:
   enabled: true
@@ -159,6 +159,7 @@ rsyncd:
         volume:
           persistentVolumeClaim:
             claimName: updates-jenkins-io-binary
+            storageClassName: do-block-storage-retain
 
   podSecurityContext:
     runAsUser: 65534  # User 'nobody'
@@ -179,5 +180,5 @@ rsyncd:
       cpu: 50m
       memory: 64Mi
 
-  nodeSelector:
-    agentpool: x86medium
+  # nodeSelector:
+  #   agentpool: x86medium
