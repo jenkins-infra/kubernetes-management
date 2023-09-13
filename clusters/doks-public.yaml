@@ -30,7 +30,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.3
+    version: v1.12.4
     set:
       - name: installCRDs
         value: true
@@ -45,7 +45,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.35.1
+    version: 3.36.0
     needs:
       - default/docker-registry-secrets
     values:
@@ -57,7 +57,7 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.7.1
+    version: 4.7.2
     values:
       - "../config/public-nginx-ingress__common.yaml"
       - "../config/public-nginx-ingress_doks-public.yaml"
