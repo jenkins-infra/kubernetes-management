@@ -40,3 +40,14 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app
+              operator: In
+              values:
+                - wiki
+        topologyKey: "kubernetes.io/hostname"
