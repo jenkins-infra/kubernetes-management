@@ -72,3 +72,9 @@ releases:
       - "../config/artifact-caching-proxy_do.yaml"
     secrets:
       - "../secrets/config/artifact-caching-proxy/secrets.yaml"
+  - name: updates-jenkins-io-mirror
+    namespace: updates-jenkins-io-mirror
+    chart: jenkins-infra/mirrorbits-parent
+    version: 0.0.8
+    values:
+      - "../config/updates.jenkins.io-mirror_doks-public.yaml"
