@@ -92,7 +92,7 @@ httpd:
       spec:
         accessModes:
           - ReadOnlyMany
-        storageClassName: azurefile-csi-premium
+        storageClassName: do-block-storage-retain
         volumeName: updates-jenkins-io-binary
         resources:
           requests:
@@ -159,7 +159,6 @@ rsyncd:
         volume:
           persistentVolumeClaim:
             claimName: updates-jenkins-io-binary
-            storageClassName: do-block-storage-retain
 
   podSecurityContext:
     runAsUser: 65534  # User 'nobody'
