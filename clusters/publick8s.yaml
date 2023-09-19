@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.4
+    version: v1.13.0
     set:
       - name: installCRDs
         value: true
@@ -97,7 +97,7 @@ releases:
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/javadoc
-    version: 0.1.2
+    version: 0.2.1
     values:
       - "../config/javadoc.yaml"
     secrets:
@@ -152,7 +152,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.5.11
+    version: 0.5.12
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -160,7 +160,7 @@ releases:
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
-    version: 0.2.1
+    version: 0.2.2
     values:
       - "../config/rating.yaml"
     secrets:
@@ -168,7 +168,7 @@ releases:
   - name: uplink
     namespace: uplink
     chart: jenkins-infra/uplink
-    version: 0.1.2
+    version: 0.1.4
     timeout: 600
     values:
       - "../config/uplink.yaml"
@@ -177,7 +177,7 @@ releases:
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports
-    version: 0.1.2
+    version: 0.2.1
     values:
       - "../config/reports.yaml"
     secrets:
@@ -205,7 +205,7 @@ releases:
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
-    version: 0.1.7
+    version: 0.1.8
     values:
       - "../config/plugin-site-issues.yaml"
     secrets:
@@ -213,7 +213,7 @@ releases:
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
-    version: 0.0.8
+    version: 0.1.1
     values:
       - "../config/plugin-site.yaml"
     secrets:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 0.5.0
+    version: 0.5.1
     values:
       - "../config/jenkinsio.yaml"
     secrets:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 0.0.10
+    version: 0.0.11
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
