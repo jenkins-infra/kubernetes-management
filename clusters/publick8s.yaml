@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.35.2
+    version: 3.36.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.3
+    version: v1.12.4
     set:
       - name: installCRDs
         value: true
@@ -97,7 +97,7 @@ releases:
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/javadoc
-    version: 0.1.2
+    version: 0.2.1
     values:
       - "../config/javadoc.yaml"
     secrets:
@@ -113,7 +113,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.3.93
+    version: 0.4.0
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -142,7 +142,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.1.10
+    version: 2.1.11
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -152,7 +152,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.5.11
+    version: 0.5.12
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -160,7 +160,7 @@ releases:
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
-    version: 0.2.1
+    version: 0.2.2
     values:
       - "../config/rating.yaml"
     secrets:
@@ -177,7 +177,7 @@ releases:
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports
-    version: 0.1.2
+    version: 0.2.1
     values:
       - "../config/reports.yaml"
     secrets:
@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.6.9
+    version: 0.6.11
     needs:
       - ldap/ldap
     values:
@@ -205,7 +205,7 @@ releases:
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
-    version: 0.1.7
+    version: 0.1.8
     values:
       - "../config/plugin-site-issues.yaml"
     secrets:
@@ -213,7 +213,7 @@ releases:
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
-    version: 0.0.8
+    version: 0.1.1
     values:
       - "../config/plugin-site.yaml"
     secrets:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 0.5.0
+    version: 0.5.1
     values:
       - "../config/jenkinsio.yaml"
     secrets:

@@ -57,7 +57,7 @@ releases:
   - name: aws-load-balancer-controller
     namespace: aws-load-balancer
     chart: eks/aws-load-balancer-controller
-    version: 1.6.0
+    version: 1.6.1
     values:
       - "../config/aws-load-balancer-controller.yaml"
     set:
@@ -66,7 +66,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.3
+    version: v1.12.4
     set:
       - name: installCRDs
         value: true
@@ -81,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.35.2
+    version: 3.36.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_eks-public.yaml"

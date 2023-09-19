@@ -36,14 +36,14 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.3
+    version: v1.12.4
     set:
       - name: installCRDs
         value: true
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.35.2
+    version: 3.36.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_privatek8s.yaml"
