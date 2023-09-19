@@ -214,7 +214,7 @@ controller:
                     yamlMergeStrategy: "merge"
             - azureVM:
                 azureCredentialsId: "az-agents-credentials"
-                cloudName: "azure cloud"
+                name: "azure cloud"
                 deploymentTimeout: 1200
                 existingResourceGroupName: "infra-agents"
                 maxVirtualMachinesLimit: 50
