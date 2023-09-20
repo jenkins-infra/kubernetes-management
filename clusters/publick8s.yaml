@@ -46,7 +46,7 @@ releases:
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
-    version: 0.1.2
+    version: 0.1.3
     needs:
       - cert-manager
     values:
@@ -113,7 +113,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.4.0
+    version: 0.5.2
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.6.11
+    version: 0.6.13
     needs:
       - ldap/ldap
     values:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 0.0.11
+    version: 0.0.12
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
