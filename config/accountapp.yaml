@@ -49,7 +49,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
           matchExpressions:
-            - key: app
+            - key: "app.kubernetes.io/name"
               operator: In
               values:
                 - accountapp
