@@ -320,6 +320,24 @@ jobsDefinition:
             fileName: "backend-config"
             description: "Terraform backend configuration for the staging environment of jenkins-infra/azure-net"
             secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
+      cloudflare:
+        name: Terraform CloudFlare
+        description: "CloudFlare resources managed by Terraform"
+        credentials:
+          staging-cloudflare-api-token:
+            secret: "${STAGING_CLOUDFLARE_API_TOKEN}"
+            description: Staging CloudFlare API token for infra.ci
+          production-cloudflare-api-token:
+            secret: "${PRODUCTION_CLOUDFLARE_API_TOKEN}"
+            description: Production CloudFlare API token for infra.ci
+          production-terraform-azure-net-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the production environment of jenkins-infra/cloudflare"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
+          staging-terraform-azure-net-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/cloudflare"
+            secretBytes: "${base64:${STAGING_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
       datadog:
         name: Terraform Datadog
         description: "Datadog resources managed by Terraform"
