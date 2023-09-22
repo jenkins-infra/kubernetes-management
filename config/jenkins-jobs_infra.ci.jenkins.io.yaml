@@ -120,9 +120,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for publick8s"
             secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
-      helm-charts:
-        name: Helm Charts
-        description: Custom Helm Charts of the Jenkins Infra
   updatecli:
     name: Dependencies Management with Updatecli
     kind: folder
@@ -148,6 +145,9 @@ jobsDefinition:
             tenant: "${PACKER_AZURE_TENANT_ID}"
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
+      helm-charts:
+        name: Helm Charts
+        description: Custom Helm Charts of the Jenkins Infra
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
