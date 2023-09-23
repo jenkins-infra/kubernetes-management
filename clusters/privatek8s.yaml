@@ -119,7 +119,7 @@ releases:
   - name: rss2twitter
     namespace: rss2twitter
     chart: jenkins-infra/rss2twitter
-    version: 0.0.5
+    version: 0.1.0
     values:
       - "../config/rss2twitter.yaml"
     secrets:
