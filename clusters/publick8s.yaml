@@ -168,7 +168,7 @@ releases:
   - name: uplink
     namespace: uplink
     chart: jenkins-infra/uplink
-    version: 0.1.4
+    version: 0.2.0
     timeout: 600
     values:
       - "../config/uplink.yaml"
