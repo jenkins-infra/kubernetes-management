@@ -330,11 +330,11 @@ jobsDefinition:
           production-cloudflare-api-token:
             secret: "${PRODUCTION_CLOUDFLARE_API_TOKEN}"
             description: Production CloudFlare API token for infra.ci
-          production-terraform-azure-net-backend-config:
+          production-terraform-cloudflare-backend-config:
             fileName: "backend-config"
             description: "Terraform backend configuration for the production environment of jenkins-infra/cloudflare"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
-          staging-terraform-azure-net-backend-config:
+          staging-terraform-cloudflare-backend-config:
             fileName: "backend-config"
             description: "Terraform backend configuration for the staging environment of jenkins-infra/cloudflare"
             secretBytes: "${base64:${STAGING_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
