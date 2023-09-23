@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.37.0
+    version: 3.38.1
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -76,7 +76,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.11.1
+    version: 0.12.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
@@ -97,7 +97,7 @@ releases:
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/javadoc
-    version: 0.2.1
+    version: 0.3.0
     values:
       - "../config/javadoc.yaml"
     secrets:
@@ -113,13 +113,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.5.4
+    version: 0.6.0
     values:
       - "../config/wiki.yaml"
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 0.1.6
+    version: 0.2.0
     timeout: 600
     values:
       - "../config/ldap.yaml"
@@ -142,7 +142,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.1.11
+    version: 2.2.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -152,7 +152,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.5.12
+    version: 0.6.0
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -160,7 +160,7 @@ releases:
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
-    version: 0.2.2
+    version: 0.3.0
     values:
       - "../config/rating.yaml"
     secrets:
@@ -177,7 +177,7 @@ releases:
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports
-    version: 0.2.1
+    version: 0.3.0
     values:
       - "../config/reports.yaml"
     secrets:
@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.6.15
+    version: 0.7.0
     needs:
       - ldap/ldap
     values:
@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.66.1
+    version: 0.70.0
     timeout: 600
     atomic: false
     values:
@@ -205,7 +205,7 @@ releases:
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
-    version: 0.1.8
+    version: 0.2.0
     values:
       - "../config/plugin-site-issues.yaml"
     secrets:
@@ -213,7 +213,7 @@ releases:
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
-    version: 0.1.1
+    version: 0.2.0
     values:
       - "../config/plugin-site.yaml"
     secrets:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 0.5.1
+    version: 0.6.0
     values:
       - "../config/jenkinsio.yaml"
     secrets:
