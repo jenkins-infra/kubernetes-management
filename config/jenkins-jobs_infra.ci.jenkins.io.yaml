@@ -133,8 +133,10 @@ jobsDefinition:
         name: Puppet (jenkins-infra)
         jenkinsfilePath: Jenkinsfile_updatecli
         branchIncludes: "production staging updatecli_* PR-* main"
+        disableTagDiscovery: true
       kubernetes-management:
         jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
         credentials:
           updatecli-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
@@ -145,9 +147,11 @@ jobsDefinition:
             tenant: "${PACKER_AZURE_TENANT_ID}"
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
+        disableTagDiscovery: true
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
