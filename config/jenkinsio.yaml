@@ -46,7 +46,7 @@ ingress:
         - www.jenkins-ci.org
         - www.origin.jenkins.io
 
-replicaCount: 5
+replicaCount: 2
 
 resources:
   limits:
