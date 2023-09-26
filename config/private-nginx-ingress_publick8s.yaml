@@ -10,12 +10,14 @@ controller:
 defaultBackend:
   nodeSelector:
     agentpool: x86medium
-podAntiAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-          - key: "app.kubernetes.io/name"
-            operator: In
-            values:
-              - ingress-nginx
-      topologyKey: "kubernetes.io/hostname"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - ingress-nginx
+        topologyKey: "kubernetes.io/hostname"
