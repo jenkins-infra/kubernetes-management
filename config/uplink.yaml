@@ -19,7 +19,7 @@ image:
   tag: c7ecad0e5e24bc05ac722418faf844d6a0286620c6316ff712459ecfcc3ee7ce
   pullPolicy: IfNotPresent
 
-replicaCount: 5
+replicaCount: 2
 
 nodeSelector:
   agentpool: x86medium
