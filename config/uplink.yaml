@@ -23,3 +23,14 @@ replicaCount: 5
 
 nodeSelector:
   agentpool: x86medium
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - uplink
+        topologyKey: "kubernetes.io/hostname"

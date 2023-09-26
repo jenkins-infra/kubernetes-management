@@ -348,30 +348,6 @@ datadog:
           check_certificate_expiration: true
           tags:
             - mirror
-        - name: mirror.serverion.com
-          timeout: 10
-          threshold: 3
-          window: 5
-          days_warning: 10
-          days_critical: 5
-          url: https://mirror.serverion.com/jenkins/TIME
-          method: get
-          collect_response_time: true
-          check_certificate_expiration: true
-          tags:
-            - mirror
-        - name: mirror.esuni.jp
-          timeout: 10
-          threshold: 3
-          window: 5
-          days_warning: 10
-          days_critical: 5
-          url: https://mirror.esuni.jp/jenkins/TIME
-          method: get
-          collect_response_time: true
-          check_certificate_expiration: true
-          tags:
-            - mirror
         - name: mirrors.tuna.tsinghua.edu.cn
           timeout: 10
           threshold: 3

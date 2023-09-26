@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.38.1
+    version: 3.38.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -76,7 +76,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.12.0
+    version: 0.14.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
@@ -113,7 +113,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.5.4
+    version: 0.6.2
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -152,7 +152,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.6.0
+    version: 0.6.1
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -168,7 +168,7 @@ releases:
   - name: uplink
     namespace: uplink
     chart: jenkins-infra/uplink
-    version: 0.1.4
+    version: 0.2.0
     timeout: 600
     values:
       - "../config/uplink.yaml"
@@ -177,7 +177,7 @@ releases:
   - name: reports
     namespace: reports
     chart: jenkins-infra/reports
-    version: 0.2.1
+    version: 0.3.1
     values:
       - "../config/reports.yaml"
     secrets:
@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.7.0
+    version: 0.7.3
     needs:
       - ldap/ldap
     values:
@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.66.1
+    version: 0.70.1
     timeout: 600
     atomic: false
     values:
@@ -213,7 +213,7 @@ releases:
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
-    version: 0.1.1
+    version: 0.2.0
     values:
       - "../config/plugin-site.yaml"
     secrets:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 0.5.1
+    version: 0.6.0
     values:
       - "../config/jenkinsio.yaml"
     secrets:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 0.0.12
+    version: 0.2.3
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
