@@ -1,5 +1,15 @@
 controller:
   replicaCount: 2
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - ingress-nginx
+          topologyKey: "kubernetes.io/hostname"
   ingressClass: private-ingress
   service:
     annotations:
@@ -10,14 +20,3 @@ controller:
 defaultBackend:
   nodeSelector:
     agentpool: x86medium
-
-affinity:
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-            - key: "app.kubernetes.io/name"
-              operator: In
-              values:
-                - ingress-nginx
-        topologyKey: "kubernetes.io/hostname"
