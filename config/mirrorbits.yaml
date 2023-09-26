@@ -95,3 +95,14 @@ replicaCount:
 
 nodeSelector:
   agentpool: x86medium
+
+podAntiAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+          - key: "app.kubernetes.io/name"
+            operator: In
+            values:
+              - mirrorbits
+              - mirrorbits-files
+      topologyKey: "kubernetes.io/hostname"
