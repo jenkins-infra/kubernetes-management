@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.3.0-2.422
+  tag: 1.5.1-2.424
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -214,7 +214,7 @@ controller:
                     yamlMergeStrategy: "merge"
             - azureVM:
                 azureCredentialsId: "az-agents-credentials"
-                cloudName: "azure cloud"
+                name: "azure cloud"
                 deploymentTimeout: 1200
                 existingResourceGroupName: "infra-agents"
                 maxVirtualMachinesLimit: 50
@@ -228,7 +228,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.24.0"
+                    galleryImageVersion: "1.26.1"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -278,7 +278,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.24.0"
+                    galleryImageVersion: "1.26.1"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -308,6 +308,43 @@ controller:
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
                 - launcher: "ssh"
+                  agentWorkspace: "C:/Jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
+                    galleryImageVersion: "1.26.1"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
+                  javaPath: "C:/tools/jdk-17/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "windows-2022 amd64 azure vm docker-windows docker-windows-2022 windows"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
+                  noOfParallelJobs: 1
+                  osDiskSize: 150
+                  osDiskStorageAccountType: "Premium_LRS"
+                  osType: "Windows"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: true
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "privatek8s-tier"
+                  templateDesc: "Dynamically provisioned Windows 2022 machine"
+                  templateName: "win-2022"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
+                  virtualNetworkName: "private-vnet"
+                  virtualNetworkResourceGroupName: "private"
+                - launcher: "ssh"
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
@@ -315,7 +352,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "1.24.0"
+                    galleryImageVersion: "1.26.1"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -434,7 +471,7 @@ controller:
                       <mirror>
                           <id>aws-proxy</id>
                           <url>https://repo.aws.jenkins.io/public/</url>
-                          <mirrorOf>*,!central,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!local,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>aws-proxy-incrementals</id>
@@ -485,7 +522,7 @@ controller:
                       <mirror>
                           <id>azure-proxy</id>
                           <url>https://repo.azure.jenkins.io/public/</url>
-                          <mirrorOf>*,!central,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!local,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>azure-proxy-incrementals</id>
@@ -511,7 +548,7 @@ controller:
                       <mirror>
                           <id>do-proxy</id>
                           <url>https://repo.do.jenkins.io/public/</url>
-                          <mirrorOf>*,!central,!incrementals,!elementary-releases,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!local,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>do-proxy-incrementals</id>
@@ -677,29 +714,6 @@ controller:
                   installers:
                   - maven:
                       id: "3.9.4"
-      ansi-color: |
-        unclassified:
-          ansiColorBuildWrapper:
-            globalColorMapName: "xterm"
-            colorMaps:
-            - name: "xterm"
-              defaultBackground: 7 # better separation between jenkins output and pipeline output
-              black: "#000000"
-              blackB: "#4C4C4C"
-              blue: "#1E90FF"
-              blueB: "#4682B4"
-              cyan: "#00CDCD"
-              cyanB: "#00FFFF"
-              green: "#00CD00"
-              greenB: "#00FF00"
-              magenta: "#CD00CD"
-              magentaB: "#FF00FF"
-              red: "#CD0000"
-              redB: "#FF0000"
-              white: "#E5E5E5"
-              whiteB: "#FFFFFF"
-              yellow: "#CDCD00"
-              yellowB: "#FFFF00"
       custom-header: |
         unclassified:
           customHeaderConfiguration:

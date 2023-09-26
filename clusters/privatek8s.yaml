@@ -26,7 +26,7 @@ releases:
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
-    version: 0.1.2
+    version: 0.1.3
     needs:
       - cert-manager/cert-manager
     values:
@@ -36,14 +36,14 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.4
+    version: v1.13.0
     set:
       - name: installCRDs
         value: true
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.36.0
+    version: 3.38.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_privatek8s.yaml"
@@ -73,7 +73,7 @@ releases:
   - name: jenkins-infra-jobs
     namespace: jenkins-infra
     chart: jenkins-infra/jenkins-jobs
-    version: 0.4.0
+    version: 0.5.0
     values:
       - "../config/jenkins-jobs_infra.ci.jenkins.io.yaml"
   - name: jenkins-release
@@ -119,7 +119,7 @@ releases:
   - name: rss2twitter
     namespace: rss2twitter
     chart: jenkins-infra/rss2twitter
-    version: 0.0.4
+    version: 0.1.0
     values:
       - "../config/rss2twitter.yaml"
     secrets:
@@ -137,7 +137,7 @@ releases:
   - name: ircbot
     namespace: ircbot
     chart: jenkins-infra/ircbot
-    version: 0.2.10
+    version: 0.3.0
     values:
       - "../config/ircbot.yaml"
     secrets:

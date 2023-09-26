@@ -30,14 +30,14 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.12.4
+    version: v1.13.0
     set:
       - name: installCRDs
         value: true
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
-    version: 0.1.2
+    version: 0.1.3
     needs:
       - cert-manager
     values:
@@ -45,7 +45,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.36.0
+    version: 3.38.2
     needs:
       - default/docker-registry-secrets
     values:
@@ -64,7 +64,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.11.1
+    version: 0.12.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:

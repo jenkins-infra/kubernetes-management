@@ -120,9 +120,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for publick8s"
             secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
-      helm-charts:
-        name: Helm Charts
-        description: Custom Helm Charts of the Jenkins Infra
   updatecli:
     name: Dependencies Management with Updatecli
     kind: folder
@@ -136,8 +133,10 @@ jobsDefinition:
         name: Puppet (jenkins-infra)
         jenkinsfilePath: Jenkinsfile_updatecli
         branchIncludes: "production staging updatecli_* PR-* main"
+        disableTagDiscovery: true
       kubernetes-management:
         jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
         credentials:
           updatecli-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
@@ -148,6 +147,11 @@ jobsDefinition:
             tenant: "${PACKER_AZURE_TENANT_ID}"
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
+      helm-charts:
+        name: Helm Charts
+        description: Custom Helm Charts of the Jenkins Infra
+        disableTagDiscovery: true
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
@@ -320,6 +324,24 @@ jobsDefinition:
             fileName: "backend-config"
             description: "Terraform backend configuration for the staging environment of jenkins-infra/azure-net"
             secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
+      cloudflare:
+        name: Terraform CloudFlare
+        description: "CloudFlare resources managed by Terraform"
+        credentials:
+          staging-cloudflare-api-token:
+            secret: "${STAGING_CLOUDFLARE_API_TOKEN}"
+            description: Staging CloudFlare API token for infra.ci
+          production-cloudflare-api-token:
+            secret: "${PRODUCTION_CLOUDFLARE_API_TOKEN}"
+            description: Production CloudFlare API token for infra.ci
+          production-terraform-cloudflare-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the production environment of jenkins-infra/cloudflare"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
+          staging-terraform-cloudflare-backend-config:
+            fileName: "backend-config"
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/cloudflare"
+            secretBytes: "${base64:${STAGING_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
       datadog:
         name: Terraform Datadog
         description: "Datadog resources managed by Terraform"
