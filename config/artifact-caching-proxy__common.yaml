@@ -23,11 +23,11 @@ ingress:
 
 replicaCount: 2
 podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-            - key: "app.kubernetes.io/name"
-              operator: In
-              values:
-                - artifact-caching-proxy
-        topologyKey: "kubernetes.io/hostname"
+  requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+          - key: "app.kubernetes.io/name"
+            operator: In
+            values:
+              - artifact-caching-proxy
+      topologyKey: "kubernetes.io/hostname"
