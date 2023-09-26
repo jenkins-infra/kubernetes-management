@@ -5,10 +5,10 @@ controller:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
-              - key: "app.kubernetes.io/name"
+              - key: "app.kubernetes.io/instance"
                 operator: In
                 values:
-                  - ingress-nginx
+                  - private-nginx-ingress
           topologyKey: "kubernetes.io/hostname"
   ingressClass: private-ingress
   service:
