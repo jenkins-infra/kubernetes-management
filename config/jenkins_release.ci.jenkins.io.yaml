@@ -573,7 +573,7 @@ controller:
               hoverColor: "#C11818"
             logo:
               image:
-                logoUrl: "https://www.jenkins.io/images/logos/stay-safe/256.png"
+                logoUrl: "https://release.ci.jenkins.io/userContent/logos/buttler_stay_safe.png"
             logoText: "Jenkins Release"
   sidecars:
     configAutoReload:
