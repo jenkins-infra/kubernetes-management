@@ -78,3 +78,25 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
+
+affinity:
+  jenkinsio:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - jenkinsio
+          topologyKey: "kubernetes.io/hostname"
+  jenkinsio-zh:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - jenkinsio-zh
+          topologyKey: "kubernetes.io/hostname"
