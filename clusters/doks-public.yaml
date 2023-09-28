@@ -45,7 +45,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.38.2
+    version: 3.38.3
     needs:
       - default/docker-registry-secrets
     values:

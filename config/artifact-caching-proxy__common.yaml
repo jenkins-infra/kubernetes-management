@@ -22,3 +22,13 @@ ingress:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
 
 replicaCount: 2
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - artifact-caching-proxy
+        topologyKey: "kubernetes.io/hostname"
