@@ -562,6 +562,19 @@ controller:
             sshHostKeyVerificationStrategy:
               manuallyProvidedKeyVerificationStrategy:
                 approvedHostKeys: "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
+      custom-header: |
+        unclassified:
+          customHeaderConfiguration:
+            enabled: true
+            header: "logo"
+            headerColor:
+              backgroundColor: "linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(116,1,1,1) 100%);"
+              color: "white"
+              hoverColor: "#C11818"
+            logo:
+              image:
+                logoUrl: "https://release.ci.jenkins.io/userContent/logos/buttler_stay_safe.png"
+            logoText: "Jenkins Release"
   sidecars:
     configAutoReload:
       env:
