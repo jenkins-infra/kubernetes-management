@@ -87,7 +87,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.6.5
+    version: 4.6.6
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -97,7 +97,7 @@ releases:
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/javadoc
-    version: 0.3.0
+    version: 0.4.0
     values:
       - "../config/javadoc.yaml"
     secrets:
@@ -113,7 +113,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.2
+    version: 0.6.3
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.0
+    version: 0.8.1
     needs:
       - ldap/ldap
     values:
@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.70.2
+    version: 1.0.0
     timeout: 600
     atomic: false
     values:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 0.6.0
+    version: 1.0.0
     values:
       - "../config/jenkinsio.yaml"
     secrets:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 0.2.3
+    version: 0.2.4
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
