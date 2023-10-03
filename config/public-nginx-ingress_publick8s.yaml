@@ -3,6 +3,16 @@ controller:
   # and replace custom headers (only reason for user snippets - search for `more_set_headers` in ./config) by the replacement.
   allowSnippetAnnotations: true
   replicaCount: 2
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/instance"
+                operator: In
+                values:
+                  - public-nginx-ingress
+          topologyKey: "kubernetes.io/hostname"
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
