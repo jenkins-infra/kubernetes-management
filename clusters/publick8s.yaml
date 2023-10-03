@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.38.2
+    version: 3.38.3
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.13.0
+    version: v1.13.1
     set:
       - name: installCRDs
         value: true
@@ -56,14 +56,14 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.7.2
+    version: 4.8.0
     values:
       - "../config/public-nginx-ingress__common.yaml"
       - "../config/public-nginx-ingress_publick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.7.2
+    version: 4.8.0
     values:
       - "../config/private-nginx-ingress__common.yaml"
       - "../config/private-nginx-ingress_publick8s.yaml"
@@ -76,7 +76,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.12.0
+    version: 0.14.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
@@ -87,7 +87,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.6.4
+    version: 4.6.6
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -97,7 +97,7 @@ releases:
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/javadoc
-    version: 0.3.0
+    version: 0.4.0
     values:
       - "../config/javadoc.yaml"
     secrets:
@@ -113,7 +113,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.2
+    version: 0.6.3
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -152,7 +152,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.6.0
+    version: 0.6.1
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.7.2
+    version: 0.8.1
     needs:
       - ldap/ldap
     values:
@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 0.70.0
+    version: 1.0.0
     timeout: 600
     atomic: false
     values:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 0.6.0
+    version: 1.0.0
     values:
       - "../config/jenkinsio.yaml"
     secrets:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 0.2.3
+    version: 0.2.4
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:

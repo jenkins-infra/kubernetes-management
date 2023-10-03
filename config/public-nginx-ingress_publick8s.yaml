@@ -1,4 +1,7 @@
 controller:
+  # Disable (default since 4.8.0) when https://github.com/kubernetes/ingress-nginx/issues/7811 is fixed
+  # and replace custom headers (only reason for user snippets - search for `more_set_headers` in ./config) by the replacement.
+  allowSnippetAnnotations: true
   replicaCount: 2
   affinity:
     podAntiAffinity:

@@ -14,7 +14,7 @@ creation_rules:
             - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
             - 'EE80BE3F340D4BD5A8F67794D63ECCA17D00EFE6' # hlemeur
             - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
-            - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
+            - 'DDE4B4D6771E87C612ED990D1110C7B1CA22ADE9' # smerle
 
     - path_regex: secrets/config/plugin-site/secrets.yaml
       key_groups:
@@ -28,7 +28,7 @@ creation_rules:
             - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
             - 'EE80BE3F340D4BD5A8F67794D63ECCA17D00EFE6' # hlemeur
             - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
-            - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
+            - 'DDE4B4D6771E87C612ED990D1110C7B1CA22ADE9' # smerle
 
     - path_regex: secrets/config/plugin-site-issues/secrets.yaml
       key_groups:
@@ -42,7 +42,7 @@ creation_rules:
             - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
             - 'EE80BE3F340D4BD5A8F67794D63ECCA17D00EFE6' # hlemeur
             - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
-            - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
+            - 'DDE4B4D6771E87C612ED990D1110C7B1CA22ADE9' # smerle
 
     ## Default fallback (for all files not matched by previous rules)
     - key_groups:
@@ -56,4 +56,4 @@ creation_rules:
             - '29B84443F41DE582F71599AFB47082DEE225AE06' # dduportal
             - 'EE80BE3F340D4BD5A8F67794D63ECCA17D00EFE6' # hlemeur
             - 'E104B7543ECCCC68EA1EB35DD9B2DBFB59AD8344' # markewaite
-            - '6CD774F428CA355770C67851496D2EDEDEFA7D47' # smerle
+            - 'DDE4B4D6771E87C612ED990D1110C7B1CA22ADE9' # smerle
