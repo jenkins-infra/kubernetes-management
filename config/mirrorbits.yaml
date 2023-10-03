@@ -97,13 +97,23 @@ nodeSelector:
   agentpool: x86medium
 
 affinity:
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-            - key: "app.kubernetes.io/name"
-              operator: In
-              values:
-                - mirrorbits
-                - mirrorbits-files
-        topologyKey: "kubernetes.io/hostname"
+  mirrorbits:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - mirrorbits
+          topologyKey: "kubernetes.io/hostname"
+  files:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - mirrorbits-files
+          topologyKey: "kubernetes.io/hostname"
