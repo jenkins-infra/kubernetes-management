@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.38.3
+    version: 3.38.4
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -76,7 +76,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.14.0
+    version: 0.15.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 1.0.0
+    version: 1.0.1
     timeout: 600
     atomic: false
     values:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 1.0.0
+    version: 1.1.0
     values:
       - "../config/jenkinsio.yaml"
     secrets:
