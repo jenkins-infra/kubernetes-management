@@ -22,7 +22,7 @@ global:
     enabled: true
     claimNameTpl: '{{ include "mirrorbits-parent.pvc-name" $ }}'
     storageClassName: azurefile-csi-premium
-    storageSize: 2Gi # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+    storageSize: 2Gi  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
     accessModes:
       - ReadOnlyMany
     persistentVolume:
@@ -31,16 +31,16 @@ global:
         shareName: updates-jenkins-io
         readOnly: true
       additionalSpec:
-          persistentVolumeReclaimPolicy: Retain
-          mountOptions:
-            - dir_mode=0755
-            - file_mode=0644
-            - uid=1000
-            - gid=1000
-            - mfsymlinks
-            - nobrl
-            - serverino
-            - cache=strict
+        persistentVolumeReclaimPolicy: Retain
+        mountOptions:
+          - dir_mode=0755
+          - file_mode=0644
+          - uid=1000
+          - gid=1000
+          - mfsymlinks
+          - nobrl
+          - serverino
+          - cache=strict
 
 mirrorbits-lite:
   enabled: true
