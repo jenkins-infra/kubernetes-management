@@ -1,7 +1,14 @@
 image:
   registry: ghcr.io
-  repository: halkeye-docker/matomo
-  tag: v1.2.0
+  repository: jenkinsciinfra/matomo
+  tag: 0.1.1
+nodeSelector:
+  kubernetes.io/arch: arm64
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
 persistence:
   enabled: false
 extraEnvVars:
