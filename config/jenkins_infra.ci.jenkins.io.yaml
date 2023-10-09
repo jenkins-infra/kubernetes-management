@@ -713,7 +713,7 @@ controller:
               - installSource:
                   installers:
                   - maven:
-                      id: "3.9.4"
+                      id: "3.9.5"
       custom-header: |
         unclassified:
           customHeaderConfiguration:
