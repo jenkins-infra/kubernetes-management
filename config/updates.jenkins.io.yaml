@@ -1,6 +1,4 @@
-mirrorbits-lite:
-  enabled: true
-
+global:
   ingress:
     enabled: true
     className: public-nginx
@@ -11,56 +9,29 @@ mirrorbits-lite:
       - host: azure.updates.jenkins.io
         paths:
           - path: /
-            serviceNameSuffix: files
+            backendService: httpd
           - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
             pathType: ImplementationSpecific
+            backendService: mirrorbits
     tls:
       - secretName: updates-jenkins-io-tls
         hosts:
           - azure.updates.jenkins.io
 
-  resources:
-    limits:
-      cpu: 500m
-      memory: 1024Mi
-    requests:
-      cpu: 500m
-      memory: 1024Mi
-
-  repository:
-    name: updates-jenkins-io-binary
-    persistentVolumeClaim:
-      enabled: true
-      spec:
-        accessModes:
-          - ReadOnlyMany
-        storageClassName: azurefile-csi-premium
-        volumeName: updates-jenkins-io-binary
-        resources:
-          requests:
-            storage: 2Gi  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
-    # As the storage account is independently declared and created elsewhere (jenkins-infra/azure/updates.jenkins.io.tf),
-    # we're adding the PV definition to rattach the PVC to the existing storage account without creating a new one
-    # and especially without deleting it when the cluster has to be recreated.
+  storage:
+    enabled: true
+    claimNameTpl: '{{ include "mirrorbits-parent.pvc-name" $ }}'
+    storageClassName: azurefile-csi-premium
+    storageSize: 2Gi  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+    accessModes:
+      - ReadOnlyMany
     persistentVolume:
-      enabled: true
-      spec:
-        capacity:
-          storage: 2Gi  # See file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
-        storageClassName: azurefile-csi-premium
-        accessModes:
-          - ReadOnlyMany
+      azureFile:
+        resourceGroup: updates-jenkins-io
+        shareName: updates-jenkins-io
+        readOnly: true
+      additionalSpec:
         persistentVolumeReclaimPolicy: Retain
-        csi:
-          driver: file.csi.azure.com
-          readOnly: false
-          volumeHandle: updates-jenkins-io-binary  # make sure this volumeid is unique for every identical share in the cluster
-          volumeAttributes:
-            resourceGroup: updates-jenkins-io
-            shareName: updates-jenkins-io
-          nodeStageSecretRef:
-            name: updates-jenkins-io-mirrorbits-lite-binary
-            namespace: updates-jenkins-io
         mountOptions:
           - dir_mode=0755
           - file_mode=0644
@@ -71,12 +42,20 @@ mirrorbits-lite:
           - serverino
           - cache=strict
 
+mirrorbits-lite:
+  enabled: true
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 500m
+      memory: 1024Mi
   nodeSelector:
     agentpool: x86medium
 
 httpd:
   enabled: true
-
   resources:
     limits:
       cpu: 2000m
@@ -84,26 +63,17 @@ httpd:
     requests:
       cpu: 2000m
       memory: 2048Mi
-
-  repository:
-    name: updates-jenkins-io-binary
-    reuseExistingPersistentVolumeClaim: true
-
   nodeSelector:
     agentpool: x86medium
 
 rsyncd:
   enabled: true
-
   configuration:
     components:
       - name: jenkins
         path: /rsyncd/data/jenkins
         comment: "Jenkins Read-Only Mirror"
-        volume:
-          persistentVolumeClaim:
-            claimName: updates-jenkins-io-binary
-
+        volumeTpl: '{{ include "mirrorbits-parent.pvc-name" . }}'
   podSecurityContext:
     runAsUser: 65534  # User 'nobody'
     runAsGroup: 65534  # Group 'nogroup'
