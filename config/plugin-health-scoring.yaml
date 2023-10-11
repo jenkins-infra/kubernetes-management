@@ -14,9 +14,6 @@ ingress:
       hosts:
         - plugin-health.jenkins.io
 
-nodeSelector:
-  agentpool: x86medium
-
 database:
   username: plugin_health
   server: public-db.postgres.database.azure.com
@@ -27,3 +24,15 @@ config:
     appId: 281243
     # org or username where the app is installed
     appInstallationName: jenkinsci
+
+# Specify the "hard" scheduling constraints
+nodeSelector:
+  # Ensure ARM64 is used to decrease cloud bill (instead of using `amd64`
+  kubernetes.io/arch: arm64
+
+# Tolerates to run on tainted `arm64` nodes
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
