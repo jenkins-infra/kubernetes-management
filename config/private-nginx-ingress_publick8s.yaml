@@ -24,7 +24,7 @@ controller:
       effect: "NoSchedule"
 defaultBackend:
   nodeSelector:
-    kubernetes.io/arch: arm64 
+    kubernetes.io/arch: arm64
   tolerations:
     - key: "kubernetes.io/arch"
       operator: "Equal"
