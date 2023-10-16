@@ -17,7 +17,6 @@ controller:
       service.beta.kubernetes.io/azure-load-balancer-internal-subnet: public-vnet-data-tier
   nodeSelector:
     kubernetes.io/arch: arm64
-  
   tolerations:
     - key: "kubernetes.io/arch"
       operator: "Equal"
@@ -25,8 +24,7 @@ controller:
       effect: "NoSchedule"
 defaultBackend:
   nodeSelector:
-    kubernetes.io/arch: arm64
-  
+    kubernetes.io/arch: arm64 
   tolerations:
     - key: "kubernetes.io/arch"
       operator: "Equal"
