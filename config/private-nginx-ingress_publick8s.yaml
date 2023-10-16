@@ -16,7 +16,19 @@ controller:
       # azure-net:vnets.tf/public-vnet-data-tier
       service.beta.kubernetes.io/azure-load-balancer-internal-subnet: public-vnet-data-tier
   nodeSelector:
-    agentpool: x86medium
+    kubernetes.io/arch: arm64
+  
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
 defaultBackend:
   nodeSelector:
-    agentpool: x86medium
+    kubernetes.io/arch: arm64
+  
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
