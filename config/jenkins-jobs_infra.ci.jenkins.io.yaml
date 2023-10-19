@@ -33,6 +33,7 @@ jobsDefinition:
       docker-404:
       docker-builder:
       docker-confluence-data:
+        disableTagDiscovery: true
       docker-crond:
       docker-hashicorp-tools:
       docker-helmfile:
