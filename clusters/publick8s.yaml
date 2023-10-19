@@ -152,7 +152,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.6.2
+    version: 0.6.4
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -160,7 +160,7 @@ releases:
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
-    version: 0.3.3
+    version: 0.3.6
     values:
       - "../config/rating.yaml"
     secrets:
@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.7
+    version: 0.8.11
     needs:
       - ldap/ldap
     values:
@@ -195,7 +195,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 1.1.1
+    version: 1.1.4
     timeout: 600
     atomic: false
     values:
@@ -213,7 +213,7 @@ releases:
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
-    version: 0.4.1
+    version: 0.4.2
     values:
       - "../config/plugin-site.yaml"
     secrets:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 1.0.4
+    version: 1.0.7
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
