@@ -216,11 +216,10 @@ datadog:
             - production
             - jenkins.io
         - name: rating.jenkins.io
-          url: https://rating.jenkins.io
+          url: https://rating.jenkins.io/healthcheck.html
           timeout: 10
           threshold: 3
           window: 5
-          http_response_status_code: 403
           collect_response_time: true
           check_certificate_expiration: true
           days_warning: 30
