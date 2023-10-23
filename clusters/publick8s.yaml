@@ -185,7 +185,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.12
+    version: 0.8.13
     needs:
       - ldap/ldap
     values:
