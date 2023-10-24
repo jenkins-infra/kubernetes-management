@@ -43,6 +43,8 @@ releases:
     set:
       - name: installCRDs
         value: true
+    values:
+      - "../config/cert-manager_publick8s.yaml"
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
