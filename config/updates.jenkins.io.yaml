@@ -95,3 +95,6 @@ rsyncd:
 
   nodeSelector:
     agentpool: x86medium
+
+serviceaccount:
+  enabled: true
