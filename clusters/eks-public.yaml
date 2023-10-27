@@ -37,7 +37,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.29.3
+    version: 9.29.4
     values:
       - "../config/autoscaler_eks-public.yaml"
     set:
@@ -81,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.40.2
+    version: 3.42.0
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_eks-public.yaml"
