@@ -5,12 +5,13 @@ global:
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+      "nginx.ingress.kubernetes.io/use-regex": "true" # Required to allow regexp path matching with Nginx
     hosts:
       - host: azure.updates.jenkins.io
         paths:
           - path: /
             backendService: httpd
-          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html|txt)$ # Requires the regexp engine of Nginx to be enabled
             pathType: ImplementationSpecific
             backendService: mirrorbits
     tls:
@@ -95,3 +96,6 @@ rsyncd:
 
   nodeSelector:
     agentpool: x86medium
+
+serviceaccount:
+  enabled: true
