@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.9.3-2.428
+  tag: 1.12.0-2.430
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -228,7 +228,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.35.1"
+                    galleryImageVersion: "1.38.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -278,7 +278,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.35.1"
+                    galleryImageVersion: "1.38.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -315,7 +315,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
-                    galleryImageVersion: "1.35.1"
+                    galleryImageVersion: "1.38.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -352,7 +352,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "1.35.1"
+                    galleryImageVersion: "1.38.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -664,48 +664,64 @@ controller:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk8u345-b01"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u345-b01/OpenJDK8U-jdk_x64_linux_hotspot_8u345b01.tar.gz"
+                      subdir: "jdk8u392-b08"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u392-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u392b08.tar.gz
                   - zip:
                       label: "windows"
-                      subdir: "jdk8u345-b01"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u345-b01/OpenJDK8U-jdk_x64_windows_hotspot_8u345b01.zip"
+                      subdir: "jdk8u392-b08"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u392-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u392b08.zip
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk8u345-b01"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u345-b01/OpenJDK8U-jdk_aarch64_linux_hotspot_8u345b01.tar.gz"
+                      subdir: "jdk8u392-b08"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u392-b08/OpenJDK8U-jdk_aarch64_linux_hotspot_8u392b08.tar.gz
             - name: "jdk11"
               properties:
               - installSource:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk-11.0.16.1+1"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1+1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz"
+                      subdir: "jdk-11.0.21+9"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.21_9.tar.gz
                   - zip:
                       label: "windows"
-                      subdir: "jdk-11.0.16.1+1"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1+1/OpenJDK11U-jdk_x64_windows_hotspot_11.0.16.1_1.zip"
+                      subdir: "jdk-11.0.21+9"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_x64_windows_hotspot_11.0.21_9.zip
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk-11.0.16.1+1"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1+1/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.16.1_1.tar.gz"
+                      subdir: "jdk-11.0.21+9"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.21_9.tar.gz
             - name: "jdk17"
               properties:
               - installSource:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk-17.0.4.1+1"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.4.1+1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.4.1_1.tar.gz"
+                      subdir: "jdk-17.0.8.1+1"
+                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1+1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.8.1_1.tar.gz
                   - zip:
                       label: "windows"
-                      subdir: "jdk-17.0.4.1+1"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.4.1+1/OpenJDK17U-jdk_x64_windows_hotspot_17.0.4.1_1.zip"
+                      subdir: "jdk-17.0.8.1+1"
+                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1+1/OpenJDK17U-jdk_x64_windows_hotspot_17.0.8.1_1.zip
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk-17.0.4.1+1"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.4.1+1/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.4.1_1.tar.gz"
+                      subdir: "jdk-17.0.8.1+1"
+                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1+1/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.8.1_1.tar.gz
+            - name: "jdk21"
+              properties:
+              - installSource:
+                  installers:
+                  - zip:
+                      label: "linux && amd64"
+                      subdir: "jdk-21.0.1+12"
+                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.1+12/OpenJDK21U-jdk_x64_linux_hotspot_21.0.1_12.tar.gz"
+                  - zip:
+                      label: "windows"
+                      subdir: "jdk-21.0.1+12"
+                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.1+12/OpenJDK21U-jdk_x64_windows_hotspot_21.0.1_12.zip"
+                  - zip:
+                      label: "linux && arm64"
+                      subdir: "jdk-21.0.1+12"
+                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.1+12/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.1_12.tar.gz"
           maven:
             installations:
             - name: "mvn"

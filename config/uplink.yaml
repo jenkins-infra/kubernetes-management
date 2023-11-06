@@ -13,16 +13,17 @@ ingress:
     - secretName: uplink-tls
       hosts:
         - uplink.jenkins.io
-image:
-  # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
-  repository: jenkinsciinfra/uplink@sha256
-  tag: c7ecad0e5e24bc05ac722418faf844d6a0286620c6316ff712459ecfcc3ee7ce
-  pullPolicy: IfNotPresent
 
 replicaCount: 2
 
 nodeSelector:
-  agentpool: x86medium
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
 
 affinity:
   podAntiAffinity:
