@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.40.2
+    version: 3.43.1
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.13.1
+    version: v1.13.2
     set:
       - name: installCRDs
         value: true
@@ -115,13 +115,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.5
+    version: 0.6.7
     values:
       - "../config/wiki.yaml"
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 0.2.0
+    version: 0.2.1
     timeout: 600
     values:
       - "../config/ldap.yaml"
@@ -144,7 +144,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.3.2
+    version: 2.3.3
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -154,7 +154,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.6.4
+    version: 0.6.5
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -170,7 +170,7 @@ releases:
   - name: uplink
     namespace: uplink
     chart: jenkins-infra/uplink
-    version: 0.3.0
+    version: 0.3.3
     timeout: 600
     values:
       - "../config/uplink.yaml"
@@ -187,7 +187,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.13
+    version: 0.8.19
     needs:
       - ldap/ldap
     values:
@@ -197,7 +197,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 1.1.4
+    version: 1.1.8
     timeout: 600
     atomic: false
     values:
@@ -239,7 +239,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 1.0.7
+    version: 1.1.4
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:

@@ -37,7 +37,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.29.3
+    version: 9.29.4
     values:
       - "../config/autoscaler_eks-public.yaml"
     set:
@@ -57,7 +57,7 @@ releases:
   - name: aws-load-balancer-controller
     namespace: aws-load-balancer
     chart: eks/aws-load-balancer-controller
-    version: 1.6.1
+    version: 1.6.2
     values:
       - "../config/aws-load-balancer-controller.yaml"
     set:
@@ -66,7 +66,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.13.1
+    version: v1.13.2
     set:
       - name: installCRDs
         value: true
@@ -81,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.40.2
+    version: 3.43.1
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_eks-public.yaml"
