@@ -680,16 +680,16 @@ controller:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk-11.0.16.1+1"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1+1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz"
+                      subdir: "jdk-11.0.21+9"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.21_9.tar.gz
                   - zip:
                       label: "windows"
-                      subdir: "jdk-11.0.16.1+1"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1+1/OpenJDK11U-jdk_x64_windows_hotspot_11.0.16.1_1.zip"
+                      subdir: "jdk-11.0.21+9"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_x64_windows_hotspot_11.0.21_9.zip
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk-11.0.16.1+1"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1+1/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.16.1_1.tar.gz"
+                      subdir: "jdk-11.0.21+9"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.21_9.tar.gz
             - name: "jdk17"
               properties:
               - installSource:
