@@ -1,0 +1,89 @@
+---
+name: Bump JDK8 version (Jenkins tools) on all controllers
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  lastVersion:
+    kind: githubrelease
+    name: Get the latest Adoptium JDK8 version
+    spec:
+      owner: adoptium
+      repository: temurin8-binaries
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      versionfilter:
+        kind: regex
+        # jdk8u302-b08 is OK, but jdk8u302-b08.1 is not
+        pattern: "^jdk8u(\\d*)-b(\\d*)$"
+  escapedVersion:
+    kind: shell
+    dependson:
+      - lastVersion
+    spec:
+      command: echo {{ source "lastVersion" }}
+    transformers:
+      - trimprefix: jdk
+      - replacer:
+          from: "-"
+          to: ""
+
+conditions:
+  checkIfReleaseIsAvailable:
+    sourceid: lastVersion
+    transformers:
+      - trimprefix: jdk
+    kind: shell
+    spec:
+      command: bash ./updatecli/scripts/check-jdk.sh # source input value passed as argument
+
+targets:
+  setJDK8Subdir:
+    name: "Bump JDK8 version on tools"
+    sourceid: lastVersion
+    kind: file
+    spec:
+      file: config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: >
+        subdir: "jdk8u(.*)"
+      replacepattern: >
+        subdir: "{{ source `lastVersion` }}"
+    scmid: default
+  setJDK8UrlPaths:
+    name: "Bump JDK8 version on tools"
+    sourceid: lastVersion
+    kind: file
+    spec:
+      file: config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: /jdk8u(.*)/
+      replacepattern: /{{ source `lastVersion` }}/
+    scmid: default
+  setJDK8UrlFilenames:
+    name: "Bump JDK8 version on tools"
+    disablesourceinput: true
+    kind: file
+    spec:
+      file: config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: '_8u(.*)\.(tar.gz|zip)"'
+      replacepattern: '_{{ source `escapedVersion` }}.$2"'
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump JDK8 version (Jenkins tools) on all controllers to {{ source "lastVersion" }}
+    spec:
+      labels:
+        - dependencies
+        - jdk8
