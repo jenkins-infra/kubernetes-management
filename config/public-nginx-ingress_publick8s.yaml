@@ -18,9 +18,7 @@ controller:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
       service.beta.kubernetes.io/azure-load-balancer-resource-group: prod-public-ips
       # azurerm_public_ip.publick8s_ipv4.ip_address in https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
-      service.beta.kubernetes.io/azure-load-balancer-ipv4: 20.7.178.24
-      # azurerm_public_ip.publick8s_ipv6.ip_address in https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
-      service.beta.kubernetes.io/azure-load-balancer-ipv6: 2603:1030:408:5::15a
+      service.beta.kubernetes.io/azure-pip-name: public-publick8s-ipv4
     externalTrafficPolicy: Local
     ipFamilies:
       - IPv4
