@@ -14,7 +14,7 @@ service:
     - '52.252.104.110/32'  # Accept inbound LDAPS from ci.jenkins.io
     - '34.211.101.61/32'  # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32'  # Accept inbound connections from Linux Foundation prod machine
-    - '20.96.66.246/32'  # Accept inbound connections from privatek8s # TODO: find out how to retrieve this IP from terraform
+    - '20.22.6.81/32'  # Accept inbound connections from privatek8s # TODO: find out how to retrieve this IP from terraform
     - '18.214.241.149/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.201.191.93/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.233.58.83/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
