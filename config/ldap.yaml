@@ -1,7 +1,9 @@
 service:
   type: LoadBalancer
   # Public IPv4 defined as code in https://github.com/jenkins-infra/azure/blob/main/ldap.jenkins.io.tf instead of requesting a random new public IP, useful for DNS setup and changes
-  IP: 20.7.180.148
+  azurePip:
+    name: ldap-jenkins-io-ipv4
+    resourceGroup: prod-public-ips
   whitelisted_sources:
     - '20.85.71.108/32'  # Accept inbound connections from publick8s public outbound IP
     - '10.100.0.0/16'  # publick8s Pod CIDR (internal IPs) for intrnal access
