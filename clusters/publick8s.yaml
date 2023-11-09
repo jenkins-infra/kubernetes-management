@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.42.1
+    version: 3.44.1
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -43,6 +43,8 @@ releases:
     set:
       - name: installCRDs
         value: true
+    values:
+      - "../config/cert-manager_publick8s.yaml"
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
@@ -56,14 +58,14 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.8.0
+    version: 4.8.3
     values:
       - "../config/public-nginx-ingress__common.yaml"
       - "../config/public-nginx-ingress_publick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.8.0
+    version: 4.8.3
     values:
       - "../config/private-nginx-ingress__common.yaml"
       - "../config/private-nginx-ingress_publick8s.yaml"
@@ -113,13 +115,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.6
+    version: 0.6.7
     values:
       - "../config/wiki.yaml"
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 0.2.0
+    version: 0.2.1
     timeout: 600
     values:
       - "../config/ldap.yaml"
@@ -185,7 +187,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.15
+    version: 0.8.19
     needs:
       - ldap/ldap
     values:
@@ -195,7 +197,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 1.1.6
+    version: 1.1.9
     timeout: 600
     atomic: false
     values:
@@ -237,7 +239,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 1.1.1
+    version: 1.1.4
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
