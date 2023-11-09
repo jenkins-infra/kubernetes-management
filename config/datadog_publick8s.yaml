@@ -14,3 +14,11 @@ agents:
       operator: "Equal"
       value: "arm64"
       effect: "NoSchedule"
+clusterAgent:
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"

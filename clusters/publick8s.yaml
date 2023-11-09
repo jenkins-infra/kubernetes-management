@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.43.1
+    version: 3.44.1
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -43,6 +43,8 @@ releases:
     set:
       - name: installCRDs
         value: true
+    values:
+      - "../config/cert-manager_publick8s.yaml"
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
@@ -195,7 +197,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 1.1.8
+    version: 1.1.9
     timeout: 600
     atomic: false
     values:
