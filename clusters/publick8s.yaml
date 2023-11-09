@@ -231,7 +231,7 @@ releases:
   - name: ipv6-lb-service
     namespace: public-nginx-ingress
     chart: jenkins-infra/ipv6-lb-service
-    version: 0.1.0
+    version: 1.0.0
     needs:
       - public-nginx-ingress/public-nginx-ingress
     values:
