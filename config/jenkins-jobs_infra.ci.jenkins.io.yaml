@@ -49,6 +49,8 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile
       plugin-health-scoring:
         jenkinsfilePath: Jenkinsfile
+      plugin-site-api:
+        jenkinsfilePath: Jenkinsfile
       rating:
       uplink:
         jenkinsfilePath: Jenkinsfile
