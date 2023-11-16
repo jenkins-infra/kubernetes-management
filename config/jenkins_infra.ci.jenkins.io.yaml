@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.13.0-2.431
+  tag: 1.14.0-2.432
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -225,10 +225,12 @@ controller:
                   credentialsId: "azure-login"
                   diskType: "managed"
                   doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.38.0"
+                    galleryImageVersion: "1.39.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -256,7 +258,7 @@ controller:
                   existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
-                  osDiskStorageAccountType: "Premium_LRS"
+                  osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
                   spotInstance: true
@@ -267,7 +269,7 @@ controller:
                   templateName: "ubuntu-22"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
+                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
                 - launcher: "ssh"
@@ -275,10 +277,12 @@ controller:
                   credentialsId: "azure-login"
                   diskType: "managed"
                   doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.38.0"
+                    galleryImageVersion: "1.39.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -293,7 +297,7 @@ controller:
                   existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
-                  osDiskStorageAccountType: "Premium_LRS"
+                  osDiskStorageAccountType: "Standard_LRS"
                   osType: "Windows"
                   retentionStrategy: "azureVMCloudOnce"
                   spotInstance: true
@@ -304,7 +308,7 @@ controller:
                   templateName: "win-2019"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
+                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
                 - launcher: "ssh"
@@ -312,10 +316,12 @@ controller:
                   credentialsId: "azure-login"
                   diskType: "managed"
                   doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
-                    galleryImageVersion: "1.38.0"
+                    galleryImageVersion: "1.39.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -330,7 +336,7 @@ controller:
                   existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
-                  osDiskStorageAccountType: "Premium_LRS"
+                  osDiskStorageAccountType: "Standard_LRS"
                   osType: "Windows"
                   retentionStrategy: "azureVMCloudOnce"
                   spotInstance: true
@@ -341,7 +347,7 @@ controller:
                   templateName: "win-2022"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4s_v3" # 4 vCPUs / 16 Gb
+                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
                 - launcher: "ssh"
@@ -349,10 +355,12 @@ controller:
                   credentialsId: "azure-login"
                   diskType: "managed"
                   doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "1.38.0"
+                    galleryImageVersion: "1.39.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
@@ -379,8 +387,8 @@ controller:
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_STORAGE_ACCOUNT}"
                   noOfParallelJobs: 1
-                  osDiskSize: 128
-                  osDiskStorageAccountType: "Premium_LRS"
+                  osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
+                  osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
                   spotInstance: true
@@ -391,7 +399,7 @@ controller:
                   templateName: "ubuntu-22-arm64"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4ps_v5" # 4 vCPUs / 16 Gb
+                  virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
       security: |
@@ -637,8 +645,6 @@ controller:
           datadogGlobalConfiguration:
             ciInstanceName: "infra.ci.jenkins.io"
             collectBuildLogs: false
-            # Send events on configuration changes to jobs or changes to jenkins. These events include changes by the system which may be frequent and redundant.
-            emitConfigChangeEvents: true
             emitSecurityEvents: true
             emitSystemEvents: true
             enableCiVisibility: true
