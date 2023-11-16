@@ -11,7 +11,7 @@ global:
         paths:
           - path: /
             backendService: httpd
-          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html|txt)$ # Requires the regexp engine of Nginx to be enabled
+          - path: /.*[.](json|html|txt)$ # Requires the regexp engine of Nginx to be enabled
             pathType: ImplementationSpecific
             backendService: mirrorbits
     tls:
