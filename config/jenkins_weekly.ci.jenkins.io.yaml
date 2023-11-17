@@ -137,7 +137,11 @@ controller:
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
-          customHeaderConfiguration:
+        appearance:
+          themeManager:
+            disableUserThemes: false
+            theme: "darkSystem"
+          customHeader:
             enabled: true
             header:
               context:
@@ -151,10 +155,6 @@ controller:
             logoText: "Jenkins"
             title: "with the <a href=\"https://plugins.jenkins.io/customizable-header/\">customizable-header</a>\
               \ plugin"
-        appearance:
-          themeManager:
-            disableUserThemes: false
-            theme: "darkSystem"
         jenkins:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
