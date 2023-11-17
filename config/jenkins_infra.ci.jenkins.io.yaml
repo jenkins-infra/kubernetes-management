@@ -737,8 +737,8 @@ controller:
                   - maven:
                       id: "3.9.5"
       custom-header: |
-        unclassified:
-          customHeaderConfiguration:
+        appearance:
+          customHeader:
             enabled: true
             header: "logo"
             headerColor:
