@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.14.0-2.432
+  tag: 1.14.1-2.432
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -737,8 +737,8 @@ controller:
                   - maven:
                       id: "3.9.5"
       custom-header: |
-        unclassified:
-          customHeaderConfiguration:
+        appearance:
+          customHeader:
             enabled: true
             header: "logo"
             headerColor:
