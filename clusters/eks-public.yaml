@@ -37,7 +37,7 @@ releases:
   - name: autoscaler
     namespace: autoscaler
     chart: autoscaler/cluster-autoscaler
-    version: 9.29.4
+    version: 9.30.1
     values:
       - "../config/autoscaler_eks-public.yaml"
     set:
@@ -81,7 +81,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.45.0
+    version: 3.47.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_eks-public.yaml"
@@ -97,7 +97,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 0.15.1
+    version: 0.16.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
     values:
