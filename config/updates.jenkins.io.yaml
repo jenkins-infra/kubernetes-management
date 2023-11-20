@@ -65,7 +65,12 @@ httpd:
       cpu: 2000m
       memory: 2048Mi
   nodeSelector:
-    agentpool: x86medium
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
 
 rsyncd:
   enabled: true
@@ -95,7 +100,12 @@ rsyncd:
       memory: 64Mi
 
   nodeSelector:
-    agentpool: x86medium
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
 
 serviceaccount:
   enabled: true
