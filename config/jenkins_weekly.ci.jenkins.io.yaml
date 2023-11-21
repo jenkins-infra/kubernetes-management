@@ -23,8 +23,12 @@ controller:
   tag: 1.14.1-2.432
   imagePullPolicy: IfNotPresent
   nodeSelector:
-    kubernetes.io/os: linux
-    kubernetes.azure.com/agentpool: x86medium
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
   resources:
     limits:
       cpu: "2"
@@ -201,7 +205,7 @@ controller:
               }
           - script: >
               pipelineJob('pipeline') {
-               definition {
+                definition {
                   cps {
                     sandbox()
                     script("""\
