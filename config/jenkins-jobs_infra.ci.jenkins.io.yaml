@@ -459,3 +459,8 @@ jobsDefinition:
             appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+      contributor-spotlight:
+        name: Contributor Spotlight
+        description: "Jenkins Contributor Spotlight Website"
+        allowUntrustedChanges: true
+        jenkinsfilePath: Jenkinsfile
