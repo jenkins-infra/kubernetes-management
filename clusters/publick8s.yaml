@@ -244,3 +244,11 @@ releases:
       - "../config/updates.jenkins.io.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/secrets.yaml"
+  - name: contributors-jenkins-io
+    namespace: contributors-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.1.0
+    values:
+      - "../config/contributors.jenkins.io.yaml"
+    secrets:
+      - "../secrets/config/contributors.jenkins.io/secrets.yaml"
