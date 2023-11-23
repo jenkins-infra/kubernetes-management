@@ -29,7 +29,7 @@ resources:
     memory: 128Mi
 htmlVolume:
   azureFile:
-    secretName: nginx-website
+    secretName: contributors-jenkins-io
     shareName: contributors-jenkins-io
     readOnly: true
 
