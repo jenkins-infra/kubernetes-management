@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.49.0
+    version: 3.49.5
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -72,7 +72,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 3.8.4
+    version: 3.8.5
     values:
       - "../config/falco.yaml"
   - name: artifact-caching-proxy
@@ -115,7 +115,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.9
+    version: 0.6.10
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -187,7 +187,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.23
+    version: 0.8.25
     needs:
       - ldap/ldap
     values:
@@ -197,7 +197,7 @@ releases:
   - name: mirrorbits
     namespace: mirrorbits
     chart: jenkins-infra/mirrorbits
-    version: 1.1.10
+    version: 1.1.11
     timeout: 600
     atomic: false
     values:
@@ -244,3 +244,11 @@ releases:
       - "../config/updates.jenkins.io.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/secrets.yaml"
+  - name: contributors-jenkins-io
+    namespace: contributors-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.1.1
+    values:
+      - "../config/contributors.jenkins.io.yaml"
+    secrets:
+      - "../secrets/config/contributors.jenkins.io/secrets.yaml"
