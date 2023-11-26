@@ -45,7 +45,7 @@ targets:
     sourceid: cik8s_maxcapacity
     spec:
       file: config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s.yaml
-      key: 'quotas.pods'
+      key: '$.quotas.pods'
     scmid: default
   quotas_cik8s_bom_maxcapacity:
     name: "Update the pods quotas in kubernetes for cik8s-bom"
@@ -53,7 +53,7 @@ targets:
     sourceid: cik8s_bom_maxcapacity
     spec:
       file: config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-bom.yaml
-      key: 'quotas.pods'
+      key: '$.quotas.pods'
     scmid: default
   quotas_cik8s_bom_experiments:
     name: "Update the pods quotas in kubernetes for cik8s-experiments"
@@ -61,7 +61,7 @@ targets:
     sourceid: cik8s_experiments_maxcapacity
     spec:
       file: config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-experiments.yaml
-      key: 'quotas.pods'
+      key: '$.quotas.pods'
     scmid: default
   quotas_doks_maxcapacity:
     name: "Update the pods quotas in kubernetes for doks"
@@ -69,7 +69,7 @@ targets:
     sourceid: doks_maxcapacity
     spec:
       file: config/jenkins-kubernetes-agents_ci.jenkins.io_doks.yaml
-      key: 'quotas.pods'
+      key: '$.quotas.pods'
     scmid: default
 
 actions:
