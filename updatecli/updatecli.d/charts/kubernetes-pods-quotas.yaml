@@ -81,4 +81,4 @@ actions:
       labels:
         - dependencies
         - jenkins-kubernetes-agents
-        - pods
+        - quotas.pods
