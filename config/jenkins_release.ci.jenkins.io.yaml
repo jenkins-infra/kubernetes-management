@@ -568,7 +568,7 @@ controller:
             enabled: true
             header: "logo"
             headerColor:
-              backgroundColor: "linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(116,1,1,1) 100%);"
+              backgroundColor: "linear-gradient(90deg, rgba(255, 80, 80, 1) 0%, rgba(198, 112, 112, 1) 100%);"
               color: "white"
               hoverColor: "#C11818"
             logo:
