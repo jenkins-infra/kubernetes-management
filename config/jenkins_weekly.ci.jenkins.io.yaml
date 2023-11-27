@@ -201,7 +201,7 @@ controller:
               }
           - script: >
               pipelineJob('pipeline') {
-               definition {
+                definition {
                   cps {
                     sandbox()
                     script("""\
