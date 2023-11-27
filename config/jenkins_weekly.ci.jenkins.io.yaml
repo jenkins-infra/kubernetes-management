@@ -9,7 +9,10 @@ rbac:
 persistence:
   enabled: true
   size: 8Gi
-  storageClass: managed-csi-premium-retain
+  storageClass: managed-csi-premium-zrs-retain
+  dataSource:
+    name: jenkins-weekly-snap
+    kind: PersistentVolumeClaim
 agent:
   componentName: "agent"
 networkPolicy:
@@ -23,8 +26,12 @@ controller:
   tag: 1.15.0-2.433
   imagePullPolicy: IfNotPresent
   nodeSelector:
-    kubernetes.io/os: linux
-    kubernetes.azure.com/agentpool: x86medium
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
   resources:
     limits:
       cpu: "2"
