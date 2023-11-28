@@ -191,7 +191,7 @@ controller:
                           effect: "NoSchedule"
                     containers:
                       - name: "jnlp"
-                        image: "jenkinsciinfra/builder@sha256:a4abe24f01e7162f0208d1a216a867a98080072ee4e4ca4d5899f7e3388aa482"
+                        image: "jenkinsciinfra/builder@sha256:7150f769249c071fec7ee18338183193c36d489dc9a2fb2d211242fcc89350cd"
                         command: "/usr/local/bin/jenkins-agent"
                         envVars:
                         - envVar:
