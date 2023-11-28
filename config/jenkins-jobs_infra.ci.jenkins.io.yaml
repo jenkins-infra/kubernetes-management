@@ -464,3 +464,7 @@ jobsDefinition:
         description: "Jenkins Contributor Spotlight Website"
         allowUntrustedChanges: true
         jenkinsfilePath: Jenkinsfile
+        credentials:
+          contributors-jenkins-io-fileshare-sas-querystring:
+            secret: "${CONTRIBUTORS_JENKINS_IO_FILESHARE_SAS_QUERYSTRING}"
+            description: "File Share SAS query string to update contributors.jenkins.io content"
