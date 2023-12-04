@@ -57,7 +57,7 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.8.3
+    version: 4.8.4
     values:
       - "../config/public-nginx-ingress__common.yaml"
       - "../config/public-nginx-ingress_doks-public.yaml"
