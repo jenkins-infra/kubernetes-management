@@ -143,8 +143,8 @@ controller:
                   - name: jnlp-linux-arm64
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
-                      - name: jnlp-arm64
-                        image: "jenkins/inbound-agent:latest-jdk17"
+                      - name: jnlp
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04"
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
