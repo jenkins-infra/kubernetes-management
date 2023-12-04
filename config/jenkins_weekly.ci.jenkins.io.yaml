@@ -9,7 +9,10 @@ rbac:
 persistence:
   enabled: true
   size: 8Gi
-  storageClass: managed-csi-premium-retain
+  storageClass: managed-csi-premium-zrs-retain
+  dataSource:
+    name: jenkins-weekly-snap
+    kind: PersistentVolumeClaim
 agent:
   componentName: "agent"
 networkPolicy:
@@ -20,11 +23,15 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.15.0-2.433
+  tag: 1.16.0-2.434
   imagePullPolicy: IfNotPresent
   nodeSelector:
-    kubernetes.io/os: linux
-    kubernetes.azure.com/agentpool: x86medium
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
   resources:
     limits:
       cpu: "2"
@@ -201,7 +208,7 @@ controller:
               }
           - script: >
               pipelineJob('pipeline') {
-               definition {
+                definition {
                   cps {
                     sandbox()
                     script("""\
