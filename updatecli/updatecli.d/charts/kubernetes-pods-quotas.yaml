@@ -25,12 +25,6 @@ sources:
     spec:
       file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.ci.jenkins.io.yaml"
       key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.cik8s-bom.max_capacity"
-  cik8s_experiments_maxcapacity:
-    kind: yaml
-    name: get pods number for cik8s in ci.jenkins.io, namespace 'jenkins-agents-experiments'
-    spec:
-      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.ci.jenkins.io.yaml"
-      key: "profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.cik8s-experiments.max_capacity"
   doks_maxcapacity:
     kind: yaml
     name: get pods number for doks in ci.jenkins.io
@@ -53,14 +47,6 @@ targets:
     sourceid: cik8s_bom_maxcapacity
     spec:
       file: config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-bom.yaml
-      key: '$.quotas.pods'
-    scmid: default
-  quotas_cik8s_bom_experiments:
-    name: "Update the pods quotas in kubernetes for cik8s-experiments"
-    kind: yaml
-    sourceid: cik8s_experiments_maxcapacity
-    spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-experiments.yaml
       key: '$.quotas.pods'
     scmid: default
   quotas_doks_maxcapacity:
