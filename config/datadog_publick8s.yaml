@@ -14,6 +14,10 @@ agents:
       operator: "Equal"
       value: "arm64"
       effect: "NoSchedule"
+    - key: "kubernetes.azure.com/mode"
+      operator: "Equal"
+      value: "system"
+      effect: "NoSchedule"
 clusterAgent:
   nodeSelector:
     kubernetes.io/arch: arm64
@@ -21,4 +25,8 @@ clusterAgent:
     - key: "kubernetes.io/arch"
       operator: "Equal"
       value: "arm64"
+      effect: "NoSchedule"
+    - key: "kubernetes.azure.com/mode"
+      operator: "Equal"
+      value: "system"
       effect: "NoSchedule"
