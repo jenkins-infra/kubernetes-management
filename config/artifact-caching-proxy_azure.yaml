@@ -13,4 +13,4 @@ persistence:
   storageClass: managed-csi-premium-retain
 
 nodeSelector:
-  agentpool: x86medium
+  kubernetes.io/arch: amd64

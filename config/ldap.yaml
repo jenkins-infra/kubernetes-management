@@ -43,4 +43,5 @@ resources:
     memory: 1536Mi
 
 nodeSelector:
-  agentpool: x86medium
+  kubernetes.io/arch: amd64
+
