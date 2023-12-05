@@ -14,9 +14,9 @@ agents:
       operator: "Equal"
       value: "arm64"
       effect: "NoSchedule"
-    - key: "kubernetes.azure.com/mode"
+    - key: "CriticalAddonsOnly"
       operator: "Equal"
-      value: "system"
+      value: "true"
       effect: "NoSchedule"
 clusterAgent:
   nodeSelector:
