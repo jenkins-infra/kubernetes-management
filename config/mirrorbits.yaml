@@ -94,7 +94,7 @@ replicaCount:
   files: 2
 
 nodeSelector:
-  agentpool: x86medium
+  kubernetes.io/arch: amd64
 
 affinity:
   mirrorbits:

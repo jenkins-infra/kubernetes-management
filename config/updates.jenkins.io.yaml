@@ -53,7 +53,7 @@ mirrorbits-lite:
       cpu: 500m
       memory: 1024Mi
   nodeSelector:
-    agentpool: x86medium
+    kubernetes.io/arch: amd64
 
 httpd:
   enabled: true
