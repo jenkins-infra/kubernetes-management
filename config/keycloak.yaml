@@ -27,7 +27,7 @@ resources:
 replicas: 1
 
 nodeSelector:
-  agentpool: x86medium
+  kubernetes.io/arch: amd64
 
 extraInitContainers: |
   - name: theme-provider
