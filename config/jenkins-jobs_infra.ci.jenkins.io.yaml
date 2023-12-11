@@ -219,10 +219,10 @@ jobsDefinition:
             username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
             usernameSecret: true
             password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
-      mirrorbits-mirrors-list:
-        name: "List of Mirrorbits mirrors"
+      jenkins-infra-data:
+        name: "Jenkins Infrastructure Public Data"
         repository: "infra-reports"
-        jenkinsfilePath: "mirrorbits-mirrors-list/Jenkinsfile"
+        jenkinsfilePath: "jenkins-infra-data/Jenkinsfile"
       permissions-report:
         name: "GitHub Permissions Report"
         repository: "infra-reports"
