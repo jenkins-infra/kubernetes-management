@@ -127,7 +127,7 @@ releases:
   - name: github-comment-ops
     namespace: github-comment-ops
     chart: github-comment-ops/github-comment-ops
-    version: 1.4.0
+    version: 1.4.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
     values:
