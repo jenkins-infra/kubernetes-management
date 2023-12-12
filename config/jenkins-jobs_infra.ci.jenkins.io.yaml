@@ -219,6 +219,10 @@ jobsDefinition:
             username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
             usernameSecret: true
             password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
+      jenkins-infra-data:
+        name: "Jenkins Infrastructure Public Data"
+        repository: "infra-reports"
+        jenkinsfilePath: "jenkins-infra-data/Jenkinsfile"
       permissions-report:
         name: "GitHub Permissions Report"
         repository: "infra-reports"
