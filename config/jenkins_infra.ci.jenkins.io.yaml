@@ -117,6 +117,8 @@ controller:
                     containers:
                       - name: jnlp
                         image: "jenkins/inbound-agent:latest-jdk17"
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
@@ -145,6 +147,8 @@ controller:
                     containers:
                       - name: jnlp
                         image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.42.0"
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
