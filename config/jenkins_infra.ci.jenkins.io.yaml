@@ -119,10 +119,6 @@ controller:
                         image: "jenkins/inbound-agent:latest-jdk17"
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/java/openjdk/bin/java"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
@@ -150,10 +146,6 @@ controller:
                         image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.42.0"
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/java/openjdk/bin/java"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
