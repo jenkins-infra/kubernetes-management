@@ -122,7 +122,7 @@ controller:
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
-                            value: "/opt/java/openjdk/bin/java"
+                            value: "/opt/jdk-17/bin/java"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
@@ -153,7 +153,7 @@ controller:
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
-                            value: "/opt/java/openjdk/bin/java"
+                            value: "/opt/jdk-17/bin/java"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
