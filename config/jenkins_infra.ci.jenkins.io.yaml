@@ -453,7 +453,7 @@ controller:
                 azureCredentialsId: "azure-jenkins-sponsorship-credentials"
                 name: "azure-vms-jenkins-sponsorship"
                 deploymentTimeout: 1200
-                existingResourceGroupName: "infra-agents"
+                existingResourceGroupName: "infra-ci-jenkins-io-ephemeral-agents"
                 maxVirtualMachinesLimit: 50
                 resourceGroupReferenceType: "existing"
                 vmTemplates:
