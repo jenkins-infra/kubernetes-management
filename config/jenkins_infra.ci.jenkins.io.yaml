@@ -81,6 +81,15 @@ controller:
                     scope: SYSTEM
                     subscriptionId: "${JENKINSINFRA_AZURE_SUBSCRIPTION_ID}"
                     tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+                - azure:
+                    azureEnvironmentName: "Azure"
+                    clientId: "${JENKINSINFRA_AZURE_CLIENT_ID}"
+                    clientSecret: "${JENKINSINFRA_AZURE_CLIENT_SECRET_VALUE}"
+                    description: "azure Service Principal"
+                    id: "azure-jenkins-sponsorship-credentials"
+                    scope: SYSTEM
+                    subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
                 - usernamePassword:
                     description: "Credentials to access the azure agents VMs"
                     id: "azure-login"
@@ -440,6 +449,196 @@ controller:
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUs / 16 Gb
                   virtualNetworkName: "private-vnet"
                   virtualNetworkResourceGroupName: "private"
+            - azureVM:
+                azureCredentialsId: "azure-jenkins-sponsorship-credentials"
+                name: "azure-vms-jenkins-sponsorship"
+                deploymentTimeout: 1200
+                existingResourceGroupName: "infra-agents"
+                maxVirtualMachinesLimit: 50
+                resourceGroupReferenceType: "existing"
+                vmTemplates:
+                - launcher: "ssh"
+                  agentWorkspace: "/home/jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
+                    galleryImageVersion: "1.42.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    #!/bin/bash
+                    set -eux
+                    echo "START CLOUDINIT"
+                    systemctl stop datadog-agent.service
+                    mkdir -p /var/log/datadog /etc/datadog-agent
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+                    chown -R dd-agent:dd-agent /etc/datadog-agent
+                    chmod 640 /etc/datadog-agent/datadog.yaml
+                    chown -R dd-agent:dd-agent /var/log/datadog
+                    chmod 770 /var/log/datadog
+                    systemctl start datadog-agent.service
+                    rm -f /etc/sudoers.d/90-cloud-init-users
+                    echo "END CLOUDINIT"
+                  javaPath: "/opt/jdk-17/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "linux-amd64 linux-amd64-docker azure-vms-jenkins-sponsorship"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  noOfParallelJobs: 1
+                  osDiskSize: 150
+                  osDiskStorageAccountType: "Standard_LRS"
+                  osType: "Linux"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: false
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS machine"
+                  templateName: "ubuntu-22"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
+                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                - launcher: "ssh"
+                  agentWorkspace: "C:/Jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
+                    galleryImageVersion: "1.42.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
+                  javaPath: "C:/tools/jdk-17/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows azure-vms-jenkins-sponsorship"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  noOfParallelJobs: 1
+                  osDiskSize: 150
+                  osDiskStorageAccountType: "Standard_LRS"
+                  osType: "Windows"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: false
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  templateDesc: "Dynamically provisioned Windows 2019 machine"
+                  templateName: "win-2019"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
+                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                - launcher: "ssh"
+                  agentWorkspace: "C:/Jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
+                    galleryImageVersion: "1.42.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
+                  javaPath: "C:/tools/jdk-17/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "windows-2022 amd64 azure vm docker-windows docker-windows-2022 windows azure-vms-jenkins-sponsorship"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  noOfParallelJobs: 1
+                  osDiskSize: 150
+                  osDiskStorageAccountType: "Standard_LRS"
+                  osType: "Windows"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: false
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  templateDesc: "Dynamically provisioned Windows 2022 machine"
+                  templateName: "win-2022"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
+                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                - launcher: "ssh"
+                  agentWorkspace: "/home/jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: true
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+                    galleryImageVersion: "1.42.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    #!/bin/bash
+                    set -eux
+                    echo "START CLOUDINIT"
+                    systemctl stop datadog-agent.service
+                    mkdir -p /var/log/datadog /etc/datadog-agent
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+                    chown -R dd-agent:dd-agent /etc/datadog-agent
+                    chmod 640 /etc/datadog-agent/datadog.yaml
+                    chown -R dd-agent:dd-agent /var/log/datadog
+                    chmod 770 /var/log/datadog
+                    systemctl start datadog-agent.service
+                    rm -f /etc/sudoers.d/90-cloud-init-users
+                    echo "END CLOUDINIT"
+                  javaPath: "/opt/jdk-17/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  noOfParallelJobs: 1
+                  osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
+                  osDiskStorageAccountType: "Standard_LRS"
+                  osType: "Linux"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: false
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS ARM machine"
+                  templateName: "ubuntu-22-arm64"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
       security: |
         security:
           scriptApproval:
