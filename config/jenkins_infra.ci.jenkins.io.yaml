@@ -262,7 +262,7 @@ controller:
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
-                  doNotUseMachineIfInitFails: true
+                  doNotUseMachineIfInitFails: false
                   encryptionAtHost: true
                   ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
@@ -392,7 +392,7 @@ controller:
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
-                  doNotUseMachineIfInitFails: true
+                  doNotUseMachineIfInitFails: false
                   encryptionAtHost: true
                   ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
