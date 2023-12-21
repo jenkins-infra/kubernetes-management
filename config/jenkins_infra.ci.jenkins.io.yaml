@@ -20,7 +20,7 @@ networkPolicy:
       name: "jenkins-infra"
 controller:
   image: jenkinsciinfra/jenkins-weekly
-  tag: 1.18.2-2.436
+  tag: 1.19.0-2.437
   imagePullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -262,7 +262,7 @@ controller:
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
-                  doNotUseMachineIfInitFails: true
+                  doNotUseMachineIfInitFails: false
                   encryptionAtHost: true
                   ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
@@ -271,7 +271,7 @@ controller:
                     galleryImageVersion: "1.42.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -323,7 +323,7 @@ controller:
                     galleryImageVersion: "1.42.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
@@ -362,7 +362,7 @@ controller:
                     galleryImageVersion: "1.42.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
@@ -392,7 +392,7 @@ controller:
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
                   diskType: "managed"
-                  doNotUseMachineIfInitFails: true
+                  doNotUseMachineIfInitFails: false
                   encryptionAtHost: true
                   ephemeralOSDisk: true
                   executeInitScriptAsRoot: true
@@ -401,7 +401,7 @@ controller:
                     galleryImageVersion: "1.42.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${PACKER_AZURE_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
