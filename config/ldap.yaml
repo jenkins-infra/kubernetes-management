@@ -39,8 +39,8 @@ resources:
     cpu: 500m
     memory: 1536Mi
   requests:
-    cpu: 500m
-    memory: 1536Mi
+    cpu: 200m
+    memory: 1024Mi
 
 nodeSelector:
   kubernetes.io/arch: amd64
