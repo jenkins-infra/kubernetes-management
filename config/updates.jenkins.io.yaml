@@ -47,11 +47,11 @@ mirrorbits-lite:
   enabled: true
   resources:
     limits:
-      cpu: 500m
-      memory: 1024Mi
+      cpu: 2
+      memory: 2048Mi
     requests:
       cpu: 500m
-      memory: 1024Mi
+      memory: 500Mi
   nodeSelector:
     kubernetes.io/arch: amd64
 
@@ -59,11 +59,11 @@ httpd:
   enabled: true
   resources:
     limits:
-      cpu: 2000m
+      cpu: 1000m
       memory: 2048Mi
     requests:
-      cpu: 2000m
-      memory: 2048Mi
+      cpu: 200m
+      memory: 500Mi
   nodeSelector:
     kubernetes.io/arch: arm64
   tolerations:
