@@ -2,9 +2,7 @@ def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
 pipeline {
   agent {
-    kubernetes {
-      yamlFile 'PodTemplates.yaml'
-    }
+    label 'linux-arm64'
   }
 
   options {
