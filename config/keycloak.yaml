@@ -18,11 +18,11 @@ ingress:
 
 resources:
   limits:
-    cpu: 1500m
+    cpu: 2
     memory: 2048Mi
   requests:
-    cpu: 1500m
-    memory: 2048Mi
+    cpu: 1
+    memory: 1500Mi
 
 replicas: 1
 
