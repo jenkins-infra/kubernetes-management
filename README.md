@@ -1,8 +1,8 @@
 # Jenkins Infrastructure Kubernetes Management
 
-This repository contains the helmfile manifests values used by jenkins infrastructure project to manage the applications of its kubernetes clusters.
+This repository contains the helmfile manifests' values used by the Jenkins infrastructure project to manage the applications on its Kubernetes clusters.
 
-The charts used come from [the helm charts repository](https://github.com/jenkins-infra/helm-charts/) and from external providers.
+The charts used come from [the helm charts repository](https://github.com/jenkins-infra/helm-charts/) and external providers.
 
 ## Contributing
 
@@ -32,7 +32,7 @@ This project requires the following tools (more details within the [DockerFile](
 * `helm`
 * `helmfile`
 * `sops`
-* the 3 followings helm plugins:
+* the following 3 Helm plugins:
     * `helm-diff`
     * `helm-secrets`
     * `helm-git`
