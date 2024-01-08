@@ -44,6 +44,13 @@ conditions:
       environments:
         - name: PATH
       command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-ubuntu-22.04-arm64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
+  checkDockerImageARM64:
+    name: Ensure that the image "jenkinsciinfra/jenkins-agent-ubuntu-22.04:<found_version>" is published
+    kind: dockerimage
+    spec:
+      image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04"
+      ## tag come from the input source
+      architecture: arm64
 
 targets:
   setAzureGalleryImageVersion:
@@ -54,6 +61,15 @@ targets:
       file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: 'galleryImageVersion: ".*"'
       replacepattern: 'galleryImageVersion: "{{ source `packerImageVersion` }}"'
+    scmid: default
+  setJnlpLinuxArm64Image:
+    sourceid: packerImageVersion
+    name: "Bump docker image version for arm64"
+    kind: file
+    spec:
+      file: config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: 'image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:.*'
+      replacepattern: 'image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:{{ source `packerImageVersion` }}"'
     scmid: default
 
 actions:
