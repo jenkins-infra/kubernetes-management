@@ -16,9 +16,7 @@ pipeline {
   stages {
     stage('Yaml Lint') {
       agent {
-        kubernetes {
-          yamlFile 'PodTemplates.yaml'
-        }
+        label 'linux-arm64'
       }
       steps {
         sh 'yamllint --config-file yamllint.config config'
@@ -33,9 +31,7 @@ pipeline {
           }
         } // axes
         agent {
-          kubernetes {
-            yamlFile 'PodTemplates.yaml'
-          }
+          label 'linux-arm64'
         }
       environment {
         KUBECONFIG            = credentials("kubeconfig-${K8S_CLUSTER}")
