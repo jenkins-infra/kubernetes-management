@@ -155,7 +155,7 @@ controller:
                             key: "JENKINS_JAVA_BIN"
                             value: "/opt/jdk-17/bin/java"
                         resourceLimitCpu: "500m"
-                        resourceLimitMemory: "512Mi"
+                        resourceLimitMemory: "1024Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
