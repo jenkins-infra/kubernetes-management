@@ -7,38 +7,38 @@ global:
       "nginx.ingress.kubernetes.io/ssl-redirect": "true"
       "nginx.ingress.kubernetes.io/use-regex": "true"  # Required to allow regexp path matching with Nginx
     hosts:
-      - host: azure.get.jenkins.io
+      - host: get.jenkins.io
         paths:
           - path: /
             backendService: httpd
           - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
             pathType: ImplementationSpecific
             backendService: mirrorbits
-      # - host: mirrors.jenkins.io
-      #   paths:
-      #     - path: /
-      #       backendService: httpd
-      #     - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
-      #       pathType: ImplementationSpecific
-      #       backendService: mirrorbits
-      # - host: mirrors.jenkins-ci.org
-      #   paths:
-      #     - path: /
-      #       backendService: httpd
-      #     - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
-      #       pathType: ImplementationSpecific
-      #       backendService: mirrorbits
-      # - host: fallback.get.jenkins.io
-      #   paths:
-      #     - path: /
-      #       backendService: httpd
+      - host: mirrors.jenkins.io
+        paths:
+          - path: /
+            backendService: httpd
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
+            pathType: ImplementationSpecific
+            backendService: mirrorbits
+      - host: mirrors.jenkins-ci.org
+        paths:
+          - path: /
+            backendService: httpd
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
+            pathType: ImplementationSpecific
+            backendService: mirrorbits
+      - host: fallback.get.jenkins.io
+        paths:
+          - path: /
+            backendService: httpd
     tls:
       - secretName: get-jenkins-io-tls
         hosts:
-          - azure.get.jenkins.io
-          # - mirrors.jenkins.io
-          # - mirrors.jenkins-ci.org
-          # - fallback.get.jenkins.io
+          - get.jenkins.io
+          - mirrors.jenkins.io
+          - mirrors.jenkins-ci.org
+          - fallback.get.jenkins.io
   storage:
     enabled: true
     claimNameTpl: '{{ include "mirrorbits-parent.pvc-name" $ }}'

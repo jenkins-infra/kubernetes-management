@@ -194,16 +194,6 @@ releases:
       - "../config/accountapp.yaml"
     secrets:
       - "../secrets/config/accountapp/secrets.yaml"
-  - name: mirrorbits
-    namespace: mirrorbits
-    chart: jenkins-infra/mirrorbits
-    version: 1.1.17
-    timeout: 600
-    atomic: false
-    values:
-      - "../config/mirrorbits.yaml"
-    secrets:
-      - "../secrets/config/mirrorbits/secrets.yaml"
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
