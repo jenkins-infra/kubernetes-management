@@ -1,0 +1,121 @@
+global:
+  ingress:
+    enabled: true
+    className: public-nginx
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+      "nginx.ingress.kubernetes.io/use-regex": "true"  # Required to allow regexp path matching with Nginx
+    hosts:
+      - host: get.jenkins.io
+        paths:
+          - path: /
+            backendService: httpd
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
+            pathType: ImplementationSpecific
+            backendService: mirrorbits
+      - host: mirrors.jenkins.io
+        paths:
+          - path: /
+            backendService: httpd
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
+            pathType: ImplementationSpecific
+            backendService: mirrorbits
+      - host: mirrors.jenkins-ci.org
+        paths:
+          - path: /
+            backendService: httpd
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
+            pathType: ImplementationSpecific
+            backendService: mirrorbits
+      - host: fallback.get.jenkins.io
+        paths:
+          - path: /
+            backendService: httpd
+    tls:
+      - secretName: get-jenkins-io-tls
+        hosts:
+          - get.jenkins.io
+          - mirrors.jenkins.io
+          - mirrors.jenkins-ci.org
+          - fallback.get.jenkins.io
+  storage:
+    enabled: true
+    claimNameTpl: '{{ include "mirrorbits-parent.pvc-name" $ }}'
+    storageClassName: azurefile-csi-premium
+    storageSize: 1000Gi
+    accessModes:
+      - ReadOnlyMany
+    persistentVolume:
+      azureFile:
+        resourceGroup: prod-core-releases
+        shareName: mirrorbits
+        readOnly: true
+      additionalSpec:
+        persistentVolumeReclaimPolicy: Retain
+        mountOptions:
+          - dir_mode=0755
+          - file_mode=0644
+          - uid=1000
+          - gid=1000
+          - mfsymlinks
+          - nobrl
+          - serverino
+          - cache=strict
+
+mirrorbits-lite:
+  enabled: true
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 2
+      memory: 2048Mi
+    requests:
+      cpu: 500m
+      memory: 500Mi
+  nodeSelector:
+    kubernetes.io/arch: amd64
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - mirrorbits
+          topologyKey: "kubernetes.io/hostname"
+
+httpd:
+  enabled: true
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 800m
+      memory: 2048Mi
+    requests:
+      cpu: 200m
+      memory: 500Mi
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - mirrorbits-files
+          topologyKey: "kubernetes.io/hostname"
+
+rsyncd:
+  enabled: false
+
+serviceaccount:
+  enabled: false
