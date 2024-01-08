@@ -69,7 +69,7 @@ targets:
     spec:
       file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: 'image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:.*'
-      replacepattern: 'image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:{{ source `packerImageVersion` }}'
+      replacepattern: 'image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:{{ source `packerImageVersion` }}"'
     scmid: default
 
 actions:
