@@ -63,7 +63,7 @@ global:
           - serverino
           - cache=strict
 
-mirrorbits-lite:
+mirrorbits:
   enabled: true
   replicaCount: 2
   resources:
