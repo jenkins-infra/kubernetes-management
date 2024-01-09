@@ -46,6 +46,8 @@ targets:
       file: "config/jenkins_weekly.ci.jenkins.io.yaml"
       key: "controller.tag"
     scmid: default
+    transformers:
+      - addsuffix: "-weeklyci"
 
 actions:
   default:
