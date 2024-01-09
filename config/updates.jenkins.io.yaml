@@ -43,7 +43,7 @@ global:
           - serverino
           - cache=strict
 
-mirrorbits-lite:
+mirrorbits:
   enabled: true
   resources:
     limits:
