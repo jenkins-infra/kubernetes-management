@@ -1,4 +1,4 @@
-name: "Bump Jenkins Weekly docker image version"
+name: "Bump Jenkins Weekly docker image version on weekly.ci.jenkins.io"
 
 scms:
   default:
@@ -21,10 +21,12 @@ sources:
       repository: "docker-jenkins-weekly"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
+    transformers:
+      - addsuffix: "-weeklyci"
 
 conditions:
   checkDockerImagePublished:
-    name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag"
+    name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag with '-weeklyci' suffix"
     kind: dockerimage
     spec:
       image: "jenkinsciinfra/jenkins-weekly"
@@ -33,28 +35,21 @@ conditions:
 
 targets:
   updateReleaseInConfig:
-    name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
-    kind: yaml
-    spec:
-      file: "config/jenkins_infra.ci.jenkins.io.yaml"
-      key: "controller.tag"
-    scmid: default
-  updateReleaseInWeeklyConfig:
-    name: "Update jenkinsciinfra/jenkins-weekly docker image tag"
+    sourceid: latestRelease
+    name: "Update jenkinsciinfra/jenkins-weekly docker image tag on weekly.ci.jenkins.io"
     kind: yaml
     spec:
       file: "config/jenkins_weekly.ci.jenkins.io.yaml"
       key: "controller.tag"
     scmid: default
-    transformers:
-      - addsuffix: "-weeklyci"
 
 actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump Jenkins Weekly docker image version to {{ source "latestRelease" }}
+    title: Bump Jenkins Weekly docker image version on weekly.ci.jenkins.io to {{ source "latestRelease" }}
     spec:
       labels:
         - dependencies
         - docker-jenkins-weekly
+        - weekly.ci.jenkins.io
