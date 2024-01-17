@@ -35,7 +35,6 @@ jobsDefinition:
       docker-confluence-data:
       docker-crond:
       docker-hashicorp-tools:
-      docker-helmfile:
       docker-inbound-agents:
       docker-jenkins-lts:
       docker-jenkins-weekly:
