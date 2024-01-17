@@ -115,7 +115,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.16
+    version: 0.6.17
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -144,7 +144,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.3.4
+    version: 2.3.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -197,7 +197,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.2
+    version: 2.0.3
     timeout: 600
     values:
       - "../config/get-jenkins-io.yaml"
@@ -238,7 +238,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.2
+    version: 2.0.3
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
