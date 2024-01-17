@@ -13,7 +13,7 @@ service:
     - '104.209.128.236/32'  # accept inbound LDAPS from trusted.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
     - '172.176.126.194/32'  # accept inbound LDAPS from private.vpn.jenkins.io
     - '104.209.153.13/32'  # accept inbound LDAPS from cert.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
-    - '52.252.104.110/32'  # Accept inbound LDAPS from ci.jenkins.io
+    - '20.230.90.10/32'  # Accept inbound LDAPS from ci.jenkins.io
     - '34.211.101.61/32'  # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32'  # Accept inbound connections from Linux Foundation prod machine
     - '20.22.6.81/32'  # Accept inbound connections from privatek8s # TODO: find out how to retrieve this IP from terraform
