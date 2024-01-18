@@ -38,6 +38,7 @@ jobsDefinition:
       docker-inbound-agents:
       docker-jenkins-lts:
       docker-jenkins-weekly:
+      docker-ldap:
       docker-mirrorbits:
       docker-openvpn:
       docker-packaging:
