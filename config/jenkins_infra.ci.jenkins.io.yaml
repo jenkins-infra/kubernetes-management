@@ -725,15 +725,15 @@ controller:
                   - zip:
                       label: "linux && amd64"
                       subdir: "jdk-11.0.22+7"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.22_7.tar.gz"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.22+7/OpenJDK11U-jdk_x64_linux_hotspot_11.0.22_7.tar.gz"
                   - zip:
                       label: "windows"
                       subdir: "jdk-11.0.22+7"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_x64_windows_hotspot_11.0.22_7.zip"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.22+7/OpenJDK11U-jdk_x64_windows_hotspot_11.0.22_7.zip"
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk-11.0.22+7"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.21+9/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.22_7.tar.gz"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.22+7/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.22_7.tar.gz"
             - name: "jdk17"
               properties:
               - installSource:
