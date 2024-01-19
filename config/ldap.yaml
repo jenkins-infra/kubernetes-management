@@ -23,16 +23,6 @@ service:
     - '34.233.58.83/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '54.236.124.56/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
 
-image:
-  slapd:
-    repository: jenkinsciinfra/ldap
-    tag: "1.0.1"
-    pullPolicy: IfNotPresent
-  crond:
-    repository: jenkinsciinfra/ldap
-    tag: "cron-1.0.1"
-    pullPolicy: IfNotPresent
-
 resources:
   limits:
     cpu: 500m
