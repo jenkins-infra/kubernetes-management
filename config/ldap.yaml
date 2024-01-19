@@ -25,14 +25,12 @@ service:
 
 image:
   slapd:
-    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
-    repository: jenkinsciinfra/ldap@sha256
-    tag: "a1518d683d3098be912a684892d10f909dd6c5bf2a65dce3f477a2caab73ef22"
+    repository: jenkinsciinfra/ldap
+    tag: "1.0.1"
     pullPolicy: IfNotPresent
   crond:
-    # repo & '@sha256' suffix here as we're retrieving a docker digest from updatecli
-    repository: jenkinsciinfra/ldap@sha256
-    tag: d662790b4a5f1ca979c186241005e816ff86ccedf8161d9f11df43501f077f31
+    repository: jenkinsciinfra/ldap
+    tag: "cron-1.0.1"
     pullPolicy: IfNotPresent
 
 resources:
