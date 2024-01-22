@@ -512,10 +512,6 @@ controller:
           timestamper:
             allPipelines: true
       system-settings: |
-        appearance:
-          pipelineGraphView:
-            showGraphOnBuildPage: true
-            showGraphOnJobPage: false # change to true if pipeline-stage-view is removed
         unclassified:
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
