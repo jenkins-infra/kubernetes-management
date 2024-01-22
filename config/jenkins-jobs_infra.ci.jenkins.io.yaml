@@ -34,7 +34,6 @@ jobsDefinition:
       docker-builder:
       docker-confluence-data:
       docker-crond:
-      docker-hashicorp-tools:
       docker-inbound-agents:
       docker-jenkins-lts:
       docker-jenkins-weekly:
