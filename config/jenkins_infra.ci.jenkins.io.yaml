@@ -678,10 +678,6 @@ controller:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
-        appearance:
-          pipelineGraphView:
-            showGraphOnBuildPage: true
-            showGraphOnJobPage: false # change to true if pipeline-stage-view is removed
       datadog: |
         unclassified:
           datadogGlobalConfiguration:
