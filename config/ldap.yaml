@@ -8,7 +8,8 @@ service:
     - '20.85.71.108/32'  # Accept inbound connections from publick8s public outbound IP (1/3 IPv4)
     - '20.22.30.9/32'  # Accept inbound connections from publick8s public outbound IP (2/3 IPv4)
     - '20.22.30.74/32'  # Accept inbound connections from publick8s public outbound IP (3/3 IPv4)
-    - '10.100.0.0/16'  # publick8s Pod CIDR (internal IPs) for intrnal access
+    - '20.7.192.189/32' # Accept inbound connections from publick8s outbound NAT gateway
+    - '10.100.0.0/16'  # publick8s Pod CIDR (internal IPs) for internal access
     - '73.71.177.172/32'  # 106 accept inbound LDAPS request from spambot
     - '140.211.15.101/32'  # 107 accept inbound LDAPS request from accounts.jenkins.io
     - '20.12.27.65/32'  # 107 accept inbound LDAPS request from puppet.jenkins.io
@@ -19,7 +20,8 @@ service:
     - '172.177.87.156/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/88464e36e7e07eccd2ede427ee670638a8458db1/gateways.tf#L73-L86
     - '34.211.101.61/32'  # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32'  # Accept inbound connections from Linux Foundation prod machine
-    - '20.22.6.81/32'  # Accept inbound connections from privatek8s # TODO: find out how to retrieve this IP from terraform
+    - '20.22.6.81/32'  # Accept inbound connections from privatek8s outbound LB # TODO: find out how to retrieve this IP from terraform
+    - '20.65.63.127/32' # Accept inbound connections from privatek8s outbound NAT gateway
     - '18.214.241.149/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.201.191.93/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.233.58.83/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
