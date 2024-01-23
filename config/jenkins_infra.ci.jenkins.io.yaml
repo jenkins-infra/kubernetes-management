@@ -709,15 +709,15 @@ controller:
                   - zip:
                       label: "linux && amd64"
                       subdir: "jdk8u392-b08"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u392-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u392b08.tar.gz"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u402-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u392b08.tar.gz"
                   - zip:
                       label: "windows"
                       subdir: "jdk8u392-b08"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u392-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u392b08.zip"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u402-b06/OpenJDK8U-jdk_x64_windows_hotspot_8u392b08.zip"
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk8u392-b08"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u392-b08/OpenJDK8U-jdk_aarch64_linux_hotspot_8u392b08.tar.gz"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u402-b06/OpenJDK8U-jdk_aarch64_linux_hotspot_8u392b08.tar.gz"
             - name: "jdk11"
               properties:
               - installSource:
