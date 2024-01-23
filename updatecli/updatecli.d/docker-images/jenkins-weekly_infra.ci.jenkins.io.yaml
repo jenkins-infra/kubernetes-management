@@ -1,0 +1,53 @@
+name: "Bump Jenkins Weekly docker image version on infra.ci.jenkins.io"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  latestRelease:
+    name: "Get latest jenkins-weekly version"
+    kind: githubrelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "docker-jenkins-weekly"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+
+conditions:
+  checkDockerImagePublished:
+    name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag"
+    kind: dockerimage
+    spec:
+      image: "jenkinsciinfra/jenkins-weekly"
+      ## Tag from source
+      architecture: amd64
+
+targets:
+  updateReleaseInConfig:
+    sourceid: latestRelease
+    name: "Update jenkinsciinfra/jenkins-weekly docker image tag on infra.ci.jenkins.io"
+    kind: yaml
+    spec:
+      file: "config/jenkins_infra.ci.jenkins.io.yaml"
+      key: "controller.tag"
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump Jenkins Weekly docker image version on infra.ci.jenkins.io to {{ source "latestRelease" }}
+    spec:
+      labels:
+        - dependencies
+        - docker-jenkins-weekly
+        - infra.ci.jenkins.io
