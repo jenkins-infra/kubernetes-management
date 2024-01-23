@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.50.3
+    version: 3.52.0
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -89,7 +89,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.11.2
+    version: 4.12.0
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -115,13 +115,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.16
+    version: 0.6.18
     values:
       - "../config/wiki.yaml"
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 0.3.0
+    version: 1.0.2
     timeout: 600
     values:
       - "../config/ldap.yaml"
@@ -144,7 +144,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.3.4
+    version: 2.3.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -187,7 +187,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.36
+    version: 0.8.37
     needs:
       - ldap/ldap
     values:
@@ -197,7 +197,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.2
+    version: 2.0.3
     timeout: 600
     values:
       - "../config/get-jenkins-io.yaml"
@@ -222,7 +222,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 1.1.0
+    version: 1.1.1
     values:
       - "../config/jenkinsio.yaml"
     secrets:
@@ -238,7 +238,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.2
+    version: 2.0.3
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
