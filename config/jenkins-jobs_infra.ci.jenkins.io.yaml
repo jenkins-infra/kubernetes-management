@@ -489,3 +489,11 @@ jobsDefinition:
           contributors-jenkins-io-fileshare-sas-querystring:
             secret: "${CONTRIBUTORS_JENKINS_IO_FILESHARE_SAS_QUERYSTRING}"
             description: "File Share SAS query string to update contributors.jenkins.io content"
+          contributors-jenkins-io-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "Contributors.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
