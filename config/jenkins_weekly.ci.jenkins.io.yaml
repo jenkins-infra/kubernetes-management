@@ -145,6 +145,9 @@ controller:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
         appearance:
+          pipelineGraphView:
+            showGraphOnBuildPage: true
+            showGraphOnJobPage: false # change to true if pipeline-stage-view is removed
           themeManager:
             disableUserThemes: false
             theme: "darkSystem"
