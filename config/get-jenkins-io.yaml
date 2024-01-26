@@ -43,12 +43,12 @@ global:
     enabled: true
     claimNameTpl: '{{ include "mirrorbits-parent.pvc-name" $ }}'
     storageClassName: azurefile-csi-premium
-    storageSize: 1000Gi
+    storageSize: 700Gi
     accessModes:
       - ReadOnlyMany
     persistentVolume:
       azureFile:
-        resourceGroup: prod-core-releases
+        resourceGroup: get-jenkins-io
         shareName: mirrorbits
         readOnly: true
       additionalSpec:
