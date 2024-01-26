@@ -89,7 +89,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.12.0
+    version: 4.12.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -115,7 +115,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.18
+    version: 0.6.19
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -187,7 +187,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.37
+    version: 0.8.38
     needs:
       - ldap/ldap
     values:
@@ -197,8 +197,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.3
-    timeout: 600
+    version: 2.0.5
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
@@ -238,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.3
+    version: 2.0.4
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
