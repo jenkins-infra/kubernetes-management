@@ -198,11 +198,18 @@ releases:
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
     version: 2.0.4
-    timeout: 600
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
       - "../secrets/config/get-jenkins-io/secrets.yaml"
+  - name: helpdesk-3917
+    namespace: helpdesk-3917
+    chart: jenkins-infra/mirrorbits-parent
+    version: 2.0.5
+    values:
+      - "../config/get-jenkins-io-helpdesk-3917.yaml"
+    secrets:
+      - "../secrets/config/get-jenkins-io/secrets-helpdesk-3917.yaml"
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
