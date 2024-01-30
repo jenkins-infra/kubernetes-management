@@ -57,8 +57,6 @@ targets:
     spec:
       file: config/get-jenkins-io.yaml
       key: $.global.storage.persistentVolume.azureFile.resourceGroup
-    transformers:
-      - addsuffix: Gi
 
 actions:
   default:
