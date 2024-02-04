@@ -19,9 +19,10 @@ networkPolicy:
     namespaceLabels:
       name: "jenkins-infra"
 controller:
-  image: jenkinsciinfra/jenkins-weekly
-  tag: 1.28.0-2.443
-  imagePullPolicy: IfNotPresent
+  image:
+    repository: jenkinsciinfra/jenkins-weekly
+    tag: 1.28.0-2.443
+    pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
     kubernetes.azure.com/agentpool: linuxpool
