@@ -22,9 +22,10 @@ networkPolicy:
     namespaceLabels:
       name: "jenkins-weekly"
 controller:
-  image: jenkinsciinfra/jenkins-weekly
-  tag: 1.28.0-2.443-weeklyci
-  imagePullPolicy: IfNotPresent
+  image:
+    repository: jenkinsciinfra/jenkins-weekly
+    tag: 1.28.0-2.443-weeklyci
+    pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/arch: arm64
   tolerations:
