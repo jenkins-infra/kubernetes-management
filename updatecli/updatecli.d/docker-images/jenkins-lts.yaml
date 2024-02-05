@@ -37,7 +37,7 @@ targets:
     kind: yaml
     spec:
       file: "config/jenkins_release.ci.jenkins.io.yaml"
-      key: "controller.tag"
+      key: "$.controller.image.tag"
     scmid: default
 
 actions:

@@ -31,7 +31,8 @@ conditions:
     spec:
       image: "jenkinsciinfra/jenkins-weekly"
       ## Tag from source
-      architecture: amd64
+      architectures:
+      - arm64
 
 targets:
   updateReleaseInConfig:
@@ -40,7 +41,7 @@ targets:
     kind: yaml
     spec:
       file: "config/jenkins_weekly.ci.jenkins.io.yaml"
-      key: "controller.tag"
+      key: "$.controller.image.tag"
     scmid: default
 
 actions:

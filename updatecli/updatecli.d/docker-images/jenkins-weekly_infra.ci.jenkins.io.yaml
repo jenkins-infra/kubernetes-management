@@ -38,7 +38,7 @@ targets:
     kind: yaml
     spec:
       file: "config/jenkins_infra.ci.jenkins.io.yaml"
-      key: "controller.tag"
+      key: "$.controller.image.tag"
     scmid: default
 
 actions:
