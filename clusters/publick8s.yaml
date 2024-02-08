@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.52.0
+    version: 3.53.3
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.13.3
+    version: v1.14.1
     set:
       - name: installCRDs
         value: true
@@ -58,14 +58,14 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.9.0
+    version: 4.9.1
     values:
       - "../config/public-nginx-ingress__common.yaml"
       - "../config/public-nginx-ingress_publick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.9.0
+    version: 4.9.1
     values:
       - "../config/private-nginx-ingress__common.yaml"
       - "../config/private-nginx-ingress_publick8s.yaml"
@@ -89,7 +89,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 4.12.0
+    version: 5.0.12
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -115,13 +115,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.18
+    version: 0.6.19
     values:
       - "../config/wiki.yaml"
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 1.0.2
+    version: 1.0.3
     timeout: 600
     values:
       - "../config/ldap.yaml"
@@ -144,7 +144,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.3.5
+    version: 2.3.6
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -162,7 +162,7 @@ releases:
   - name: rating
     namespace: rating
     chart: jenkins-infra/rating
-    version: 0.3.6
+    version: 0.3.7
     values:
       - "../config/rating.yaml"
     secrets:
@@ -187,7 +187,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.37
+    version: 0.8.42
     needs:
       - ldap/ldap
     values:
@@ -197,8 +197,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.3
-    timeout: 600
+    version: 2.0.8
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
@@ -238,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.3
+    version: 2.0.8
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:

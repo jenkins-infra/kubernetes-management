@@ -25,9 +25,10 @@ networkPolicy:
     namespaceLabels:
       name: "jenkins-release"
 controller:
-  image: jenkinsciinfra/jenkins-lts
-  tag: 1.6.1-2.426.3
-  imagePullPolicy: IfNotPresent
+  image:
+    repository: jenkinsciinfra/jenkins-lts
+    tag: 1.6.8-2.426.3
+    pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
     kubernetes.azure.com/agentpool: linuxpool

@@ -19,9 +19,10 @@ networkPolicy:
     namespaceLabels:
       name: "jenkins-infra"
 controller:
-  image: jenkinsciinfra/jenkins-weekly
-  tag: 1.26.6-2.441
-  imagePullPolicy: IfNotPresent
+  image:
+    repository: jenkinsciinfra/jenkins-weekly
+    tag: 1.29.0-2.444
+    pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
     kubernetes.azure.com/agentpool: linuxpool
@@ -147,7 +148,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.48.0"
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.51.0"
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
@@ -268,7 +269,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.48.0"
+                    galleryImageVersion: "1.51.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -320,7 +321,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.48.0"
+                    galleryImageVersion: "1.51.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -359,7 +360,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
-                    galleryImageVersion: "1.48.0"
+                    galleryImageVersion: "1.51.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -398,7 +399,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "1.48.0"
+                    galleryImageVersion: "1.51.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
