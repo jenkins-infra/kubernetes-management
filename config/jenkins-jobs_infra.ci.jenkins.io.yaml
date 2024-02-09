@@ -170,6 +170,11 @@ jobsDefinition:
         disableTagDiscovery: true
         enableGitHubChecks: true
         githubCheckName: "Updatecli (infra.ci.jenkins.io)"
+      azure:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
+        enableGitHubChecks: true
+        githubCheckName: "Updatecli (infra.ci.jenkins.io)"
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
