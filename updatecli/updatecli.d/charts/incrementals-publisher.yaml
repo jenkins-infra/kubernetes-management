@@ -38,4 +38,4 @@ actions:
     spec:
       labels:
         - dependencies
-        - incremental-publisher
+        - incrementals-publisher
