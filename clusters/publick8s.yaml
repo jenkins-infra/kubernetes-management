@@ -144,7 +144,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.3.6
+    version: 2.3.7
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -154,7 +154,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.6.11
+    version: 0.6.12
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
