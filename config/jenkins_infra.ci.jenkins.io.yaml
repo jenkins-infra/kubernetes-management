@@ -124,6 +124,9 @@ controller:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
                             value: "/opt/jdk-17/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "512Mi"
                         resourceRequestCpu: "500m"
@@ -155,6 +158,9 @@ controller:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
                             value: "/opt/jdk-17/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
                         resourceLimitCpu: "500m"
                         resourceLimitMemory: "1024Mi"
                         resourceRequestCpu: "500m"
@@ -239,6 +245,9 @@ controller:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
                             value: "/opt/java/openjdk/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
                         - envVar:
                             key: "PATH"
                             value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
