@@ -30,6 +30,7 @@ jobsDefinition:
             owner: "jenkinsci"
             privateKey: "${GITHUB_APP_JENKINSCI_PRIVATE_KEY}"
       account-app:
+        jenkinsfilePath: Jenkinsfile
       docker-404:
       docker-builder:
       docker-confluence-data:
