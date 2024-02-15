@@ -115,7 +115,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.21
+    version: 0.6.22
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -197,7 +197,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.8
+    version: 2.0.9
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.8
+    version: 2.0.9
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
