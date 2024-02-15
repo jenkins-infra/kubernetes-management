@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.53.3
+    version: 3.54.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.14.1
+    version: v1.14.2
     set:
       - name: installCRDs
         value: true
@@ -115,7 +115,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.19
+    version: 0.6.21
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -144,7 +144,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 2.3.6
+    version: 2.3.7
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -154,7 +154,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.6.5
+    version: 0.6.12
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -187,7 +187,7 @@ releases:
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
-    version: 0.8.42
+    version: 0.8.43
     needs:
       - ldap/ldap
     values:
@@ -221,7 +221,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 1.1.1
+    version: 1.1.2
     values:
       - "../config/jenkinsio.yaml"
     secrets:
