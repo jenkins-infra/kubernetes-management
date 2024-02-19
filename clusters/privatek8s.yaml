@@ -65,7 +65,7 @@ releases:
   - name: jenkins-infra-agents
     namespace: jenkins-infra-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.5.1
+    version: 1.0.0
     values:
       - "../config/jenkins-kubernetes-agents_infra.ci.jenkins.io.yaml"
     secrets:
@@ -91,7 +91,7 @@ releases:
   - name: jenkins-release-agents
     namespace: jenkins-release-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.5.1
+    version: 1.0.0
     values:
       - "../config/jenkins-kubernetes-agents_release.ci.jenkins.io.yaml"
     secrets:

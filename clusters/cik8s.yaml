@@ -43,7 +43,7 @@ releases:
       - default/docker-registry-secrets
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.5.1
+    version: 1.0.0
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s.yaml"
     secrets:
@@ -51,7 +51,7 @@ releases:
   - name: jenkins-agents-bom
     namespace: jenkins-agents-bom
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.5.1
+    version: 1.0.0
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-bom.yaml"
     secrets:
@@ -59,7 +59,7 @@ releases:
   - name: jenkins-agents-experiments
     namespace: jenkins-agents-experiments
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 0.5.1
+    version: 1.0.0
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cik8s-bom.yaml"
     secrets:
