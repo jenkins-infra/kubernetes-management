@@ -13,6 +13,8 @@ ingress:
       hosts:
         - incrementals.jenkins.io
 
+permissions_url: https://reports.jenkins.io/github.index.json
+
 nodeSelector:
   kubernetes.io/arch: arm64
 
