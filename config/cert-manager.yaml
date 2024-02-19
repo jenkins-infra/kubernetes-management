@@ -1,0 +1,4 @@
+installCRDs: true
+webhook:
+  # need to be between 1 and 30 for Digital Ocean see https://github.com/jenkins-infra/helpdesk/issues/3948#issuecomment-1948206377
+  timeoutSeconds: 25

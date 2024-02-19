@@ -31,9 +31,8 @@ releases:
     namespace: cert-manager
     chart: jetstack/cert-manager
     version: v1.14.2
-    set:
-      - name: installCRDs
-        value: true
+    values:
+      - "../config/cert-manager.yaml"
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
