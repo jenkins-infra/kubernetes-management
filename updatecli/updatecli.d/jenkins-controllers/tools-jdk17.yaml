@@ -24,7 +24,7 @@ sources:
       versionfilter:
         kind: regex
         # jdk-17.0.12+7(https://github.com/adoptium/temurin17-binaries/releases/tag/jdk-17.0.12%2B7) is OK
-        pattern: "^jdk-17.(\\d*).(\\d*).(\\d*)+(\\d*)$"
+        pattern: ^jdk-17.*.(\d*)+(\d*)$
   escapedVersion:
     kind: shell
     dependson:
@@ -75,14 +75,14 @@ targets:
       file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: '_17(.*)\.(tar.gz|zip)"'
       replacepattern: '_{{ source `escapedVersion` }}.$2"'
-#     scmid: default
+    scmid: default
 
-# actions:
-#   default:
-#     kind: github/pullrequest
-#     scmid: default
-#     title: Bump JDK17 version (Jenkins tools) on all controllers to {{ source "lastVersion" }}
-#     spec:
-#       labels:
-#         - dependencies
-#         - jdk17
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump JDK17 version (Jenkins tools) on all controllers to {{ source "lastVersion" }}
+    spec:
+      labels:
+        - dependencies
+        - jdk17

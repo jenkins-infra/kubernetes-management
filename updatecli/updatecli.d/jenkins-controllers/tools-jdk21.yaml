@@ -24,7 +24,7 @@ sources:
       versionfilter:
         kind: regex
         # jdk-21.0.12+7(https://github.com/adoptium/temurin21-binaries/releases/tag/jdk-21.0.12%2B7) is OK
-        pattern: "^jdk-21.(\\d*).(\\d*).(\\d*)+(\\d*)$"
+        pattern: ^jdk-21.*.(\d*)+(\d*)$
   escapedVersion:
     kind: shell
     dependson:
@@ -75,14 +75,14 @@ targets:
       file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: '_21(.*)\.(tar.gz|zip)"'
       replacepattern: '_{{ source `escapedVersion` }}.$2"'
-#     scmid: default
+    scmid: default
 
-# actions:
-#   default:
-#     kind: github/pullrequest
-#     scmid: default
-#     title: Bump JDK21 version (Jenkins tools) on all controllers to {{ source "lastVersion" }}
-#     spec:
-#       labels:
-#         - dependencies
-#         - jdk21
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump JDK21 version (Jenkins tools) on all controllers to {{ source "lastVersion" }}
+    spec:
+      labels:
+        - dependencies
+        - jdk21
