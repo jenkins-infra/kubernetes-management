@@ -9,7 +9,7 @@ The charts used come from [the helm charts repository](https://github.com/jenkin
 The Jenkins Infrastructure Kubernetes Management project accepts contributions via GitHub pull requests,
 more information in [CONTRIBUTING.md](https://github.com/jenkins-infra/kubernetes-management/blob/main/CONTRIBUTING.md)
 
-## Issues
+### Issues
 
 Any issues can be reported on our [help desk issue tracker](https://github.com/jenkins-infra/helpdesk/).
 
