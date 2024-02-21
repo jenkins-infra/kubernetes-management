@@ -4,3 +4,4 @@ bin/*
 secrets
 values.local.yaml
 requirements.lock
+.tmp
