@@ -14,7 +14,7 @@ ingress:
       hosts:
         - uplink.jenkins.io
 
-replicaCount: 2
+replicaCount: 1
 
 nodeSelector:
   kubernetes.io/arch: arm64
