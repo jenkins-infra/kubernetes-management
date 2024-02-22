@@ -1,4 +1,5 @@
 jenkinsName: jenkins-infra
+jenkinsFqdn: infra.ci.jenkins.io
 jobsDefinition:
   docker-jobs:
     name: Docker Jobs
