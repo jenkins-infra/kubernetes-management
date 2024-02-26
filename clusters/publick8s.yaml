@@ -223,7 +223,7 @@ releases:
     values:
       - "../config/jenkinsio.yaml"
     secrets:
-      - "../secrets/config/jenkinsio/secrets2.yaml"
+      - "../secrets/config/jenkinsio/secrets.yaml"
   - name: ipv6-lb-service
     namespace: public-nginx-ingress
     chart: jenkins-infra/ipv6-lb-service
