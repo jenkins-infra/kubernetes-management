@@ -215,7 +215,7 @@ releases:
     values:
       - "../config/plugin-site.yaml"
     secrets:
-      - "../secrets/config/plugin-site/secrets.yaml"
+      - "../secrets/config/plugin-site/intermediate-secrets.yaml"
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio

@@ -22,7 +22,7 @@ backend:
 htmlVolume:
   azureFile:
     secretName: plugin-site
-    shareName: pluginsite
+    shareName: plugins-jenkins-io
     readOnly: true
 
 nodeSelector:
