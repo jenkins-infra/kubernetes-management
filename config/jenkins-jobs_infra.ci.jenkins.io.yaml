@@ -145,14 +145,12 @@ jobsDefinition:
         name: Puppet (jenkins-infra)
         jenkinsfilePath: Jenkinsfile_updatecli
         enableGitHubChecks: true
-        githubCheckName: "Updatecli (infra.ci.jenkins.io)"
         branchIncludes: "production staging updatecli_* PR-* main"
         disableTagDiscovery: true
       kubernetes-management:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
         enableGitHubChecks: true
-        githubCheckName: "Updatecli (infra.ci.jenkins.io)"
         credentials:
           updatecli-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
@@ -165,18 +163,15 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
         enableGitHubChecks: true
-        githubCheckName: "Updatecli (infra.ci.jenkins.io)"
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
         disableTagDiscovery: true
         enableGitHubChecks: true
-        githubCheckName: "Updatecli (infra.ci.jenkins.io)"
       azure:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
         enableGitHubChecks: true
-        githubCheckName: "Updatecli (infra.ci.jenkins.io)"
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
@@ -457,6 +452,14 @@ jobsDefinition:
           algolia-plugins-write-key:
             secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
             description: "Algolia credentials to write data for plugin site"
+          infraci-pluginsjenkinsio-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_PASSWORD}"
+            description: "plugins.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
       jenkins-io-components:
         name: Jenkins.io Web Components
         allowUntrustedChanges: true
@@ -491,7 +494,6 @@ jobsDefinition:
         allowUntrustedChanges: true
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
-        githubCheckName: "infra.ci.jenkins.io"
         credentials:
           contributors-jenkins-io-fileshare-sas-querystring:
             secret: "${CONTRIBUTORS_JENKINS_IO_FILESHARE_SAS_QUERYSTRING}"
