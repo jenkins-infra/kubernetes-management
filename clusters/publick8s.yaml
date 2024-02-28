@@ -101,7 +101,7 @@ releases:
     values:
       - "../config/javadoc.yaml"
     secrets:
-      - "../secrets/config/javadoc/secrets.yaml"
+      - "../secrets/config/javadoc/intermediate-secrets.yaml"
   - name: jenkinsisthewayio-redirect
     namespace: jenkinsisthewayio-redirector
     chart: jenkins-infra/httpredirector
