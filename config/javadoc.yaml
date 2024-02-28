@@ -27,7 +27,7 @@ resources:
 htmlVolume:
   azureFile:
     secretName: javadoc
-    shareName: javadoc
+    shareName: javadoc-jenkins-io
     readOnly: true
 
 replicaCount: 2
