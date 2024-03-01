@@ -185,6 +185,78 @@ controller:
                           operator: "Equal"
                           value: "arm64"
                           effect: "NoSchedule"
+                  - name: jnlp-linux-large
+                    nodeSelector: "kubernetes.io/os=linux"
+                    containers:
+                      - name: jnlp
+                        image: "jenkins/inbound-agent:latest-jdk17"
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk-17/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
+                        resourceLimitCpu: "4"
+                        resourceLimitMemory: "8Gi"
+                        resourceRequestCpu: "4"
+                        resourceRequestMemory: "8Gi"
+                        alwaysPullImage: true
+                    label: "linux-large jnlp-linux-large"
+                    yamlMergeStrategy: "merge"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
+                  - name: jnlp-linux-large-arm64
+                    nodeSelector: "kubernetes.io/arch=arm64"
+                    containers:
+                      - name: jnlp
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.55.0"
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk-17/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
+                        resourceLimitCpu: "4"
+                        resourceLimitMemory: "8Gi"
+                        resourceRequestCpu: "4"
+                        resourceRequestMemory: "8Gi"
+                        alwaysPullImage: true
+                    label: "linux-large-arm64 jnlp-linux-large-arm64"
+                    yamlMergeStrategy: "merge"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.io/arch"
+                          operator: "Equal"
+                          value: "arm64"
+                          effect: "NoSchedule"
                   - name: jnlp-windows
                     nodeSelector: "kubernetes.io/os=windows"
                     instanceCap: 5 # Usual sizing is 2 pods per Windows node, and max 3 windows nodes
