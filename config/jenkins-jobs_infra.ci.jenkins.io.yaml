@@ -439,6 +439,7 @@ jobsDefinition:
         name: Plugin Site
         allowUntrustedChanges: true
         jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main PR-*"
         credentials:
           PLUGINSITE_STORAGEACCOUNTKEY:
             secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
