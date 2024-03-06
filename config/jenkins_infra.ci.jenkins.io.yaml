@@ -21,7 +21,7 @@ networkPolicy:
 controller:
   image:
     repository: jenkinsciinfra/jenkins-weekly
-    tag: 1.31.6-2.447
+    tag: 1.32.0-2.448
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
