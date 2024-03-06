@@ -21,7 +21,7 @@ networkPolicy:
 controller:
   image:
     repository: jenkinsciinfra/jenkins-weekly
-    tag: 1.31.0-2.446
+    tag: 1.31.1-2.446
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -167,6 +167,78 @@ controller:
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
                     label: "linux-arm64 jnlp-linux-arm64"
+                    yamlMergeStrategy: "merge"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.io/arch"
+                          operator: "Equal"
+                          value: "arm64"
+                          effect: "NoSchedule"
+                  - name: jnlp-linux-large
+                    nodeSelector: "kubernetes.io/os=linux"
+                    containers:
+                      - name: jnlp
+                        image: "jenkins/inbound-agent:latest-jdk17"
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk-17/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
+                        resourceLimitCpu: "4"
+                        resourceLimitMemory: "8Gi"
+                        resourceRequestCpu: "4"
+                        resourceRequestMemory: "8Gi"
+                        alwaysPullImage: true
+                    label: "linux-large jnlp-linux-large"
+                    yamlMergeStrategy: "merge"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
+                  - name: jnlp-linux-large-arm64
+                    nodeSelector: "kubernetes.io/arch=arm64"
+                    containers:
+                      - name: jnlp
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.55.0"
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk-17/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
+                        resourceLimitCpu: "4"
+                        resourceLimitMemory: "8Gi"
+                        resourceRequestCpu: "4"
+                        resourceRequestMemory: "8Gi"
+                        alwaysPullImage: true
+                    label: "linux-large-arm64 jnlp-linux-large-arm64"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
@@ -527,7 +599,7 @@ controller:
                       <mirror>
                           <id>aws-proxy</id>
                           <url>https://repo.aws.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>aws-proxy-incrementals</id>
@@ -578,7 +650,7 @@ controller:
                       <mirror>
                           <id>azure-proxy</id>
                           <url>https://repo.azure.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>azure-proxy-incrementals</id>
@@ -604,7 +676,7 @@ controller:
                       <mirror>
                           <id>do-proxy</id>
                           <url>https://repo.do.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>do-proxy-incrementals</id>
