@@ -70,7 +70,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 4.2.3
+    version: 4.2.4
     values:
       - "../config/falco.yaml"
   - name: artifact-caching-proxy
