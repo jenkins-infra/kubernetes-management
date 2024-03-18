@@ -59,12 +59,12 @@ resources:
 htmlVolume:
   azureFile:
     secretName: jenkinsio
-    shareName: jenkinsio
+    shareName: jenkins-io
     readOnly: true
 
 zhHtmlVolume:
   azureFile:
-    secretName: jenkinsio
+    secretName: jenkinsio-zh
     shareName: zhjenkinsio
     readOnly: true
 

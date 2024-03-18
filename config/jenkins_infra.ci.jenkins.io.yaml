@@ -21,7 +21,7 @@ networkPolicy:
 controller:
   image:
     repository: jenkinsciinfra/jenkins-weekly
-    tag: 1.31.0-2.446
+    tag: 1.33.2-2.449
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -151,7 +151,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.55.0"
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.58.0"
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
@@ -278,7 +278,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.55.0"
+                    galleryImageVersion: "1.58.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -330,7 +330,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.55.0"
+                    galleryImageVersion: "1.58.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -369,7 +369,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
-                    galleryImageVersion: "1.55.0"
+                    galleryImageVersion: "1.58.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -408,7 +408,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "1.55.0"
+                    galleryImageVersion: "1.58.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -430,7 +430,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship"
+                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship arm64linux"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
@@ -527,7 +527,7 @@ controller:
                       <mirror>
                           <id>aws-proxy</id>
                           <url>https://repo.aws.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>aws-proxy-incrementals</id>
@@ -578,7 +578,7 @@ controller:
                       <mirror>
                           <id>azure-proxy</id>
                           <url>https://repo.azure.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>azure-proxy-incrementals</id>
@@ -604,7 +604,7 @@ controller:
                       <mirror>
                           <id>do-proxy</id>
                           <url>https://repo.do.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io</mirrorOf>
+                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                       <mirror>
                           <id>do-proxy-incrementals</id>
