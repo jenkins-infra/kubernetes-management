@@ -502,7 +502,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship"
+                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship arm64linux"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"

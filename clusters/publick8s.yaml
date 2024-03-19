@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.57.3
+    version: 3.58.1
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -39,7 +39,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.14.2
+    version: v1.14.4
     values:
       - "../config/cert-manager.yaml"
       - "../config/cert-manager_publick8s.yaml"
@@ -56,21 +56,22 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.9.1
+    version: 4.10.0
     values:
       - "../config/public-nginx-ingress__common.yaml"
       - "../config/public-nginx-ingress_publick8s.yaml"
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.9.1
+    version: 4.10.0
     values:
       - "../config/private-nginx-ingress__common.yaml"
       - "../config/private-nginx-ingress_publick8s.yaml"
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 3.8.7
+    version: 4.2.5
+    timeout: 600
     values:
       - "../config/falco.yaml"
   - name: artifact-caching-proxy
@@ -113,7 +114,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.25
+    version: 0.6.26
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -152,7 +153,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.7.2
+    version: 0.7.3
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
@@ -195,7 +196,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.13
+    version: 2.0.14
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
@@ -235,7 +236,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.13
+    version: 2.0.14
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
