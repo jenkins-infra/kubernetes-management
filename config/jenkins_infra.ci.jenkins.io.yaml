@@ -350,7 +350,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.59.0"
+                    galleryImageVersion: "1.60.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -402,7 +402,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "1.59.0"
+                    galleryImageVersion: "1.60.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -441,7 +441,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
-                    galleryImageVersion: "1.59.0"
+                    galleryImageVersion: "1.60.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
@@ -480,7 +480,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "1.59.0"
+                    galleryImageVersion: "1.60.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
