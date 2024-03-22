@@ -22,7 +22,34 @@ sources:
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 
+  getLatestInboundAllInOneContainerImageX86:
+    kind: dockerdigest
+    name: Get digest of the jenkinsciinfra/jenkins-agent-ubuntu-22.04 image
+    dependson:
+      - packerImageVersion
+    spec:
+      image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04"
+      tag: '{{ source "packerImageVersion"}}'
+      architecture: linux/amd64
+
+  getLatestInboundAllInOneContainerImageARM:
+      kind: dockerdigest
+      name: Get digest of the jenkinsciinfra/jenkins-agent-ubuntu-22.04 image
+      dependson:
+        - packerImageVersion
+      spec:
+        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04"
+        tag: '{{ source "packerImageVersion"}}'
+        architecture: linux/arm64
+
 conditions:
+  checkAllInOneContainerImages:
+    # If the 2 Docker images are different, it means the release build of packer-images failed (and never pushed the multi-arch manifest as last stage)
+    disablesourceinput: true
+    name: Check that x86 and arm64 all-in-one images are different
+    kind: shell
+    spec:
+      command: test {{ source "getLatestInboundAllInOneContainerImageX86" }} != {{ source "getLatestInboundAllInOneContainerImageARM" }}
   checkifazureimagejenkins-agent-ubuntu-22.04-amd64isavailable:
     kind: shell
     disablesourceinput: true
@@ -44,13 +71,6 @@ conditions:
       environments:
         - name: PATH
       command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-ubuntu-22.04-arm64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
-  checkDockerImageARM64:
-    name: Ensure that the image "jenkinsciinfra/jenkins-agent-ubuntu-22.04:<found_version>" is published
-    kind: dockerimage
-    spec:
-      image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04"
-      ## tag come from the input source
-      architecture: arm64
 
 targets:
   setAzureGalleryImageVersion:
