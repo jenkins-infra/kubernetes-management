@@ -3,6 +3,7 @@ ingress:
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "cert-manager.io/private-key-algorithm": "ECDSA"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
     "nginx.ingress.kubernetes.io/enable-cors": "true"
     "nginx.ingress.kubernetes.io/cors-allow-methods": "GET, OPTIONS"
