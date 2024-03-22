@@ -144,13 +144,11 @@ jobsDefinition:
       jenkins-infra:
         name: Puppet (jenkins-infra)
         jenkinsfilePath: Jenkinsfile_updatecli
-        enableGitHubChecks: true
         branchIncludes: "production staging updatecli_* PR-* main"
         disableTagDiscovery: true
       kubernetes-management:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-        enableGitHubChecks: true
         credentials:
           updatecli-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
@@ -162,16 +160,13 @@ jobsDefinition:
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-        enableGitHubChecks: true
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
         disableTagDiscovery: true
-        enableGitHubChecks: true
       azure:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-        enableGitHubChecks: true
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
