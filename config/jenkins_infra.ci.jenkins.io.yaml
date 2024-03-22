@@ -151,7 +151,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.60.0"
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.60.1"
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
