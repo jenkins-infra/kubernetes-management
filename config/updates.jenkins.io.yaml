@@ -45,6 +45,7 @@ global:
 
 mirrorbits:
   enabled: true
+  replicaCount: 2
   resources:
     limits:
       cpu: 2
@@ -57,6 +58,7 @@ mirrorbits:
 
 httpd:
   enabled: true
+  replicaCount: 2
   resources:
     limits:
       cpu: 1000m
