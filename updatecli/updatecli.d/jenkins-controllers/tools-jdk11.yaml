@@ -24,7 +24,8 @@ sources:
       versionfilter:
         kind: regex
         # jdk-11.0.12+7(https://github.com/adoptium/temurin11-binaries/releases/tag/jdk-11.0.12%2B7) is OK
-        pattern: "^jdk-11.(\\d*).(\\d*).(\\d*)+(\\d*)$"
+        # jdk-11.0.22+7.1 (https://github.com/adoptium/temurin11-binaries/releases/tag/jdk-11.0.22%2B7.1) is Ok
+        pattern: ^jdk-11.*.(\d*)+(\d*)$
   escapedVersion:
     kind: shell
     dependson:
