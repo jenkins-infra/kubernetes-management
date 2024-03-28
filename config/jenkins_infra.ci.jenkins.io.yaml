@@ -526,13 +526,8 @@ controller:
                     <mirrors>
                       <mirror>
                           <id>aws-proxy</id>
-                          <url>https://repo.aws.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
-                      </mirror>
-                      <mirror>
-                          <id>aws-proxy-incrementals</id>
-                          <url>https://repo.aws.jenkins.io/incrementals/</url>
-                          <mirrorOf>incrementals</mirrorOf>
+                          <url>https://repo.aws.jenkins.io/</url>
+                          <mirrorOf>external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                     </mirrors>
                     <profiles>
@@ -577,13 +572,8 @@ controller:
                     <mirrors>
                       <mirror>
                           <id>azure-proxy</id>
-                          <url>https://repo.azure.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
-                      </mirror>
-                      <mirror>
-                          <id>azure-proxy-incrementals</id>
-                          <url>https://repo.azure.jenkins.io/incrementals/</url>
-                          <mirrorOf>incrementals</mirrorOf>
+                          <url>https://repo.azure.jenkins.io/</url>
+                          <mirrorOf>external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                     </mirrors>
                   </settings>
@@ -603,13 +593,8 @@ controller:
                     <mirrors>
                       <mirror>
                           <id>do-proxy</id>
-                          <url>https://repo.do.jenkins.io/public/</url>
-                          <mirrorOf>external:*,!central,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
-                      </mirror>
-                      <mirror>
-                          <id>do-proxy-incrementals</id>
-                          <url>https://repo.do.jenkins.io/incrementals/</url>
-                          <mirrorOf>incrementals</mirrorOf>
+                          <url>https://repo.do.jenkins.io/</url>
+                          <mirrorOf>external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
                       </mirror>
                     </mirrors>
                   </settings>
