@@ -153,7 +153,7 @@ releases:
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
-    version: 0.7.3
+    version: 0.7.4
     values:
       - "../config/incrementals-publisher.yaml"
     secrets:
