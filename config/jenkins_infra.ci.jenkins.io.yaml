@@ -9,7 +9,10 @@ rbac:
 persistence:
   enabled: true
   size: 50Gi
-  storageClass: managed-csi-premium-retain
+  storageClass: managed-csi-premium-zrs-retain
+  dataSource:
+    name: jenkins-infraci-snap
+    kind: PersistentVolumeClaim
 agent:
   componentName: "agent"
 networkPolicy:
