@@ -167,6 +167,9 @@ jobsDefinition:
       azure:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      infra-reports:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
@@ -210,6 +213,10 @@ jobsDefinition:
             appId: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
             owner: "jenkinsci"
             privateKey: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY}"
+      jenkins-infra-data:
+        name: "Jenkins Infrastructure Public Data"
+        repository: "infra-reports"
+        jenkinsfilePath: "jenkins-infra-data/Jenkinsfile"
       jira-users-report:
         name: "Jira Users Report"
         repository: "infra-reports"
@@ -230,10 +237,6 @@ jobsDefinition:
             username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
             usernameSecret: true
             password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
-      jenkins-infra-data:
-        name: "Jenkins Infrastructure Public Data"
-        repository: "infra-reports"
-        jenkinsfilePath: "jenkins-infra-data/Jenkinsfile"
       permissions-report:
         name: "GitHub Permissions Report"
         repository: "infra-reports"
@@ -248,6 +251,10 @@ jobsDefinition:
       pipeline-steps-doc-generator:
         name: "Pipeline Steps Documentation Generator"
         jenkinsfilePath: Jenkinsfile
+      plugin-health-scoring:
+        name: "Plugin Health Scoring Report"
+        repository: "infra-reports"
+        jenkinsfilePath: "plugin-health-scoring/Jenkinsfile"
       plugin-migration:
         name: "Plugin Migration Status Report"
         repository: "infra-reports"
