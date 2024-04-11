@@ -22,6 +22,10 @@ networkPolicy:
     namespaceLabels:
       name: "jenkins-infra"
 controller:
+  podSecurityContextOverride:
+    runAsUser: 1000
+    runAsNonRoot: true
+    supplementalGroups: [1000]
   image:
     repository: jenkinsciinfra/jenkins-weekly
     tag: 1.37.0-2.453
