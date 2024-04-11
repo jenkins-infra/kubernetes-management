@@ -8,7 +8,7 @@ rbac:
   readSecrets: true
 persistence:
   enabled: true
-  size: 50Gi
+  size: 64Gi
   storageClass: managed-csi-premium-zrs-retain
   dataSource:
     name: jenkins-infraci-snap
