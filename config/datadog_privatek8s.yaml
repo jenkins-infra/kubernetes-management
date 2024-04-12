@@ -1,5 +1,10 @@
 datadog:
   clusterName: 'privatek8s'
+  env:
+    - name: DD_HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
   kubelet:
     host:
       valueFrom:
