@@ -1,3 +1,6 @@
+providers:
+  aks:
+    enabled: true
 datadog:
   clusterName: 'privatek8s'
   env:

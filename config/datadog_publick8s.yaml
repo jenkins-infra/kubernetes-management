@@ -1,3 +1,6 @@
+providers:
+  aks:
+    enabled: true
 datadog:
   clusterName: 'publick8s'
   env:
