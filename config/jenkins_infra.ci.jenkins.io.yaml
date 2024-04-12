@@ -31,7 +31,8 @@ controller:
     tag: 1.37.0-2.453
     pullPolicy: IfNotPresent
   nodeSelector:
-    - kubernetes.azure.com/agentpool: infracictrl
+    kubernetes.azure.com/agentpool: infracictrl
+    kubernetes.io/arch: arm64
   tolerations:
     - key: "kubernetes.io/arch"
       operator: "Equal"
