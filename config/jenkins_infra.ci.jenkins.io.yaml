@@ -31,8 +31,20 @@ controller:
     tag: 1.37.0-2.453
     pullPolicy: IfNotPresent
   nodeSelector:
-    kubernetes.io/os: linux
-    kubernetes.azure.com/agentpool: linuxpool
+    - kubernetes.azure.com/agentpool: infracictrl
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
+    - key: "jenkins"
+      operator: "Equal"
+      value: "infra.ci.jenkins.io"
+      effect: "NoSchedule"
+    - key: "jenkins-component"
+      operator: "Equal"
+      value: "controller"
+      effect: "NoSchedule"
   resources:
     limits:
       cpu: "2"
