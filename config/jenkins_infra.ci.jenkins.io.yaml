@@ -31,6 +31,7 @@ controller:
     tag: 1.37.0-2.453
     pullPolicy: IfNotPresent
   nodeSelector:
+    kubernetes.io/os: linux
     kubernetes.azure.com/agentpool: infracictrl
     kubernetes.io/arch: arm64
   tolerations:
