@@ -28,7 +28,7 @@ controller:
     supplementalGroups: [1000]
   image:
     repository: jenkinsciinfra/jenkins-weekly
-    tag: 1.37.0-2.453
+    tag: 1.37.2-2.453
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
