@@ -9,7 +9,10 @@ rbac:
 persistence:
   enabled: true
   size: 64Gi
-  storageClass: managed-csi-premium-retain
+  storageClass: managed-csi-premium-zrs-retain
+  dataSource:
+    name: jenkins-releaseci-snap
+    kind: PersistentVolumeClaim
 agent:
   componentName: "agent"
 networkPolicy:
