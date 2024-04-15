@@ -39,6 +39,11 @@ controller:
     requests:
       cpu: "2"
       memory: "4Gi"
+  controller:
+    podSecurityContextOverride:
+      runAsUser: 1000
+      runAsNonRoot: true
+      supplementalGroups: [1000]
   probes:
     startupProbe:
       initialDelaySeconds: 120
