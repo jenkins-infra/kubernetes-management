@@ -34,7 +34,21 @@ controller:
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
-    kubernetes.azure.com/agentpool: linuxpool
+    kubernetes.azure.com/agentpool: releacictrl
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
+    - key: "jenkins"
+      operator: "Equal"
+      value: "release.ci.jenkins.io"
+      effect: "NoSchedule"
+    - key: "jenkins-component"
+      operator: "Equal"
+      value: "controller"
+      effect: "NoSchedule"
   resources:
     limits:
       cpu: "2"
