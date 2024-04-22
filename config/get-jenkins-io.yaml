@@ -5,27 +5,27 @@ global:
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-      "nginx.ingress.kubernetes.io/use-regex": "true"  # Required to allow regexp path matching with Nginx
+      "nginx.ingress.kubernetes.io/use-regex": "true" # Required to allow regexp path matching with Nginx
     hosts:
       - host: get.jenkins.io
         paths:
           - path: /
             backendService: httpd
-          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$  # Requires the regexp engine of Nginx to be enabled
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
             pathType: ImplementationSpecific
             backendService: mirrorbits
       - host: mirrors.jenkins.io
         paths:
           - path: /
             backendService: httpd
-          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$  # Requires the regexp engine of Nginx to be enabled
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
             pathType: ImplementationSpecific
             backendService: mirrorbits
       - host: mirrors.jenkins-ci.org
         paths:
           - path: /
             backendService: httpd
-          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$  # Requires the regexp engine of Nginx to be enabled
+          - path: /.*[.](deb|hpi|war|rpm|msi|pkg|sha256|md5sum|zip|gz|pdf|json|svg|sh|jpeg|ico|png|html)$ # Requires the regexp engine of Nginx to be enabled
             pathType: ImplementationSpecific
             backendService: mirrorbits
       - host: fallback.get.jenkins.io
@@ -62,7 +62,6 @@ global:
           - nobrl
           - serverino
           - cache=strict
-
 mirrorbits:
   enabled: true
   replicaCount: 2
@@ -85,7 +84,6 @@ mirrorbits:
                 values:
                   - mirrorbits
           topologyKey: "kubernetes.io/hostname"
-
 httpd:
   enabled: true
   replicaCount: 2
@@ -113,9 +111,7 @@ httpd:
                 values:
                   - mirrorbits-files
           topologyKey: "kubernetes.io/hostname"
-
 rsyncd:
   enabled: false
-
 serviceaccount:
   enabled: false
