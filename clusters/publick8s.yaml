@@ -244,7 +244,7 @@ releases:
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.1.1
+    version: 0.1.2
     values:
       - "../config/contributors.jenkins.io.yaml"
     secrets:
