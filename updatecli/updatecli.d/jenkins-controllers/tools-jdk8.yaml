@@ -16,66 +16,99 @@ scms:
 sources:
   lastVersion:
     kind: githubrelease
-    name: Get the latest Adoptium JDK8 version
     spec:
-      owner: adoptium
-      repository: temurin8-binaries
+      owner: "adoptium"
+      repository: "temurin8-binaries"
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
       versionfilter:
         kind: regex
-        # jdk8u302-b08 is OK, but jdk8u302-b08.1 is not
+        # jdk8u412-b08 (https://github.com/adoptium/temurin8-binaries/releases/tag/jdk8u412-b08) is OK
+        # jdk8u302-b08.1 is NOT ok.
         pattern: "^jdk8u(\\d*)-b(\\d*)$"
-  escapedVersion:
+  linuxAmd64DownloadUrl:
     kind: shell
     dependson:
       - lastVersion
     spec:
-      command: echo {{ source "lastVersion" }}
-    transformers:
-      - trimprefix: jdk
-      - replacer:
-          from: "-"
-          to: ""
+      # Print an empty string if failing to avoid errors on updatecli exit. Conditions takes care of the graceful exit
+      command: bash -c './updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "x64" || echo ""'
+  linuxArm64DownloadUrl:
+    kind: shell
+    dependson:
+      - lastVersion
+    spec:
+      # Print an empty string if failing to avoid errors on updatecli exit. Conditions takes care of the graceful exit
+      command: bash -c './updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "aarch64" || echo ""'
+  windowsAmd64DownloadUrl:
+    kind: shell
+    dependson:
+      - lastVersion
+    spec:
+      # Print an empty string if failing to avoid errors on updatecli exit. Conditions takes care of the graceful exit
+      command: bash -c './updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "windows" "x64" || echo ""'
 
 conditions:
-  checkIfReleaseIsAvailable:
-    sourceid: lastVersion
-    transformers:
-      - trimprefix: jdk
+  checkLinuxAmd64:
+    disablesourceinput: true
     kind: shell
     spec:
-      command: bash ./updatecli/scripts/check-jdk.sh # source input value passed as argument
+      command: bash ./updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "x64"
+  checkLinuxArm64:
+    disablesourceinput: true
+    kind: shell
+    spec:
+      command: bash ./updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "aarch64"
+  checkWindowsAmd64:
+    disablesourceinput: true
+    kind: shell
+    spec:
+      command: bash ./updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "windows" "x64"
 
 targets:
   setJDK8Subdir:
-    name: "Bump JDK8 version on tools"
+    name: "Bump JDK8 tool subdir"
     sourceid: lastVersion
     kind: file
     spec:
       file: config/jenkins_infra.ci.jenkins.io.yaml
       matchpattern: >
-        subdir: "jdk8u(.*)"
+        subdir: "jdk8(.*)"
       replacepattern: >
         subdir: "{{ source `lastVersion` }}"
     scmid: default
-  setJDK8UrlPaths:
-    name: "Bump JDK8 version on tools"
-    sourceid: lastVersion
-    kind: file
-    spec:
-      file: config/jenkins_infra.ci.jenkins.io.yaml
-      matchpattern: /jdk8u(.*)/
-      replacepattern: /{{ source `lastVersion` }}/
-    scmid: default
-  setJDK8UrlFilenames:
-    name: "Bump JDK8 version on tools"
+  setJDK8LinuxAmd64Url:
+    name: "Bump JDK8 tool download URL for Linux amd64"
     disablesourceinput: true
     kind: file
     spec:
       file: config/jenkins_infra.ci.jenkins.io.yaml
-      matchpattern: '_8u(.*)\.(tar.gz|zip)"'
-      replacepattern: '_{{ source `escapedVersion` }}.$2"'
+      matchpattern: >
+        url: "(.*)jdk8(.*)x64_linux(.*)"
+      replacepattern: >
+        url: "{{ source `linuxAmd64DownloadUrl` }}"
+    scmid: default
+  setJDK8WindowsAmd64Url:
+    name: "Bump JDK8 tool download URL for Windows amd64"
+    disablesourceinput: true
+    kind: file
+    spec:
+      file: config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: >
+        url: "(.*)jdk8(.*)x64_windows(.*)"
+      replacepattern: >
+        url: "{{ source `windowsAmd64DownloadUrl` }}"
+    scmid: default
+  setJDK8LinuxArm64Url:
+    name: "Bump JDK8 tool download URL for Linux arm64"
+    disablesourceinput: true
+    kind: file
+    spec:
+      file: config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: >
+        url: "(.*)jdk8(.*)aarch64_linux(.*)"
+      replacepattern: >
+        url: "{{ source `linuxArm64DownloadUrl` }}"
     scmid: default
 
 actions:
