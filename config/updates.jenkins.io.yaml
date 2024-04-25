@@ -5,19 +5,20 @@ global:
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-      "nginx.ingress.kubernetes.io/use-regex": "true"  # Required to allow regexp path matching with Nginx
     hosts:
       - host: azure.updates.jenkins.io
         paths:
           - path: /
             backendService: httpd
-          - path: /.*[.](json|html|txt)$  # Requires the regexp engine of Nginx to be enabled
-            pathType: ImplementationSpecific
+      - host: mirrors.updates.jenkins.io
+        paths:
+          - path: /
             backendService: mirrorbits
     tls:
       - secretName: updates-jenkins-io-tls
         hosts:
           - azure.updates.jenkins.io
+          - mirrors.updates.jenkins.io
 
   storage:
     enabled: true
