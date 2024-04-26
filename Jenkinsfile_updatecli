@@ -2,7 +2,7 @@ def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
 pipeline {
   agent {
-    label 'linux-arm64'
+    label 'jnlp-linux-arm64'
   }
 
   options {
