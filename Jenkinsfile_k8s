@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('Yaml Lint') {
       agent {
-        label 'linux-arm64'
+        label 'jnlp-linux-arm64'
       }
       steps {
         sh 'yamllint --config-file yamllint.config config'
