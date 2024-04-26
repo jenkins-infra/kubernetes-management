@@ -781,7 +781,7 @@ controller:
                   - zip:
                       label: "windows"
                       subdir: "jdk-21.0.1+12"
-                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.1+12/OpenJDK21U-jdk_x64_windows_hotspot_21.0.1_12.zip"
+                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.3%2B9/OpenJDK21U-jdk_x64_windows_hotspot_21.0.3_9.zip"
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk-21.0.1+12"
