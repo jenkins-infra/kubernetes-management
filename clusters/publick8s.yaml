@@ -241,6 +241,14 @@ releases:
       - "../config/updates.jenkins.io.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/secrets.yaml"
+  - name: updates-jenkins-io-httpd
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/httpd
+    version: 0.4.0
+    values:
+      - "../config/updates.jenkins.io_httpd.yaml"
+    secrets:
+      - "../secrets/config/updates.jenkins.io/httpd-secrets.yaml"
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
