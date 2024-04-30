@@ -35,6 +35,7 @@ actions:
     kind: github/pullrequest
     scmid: default
     title: Bump `plugin-health-scoring` helm chart version to {{ source `lastChartVersion` }}
+    description: "cc @alecharp"
     spec:
       labels:
         - dependencies
