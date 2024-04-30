@@ -6,10 +6,6 @@ global:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/ssl-redirect": "true"
     hosts:
-      - host: azure.updates.jenkins.io
-        paths:
-          - path: /
-            backendService: httpd
       - host: mirrors.updates.jenkins.io
         paths:
           - path: /
@@ -17,7 +13,6 @@ global:
     tls:
       - secretName: updates-jenkins-io-tls
         hosts:
-          - azure.updates.jenkins.io
           - mirrors.updates.jenkins.io
 
   storage:
@@ -58,22 +53,7 @@ mirrorbits:
     kubernetes.io/arch: amd64
 
 httpd:
-  enabled: true
-  replicaCount: 2
-  resources:
-    limits:
-      cpu: 1000m
-      memory: 2048Mi
-    requests:
-      cpu: 200m
-      memory: 500Mi
-  nodeSelector:
-    kubernetes.io/arch: arm64
-  tolerations:
-    - key: "kubernetes.io/arch"
-      operator: "Equal"
-      value: "arm64"
-      effect: "NoSchedule"
+  enabled: false
 
 rsyncd:
   enabled: true
