@@ -511,6 +511,5 @@ jobsDefinition:
       docs.jenkins.io:
         name: docs.jenkins.io
         description: "Versioned docs of jenkins.io"
-        allowUntrustedChanges: true
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
