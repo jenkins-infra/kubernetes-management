@@ -508,3 +508,9 @@ jobsDefinition:
             description: "Contributors.jenkins.io File Share Service Principal Writer"
             subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+      docs.jenkins.io:
+        name: docs.jenkins.io
+        description: "Versioned docs of jenkins.io"
+        allowUntrustedChanges: true
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
