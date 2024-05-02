@@ -233,22 +233,22 @@ releases:
       - public-nginx-ingress/public-nginx-ingress
     values:
       - "../config/ipv6-lb-service.yaml"
-  - name: updates-jenkins-io
-    namespace: updates-jenkins-io
-    chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.22
-    values:
-      - "../config/updates.jenkins.io.yaml"
-    secrets:
-      - "../secrets/config/updates.jenkins.io/secrets.yaml"
-  - name: updates-jenkins-io-httpd
-    namespace: updates-jenkins-io
-    chart: jenkins-infra/httpd
-    version: 0.4.0
-    values:
-      - "../config/updates.jenkins.io_httpd.yaml"
-    secrets:
-      - "../secrets/config/updates.jenkins.io/httpd-secrets.yaml"
+  # - name: updates-jenkins-io
+  #   namespace: updates-jenkins-io
+  #   chart: jenkins-infra/mirrorbits-parent
+  #   version: 2.0.22
+  #   values:
+  #     - "../config/updates.jenkins.io.yaml"
+  #   secrets:
+  #     - "../secrets/config/updates.jenkins.io/secrets.yaml"
+  # - name: updates-jenkins-io-httpd
+  #   namespace: updates-jenkins-io
+  #   chart: jenkins-infra/httpd
+  #   version: 0.4.0
+  #   values:
+  #     - "../config/updates.jenkins.io_httpd.yaml"
+  #   secrets:
+  #     - "../secrets/config/updates.jenkins.io/httpd-secrets.yaml"
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
