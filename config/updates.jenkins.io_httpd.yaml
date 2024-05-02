@@ -14,42 +14,58 @@ tolerations:
     value: "arm64"
     effect: "NoSchedule"
 repository:
-  name: httpd-binary
-  # To reuse an existing PVC, ensure repository.name is set to the PVC name, set the value below to true and keep persistentVolumeClaim to false
-  reuseExistingPersistentVolumeClaim: false
-  persistentVolumeClaim:
-    enabled: true
-    spec:
-      accessModes:
-        - ReadOnlyMany
-      resources:
-        requests:
-          storage: 1Gi  # See httpd file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
-      storageClassName: azurefile-csi-premium
-      volumeMode: Filesystem
-      volumeName: httpd-binary
+  name: updates-jenkins-io-httpd
+  ## Storage is statically provisioned: https://learn.microsoft.com/en-us/azure/aks/azure-csi-files-storage-provision#statically-provision-a-volume
   persistentVolume:
     enabled: true
     spec:
       accessModes:
         - ReadOnlyMany
-      storageSize: 1Gi  # See httpd file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
-      storageClassName: azurefile-csi-premium
-      azureFile:
-        resourceGroup: updates-jenkins-io
-        shareName: updates-jenkins-io-httpd
+      capacity:
+        # See httpd file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+        storage: 1Gi
+      # Retain Azure file storage even if PV is deleted in AKS to avoid serving files accidentally
+      storageClassName: azurefile-csi-premium-retain
+      csi:
+        # Driver maps to storageclass specification
+        driver: file.csi.azure.com
+        # Secret is created by the httpd chart: name is deterministic (but need to be repeated here)
+        nodeStageSecretRef:
+          name: updates-jenkins-io-httpd-binary
+          namespace: updates-jenkins-io
         readOnly: true
-      additionalSpec:
-        persistentVolumeReclaimPolicy: Retain
-        mountOptions:
-          - dir_mode=0755
-          - file_mode=0644
-          - uid=1000
-          - gid=1000
-          - mfsymlinks
-          - nobrl
-          - serverino
-          - cache=strict
+        # See httpd file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+        volumeAttributes:
+          resourceGroup: updates-jenkins-io
+          shareName: updates-jenkins-io-httpd
+        # `volumeHandle` is for every identical share in the cluster
+        volumeHandle: updates-jenkins-io-httpd
+      # `mountOptions` maps to storageclass specification
+      mountOptions:
+        - dir_mode=0755
+        - file_mode=0644
+        - uid=1000
+        - gid=1000
+        - mfsymlinks
+        - nobrl
+        - serverino
+        - cache=strict
+      # `persistentVolumeReclaimPolicy` maps to storageclass specification
+      persistentVolumeReclaimPolicy: Retain
+  persistentVolumeClaim:
+    enabled: true
+    spec:
+      # Must match with the PV `metadata.name`, eg. the helm value `repository.name`
+      volumeName: updates-jenkins-io-httpd
+      accessModes:
+        - ReadOnlyMany
+      resources:
+        requests:
+          # See httpd file share size in https://github.com/jenkins-infra/azure/blob/main/updates.jenkins.io.tf
+          # Must be lower or equal than the associated's PV capacity size
+          storage: 1Gi
+      # Only visual, not functional (static provisioning) but should map to PV for clarity
+      storageClassName: azurefile-csi-premium-retain
   secrets:
     enabled: true
 
