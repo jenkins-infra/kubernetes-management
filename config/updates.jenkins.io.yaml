@@ -11,7 +11,7 @@ global:
           - path: /
             backendService: mirrorbits
     tls:
-      - secretName: updates-jenkins-io-tls
+      - secretName: mirrorbits-updates-jenkins-io-tls
         hosts:
           - mirrors.updates.jenkins.io
 
