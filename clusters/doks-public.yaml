@@ -30,7 +30,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.14.4
+    version: v1.14.5
     values:
       - "../config/cert-manager.yaml"
   - name: acme
