@@ -513,3 +513,12 @@ jobsDefinition:
         description: "Versioned docs of jenkins.io"
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
+        credentials:
+          infraci-docs-jenkins-io-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "docs.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
