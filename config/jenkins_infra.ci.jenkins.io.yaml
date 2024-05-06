@@ -698,26 +698,6 @@ controller:
           pipelineGraphView:
             showGraphOnBuildPage: true
             showGraphOnJobPage: false # change to true if pipeline-stage-view is removed
-      datadog: |
-        unclassified:
-          datadogGlobalConfiguration:
-            ciInstanceName: "infra.ci.jenkins.io"
-            collectBuildLogs: false
-            emitSecurityEvents: true
-            emitSystemEvents: true
-            enableCiVisibility: true
-            hostname: "infra.ci.jenkins.io"
-            # A list of tags to apply globally to all submissions.
-            globalTags: "controller:infra.ci.jenkins.io"
-            # Refresh Dogstatsd Client when your agent IP changes
-            refreshDogstatsdClient: true
-            reportWith: "DSD"
-            retryLogs: true
-            targetApiURL: "https://api.datadoghq.com/api/"
-            targetHost: "datadog.datadog.svc.cluster.local"
-            targetLogIntakeURL: "https://http-intake.logs.datadoghq.com/v1/input/"
-            targetPort: 8125
-            targetTraceCollectionPort: 8126
       tools-config: |
         tool:
           jdk:
