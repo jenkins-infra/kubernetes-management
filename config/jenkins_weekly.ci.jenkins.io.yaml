@@ -233,6 +233,10 @@ controller:
                   }
                 }
               }
+      default-notification-url: |
+        unclassified:
+          defaultDisplayUrlProvider:
+            providerId: "org.jenkinsci.plugins.displayurlapi.ClassicDisplayURLProvider"
   sidecars:
     configAutoReload:
       env:
