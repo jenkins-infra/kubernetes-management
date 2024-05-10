@@ -564,10 +564,6 @@ controller:
               image:
                 logoUrl: "https://release.ci.jenkins.io/userContent/logos/buttler_stay_safe.png"
             logoText: "Jenkins Release"
-      default-notification-url: |
-        unclassified:
-          defaultDisplayUrlProvider:
-            providerId: "org.jenkinsci.plugins.displayurlapi.ClassicDisplayURLProvider"
   sidecars:
     configAutoReload:
       env:
