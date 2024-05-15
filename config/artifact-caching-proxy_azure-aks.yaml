@@ -1,0 +1,24 @@
+persistence:
+  storageClass: managed-csi-premium
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+  jenkins: ci.jenkins.io
+  role: applications
+
+tolerations:
+  - key: "ci.jenkins.io/applications"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - accountapp
+        topologyKey: "kubernetes.io/hostname"
