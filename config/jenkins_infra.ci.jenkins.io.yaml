@@ -541,52 +541,6 @@ controller:
           globalConfigFiles:
             configs:
             - mavenSettings:
-                comment: "Artifact caching proxy settings for the AWS provider"
-                content: |
-                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-                    <mirrors>
-                      <mirror>
-                          <id>aws-proxy</id>
-                          <url>https://repo.aws.jenkins.io/</url>
-                          <mirrorOf>external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
-                      </mirror>
-                    </mirrors>
-                    <profiles>
-                      <profile>
-                        <id>jenkins-infra-plugin-repositories</id>
-                        <pluginRepositories>
-                          <pluginRepository>
-                            <id>repo.jenkins-ci.org</id>
-                            <url>https://repo.jenkins-ci.org/public/</url>
-                          </pluginRepository>
-                          <pluginRepository>
-                            <snapshots>
-                              <enabled>false</enabled>
-                            </snapshots>
-                            <id>incrementals</id>
-                            <url>https://repo.jenkins-ci.org/incrementals/</url>
-                          </pluginRepository>
-                          <pluginRepository>
-                            <id>central</id>
-                            <url>https://repo.maven.apache.org/maven2</url>
-                          </pluginRepository>
-                        </pluginRepositories>
-                      </profile>
-                    </profiles>
-                    <activeProfiles>
-                      <activeProfile>jenkins-infra-plugin-repositories</activeProfile>
-                    </activeProfiles>
-                  </settings>
-                id: "artifact-caching-proxy-aws"
-                isReplaceAll: true
-                name: "AWS Artifact Caching Proxy"
-                providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
-                serverCredentialMappings:
-                - credentialsId: "artifact-caching-proxy-credentials"
-                  serverId: "aws-proxy"
-                - credentialsId: "artifact-caching-proxy-credentials"
-                  serverId: "aws-proxy-incrementals"
-            - mavenSettings:
                 comment: "Artifact caching proxy settings for the Azure provider"
                 content: |
                   <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
@@ -607,27 +561,6 @@ controller:
                   serverId: "azure-proxy"
                 - credentialsId: "artifact-caching-proxy-credentials"
                   serverId: "azure-proxy-incrementals"
-            - mavenSettings:
-                comment: "Artifact caching proxy settings for the DigitalOcean provider"
-                content: |
-                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-                    <mirrors>
-                      <mirror>
-                          <id>do-proxy</id>
-                          <url>https://repo.do.jenkins.io/</url>
-                          <mirrorOf>external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
-                      </mirror>
-                    </mirrors>
-                  </settings>
-                id: "artifact-caching-proxy-do"
-                isReplaceAll: true
-                name: "DigitalOcean Artifact Caching Proxy"
-                providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
-                serverCredentialMappings:
-                - credentialsId: "artifact-caching-proxy-credentials"
-                  serverId: "do-proxy"
-                - credentialsId: "artifact-caching-proxy-credentials"
-                  serverId: "do-proxy-incrementals"
       matrix-settings: |
         jenkins:
           authorizationStrategy:

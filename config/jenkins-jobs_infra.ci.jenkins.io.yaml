@@ -63,12 +63,6 @@ jobsDefinition:
       packer-images:
         name: Packer Images
         credentials:
-          packer-aws-access-key-id: &packer-aws-access-key-id-def
-            description: AWS API key for the account ci-packer
-            secret: "${CI_PACKER_AWS_ACCESS_KEY_ID}"
-          packer-aws-secret-access-key: &packer-aws-secret-access-key-def
-            description: AWS Secret key for the account ci-packer
-            secret: "${CI_PACKER_AWS_SECRET_ACCESS_KEY}"
           packer-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
             clientId: "${PACKER_AZURE_CLIENT_ID}"
@@ -108,22 +102,6 @@ jobsDefinition:
           sops-tenant-id:
             secret: "${SOPS_TENANT_ID}"
             description: Azure tenant id used by sops to decrypt secrets
-          kubeconfig-cik8s:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for cik8s"
-            secretBytes: "${base64:${KUBECONFIG_CIK8S}}"
-          kubeconfig-eks-public:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for eks-public"
-            secretBytes: "${base64:${KUBECONFIG_EKS_PUBLIC}}"
-          kubeconfig-doks:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for doks"
-            secretBytes: "${base64:${KUBECONFIG_DOKS}}"
-          kubeconfig-doks-public:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for doks-public"
-            secretBytes: "${base64:${KUBECONFIG_DOKS_PUBLIC}}"
           kubeconfig-privatek8s:
             fileName: "kubeconfig"
             description: "Kubeconfig file for privatek8s"
@@ -139,11 +117,6 @@ jobsDefinition:
   updatecli:
     name: Dependencies Management with Updatecli
     kind: folder
-    credentials:
-      # Used by updatecli to retrieve AMIs
-      packer-aws-access-key-id: *packer-aws-access-key-id-def
-      # Used by updatecli to retrieve AMIs
-      packer-aws-secret-access-key: *packer-aws-secret-access-key-def
     children:
       jenkins-infra:
         name: Puppet (jenkins-infra)

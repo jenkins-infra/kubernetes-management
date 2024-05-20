@@ -1,5 +1,0 @@
-controller:
-  ingressClassResource:
-    default: true
-  ingressClassByName: true
-  ingressClass: public-nginx
