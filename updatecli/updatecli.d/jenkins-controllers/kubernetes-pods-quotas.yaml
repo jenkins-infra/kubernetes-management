@@ -1,0 +1,56 @@
+name: Update pods quotas on the clusters used by ci.jenkins.io
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  ci.jenkins.io-agents-1_maxcapacity:
+    kind: yaml
+    name: get pods number for ci.jenkins.io-agents-1 in ci.jenkins.io, namespace 'jenkins-agents'
+    spec:
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.sponsorship.ci.jenkins.io.yaml"
+      key: $.profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.'ci.jenkins.io-agents-1'.max_capacity
+  ci.jenkins.io-agents-1_bom_maxcapacity:
+    kind: yaml
+    name: get pods number for ci.jenkins.io-agents-1_bom in ci.jenkins.io, namespace 'jenkins-agents-bom'
+    spec:
+      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/controller.sponsorship.ci.jenkins.io.yaml"
+      key: $.profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.'ci.jenkins.io-agents-1-bom'.max_capacity
+
+targets:
+  pod_quotas_ci.jenkins.io-agents-1:
+    name: "Update the pods quotas in kubernetes for ci.jenkins.io-agents-1"
+    kind: yaml
+    sourceid: ci.jenkins.io-agents-1_maxcapacity
+    spec:
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents1.yaml
+      key: $.quotas.pods
+    scmid: default
+  pod_quotas_ci.jenkins.io-agents-1_bom:
+    name: "Update the pods quotas in kubernetes for ci.jenkins.io-agents-1-bom"
+    kind: yaml
+    sourceid: ci.jenkins.io-agents-1_bom_maxcapacity
+    spec:
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents1-bom.yaml
+      key: $.quotas.pods
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update `quotas.pods` within `ci.jenkins.io-agents-1` cluster to {{ source "ci.jenkins.io-agents-1_maxcapacity" }} and `ci.jenkins.io-agents-1_bom_maxcapacity` cluster (`bom` node pool) to {{ source "ci.jenkins.io-agents-1_bom_maxcapacity" }}
+    spec:
+      labels:
+        - dependencies
+        - jenkins-kubernetes-agents
+        - quotas.pods
