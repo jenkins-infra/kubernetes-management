@@ -248,9 +248,9 @@ jobsDefinition:
     description: Folder hosting all the Terraform-related jobs
     kind: folder
     credentials:
-      infracost-api-key:
-        secret: "${INFRACOST_API_KEY}"
-        description: Infracost API key
+      azure-reports-access-key:
+        description: "Azure Storage Key used by infra-reports to publish to a storage bucket"
+        secret: "${AZURE_INFRA_REPORTS_STORAGE_KEY}"
     children:
       aws:
         name: Terraform AWS
