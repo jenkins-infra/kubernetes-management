@@ -22,7 +22,7 @@ clusterAgent:
       - name: "dockerhub-credential"
   nodeSelector:
     kubernetes.io/arch: arm64
-    role: applications
+    agentpool: systempool1 # select the system pool not on agent pools
   tolerations: # allow to start on system nodepool
     - key: "CriticalAddonsOnly"
       operator: "Equal"
@@ -30,7 +30,7 @@ clusterAgent:
       effect: "NoSchedule"
 agents:
   tolerations:
-    # These tolerations are needed to run the agents on the bom node pool
+    # These tolerations are needed to run the agents on all the pools
     - key: "infraci.jenkins.io/agents"
       operator: "Equal"
       value: "true"
