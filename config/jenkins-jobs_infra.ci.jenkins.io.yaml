@@ -501,6 +501,6 @@ jobsDefinition:
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
       stats.jenkins.io:
         name: stats.jenkins.io
-        allowUntrustedChanges: true
+        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
