@@ -114,6 +114,10 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for cijioagents1"
             secretBytes: "${base64:${KUBECONFIG_CIJIOAGENTS1}}"
+          kubeconfig-infracijioagents1:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for infracijioagents1"
+            secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS1}}"
   updatecli:
     name: Dependencies Management with Updatecli
     kind: folder
@@ -502,3 +506,8 @@ jobsDefinition:
             description: "docs.jenkins.io File Share Service Principal Writer"
             subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+      stats.jenkins.io:
+        name: stats.jenkins.io
+        allowUntrustedChanges: false
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
