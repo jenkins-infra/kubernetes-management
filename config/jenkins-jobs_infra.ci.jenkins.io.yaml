@@ -147,6 +147,8 @@ jobsDefinition:
       infra-reports:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      contributor-spotlight:
+        disableTagDiscovery: true
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
