@@ -148,6 +148,7 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       contributor-spotlight:
+        jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
   other-jobs:
     name: Other Jobs
