@@ -1,1 +1,2 @@
-existingServiceAccount: jenkins-infra:jenkins-infra-controller
+quotas:
+  pods: 150
