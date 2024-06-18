@@ -151,6 +151,9 @@ jobsDefinition:
       infra-reports:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      contributor-spotlight:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       stats.jenkins.io:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
