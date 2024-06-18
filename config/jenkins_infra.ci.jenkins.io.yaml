@@ -115,6 +115,11 @@ controller:
                     description: "Kubeconfig file for privatek8s"
                     scope: SYSTEM
                     secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
+                - string:
+                    description: "Token of the Service Account account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-1'"
+                    id: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
+                    scope: GLOBAL
+                    secret: "${INFRACIJENKINSIO_AGENTS_1_TOKEN}"
       agent-settings: |
         jenkins:
           numExecutors: 0
