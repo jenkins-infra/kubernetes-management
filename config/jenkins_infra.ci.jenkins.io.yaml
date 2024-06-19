@@ -286,6 +286,61 @@ controller:
                         resourceRequestMemory: "8G"
                     label: "container kubernetes node ruby webbuilder"
                     yamlMergeStrategy: "merge"
+            - kubernetes:
+                containerCapStr: "100"
+                credentialsId: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
+                serverCertificate: |
+                  "${INFRACIJENKINSIO_AGENTS_1_CACRT}"
+                serverUrl: "https://infracijenkinsioagents1-ns1jeize.hcp.eastus2.azmk8s.io:443"
+                maxRequestsPerHostStr: "300"
+                webSocket: true
+                name: "kubernetes_infracijioagents1"
+                namespace: "jenkins-infra-agents"
+                podRetention: "Never"
+                podLabels:
+                  # Required to be jenkins/<helm-release>-jenkins-slave as defined here
+                  # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
+                  - key: "jenkins/jenkins-infra-agent"
+                    value: "true"
+                templates:
+                  - name: jnlp-linux-arm64
+                    nodeSelector: "kubernetes.io/arch=arm64"
+                    containers:
+                      - name: jnlp
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:1.72.0"
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk-17/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-17"
+                        resourceLimitCpu: "500m"
+                        resourceLimitMemory: "1024Mi"
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "512Mi"
+                        alwaysPullImage: true
+                    label: "linux-arm64-infracijioagents1"
+                    yamlMergeStrategy: "merge"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.io/arch"
+                          operator: "Equal"
+                          value: "arm64"
+                          effect: "NoSchedule"
+                        - key: "infra.ci.jenkins.io/agents"
+                          operator: "Equal"
+                          value: "true"
+                          effect: "NoSchedule"
             - azureVM:
                 azureCredentialsId: "azure-jenkins-sponsorship-credentials"
                 name: "azure-vms-jenkins-sponsorship"
