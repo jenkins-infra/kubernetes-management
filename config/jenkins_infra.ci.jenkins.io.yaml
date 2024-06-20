@@ -289,8 +289,7 @@ controller:
             - kubernetes:
                 containerCapStr: "100"
                 credentialsId: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
-                serverCertificate: |
-                  "${INFRACIJENKINSIO_AGENTS_1_CACRT}"
+                serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_1_CACRT}}"
                 serverUrl: "https://infracijenkinsioagents1-ns1jeize.hcp.eastus2.azmk8s.io:443"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
