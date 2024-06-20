@@ -31,7 +31,7 @@ pipeline {
           }
         } // axes
         agent {
-          label 'linux-arm64'
+          label 'jnlp-linux-arm64'
         }
       environment {
         KUBECONFIG            = credentials("kubeconfig-${K8S_CLUSTER}")
