@@ -192,7 +192,7 @@ controller:
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
-                    label: "linux-arm64 jnlp-linux-arm64"
+                    label: "jnlp-linux-arm64"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
@@ -289,21 +289,15 @@ controller:
             - kubernetes:
                 containerCapStr: "100"
                 credentialsId: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
-                serverCertificate: |
-                  "${INFRACIJENKINSIO_AGENTS_1_CACRT}"
+                serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_1_CACRT}}"
                 serverUrl: "https://infracijenkinsioagents1-ns1jeize.hcp.eastus2.azmk8s.io:443"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
                 name: "kubernetes_infracijioagents1"
                 namespace: "jenkins-infra-agents"
                 podRetention: "Never"
-                podLabels:
-                  # Required to be jenkins/<helm-release>-jenkins-slave as defined here
-                  # https://github.com/helm/charts/blob/ef0d749132ecfa61b2ea47ccacafeaf5cf1d3d77/stable/jenkins/templates/jenkins-master-networkpolicy.yaml#L27
-                  - key: "jenkins/jenkins-infra-agent"
-                    value: "true"
                 templates:
-                  - name: jnlp-linux-arm64
+                  - name: jnlp-linux-arm64-infracijioagents1
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
                       - name: jnlp
@@ -322,7 +316,7 @@ controller:
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
-                    label: "linux-arm64-infracijioagents1"
+                    label: "jnlp-linux-arm64-infracijioagents1"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
