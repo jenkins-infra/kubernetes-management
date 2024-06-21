@@ -109,12 +109,6 @@ controller:
                     password: "${AZURE_LOGIN_VM_PASS}"
                     scope: SYSTEM
                     username: "${AZURE_LOGIN_VM_USER}"
-                - file:
-                    fileName: "kubeconfig"
-                    id: "kubeconfig-controller"
-                    description: "Kubeconfig file for privatek8s"
-                    scope: SYSTEM
-                    secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
                 - string:
                     description: "Token of the Service Account account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-1'"
                     id: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"

@@ -61,14 +61,6 @@ releases:
       - "../config/jenkins_infra.ci.jenkins.io.yaml"
     secrets:
       - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"
-  - name: jenkins-infra-agents
-    namespace: jenkins-infra-agents
-    chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 1.0.0
-    values:
-      - "../config/jenkins-infra-agents-privatek8s.yaml"
-    secrets:
-      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: jenkins-infra-jobs
     namespace: jenkins-infra
     chart: jenkins-infra/jenkins-jobs

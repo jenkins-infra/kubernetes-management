@@ -22,8 +22,9 @@ clusterAgent:
       - name: "dockerhub-credential"
   nodeSelector:
     kubernetes.io/arch: arm64
-    agentpool: systempool1 # select the system pool not on agent pools
-  tolerations: # allow to start on system nodepool
+    agentpool: systempool1
+  # allow to start on system nodepool
+  tolerations:
     - key: "CriticalAddonsOnly"
       operator: "Equal"
       value: "true"
