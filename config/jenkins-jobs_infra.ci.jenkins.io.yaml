@@ -524,6 +524,7 @@ jobsDefinition:
         allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: false
+        branchIncludes: main
         credentials:
           infraci-stats-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
