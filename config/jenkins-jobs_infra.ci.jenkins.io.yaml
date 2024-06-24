@@ -509,11 +509,21 @@ jobsDefinition:
             description: "docs.jenkins.io File Share Service Principal Writer"
             subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+      stats.jenkins.io_previews:
+        name: stats.jenkins.io PR previews
+        allowUntrustedChanges: true
+        jenkinsfilePath: Jenkinsfile_previews
+        enableGitHubChecks: true
+  website-production-jobs:
+    name: Website Production Jobs
+    description: "Folder hosting all the Website jobs dedicated to deployment in production"
+    kind: folder
+    children:
       stats.jenkins.io:
         name: stats.jenkins.io
         allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
+        enableGitHubChecks: false
         credentials:
           infraci-stats-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
@@ -523,8 +533,3 @@ jobsDefinition:
             description: "stats.jenkins.io File Share Service Principal Writer"
             subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-      stats.jenkins.io_previews:
-        name: stats.jenkins.io PR previews
-        allowUntrustedChanges: true
-        jenkinsfilePath: Jenkinsfile_previews
-        enableGitHubChecks: true
