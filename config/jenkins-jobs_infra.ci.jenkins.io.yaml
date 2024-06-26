@@ -515,6 +515,7 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_previews
         enableGitHubChecks: true
         disableTagDiscovery: true
+        branchExcludes: main
   website-production-jobs:
     name: Website Production Jobs
     description: "Folder hosting all the Website jobs dedicated to deployment in production"
