@@ -441,7 +441,7 @@ jobsDefinition:
           algolia-plugins-write-key:
             secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
             description: "Algolia credentials to write data for plugin site"
-          infraci-pluginsjenkinsio-fileshare-service-principal-writer:
+          infraci_pluginsjenkinsio_fileshare_serviceprincipal_writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
             clientId: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
@@ -487,7 +487,7 @@ jobsDefinition:
           contributors-jenkins-io-fileshare-sas-querystring:
             secret: "${CONTRIBUTORS_JENKINS_IO_FILESHARE_SAS_QUERYSTRING}"
             description: "File Share SAS query string to update contributors.jenkins.io content"
-          contributors-jenkins-io-fileshare-service-principal-writer:
+          infraci_contributorsjenkinsio_fileshare_serviceprincipal_writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
             clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
@@ -501,7 +501,7 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         credentials:
-          infraci-docs-jenkins-io-fileshare-service-principal-writer:
+          infraci_docsjenkinsio_fileshare_serviceprincipal_writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
             clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
@@ -528,7 +528,7 @@ jobsDefinition:
         branchIncludes: main
         disableTagDiscovery: true
         credentials:
-          infraci-stats-jenkins-io-fileshare-service-principal-writer:
+          infraci_statsjenkinsio_fileshare_serviceprincipal_writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
             clientId: "${STATS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
