@@ -484,9 +484,6 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         credentials:
-          contributors-jenkins-io-fileshare-sas-querystring:
-            secret: "${CONTRIBUTORS_JENKINS_IO_FILESHARE_SAS_QUERYSTRING}"
-            description: "File Share SAS query string to update contributors.jenkins.io content"
           contributors-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
