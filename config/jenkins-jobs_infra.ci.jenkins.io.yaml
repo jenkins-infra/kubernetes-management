@@ -441,7 +441,7 @@ jobsDefinition:
           algolia-plugins-write-key:
             secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
             description: "Algolia credentials to write data for plugin site"
-          # TODO: remove after credentials renaming in contributor-spotlight pipeline
+          # TODO: remove after credentials renaming in plugin-site pipeline
           infraci-pluginsjenkinsio-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
@@ -516,7 +516,7 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         credentials:
-          # TODO: remove after credentials renaming in contributor-spotlight pipeline
+          # TODO: remove after credentials renaming in docs.jenkins.io pipeline
           infraci-docs-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
@@ -552,7 +552,7 @@ jobsDefinition:
         branchIncludes: main
         disableTagDiscovery: true
         credentials:
-          # TODO: remove after credentials renaming in contributor-spotlight pipeline
+          # TODO: remove after credentials renaming in stats.jenkins.io pipeline
           infraci-stats-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
