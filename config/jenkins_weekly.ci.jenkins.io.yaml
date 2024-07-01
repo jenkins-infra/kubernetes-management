@@ -8,11 +8,7 @@ rbac:
   readSecrets: true
 persistence:
   enabled: true
-  size: 8Gi
-  storageClass: managed-csi-premium-zrs-retain
-  dataSource:
-    name: jenkins-weekly-snap
-    kind: PersistentVolumeClaim
+  existingClaim: jenkins-weekly-data
 agent:
   componentName: "agent"
 networkPolicy:
