@@ -8,11 +8,7 @@ rbac:
   readSecrets: true
 persistence:
   enabled: true
-  size: 64Gi
-  storageClass: managed-csi-premium-zrs-retain
-  dataSource:
-    name: jenkins-releaseci-snap
-    kind: PersistentVolumeClaim
+  existingClaim: jenkins-release-data
 agent:
   componentName: "agent"
 networkPolicy:
