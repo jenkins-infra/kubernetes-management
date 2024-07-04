@@ -29,7 +29,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.67.1
+    version: 3.67.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -70,7 +70,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 4.5.3
+    version: 4.6.0
     timeout: 600
     values:
       - "../config/falco.yaml"
@@ -196,7 +196,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.32
+    version: 2.0.33
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
@@ -236,7 +236,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 2.0.32
+    version: 2.0.33
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
