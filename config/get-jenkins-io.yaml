@@ -71,7 +71,7 @@ mirrorbits:
       cpu: 2
       memory: 2048Mi
     requests:
-      cpu: 500m
+      cpu: 100m
       memory: 500Mi
   nodeSelector:
     kubernetes.io/arch: amd64
