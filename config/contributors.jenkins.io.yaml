@@ -25,8 +25,8 @@ resources:
     cpu: 200m
     memory: 256Mi
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 50m
+    memory: 32Mi
 htmlVolume:
   azureFile:
     secretName: contributors-jenkins-io-nginx-website

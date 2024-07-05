@@ -4,8 +4,8 @@ resources:
     cpu: 1000m
     memory: 2048Mi
   requests:
-    cpu: 200m
-    memory: 500Mi
+    cpu: 50m
+    memory: 400Mi
 nodeSelector:
   kubernetes.io/arch: arm64
 tolerations:
