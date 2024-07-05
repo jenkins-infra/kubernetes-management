@@ -34,7 +34,6 @@ tolerations:
     value: "arm64"
     effect: "NoSchedule"
 
-# Common values for all nginx-proxies
 resources:
   limits:
     cpu: 2

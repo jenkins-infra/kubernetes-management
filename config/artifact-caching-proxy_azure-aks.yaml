@@ -25,7 +25,6 @@ affinity:
                 - artifact-caching-proxy
         topologyKey: "kubernetes.io/hostname"
 
-# Common values for all nginx-proxies
 resources:
   limits:
     cpu: 2
