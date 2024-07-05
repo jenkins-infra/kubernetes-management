@@ -1,6 +1,7 @@
 service:
   type: LoadBalancer
   # Public IPv4 defined as code in https://github.com/jenkins-infra/azure/blob/main/ldap.jenkins.io.tf instead of requesting a random new public IP, useful for DNS setup and changes
+  # TODO: automate syncing
   azurePip:
     name: ldap-jenkins-io-ipv4
     resourceGroup: prod-public-ips
@@ -30,11 +31,21 @@ service:
 
 resources:
   limits:
-    cpu: 500m
-    memory: 1536Mi
+    cpu: 2
+    memory: 2048Mi
   requests:
     cpu: 200m
-    memory: 1024Mi
+    memory: 512Mi
 
 nodeSelector:
   kubernetes.io/arch: amd64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+persistence:
+  # TODO: add link to where the disk/PV/PVC are defined (and automate syncing?)
+  customDataClaimName: ldap-jenkins-io-data
