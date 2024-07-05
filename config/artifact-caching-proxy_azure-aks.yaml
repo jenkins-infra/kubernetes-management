@@ -1,4 +1,6 @@
 persistence:
+  enabled: true
+  size: 100
   storageClass: managed-csi-premium
 
 nodeSelector:
@@ -20,5 +22,16 @@ affinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - accountapp
+                - artifact-caching-proxy
         topologyKey: "kubernetes.io/hostname"
+
+# Common values for all nginx-proxies
+resources:
+  limits:
+    cpu: 2
+    memory: 4096Mi
+  requests:
+    cpu: 1
+    memory: 2048Mi
+
+replicaCount: 2
