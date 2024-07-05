@@ -21,8 +21,8 @@ resources:
     cpu: 2
     memory: 2048Mi
   requests:
-    cpu: 1
-    memory: 1500Mi
+    cpu: 200m
+    memory: 1000Mi
 
 replicas: 1
 
