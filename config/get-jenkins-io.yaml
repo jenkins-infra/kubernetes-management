@@ -72,7 +72,7 @@ mirrorbits:
       memory: 2048Mi
     requests:
       cpu: 100m
-      memory: 500Mi
+      memory: 400Mi
   nodeSelector:
     kubernetes.io/arch: amd64
   affinity:
@@ -91,10 +91,10 @@ httpd:
   replicaCount: 2
   resources:
     limits:
-      cpu: 800m
-      memory: 2048Mi
+      cpu: 500m
+      memory: 1024Mi
     requests:
-      cpu: 200m
+      cpu: 50m
       memory: 500Mi
   nodeSelector:
     kubernetes.io/arch: arm64
