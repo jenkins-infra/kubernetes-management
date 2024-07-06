@@ -39,12 +39,12 @@ jobsDefinition:
       docker-inbound-agents:
       docker-jenkins-lts:
       docker-jenkins-weekly:
+      docker-keycloak-theme:
       docker-ldap:
       docker-mirrorbits:
       docker-openvpn:
       docker-packaging:
       docker-plugin-site-issues:
-      docker-plugins-self-service:
       docker-rsyncd:
       ircbot:
         jenkinsfilePath: Jenkinsfile
