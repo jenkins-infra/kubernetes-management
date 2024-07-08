@@ -27,7 +27,7 @@ resources:
 replicas: 1
 
 nodeSelector:
-  kubernetes.io/arch: amd64
+  kubernetes.io/arch: arm64
 
 extraInitContainers: |
   - name: theme-provider
