@@ -27,7 +27,7 @@ resources:
 replicas: 1
 
 nodeSelector:
-  kubernetes.io/arch: amd64
+  kubernetes.io/arch: arm64
 
 extraInitContainers: |
   - name: theme-provider
@@ -76,8 +76,3 @@ extraEnvFrom: |
       name: '{{ include "keycloak.fullname" . }}-db'
   - secretRef:
       name: '{{ include "keycloak.fullname" . }}-http'
-
-service:
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "9990"
