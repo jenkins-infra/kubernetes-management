@@ -1,3 +1,4 @@
+---
 github:
   user: "Jenkins Infra Bot (updatecli)"
   email: "60776566+jenkins-infra-bot@users.noreply.github.com"
@@ -5,3 +6,116 @@ github:
   branch: "main"
   owner: "jenkins-infra"
   repository: "kubernetes-management"
+charts:
+  accountapp:
+    targets:
+      - clusters/publick8s.yaml
+  acme:
+    targets:
+      - clusters/privatek8s.yaml
+      - clusters/publick8s.yaml
+  artifact-caching-proxy:
+    targets:
+      - clusters/cijioagents1.yaml
+      - clusters/publick8s.yaml
+  cert-manager:
+    repositoryName: jetstack
+    repositoryUrl: https://charts.jetstack.io
+    targets:
+      - clusters/privatek8s.yaml
+      - clusters/publick8s.yaml
+  datadog:
+    repositoryName: datadog
+    repositoryUrl: https://helm.datadoghq.com
+    targets:
+      - clusters/privatek8s.yaml
+      - clusters/publick8s.yaml
+  env-jenkins-release:
+    targets:
+      - clusters/privatek8s.yaml
+  falco:
+    repositoryName: falco
+    repositoryUrl: https://falcosecurity.github.io/charts
+    targets:
+      - clusters/publick8s.yaml
+  github-comment-ops:
+    repositoryName: github-comment-ops
+    repositoryUrl: https://timja.github.io/github-comment-ops
+    targets:
+      - clusters/privatek8s.yaml
+  incrementals-publisher:
+    targets:
+      - clusters/publick8s.yaml
+  ingress-nginx:
+    repositoryName: ingress-nginx
+    repositoryUrl: https://kubernetes.github.io/ingress-nginx
+    targets:
+      - clusters/privatek8s.yaml
+      - clusters/publick8s.yaml
+  ipv6-lb-service:
+    targets:
+      - clusters/publick8s.yaml
+  ircbot:
+    targets:
+      - clusters/privatek8s.yaml
+  javadoc:
+    targets:
+      - clusters/publick8s.yaml
+  jenkins-jobs:
+    targets:
+      - clusters/privatek8s.yaml
+  jenkins-kubernetes-agents:
+    targets:
+      - clusters/privatek8s.yaml
+  jenkins:
+    repositoryName: jenkins
+    repositoryUrl: https://charts.jenkins.io
+    targets:
+      - clusters/privatek8s.yaml
+      - clusters/publick8s.yaml
+  jenkinsio:
+    targets:
+      - clusters/publick8s.yaml
+  httpredirector:
+    targets:
+      - clusters/publick8s.yaml
+    additionalLabels:
+      - jenkinsisthewayio-redirection
+  keycloak:
+    repositoryName: codecentric
+    repositoryUrl: https://codecentric.github.io/helm-charts
+    targets:
+      - clusters/publick8s.yaml
+  ldap:
+    targets:
+      - clusters/publick8s.yaml
+  mirrorbits-parent:
+    targets:
+      - clusters/publick8s.yaml
+  nginx-website:
+    targets:
+      - clusters/publick8s.yaml
+  plugin-health-scoring:
+    targets:
+      - clusters/publick8s.yaml
+  plugin-site-issues:
+    targets:
+      - clusters/publick8s.yaml
+  plugin-site:
+    targets:
+      - clusters/publick8s.yaml
+  rating:
+    targets:
+      - clusters/publick8s.yaml
+  reports:
+    targets:
+      - clusters/publick8s.yaml
+  rss2twitter:
+    targets:
+      - clusters/privatek8s.yaml
+  uplink:
+    targets:
+      - clusters/publick8s.yaml
+  wiki:
+    targets:
+      - clusters/publick8s.yaml
