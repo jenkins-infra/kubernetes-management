@@ -155,6 +155,15 @@ jobsDefinition:
       docker-inbound-agents:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      docker-jenkins-infraci:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
+      docker-jenkins-lts:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
+      docker-jenkins-weeklyci:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       docker-ldap:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
