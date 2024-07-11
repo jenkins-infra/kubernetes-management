@@ -38,7 +38,8 @@ jobsDefinition:
       docker-crond:
       docker-inbound-agents:
       docker-jenkins-lts:
-      docker-jenkins-weekly:
+      docker-jenkins-weeklyci:
+      docker-jenkins-infraci:
       docker-keycloak-theme:
       docker-ldap:
       docker-mirrorbits:
