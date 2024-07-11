@@ -157,6 +157,9 @@ jobsDefinition:
       stats.jenkins.io:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      azure-net:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
