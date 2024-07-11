@@ -188,6 +188,7 @@ jobsDefinition:
       helm-charts:
         name: Helm Charts
         description: Custom Helm Charts of the Jenkins Infra
+        jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       infra-reports:
         jenkinsfilePath: Jenkinsfile_updatecli
