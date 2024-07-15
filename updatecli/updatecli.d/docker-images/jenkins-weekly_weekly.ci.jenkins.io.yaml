@@ -17,19 +17,17 @@ sources:
     name: "Get latest jenkins-weekly version"
     kind: githubrelease
     spec:
-      owner: "jenkins-infra"
-      repository: "docker-jenkins-weekly"
+      owner: jenkins-infra
+      repository: docker-jenkins-weeklyci
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
-    transformers:
-      - addsuffix: "-weeklyci"
 
 conditions:
   checkDockerImagePublished:
-    name: "Test jenkinsciinfra/jenkins-weekly:<latest_version> docker image tag with '-weeklyci' suffix"
+    name: "Test jenkinsciinfra/jenkins-weeklyci:<latest_version> docker image tag is published"
     kind: dockerimage
     spec:
-      image: "jenkinsciinfra/jenkins-weekly"
+      image: jenkinsciinfra/jenkins-weeklyci
       ## Tag from source
       architectures:
       - arm64
@@ -40,8 +38,8 @@ targets:
     name: "Update jenkinsciinfra/jenkins-weekly docker image tag on weekly.ci.jenkins.io"
     kind: yaml
     spec:
-      file: "config/jenkins_weekly.ci.jenkins.io.yaml"
-      key: "$.controller.image.tag"
+      file: config/jenkins_weekly.ci.jenkins.io.yaml
+      key: $.controller.image.tag
     scmid: default
 
 actions:
@@ -52,5 +50,5 @@ actions:
     spec:
       labels:
         - dependencies
-        - docker-jenkins-weekly
+        - docker-jenkins-weeklyci
         - weekly.ci.jenkins.io

@@ -23,8 +23,8 @@ controller:
     runAsNonRoot: true
     supplementalGroups: [1000]
   image:
-    repository: jenkinsciinfra/jenkins-weekly
-    tag: 1.49.0-2.466
+    repository: jenkinsciinfra/jenkins-infraci
+    tag: 2.0.0-2.466
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
