@@ -34,6 +34,7 @@ controller:
     hsts-include-subdomains: "true"
     # Strict-Transport-Security "max-age" directive recommended value is 2592000 (30 days).
     hsts-max-age: "2592000"
+    use-gzip: true # gzip types are the defaults: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#gzip-types
   replicaCount: 1
   ingressClassResource:
     enabled: true
