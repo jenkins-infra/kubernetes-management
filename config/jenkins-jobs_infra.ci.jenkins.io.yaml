@@ -436,18 +436,27 @@ jobsDefinition:
         name: Terraform Datadog
         description: "Datadog resources managed by Terraform"
         credentials:
-          datadog-api-key:
+          production-datadog-api-key:
             secret: "${PRODUCTION_DATADOG_API_KEY}"
-            description: Datadog API key for infra.ci
-          datadog-app-key:
+            description: Production Datadog API key for infra.ci
+          production-datadog-app-key:
             secret: "${PRODUCTION_DATADOG_APP_KEY}"
-            description: Datadog application key for infra.ci
+            description: Production Datadog application key for infra.ci
+          staging-datadog-api-key:
+            secret: "${STAGING_DATADOG_API_KEY}"
+            description: Production Datadog API key for infra.ci
+          staging-datadog-app-key:
+            secret: "${STAGING_DATADOG_APP_KEY}"
+            description: Production Datadog application key for infra.ci
           datadog-jenkinsuser-password:
-            secret: "${PRODUCTION_DATADOG_JENKINSUSER_PASSWORD}"
+            secret: "${DATADOG_JENKINSUSER_PASSWORD}"
             description: datadog_monitoring Jenkins technical user password
           production-terraform-datadog-backend-config:
             fileName: "backend-config"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
+          staging-terraform-datadog-backend-config:
+            fileName: "backend-config"
+            secretBytes: "${base64:${STAGING_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
       digitalocean:
         name: Terraform Digital Ocean
         description: "Digital Ocean resources managed by Terraform"
