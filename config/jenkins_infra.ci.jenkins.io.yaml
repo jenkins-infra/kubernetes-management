@@ -622,15 +622,15 @@ controller:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk-11.0.23+9"
+                      subdir: "jdk-11.0.24+8"
                       url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.24%2B8/OpenJDK11U-jdk_x64_linux_hotspot_11.0.24_8.tar.gz"
                   - zip:
                       label: "windows"
-                      subdir: "jdk-11.0.23+9"
+                      subdir: "jdk-11.0.24+8"
                       url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.24%2B8/OpenJDK11U-jdk_x64_windows_hotspot_11.0.24_8.zip"
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk-11.0.23+9"
+                      subdir: "jdk-11.0.24+8"
                       url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.24%2B8/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.24_8.tar.gz"
             - name: "jdk17"
               properties:
