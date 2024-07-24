@@ -26,7 +26,7 @@ networkPolicy:
 controller:
   image:
     repository: jenkinsciinfra/jenkins-lts
-    tag: 1.14.2-2.452.3
+    tag: 1.14.3-2.452.3
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
