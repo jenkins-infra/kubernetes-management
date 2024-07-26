@@ -598,6 +598,11 @@ controller:
             showGraphOnJobPage: false # change to true if pipeline-stage-view is removed
       tools-config: |
         tool:
+          git:
+            installations:
+            - home: "git"
+              name: "git-native"
+            - name: "jgit"
           jdk:
             installations:
             - name: "jdk8"
