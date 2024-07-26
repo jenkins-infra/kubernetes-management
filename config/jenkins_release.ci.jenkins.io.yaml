@@ -560,6 +560,13 @@ controller:
               image:
                 logoUrl: "https://release.ci.jenkins.io/userContent/logos/buttler_stay_safe.png"
             logoText: "Jenkins Release"
+      tools-config: |
+        tool:
+          git:
+            installations:
+            - home: "git"
+              name: "git-native"
+            - name: "jgit"
   sidecars:
     configAutoReload:
       env:

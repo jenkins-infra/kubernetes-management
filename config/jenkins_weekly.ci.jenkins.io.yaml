@@ -173,6 +173,13 @@ controller:
           markupFormatter:
             rawHtml:
               disableSyntaxHighlighting: false
+      tools-config: |
+        tool:
+          git:
+            installations:
+            - home: "git"
+              name: "git-native"
+            - name: "jgit"
       jobs-settings: |
         jobs:
           - script: >
