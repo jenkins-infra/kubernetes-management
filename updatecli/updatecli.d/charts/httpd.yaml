@@ -1,0 +1,41 @@
+name: Bump httpd Helm Chart Version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  lastChartVersion:
+    kind: helmchart
+    name: get last chart version
+    spec:
+      url: https://jenkins-infra.github.io/helm-charts
+      name: httpd
+
+targets:
+  updateChartVersion:
+    name: Update httpd chart version
+    kind: yaml
+    spec:
+      engine: yamlpath
+      file: clusters/publick8s.yaml
+      key: $.releases[?(@.chart == 'jenkins-infra/httpd')].version
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump `httpd` Helm Chart Version to {{ source "lastChartVersion" }}
+    spec:
+      labels:
+        - dependencies
+        - httpd

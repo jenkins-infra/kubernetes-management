@@ -84,3 +84,6 @@ ingress:
     - secretName: updates-jenkins-io-httpd-tls
       hosts:
         - azure.updates.jenkins.io
+
+httpdConf:
+  serverName: https://localhost
