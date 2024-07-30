@@ -52,11 +52,11 @@ controller:
       memory: "8Gi"
   probes:
     startupProbe:
-      initialDelaySeconds: 120
+      initialDelaySeconds: 60
     livenessProbe:
-      initialDelaySeconds: 120
+      initialDelaySeconds: 60
     readinessProbe:
-      initialDelaySeconds: 120
+      initialDelaySeconds: 60
   testEnabled: false
   overwritePlugins: true
   serviceType: "ClusterIP"
