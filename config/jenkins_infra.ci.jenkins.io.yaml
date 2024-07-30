@@ -696,17 +696,6 @@ controller:
         unclassified:
           defaultDisplayUrlProvider:
             providerId: "org.jenkinsci.plugins.displayurlapi.ClassicDisplayURLProvider"
-  sidecars:
-    configAutoReload:
-      env:
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: METHOD
-          # Polling mode (instead of watching kube API)
-          value: "SLEEP"
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: SLEEP_TIME
-          # Time in seconds between two polls
-          value: "60"
   installPlugins: false
   ingress:
     enabled: true
