@@ -58,8 +58,8 @@ controller:
     readinessProbe:
       initialDelaySeconds: 60
   testEnabled: false
+  # This setting deletes the content of $ JENKINS_HOME/plugins on each pod restart to ensure only container image plugins are used
   overwritePlugins: true
-  serviceType: "ClusterIP"
   javaOpts: >-
     -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
   JCasC:
