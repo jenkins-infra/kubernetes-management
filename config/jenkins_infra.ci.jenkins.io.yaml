@@ -555,6 +555,8 @@ controller:
             shell: "/bin/bash"
       system-settings: |
         unclassified:
+          gitHubConfiguration:
+            apiRateLimitChecker: NoThrottle
           lockableResourcesManager:
             declaredResources:
             - description: "first entry for packer image builder dev"
