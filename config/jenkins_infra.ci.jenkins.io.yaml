@@ -142,8 +142,7 @@ controller:
                         - envVar:
                             key: "ARTIFACT_CACHING_PROXY_PROVIDER"
                             value: "azure"
-                        resourceLimitCpu: "500m"
-                        resourceLimitMemory: "1024Mi"
+                        resourceLimitMemory: "2048Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
@@ -179,8 +178,7 @@ controller:
                         - envVar:
                             key: "ARTIFACT_CACHING_PROXY_PROVIDER"
                             value: "azure"
-                        resourceLimitCpu: "500m"
-                        resourceLimitMemory: "1024Mi"
+                        resourceLimitMemory: "2048Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
@@ -226,10 +224,9 @@ controller:
                         - envVar:
                             key: "ARTIFACT_CACHING_PROXY_PROVIDER"
                             value: "azure"
-                        resourceLimitCpu: "4"
                         resourceLimitMemory: "8G"
-                        resourceRequestCpu: "4"
-                        resourceRequestMemory: "8G"
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "1G"
                         alwaysPullImage: true
                     label: "container kubernetes node ruby webbuilder"
                     yamlMergeStrategy: "merge"
