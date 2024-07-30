@@ -52,14 +52,14 @@ controller:
       memory: "8Gi"
   probes:
     startupProbe:
-      initialDelaySeconds: 120
+      initialDelaySeconds: 60
     livenessProbe:
-      initialDelaySeconds: 120
+      initialDelaySeconds: 60
     readinessProbe:
-      initialDelaySeconds: 120
+      initialDelaySeconds: 60
   testEnabled: false
+  # This setting deletes the content of $ JENKINS_HOME/plugins on each pod restart to ensure only container image plugins are used
   overwritePlugins: true
-  serviceType: "ClusterIP"
   javaOpts: >-
     -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
   JCasC:
@@ -555,6 +555,8 @@ controller:
             shell: "/bin/bash"
       system-settings: |
         unclassified:
+          gitHubConfiguration:
+            apiRateLimitChecker: NoThrottle
           lockableResourcesManager:
             declaredResources:
             - description: "first entry for packer image builder dev"
@@ -694,17 +696,6 @@ controller:
         unclassified:
           defaultDisplayUrlProvider:
             providerId: "org.jenkinsci.plugins.displayurlapi.ClassicDisplayURLProvider"
-  sidecars:
-    configAutoReload:
-      env:
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: METHOD
-          # Polling mode (instead of watching kube API)
-          value: "SLEEP"
-        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
-        - name: SLEEP_TIME
-          # Time in seconds between two polls
-          value: "60"
   installPlugins: false
   ingress:
     enabled: true
