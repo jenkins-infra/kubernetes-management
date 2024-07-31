@@ -86,7 +86,7 @@ releases:
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 5.5.0
+    version: 5.5.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
