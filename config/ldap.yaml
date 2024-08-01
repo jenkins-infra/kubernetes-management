@@ -17,9 +17,11 @@ service:
     - '104.209.128.236/32'  # accept inbound LDAPS from trusted.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
     - '172.176.126.194/32'  # accept inbound LDAPS from private.vpn.jenkins.io
     - '104.209.153.13/32'  # accept inbound LDAPS from cert.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
-    - '20.230.90.10/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io - https://github.com/jenkins-infra/azure-net/blob/88464e36e7e07eccd2ede427ee670638a8458db1/gateways.tf#L62-L72
-    - '172.177.87.156/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/88464e36e7e07eccd2ede427ee670638a8458db1/gateways.tf#L73-L86 (1/2 IPv4)
-    - '68.154.8.163/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/88464e36e7e07eccd2ede427ee670638a8458db1/gateways.tf#L73-L86 (2/2 IPv4)
+    - '20.230.90.10/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L63-L73 (1/1 IPv4)
+    - '172.177.87.156/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (1/4 IPv4)
+    - '68.154.8.163/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (2/4 IPv4)
+    - '172.200.120.16/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (3/4 IPv4)
+    - '172.200.126.194/32'  # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (4/4 IPv4)
     - '34.211.101.61/32'  # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32'  # Accept inbound connections from Linux Foundation prod machine
     - '20.22.6.81/32'  # Accept inbound connections from privatek8s outbound LB # TODO: find out how to retrieve this IP from terraform
