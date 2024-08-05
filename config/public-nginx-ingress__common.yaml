@@ -2,7 +2,7 @@ defaultBackend:
   enabled: true
   image:
     repository: jenkinsciinfra/404
-    tag: 0.4.45
+    tag: 0.4.46
     pullPolicy: IfNotPresent
   ## Unprivileged port as non root user and no escalation allowed
   port: 8080
@@ -34,8 +34,8 @@ controller:
     hsts-include-subdomains: "true"
     # Strict-Transport-Security "max-age" directive recommended value is 2592000 (30 days).
     hsts-max-age: "2592000"
-    use-gzip: true  # gzip types are the defaults: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#gzip-types
-    enable-brotli: true  # see default settings in https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#enable-brotli
+    use-gzip: true # gzip types are the defaults: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#gzip-types
+    enable-brotli: true # see default settings in https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#enable-brotli
   replicaCount: 1
   ingressClassResource:
     enabled: true
