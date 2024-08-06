@@ -22,8 +22,7 @@ controller:
     externalTrafficPolicy: Local
     ipFamilies:
       - IPv4
-      - IPv6
-    ipFamilyPolicy: PreferDualStack
+    ipFamilyPolicy: SingleStack
   nodeSelector:
     kubernetes.io/arch: arm64
   tolerations:
