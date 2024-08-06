@@ -279,6 +279,15 @@ controller:
                     chown -R dd-agent:dd-agent /var/log/datadog
                     chmod 770 /var/log/datadog
                     systemctl start datadog-agent.service
+                    # Setup Docker Engine
+                    mkdir -p /etc/docker
+                    cat <<EOF >/etc/docker/daemon.json
+                    {
+                      "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+                    }
+                    EOF
+                    systemctl daemon-reload
+                    systemctl restart docker
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
@@ -320,6 +329,14 @@ controller:
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
+                    & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart
+                    # Setup Docker Engine
+                    @'
+                    {
+                      "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+                    }
+                    '@ | Set-Content C:\ProgramData\Docker\config\daemon.json
+                    Restart-Service docker
                   javaPath: "C:/tools/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows azure-vms-jenkins-sponsorship"
@@ -359,6 +376,14 @@ controller:
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
+                    & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart
+                    # Setup Docker Engine
+                    @'
+                    {
+                      "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+                    }
+                    '@ | Set-Content C:\ProgramData\Docker\config\daemon.json
+                    Restart-Service docker
                   javaPath: "C:/tools/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "windows-2022 amd64 azure vm docker-windows docker-windows-2022 windows azure-vms-jenkins-sponsorship"
@@ -409,6 +434,15 @@ controller:
                     chown -R dd-agent:dd-agent /var/log/datadog
                     chmod 770 /var/log/datadog
                     systemctl start datadog-agent.service
+                    # Setup Docker Engine
+                    mkdir -p /etc/docker
+                    cat <<EOF >/etc/docker/daemon.json
+                    {
+                      "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+                    }
+                    EOF
+                    systemctl daemon-reload
+                    systemctl restart docker
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
