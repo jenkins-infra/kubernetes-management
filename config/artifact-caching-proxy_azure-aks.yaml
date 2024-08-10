@@ -41,3 +41,6 @@ resources:
     memory: 2048Mi
 
 replicaCount: 2
+
+proxy:
+  dnsResolver: "kube-dns.kube-system.svc.cluster.local 9.9.9.9"
