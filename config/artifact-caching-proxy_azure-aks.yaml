@@ -26,6 +26,7 @@ affinity:
         topologyKey: "kubernetes.io/hostname"
 
 service:
+  type: LoadBalancer
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
     service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "public-jenkins-sponsorship-vnet-ci_jenkins_io_agents"
