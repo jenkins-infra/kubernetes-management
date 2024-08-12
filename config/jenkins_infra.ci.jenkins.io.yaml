@@ -113,6 +113,10 @@ controller:
       agent-settings: |
         jenkins:
           numExecutors: 0
+          updateCenter:
+            sites:
+              - id: "default"
+                url: "https://azure.updates.jenkins.io/update-center.json"
           clouds:
             - kubernetes:
                 containerCapStr: "100"
