@@ -5,16 +5,36 @@ global:
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/ssl-redirect": "true"
-      "nginx.ingress.kubernetes.io/app-root": "/index.html"
+      "nginx.ingress.kubernetes.io/use-regex": "true"  # Required to allow regexp path matching with Nginx
     hosts:
       - host: mirrors.updates.jenkins.io
         paths:
-          - path: /
+          # Only send request to files with these extensions to mirrorbits
+          - path: /.*[.](html|json|txt|TIME)$  # Requires the regexp engine of Nginx to be enabled
+            pathType: ImplementationSpecific
             backendService: mirrorbits
     tls:
       - secretName: updates-jenkins-io-mirrorbits-tls
         hosts:
           - mirrors.updates.jenkins.io
+    additionalIngresses:
+      - className: public-nginx
+        annotations:
+          "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+          "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+          "nginx.ingress.kubernetes.io/use-regex": "true"  # Required to allow regexp path matching with Nginx
+          "nginx.ingress.kubernetes.io/rewrite-target": "/$1$2/index.html"
+        hosts:
+          - host: mirrors.updates.jenkins.io
+            paths:
+              # Otherwise redirect with rewrite the request by appending `/index.html` as you want a directory listing
+              - path: /(.*)(/|$)  # Requires the regexp engine of Nginx to be enabled
+                pathType: ImplementationSpecific
+                backendService: mirrorbits
+        tls:
+          - secretName: updates-jenkins-io-mirrorbits-tls
+            hosts:
+              - mirrors.updates.jenkins.io
 
   storage:
     enabled: true
