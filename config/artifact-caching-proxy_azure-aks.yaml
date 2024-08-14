@@ -34,11 +34,11 @@ service:
 
 resources:
   limits:
+    cpu: 4
+    memory: 8192Mi
+  requests:
     cpu: 2
     memory: 4096Mi
-  requests:
-    cpu: 1
-    memory: 2048Mi
 
 replicaCount: 2
 
