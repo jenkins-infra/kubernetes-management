@@ -299,7 +299,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-amd64 linux-amd64-docker azure-vms-jenkins-sponsorship jdk11 maven-11"
+                  labels: "linux-amd64 linux-amd64-docker azure-vms-jenkins-sponsorship"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
@@ -314,134 +314,6 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS x86_64 machine"
                   templateName: "ubuntu-22"
-                  usageMode: NORMAL
-                  usePrivateIP: true
-                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
-                - launcher: "ssh"
-                  agentWorkspace: "/home/jenkins"
-                  credentialsId: "azure-login"
-                  diskType: "managed"
-                  doNotUseMachineIfInitFails: false
-                  encryptionAtHost: true
-                  ephemeralOSDisk: true
-                  executeInitScriptAsRoot: true
-                  imageReference:
-                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.86.0"
-                    galleryName: "prod_packer_images"
-                    galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
-                  imageTopLevelType: "advanced"
-                  initScript: |-
-                    #!/bin/bash
-                    set -eux
-                    echo "START CLOUDINIT"
-                    systemctl stop datadog-agent.service
-                    mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
-                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
-                    chown -R dd-agent:dd-agent /etc/datadog-agent
-                    chmod 640 /etc/datadog-agent/datadog.yaml
-                    chown -R dd-agent:dd-agent /var/log/datadog
-                    chmod 770 /var/log/datadog
-                    systemctl start datadog-agent.service
-                    # Setup Docker Engine
-                    mkdir -p /etc/docker
-                    cat <<EOF >/etc/docker/daemon.json
-                    {
-                      "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
-                    }
-                    EOF
-                    systemctl daemon-reload
-                    systemctl restart docker
-                    export DEFAULT_JDK=/opt/jdk-17
-                    update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
-                    echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
-                    rm -f /etc/sudoers.d/90-cloud-init-users
-                    echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-17/bin/java"
-                  jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-amd64-maven-17"
-                  location: "East US 2"
-                  maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
-                  noOfParallelJobs: 1
-                  osDiskSize: 150
-                  osDiskStorageAccountType: "Standard_LRS"
-                  osType: "Linux"
-                  retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
-                  storageAccountNameReferenceType: "existing"
-                  storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
-                  templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-17 LTS x86_64 machine"
-                  templateName: "ubuntu-22-amd64-maven-17"
-                  usageMode: NORMAL
-                  usePrivateIP: true
-                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
-                - launcher: "ssh"
-                  agentWorkspace: "/home/jenkins"
-                  credentialsId: "azure-login"
-                  diskType: "managed"
-                  doNotUseMachineIfInitFails: false
-                  encryptionAtHost: true
-                  ephemeralOSDisk: true
-                  executeInitScriptAsRoot: true
-                  imageReference:
-                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "1.86.0"
-                    galleryName: "prod_packer_images"
-                    galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
-                  imageTopLevelType: "advanced"
-                  initScript: |-
-                    #!/bin/bash
-                    set -eux
-                    echo "START CLOUDINIT"
-                    systemctl stop datadog-agent.service
-                    mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
-                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
-                    chown -R dd-agent:dd-agent /etc/datadog-agent
-                    chmod 640 /etc/datadog-agent/datadog.yaml
-                    chown -R dd-agent:dd-agent /var/log/datadog
-                    chmod 770 /var/log/datadog
-                    systemctl start datadog-agent.service
-                    # Setup Docker Engine
-                    mkdir -p /etc/docker
-                    cat <<EOF >/etc/docker/daemon.json
-                    {
-                      "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
-                    }
-                    EOF
-                    systemctl daemon-reload
-                    systemctl restart docker
-                    export DEFAULT_JDK=/opt/jdk-21
-                    update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
-                    echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
-                    rm -f /etc/sudoers.d/90-cloud-init-users
-                    echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-17/bin/java"
-                  jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-amd64-maven-21"
-                  location: "East US 2"
-                  maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
-                  noOfParallelJobs: 1
-                  osDiskSize: 150
-                  osDiskStorageAccountType: "Standard_LRS"
-                  osType: "Linux"
-                  retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
-                  storageAccountNameReferenceType: "existing"
-                  storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
-                  templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS x86_64 machine"
-                  templateName: "ubuntu-22-amd64-maven-21"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
@@ -585,7 +457,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship arm64linux jdk11-arm64 maven-11-arm64"
+                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship arm64linux jdk11 maven-11 ubuntu-22-arm64 ubuntu-arm64"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
@@ -649,7 +521,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64-maven-17"
+                  labels: "linux-arm64-maven-17 jdk17 maven-17 ubuntu-22-arm64-maven-17 ubuntu-arm64-maven-17"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
@@ -713,7 +585,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-17/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64-maven-21"
+                  labels: "linux-arm64-maven-21 jdk21 maven-21 ubuntu-22-arm64-maven-21 ubuntu-arm64-maven-21"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
