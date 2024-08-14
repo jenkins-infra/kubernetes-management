@@ -268,7 +268,7 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -276,7 +276,7 @@ controller:
                     echo "START CLOUDINIT"
                     systemctl stop datadog-agent.service
                     mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ^${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
                     sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                     chown -R dd-agent:dd-agent /etc/datadog-agent
                     chmod 640 /etc/datadog-agent/datadog.yaml
@@ -302,7 +302,7 @@ controller:
                   labels: "linux-amd64 linux-amd64-docker azure-vms-jenkins-sponsorship jdk11 maven-11"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
@@ -332,7 +332,7 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -340,7 +340,7 @@ controller:
                     echo "START CLOUDINIT"
                     systemctl stop datadog-agent.service
                     mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ^${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
                     sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                     chown -R dd-agent:dd-agent /etc/datadog-agent
                     chmod 640 /etc/datadog-agent/datadog.yaml
@@ -366,7 +366,7 @@ controller:
                   labels: "linux-amd64-maven-17"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
@@ -396,7 +396,7 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -404,7 +404,7 @@ controller:
                     echo "START CLOUDINIT"
                     systemctl stop datadog-agent.service
                     mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ^${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
                     sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                     chown -R dd-agent:dd-agent /etc/datadog-agent
                     chmod 640 /etc/datadog-agent/datadog.yaml
@@ -430,7 +430,7 @@ controller:
                   labels: "linux-amd64-maven-21"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
@@ -460,10 +460,10 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
-                    (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ^${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
+                    (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
                     & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart
                     # Setup Docker Engine
                     @'
@@ -477,7 +477,7 @@ controller:
                   labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows azure-vms-jenkins-sponsorship"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
@@ -507,10 +507,10 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
-                    (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ^${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
+                    (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
                     & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart
                     # Setup Docker Engine
                     @'
@@ -524,7 +524,7 @@ controller:
                   labels: "windows-2022 amd64 azure vm docker-windows docker-windows-2022 windows azure-vms-jenkins-sponsorship"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
@@ -554,7 +554,7 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -562,7 +562,7 @@ controller:
                     echo "START CLOUDINIT"
                     systemctl stop datadog-agent.service
                     mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ^${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
                     sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                     chown -R dd-agent:dd-agent /etc/datadog-agent
                     chmod 640 /etc/datadog-agent/datadog.yaml
@@ -588,7 +588,7 @@ controller:
                   labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship arm64linux jdk11-arm64 maven-11-arm64"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
                   osDiskStorageAccountType: "Standard_LRS"
@@ -618,7 +618,7 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -626,7 +626,7 @@ controller:
                     echo "START CLOUDINIT"
                     systemctl stop datadog-agent.service
                     mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ^${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
                     sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                     chown -R dd-agent:dd-agent /etc/datadog-agent
                     chmod 640 /etc/datadog-agent/datadog.yaml
@@ -652,7 +652,7 @@ controller:
                   labels: "linux-arm64-maven-17"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
                   osDiskStorageAccountType: "Standard_LRS"
@@ -682,7 +682,7 @@ controller:
                     galleryImageVersion: "1.86.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "^${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -690,7 +690,7 @@ controller:
                     echo "START CLOUDINIT"
                     systemctl stop datadog-agent.service
                     mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ^${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
                     sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                     chown -R dd-agent:dd-agent /etc/datadog-agent
                     chmod 640 /etc/datadog-agent/datadog.yaml
@@ -716,7 +716,7 @@ controller:
                   labels: "linux-arm64-maven-21"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "^${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
                   noOfParallelJobs: 1
                   osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
                   osDiskStorageAccountType: "Standard_LRS"
