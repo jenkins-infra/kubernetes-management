@@ -247,7 +247,7 @@ releases:
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.1.3
+    version: 0.1.4
     values:
       - "../config/contributors.jenkins.io.yaml"
     secrets:
@@ -255,7 +255,7 @@ releases:
   - name: docs-jenkins-io
     namespace: docs-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.1.3
+    version: 0.1.4
     values:
       - "../config/docs.jenkins.io.yaml"
     secrets:
@@ -263,7 +263,7 @@ releases:
   - name: stats-jenkins-io
     namespace: stats-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.1.3
+    version: 0.1.4
     values:
       - "../config/stats.jenkins.io.yaml"
     secrets:
