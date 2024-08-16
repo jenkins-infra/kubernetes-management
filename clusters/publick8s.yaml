@@ -96,7 +96,7 @@ releases:
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/javadoc
-    version: 0.4.2
+    version: 0.4.3
     values:
       - "../config/javadoc.yaml"
     secrets:
