@@ -100,6 +100,9 @@ mirrorbits:
           resourceGroup: publick8s
           shareName: geoip-data
         volumeHandle: https://publick8spvdata.file.core.windows.net/geoip-data
+  annotations:
+    ad.datadoghq.com/mirrorbits.logs: |
+      [{"source":"mirrorbits","service":"updates.jenkins.io"}]
 
 httpd:
   enabled: false
