@@ -73,16 +73,6 @@ releases:
     version: 4.7.2
     values:
       - "../config/falco.yaml"
-  - name: artifact-caching-proxy
-    namespace: artifact-caching-proxy
-    chart: jenkins-infra/artifact-caching-proxy
-    version: 1.6.1
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the proxy
-    values:
-      - "../config/artifact-caching-proxy_azure.yaml"
-    secrets:
-      - "../secrets/config/artifact-caching-proxy/secrets.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
