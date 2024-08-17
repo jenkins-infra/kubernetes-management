@@ -72,6 +72,34 @@ mirrorbits:
       memory: 200Mi
   nodeSelector:
     kubernetes.io/arch: amd64
+  config:
+    gzip: true
+    traceFile: /TIME
+    redis:
+      address: updates-jenkins-io.redis.cache.windows.net:6379
+      # password is stored in SOPS secrets
+      dbId: 0
+    scanInterval: 10
+    repositoryScanInterval: 10
+    checkInterval: 1
+    disallowRedirects: true
+    disableOnMissingFile: false
+    # No fallbacks
+  geoipdata:
+    persistentData:
+      enabled: true
+      capacity: 1Gi
+      storageClassName: statically-provisionned
+      csi:
+        driver: file.csi.azure.com
+        fsType: ext4
+        nodeStageSecretRef:
+          name: geoip-data
+          namespace: geoip-data
+        volumeAttributes:
+          resourceGroup: publick8s
+          shareName: geoip-data
+        volumeHandle: https://publick8spvdata.file.core.windows.net/geoip-data
 
 httpd:
   enabled: false
