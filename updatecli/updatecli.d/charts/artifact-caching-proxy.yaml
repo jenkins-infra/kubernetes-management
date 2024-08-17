@@ -23,14 +23,12 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for artifact-caching-proxy"
-    kind: file
-    scmid: default
+    kind: yaml
     spec:
-      files:
-        - clusters/publick8s.yaml
-        - clusters/cijioagents1.yaml
-      matchpattern: 'chart: jenkins-infra\/artifact-caching-proxy((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/artifact-caching-proxy${1}version: {{ source "lastChartVersion" }}'
+      file: clusters/cijioagents1.yaml
+      engine: yamlpath
+      key: $.releases[?(@.name == 'artifact-caching-proxy')].version
+    scmid: default
 
 actions:
   default:

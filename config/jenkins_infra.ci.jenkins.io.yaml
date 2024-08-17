@@ -84,12 +84,6 @@ controller:
                     privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
                     owner: "jenkins-infra"
                     scope: GLOBAL
-                - usernamePassword:
-                    description: "Credentials to access an artifact caching proxy"
-                    id: "artifact-caching-proxy-credentials"
-                    password: "${ARTIFACT_CACHING_PROXY_PASSWORD}"
-                    scope: GLOBAL
-                    username: "MY-USERNAME"
                 - azure:
                     azureEnvironmentName: "Azure"
                     clientId: "${JENKINSINFRA_AZURE_CLIENT_ID}"
@@ -143,9 +137,6 @@ controller:
                         - envVar:
                             key: "JAVA_HOME"
                             value: "/opt/jdk-17"
-                        - envVar:
-                            key: "ARTIFACT_CACHING_PROXY_PROVIDER"
-                            value: "azure"
                         resourceLimitMemory: "2048Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
@@ -179,9 +170,6 @@ controller:
                         - envVar:
                             key: "JAVA_HOME"
                             value: "/opt/jdk-17"
-                        - envVar:
-                            key: "ARTIFACT_CACHING_PROXY_PROVIDER"
-                            value: "azure"
                         resourceLimitMemory: "2048Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
@@ -225,9 +213,6 @@ controller:
                         - envVar:
                             key: "PATH"
                             value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-                        - envVar:
-                            key: "ARTIFACT_CACHING_PROXY_PROVIDER"
-                            value: "azure"
                         resourceLimitMemory: "8G"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "1G"
@@ -670,31 +655,6 @@ controller:
                     git:
                       credentialsId: "github-app-infra"
                       remote: "https://github.com/jenkins-infra/pipeline-library.git"
-      artifact-caching-proxy: |
-        unclassified:
-          globalConfigFiles:
-            configs:
-            - mavenSettings:
-                comment: "Artifact caching proxy settings for the Azure provider"
-                content: |
-                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-                    <mirrors>
-                      <mirror>
-                          <id>azure-proxy</id>
-                          <url>https://repo.azure.jenkins.io/</url>
-                          <mirrorOf>external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven</mirrorOf>
-                      </mirror>
-                    </mirrors>
-                  </settings>
-                id: "artifact-caching-proxy-azure"
-                isReplaceAll: true
-                name: "Azure Artifact Caching Proxy"
-                providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
-                serverCredentialMappings:
-                - credentialsId: "artifact-caching-proxy-credentials"
-                  serverId: "azure-proxy"
-                - credentialsId: "artifact-caching-proxy-credentials"
-                  serverId: "azure-proxy-incrementals"
       matrix-settings: |
         jenkins:
           authorizationStrategy:
