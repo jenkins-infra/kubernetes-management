@@ -85,6 +85,38 @@ mirrorbits:
                 values:
                   - mirrorbits
           topologyKey: "kubernetes.io/hostname"
+  config:
+    gzip: true
+    traceFile: /TIME
+    redis:
+      address: jenkins-mirrorbits.redis.cache.windows.net:6379
+      # password is stored in SOPS secrets
+      ## RedisDB - Use 1 for staging and 0 for production
+      dbId: 0
+    scanInterval: 10
+    repositoryScanInterval: 5
+    checkInterval: 1
+    disallowRedirects: true
+    disableOnMissingFile: true
+    fallbacks:
+      - url: https://archives.jenkins.io/
+        countryCode: DE
+        continentCode: EU
+  geoipdata:
+    persistentData:
+      enabled: true
+      capacity: 1Gi
+      storageClassName: statically-provisionned
+      csi:
+        driver: file.csi.azure.com
+        fsType: ext4
+        nodeStageSecretRef:
+          name: geoip-data
+          namespace: geoip-data
+        volumeAttributes:
+          resourceGroup: publick8s
+          shareName: geoip-data
+        volumeHandle: https://publick8spvdata.file.core.windows.net/geoip-data
 
 httpd:
   enabled: true
