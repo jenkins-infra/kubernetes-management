@@ -72,6 +72,16 @@ mirrorbits:
       memory: 200Mi
   nodeSelector:
     kubernetes.io/arch: amd64
+  podSecurityContext:
+    runAsUser: 1000  # User 'mirrorbits'
+    runAsGroup: 1000  # Group 'mirrorbits'
+    runAsNonRoot: true
+  containerSecurityContext:
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
   config:
     gzip: true
     traceFile: /TIME
