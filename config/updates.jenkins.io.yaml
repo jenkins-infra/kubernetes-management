@@ -100,7 +100,10 @@ mirrorbits:
     checkInterval: 1
     disallowRedirects: false
     disableOnMissingFile: false
-    # No fallbacks
+    fallbacks:
+      - url: https://eastamerica.cloudflare.jenkins.io/
+        countryCode: US
+        continentCode: NA
   geoipdata:
     persistentData:
       enabled: true
