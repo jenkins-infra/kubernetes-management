@@ -83,18 +83,27 @@ mirrorbits:
       drop:
         - ALL
   config:
-    gzip: true
+    # Ingress already does gzip
+    gzip: false
     traceFile: /TIME
     redis:
       address: updates-jenkins-io.redis.cache.windows.net:6379
       # password is stored in SOPS secrets
       dbId: 0
-    scanInterval: 10
-    repositoryScanInterval: 10
+    ## Interval between two scans of the local repository.
+    ## This should, more or less, match the frequency where the local repo is updated.
+    ## TODO: set it once a day once the update-center2 would run a `mirrorbits refresh` command by itself
+    repositoryScanInterval: 5
+    ## Interval in minutes between mirror scan
+    ## Once a day is enough as jenkins-infra/update-center2 runs it every 5 min.
+    scanInterval: 1440
     checkInterval: 1
-    disallowRedirects: true
+    disallowRedirects: false
     disableOnMissingFile: false
-    # No fallbacks
+    fallbacks:
+      - url: https://eastamerica.cloudflare.jenkins.io/
+        countryCode: US
+        continentCode: NA
   geoipdata:
     persistentData:
       enabled: true
