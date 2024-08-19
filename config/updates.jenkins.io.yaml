@@ -83,12 +83,13 @@ mirrorbits:
       drop:
         - ALL
   config:
-    # Ingress already does gzip
+    # Ingress already does gzip/brotli
     gzip: false
     traceFile: /TIME
     redis:
       address: updates-jenkins-io.redis.cache.windows.net:6379
       # password is stored in SOPS secrets
+      ## RedisDB - Use 1 for staging and 0 for production
       dbId: 0
     ## Interval between two scans of the local repository.
     ## This should, more or less, match the frequency where the local repo is updated.
@@ -100,7 +101,13 @@ mirrorbits:
     checkInterval: 1
     disallowRedirects: false
     disableOnMissingFile: false
+    ## List of mirrors to use as fallback which will be used in case mirrorbits
+    ## is unable to answer a request because the database is unreachable.
+    ## Note: Mirrorbits will redirect to one of these mirrors based on the user
+    ## location but won't be able to know if the mirror has the requested file.
+    ## Therefore only put your most reliable and up-to-date mirrors here.
     fallbacks:
+      # We always fall back to this mirror. Useful to serve stale file during a mirror scan
       - url: https://eastamerica.cloudflare.jenkins.io/
         countryCode: US
         continentCode: NA
