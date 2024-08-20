@@ -263,7 +263,7 @@ controller:
                     (
                       systemctl stop datadog-agent.service
                       mkdir -p /var/log/datadog /etc/datadog-agent
-                      sed 's/api_key:.*/api_key: ^${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
                       sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                       chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
                       chmod 640 /etc/datadog-agent/datadog.yaml
