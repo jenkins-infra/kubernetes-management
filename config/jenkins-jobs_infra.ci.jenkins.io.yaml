@@ -18,43 +18,69 @@ jobsDefinition:
         description: Docker hub credential for jenkinsinfra organisation PULL
         username: infracijenkinsio
         password: "${DOCKER_HUB_TOKEN_INFRACIJENKINSIO_PULL}"
+      github-app-infra.ci.jenkins.io-jenkins-jobs:
+        description: "Github App infra.ci.jenkins.io-docker-jobs installed on jenkins-infra org"
+        appId: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_ID}"
+        owner: "jenkinsci"
+        privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_PRIVATE_KEY}"
     children:
       acceptance-test-harness:
         name: "Jenkins CI Acceptance Test Harness (ATH) Docker Image"
-        githubCredentialsId: jenkinsci-ath-ghapp
+        githubCredentialsId: github-app-jenkinsci-ath
         jenkinsfilePath: Jenkinsfile.infra.ci.jenkins.io
         repoOwner: "jenkinsci"
         credentials:
-          jenkinsci-ath-ghapp:
+          github-app-jenkinsci-ath:
             description: "Github App installed on jenkinsci org for https://github.com/jenkinsci/acceptance-test-harness Docker Image build"
             appId: "${GITHUB_APP_JENKINSCI_ID}"
             owner: "jenkinsci"
             privateKey: "${GITHUB_APP_JENKINSCI_PRIVATE_KEY}"
       account-app:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
         jenkinsfilePath: Jenkinsfile
       docker-404:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-builder:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-confluence-data:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-crond:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-inbound-agents:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-jenkins-lts:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-jenkins-weeklyci:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-jenkins-infraci:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-keycloak-theme:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-ldap:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-mirrorbits:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-openvpn:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-packaging:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-plugin-site-issues:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       docker-rsyncd:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       ircbot:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
         jenkinsfilePath: Jenkinsfile
       plugin-health-scoring:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
         jenkinsfilePath: Jenkinsfile
       plugin-site-api:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
         jenkinsfilePath: Jenkinsfile
       rating:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
       uplink:
+        githubCredentialsId: github-app-infra.ci.jenkins.io-jenkins-jobs
         jenkinsfilePath: Jenkinsfile
   infra-tools:
     name: Infrastructure Tooling Jobs
