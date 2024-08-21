@@ -49,3 +49,7 @@ affinity:
               values:
                 - stats-jenkins-io
         topologyKey: "kubernetes.io/hostname"
+
+nginx:
+  slashLocation:
+    tryFiles: $uri /index.html
