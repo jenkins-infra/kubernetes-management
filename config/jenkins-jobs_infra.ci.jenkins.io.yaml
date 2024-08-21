@@ -21,7 +21,7 @@ jobsDefinition:
       github-app-infra.ci.jenkins.io-jenkins-jobs:
         description: "Github App infra.ci.jenkins.io-docker-jobs installed on jenkins-infra org"
         appId: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_ID}"
-        owner: "jenkinsci"
+        owner: "jenkins-infra"
         privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_PRIVATE_KEY}"
     children:
       acceptance-test-harness:
