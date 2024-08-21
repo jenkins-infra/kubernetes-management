@@ -364,10 +364,16 @@ jobsDefinition:
       azure-reports-access-key:
         description: "Azure Storage Key used by infra-reports to publish to a storage bucket"
         secret: "${AZURE_INFRA_REPORTS_STORAGE_KEY}"
+      github-app-infra.ci.jenkins.io-terraform-jobs:
+        description: "Github App infra.ci.jenkins.io-docker-jobs installed on jenkins-infra org"
+        appId: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_ID}"
+        owner: "jenkins-infra"
+        privateKey: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_PRIVATE_KEY}"
     children:
       aws:
         name: Terraform AWS
         description: AWS resources managed by Terraform
+        githubCredentialsId: github-app-infra.ci.jenkins.io-terraform-jobs
         credentials:
           staging-terraform-aws-access-key:
             secret: "${STAGING_TERRAFORM_AWS_ACCESS_KEY_ID}"
@@ -391,6 +397,7 @@ jobsDefinition:
       azure:
         name: Terraform Azure
         description: "Azure resources managed by Terraform"
+        githubCredentialsId: github-app-infra.ci.jenkins.io-terraform-jobs
         credentials:
           production-terraform-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
@@ -417,6 +424,7 @@ jobsDefinition:
       azure-net:
         name: Terraform Azure-net
         description: "Azure-net resources managed by Terraform"
+        githubCredentialsId: github-app-infra.ci.jenkins.io-terraform-jobs
         credentials:
           production-terraform-azure-net-serviceprincipal:
             azureEnvironmentName: "Azure-net"
@@ -443,6 +451,7 @@ jobsDefinition:
       cloudflare:
         name: Terraform CloudFlare
         description: "CloudFlare resources managed by Terraform"
+        githubCredentialsId: github-app-infra.ci.jenkins.io-terraform-jobs
         credentials:
           staging-cloudflare-api-token:
             secret: "${STAGING_CLOUDFLARE_API_TOKEN}"
@@ -461,6 +470,7 @@ jobsDefinition:
       datadog:
         name: Terraform Datadog
         description: "Datadog resources managed by Terraform"
+        githubCredentialsId: github-app-infra.ci.jenkins.io-terraform-jobs
         credentials:
           production-datadog-api-key:
             secret: "${PRODUCTION_DATADOG_API_KEY}"
@@ -486,6 +496,7 @@ jobsDefinition:
       digitalocean:
         name: Terraform Digital Ocean
         description: "Digital Ocean resources managed by Terraform"
+        githubCredentialsId: github-app-infra.ci.jenkins.io-terraform-jobs
         credentials:
           staging-terraform-digitalocean-pat:
             secret: "${STAGING_TERRAFORM_DIGITALOCEAN_PAT}"
@@ -503,6 +514,7 @@ jobsDefinition:
       fastly:
         name: Terraform Fastly
         description: "Fastly resources managed by Terraform"
+        githubCredentialsId: github-app-infra.ci.jenkins.io-terraform-jobs
         credentials:
           staging-terraform-fastly-api-key:
             secret: "${STAGING_TERRAFORM_FASTLY_API_KEY}"
