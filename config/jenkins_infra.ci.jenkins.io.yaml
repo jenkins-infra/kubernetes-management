@@ -259,15 +259,20 @@ controller:
                     #!/bin/bash
                     set -eux
                     echo "START CLOUDINIT"
-                    systemctl stop datadog-agent.service
-                    mkdir -p /var/log/datadog /etc/datadog-agent
-                    sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
-                    sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
-                    chown -R dd-agent:dd-agent /etc/datadog-agent
-                    chmod 640 /etc/datadog-agent/datadog.yaml
-                    chown -R dd-agent:dd-agent /var/log/datadog
-                    chmod 770 /var/log/datadog
-                    systemctl start datadog-agent.service
+                    # Setup Datadog service
+                    (
+                      systemctl stop datadog-agent.service
+                      mkdir -p /var/log/datadog /etc/datadog-agent
+                      sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+                      chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+                      chmod 640 /etc/datadog-agent/datadog.yaml
+                      chown dd-agent:dd-agent /var/log/datadog
+                      chmod 770 /var/log/datadog
+                      systemctl daemon-reload
+                      systemctl enable datadog-agent.service
+                      systemctl start datadog-agent.service
+                    ) 2>&1 | tee /var/log/agent-init-datadog.log
                     # Setup Docker Engine
                     mkdir -p /etc/docker
                     cat <<EOF >/etc/docker/daemon.json
