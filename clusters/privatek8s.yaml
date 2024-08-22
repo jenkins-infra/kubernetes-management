@@ -42,7 +42,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.69.3
+    version: 3.70.0
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_privatek8s.yaml"
@@ -64,7 +64,7 @@ releases:
   - name: jenkins-infra-jobs
     namespace: jenkins-infra
     chart: jenkins-infra/jenkins-jobs
-    version: 2.0.0
+    version: 2.0.2
     values:
       - "../config/jenkins-jobs_infra.ci.jenkins.io.yaml"
   - name: jenkins-release
