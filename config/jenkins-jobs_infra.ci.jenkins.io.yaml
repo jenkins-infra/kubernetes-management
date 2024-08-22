@@ -365,7 +365,7 @@ jobsDefinition:
         description: "Azure Storage Key used by infra-reports to publish to a storage bucket"
         secret: "${AZURE_INFRA_REPORTS_STORAGE_KEY}"
       github-app-infra.ci.jenkins.io-terraform-jobs:
-        description: "Github App infra.ci.jenkins.io-docker-jobs installed on jenkins-infra org"
+        description: "Github App infra.ci.jenkins.io-terraform-jobs installed on jenkins-infra org"
         appId: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_ID}"
         owner: "jenkins-infra"
         privateKey: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_PRIVATE_KEY}"
