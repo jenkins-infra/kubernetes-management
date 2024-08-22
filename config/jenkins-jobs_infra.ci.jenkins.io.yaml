@@ -23,6 +23,11 @@ jobsDefinition:
         appId: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_ID}"
         owner: "jenkins-infra"
         privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_PRIVATE_KEY}"
+      github-app-infra.ci.jenkins.io-docker-deploy:
+        description: "Github App infra.ci.jenkins.io-docker-deploy (read and write permissions) installed on jenkins-infra org"
+        appId: "${GITHUB_APP_INFRA_CI_DOCKER_DEPLOY_ID}"
+        owner: "jenkins-infra"
+        privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_DEPLOY_PRIVATE_KEY}"
     children:
       acceptance-test-harness:
         name: "Jenkins CI Acceptance Test Harness (ATH) Docker Image"
