@@ -77,13 +77,6 @@ controller:
                     id: "github-app-infra"
                     privateKey: "${GITHUB_APP_PRIVATE_KEY}"
                     scope: GLOBAL
-                - gitHubApp:
-                    appID: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_ID}"
-                    description: "GitHub App for updatecli tasks on jenkins-infra org"
-                    id: "github-app-updatecli-on-jenkins-infra"
-                    privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
-                    owner: "jenkins-infra"
-                    scope: GLOBAL
                 - azure:
                     azureEnvironmentName: "Azure"
                     clientId: "${JENKINSINFRA_AZURE_CLIENT_ID}"
