@@ -258,11 +258,3 @@ releases:
       - "../config/stats.jenkins.io.yaml"
     secrets:
       - "../secrets/config/stats.jenkins.io/secrets.yaml"
-  - name: geoipdata
-    namespace: geoip-data
-    chart: jenkins-infra/geoipupdates
-    version: 0.0.1
-    values:
-      - ../config/geoipdata.yaml
-    secrets:
-      - ../secrets/config/geoipdata/secrets.yaml
