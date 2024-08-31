@@ -105,10 +105,10 @@ mirrorbits:
     gzip: false
     traceFile: /TIME
     redis:
-      address: jenkins-mirrorbits.redis.cache.windows.net:6379
+      address: public-redis.redis.cache.windows.net:6379
       # password is stored in SOPS secrets
-      ## RedisDB - Use 1 for staging and 0 for production
-      dbId: 0
+      ## RedisDB - Use 0 for staging and 1, get.jio production and 2 for update.jio production
+      dbId: 1
     ## Interval in minutes between mirrors scan
     scanInterval: 10
     ## Interval between two scans of the local repository.
@@ -117,8 +117,7 @@ mirrorbits:
     checkInterval: 1
     # Disable a mirror if it triggers HTTP/3xx redirects on its own (safer for mirrors we do not control)
     disallowRedirects: true
-    # Disable a mirror if a missing file is requested (safer for mirrors we do not control)
-    disableOnMissingFile: true
+    disableOnMissingFile: false
     ## List of mirrors to use as fallback which will be used in case mirrorbits
     ## is unable to answer a request because the database is unreachable.
     ## Note: Mirrorbits will redirect to one of these mirrors based on the user
