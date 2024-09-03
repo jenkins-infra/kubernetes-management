@@ -24,6 +24,7 @@ sources:
           pattern: 'galleryImageVersion:\s"(.*)"'
           captureindex: 1
   getMavenVersionFromPackerImages:
+    # Using a file with a transformer until https://github.com/updatecli/updatecli/issues/2275 is done
     kind: file
     name: Get the latest Maven version set in packer-images
     dependson:
