@@ -26,8 +26,8 @@ targets:
     kind: file
     spec:
       file: clusters/privatek8s.yaml
-      matchpattern: 'chart: github-comment-ops\/github-comment-ops((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: github-comment-ops/github-comment-ops${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'github-comment-ops')].version
     scmid: default
 
 actions:

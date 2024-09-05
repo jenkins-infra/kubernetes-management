@@ -27,8 +27,8 @@ targets:
     spec:
       files:
         - clusters/privatek8s.yaml
-      matchpattern: 'chart: jenkins-infra\/jenkins-kubernetes-agents((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/jenkins-kubernetes-agents${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'jenkins-release-agents')].version
     scmid: default
 
 actions:

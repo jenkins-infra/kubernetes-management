@@ -26,8 +26,8 @@ targets:
     kind: file
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/uplink((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/uplink${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'uplink')].version
     scmid: default
 
 actions:

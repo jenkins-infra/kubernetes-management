@@ -27,8 +27,8 @@ targets:
     scmid: default
     spec:
       file: clusters/privatek8s.yaml
-      matchpattern: 'chart: jenkins-infra\/env-jenkins-release((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/env-jenkins-release${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'jenkins-release-core-package')].version
 
 actions:
   default:

@@ -27,8 +27,8 @@ targets:
     kind: file
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/nginx-website((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/nginx-website${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.chart == 'jenkins-infra/nginx-website')].version
     scmid: default
 
 actions:

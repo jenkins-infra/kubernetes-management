@@ -28,8 +28,8 @@ targets:
       files:
         - clusters/privatek8s.yaml
         - clusters/publick8s.yaml
-      matchpattern: 'chart: ingress-nginx\/ingress-nginx((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: ingress-nginx/ingress-nginx${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.chart == 'ingress-nginx/ingress-nginx')].version
     scmid: default
 
 actions:

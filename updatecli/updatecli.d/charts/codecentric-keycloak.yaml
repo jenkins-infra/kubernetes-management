@@ -27,8 +27,8 @@ targets:
     scmid: default
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: codecentric\/keycloak((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: codecentric/keycloak${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'keycloak')].version
 
 actions:
   default:

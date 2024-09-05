@@ -26,8 +26,8 @@ targets:
     kind: file
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/mirrorbits-parent((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/mirrorbits-parent${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.chart == 'jenkins-infra/mirrorbits-parent')].version
     scmid: default
 
 actions:

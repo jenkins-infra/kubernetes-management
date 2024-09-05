@@ -27,8 +27,8 @@ targets:
     scmid: default
     spec:
       file: clusters/privatek8s.yaml
-      matchpattern: 'chart: jenkins-infra\/ircbot((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/ircbot${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'ircbot')].version
 
 actions:
   default:

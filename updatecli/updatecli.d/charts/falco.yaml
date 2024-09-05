@@ -28,8 +28,8 @@ targets:
     spec:
       files:
        - clusters/publick8s.yaml
-      matchpattern: 'chart: falco\/falco((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: falco/falco${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'falco')].version
 
 actions:
   default:

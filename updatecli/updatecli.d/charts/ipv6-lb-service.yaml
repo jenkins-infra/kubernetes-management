@@ -27,8 +27,8 @@ targets:
     scmid: default
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/ipv6-lb-service((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/ipv6-lb-service${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'ipv6-lb-service')].version
 
 actions:
   default:

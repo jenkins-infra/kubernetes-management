@@ -27,8 +27,8 @@ targets:
     spec:
       files:
         - clusters/privatek8s.yaml
-      matchpattern: 'chart: jenkins-infra\/jenkins-jobs((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/jenkins-jobs${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'jenkins-infra-jobs')].version
     scmid: default
 
 actions:
