@@ -29,7 +29,6 @@ targets:
       file: clusters/publick8s.yaml
       engine: yamlpath
       key: $.releases[?(@.name == 'accountapp')].version
-    scmid: default
 
 actions:
   default:
