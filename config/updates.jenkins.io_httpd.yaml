@@ -84,11 +84,16 @@ ingress:
       paths:
         - path: /
           backendService: httpd
+    - host: updates.jenkins-ci.org
+      paths:
+        - path: /
+          backendService: httpd
   tls:
     - secretName: updates-jenkins-io-httpd-tls
       hosts:
         - updates.jenkins.io
         - azure.updates.jenkins.io
+        - updates.jenkins-ci.org
 
 httpdConf:
   # Specifying https scheme allow proper HTTP rewriting when the pattern is not an FQDN
