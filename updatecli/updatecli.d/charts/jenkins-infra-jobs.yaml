@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersionPrivate:
     name: "Update the chart version for jenkins-jobs"
-    kind: file
+    kind: yaml
     spec:
       files:
         - clusters/privatek8s.yaml

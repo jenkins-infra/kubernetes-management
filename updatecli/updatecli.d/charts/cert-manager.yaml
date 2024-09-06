@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "jetstack/cert-manager Helm Chart"
-    kind: file
+    kind: yaml
     spec:
       files:
         - clusters/privatek8s.yaml

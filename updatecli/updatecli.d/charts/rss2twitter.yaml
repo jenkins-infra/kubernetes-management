@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for rss2twitter"
-    kind: file
+    kind: yaml
     spec:
       file: clusters/privatek8s.yaml
       engine: yamlpath

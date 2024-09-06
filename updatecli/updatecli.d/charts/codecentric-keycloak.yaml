@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "codecentric/keycloak Helm Chart"
-    kind: file
+    kind: yaml
     scmid: default
     spec:
       file: clusters/publick8s.yaml

@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for ircbot"
-    kind: file
+    kind: yaml
     scmid: default
     spec:
       file: clusters/privatek8s.yaml

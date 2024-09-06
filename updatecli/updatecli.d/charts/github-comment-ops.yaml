@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for github-comment-ops"
-    kind: file
+    kind: yaml
     spec:
       file: clusters/privatek8s.yaml
       engine: yamlpath

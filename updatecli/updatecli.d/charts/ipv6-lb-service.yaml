@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for ipv6-lb-service"
-    kind: file
+    kind: yaml
     scmid: default
     spec:
       file: clusters/publick8s.yaml

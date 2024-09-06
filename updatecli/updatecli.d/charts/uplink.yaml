@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for uplink"
-    kind: file
+    kind: yaml
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath

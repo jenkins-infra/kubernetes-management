@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for acme"
-    kind: file
+    kind: yaml
     spec:
       files:
         - clusters/privatek8s.yaml

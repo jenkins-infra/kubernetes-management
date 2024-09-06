@@ -23,7 +23,7 @@ sources:
 targets:
   updateClusters:
     name: "Datadog Helm Chart"
-    kind: file
+    kind: yaml
     scmid: default
     spec:
       files:

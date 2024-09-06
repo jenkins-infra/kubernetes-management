@@ -23,7 +23,7 @@ sources:
 targets:
   updateChartVersion:
     name: "jenkinsci/jenkins Helm Chart"
-    kind: file
+    kind: yaml
     spec:
       files:
         - clusters/privatek8s.yaml
