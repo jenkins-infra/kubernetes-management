@@ -23,11 +23,11 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for rss2twitter"
-    kind: file
+    kind: yaml
     spec:
       file: clusters/privatek8s.yaml
-      matchpattern: 'chart: jenkins-infra\/rss2twitter((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/rss2twitter${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'rss2twitter')].version
     scmid: default
 
 actions:

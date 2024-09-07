@@ -23,11 +23,11 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for wiki"
-    kind: file
+    kind: yaml
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/wiki((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/wiki${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'wiki')].version
     scmid: default
 
 actions:

@@ -23,11 +23,11 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for reports"
-    kind: file
+    kind: yaml
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/reports((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/reports${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'reports')].version
     scmid: default
 
 actions:

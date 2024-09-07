@@ -23,14 +23,14 @@ sources:
 targets:
   updateClusters:
     name: "Datadog Helm Chart"
-    kind: file
+    kind: yaml
     scmid: default
     spec:
       files:
         - clusters/privatek8s.yaml
         - clusters/publick8s.yaml
-      matchpattern: 'chart: datadog\/datadog((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: datadog/datadog${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'datadog')].version
 
 actions:
   default:

@@ -23,13 +23,13 @@ sources:
 targets:
   updateChartVersion:
     name: "jenkinsci/jenkins Helm Chart"
-    kind: file
+    kind: yaml
     spec:
       files:
         - clusters/privatek8s.yaml
         - clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins\/jenkins((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins/jenkins${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.chart == 'jenkins/jenkins')].version
     scmid: default
 
 actions:

@@ -23,11 +23,11 @@ sources:
 targets:
   updateChartVersion:
     name: "Update the chart version for incrementals-publisher"
-    kind: file
+    kind: yaml
     spec:
       file: clusters/publick8s.yaml
-      matchpattern: 'chart: jenkins-infra\/incrementals-publisher((\r\n|\r|\n)(\s+))version: .*'
-      replacepattern: 'chart: jenkins-infra/incrementals-publisher${1}version: {{ source "lastChartVersion" }}'
+      engine: yamlpath
+      key: $.releases[?(@.name == 'incrementals-publisher')].version
     scmid: default
 
 actions:
