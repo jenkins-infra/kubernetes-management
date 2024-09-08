@@ -533,15 +533,18 @@ jobsDefinition:
       jenkins.io:
         name: Jenkins.io
         description: "Jenkins.io Website"
-        allowUntrustedChanges: true
+        # See https://github.com/jenkins-infra/helpdesk/issues/4282
+        allowUntrustedChanges: false
       stories:
         name: Jenkins User Stories
         description: "Jenkins User Stories Website"
-        allowUntrustedChanges: true
+        # See https://github.com/jenkins-infra/helpdesk/issues/4282
+        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
       plugin-site:
         name: Plugin Site
-        allowUntrustedChanges: true
+        # See https://github.com/jenkins-infra/helpdesk/issues/4282
+        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         credentials:
           PLUGINSITE_STORAGEACCOUNTKEY:
@@ -566,7 +569,8 @@ jobsDefinition:
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
       jenkins-io-components:
         name: Jenkins.io Web Components
-        allowUntrustedChanges: true
+        # See https://github.com/jenkins-infra/helpdesk/issues/4282
+        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "main alpha beta PR-*"
         credentials:
@@ -580,7 +584,8 @@ jobsDefinition:
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
       gatsby-plugin-jenkins-layout:
         name: Gatsby plugin for standard Jenkins.io layout
-        allowUntrustedChanges: true
+        # See https://github.com/jenkins-infra/helpdesk/issues/4282
+        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "main alpha beta PR-*"
         credentials:
@@ -595,7 +600,8 @@ jobsDefinition:
       contributor-spotlight:
         name: Contributor Spotlight
         description: "Jenkins Contributor Spotlight Website"
-        allowUntrustedChanges: true
+        # See https://github.com/jenkins-infra/helpdesk/issues/4282
+        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         credentials:
@@ -623,7 +629,8 @@ jobsDefinition:
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
-        allowUntrustedChanges: true
+        # See https://github.com/jenkins-infra/helpdesk/issues/4282
+        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile_previews
         enableGitHubChecks: true
         disableTagDiscovery: true
