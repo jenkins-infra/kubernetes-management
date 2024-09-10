@@ -80,13 +80,6 @@ jobsDefinition:
       packer-images:
         name: Packer Images
         credentials:
-          packer-azure-serviceprincipal:
-            azureEnvironmentName: "Azure"
-            clientId: "${PACKER_AZURE_CLIENT_ID}"
-            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by packer"
-            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
-            tenant: "${PACKER_AZURE_TENANT_ID}"
           packer-azure-serviceprincipal-sponsorship:
             azureEnvironmentName: "Azure"
             clientId: "${PACKER_AZURE_CLIENT_ID}"
