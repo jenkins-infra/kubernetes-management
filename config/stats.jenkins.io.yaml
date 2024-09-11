@@ -6,6 +6,10 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
+    - host: stats.jenkins.io
+      paths:
+        - path: /
+          serviceName: stats-jenkins-io
     - host: new.stats.jenkins.io
       paths:
         - path: /
@@ -13,6 +17,7 @@ ingress:
   tls:
     - secretName: stats-jenkins-io-tls
       hosts:
+        - stats.jenkins.io
         - new.stats.jenkins.io
 
 resources:
