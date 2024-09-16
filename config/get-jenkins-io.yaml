@@ -104,6 +104,8 @@ mirrorbits:
     # Ingress already does gzip/brotli
     gzip: false
     traceFile: /TIME
+    # Do not answer mirrorbits API JSON content when accept header is set to application/json (behavior with default value "auto")
+    outputMode: redirect
     redis:
       address: public-redis.redis.cache.windows.net:6379
       # password is stored in SOPS secrets
