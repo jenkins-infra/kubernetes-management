@@ -182,7 +182,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 6.0.3
+    version: 6.0.4
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
@@ -222,7 +222,7 @@ releases:
   - name: updates-jenkins-io
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 6.0.3
+    version: 6.0.4
     values:
       - "../config/updates.jenkins.io.yaml"
     secrets:
