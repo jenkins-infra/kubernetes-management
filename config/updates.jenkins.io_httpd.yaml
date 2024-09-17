@@ -98,3 +98,6 @@ ingress:
 httpdConf:
   # Specifying https scheme allow proper HTTP rewriting when the pattern is not an FQDN
   serverName: https://localhost
+
+httpdRestart:
+  enable: true
