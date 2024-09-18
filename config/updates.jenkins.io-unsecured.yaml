@@ -1,0 +1,104 @@
+enabled: true
+replicaCount: 1
+resources:
+  limits:
+    cpu: 2
+    memory: 2048Mi
+  requests:
+    cpu: 100m
+    memory: 200Mi
+nodeSelector:
+  kubernetes.io/arch: arm64
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+podSecurityContext:
+  runAsUser: 1000  # User 'mirrorbits'
+  runAsGroup: 1000  # Group 'mirrorbits'
+  runAsNonRoot: true
+containerSecurityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+repository:
+  name: updates-jenkins-io-mirrorbits-parent-data
+  existingPVC: true
+config:
+  # Ingress already does gzip/brotli
+  gzip: false
+  traceFile: /TIME
+  # Do not answer mirrorbits API JSON content when accept header is set to application/json (behavior with default value "auto")
+  outputMode: redirect
+  redis:
+    address: public-redis.redis.cache.windows.net:6379
+    # password is stored in SOPS secrets
+    ## RedisDB - Use 0 for staging and 1, get.jio production and 2 (HTTPS) and 3 (HTTP) for update.jio productions
+    dbId: 3
+  ## Interval between two scans of the local repository.
+  ## This should, more or less, match the frequency where the local repo is updated.
+  ## TODO: set it once a day once the update-center2 would run a `mirrorbits refresh` command by itself
+  repositoryScanInterval: 5
+  ## Interval in minutes between mirror scan
+  ## Once a day is enough as jenkins-infra/update-center2 runs it every 5 min.
+  scanInterval: 1440
+  checkInterval: 1
+  disallowRedirects: false
+  disableOnMissingFile: false
+  ## List of mirrors to use as fallback which will be used in case mirrorbits
+  ## is unable to answer a request because the database is unreachable.
+  ## Note: Mirrorbits will redirect to one of these mirrors based on the user
+  ## location but won't be able to know if the mirror has the requested file.
+  ## Therefore only put your most reliable and up-to-date mirrors here.
+  fallbacks:
+    # We always fall back to this mirror. Useful to serve stale file during a mirror scan
+    - url: http://eastamerica.cloudflare.jenkins.io/
+      countryCode: US
+      continentCode: NA
+# cli:
+#   enabled: true
+#   service:
+#     type: LoadBalancer
+#     annotations:
+#       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+#       service.beta.kubernetes.io/azure-pls-create: "true"
+#       service.beta.kubernetes.io/azure-pls-name: "updates.jenkins.io-unsecured-cli"
+#       service.beta.kubernetes.io/azure-pls-ip-configuration-subnet: "public-vnet-data-tier"
+#       service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+#       service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+geoipdata:
+  existingPVCName: updates-jenkins-io-mirrorbits-geoipdata
+# annotations:
+#   ad.datadoghq.com/mirrorbits.logs: |
+#     [{"source":"mirrorbits","service":"updates.jenkins.io"}]
+
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+  hosts:
+    - host: mirrors.updates.jenkins.io
+      paths:
+        # Only send request to files with these extensions to mirrorbits
+        - path: /internal_http/(.*[.](html|json|txt|TIME))$  # Requires the regexp engine of Nginx to be enabled
+          pathType: ImplementationSpecific
+  additionalIngresses:
+    - className: public-nginx
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: "/$1$2/index.html"
+        nginx.ingress.kubernetes.io/ssl-redirect: "false"
+        nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
+        nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+      hosts:
+        - host: mirrors.updates.jenkins.io
+          paths:
+            # Otherwise redirect with rewrite the request by appending `/index.html` as you want a directory listing
+            - path: /internal_http/(.*)(/|$)  # Requires the regexp engine of Nginx to be enabled
+              pathType: ImplementationSpecific
