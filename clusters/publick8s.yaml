@@ -230,7 +230,7 @@ releases:
   - name: updates-jenkins-io-unsecured
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 6.0.7
+    version: 5.4.0
     values:
       - "../config/updates.jenkins.io-unsecured.yaml"
     secrets:
