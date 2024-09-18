@@ -227,6 +227,14 @@ releases:
       - "../config/updates.jenkins.io.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/secrets.yaml"
+  - name: updates-jenkins-io-unsecured
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/mirrorbits
+    version: 5.4.0
+    values:
+      - "../config/updates.jenkins.io-unsecured.yaml"
+    secrets:
+      - "../secrets/config/updates.jenkins.io/secrets-unsecured.yaml"
   - name: updates-jenkins-io-httpd
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
