@@ -19,6 +19,7 @@ sources:
     name: Retrieve the current version of the Packer images used in production
     spec:
       file: ./config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: 'galleryImageVersion:\s"(.*)"'
     transformers:
       - findsubmatch:
           pattern: 'galleryImageVersion:\s"(.*)"'
