@@ -19,10 +19,11 @@ sources:
     name: Retrieve the current version of the Packer images used in production
     spec:
       file: ./config/jenkins_infra.ci.jenkins.io.yaml
+      matchpattern: 'galleryImageVersion:\s"(.*)"'  # Match the line with galleryImageVersion
     transformers:
       - findsubmatch:
-          pattern: 'galleryImageVersion:\s"(.*)"'
-          captureindex: 1
+          pattern: 'galleryImageVersion:\s"(.*)"'  # Extract the version in quotes
+          captureindex: 1  # Capture only the version number (e.g., "1.2.3")
   getMavenVersionFromPackerImages:
     # Using a file with a transformer until https://github.com/updatecli/updatecli/issues/2275 is done
     kind: file
