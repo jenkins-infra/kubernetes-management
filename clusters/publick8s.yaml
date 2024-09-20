@@ -243,6 +243,12 @@ releases:
       - "../config/updates.jenkins.io_httpd.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/httpd-secrets.yaml"
+  - name: updates-jenkins-io-httpd-unsecured
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/httpd
+    version: 1.3.0
+    values:
+      - "../config/updates.jenkins.io_httpd-unsecured.yaml"
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
