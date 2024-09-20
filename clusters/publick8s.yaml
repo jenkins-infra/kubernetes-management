@@ -238,7 +238,7 @@ releases:
   - name: updates-jenkins-io-httpd
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 1.2.1
+    version: 1.2.2
     values:
       - "../config/updates.jenkins.io_httpd.yaml"
     secrets:
