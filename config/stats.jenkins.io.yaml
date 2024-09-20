@@ -56,5 +56,33 @@ affinity:
         topologyKey: "kubernetes.io/hostname"
 
 nginx:
-  slashLocation:
-    tryFiles: $uri /index.html
+  overrideLocations: |
+    location /statistics {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        autoindex on;
+        try_files $uri /index.html;
+    }
+    location /plugin-trends {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        autoindex on;
+        try_files $uri /index.html;
+    }
+    location /plugin-versions {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        autoindex on;
+        try_files $uri /index.html;
+    }
+    location /dep-graph {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        autoindex on;
+        try_files $uri /index.html;
+    }
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        autoindex on;
+    }
