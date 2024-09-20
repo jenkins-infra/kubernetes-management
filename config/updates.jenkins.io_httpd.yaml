@@ -79,15 +79,12 @@ ingress:
     - host: azure.updates.jenkins.io
       paths:
         - path: /
-          backendService: httpd
     - host: updates.jenkins.io
       paths:
         - path: /
-          backendService: httpd
     - host: updates.jenkins-ci.org
       paths:
         - path: /
-          backendService: httpd
   tls:
     - secretName: updates-jenkins-io-httpd-tls
       hosts:

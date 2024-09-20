@@ -1,0 +1,45 @@
+replicaCount: 2
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2048Mi
+  requests:
+    cpu: 50m
+    memory: 100Mi
+nodeSelector:
+  kubernetes.io/arch: arm64
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+repository:
+  name: updates-jenkins-io-redirects
+  reuseExistingPersistentVolumeClaim: true
+  subDir: ./unsecured/
+
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2 # Removes the '/internal_http' path
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+  hosts:
+    - host: azure.updates.jenkins.io
+      paths:
+        - path: /internal_http(/|$)(.*)
+          pathType: ImplementationSpecific # Requires nginx.ingress.kubernetes.io/use-regex annotation
+    - host: updates.jenkins.io
+      paths:
+        - path: /internal_http(/|$)(.*)
+          pathType: ImplementationSpecific # Requires nginx.ingress.kubernetes.io/use-regex annotation
+    - host: updates.jenkins-ci.org
+      paths:
+        - path: /internal_http(/|$)(.*)
+          pathType: ImplementationSpecific # Requires nginx.ingress.kubernetes.io/use-regex annotation
+
+httpdRestart:
+  # Disabled until we fixed the error "Invalid value: "updates-jenkins-io-httpd-unsecured-restart-deployment": must be no more than 52 characters"
+  enable: false
