@@ -35,8 +35,8 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump `mirrorbits-parent` helm chart version to {{ source "lastChartVersion" }}
+    title: Bump `mirrorbits` helm chart version to {{ source "lastChartVersion" }}
     spec:
       labels:
         - dependencies
-        - mirrorbits-parent
+        - mirrorbits
