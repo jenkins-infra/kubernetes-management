@@ -24,7 +24,7 @@ controller:
     supplementalGroups: [1000]
   image:
     repository: jenkinsciinfra/jenkins-infraci
-    tag: 2.1.3-2.477
+    tag: 2.1.6-2.478
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
