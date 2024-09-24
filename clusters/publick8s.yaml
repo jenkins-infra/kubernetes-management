@@ -235,14 +235,12 @@ releases:
       - "../config/updates.jenkins.io-unsecured.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/secrets-unsecured.yaml"
-  - name: updates-jenkins-io-httpd
+  - name: updates-jenkins-io-httpd-secured
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 1.2.2
+    version: 1.3.1
     values:
-      - "../config/updates.jenkins.io_httpd.yaml"
-    secrets:
-      - "../secrets/config/updates.jenkins.io/httpd-secrets.yaml"
+      - "../config/updates.jenkins.io_httpd-secured.yaml"
   - name: updates-jenkins-io-httpd-unsecured
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd

@@ -42,4 +42,4 @@ ingress:
 
 httpdRestart:
   # Disabled until we fixed the error "Invalid value: "updates-jenkins-io-httpd-unsecured-restart-deployment": must be no more than 52 characters"
-  enable: false
+  enable: true
