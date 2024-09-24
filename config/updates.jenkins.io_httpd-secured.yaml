@@ -22,8 +22,21 @@ ingress:
   enabled: true
   className: public-nginx
   annotations:
-    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      set $HI 1;
+      if ($scheme != "http") {
+          set $HI 0;
+      }
+      if ($uri ~ "/internal_http") {
+          set $HI 0;
+      }
+      if ($HI) {
+        rewrite ^(.*)$ /internal_http$uri last;
+      }
   hosts:
     - host: azure.updates.jenkins.io
       paths:
