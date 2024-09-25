@@ -57,6 +57,7 @@ targets:
       key: $.repository.subDir
     transformers:
       - addprefix: '.'
+    scmid: default
   updatePvcNameUnsecured:
     sourceid: pvcNameUnsecured
     name: Update httpd-unsecured PVC name 
