@@ -219,20 +219,27 @@ releases:
       - public-nginx-ingress/public-nginx-ingress
     values:
       - "../config/ipv6-lb-service.yaml"
-  - name: updates-jenkins-io
-    namespace: updates-jenkins-io
-    chart: jenkins-infra/mirrorbits-parent
-    version: 6.0.12
-    values:
-      - "../config/updates.jenkins.io.yaml"
-    secrets:
-      - "../secrets/config/updates.jenkins.io/secrets.yaml"
-  - name: updates-jenkins-io-unsecured
+  - name: updates-jenkins-io-content-secured
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
     version: 5.4.0
     values:
-      - "../config/updates.jenkins.io-unsecured.yaml"
+      - "../config/updates.jenkins.io-content-secured.yaml"
+    secrets:
+      - "../secrets/config/updates.jenkins.io/secrets-secured.yaml"
+  # Can be removed once mirrorbits support scanning through s3
+  - name: updates-jenkins-io-rsync
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/rsyncd
+    version: 1.4.49
+    values:
+      - "../config/updates.jenkins.io-rsync.yaml"
+  - name: updates-jenkins-io-content-unsecured
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/mirrorbits
+    version: 5.4.0
+    values:
+      - "../config/updates.jenkins.io-content-unsecured.yaml"
     secrets:
       - "../secrets/config/updates.jenkins.io/secrets-unsecured.yaml"
   - name: updates-jenkins-io-httpd-secured

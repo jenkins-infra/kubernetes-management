@@ -41,5 +41,4 @@ ingress:
           pathType: ImplementationSpecific # Requires nginx.ingress.kubernetes.io/use-regex annotation
 
 httpdRestart:
-  # Disabled until we fixed the error "Invalid value: "updates-jenkins-io-httpd-unsecured-restart-deployment": must be no more than 52 characters"
   enable: true
