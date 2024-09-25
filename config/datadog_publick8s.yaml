@@ -16,6 +16,8 @@ datadog:
     hostCAPath: /etc/kubernetes/certs/kubeletserver.crt
     # Required as of Agent 7.35 because Kubelet certificates in AKS do not have a Subject Alternative Name (SAN) set.
     tlsVerify: false
+  ignoreAutoConfig:
+    - apache # Our Apache instances do not expose any /server-status endpoint. Let's avoid unneeded requests
 agents:
   tolerations:
     - key: "kubernetes.io/arch"
