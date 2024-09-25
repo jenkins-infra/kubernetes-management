@@ -1,5 +1,5 @@
 ---
-name: Bump `mirrorbits-cli` version
+name: Bump `mirrorbits` helm chart version
 
 scms:
   default:
@@ -23,7 +23,7 @@ sources:
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for mirrorbits"
+    name: Update the chart version for mirrorbits
     kind: yaml
     spec:
       file: clusters/publick8s.yaml
