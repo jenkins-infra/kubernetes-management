@@ -1,5 +1,5 @@
 enabled: true
-replicaCount: 1
+replicaCount: 2
 resources:
   limits:
     cpu: 2
@@ -25,7 +25,7 @@ containerSecurityContext:
     drop:
       - ALL
 repository:
-  name: updates-jenkins-io-mirrorbits-parent-data
+  name: updates-jenkins-io
   existingPVC: true
 config:
   # Ingress already does gzip/brotli
@@ -36,8 +36,8 @@ config:
   redis:
     address: public-redis.redis.cache.windows.net:6379
     # password is stored in SOPS secrets
-    ## RedisDB - Use 0 for staging and 1, get.jio production and 2 (HTTPS) and 3 (HTTP) for update.jio productions
-    dbId: 3
+    ## RedisDB - Use 0 for staging and 1, get.jio production and 2 for update.jio production
+    dbId: 2
   ## Interval between two scans of the local repository.
   ## This should, more or less, match the frequency where the local repo is updated.
   ## TODO: set it once a day once the update-center2 would run a `mirrorbits refresh` command by itself
@@ -55,50 +55,68 @@ config:
   ## Therefore only put your most reliable and up-to-date mirrors here.
   fallbacks:
     # We always fall back to this mirror. Useful to serve stale file during a mirror scan
-    - url: http://eastamerica.cloudflare.jenkins.io/
+    - url: https://eastamerica.cloudflare.jenkins.io/
       countryCode: US
       continentCode: NA
-# cli:
-#   enabled: true
-#   service:
-#     type: LoadBalancer
-#     annotations:
-#       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-#       service.beta.kubernetes.io/azure-pls-create: "true"
-#       service.beta.kubernetes.io/azure-pls-name: "updates.jenkins.io-unsecured-cli"
-#       service.beta.kubernetes.io/azure-pls-ip-configuration-subnet: "public-vnet-data-tier"
-#       service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-#       service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+cli:
+  enabled: true
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      service.beta.kubernetes.io/azure-pls-create: "true"
+      service.beta.kubernetes.io/azure-pls-name: "updates.jenkins.io-cli"
+      service.beta.kubernetes.io/azure-pls-ip-configuration-subnet: "public-vnet-data-tier"
+      service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+      service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
 geoipdata:
-  existingPVCName: updates-jenkins-io-mirrorbits-geoipdata
-# annotations:
-#   ad.datadoghq.com/mirrorbits.logs: |
-#     [{"source":"mirrorbits","service":"updates.jenkins.io"}]
+  existingPVCName: updates-jenkins-io-geoip-data
+annotations:
+  ad.datadoghq.com/mirrorbits.logs: |
+    [{"source":"mirrorbits","service":"updates.jenkins.io"}]
 
 ingress:
   enabled: true
   className: public-nginx
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
-    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      set $HI 1;
+      if ($scheme != "http") {
+        set $HI 0;
+      }
+      if ($uri ~ "/internal_http") {
+        set $HI 0;
+      }
+      if ($HI) {
+        rewrite ^(.*)$ /internal_http$uri last;
+      }
   hosts:
     - host: mirrors.updates.jenkins.io
       paths:
         # Only send request to files with these extensions to mirrorbits
-        - path: /internal_http/(.*[.](html|json|txt|TIME))$  # Requires the regexp engine of Nginx to be enabled
+        - path: /.*([.](html|json|txt)|TIME)$  # Requires the regexp engine of Nginx to be enabled
           pathType: ImplementationSpecific
+  tls:
+    - secretName: updates-jenkins-io-mirrorbits-tls
+      hosts:
+        - mirrors.updates.jenkins.io
+  # Need a second ingress to handle the rewrite to '/index.html' to simulate directory listing
   additionalIngresses:
     - className: public-nginx
       annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: "/$1$2/index.html"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
         nginx.ingress.kubernetes.io/ssl-redirect: "false"
         nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
-        nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: "/$1$2/index.html"
       hosts:
         - host: mirrors.updates.jenkins.io
           paths:
             # Otherwise redirect with rewrite the request by appending `/index.html` as you want a directory listing
-            - path: /internal_http/(.*)(/|$)  # Requires the regexp engine of Nginx to be enabled
+            - path: /(.*)(/|$)  # Requires the regexp engine of Nginx to be enabled
               pathType: ImplementationSpecific
+      tls:
+        - secretName: updates-jenkins-io-mirrorbits-tls
+          hosts:
+            - mirrors.updates.jenkins.io
