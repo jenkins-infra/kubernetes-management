@@ -1,5 +1,5 @@
 ---
-name: Update pvc names for updates.jenkins.io-redirects
+name: Update pvc name subdir for updates.jenkins.io-redirects
 
 scms:
   default:
@@ -51,7 +51,7 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update updates.jenkins.io-redirects PVC and subDir
+    title: Update updates.jenkins.io-redirects PVC name and subdir
     spec:
       labels:
         - updates.jenkins.io-redirects
