@@ -22,7 +22,7 @@ sources:
       key: .updates\.jenkins\.io.content.pvc_name
   pvcNameGeoipData:
     kind: json
-    name: Retrieve the pvc name for updates-jenkins-io geoip-data
+    name: Retrieve the pvc name for geoip-data
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.geoip_data.pvc_name
