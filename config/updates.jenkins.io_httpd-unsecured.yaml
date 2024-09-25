@@ -18,8 +18,8 @@ repository:
   reuseExistingPersistentVolumeClaim: true
   subDir: ./unsecured/
 annotations:
-  ad.datadoghq.com/mirrorbits.logs: |
-    [{"source":"httpd","service":"updates.jenkins.io", "component":"redirections-secured"}]
+  ad.datadoghq.com/httpd.logs: |
+    [{"source":"httpd","service":"updates.jenkins.io", "tags":["component:content-secured"]}]
 
 ingress:
   enabled: true
