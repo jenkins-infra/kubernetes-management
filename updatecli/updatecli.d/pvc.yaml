@@ -1,0 +1,57 @@
+---
+name: Update pvc names for updates.jenkins.io-redirects
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  pvcName:
+    kind: json
+    name: Retrieve the pvc name for updates-jenkins-io-redirects
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .updates\.jenkins\.io.redirections-secured.pvc_name
+  subDir:
+    kind: json
+    name: Retrieve the subDir name for updates-jenkins-io-redirects
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .updates\.jenkins\.io.redirections-secured.share_uri
+
+targets:
+  updatePvcName:
+    sourceid: pvcName
+    name: Update httpd-secured PVC name 
+    kind: yaml
+    spec:
+      file: config/updates.jenkins.io_httpd-secured.yaml
+      key: $.repository.name
+    scmid: default
+  updateSubDir:
+    sourceid: subDir
+    name: Update httpd-secured subDir 
+    kind: yaml
+    spec:
+      file: config/updates.jenkins.io_httpd-secured.yaml
+      key: $.repository.subDir
+    transformers:
+      - addprefix: '.'
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update updates.jenkins.io-redirects PVC and subDir
+    spec:
+      labels:
+        - updates.jenkins.io-redirects
