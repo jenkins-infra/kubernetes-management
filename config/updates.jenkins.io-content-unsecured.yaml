@@ -70,7 +70,7 @@ geoipdata:
   existingPVCName: updates-jenkins-io-geoip-data
 annotations:
   ad.datadoghq.com/mirrorbits.logs: |
-    [{"source":"mirrorbits","service":"updates.jenkins.io", "component":"content-secured"}]
+    [{"source":"mirrorbits","service":"updates.jenkins.io", "tags":["component:content-secured"]}]
 
 ingress:
   enabled: true
