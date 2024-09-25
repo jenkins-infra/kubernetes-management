@@ -1,0 +1,72 @@
+---
+name: Update pvc names for updates.jenkins.io and geoip-data
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  pvcName:
+    kind: json
+    name: Retrieve the pvc name for updates-jenkins-io
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .updates\.jenkins\.io.content.pvc_name
+  pvcNameGeoipData:
+    kind: json
+    name: Retrieve the pvc name for updates-jenkins-io geoip-data
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .updates\.jenkins\.io.geoip_data.pvc_name
+
+targets:
+  updatePvcNameSecured:
+    sourceid: pvcName
+    name: Update updates-jenkins-io PVC name secured
+    kind: yaml
+    spec:
+      file: config/updates.jenkins.io-content-secured.yaml
+      key: $.repository.name
+    scmid: default
+  updatePvcNameUnsecured:
+    sourceid: pvcName
+    name: Update updates-jenkins-io PVC name unsecured
+    kind: yaml
+    spec:
+      file: config/updates.jenkins.io-content-unsecured.yaml
+      key: $.repository.name
+    scmid: default
+  updateGeoipPvcNameSecured:
+    sourceid: pvcNameGeoipData
+    name: Update geoip-data PVC name secured
+    kind: yaml
+    spec:
+      file: config/updates.jenkins.io-content-secured.yaml
+      key: $.geoipdata.existingPVCName
+    scmid: default
+  updateGeoipPvcNameUnsecured:
+    sourceid: pvcNameGeoipData
+    name: Update geoip-data PVC name unsecured
+    kind: yaml
+    spec:
+      file: config/updates.jenkins.io-content-unsecured.yaml
+      key: $.geoipdata.existingPVCName
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update updates.jenkins.io and geoip-data PVC names
+    spec:
+      labels:
+        - updates.jenkins.io
+        - geoip-data
