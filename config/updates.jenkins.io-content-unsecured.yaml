@@ -68,9 +68,9 @@ cli:
       service.beta.kubernetes.io/azure-load-balancer-ipv4: 10.245.0.15 # same Ip as the existing PLS
 geoipdata:
   existingPVCName: updates-jenkins-io-geoip-data
-# annotations:
-#   ad.datadoghq.com/mirrorbits.logs: |
-#     [{"source":"mirrorbits","service":"updates.jenkins.io"}]
+annotations:
+  ad.datadoghq.com/mirrorbits.logs: |
+    [{"source":"mirrorbits","service":"updates.jenkins.io", "component":"content-secured"}]
 
 ingress:
   enabled: true
