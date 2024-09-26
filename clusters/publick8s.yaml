@@ -245,13 +245,13 @@ releases:
   - name: updates-jenkins-io-httpd-secured
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 1.3.1
+    version: 1.4.0
     values:
       - "../config/updates.jenkins.io_httpd-secured.yaml"
   - name: updates-jenkins-io-httpd-unsecured
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 1.3.1
+    version: 1.4.0
     values:
       - "../config/updates.jenkins.io_httpd-unsecured.yaml"
   - name: contributors-jenkins-io

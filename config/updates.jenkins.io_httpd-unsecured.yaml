@@ -19,7 +19,14 @@ repository:
   subDir: ./unsecured/
 annotations:
   ad.datadoghq.com/httpd.logs: |
-    [{"source":"httpd","service":"updates.jenkins.io", "tags":["component:content-secured"]}]
+    [{"source":"httpd","service":"updates.jenkins.io", "tags":["unsecured"]}]
+
+httpdConf:
+  # Specifying http scheme allow proper HTTP rewriting when the pattern is not an FQDN
+  serverName: http://localhost
+  serverLimit: 30
+  threadsPerChild: 25
+  maxRequestWorkers: 750 # serverLimit * threadsPerChild (MPM event)
 
 ingress:
   enabled: true
