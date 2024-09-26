@@ -19,7 +19,7 @@ repository:
   subDir: ./secured/
 annotations:
   ad.datadoghq.com/httpd.logs: |
-    [{"source":"httpd","service":"updates.jenkins.io", "tags":["component:content-secured"]}]
+    [{"source":"httpd","service":"updates.jenkins.io", "tags":["component:secured"]}]
 
 ingress:
   enabled: true
@@ -60,6 +60,9 @@ ingress:
 httpdConf:
   # Specifying https scheme allow proper HTTP rewriting when the pattern is not an FQDN
   serverName: https://localhost
+  serverLimit: 30
+  threadsPerChild: 25
+  maxRequestWorkers: 750 # serverLimit * threadsPerChild (MPM event)
 
 httpdRestart:
   enable: true
