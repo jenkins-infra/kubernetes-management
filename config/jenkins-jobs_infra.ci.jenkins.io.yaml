@@ -384,8 +384,8 @@ jobsDefinition:
           production-terraform-aws-backend-config:
             fileName: "backend-config"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWS_BACKEND_CONFIG}}"
-      aws-sponso:
-        name: Terraform AWS SPONSORSHIP
+      terraform-aws-sponsorship:
+        name: Terraform AWS Sponsorship
         description: AWS resources managed by Terraform on sponsorship account
         credentials:
           staging-terraform-aws-sponsorship-access-key:
