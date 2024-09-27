@@ -384,6 +384,29 @@ jobsDefinition:
           production-terraform-aws-backend-config:
             fileName: "backend-config"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWS_BACKEND_CONFIG}}"
+      aws-sponso:
+        name: Terraform AWS SPONSORSHIP
+        description: AWS resources managed by Terraform on sponsorship account
+        credentials:
+          staging-terraform-aws-sponsorship-access-key:
+            secret: "${STAGING_TERRAFORM_AWS_SPONSORSHIP_ACCESS_KEY_ID}"
+            description: "AWS access key id for the staging terraform account for jenkins-infra/terraform-aws-sponsorship"
+          staging-terraform-aws-sponsorship-secret-key:
+            secret: "${STAGING_TERRAFORM_AWS_SPONSORSHIP_SECRET_ACCESS_KEY}"
+            description: "AWS secret key for the staging terraform account for jenkins-infra/terraform-aws-sponsorship"
+          staging-terraform-aws-sponsorship-backend-config:
+            fileName: backend-config
+            description: "Terraform backend configuration for the staging environment of jenkins-infra/terraform-aws-sponsorship"
+            secretBytes: "${base64:${STAGING_TERRAFORM_AWS_SPONSORSHIP_BACKEND_CONFIG}}"
+          production-terraform-aws-sponsorship-access-key:
+            secret: "${PRODUCTION_TERRAFORM_AWS_SPONSORSHIP_ACCESS_KEY_ID}"
+            description: "AWS access key id for the account production-terraform of jenkins-infra/terraform-aws-sponsorship"
+          production-terraform-aws-sponsorship-secret-key:
+            secret: "${PRODUCTION_TERRAFORM_AWS_SPONSORSHIP_SECRET_ACCESS_KEY}"
+            description: "AWS secret key for the account production-terraform of jenkins-infra/terraform-aws-sponsorship"
+          production-terraform-aws-sponsorship-backend-config:
+            fileName: "backend-config"
+            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWS_SPONSORSHIP_BACKEND_CONFIG}}"
       azure:
         name: Terraform Azure
         description: "Azure resources managed by Terraform"
