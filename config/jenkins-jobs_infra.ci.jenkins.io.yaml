@@ -81,10 +81,10 @@ jobsDefinition:
         name: Packer Images
         credentials:
           packer-aws-access-key-id:
-            description: AWS API key for the user 'packer'
+            description: AWS API key for the user packer
             secret: "${PACKER_AWS_ACCESS_KEY_ID}"
           packer-aws-secret-access-key:
-            description: AWS Secret key for the user 'packer'
+            description: AWS Secret key for the user packer
             secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
           packer-azure-serviceprincipal-sponsorship:
             azureEnvironmentName: "Azure"
