@@ -244,6 +244,14 @@ jobsDefinition:
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+        credentials:
+          updatecli-azure-serviceprincipal:
+            azureEnvironmentName: "Azure"
+            clientId: "${UPDATECLI_AZURE_CLIENT_ID}"
+            clientSecret: "${UPDATECLI_AZURE_CLIENT_SECRET}"
+            description: "Azure Service Principal credential used by updatecli"
+            subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+            tenant: "${UPDATECLI_AZURE_TENANT_ID}"
       release:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
