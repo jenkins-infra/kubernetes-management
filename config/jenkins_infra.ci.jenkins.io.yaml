@@ -764,7 +764,7 @@ controller:
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk8u432-b06"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u422-b05/OpenJDK8U-jdk_aarch64_linux_hotspot_8u422b05.tar.gz"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u432-b06/OpenJDK8U-jdk_aarch64_linux_hotspot_8u432b06.tar.gz"
             - name: "jdk11"
               properties:
               - installSource:
