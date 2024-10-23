@@ -803,15 +803,15 @@ controller:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk-21.0.4+7"
+                      subdir: "jdk-21.0.5+11"
                       url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.5%2B11/OpenJDK21U-jdk_x64_linux_hotspot_21.0.5_11.tar.gz"
                   - zip:
                       label: "windows"
-                      subdir: "jdk-21.0.4+7"
+                      subdir: "jdk-21.0.5+11"
                       url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.5%2B11/OpenJDK21U-jdk_x64_windows_hotspot_21.0.5_11.zip"
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk-21.0.4+7"
+                      subdir: "jdk-21.0.5+11"
                       url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.5%2B11/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.5_11.tar.gz"
           maven:
             installations:
