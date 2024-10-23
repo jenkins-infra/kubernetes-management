@@ -760,7 +760,7 @@ controller:
                   - zip:
                       label: "windows"
                       subdir: "jdk8u422-b05"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u422-b05/OpenJDK8U-jdk_x64_windows_hotspot_8u422b05.zip"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u432-b06/OpenJDK8U-jdk_x64_windows_hotspot_8u432b06.zip"
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk8u422-b05"
