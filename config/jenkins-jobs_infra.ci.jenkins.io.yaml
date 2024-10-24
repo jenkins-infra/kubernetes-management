@@ -264,6 +264,9 @@ jobsDefinition:
       status:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      terraform-aws-sponsorship:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
   other-jobs:
     name: Other Jobs
     description: Folder hosting all the jobs not fitting any category
