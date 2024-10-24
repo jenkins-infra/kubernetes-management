@@ -84,7 +84,7 @@ ingress:
     - host: mirrors.updates.jenkins.io
       paths:
         # Only send request to files with these extensions to mirrorbits
-        - path: /internal_http/(.*)([.](html|json|txt)|TIME)$  # Requires the regexp engine of Nginx to be enabled
+        - path: /internal_http/(.*)([.](html|json|txt|ico)|TIME)$  # Requires the regexp engine of Nginx to be enabled
           pathType: ImplementationSpecific
   additionalIngresses:
     - className: public-nginx
