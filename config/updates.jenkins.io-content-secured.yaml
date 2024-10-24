@@ -96,7 +96,7 @@ ingress:
     - host: mirrors.updates.jenkins.io
       paths:
         # Only send request to files with these extensions to mirrorbits
-        - path: /.*([.](html|json|txt)|TIME)$  # Requires the regexp engine of Nginx to be enabled
+        - path: /.*([.](html|json|txt|ico)|TIME)$  # Requires the regexp engine of Nginx to be enabled
           pathType: ImplementationSpecific
   tls:
     - secretName: updates-jenkins-io-mirrorbits-tls
