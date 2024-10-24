@@ -52,6 +52,7 @@ jobsDefinition:
       docker-builder:
       docker-confluence-data:
       docker-crond:
+      docker-geoipupdate:
       docker-inbound-agents:
       docker-jenkins-lts:
       docker-jenkins-weeklyci:
@@ -173,6 +174,9 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-confluence-data:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
+      docker-geoipupdate:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-inbound-agents:
