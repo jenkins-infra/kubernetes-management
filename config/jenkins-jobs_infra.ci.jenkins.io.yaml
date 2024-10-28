@@ -249,7 +249,7 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
         credentials:
-          updaecli-aws-access-key-id:
+          updatecli-aws-access-key-id:
             description: AWS API key for the user updatecli
             secret: "${UPDATECLI_AWS_ACCESS_KEY_ID}"
           updatecli-aws-secret-access-key:
