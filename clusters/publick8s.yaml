@@ -71,7 +71,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 4.11.1
+    version: 4.11.2
     values:
       - "../config/falco.yaml"
   - name: jenkins-weekly
