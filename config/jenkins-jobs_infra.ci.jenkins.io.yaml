@@ -504,6 +504,9 @@ jobsDefinition:
             fileName: "backend-config"
             description: "Terraform backend configuration for the staging environment of jenkins-infra/cloudflare"
             secretBytes: "${base64:${STAGING_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
+          cloudflare-datadog-api-key:
+            secret: "${DATADOG_CLOUDFLARE_API_KEY}"
+            description: "Datadog API key used by cloudflare to push logs, metrics and traces"
       datadog:
         name: Terraform Datadog
         description: "Datadog resources managed by Terraform"
