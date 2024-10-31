@@ -86,16 +86,3 @@ ingress:
         # Only send request to files with these extensions to mirrorbits
         - path: /internal_http/(.*)([.](html|json|txt|ico)|TIME)$  # Requires the regexp engine of Nginx to be enabled
           pathType: ImplementationSpecific
-  additionalIngresses:
-    - className: public-nginx
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: "/$1$2/index.html"
-        nginx.ingress.kubernetes.io/ssl-redirect: "false"
-        nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
-        nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
-      hosts:
-        - host: mirrors.updates.jenkins.io
-          paths:
-            # Otherwise redirect with rewrite the request by appending `/index.html` as you want a directory listing
-            - path: /internal_http/(.*)(/|$)  # Requires the regexp engine of Nginx to be enabled
-              pathType: ImplementationSpecific
