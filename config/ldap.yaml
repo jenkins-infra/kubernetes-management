@@ -30,7 +30,7 @@ service:
     - '34.201.191.93/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.233.58.83/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '54.236.124.56/32'  # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
-
+    - '3.133.40.156/32' # Controller outbound IP for (AWS.)ci.jenkins.io
 resources:
   limits:
     cpu: 2
