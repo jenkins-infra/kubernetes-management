@@ -101,10 +101,10 @@ jobsDefinition:
         branchIncludes: "production staging updatecli_* PR-* main"
       shared-tools:
         name: Shared Tools
-      garbage-collector:
-        name: Garbage collector (jenkins-infra)
+      packer-images-gc:
+        name: Garbage collector for Packer Images
         repository: packer-images
-        jenkinsfilePath: Jenkinsfile_garbage_collector
+        jenkinsfilePath: Jenkinsfile_gc
         credentials:
           packer-azure-serviceprincipal-sponsorship:
             azureEnvironmentName: "Azure"
