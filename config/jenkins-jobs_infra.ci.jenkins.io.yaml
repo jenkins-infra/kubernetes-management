@@ -113,6 +113,12 @@ jobsDefinition:
             description: "Azure Service Principal credential used by packer on secondary subscription"
             subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
             tenant: "${PACKER_AZURE_TENANT_ID}"
+          packer-aws-access-key-id:
+            description: AWS API key for the user packer
+            secret: "${PACKER_AWS_ACCESS_KEY_ID}"
+          packer-aws-secret-access-key:
+            description: AWS Secret key for the user packer
+            secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
   kubernetes-jobs:
     name: Kubernetes Jobs
     description: Folder hosting all the Kubernetes-related jobs
