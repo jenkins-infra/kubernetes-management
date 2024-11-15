@@ -101,6 +101,18 @@ jobsDefinition:
         branchIncludes: "production staging updatecli_* PR-* main"
       shared-tools:
         name: Shared Tools
+      packer-images-gc:
+        name: Garbage collector for Packer Images
+        repository: packer-images
+        jenkinsfilePath: Jenkinsfile_gc
+        credentials:
+          packer-azure-serviceprincipal-sponsorship:
+            azureEnvironmentName: "Azure"
+            clientId: "${PACKER_AZURE_CLIENT_ID}"
+            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+            description: "Azure Service Principal credential used by packer on secondary subscription"
+            subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+            tenant: "${PACKER_AZURE_TENANT_ID}"
   kubernetes-jobs:
     name: Kubernetes Jobs
     description: Folder hosting all the Kubernetes-related jobs
