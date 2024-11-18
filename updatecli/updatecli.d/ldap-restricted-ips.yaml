@@ -1,0 +1,46 @@
+name: Update list of IPs allowed to access LDAP
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  aws-ci-jenkins-io:
+    kind: json
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      # Outbound IPs are also public "inbound" IPs for EC2 instances
+      # The 2nd element is the IPv4 (1st is IPv6)
+      key: .aws\.ci\.jenkins\.io.outbound_ips.controller.[1]
+
+targets:
+  ldap-config:
+    name: Update aws.ci.jenkins.io public IP in the YAML values for LDAP
+    kind: yaml
+    sourceid: aws-ci-jenkins-io
+    transformers:
+      - addprefix: "'"
+      - addsuffix: "/32'"
+    spec:
+      file: config/ldap.yaml
+      # That is a rather fragile pattern. TODO: improve helm chart to use map instead of array
+      key: $.service.whitelisted_sources[24]
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update list of IPs allowed to access LDAP
+    spec:
+      labels:
+        - enhancement
+        - ldap
