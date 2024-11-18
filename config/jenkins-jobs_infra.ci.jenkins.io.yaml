@@ -105,6 +105,8 @@ jobsDefinition:
         name: Garbage collector for Packer Images
         repository: packer-images
         jenkinsfilePath: Jenkinsfile_gc
+        disableTagDiscovery: true
+        enableGitHubChecks: false
         credentials:
           packer-azure-serviceprincipal-sponsorship:
             azureEnvironmentName: "Azure"
