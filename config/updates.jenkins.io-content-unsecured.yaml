@@ -79,7 +79,7 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /$1$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
-    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "false" # Only enabled if need to debug as it is resources-hungry (I/O)
   hosts:
     - host: mirrors.updates.jenkins.io
       paths:
