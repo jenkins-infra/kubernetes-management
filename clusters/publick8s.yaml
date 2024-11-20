@@ -109,7 +109,7 @@ releases:
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 1.1.17
+    version: 1.1.18
     values:
       - "../config/ldap.yaml"
     secrets:
