@@ -65,4 +65,4 @@ httpdConf:
   maxRequestWorkers: 750 # serverLimit * threadsPerChild (MPM event)
 
 httpdRestart:
-  enable: true
+  enable: false

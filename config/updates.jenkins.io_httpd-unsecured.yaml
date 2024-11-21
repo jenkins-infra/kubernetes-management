@@ -51,4 +51,4 @@ ingress:
           pathType: ImplementationSpecific # Requires nginx.ingress.kubernetes.io/use-regex annotation
 
 httpdRestart:
-  enable: true
+  enable: false
