@@ -37,7 +37,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.16.1
+    version: v1.16.2
     values:
       - "../config/cert-manager.yaml"
   - name: datadog
