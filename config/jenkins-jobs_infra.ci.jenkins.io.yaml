@@ -107,6 +107,7 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_gc
         disableTagDiscovery: true
         enableGitHubChecks: false
+        disableGitHubNotifications: true
         credentials:
           packer-azure-serviceprincipal-sponsorship:
             azureEnvironmentName: "Azure"
