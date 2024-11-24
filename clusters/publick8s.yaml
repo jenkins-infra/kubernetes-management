@@ -117,7 +117,7 @@ releases:
   - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
     namespace: keycloak
     chart: codecentric/keycloak
-    version: 18.4.4
+    version: 18.5.0
     values:
       - "../config/keycloak.yaml"
     needs:
