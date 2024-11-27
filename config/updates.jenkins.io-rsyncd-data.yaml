@@ -6,7 +6,7 @@ configuration:
   components:
     - name: updates-jenkins-io-data
       path: /updates-jenkins-io-data
-      comment: "Updates Center Data Sharedf Persistence Volume"
+      comment: "Updates Center Data Shared Persistence Volume"
       volumeTpl: updates-jenkins-io-data
       writeEnabled: true
 podSecurityContext:
