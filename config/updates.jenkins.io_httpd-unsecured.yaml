@@ -14,9 +14,9 @@ tolerations:
     value: "arm64"
     effect: "NoSchedule"
 repository:
-  name: updates-jenkins-io-redirects
+  name: updates-jenkins-io-data
   reuseExistingPersistentVolumeClaim: true
-  subDir: ./unsecured/
+  subDir: ./redirections-unsecured/
 annotations:
   ad.datadoghq.com/httpd.logs: |
     [{"source":"httpd","service":"updates.jenkins.io", "tags":["unsecured"]}]
