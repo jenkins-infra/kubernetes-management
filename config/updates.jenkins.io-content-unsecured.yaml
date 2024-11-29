@@ -15,8 +15,8 @@ tolerations:
     value: "arm64"
     effect: "NoSchedule"
 podSecurityContext:
-  runAsUser: 1000  # User 'mirrorbits'
-  runAsGroup: 1000  # Group 'mirrorbits'
+  runAsUser: 1000 # User 'mirrorbits'
+  runAsGroup: 1000 # Group 'mirrorbits'
   runAsNonRoot: true
 containerSecurityContext:
   readOnlyRootFilesystem: true
@@ -25,7 +25,7 @@ containerSecurityContext:
     drop:
       - ALL
 repository:
-  name: updates-jenkins-io-data
+  name: updates-jenkins-io
   existingPVC: true
   subDir: ./content/
 config:
@@ -79,11 +79,11 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
+    nginx.ingress.kubernetes.io/use-regex: "true" # Required to allow regexp path matching with Nginx
     nginx.ingress.kubernetes.io/enable-rewrite-log: "false" # Only enabled if need to debug as it is resources-hungry (I/O)
   hosts:
     - host: mirrors.updates.jenkins.io
       paths:
         # Only send request to files with these extensions to mirrorbits
-        - path: /internal_http/(.*)([.](html|json|txt|ico)|TIME)$  # Requires the regexp engine of Nginx to be enabled
+        - path: /internal_http/(.*)([.](html|json|txt|ico)|TIME)$ # Requires the regexp engine of Nginx to be enabled
           pathType: ImplementationSpecific
