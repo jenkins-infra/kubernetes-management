@@ -1,3 +1,4 @@
+---
 helmDefaults:
   atomic: true
   force: false
@@ -27,7 +28,7 @@ releases:
       - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
-    version: 3.66.0
+    version: 3.81.1
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_infracijioagents1.yaml"
