@@ -25,7 +25,7 @@ containerSecurityContext:
     drop:
       - ALL
 repository:
-  name: updates-jenkins-io
+  name: updates-jenkins-io-data
   existingPVC: true
   subDir: ./content/
 config:
