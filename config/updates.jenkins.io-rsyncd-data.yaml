@@ -40,5 +40,5 @@ service:
     service.beta.kubernetes.io/azure-pls-create: "true"
     service.beta.kubernetes.io/azure-pls-name: "updates.jenkins.io-data"
     service.beta.kubernetes.io/azure-pls-ip-configuration-subnet: "public-vnet-data-tier"
-    service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-    service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+    service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0 1311c09f-aee0-4d6c-99a4-392c2b543204"
+    service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0 1311c09f-aee0-4d6c-99a4-392c2b543204"
