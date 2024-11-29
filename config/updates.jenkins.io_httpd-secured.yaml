@@ -14,7 +14,7 @@ tolerations:
     value: "arm64"
     effect: "NoSchedule"
 repository:
-  name: updates-jenkins-io-data
+  name: updates-jenkins-io-redirects
   reuseExistingPersistentVolumeClaim: true
   subDir: ./redirections-secured/
 annotations:
@@ -27,7 +27,7 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
+    nginx.ingress.kubernetes.io/use-regex: "true" # Required to allow regexp path matching with Nginx
     nginx.ingress.kubernetes.io/enable-rewrite-log: "false" # Only enabled if need to debug as it is resources-hungry (I/O)
     nginx.ingress.kubernetes.io/configuration-snippet: |
       set $HI 1;
