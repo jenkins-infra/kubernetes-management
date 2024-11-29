@@ -16,7 +16,7 @@ tolerations:
 repository:
   name: updates-jenkins-io-redirects
   reuseExistingPersistentVolumeClaim: true
-  subDir: ./secured/
+  subDir: ./redirections-secured/
 annotations:
   ad.datadoghq.com/httpd.logs: |
     [{"source":"httpd","service":"updates.jenkins.io", "tags":["component:secured"]}]
