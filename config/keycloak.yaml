@@ -37,7 +37,7 @@ tolerations:
 
 extraInitContainers: |
   - name: theme-provider
-    image: jenkinsciinfra/keycloak-theme:0.1.20
+    image: jenkinsciinfra/keycloak-theme:0.1.21
     imagePullPolicy: IfNotPresent
     command:
       - sh
