@@ -1,24 +1,26 @@
 geoipupdate:
+  dryrun: true # avoid calling geoipupdate and rate limiting during test
   update_frequency: 72
+  editions: "GeoLite2-ASN GeoLite2-City GeoLite2-Country"
+  storage_name: "publick8spvdata"
+  storage_fileshare: "geoip-data-staging" # test environement
 podSecurityContext:
   runAsUser: 65534  # User 'nobody'
   runAsGroup: 65534  # Group 'nogroup'
   runAsNonRoot: true
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi # minimum 256Mi to avoid OMM kill for `az login`
+  requests:
+    cpu: 100m
+    memory: 256Mi # minimum 256Mi to avoid OMM kill for `az login`
 containerSecurityContext:
   readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
   capabilities:
     drop:
       - ALL
-
-resources:
-  limits:
-    cpu: 500m
-    memory: 128Mi
-  requests:
-    cpu: 50m
-    memory: 64Mi
-
 nodeSelector:
   kubernetes.io/arch: arm64
 tolerations:
@@ -26,7 +28,3 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
-
-dataVolume:
-  persistentVolumeClaim:
-    claimName: geoip-data
