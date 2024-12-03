@@ -1,5 +1,5 @@
 geoipupdate:
-  dryrun: true # avoid calling geoipupdate and rate limiting during test
+  dryrun: false
   update_frequency: 72
   editions: "GeoLite2-ASN GeoLite2-City GeoLite2-Country"
   storage_name: "publick8spvdata"
