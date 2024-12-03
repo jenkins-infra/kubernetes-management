@@ -4,6 +4,7 @@ geoipupdate:
   editions: "GeoLite2-ASN GeoLite2-City GeoLite2-Country"
   storage_name: "publick8spvdata"
   storage_fileshare: "geoip-data-staging" # test environement
+  cron: '2 * * * *' # every hour and 2 mn for testing
 podSecurityContext:
   runAsUser: 65534  # User 'nobody'
   runAsGroup: 65534  # Group 'nogroup'
