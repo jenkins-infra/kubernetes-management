@@ -103,7 +103,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.60
+    version: 0.6.61
     values:
       - "../config/wiki.yaml"
   - name: ldap
