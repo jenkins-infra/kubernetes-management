@@ -30,7 +30,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.81.1
+    version: 3.83.0
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -287,11 +287,11 @@ releases:
       - "../config/stats.jenkins.io.yaml"
     secrets:
       - "../secrets/config/stats.jenkins.io/secrets.yaml"
-  # - name: geoipdata
-  #   namespace: geoip-data
-  #   chart: jenkins-infra/geoipupdates
-  #   version: 2.0.0
-  #   values:
-  #     - ../config/geoipdata.yaml
-  #   secrets:
-  #     - ../secrets/config/geoipdata/secrets.yaml
+# - name: geoipdata
+#   namespace: geoip-data
+#   chart: jenkins-infra/geoipupdates
+#   version: 2.0.0
+#   values:
+#     - ../config/geoipdata.yaml
+#   secrets:
+#     - ../secrets/config/geoipdata/secrets.yaml
