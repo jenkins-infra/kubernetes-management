@@ -103,7 +103,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.60
+    version: 0.6.61
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -287,11 +287,11 @@ releases:
       - "../config/stats.jenkins.io.yaml"
     secrets:
       - "../secrets/config/stats.jenkins.io/secrets.yaml"
-  # - name: geoipdata
-  #   namespace: geoip-data
-  #   chart: jenkins-infra/geoipupdates
-  #   version: 2.0.0
-  #   values:
-  #     - ../config/geoipdata.yaml
-  #   secrets:
-  #     - ../secrets/config/geoipdata/secrets.yaml
+# - name: geoipdata
+#   namespace: geoip-data
+#   chart: jenkins-infra/geoipupdates
+#   version: 2.0.0
+#   values:
+#     - ../config/geoipdata.yaml
+#   secrets:
+#     - ../secrets/config/geoipdata/secrets.yaml
