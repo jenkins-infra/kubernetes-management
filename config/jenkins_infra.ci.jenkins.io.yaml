@@ -739,7 +739,7 @@ controller:
         appearance:
           pipelineGraphView:
             showGraphOnBuildPage: true
-            showGraphOnJobPage: false # change to true if pipeline-stage-view is removed
+            showGraphOnJobPage: true
       tools-config: |
         tool:
           git:
