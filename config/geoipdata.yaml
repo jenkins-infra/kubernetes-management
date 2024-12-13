@@ -4,6 +4,16 @@ geoipupdate:
   storage_name: "publick8spvdata"
   storage_fileshare: "geoip-data"
   cron: '30 0 */3 * *' # every 3 days at 00:30AM
+  rolloutrestart:
+    enable: true
+    restarts:
+      - namespace: updates-jenkins-io
+        deployments:
+          - updates-jenkins-io-content-secured-mirrorbits
+          - updates-jenkins-io-content-unsecured-mirrorbits
+      - namespace: get-jenkins-io
+        deployments:
+          - get-jenkins-io-mirrorbits
 podSecurityContext:
   runAsUser: 65534  # User 'nobody'
   runAsGroup: 65534  # Group 'nogroup'

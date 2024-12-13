@@ -30,7 +30,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.81.1
+    version: 3.83.0
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_publick8s.yaml"
@@ -71,13 +71,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 4.16.0
+    version: 4.17.0
     values:
       - "../config/falco.yaml"
   - name: jenkins-weekly
     namespace: jenkins-weekly
     chart: jenkins/jenkins
-    version: 5.7.18
+    version: 5.7.21
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -103,13 +103,13 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.60
+    version: 0.6.61
     values:
       - "../config/wiki.yaml"
   - name: ldap
     namespace: ldap
     chart: jenkins-infra/ldap
-    version: 1.1.19
+    version: 1.1.21
     values:
       - "../config/ldap.yaml"
     secrets:
@@ -130,7 +130,7 @@ releases:
   - name: plugin-health-scoring
     namespace: plugin-health-scoring
     chart: jenkins-infra/plugin-health-scoring
-    version: 3.0.4
+    version: 3.0.5
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the service
     values:
@@ -182,7 +182,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 7.0.3
+    version: 7.0.6
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
@@ -222,7 +222,7 @@ releases:
   - name: updates-jenkins-io-content-secured
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.5.1
+    version: 5.5.4
     values:
       - "../config/updates.jenkins.io-content-secured.yaml"
     secrets:
@@ -231,13 +231,13 @@ releases:
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.1.1
+    version: 3.1.2
     values:
       - "../config/updates.jenkins.io-rsync.yaml"
   - name: updates-jenkins-io-content-unsecured
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.5.1
+    version: 5.5.4
     values:
       - "../config/updates.jenkins.io-content-unsecured.yaml"
     secrets:
@@ -258,7 +258,7 @@ releases:
   - name: updates-jenkins-io-rsyncd-data
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.1.1
+    version: 3.1.2
     values:
       - "../config/updates.jenkins.io-rsyncd-data.yaml"
     secrets:
@@ -290,7 +290,7 @@ releases:
   - name: geoipdata
     namespace: geoip-data
     chart: jenkins-infra/geoipupdates
-    version: 2.0.0
+    version: 2.3.0
     values:
       - ../config/geoipdata.yaml
     secrets:
