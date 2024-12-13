@@ -56,7 +56,7 @@ config:
   ## Therefore only put your most reliable and up-to-date mirrors here.
   fallbacks:
     # We always fall back to this mirror. Useful to serve stale file during a mirror scan
-    - url: https://eastamerica.cloudflare.jenkins.io/
+    - url: https://archives.jenkins.io/update-center/
       countryCode: US
       continentCode: NA
 cli:
