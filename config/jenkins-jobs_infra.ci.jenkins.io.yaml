@@ -152,6 +152,10 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for cijioagents1"
             secretBytes: "${base64:${KUBECONFIG_CIJIOAGENTS1}}"
+          kubeconfig-cijioagents2:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for cijioagents2"
+            secretBytes: "${base64:${KUBECONFIG_CIJIOAGENTS2}}"
           kubeconfig-infracijioagents1:
             fileName: "kubeconfig"
             description: "Kubeconfig file for infracijioagents1"
