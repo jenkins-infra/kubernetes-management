@@ -1,0 +1,49 @@
+providers:
+  aks:
+    enabled: true
+datadog:
+  clusterName: 'cijioagents2'
+  env:
+    - name: DD_HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+  kubelet:
+    host:
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    hostCAPath: /etc/kubernetes/certs/kubeletserver.crt
+    # Required as of Agent 7.35 because Kubelet certificates in AKS do not have a Subject Alternative Name (SAN) set.
+    tlsVerify: false
+clusterAgent:
+  image:
+    pullSecrets:
+      - name: "dockerhub-credential"
+  nodeSelector:
+    kubernetes.io/arch: arm64
+    role: applications
+  tolerations:
+    - key: "ci.jenkins.io/applications"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+agents:
+  tolerations:
+    # These tolerations are needed to run the agents on the bom node pool
+    - key: "ci.jenkins.io/bom"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/applications"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/agents"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "CriticalAddonsOnly"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
