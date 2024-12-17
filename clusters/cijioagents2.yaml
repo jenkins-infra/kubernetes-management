@@ -22,3 +22,21 @@ releases:
       - "../config/docker-registry-secrets.yaml"
     secrets:
       - "../secrets/config/docker-registry-secrets/secrets.yaml"
+  - name: jenkins-agents
+    needs:
+      - default/docker-registry-secrets
+    namespace: jenkins-agents
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 1.0.0
+    values:
+      - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml"
+    secrets:
+      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
+  - name: jenkins-agents-bom
+    namespace: jenkins-agents-bom
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 1.0.0
+    values:
+      - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml"
+    secrets:
+      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
