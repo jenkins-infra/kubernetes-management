@@ -1,18 +1,7 @@
-ingress:
-  hosts:
-    - host: repo.aws.jenkins.io
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: tls-secret
-      hosts:
-        - repo.aws.jenkins.io
-
 persistence:
   enabled: true
   size: 100
-  storageClass: gp2
+  storageClass: gp3
 
 nodeSelector:
   kubernetes.io/arch: arm64
