@@ -12,19 +12,7 @@ repositories:
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
 releases:
-  - name: docker-registry-secrets
-    # This helm chart doesn't create any resources within the namespace specified below.
-    # Specifying a namespace is required by the "needs" feature of helmfile (to allow referencing to this release from others)
-    namespace: default
-    chart: jenkins-infra/docker-registry-secrets
-    version: 0.1.0
-    values:
-      - "../config/docker-registry-secrets.yaml"
-    secrets:
-      - "../secrets/config/docker-registry-secrets/secrets.yaml"
   - name: datadog
-    needs:
-      - default/docker-registry-secrets
     namespace: datadog
     chart: datadog/datadog
     version: 3.83.1
@@ -34,8 +22,6 @@ releases:
     secrets:
       - "../secrets/config/datadog/cijioagents1-secrets.yaml"
   - name: jenkins-agents
-    needs:
-      - default/docker-registry-secrets
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 1.0.0
