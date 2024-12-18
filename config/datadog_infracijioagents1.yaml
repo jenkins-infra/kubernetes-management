@@ -22,7 +22,7 @@ clusterAgent:
       - name: "dockerhub-credential"
   nodeSelector:
     kubernetes.io/arch: arm64
-    agentpool: systempool1
+    kubernetes.azure.com/mode: system
   # allow to start on system nodepool
   tolerations:
     - key: "CriticalAddonsOnly"
