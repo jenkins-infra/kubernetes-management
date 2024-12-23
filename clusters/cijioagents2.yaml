@@ -1,0 +1,20 @@
+---
+helmDefaults:
+  atomic: true
+  force: false
+  timeout: 300
+  wait: true
+repositories:
+  # https://github.com/DataDog/helm-charts/
+  - name: datadog
+    url: https://helm.datadoghq.com
+releases:
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 3.84.2 #todo update updatecli/updatecli.d/charts/datadog.yaml
+    values:
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_cijenkinsio-agents-2.yaml"
+    secrets:
+      - "../secrets/config/datadog/cijenkinsio-agents-2-secrets.yaml"

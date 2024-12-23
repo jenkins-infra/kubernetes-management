@@ -17,9 +17,6 @@ datadog:
     # Required as of Agent 7.35 because Kubelet certificates in AKS do not have a Subject Alternative Name (SAN) set.
     tlsVerify: false
 clusterAgent:
-  image:
-    pullSecrets:
-      - name: "dockerhub-credential"
   nodeSelector:
     kubernetes.io/arch: arm64
     kubernetes.azure.com/mode: system
