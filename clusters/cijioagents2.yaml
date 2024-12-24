@@ -12,7 +12,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.84.2 #todo update updatecli/updatecli.d/charts/datadog.yaml
+    version: 3.84.3
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_cijenkinsio-agents-2.yaml"
