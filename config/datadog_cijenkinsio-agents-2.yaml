@@ -6,15 +6,18 @@ datadog:
         fieldRef:
           fieldPath: spec.nodeName
 clusterAgent:
+  # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
   nodeSelector:
     jenkins: ci.jenkins.io
     role: applications
+  # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
   tolerations:
     - key: "ci.jenkins.io/applications"
       operator: "Equal"
       value: "true"
       effect: "NoSchedule"
 agents:
+  # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
   tolerations:
     # These tolerations are needed to run the agents on the bom node pool
     - key: "ci.jenkins.io/bom"
