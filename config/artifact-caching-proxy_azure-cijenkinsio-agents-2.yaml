@@ -1,0 +1,45 @@
+persistence:
+  enabled: true
+  size: 100
+  # TODO: track with updatecli (from https://github.com/jenkins-infra/terraform-aws-sponsorship/blob/47a0758f6f414fa12a2e8be54bd66e921f8a942a/eks-cijenkinsio-agents-2.tf#L217)
+  storageClass: ebs-csi-premium-retain-us-east-2a
+
+# TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
+nodeSelector:
+  kubernetes.io/arch: arm64
+  jenkins: ci.jenkins.io
+  role: applications
+
+# TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
+tolerations:
+  - key: "ci.jenkins.io/applications"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+# We should never have 2 ACP replicas in the same host
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - artifact-caching-proxy
+        topologyKey: "kubernetes.io/hostname"
+
+## TODO: enable LB with a private endpoint
+
+resources:
+  limits:
+    # No CPU limit to avoid throttling
+    memory: 8192Mi
+  requests:
+    cpu: 2
+    memory: 8192Mi
+
+replicaCount: 2
+
+proxy:
+  dnsResolver: "kube-dns.kube-system.svc.cluster.local 9.9.9.9"
