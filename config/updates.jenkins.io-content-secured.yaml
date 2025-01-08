@@ -80,6 +80,7 @@ ingress:
   enabled: true
   className: public-nginx
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"  # Required to allow regexp path matching with Nginx
     nginx.ingress.kubernetes.io/enable-rewrite-log: "false" # Only enabled if need to debug as it is resources-hungry (I/O)
