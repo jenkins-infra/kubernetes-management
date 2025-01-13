@@ -15,7 +15,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.87.1
+    version: 3.87.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_cijioagents1.yaml"
