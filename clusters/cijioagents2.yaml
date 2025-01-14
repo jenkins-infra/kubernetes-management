@@ -31,7 +31,7 @@ releases:
   - name: jenkins-agents
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 1.0.0
+    version: 1.1.0
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml"
     secrets:
@@ -39,7 +39,7 @@ releases:
   - name: jenkins-agents-bom
     namespace: jenkins-agents-bom
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 1.0.0
+    version: 1.1.0
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml"
     secrets:
