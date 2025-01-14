@@ -83,7 +83,7 @@ releases:
   - name: jenkins-release-agents
     namespace: jenkins-release-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 1.0.0
+    version: 1.1.0
     values:
       - "../config/jenkins-kubernetes-agents_release.ci.jenkins.io.yaml"
     secrets:
