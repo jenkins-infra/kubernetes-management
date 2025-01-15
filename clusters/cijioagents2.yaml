@@ -28,3 +28,19 @@ releases:
     version: 1.6.2
     values:
       - "../config/artifact-caching-proxy_azure-cijenkinsio-agents-2.yaml"
+  - name: jenkins-agents
+    namespace: jenkins-agents
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 1.1.0
+    values:
+      - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml"
+    secrets:
+      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
+  - name: jenkins-agents-bom
+    namespace: jenkins-agents-bom
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 1.1.0
+    values:
+      - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml"
+    secrets:
+      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
