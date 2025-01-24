@@ -1,5 +1,5 @@
 ---
-name: Update Artifact Caching Proxy internal LB settings
+name: Update Artifact Caching Proxy Azure internal LB settings
 
 scms:
   default:
@@ -38,7 +38,8 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update Artifact Caching Proxy internal LB IPv4
+    title: Update the LB IPv4 of the Artifact Caching Proxy for Azure
     spec:
       labels:
         - artifact-caching-proxy
+        - azure
