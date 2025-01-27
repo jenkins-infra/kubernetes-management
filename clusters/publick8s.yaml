@@ -40,7 +40,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.16.2
+    version: v1.16.3
     values:
       - "../config/cert-manager.yaml"
       - "../config/cert-manager_publick8s.yaml"
