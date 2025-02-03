@@ -245,13 +245,13 @@ releases:
   - name: updates-jenkins-io-httpd-secured
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 1.4.3
+    version: 1.4.4
     values:
       - "../config/updates.jenkins.io_httpd-secured.yaml"
   - name: updates-jenkins-io-httpd-unsecured
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 1.4.3
+    version: 1.4.4
     values:
       - "../config/updates.jenkins.io_httpd-unsecured.yaml"
   # Service used to fill the shared Azure File PVC through rsync from trusted.ci
