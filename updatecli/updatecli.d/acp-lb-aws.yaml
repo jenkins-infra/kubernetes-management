@@ -19,7 +19,7 @@ sources:
     name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.subnet_ids
+      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.artifact_caching_proxy.subnet_ids
     transformers:
       - trimprefix: '['
       - trimsuffix: ']'
