@@ -14,19 +14,7 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  acpAwsVMSubnets:
-    kind: json
-    name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
-    spec:
-      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.ec2-agents.subnet_ids
-    transformers:
-      - trimprefix: '['
-      - trimsuffix: ']'
-      - replacer:
-          from: ' '
-          to: ','
-  acpAwsEksSubnets:
+  acpAwsSubnets:
     kind: json
     name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
     spec:
@@ -69,7 +57,7 @@ targets:
     spec:
       file: config/artifact-caching-proxy_azure-cijenkinsio-agents-2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
-      value: '"{{ source `acpAwsVMSubnets` }},{{ source `acpAwsEksSubnets` }}"'
+      value: '"{{ source `acpAwsSubnets` }}"'
     scmid: default
 
 actions:
