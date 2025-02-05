@@ -788,7 +788,7 @@ controller:
                   - zip:
                       label: "linux && amd64"
                       subdir: "jdk-17.0.13+11"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13%2B11/OpenJDK17U-jdk_x64_linux_hotspot_17.0.13_11.tar.gz"
+                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.14%2B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.14_7.tar.gz"
                   - zip:
                       label: "windows"
                       subdir: "jdk-17.0.13+11"
