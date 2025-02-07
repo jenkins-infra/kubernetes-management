@@ -473,6 +473,7 @@ jobsDefinition:
           production-terraform-aws-sponsorship-backend-config:
             fileName: "backend-config"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWSSPONSORED_BACKEND_CONFIG}}"
+          infracijenkinsio-dockerhub-pull: *infracijenkinsio-dockerhub-pull-def
       azure:
         name: Terraform Azure
         description: "Azure resources managed by Terraform"
