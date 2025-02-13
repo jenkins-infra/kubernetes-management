@@ -11,8 +11,6 @@ repositories:
   # https://github.com/jenkins-infra/helm-charts/
   - name: jenkins-infra
     url: https://jenkins-infra.github.io/helm-charts
-  - name: twuni
-    url: https://helm.twun.io
 releases:
   - name: datadog
     namespace: datadog
@@ -29,7 +27,16 @@ releases:
     # TODO: track with updatecli
     version: 1.6.2
     values:
-      - "../config/artifact-caching-proxy_azure-cijenkinsio-agents-2.yaml"
+      - "../config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml"
+  - name: hub-mirror
+    namespace: hub-mirror
+    chart: jenkins-infra/docker-registry
+    # TODO: track with updatecli
+    version: 1.0.0
+    values:
+      - "../config/hub-mirror_cijioagents2.yaml"
+    secrets:
+      - "../secrets/config/hub-mirror/secrets.yaml"
   - name: jenkins-agents
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents

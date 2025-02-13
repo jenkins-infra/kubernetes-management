@@ -31,7 +31,7 @@ service:
     # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
     service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-031fd3566ba47fd32,subnet-0138ee90cd53d58f7,subnet-012e4bea8ebb3a5fb"
     # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-    service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: "10.0.131.246,10.0.129.246,10.0.151.246"
+    service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: "10.0.131.247,10.0.129.247,10.0.151.247"
     service.beta.kubernetes.io/aws-load-balancer-ip-address-type: "ipv4"
     # Misc.
     service.beta.kubernetes.io/aws-load-balancer-alpn-policy: "HTTP2Preferred"
@@ -40,9 +40,6 @@ proxy:
   enabled: true
   remoteurl: "https://registry-1.docker.io"
 
-garbageCollect:
-  enabled: true
-
 persistence:
   enabled: true
   deleteEnabled: true
@@ -50,9 +47,3 @@ persistence:
   # TODO: track with updatecli (from https://github.com/jenkins-infra/terraform-aws-sponsorship/blob/47a0758f6f414fa12a2e8be54bd66e921f8a942a/eks-cijenkinsio-agents-2.tf#L217)
   # Same as ACP
   storageClass: ebs-csi-premium-retain-us-east-2a
-
-# Required as we use a single PVC disk which needs to be unmounted/re-mounted
-updateStrategy:
-  type: RollingUpdate
-  rollingUpdate:
-    maxSurge: 0
