@@ -1,5 +1,5 @@
 quotas:
-  pods: 300
+  pods: 150
 
 ## TODO track with updatecli from https://github.com/smerle33/terraform-aws-sponsorship/blob/cfe8539244466353219445275c5248cdac63d11e/locals.tf#L24
 groups:
