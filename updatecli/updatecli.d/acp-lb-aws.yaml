@@ -47,7 +47,7 @@ targets:
       - addprefix: '"'
       - addsuffix: '"'
     spec:
-      file: config/artifact-caching-proxy_azure-cijenkinsio-agents-2.yaml
+      file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'
     scmid: default
   updateAcpLbSubnets:
@@ -55,7 +55,7 @@ targets:
     disablesourceinput: true # We need to combine 2 sources
     kind: yaml
     spec:
-      file: config/artifact-caching-proxy_azure-cijenkinsio-agents-2.yaml
+      file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
       value: '"{{ source `acpAwsSubnets` }}"'
     scmid: default
