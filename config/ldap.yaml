@@ -52,4 +52,4 @@ persistence:
   # Tracked by updatecli
   customDataClaimName: ldap-jenkins-io-data
   # Tracked by updatecli
-  customBackupClaimName: ""
+  customBackupClaimName: ldap-jenkins-io-backup
