@@ -49,5 +49,7 @@ tolerations:
     effect: "NoSchedule"
 
 persistence:
-  customDataClaimName: ldap-jenkins-io-data # Tracked by updatecli
-  customBackupClaimName: "" # Tracked by updatecli
+  # Tracked by updatecli
+  customDataClaimName: ldap-jenkins-io-data
+  # Tracked by updatecli
+  customBackupClaimName: ""

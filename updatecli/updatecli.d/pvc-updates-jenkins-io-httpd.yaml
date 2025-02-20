@@ -1,5 +1,5 @@
 ---
-name: Update pvc names for updates.jenkins.io-redirects
+name: Update PVC names for updates.jenkins.io HTTPD
 
 scms:
   default:
@@ -42,7 +42,7 @@ sources:
 targets:
   updatePvcName:
     sourceid: pvcName
-    name: Update httpd-secured PVC name 
+    name: Update httpd-secured PVC name
     kind: yaml
     spec:
       file: config/updates.jenkins.io_httpd-secured.yaml
@@ -50,7 +50,7 @@ targets:
     scmid: default
   updateSubDir:
     sourceid: subDir
-    name: Update httpd-secured subDir 
+    name: Update httpd-secured subDir
     kind: yaml
     spec:
       file: config/updates.jenkins.io_httpd-secured.yaml
@@ -60,7 +60,7 @@ targets:
     scmid: default
   updatePvcNameUnsecured:
     sourceid: pvcNameUnsecured
-    name: Update httpd-unsecured PVC name 
+    name: Update httpd-unsecured PVC name
     kind: yaml
     spec:
       file: config/updates.jenkins.io_httpd-unsecured.yaml
@@ -68,7 +68,7 @@ targets:
     scmid: default
   updateSubDirUnsecured:
     sourceid: subDirUnsecured
-    name: Update httpd-unsecured subDir 
+    name: Update httpd-unsecured subDir
     kind: yaml
     spec:
       file: config/updates.jenkins.io_httpd-unsecured.yaml
@@ -81,7 +81,9 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update updates.jenkins.io-redirects PVC names and subDir
+    title: Update PVC names for updates.jenkins.io HTTPD
     spec:
       labels:
+        - updates.jenkins.io
+        - geoip-data
         - updates.jenkins.io-redirects
