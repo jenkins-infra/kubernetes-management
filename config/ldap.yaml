@@ -49,5 +49,5 @@ tolerations:
     effect: "NoSchedule"
 
 persistence:
-  # TODO: add link to where the disk/PV/PVC are defined (and automate syncing?)
-  customDataClaimName: ldap-jenkins-io-data
+  customDataClaimName: ldap-jenkins-io-data # Tracked by updatecli
+  customBackupClaimName: "" # Tracked by updatecli
