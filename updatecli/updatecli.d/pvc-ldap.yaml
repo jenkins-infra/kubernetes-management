@@ -1,0 +1,55 @@
+---
+name: Update PVC names for ldap.jenkins.io
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  getDataPvcName:
+    kind: json
+    name: Retrieve LDAP data PVC name
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .ldap\.jenkins\.io.data.pvc_name
+  getBackupPvcName:
+    kind: json
+    name: Retrieve LDAP backup PVC name
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .ldap\.jenkins\.io.backup.pvc_name
+
+targets:
+  updateDataPvcName:
+    sourceid: getDataPvcName
+    name: Set data PVC name in LDAP Helm configuration
+    kind: yaml
+    spec:
+      file: config/ldap.yaml
+      key: $.persistence.customDataClaimName
+    scmid: default
+  updatePvcNameUnsecured:
+    sourceid: getBackupPvcName
+    name: Set backup PVC name in LDAP Helm configuration
+    kind: yaml
+    spec:
+      file: config/ldap.yaml
+      key: $.persistence.customBackupClaimName
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update PVC names for ldap.jenkins.io
+    spec:
+      labels:
+        - ldap
