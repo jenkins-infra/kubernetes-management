@@ -319,7 +319,7 @@ controller:
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
-                    & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart
+                    & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart-service
                     # Setup Docker Engine
                     @'
                     {
@@ -366,7 +366,7 @@ controller:
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
-                    & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart
+                    & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" restart-service
                     # Setup Docker Engine
                     @'
                     {
