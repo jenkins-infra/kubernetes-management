@@ -52,7 +52,8 @@ resources:
     cpu: 1.5
     memory: 8192Mi
 
-replicaCount: 2
+# Only 1 node - https://github.com/jenkins-infra/helpdesk/issues/4545
+replicaCount: 1
 
 proxy:
   dnsResolver: "kube-dns.kube-system.svc.cluster.local 9.9.9.9"
