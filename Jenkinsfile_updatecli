@@ -1,3 +1,5 @@
+@Library('pipeline-library@pull/916/head') _
+
 def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
 pipeline {
@@ -33,8 +35,12 @@ pipeline {
             ]) {
               sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
               sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
-              sh 'updatecli version'
-              sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+              // Call the shared library to execute updatecli on the current node context:
+              updatecli([
+                  action: 'diff',
+                  version: '0.92.0',
+                  runInCurrentAgent: true
+              ])
             }
           }
         }
@@ -55,8 +61,12 @@ pipeline {
             ]) {
               sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
               sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
-              sh 'updatecli version'
-              sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+              // Call the shared library to execute updatecli on the current node context:
+              updatecli([
+                  action: 'diff',
+                  version: '0.92.0',
+                  runInCurrentAgent: true
+              ])
             }
           }
       }
