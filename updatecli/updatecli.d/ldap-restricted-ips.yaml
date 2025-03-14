@@ -32,7 +32,7 @@ targets:
     spec:
       file: config/ldap.yaml
       # That is a rather fragile pattern. TODO: improve helm chart to use map instead of array
-      key: $.service.whitelisted_sources[24]
+      key: $.service.whitelisted_sources[19]
     scmid: default
 
 actions:

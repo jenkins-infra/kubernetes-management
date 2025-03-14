@@ -29,7 +29,6 @@ targets:
       files:
         - clusters/privatek8s.yaml
         - clusters/publick8s.yaml
-        - clusters/cijioagents1.yaml
         - clusters/cijioagents2.yaml
         - clusters/infracijioagents1.yaml
       engine: yamlpath

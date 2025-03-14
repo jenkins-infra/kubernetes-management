@@ -25,7 +25,7 @@ targets:
     name: "Update the chart version for artifact-caching-proxy"
     kind: yaml
     spec:
-      file: clusters/cijioagents1.yaml
+      file: clusters/cijioagents2.yaml
       engine: yamlpath
       key: $.releases[?(@.name == 'artifact-caching-proxy')].version
     scmid: default
