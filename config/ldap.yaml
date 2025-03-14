@@ -25,7 +25,7 @@ service:
     - '34.201.191.93/32' # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '34.233.58.83/32' # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
     - '54.236.124.56/32' # JFrog Public Nat IP for AWS us-east-1 (https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/)
-    - '3.146.166.108/32' # Accept inbound LDAPS request from aws.azure.ci.jenkins.io
+    - '3.146.166.108/32'
 resources:
   limits:
     cpu: 2
