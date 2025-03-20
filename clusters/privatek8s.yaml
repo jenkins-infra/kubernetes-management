@@ -37,13 +37,13 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.16.2
+    version: v1.17.1
     values:
       - "../config/cert-manager.yaml"
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.87.1
+    version: 3.109.2
     values:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_privatek8s.yaml"
@@ -52,7 +52,7 @@ releases:
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
-    version: 5.8.2
+    version: 5.8.23
     timeout: 1200
     needs:
       - jenkins-infra-jobs # Required to generate the job definition in a configmap
@@ -71,7 +71,7 @@ releases:
   - name: jenkins-release
     namespace: jenkins-release
     chart: jenkins/jenkins
-    version: 5.8.2
+    version: 5.8.23
     timeout: 600
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
@@ -83,7 +83,7 @@ releases:
   - name: jenkins-release-agents
     namespace: jenkins-release-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 1.0.0
+    version: 1.1.0
     values:
       - "../config/jenkins-kubernetes-agents_release.ci.jenkins.io.yaml"
     secrets:
@@ -119,7 +119,7 @@ releases:
   - name: github-comment-ops
     namespace: github-comment-ops
     chart: github-comment-ops/github-comment-ops
-    version: 1.4.5
+    version: 1.5.1
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
     values:

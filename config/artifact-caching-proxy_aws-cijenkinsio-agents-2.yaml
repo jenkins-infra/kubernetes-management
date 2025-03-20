@@ -29,17 +29,32 @@ affinity:
                 - artifact-caching-proxy
         topologyKey: "kubernetes.io/hostname"
 
-## TODO: enable LB with a private endpoint
+service:
+  type: LoadBalancer
+  annotations:
+    # Internal LB, with fixed IP in private subnet where EC2 VM agents are running
+    # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/
+    service.beta.kubernetes.io/aws-load-balancer-type: "internal"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
+    # We want the LB to directly send requests to the Pod IPs (requires VPC-CNI)
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-031fd3566ba47fd32,subnet-0138ee90cd53d58f7,subnet-012e4bea8ebb3a5fb"
+    service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: "10.0.131.248,10.0.129.248,10.0.151.248"
+    service.beta.kubernetes.io/aws-load-balancer-ip-address-type: "ipv4"
+    # Misc.
+    service.beta.kubernetes.io/aws-load-balancer-alpn-policy: "HTTP2Preferred"
 
 resources:
   limits:
     # No CPU limit to avoid throttling
     memory: 8192Mi
   requests:
-    cpu: 2
+    cpu: 1.5
     memory: 8192Mi
 
-replicaCount: 2
+# Only 1 node - https://github.com/jenkins-infra/helpdesk/issues/4545
+replicaCount: 1
 
 proxy:
   dnsResolver: "kube-dns.kube-system.svc.cluster.local 9.9.9.9"
+  proxySslServerNameEnabled: true # Pass SNI to upstreams

@@ -1,5 +1,5 @@
 ---
-name: Update pvc names for updates.jenkins.io and geoip-data
+name: Update PVC names for updates.jenkins.io mirrorbits
 
 scms:
   default:
@@ -65,7 +65,7 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update updates.jenkins.io and geoip-data PVC names
+    title: Update PVC names for updates.jenkins.io mirrorbits
     spec:
       labels:
         - updates.jenkins.io

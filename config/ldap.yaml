@@ -10,18 +10,13 @@ service:
     - '20.22.30.9/32' # Accept inbound connections from publick8s public outbound IP (2/3 IPv4)
     - '20.22.30.74/32' # Accept inbound connections from publick8s public outbound IP (3/3 IPv4)
     - '20.7.192.189/32' # Accept inbound connections from publick8s outbound NAT gateway
-    - '10.100.0.0/16' # publick8s Pod CIDR (internal IPs) for internal access
-    - '73.71.177.172/32' # 106 accept inbound LDAPS request from spambot
-    - '140.211.15.101/32' # 107 accept inbound LDAPS request from accounts.jenkins.io
-    - '20.12.27.65/32' # 107 accept inbound LDAPS request from puppet.jenkins.io
-    - '104.209.128.236/32' # accept inbound LDAPS from trusted.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
-    - '172.176.126.194/32' # accept inbound LDAPS from private.vpn.jenkins.io
-    - '104.209.153.13/32' # accept inbound LDAPS from cert.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
-    - '20.230.90.10/32' # Accept inbound LDAPS from NAT gateway for ci.jenkins.io - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L63-L73 (1/1 IPv4)
-    - '172.177.87.156/32' # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (1/4 IPv4)
-    - '68.154.8.163/32' # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (2/4 IPv4)
-    - '172.200.120.16/32' # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (3/4 IPv4)
-    - '172.200.126.194/32' # Accept inbound LDAPS from NAT gateway for ci.jenkins.io "sponsorship" secondary network - https://github.com/jenkins-infra/azure-net/blob/main/gateways.tf#L75-L92 (4/4 IPv4)
+    - '10.100.0.0/16' # Accept inbound connections from publick8s pods (internal IPs) for internal access
+    - '73.71.177.172/32' # Accept inbound LDAPS request from spambot
+    - '140.211.15.101/32' # Accept inbound LDAPS request from accounts.jenkins.io
+    - '20.12.27.65/32' # Accept inbound LDAPS request from puppet.jenkins.io
+    - '104.209.128.236/32' # Accept inbound LDAPS from trusted.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
+    - '172.176.126.194/32' # Accept inbound LDAPS from private.vpn.jenkins.io
+    - '104.209.153.13/32' # Accept inbound LDAPS from cert.ci.jenkins.io vnet (public IP for the outbound NAT gateway)
     - '34.211.101.61/32' # Accept inbound connections from Linux Foundation test machine
     - '44.240.22.235/32' # Accept inbound connections from Linux Foundation prod machine
     - '20.22.6.81/32' # Accept inbound connections from privatek8s outbound LB # TODO: find out how to retrieve this IP from terraform
@@ -49,5 +44,7 @@ tolerations:
     effect: "NoSchedule"
 
 persistence:
-  # TODO: add link to where the disk/PV/PVC are defined (and automate syncing?)
+  # Tracked by updatecli
   customDataClaimName: ldap-jenkins-io-data
+  # Tracked by updatecli
+  customBackupClaimName: ldap-jenkins-io-backup
