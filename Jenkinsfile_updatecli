@@ -1,13 +1,13 @@
 def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
-properties([
-    buildDiscarder(logRotator(numToKeepStr: '10')),
-    timeout(time: 30, unit: 'MINUTES'),
+options {
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+    timeout(time: 30, unit: 'MINUTES')
     disableConcurrentBuilds()
-])
-if (cronExpr) {
-    properties([pipelineTriggers([cron(cronExpr)])])
-}
+  }
+  triggers {
+    cron (cronExpr)
+  }
 
 node('jnlp-linux-arm64') {
     // Set environment variable for Azure credentials (from Jenkins credentials)
