@@ -1,42 +1,43 @@
 def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
-options {
-    buildDiscarder(logRotator(numToKeepStr: '10'))
-    timeout(time: 30, unit: 'MINUTES')
+properties([
+    buildDiscarder(logRotator(numToKeepStr: '10')),
     disableConcurrentBuilds()
-  }
-  triggers {
-    cron (cronExpr)
-  }
+])
 
 node('jnlp-linux-arm64') {
-    // Set environment variable for Azure credentials (from Jenkins credentials)
-    env.UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal')
+  timeout(time: 30, unit: 'MINUTES') {
+    if (cronExpr) {
+        properties([pipelineTriggers([cron(cronExpr)])])
+    } 
+      // Set environment variable for Azure credentials (from Jenkins credentials)
+      env.UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal')
 
-    withCredentials([
-        usernamePassword(
-            credentialsId: 'github-app-updatecli-on-jenkins-infra', // needed for updatecli
-            usernameVariable: 'USERNAME_VALUE',
-            passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
-        )
-    ]) {
-        // Preliminary Azure login steps
-        sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
-        sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
+      withCredentials([
+          usernamePassword(
+              credentialsId: 'github-app-updatecli-on-jenkins-infra', // needed for updatecli
+              usernameVariable: 'USERNAME_VALUE',
+              passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
+          )
+      ]) {
+          // Preliminary Azure login steps
+          sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
+          sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
 
-        // Branch conditional: if not primary, run diff; otherwise, run apply
-        if (!env.BRANCH_IS_PRIMARY) {
-            stage('Check Configuration Update') {
-                script {
-                    updatecli(action: 'diff')
-                }
-            }
-        } else {
-            stage('Apply Configuration Update') {
-                script {
-                    updatecli(action: 'apply')
-                }
-            }
-        }
-    }
+          // Branch conditional: if not primary, run diff; otherwise, run apply
+          if (!env.BRANCH_IS_PRIMARY) {
+              stage('Check Configuration Update') {
+                  script {
+                      updatecli(action: 'diff')
+                  }
+              }
+          } else {
+              stage('Apply Configuration Update') {
+                  script {
+                      updatecli(action: 'apply')
+                  }
+              }
+          }
+      }
+  }
 }
