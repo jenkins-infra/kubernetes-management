@@ -1,68 +1,31 @@
-def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
+final String cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
-pipeline {
-  agent {
-    label 'jnlp-linux-arm64'
-  }
+properties([
+    buildDiscarder(logRotator(numToKeepStr: '10')),
+    disableConcurrentBuilds(),
+    pipelineTriggers([cron(cronExpr)]),
+])
 
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '10'))
-    timeout(time: 30, unit: 'MINUTES')
-    disableConcurrentBuilds()
-  }
-
-  triggers {
-    cron (cronExpr)
-  }
-
-  environment {
-    UPDATECLI_AZURE = credentials('updatecli-azure-serviceprincipal') //needed for az login
-  }
-  stages {
-    stage('Check Configuration Update') {
-      when {
-        expression { not { env.BRANCH_IS_PRIMARY }}
-      }
-      // Run updatecli's diff on both push and pull requests (in case a configuration change breaks updatecli)
-      steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          script {
-            withCredentials([
-              usernamePassword(
-                credentialsId: 'github-app-updatecli-on-jenkins-infra', //needed for updatecli
-                usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
+node('jnlp-linux-arm64') {
+    timeout(time: 30, unit: 'MINUTES') {
+        withCredentials([
+            azureServicePrincipal('updatecli-azure-serviceprincipal'), // needed for Azure login
+            usernamePassword(
+                credentialsId: 'github-app-updatecli-on-jenkins-infra', // needed for updatecli
+                usernameVariable: 'USERNAME_VALUE',
                 passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
-              )
-            ]) {
-              sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
-              sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
-              sh 'updatecli version'
-              sh 'updatecli diff --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
+            )
+        ]) {
+            // Preliminary Azure login steps
+            sh 'az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID"'
+            sh 'az account set -s "$AZURE_SUBSCRIPTION_ID"'
+            final String updatecliAction = env.BRANCH_IS_PRIMARY ? 'apply' : 'diff'
+            stage("Run updatecli action: ${updatecliAction}") {
+                updatecli(
+                    action: updatecliAction,
+                    runInCurrentAgent: true,
+                )
             }
-          }
         }
-      }
-    } // stage
-    stage('Apply Configuration Update') {
-      when {
-        expression { env.BRANCH_IS_PRIMARY }
-      }
-      steps {
-        script {
-            withCredentials([
-              usernamePassword(
-                credentialsId: 'github-app-updatecli-on-jenkins-infra', //needed for updatecli
-                usernameVariable: 'USERNAME_VALUE', // Setting this variable is mandatory, even if of not used when the credentials is a githubApp one
-                passwordVariable: 'UPDATECLI_GITHUB_TOKEN'
-              )
-            ]) {
-              sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
-              sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
-              sh 'updatecli version'
-              sh 'updatecli apply --values ./updatecli/values.yaml --config ./updatecli/updatecli.d'
-            }
-          }
-      }
     }
-  }
 }
