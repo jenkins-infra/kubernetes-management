@@ -19,8 +19,8 @@ node('jnlp-linux-arm64') {
             )
         ]) {
             // Preliminary Azure login steps
-            sh 'az login --service-principal -u "$UPDATECLI_AZURE_CLIENT_ID" -p "$UPDATECLI_AZURE_CLIENT_SECRET" -t "$UPDATECLI_AZURE_TENANT_ID"'
-            sh 'az account set -s "$UPDATECLI_AZURE_SUBSCRIPTION_ID"'
+            sh 'az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID"'
+            sh 'az account set -s "$AZURE_SUBSCRIPTION_ID"'
 
             // Branch conditional: if not primary, run diff; otherwise, run apply
             if (!env.BRANCH_IS_PRIMARY) {
