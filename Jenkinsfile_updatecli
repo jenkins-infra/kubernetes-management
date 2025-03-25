@@ -2,7 +2,7 @@ final String cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
 properties([
     buildDiscarder(logRotator(numToKeepStr: '10')),
-    disableConcurrentBuilds(),
+    disableConcurrentBuilds(abortPrevious: true),
     pipelineTriggers([cron(cronExpr)]),
 ])
 
