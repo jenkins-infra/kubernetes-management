@@ -26,13 +26,19 @@ node('jnlp-linux-arm64') {
             if (!env.BRANCH_IS_PRIMARY) {
                 stage('Check Configuration Update') {
                     script {
-                        updatecli(action: 'diff')
+                        updatecli(
+                                action: 'diff',
+                                runInCurrentAgent: true
+                            )
                     }
                 }
             } else {
                 stage('Apply Configuration Update') {
                     script {
-                        updatecli(action: 'apply')
+                        updatecli(
+                                action: 'apply',
+                                runInCurrentAgent: true
+                            )
                     }
                 }
             }
