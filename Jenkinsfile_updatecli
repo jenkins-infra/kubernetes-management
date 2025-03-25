@@ -1,4 +1,4 @@
-final String cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
+final String cronExpr = env.BRANCH_IS_PRIMARY ? '@daily' : ''
 
 properties([
     buildDiscarder(logRotator(numToKeepStr: '10')),
