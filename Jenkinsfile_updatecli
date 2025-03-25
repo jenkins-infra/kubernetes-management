@@ -2,11 +2,9 @@ def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
 properties([
     buildDiscarder(logRotator(numToKeepStr: '10')),
-    disableConcurrentBuilds()
-])
-if (cronExpr) {
+    disableConcurrentBuilds(),
     properties([pipelineTriggers([cron(cronExpr)])])
-}
+])
 
 node('jnlp-linux-arm64') {
     timeout(time: 30, unit: 'MINUTES') {
@@ -21,25 +19,21 @@ node('jnlp-linux-arm64') {
             // Preliminary Azure login steps
             sh 'az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID"'
             sh 'az account set -s "$AZURE_SUBSCRIPTION_ID"'
-
-            // Branch conditional: if not primary, run diff; otherwise, run apply
             if (!env.BRANCH_IS_PRIMARY) {
                 stage('Check Configuration Update') {
-                    script {
-                        updatecli(
-                                action: 'diff',
-                                runInCurrentAgent: true
-                            )
+                    updatecli(
+                            action: 'diff',
+                            runInCurrentAgent: true
+                        )
                     }
                 }
-            } else {
+            else {
                 stage('Apply Configuration Update') {
-                    script {
-                        updatecli(
-                                action: 'apply',
-                                runInCurrentAgent: true
-                            )
-                    }
+
+                    updatecli(
+                            action: 'apply',
+                            runInCurrentAgent: true
+                        )
                 }
             }
         }
