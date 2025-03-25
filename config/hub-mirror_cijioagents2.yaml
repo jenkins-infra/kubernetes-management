@@ -59,3 +59,8 @@ initContainers:
     volumeMounts:
       - mountPath: /var/lib/registry
         name: data
+
+extraEnvVars:
+  # Ref. https://github.com/distribution/distribution/issues/2367#issuecomment-1874449361
+  - name: REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR
+    value: dummyvalue
