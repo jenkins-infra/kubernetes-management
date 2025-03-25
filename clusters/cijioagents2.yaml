@@ -38,6 +38,7 @@ releases:
     secrets:
       - "../secrets/config/hub-mirror/secrets.yaml"
   - name: jenkins-agents
+    # TODO: track with updatecli
     namespace: jenkins-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 1.1.0
@@ -46,6 +47,7 @@ releases:
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: jenkins-agents-bom
+    # TODO: track with updatecli
     namespace: jenkins-agents-bom
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 1.1.0
@@ -53,3 +55,10 @@ releases:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml"
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
+  - name: maven-cacher
+    # TODO: track with updatecli
+    namespace: maven-cache
+    chart: jenkins-infra/maven-cacher
+    version: 0.0.1
+    values:
+      - "../config/cijioagents2-maven-cacher.yaml"
