@@ -11,13 +11,7 @@ if (cronExpr) {
 node('jnlp-linux-arm64') {
     timeout(time: 30, unit: 'MINUTES') {
         withCredentials([
-            usernamePassword(
-                credentialsId: 'updatecli-azure-serviceprincipal',
-                usernameVariable: 'UPDATECLI_AZURE_CLIENT_ID',
-                passwordVariable: 'UPDATECLI_AZURE_CLIENT_SECRET' // needed for Azure login
-            ),
-            string(credentialsId: 'updatecli-azure-tenant-id', variable: 'UPDATECLI_AZURE_TENANT_ID'),
-            string(credentialsId: 'updatecli-azure-subscription-id', variable: 'UPDATECLI_AZURE_SUBSCRIPTION_ID'),
+            azureServicePrincipal('updatecli-azure-serviceprincipal'), // needed for Azure login
             usernamePassword(
                 credentialsId: 'github-app-updatecli-on-jenkins-infra', // needed for updatecli
                 usernameVariable: 'USERNAME_VALUE',
