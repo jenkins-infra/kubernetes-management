@@ -19,6 +19,9 @@ sources:
     spec:
       url: https://kubernetes.github.io/ingress-nginx
       name: ingress-nginx
+      versionfilter:
+        kind: semver
+        pattern: "~4.11"
 
 targets:
   updateChartVersion:
