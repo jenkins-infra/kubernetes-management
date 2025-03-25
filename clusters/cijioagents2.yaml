@@ -59,6 +59,6 @@ releases:
     # TODO: track with updatecli
     namespace: maven-cache
     chart: jenkins-infra/maven-cacher
-    version: 0.0.1
+    version: 0.0.2
     values:
       - "../config/cijioagents2-maven-cacher.yaml"
