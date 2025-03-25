@@ -1,9 +1,9 @@
-final String cronExpr = env.BRANCH_IS_PRIMARY ? '@daily' : ''
+final String cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
 properties([
     buildDiscarder(logRotator(numToKeepStr: '10')),
     disableConcurrentBuilds(),
-    properties([pipelineTriggers([cron(cronExpr)])]),
+    pipelineTriggers([cron(cronExpr)]),
 ])
 
 node('jnlp-linux-arm64') {
