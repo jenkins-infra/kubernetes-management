@@ -1,0 +1,69 @@
+name: Update `maven-cacher` configuration
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  getPVCName:
+    kind: json
+    name: Retrieve the PVC name from the Terraform report
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.maven_cache_pvcs.maven-cache
+  getJenkinsSelectorName:
+    kind: json
+    name: Retrieve the PVC name from the Terraform report
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.node_groups.applications.labels.jenkins
+  getRoleSelectorName:
+    kind: json
+    name: Retrieve the PVC name from the Terraform report
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.node_groups.applications.labels.role
+
+targets:
+  updatePVCNameInConfig:
+    name: Update PVC name in the configuration
+    kind: yaml
+    sourceid: getPVCName
+    spec:
+      file: ./config/cijioagents2-maven-cacher.yaml
+      key: $.cachePvc
+    scmid: default
+  updateJenkinsSelectorInConfig:
+    name: Update Jenkins Selector in the configuration
+    kind: yaml
+    sourceid: getJenkinsSelectorName
+    spec:
+      file: ./config/cijioagents2-maven-cacher.yaml
+      key: $.nodeSelector.jenkins
+    scmid: default
+  updateRoleSelectorInConfig:
+    name: Update Role Selector in the configuration
+    kind: yaml
+    sourceid: getRoleSelectorName
+    spec:
+      file: ./config/cijioagents2-maven-cacher.yaml
+      key: $.nodeSelector.role
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update `maven-cacher` configuration
+    spec:
+      labels:
+        - maven-cacher
+        - configuration
