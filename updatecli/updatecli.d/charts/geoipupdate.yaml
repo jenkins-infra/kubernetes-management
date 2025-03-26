@@ -1,0 +1,43 @@
+name: Bump `geoipupdate` Helm Chart Version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  lastChartVersion:
+    kind: helmchart
+    name: get last chart version
+    spec:
+      url: https://jenkins-infra.github.io/helm-charts
+      name: geoipupdates
+
+targets:
+  updateChartVersion:
+    name: Update the chart version for geoipupdate
+    kind: yaml
+    spec:
+      file: clusters/publick8s.yaml
+      engine: yamlpath
+      key: $.releases[?(@.name == 'geoipdata')].version
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump `geoipupdate` Helm Chart Version to {{ source "lastChartVersion" }}
+    spec:
+      labels:
+        - dependencies
+        - charts
+        - geoipupdate
+        - geoip-data
