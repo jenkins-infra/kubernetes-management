@@ -101,6 +101,9 @@ jobsDefinition:
         branchIncludes: "production staging updatecli_* PR-* main"
       shared-tools:
         name: Shared Tools
+      pipeline-library:
+        name: Shared Pipeline Library
+        jenkinsfilePath: Jenkinsfile
       packer-images-gc:
         name: Garbage collector for Packer Images
         repository: packer-images
@@ -290,6 +293,10 @@ jobsDefinition:
             description: "Azure Service Principal credential used by updatecli"
             subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
             tenant: "${UPDATECLI_AZURE_TENANT_ID}"
+      pipeline-library:
+        name: Shared Pipeline Library
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       release:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
