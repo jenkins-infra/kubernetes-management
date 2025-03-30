@@ -6,25 +6,35 @@ service:
     name: ldap-jenkins-io-ipv4
     resourceGroup: prod-public-ips
   lbAllowSources:
-    publick8s-out-lb-1: '20.85.71.108/32'
-    publick8s-out-lb-2: '20.22.30.9/32'
-    publick8s-out-lb-3: '20.22.30.74/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+    publick8s-out-lb: '20.85.71.108/32,20.22.30.9/32,20.22.30.74/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     publick8s-nat: '20.7.192.189/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     publick8s-pods: '10.100.0.0/16'
     # TODO: remove
     spambot: '73.71.177.172/32'
     # TODO: remove (old OSUOSL IP)
     accounts.jenkins.io: '140.211.15.101/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     puppet.jenkins.io: '20.12.27.65/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     trusted.ci.jenkins.io: '104.209.128.236/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     private.vpn.jenkins.io: '172.176.126.194/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     cert.ci.jenkins.io: '104.209.153.13/32'
+    # Provided by LF
     linuxfoundation-staging: '34.211.101.61/32'
+    # Provided by LF
     linuxfoundation-prod: '44.240.22.235/32'
-    privatek8s-out-lb-1: '20.22.6.81/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+    privatek8s-out-lb: '20.22.6.81/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     privatek8s-nat: '20.65.63.127/32'
-    # https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/
+    # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     jfrog-artifactory: '18.214.241.149/32,34.201.191.93/32,34.233.58.83/32,54.236.124.56/32'
+    # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     aws.ci.jenkins.io: '3.146.166.108/32'
 
 resources:
@@ -45,7 +55,7 @@ tolerations:
     effect: "NoSchedule"
 
 persistence:
-  # Tracked by updatecli
+  # Tracked by updatecli - updatecli/updatecli.d/configs/pvc-ldap.yaml
   customDataClaimName: ldap-jenkins-io-data
-  # Tracked by updatecli
+  # Tracked by updatecli - updatecli/updatecli.d/configs/pvc-ldap.yaml
   customBackupClaimName: ldap-jenkins-io-backup
