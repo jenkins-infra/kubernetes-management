@@ -12,10 +12,6 @@ service:
     publick8s-nat: '20.7.192.189/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     publick8s-pods: '10.100.0.0/16'
-    # TODO: remove
-    spambot: '73.71.177.172/32'
-    # TODO: remove (old OSUOSL IP)
-    accounts.jenkins.io: '140.211.15.101/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     puppet.jenkins.io: '20.12.27.65/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
