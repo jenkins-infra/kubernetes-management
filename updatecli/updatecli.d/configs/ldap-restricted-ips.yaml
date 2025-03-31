@@ -13,6 +13,71 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
+  puppet.jenkins.io:
+    kind: json
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .puppet\.jenkins\.io.outbound_ips
+    transformers:
+      - addprefix: "'"
+      - addsuffix: '/32'
+      - addsuffix: "'"
+
+  publick8s-lb:
+    kind: json
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .publick8s.lb_outbound_ips.ipv4
+    transformers:
+      - trimprefix: '['
+      - trimsuffix: ']'
+      - replacer:
+          from: ' '
+          to: '/32,'
+      - addsuffix: '/32'
+      - addprefix: "'"
+      - addsuffix: "'"
+
+  publick8s-pods:
+    kind: json
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      # Ipv4 is always the first element
+      key: .publick8s.pod_cidrs.[0]
+    transformers:
+      - addprefix: "'"
+      - addsuffix: "'"
+
+  privatek8s-lb:
+    kind: json
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .privatek8s.lb_outbound_ips.ipv4
+    transformers:
+      - trimprefix: '['
+      - trimsuffix: ']'
+      - replacer:
+          from: ' '
+          to: '/32,'
+      - addsuffix: '/32'
+      - addprefix: "'"
+      - addsuffix: "'"
+
+  # https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/
+  jfrog:
+    kind: json
+    spec:
+      file: https://my.jfrog.com/api/jmis/v1/ip-ranges
+      # Dasel v1 query
+      key: .(cloud=aws)(region=us-east-1)(service=jfrog_cloud_cidr).cidr
+    # Change the json list to a comma-separated list into a single string
+    transformers:
+      - trimprefix: '['
+      - trimsuffix: ']'
+      - replacer:
+          from: ' '
+          to: ','
+
   aws-ci-jenkins-io:
     kind: json
     spec:
@@ -25,14 +90,58 @@ sources:
       - addsuffix: "/32'"
 
 targets:
+  puppet.jenkins.io:
+    name: Update puppet.jenkins.io CIDR in the LDAP configuration
+    kind: yaml
+    sourceid: puppet.jenkins.io
+    spec:
+      file: config/ldap.yaml
+      key: $.service.lbAllowSources.'puppet.jenkins.io'
+    scmid: default
+
+  publick8s-pods:
+    name: Update publick8s pod CIDRs in the LDAP configuration
+    kind: yaml
+    sourceid: publick8s-pods
+    spec:
+      file: config/ldap.yaml
+      key: $.service.lbAllowSources.publick8s-pods
+    scmid: default
+
+  publick8s-lb:
+    name: Update publick8s outbound LB CIDRs in the LDAP configuration
+    kind: yaml
+    sourceid: publick8s-lb
+    spec:
+      file: config/ldap.yaml
+      key: $.service.lbAllowSources.publick8s-out-lb
+    scmid: default
+
+  privatek8s-lb:
+    name: Update privatek8s outbound LB CIDRs in the LDAP configuration
+    kind: yaml
+    sourceid: privatek8s-lb
+    spec:
+      file: config/ldap.yaml
+      key: $.service.lbAllowSources.privatek8s-out-lb
+    scmid: default
+
   aws-ci-jenkins-io:
     name: Update aws.ci.jenkins.io CIDR in the LDAP configuration
     kind: yaml
     sourceid: aws-ci-jenkins-io
     spec:
       file: config/ldap.yaml
-      # That is a rather fragile pattern. TODO: improve helm chart to use map instead of array
       key: $.service.lbAllowSources.'aws.ci.jenkins.io'
+    scmid: default
+
+  jfrog:
+    name: Update JFrog CIDRs in the LDAP configuration
+    kind: yaml
+    sourceid: jfrog
+    spec:
+      file: config/ldap.yaml
+      key: $.service.lbAllowSources.jfrog-artifactory
     scmid: default
 
 actions:
