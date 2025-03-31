@@ -6,17 +6,17 @@ service:
     name: ldap-jenkins-io-ipv4
     resourceGroup: prod-public-ips
   lbAllowSources:
-    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+    # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     publick8s-out-lb: '20.85.71.108/32,20.22.30.9/32,20.22.30.74/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     publick8s-nat: '20.7.192.189/32'
-    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+    # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     publick8s-pods: '10.100.0.0/16'
     # TODO: remove
     spambot: '73.71.177.172/32'
     # TODO: remove (old OSUOSL IP)
     accounts.jenkins.io: '140.211.15.101/32'
-    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+    # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     puppet.jenkins.io: '20.12.27.65/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     trusted.ci.jenkins.io: '104.209.128.236/32'
@@ -28,7 +28,7 @@ service:
     linuxfoundation-staging: '34.211.101.61/32'
     # Provided by LF
     linuxfoundation-prod: '44.240.22.235/32'
-    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+    # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     privatek8s-out-lb: '20.22.6.81/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     privatek8s-nat: '20.65.63.127/32'
