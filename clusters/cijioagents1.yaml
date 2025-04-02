@@ -1,0 +1,23 @@
+---
+helmDefaults:
+  atomic: true
+  force: false
+  timeout: 300
+  wait: true
+repositories:
+  # https://github.com/DataDog/helm-charts/
+  - name: datadog
+    url: https://helm.datadoghq.com
+  # https://github.com/jenkins-infra/helm-charts/
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/helm-charts
+releases:
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 3.110.6
+    values:
+      - "../config/datadog.yaml.gotmpl"
+      - "../config/datadog_cijenkinsio-agents-1.yaml"
+    secrets:
+      - "../secrets/config/datadog/cijenkinsio-agents-1.yaml"

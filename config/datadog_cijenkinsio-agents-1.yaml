@@ -1,24 +1,32 @@
+providers:
+  aks:
+    enabled: true
 datadog:
-  clusterName: cijenkinsio-agents-2
+  clusterName: cijenkinsio-agents-1
   env:
     - name: DD_HOSTNAME
       valueFrom:
         fieldRef:
           fieldPath: spec.nodeName
+  kubelet:
+    host:
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    hostCAPath: /etc/kubernetes/certs/kubeletserver.crt
+    # Required as of Agent 7.35 because Kubelet certificates in AKS do not have a Subject Alternative Name (SAN) set.
+    tlsVerify: false
 clusterAgent:
-  # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
   nodeSelector:
     kubernetes.io/arch: amd64
     jenkins: ci.jenkins.io
     role: applications
-  # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
   tolerations:
     - key: "ci.jenkins.io/applications"
       operator: "Equal"
       value: "true"
       effect: "NoSchedule"
 agents:
-  # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
   tolerations:
     # These tolerations are needed to run the agents on the bom node pool
     - key: "ci.jenkins.io/bom"
