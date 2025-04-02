@@ -27,4 +27,4 @@ releases:
     # TODO: track with updatecli
     version: 1.6.5
     values:
-      - "../config/artifact-caching-proxy_azure-cijenkinsio-agents-1"
+      - "../config/artifact-caching-proxy_azure-cijenkinsio-agents-1.yaml"
