@@ -20,4 +20,4 @@ releases:
       - "../config/datadog.yaml.gotmpl"
       - "../config/datadog_cijenkinsio-agents-1.yaml"
     secrets:
-      - "../secrets/config/datadog/cijioagents1-secrets.yaml"
+      - "../secrets/config/datadog/cijenkinsio-agents-1.yaml"
