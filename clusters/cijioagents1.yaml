@@ -18,7 +18,7 @@ releases:
     version: 3.110.6
     values:
       - "../config/datadog.yaml.gotmpl"
-      - "../config/datadog_cijioagents1.yaml"
+      - "../config/datadog_cijenkinsio-agents-1.yaml"
     secrets:
       - "../secrets/config/datadog/cijioagents1-secrets.yaml"
   - name: jenkins-agents
