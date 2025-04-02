@@ -2,7 +2,7 @@ providers:
   aks:
     enabled: true
 datadog:
-  clusterName: 'cijioagents1'
+  clusterName: cijenkinsio-agents-1
   env:
     - name: DD_HOSTNAME
       valueFrom:
@@ -18,7 +18,8 @@ datadog:
     tlsVerify: false
 clusterAgent:
   nodeSelector:
-    kubernetes.io/arch: arm64
+    kubernetes.io/arch: amd64
+    jenkins: ci.jenkins.io
     role: applications
   tolerations:
     - key: "ci.jenkins.io/applications"
@@ -41,6 +42,14 @@ agents:
       value: "true"
       effect: "NoSchedule"
     - key: "CriticalAddonsOnly"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/windows-2019"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/windows-2022"
       operator: "Equal"
       value: "true"
       effect: "NoSchedule"
