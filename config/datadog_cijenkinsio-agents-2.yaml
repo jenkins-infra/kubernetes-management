@@ -8,7 +8,7 @@ datadog:
 clusterAgent:
   # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
   nodeSelector:
-    kubernetes.io/arch: amd64
+    kubernetes.io/arch: arm64
     jenkins: ci.jenkins.io
     role: applications
   # TODO: track with updatecli (from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json)
