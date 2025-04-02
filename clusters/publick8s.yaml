@@ -222,7 +222,7 @@ releases:
   - name: updates-jenkins-io-content-secured
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.5.18
+    version: 5.5.19
     values:
       - "../config/updates.jenkins.io-content-secured.yaml"
     secrets:
@@ -237,7 +237,7 @@ releases:
   - name: updates-jenkins-io-content-unsecured
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.5.18
+    version: 5.5.19
     values:
       - "../config/updates.jenkins.io-content-unsecured.yaml"
     secrets:
