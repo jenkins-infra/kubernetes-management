@@ -21,3 +21,10 @@ releases:
       - "../config/datadog_cijenkinsio-agents-1.yaml"
     secrets:
       - "../secrets/config/datadog/cijenkinsio-agents-1.yaml"
+  - name: artifact-caching-proxy
+    namespace: artifact-caching-proxy
+    chart: jenkins-infra/artifact-caching-proxy
+    # TODO: track with updatecli
+    version: 1.6.5
+    values:
+      - "../config/artifact-caching-proxy_azure-cijenkinsio-agents-1.yaml"
