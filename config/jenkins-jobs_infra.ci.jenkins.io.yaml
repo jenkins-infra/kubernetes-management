@@ -49,6 +49,7 @@ jobsDefinition:
       account-app:
         jenkinsfilePath: Jenkinsfile
       docker-404:
+        disableTagDiscovery: true
       docker-builder:
       docker-confluence-data:
       docker-crond:
