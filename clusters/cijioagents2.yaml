@@ -43,6 +43,7 @@ releases:
     version: 1.1.0
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml"
+    # TODO: delete?
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: jenkins-agents-bom
@@ -52,6 +53,7 @@ releases:
     version: 1.1.0
     values:
       - "../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml"
+    # TODO: delete?
     secrets:
       - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
   - name: maven-cacher
