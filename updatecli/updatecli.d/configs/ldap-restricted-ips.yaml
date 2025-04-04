@@ -103,8 +103,7 @@ sources:
       - replacer:
           from: ' '
           to: '/32,'
-      - addsuffix: "/32'"
-      - addprefix: "'"
+      - addsuffix: "/32"
 
 targets:
   puppet.jenkins.io:
