@@ -33,7 +33,7 @@ service:
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     aws.ci.jenkins.io: '3.146.166.108/32'
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
-    azure.ci.jenkins.io: '172.200.138.43/32'
+    azure.ci.jenkins.io: 68.154.31.56/32,20.57.126.88/32
 
 resources:
   limits:
