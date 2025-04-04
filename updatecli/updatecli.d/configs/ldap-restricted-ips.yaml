@@ -92,13 +92,19 @@ sources:
   azure-ci-jenkins-io:
     kind: json
     spec:
-      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
       # Outbound IPs are also public "inbound" IPs for EC2 instances
       # The 2nd element is the IPv4 (1st is IPv6)
-      key: .azure\.ci\.jenkins\.io.service_ips.ipv4
+      key: .ci\.jenkins\.io.outbound_ips
+    # Change the json list to a comma-separated list into a single string
     transformers:
-      - addprefix: "'"
+      - trimprefix: '['
+      - trimsuffix: ']'
+      - replacer:
+          from: ' '
+          to: '/32,'
       - addsuffix: "/32'"
+      - addprefix: "'"
 
 targets:
   puppet.jenkins.io:

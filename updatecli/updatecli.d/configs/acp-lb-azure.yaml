@@ -30,7 +30,7 @@ targets:
     name: Update ACP LB IPv4
     kind: yaml
     spec:
-      file: config/artifact-caching-proxy_azure-aks.yaml
+      file: config/artifact-caching-proxy_azure-cijenkinsio-agents-1.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/azure-load-balancer-ipv4'
     scmid: default
 
