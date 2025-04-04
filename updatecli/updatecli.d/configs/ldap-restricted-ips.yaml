@@ -89,6 +89,17 @@ sources:
       - addprefix: "'"
       - addsuffix: "/32'"
 
+  azure-ci-jenkins-io:
+    kind: json
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      # Outbound IPs are also public "inbound" IPs for EC2 instances
+      # The 2nd element is the IPv4 (1st is IPv6)
+      key: .azure\.ci\.jenkins\.io.service_ips.ipv4
+    transformers:
+      - addprefix: "'"
+      - addsuffix: "/32'"
+
 targets:
   puppet.jenkins.io:
     name: Update puppet.jenkins.io CIDR in the LDAP configuration
@@ -133,6 +144,15 @@ targets:
     spec:
       file: config/ldap.yaml
       key: $.service.lbAllowSources.'aws.ci.jenkins.io'
+    scmid: default
+
+  azure-ci-jenkins-io:
+    name: Update azure.ci.jenkins.io CIDR in the LDAP configuration
+    kind: yaml
+    sourceid: azure-ci-jenkins-io
+    spec:
+      file: config/ldap.yaml
+      key: $.service.lbAllowSources.'azure.ci.jenkins.io'
     scmid: default
 
   jfrog:
