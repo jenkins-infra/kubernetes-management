@@ -46,34 +46,56 @@ jobsDefinition:
             appId: "${GITHUB_APP_JENKINSCI_ID}"
             owner: "jenkinsci"
             privateKey: "${GITHUB_APP_JENKINSCI_PRIVATE_KEY}"
+        disableTagDiscovery: true
       account-app:
         jenkinsfilePath: Jenkinsfile
+        disableTagDiscovery: true
       docker-404:
         disableTagDiscovery: true
       docker-builder:
+        disableTagDiscovery: true
       docker-confluence-data:
+        disableTagDiscovery: true
       docker-crond:
+        disableTagDiscovery: true
       docker-geoipupdate:
+        disableTagDiscovery: true
       docker-inbound-agents:
+        disableTagDiscovery: true
       docker-jenkins-lts:
+        disableTagDiscovery: true
       docker-jenkins-weeklyci:
+        disableTagDiscovery: true
       docker-jenkins-infraci:
+        disableTagDiscovery: true
       docker-keycloak-theme:
+        disableTagDiscovery: true
       docker-ldap:
+        disableTagDiscovery: true
       docker-mirrorbits:
+        disableTagDiscovery: true
       docker-openvpn:
+        disableTagDiscovery: true
       docker-packaging:
+        disableTagDiscovery: true
       docker-plugin-site-issues:
+        disableTagDiscovery: true
       docker-rsyncd:
+        disableTagDiscovery: true
       ircbot:
         jenkinsfilePath: Jenkinsfile
+        disableTagDiscovery: true
       plugin-health-scoring:
         jenkinsfilePath: Jenkinsfile
+        disableTagDiscovery: true
       plugin-site-api:
         jenkinsfilePath: Jenkinsfile
+        disableTagDiscovery: true
       rating:
+        disableTagDiscovery: true
       uplink:
         jenkinsfilePath: Jenkinsfile
+        disableTagDiscovery: true
   infra-tools:
     name: Infrastructure Tooling Jobs
     description: Folder hosting all the Infrastructure Tools jobs
