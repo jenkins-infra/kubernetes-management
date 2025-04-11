@@ -78,17 +78,6 @@ sources:
           from: ' '
           to: ','
 
-  aws-ci-jenkins-io:
-    kind: json
-    spec:
-      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      # Outbound IPs are also public "inbound" IPs for EC2 instances
-      # The 2nd element is the IPv4 (1st is IPv6)
-      key: .aws\.ci\.jenkins\.io.outbound_ips.controller.[1]
-    transformers:
-      - addprefix: "'"
-      - addsuffix: "/32'"
-
   azure-ci-jenkins-io:
     kind: json
     spec:
@@ -140,15 +129,6 @@ targets:
     spec:
       file: config/ldap.yaml
       key: $.service.lbAllowSources.privatek8s-out-lb
-    scmid: default
-
-  aws-ci-jenkins-io:
-    name: Update aws.ci.jenkins.io CIDR in the LDAP configuration
-    kind: yaml
-    sourceid: aws-ci-jenkins-io
-    spec:
-      file: config/ldap.yaml
-      key: $.service.lbAllowSources.'aws.ci.jenkins.io'
     scmid: default
 
   azure-ci-jenkins-io:

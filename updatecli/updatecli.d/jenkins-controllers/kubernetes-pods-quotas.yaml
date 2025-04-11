@@ -13,34 +13,34 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  ci.jenkins.io-agents-2_maxcapacity:
-    kind: yaml
-    name: get pods number for ci.jenkins.io-agents-2 in ci.jenkins.io, namespace 'jenkins-agents'
+  jenkins_agents_maxcapacity:
+    kind: json
+    name: get pods number for ci.jenkins.io-agents-1 in ci.jenkins.io, namespace 'jenkins-agents-bom'
     spec:
-      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/aws.ci.jenkins.io.yaml"
-      key: $.profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.'ci.jenkins.io-agents-2'.max_capacity
-  ci.jenkins.io-agents-2_bom_maxcapacity:
-    kind: yaml
-    name: get pods number for ci.jenkins.io-agents-2_bom in ci.jenkins.io, namespace 'jenkins-agents-bom'
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: cijenkinsio_agents_1.agent_namespaces.jenkins-agents.pods_quota
+  jenkins_agents_bom_maxcapacity:
+    kind: json
+    name: get pods number for ci.jenkins.io-agents-1 in ci.jenkins.io, namespace 'jenkins-agents-bom'
     spec:
-      file: "https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/hieradata/clients/aws.ci.jenkins.io.yaml"
-      key: $.profile::jenkinscontroller::jcasc.cloud_agents.kubernetes.'ci.jenkins.io-agents-2-bom'.max_capacity
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: cijenkinsio_agents_1.agent_namespaces.jenkins-agents-bom.pods_quota
 
 targets:
-  pod_quotas_ci.jenkins.io-agents-2:
-    name: "Update the pods quotas in kubernetes for ci.jenkins.io-agents-2"
+  pod_quotas_jenkins_agents:
+    name: Update the pods quotas in kubernetes for the namespace 'jenkins-agents'
     kind: yaml
-    sourceid: ci.jenkins.io-agents-2_maxcapacity
+    sourceid: jenkins_agents_maxcapacity
     spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents1.yaml
       key: $.quotas.pods
     scmid: default
-  pod_quotas_ci.jenkins.io-agents-2_bom:
-    name: "Update the pods quotas in kubernetes for ci.jenkins.io-agents-2-bom"
+  pod_quotas_jenkins_agents_bom:
+    name: Update the pods quotas in kubernetes for the namespace 'jenkins-agents-bom'
     kind: yaml
-    sourceid: ci.jenkins.io-agents-2_bom_maxcapacity
+    sourceid: jenkins_agents_bom_maxcapacity
     spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents1-bom.yaml
       key: $.quotas.pods
     scmid: default
 
@@ -48,9 +48,8 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update `quotas.pods` within `ci.jenkins.io-agents-2` cluster to {{ source "ci.jenkins.io-agents-2_maxcapacity" }} and `ci.jenkins.io-agents-2_bom_maxcapacity` cluster (`bom` node pool) to {{ source "ci.jenkins.io-agents-2_bom_maxcapacity" }}
+    title: '[ci.jenkins.io-agents-1] Update jenkins-agents `quotas.pods` to {{ source "jenkins_agents_maxcapacity" }} and jenkins-agents-bom to {{ source "jenkins_agents_bom_maxcapacity" }}'
     spec:
       labels:
         - dependencies
-        - jenkins-kubernetes-agents
-        - quotas.pods
+        - ci.jenkins.io-agents-1
