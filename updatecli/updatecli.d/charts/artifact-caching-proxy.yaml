@@ -26,9 +26,7 @@ targets:
     kind: yaml
     spec:
       files:
-        # TODO: uncomment once ACP is installed here
-        # - clusters/cijioagents1.yaml
-        - clusters/cijioagents2.yaml
+        - clusters/cijioagents1.yaml
       engine: yamlpath
       key: $.releases[?(@.name == 'artifact-caching-proxy')].version
     scmid: default

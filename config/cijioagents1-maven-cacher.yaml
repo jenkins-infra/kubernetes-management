@@ -1,5 +1,4 @@
 image:
-  #TODO: track with updatecli
   tag: 2.34.0
 
 nodeSelector:
@@ -33,7 +32,6 @@ containerSecurityContext:
     drop:
       - ALL
 
-#TODO: track with updatecli
 cachePvc: ci-jenkins-io-maven-cache
 javaHome: /opt/jdk-21
 mavenMirror:
