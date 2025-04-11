@@ -27,5 +27,3 @@ releases:
     version: 1.0.0
     values:
       - "../config/jenkins-infra-agents-infracijioagents1.yaml"
-    secrets:
-      - "../secrets/config/jenkins-kubernetes-agents/secrets.yaml"
