@@ -72,6 +72,8 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-ldap:
         disableTagDiscovery: true
+      docker-matomo:
+        disableTagDiscovery: true
       docker-mirrorbits:
         disableTagDiscovery: true
       docker-openvpn:
