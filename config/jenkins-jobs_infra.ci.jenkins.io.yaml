@@ -220,6 +220,9 @@ jobsDefinition:
       docker-confluence-data:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      docker-crond:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       docker-geoipupdate:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
