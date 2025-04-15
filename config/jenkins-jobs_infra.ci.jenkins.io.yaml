@@ -87,7 +87,7 @@ jobsDefinition:
         disableTagDiscovery: true
       plugin-health-scoring:
         jenkinsfilePath: Jenkinsfile
-        disableTagDiscovery: true
+        disableTagDiscovery: false # PHS uses manual tags
       plugin-site-api:
         jenkinsfilePath: Jenkinsfile
         disableTagDiscovery: true
