@@ -72,6 +72,8 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-ldap:
         disableTagDiscovery: true
+      docker-matomo:
+        disableTagDiscovery: true
       docker-mirrorbits:
         disableTagDiscovery: true
       docker-openvpn:
@@ -236,6 +238,9 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-jenkins-weeklyci:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
+      docker-keycloak-theme:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-ldap:
