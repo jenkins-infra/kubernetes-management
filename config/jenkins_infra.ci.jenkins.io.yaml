@@ -776,7 +776,7 @@ controller:
                   - zip:
                       label: "windows"
                       subdir: "jdk-11.0.26+4"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26%2B4/OpenJDK11U-jdk_x64_windows_hotspot_11.0.26_4.zip"
+                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.27%2B6/OpenJDK11U-jdk_x64_windows_hotspot_11.0.27_6.zip"
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk-11.0.26+4"
