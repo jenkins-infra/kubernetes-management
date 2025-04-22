@@ -157,7 +157,6 @@ controller:
             headerColor:
               backgroundColor: "#3B3B3B"
               color: "white"
-              hoverColor: "grey"
             logo: "default"
             logoText: "Jenkins"
             title: "with the <a href=\"https://plugins.jenkins.io/customizable-header/\">customizable-header</a>\
