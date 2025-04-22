@@ -829,7 +829,6 @@ controller:
             headerColor:
               backgroundColor: "linear-gradient(90deg, rgba(239,192,92,1) 0%, rgba(171,28,28,1) 100%);"
               color: "white"
-              hoverColor: "#D0763F"
             logo:
               image:
                 logoUrl: "https://infra.ci.jenkins.io/userContent/logos/beekeeper.png"
