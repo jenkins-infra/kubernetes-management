@@ -52,7 +52,7 @@ releases:
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
-    version: 5.8.33
+    version: 5.8.36
     timeout: 1200
     needs:
       - jenkins-infra-jobs # Required to generate the job definition in a configmap
@@ -71,7 +71,7 @@ releases:
   - name: jenkins-release
     namespace: jenkins-release
     chart: jenkins/jenkins
-    version: 5.8.33
+    version: 5.8.36
     timeout: 600
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
