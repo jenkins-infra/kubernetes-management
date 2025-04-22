@@ -20,7 +20,7 @@ networkPolicy:
 controller:
   image:
     repository: jenkinsciinfra/jenkins-weeklyci
-    tag: 2.11.0-2.506
+    tag: 2.12.1-2.507
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/arch: arm64
