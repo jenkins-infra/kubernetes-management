@@ -2,7 +2,7 @@ providers:
   aks:
     enabled: true
 datadog:
-  clusterName: 'privatek8s_sponsorship'
+  clusterName: 'privatek8s-sponsorship'
   env:
     - name: DD_HOSTNAME
       valueFrom:
