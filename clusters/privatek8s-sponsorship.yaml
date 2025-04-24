@@ -29,7 +29,23 @@ releases:
     chart: datadog/datadog
     version: 3.110.13
     values:
-      - "../config/datadog.yaml.gotmpl"
-      - "../config/datadog_privatek8s_sponsorship.yaml"
+      - ../config/datadog.yaml.gotmpl
+      - ../config/datadog_privatek8s_sponsorship.yaml
     secrets:
-      - "../secrets/config/datadog/privatek8s_sponsorship-secrets.yaml"
+      - ../secrets/config/datadog/privatek8s_sponsorship-secrets.yaml
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.17.1
+    values:
+      - ../config/cert-manager.yaml
+  - name: acme
+    namespace: cert-manager
+    chart: jenkins-infra/acme
+    version: 0.1.4
+    needs:
+      - cert-manager/cert-manager
+    values:
+      - ../config/acme.yaml
+    secrets:
+      - ../secrets/config/acme/jenkins.io-secrets.yaml
