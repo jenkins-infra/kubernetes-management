@@ -206,7 +206,7 @@ releases:
   - name: jenkinsio
     namespace: jenkinsio
     chart: jenkins-infra/jenkinsio
-    version: 1.2.4
+    version: 1.2.5
     values:
       - "../config/jenkinsio.yaml"
     secrets:
