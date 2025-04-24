@@ -49,3 +49,9 @@ releases:
       - ../config/acme.yaml
     secrets:
       - ../secrets/config/acme/jenkins.io-secrets.yaml
+  - name: jenkins-infra-jobs
+    namespace: jenkins-infra
+    chart: jenkins-infra/jenkins-jobs
+    version: 2.3.0
+    values:
+      - "../config/jenkins-jobs_infra.ci.jenkins.io.yaml"
