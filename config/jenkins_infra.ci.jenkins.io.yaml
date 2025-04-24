@@ -808,7 +808,7 @@ controller:
                   - zip:
                       label: "windows"
                       subdir: "jdk-21.0.7+6"
-                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.zip"
+                      url: ""
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk-21.0.7+6"
