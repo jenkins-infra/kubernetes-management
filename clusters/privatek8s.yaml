@@ -124,11 +124,3 @@ releases:
       - "../config/github-comment-ops.yaml"
     secrets:
       - "../secrets/config/github-comment-ops/secrets.yaml"
-  - name: ircbot
-    namespace: ircbot
-    chart: jenkins-infra/ircbot
-    version: 0.3.0
-    values:
-      - "../config/ircbot.yaml"
-    secrets:
-      - "../secrets/config/ircbot/secrets.yaml"
