@@ -103,7 +103,7 @@ releases:
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
-    version: 0.6.75
+    version: 0.6.76
     values:
       - "../config/wiki.yaml"
   - name: ldap
@@ -290,7 +290,7 @@ releases:
   - name: geoipdata
     namespace: geoip-data
     chart: jenkins-infra/geoipupdates
-    version: 2.20.0
+    version: 2.21.0
     values:
       - ../config/geoipdata.yaml
     secrets:
