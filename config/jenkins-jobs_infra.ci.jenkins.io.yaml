@@ -82,9 +82,6 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-rsyncd:
         disableTagDiscovery: true
-      ircbot:
-        jenkinsfilePath: Jenkinsfile
-        disableTagDiscovery: true
       plugin-health-scoring:
         jenkinsfilePath: Jenkinsfile
         disableTagDiscovery: false # PHS uses manual tags
