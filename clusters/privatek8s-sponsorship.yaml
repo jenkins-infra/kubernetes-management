@@ -70,3 +70,9 @@ releases:
     values:
       - ../config/public-nginx-ingress__common.yaml
       - ../config/public-nginx-ingress_privatek8s_sponsorship.yaml
+  - name: jenkins-release-core-package
+    namespace: jenkins-release-agents
+    chart: jenkins-infra/env-jenkins-release
+    version: 0.2.0
+    secrets:
+      - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
