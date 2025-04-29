@@ -68,24 +68,24 @@ releases:
     version: 2.3.0
     values:
       - "../config/jenkins-jobs_infra.ci.jenkins.io.yaml"
-  - name: jenkins-release
-    namespace: jenkins-release
-    chart: jenkins/jenkins
-    version: 5.8.37
-    timeout: 600
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
-      - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
-    values:
-      - ../config/jenkins_release.ci.jenkins.io.yaml
-    secrets:
-      - "../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml"
-  - name: jenkins-release-agents
-    namespace: jenkins-release-agents
-    chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 1.1.0
-    values:
-      - "../config/jenkins-kubernetes-agents_release.ci.jenkins.io.yaml"
+  # - name: jenkins-release
+  #   namespace: jenkins-release
+  #   chart: jenkins/jenkins
+  #   version: 5.8.37
+  #   timeout: 600
+  #   needs:
+  #     - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
+  #     - private-nginx-ingress/private-nginx-ingress # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
+  #   values:
+  #     - ../config/jenkins_release.ci.jenkins.io.yaml
+  #   secrets:
+  #     - "../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml"
+  # - name: jenkins-release-agents
+  #   namespace: jenkins-release-agents
+  #   chart: jenkins-infra/jenkins-kubernetes-agents
+  #   version: 1.1.0
+  #   values:
+  #     - "../config/jenkins-kubernetes-agents_release.ci.jenkins.io.yaml"
   - name: jenkins-release-core-package
     namespace: jenkins-release-agents
     chart: jenkins-infra/env-jenkins-release
