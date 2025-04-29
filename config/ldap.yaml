@@ -28,6 +28,8 @@ service:
     privatek8s-out-lb: '20.22.6.81/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     privatek8s-nat: '20.65.63.127/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
+    privatek8s-sponsorship-nat: '172.200.139.164/32, 128.24.89.148/32'
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     jfrog-artifactory: 34.233.58.83/32,34.201.191.93/32,18.214.241.149/32,54.236.124.56/32,34.199.85.0/32,54.204.174.26/32,54.237.44.112/32,52.1.113.0/32,52.86.38.82/32,44.198.238.218/32
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
