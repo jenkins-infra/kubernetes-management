@@ -24,31 +24,31 @@ repositories:
   - name: jetstack
     url: https://charts.jetstack.io
 releases:
-  - name: acme
-    namespace: cert-manager
-    chart: jenkins-infra/acme
-    version: 0.1.4
-    needs:
-      - cert-manager/cert-manager
-    values:
-      - "../config/acme.yaml"
-    secrets:
-      - "../secrets/config/acme/secrets.yaml"
-  - name: cert-manager
-    namespace: cert-manager
-    chart: jetstack/cert-manager
-    version: v1.17.2
-    values:
-      - "../config/cert-manager.yaml"
-  - name: datadog
-    namespace: datadog
-    chart: datadog/datadog
-    version: 3.110.14
-    values:
-      - "../config/datadog.yaml.gotmpl"
-      - "../config/datadog_privatek8s.yaml"
-    secrets:
-      - "../secrets/config/datadog/privatek8s-secrets.yaml"
+  # - name: acme
+  #   namespace: cert-manager
+  #   chart: jenkins-infra/acme
+  #   version: 0.1.4
+  #   needs:
+  #     - cert-manager/cert-manager
+  #   values:
+  #     - "../config/acme.yaml"
+  #   secrets:
+  #     - "../secrets/config/acme/secrets.yaml"
+  # - name: cert-manager
+  #   namespace: cert-manager
+  #   chart: jetstack/cert-manager
+  #   version: v1.17.2
+  #   values:
+  #     - "../config/cert-manager.yaml"
+  # - name: datadog
+  #   namespace: datadog
+  #   chart: datadog/datadog
+  #   version: 3.110.14
+  #   values:
+  #     - "../config/datadog.yaml.gotmpl"
+  #     - "../config/datadog_privatek8s.yaml"
+  #   secrets:
+  #     - "../secrets/config/datadog/privatek8s-secrets.yaml"
   - name: jenkins-infra
     namespace: jenkins-infra
     chart: jenkins/jenkins
@@ -62,12 +62,12 @@ releases:
       - "../config/jenkins_infra.ci.jenkins.io.yaml"
     secrets:
       - "../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml"
-  - name: jenkins-infra-jobs
-    namespace: jenkins-infra
-    chart: jenkins-infra/jenkins-jobs
-    version: 2.3.0
-    values:
-      - "../config/jenkins-jobs_infra.ci.jenkins.io.yaml"
+  # - name: jenkins-infra-jobs
+  #   namespace: jenkins-infra
+  #   chart: jenkins-infra/jenkins-jobs
+  #   version: 2.3.0
+  #   values:
+  #     - "../config/jenkins-jobs_infra.ci.jenkins.io.yaml"
   # - name: jenkins-release
   #   namespace: jenkins-release
   #   chart: jenkins/jenkins
@@ -86,41 +86,41 @@ releases:
   #   version: 1.1.0
   #   values:
   #     - "../config/jenkins-kubernetes-agents_release.ci.jenkins.io.yaml"
-  - name: jenkins-release-core-package
-    namespace: jenkins-release-agents
-    chart: jenkins-infra/env-jenkins-release
-    version: 0.2.0
-    secrets:
-      - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
-  - name: public-nginx-ingress
-    namespace: public-nginx-ingress
-    chart: ingress-nginx/ingress-nginx
-    version: 4.11.5
-    values:
-      - "../config/public-nginx-ingress__common.yaml"
-      - "../config/public-nginx-ingress_privatek8s.yaml"
-  - name: private-nginx-ingress
-    namespace: private-nginx-ingress
-    chart: ingress-nginx/ingress-nginx
-    version: 4.11.5
-    values:
-      - "../config/private-nginx-ingress__common.yaml"
-      - "../config/private-nginx-ingress_privatek8s.yaml"
-  - name: rss2twitter
-    namespace: rss2twitter
-    chart: jenkins-infra/rss2twitter
-    version: 0.1.0
-    values:
-      - "../config/rss2twitter.yaml"
-    secrets:
-      - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
-  - name: github-comment-ops
-    namespace: github-comment-ops
-    chart: github-comment-ops/github-comment-ops
-    version: 1.5.2
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
-    values:
-      - "../config/github-comment-ops.yaml"
-    secrets:
-      - "../secrets/config/github-comment-ops/secrets.yaml"
+  # - name: jenkins-release-core-package
+  #   namespace: jenkins-release-agents
+  #   chart: jenkins-infra/env-jenkins-release
+  #   version: 0.2.0
+  #   secrets:
+  #     - ../secrets/config/release.ci.jenkins.io/env-jenkins-secrets.yaml
+  # - name: public-nginx-ingress
+  #   namespace: public-nginx-ingress
+  #   chart: ingress-nginx/ingress-nginx
+  #   version: 4.11.5
+  #   values:
+  #     - "../config/public-nginx-ingress__common.yaml"
+  #     - "../config/public-nginx-ingress_privatek8s.yaml"
+  # - name: private-nginx-ingress
+  #   namespace: private-nginx-ingress
+  #   chart: ingress-nginx/ingress-nginx
+  #   version: 4.11.5
+  #   values:
+  #     - "../config/private-nginx-ingress__common.yaml"
+  #     - "../config/private-nginx-ingress_privatek8s.yaml"
+  # - name: rss2twitter
+  #   namespace: rss2twitter
+  #   chart: jenkins-infra/rss2twitter
+  #   version: 0.1.0
+  #   values:
+  #     - "../config/rss2twitter.yaml"
+  #   secrets:
+  #     - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
+  # - name: github-comment-ops
+  #   namespace: github-comment-ops
+  #   chart: github-comment-ops/github-comment-ops
+  #   version: 1.5.2
+  #   needs:
+  #     - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
+  #   values:
+  #     - "../config/github-comment-ops.yaml"
+  #   secrets:
+  #     - "../secrets/config/github-comment-ops/secrets.yaml"
