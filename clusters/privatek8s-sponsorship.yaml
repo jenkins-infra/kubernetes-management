@@ -103,21 +103,21 @@ releases:
       - jenkins-release/jenkins-release
     values:
       - "../config/jenkins-kubernetes-agents_release.ci.jenkins.io.yaml"
-  # - name: rss2twitter
-  #   namespace: rss2twitter
-  #   chart: jenkins-infra/rss2twitter
-  #   version: 0.1.0
-  #   values:
-  #     - "../config/rss2twitter.yaml"
-  #   secrets:
-  #     - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
-  # - name: github-comment-ops
-  #   namespace: github-comment-ops
-  #   chart: github-comment-ops/github-comment-ops
-  #   version: 1.5.2
-  #   needs:
-  #     - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
-  #   values:
-  #     - "../config/github-comment-ops.yaml"
-  #   secrets:
-  #     - "../secrets/config/github-comment-ops/secrets.yaml"
+  - name: rss2twitter
+    namespace: rss2twitter
+    chart: jenkins-infra/rss2twitter
+    version: 0.1.0
+    values:
+      - "../config/rss2twitter.yaml"
+    secrets:
+      - "../secrets/config/rss2twitter/secrets.yaml" # @jenkins_release Twitter dev account credentials
+  - name: github-comment-ops
+    namespace: github-comment-ops
+    chart: github-comment-ops/github-comment-ops
+    version: 1.5.2
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose the webhooks endpoint
+    values:
+      - "../config/github-comment-ops.yaml"
+    secrets:
+      - "../secrets/config/github-comment-ops/secrets.yaml"
