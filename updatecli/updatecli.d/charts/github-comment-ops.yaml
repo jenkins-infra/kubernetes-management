@@ -25,7 +25,7 @@ targets:
     name: "Update the chart version for github-comment-ops"
     kind: yaml
     spec:
-      file: clusters/privatek8s.yaml
+      file: clusters/privatek8s-sponsorship.yaml
       engine: yamlpath
       key: $.releases[?(@.name == 'github-comment-ops')].version
     scmid: default

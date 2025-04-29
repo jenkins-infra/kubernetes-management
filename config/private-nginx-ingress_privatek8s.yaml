@@ -1,5 +1,0 @@
-controller:
-  service:
-    annotations:
-      # azure-net:vnets.tf/private-vnet-data-tier
-      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: private-vnet-data-tier
