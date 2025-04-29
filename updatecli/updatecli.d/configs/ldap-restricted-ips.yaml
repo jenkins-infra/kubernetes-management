@@ -48,21 +48,6 @@ sources:
       - addprefix: "'"
       - addsuffix: "'"
 
-  privatek8s-lb:
-    kind: json
-    spec:
-      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .privatek8s.lb_outbound_ips.ipv4
-    transformers:
-      - trimprefix: '['
-      - trimsuffix: ']'
-      - replacer:
-          from: ' '
-          to: '/32,'
-      - addsuffix: '/32'
-      - addprefix: "'"
-      - addsuffix: "'"
-
   # https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/
   jfrog:
     kind: json
@@ -120,15 +105,6 @@ targets:
     spec:
       file: config/ldap.yaml
       key: $.service.lbAllowSources.publick8s-out-lb
-    scmid: default
-
-  privatek8s-lb:
-    name: Update privatek8s outbound LB CIDRs in the LDAP configuration
-    kind: yaml
-    sourceid: privatek8s-lb
-    spec:
-      file: config/ldap.yaml
-      key: $.service.lbAllowSources.privatek8s-out-lb
     scmid: default
 
   azure-ci-jenkins-io:

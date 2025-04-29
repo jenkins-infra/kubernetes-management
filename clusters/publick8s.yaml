@@ -53,7 +53,9 @@ releases:
     values:
       - "../config/acme.yaml"
     secrets:
-      - "../secrets/config/acme/secrets.yaml"
+      - ../secrets/config/acme/jenkins-ci.org-secrets.yaml
+      - ../secrets/config/acme/jenkins.io-secrets.yaml
+      - ../secrets/config/acme/jenkinsistheway.io-secrets.yaml
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx

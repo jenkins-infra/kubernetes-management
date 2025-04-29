@@ -24,10 +24,6 @@ service:
     linuxfoundation-staging: '34.211.101.61/32'
     # Provided by LF
     linuxfoundation-prod: '44.240.22.235/32'
-    # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
-    privatek8s-out-lb: '20.22.6.81/32'
-    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
-    privatek8s-nat: '20.65.63.127/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     privatek8s-sponsorship-nat: '172.200.139.164/32, 128.24.89.148/32'
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
