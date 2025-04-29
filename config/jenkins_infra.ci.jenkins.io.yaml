@@ -22,7 +22,8 @@ controller:
     runAsUser: 1000
     runAsNonRoot: true
     supplementalGroups: [1000]
-    fsGroupChangePolicy: OnRootMismatch
+    # fsGroup: 1000 # Uncomment once for new volumes
+    # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
   image:
     repository: jenkinsciinfra/jenkins-infraci
     tag: 2.13.4-2.507
