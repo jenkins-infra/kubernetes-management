@@ -292,7 +292,7 @@ releases:
   - name: geoipdata
     namespace: geoip-data
     chart: jenkins-infra/geoipupdates
-    version: 2.21.0
+    version: 2.22.0
     values:
       - ../config/geoipdata.yaml
     secrets:
