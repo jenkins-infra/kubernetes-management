@@ -15,4 +15,4 @@ ingress:
         - webhook-github-comment-ops.jenkins.io
 
 nodeSelector:
-  agentpool: linuxpool
+  kubernetes.azure.com/agentpool: linuxpool
