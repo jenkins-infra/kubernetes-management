@@ -15,54 +15,29 @@ scms:
 
 sources:
   lastVersion:
-    kind: githubrelease
+    kind: temurin
     spec:
-      owner: "adoptium"
-      repository: "temurin17-binaries"
-      token: "{{ requiredEnv .github.token }}"
-      username: "{{ .github.username }}"
-      versionfilter:
-        kind: regex
-        # jdk-17.0.11+9 (https://github.com/adoptium/temurin17-binaries/releases/tag/jdk-17.0.11%2B9) is OK
-        pattern: "^jdk-17.(\\d*).(\\d*).(\\d*)+(\\d*)$"
+      architecture: x64
+      featureversion: 17
+      result: version
   linuxAmd64DownloadUrl:
-    kind: shell
-    dependson:
-      - lastVersion
+    kind: temurin
     spec:
-      # Print an empty string if failing to avoid errors on updatecli exit. Conditions takes care of the graceful exit
-      command: bash -c './updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "x64" || echo ""'
+      architecture: x64
+      featureversion: 17
+      result: installer_url
   linuxArm64DownloadUrl:
-    kind: shell
-    dependson:
-      - lastVersion
+    kind: temurin
     spec:
-      # Print an empty string if failing to avoid errors on updatecli exit. Conditions takes care of the graceful exit
-      command: bash -c './updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "aarch64" || echo ""'
+      architecture: aarch64
+      featureversion: 17
+      result: installer_url
   windowsAmd64DownloadUrl:
-    kind: shell
-    dependson:
-      - lastVersion
+    kind: temurin
     spec:
-      # Print an empty string if failing to avoid errors on updatecli exit. Conditions takes care of the graceful exit
-      command: bash -c './updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "windows" "x64" || echo ""'
-
-conditions:
-  checkLinuxAmd64:
-    disablesourceinput: true
-    kind: shell
-    spec:
-      command: bash ./updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "x64"
-  checkLinuxArm64:
-    disablesourceinput: true
-    kind: shell
-    spec:
-      command: bash ./updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "linux" "aarch64"
-  checkWindowsAmd64:
-    disablesourceinput: true
-    kind: shell
-    spec:
-      command: bash ./updatecli/scripts/jdk-download-url.sh "{{ source `lastVersion` }}" "windows" "x64"
+      operatingsystem: windows
+      featureversion: 17
+      result: installer_url
 
 targets:
   setJDK17Subdir:
