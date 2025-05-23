@@ -46,7 +46,8 @@ jobsDefinition:
             appId: "${GITHUB_APP_JENKINSCI_ID}"
             owner: "jenkinsci"
             privateKey: "${GITHUB_APP_JENKINSCI_PRIVATE_KEY}"
-        disableTagDiscovery: true
+        # Releases are triggered by the creation of a tag by maintainers.
+        disableTagDiscovery: false
       account-app:
         jenkinsfilePath: Jenkinsfile
         disableTagDiscovery: true
@@ -84,7 +85,8 @@ jobsDefinition:
         disableTagDiscovery: true
       plugin-health-scoring:
         jenkinsfilePath: Jenkinsfile
-        disableTagDiscovery: false # PHS uses manual tags
+        # Releases are triggered by the creation of a tag by maintainers.
+        disableTagDiscovery: false
       plugin-site-api:
         jenkinsfilePath: Jenkinsfile
         disableTagDiscovery: true
