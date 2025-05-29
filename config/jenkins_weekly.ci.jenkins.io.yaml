@@ -167,7 +167,7 @@ controller:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
           views:
             - all:
-                description: "<div style=\"width: 100%; display: flex;justify-content: center;\">\r\n    <div style=\"text-align: center;\">\r\n        <p>\r\n            <img alt=\"Design Library\" src=\"https://raw.githubusercontent.com/jenkinsci/design-library-plugin/master/logo.svg\" height=\"100\" width=\"280\" />\r\n        </p>\r\n    </div>\r\n    <p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>\r\n</div>\r\n"
+                description: "<p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>"
                 name: "all"
           markupFormatter:
             rawHtml:
