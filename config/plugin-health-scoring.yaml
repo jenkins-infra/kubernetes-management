@@ -17,7 +17,7 @@ ingress:
 podAnnotations:
   ad.datadoghq.com/plugin-health-score.logs: |
     [
-      {"source":"java","service":"https://plugin-health.jenkins.io/"}
+      {"source":"java","service":"plugin-health.jenkins.io"}
     ]
 
 
