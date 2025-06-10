@@ -192,7 +192,7 @@ releases:
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
-    version: 0.2.3
+    version: 0.2.4
     values:
       - "../config/plugin-site-issues.yaml"
     secrets:
