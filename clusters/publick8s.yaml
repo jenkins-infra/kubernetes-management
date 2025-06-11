@@ -233,7 +233,7 @@ releases:
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.1.25
+    version: 3.1.26
     values:
       - "../config/updates.jenkins.io-rsync.yaml"
   - name: updates-jenkins-io-content-unsecured
@@ -260,7 +260,7 @@ releases:
   - name: updates-jenkins-io-rsyncd-data
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.1.25
+    version: 3.1.26
     values:
       - "../config/updates.jenkins.io-rsyncd-data.yaml"
     secrets:
