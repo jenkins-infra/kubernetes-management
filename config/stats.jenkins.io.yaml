@@ -78,3 +78,9 @@ nginx:
         autoindex on;
         try_files $uri /index.html;
     }
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"stats.jenkins.io"}
+    ]

@@ -54,3 +54,9 @@ affinity:
               values:
                 - contributors-jenkins-io
         topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"contributors.jenkins.io"}
+    ]
