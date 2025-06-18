@@ -38,3 +38,8 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
+podAnnotations:
+  ad.datadoghq.com/geoipupdate.logs: |
+    [
+      {"source":"geoipupdate","service":"geoipupdate"}
+    ]
