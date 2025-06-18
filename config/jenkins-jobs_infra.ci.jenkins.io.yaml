@@ -80,7 +80,7 @@ jobsDefinition:
       docker-packaging:
         disableTagDiscovery: true
       docker-plugin-site-issues:
-        disableTagDiscovery: false
+        disableTagDiscovery: true
       docker-rsyncd:
         disableTagDiscovery: true
       plugin-health-scoring:
