@@ -165,8 +165,8 @@ releases:
       - "../secrets/config/uplink/secrets.yaml"
   - name: reports
     namespace: reports
-    chart: jenkins-infra/reports
-    version: 0.4.6
+    chart: jenkins-infra/nginx-website
+    version: 0.4.0
     values:
       - "../config/reports.yaml"
     secrets:

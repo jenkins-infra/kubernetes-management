@@ -1,3 +1,4 @@
+---
 ingress:
   enabled: true
   className: public-nginx
@@ -28,9 +29,7 @@ htmlVolume:
 
 replicaCount: 2
 
-# Specify the "hard" scheduling constraints
 nodeSelector:
-  # arm64 is cheaper than x86
   kubernetes.io/arch: arm64
 
 tolerations:
@@ -49,3 +48,24 @@ affinity:
               values:
                 - reports
         topologyKey: "kubernetes.io/hostname"
+nginx:
+  overrideLocations: |
+    location / {
+      root   /usr/share/nginx/html;
+      index  index.html index.htm;
+      autoindex on;
+
+      # Enable CORS from https://www.jenkins.io
+      #
+      add_header Access-Control-Allow-Origin      "https://www.jenkins.io";
+      add_header Vary                             "Origin";
+      add_header Access-Control-Allow-Credentials true;
+      add_header Access-Control-Allow-Headers     $http_access_control_request_headers;
+      add_header Access-Control-Allow-Methods     $http_access_control_request_method;
+    }
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"reports.jenkins.io"}
+    ]
