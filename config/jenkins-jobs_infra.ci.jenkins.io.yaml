@@ -178,6 +178,10 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for infracijioagents1"
             secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS1}}"
+          kubeconfig-infracijioagents2:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for infracijioagents2"
+            secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS2}}"
   updatecli:
     name: Dependencies Management with Updatecli
     kind: folder
