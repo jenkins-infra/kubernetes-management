@@ -21,3 +21,9 @@ releases:
       - "../config/datadog_infracijioagents2.yaml"
     secrets:
       - "../secrets/config/datadog/infracijioagents2-secrets.yaml"
+  - name: jenkins-infra-agents
+    namespace: jenkins-infra-agents
+    chart: jenkins-infra/jenkins-kubernetes-agents
+    version: 1.0.0
+    values:
+      - "../config/jenkins-infra-agents-infracijioagents2.yaml"
