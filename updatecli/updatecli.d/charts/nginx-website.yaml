@@ -41,3 +41,4 @@ actions:
         - dependencies
         - nginx-website
         - contributors.jenkins.io
+        - reports.jenkins.io
