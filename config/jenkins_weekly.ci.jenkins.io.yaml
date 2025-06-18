@@ -44,6 +44,8 @@ controller:
     readinessProbe:
       initialDelaySeconds: 120
   testEnabled: false
+  podAnnotations:
+    ad.datadoghq.com/jenkins.logs: '[{"source":"jenkins", "service":"weekly.ci.jenkins.io"}]'
   podSecurityContextOverride:
     runAsNonRoot: true
     runAsUser: 1000
