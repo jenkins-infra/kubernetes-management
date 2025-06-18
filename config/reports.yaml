@@ -23,7 +23,7 @@ resources:
     memory: 32Mi
 htmlVolume:
   azureFile:
-    secretName: reports
+    secretName: reports-nginx-website
     shareName: reports
     readOnly: true
 
