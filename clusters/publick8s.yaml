@@ -55,7 +55,6 @@ releases:
     secrets:
       - ../secrets/config/acme/jenkins-ci.org-secrets.yaml
       - ../secrets/config/acme/jenkins.io-secrets.yaml
-      - ../secrets/config/acme/jenkinsistheway.io-secrets.yaml
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
@@ -94,14 +93,6 @@ releases:
       - "../config/javadoc.yaml"
     secrets:
       - "../secrets/config/javadoc/secrets.yaml"
-  - name: jenkinsisthewayio-redirect
-    namespace: jenkinsisthewayio-redirector
-    chart: jenkins-infra/httpredirector
-    version: 0.3.1
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
-    values:
-      - "../config/jenkinsisthewayio.yaml"
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki
