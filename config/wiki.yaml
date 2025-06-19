@@ -51,3 +51,9 @@ affinity:
               values:
                 - wiki
         topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/wiki.logs: |
+    [
+      {"source":"nginx","service":"wiki.jenkins.io"}
+    ]
