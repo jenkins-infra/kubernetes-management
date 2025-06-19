@@ -53,3 +53,13 @@ persistence:
   customDataClaimName: ldap-jenkins-io-data
   # Tracked by updatecli - updatecli/updatecli.d/configs/pvc-ldap.yaml
   customBackupClaimName: ldap-jenkins-io-backup
+
+podAnnotations:
+  ad.datadoghq.com/slapd.logs: |
+    [
+      {"source":"openldap","service":"ldap.jenkins.io"}
+    ]
+  ad.datadoghq.com/crond.logs: |
+    [
+      {"source":"crond","service":"ldap.jenkins.io"}
+    ]
