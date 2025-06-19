@@ -42,3 +42,4 @@ actions:
         - nginx-website
         - contributors.jenkins.io
         - reports.jenkins.io
+        - javadoc.jenkins.io
