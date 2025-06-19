@@ -27,7 +27,7 @@ tolerations:
     effect: "NoSchedule"
 
 podAnnotations:
-  ad.datadoghq.com/plugin-site-frontend.logs: |
+  ad.datadoghq.com/plugin-site-issues.logs: |
     [
       {"source":"nodejs","service":"plugin-site-issues.jenkins.io"}
     ]
