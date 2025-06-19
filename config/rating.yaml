@@ -28,3 +28,9 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
+
+podAnnotations:
+  ad.datadoghq.com/rating.logs: |
+    [
+      {"source":"apache","service":"rating.jenkins.io"}
+    ]
