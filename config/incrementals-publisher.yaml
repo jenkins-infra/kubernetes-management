@@ -23,3 +23,9 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
+
+podAnnotations:
+  ad.datadoghq.com/incrementals-publisher.logs: |
+    [
+      {"source":"nodejs","service":"incrementals.jenkins.io"}
+    ]
