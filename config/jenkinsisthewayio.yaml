@@ -1,4 +1,0 @@
-host: jenkinsistheway.io
-ingressClassName: public-nginx
-# https://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_uri => contains both the uri and the query string. Implies smarter redirects.
-urlredirect: https://stories.jenkins.io$request_uri
