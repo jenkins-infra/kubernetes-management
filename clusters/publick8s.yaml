@@ -188,7 +188,7 @@ releases:
   - name: plugin-site
     namespace: plugin-site
     chart: jenkins-infra/plugin-site
-    version: 0.5.0
+    version: 0.5.1
     values:
       - "../config/plugin-site.yaml"
     secrets:
