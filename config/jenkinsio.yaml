@@ -100,3 +100,15 @@ affinity:
                 values:
                   - jenkinsio-zh
           topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  jenkinsio:
+    ad.datadoghq.com/jenkinsio.logs: |
+      [
+        {"source":"nginx","service":"www.origin.jenkins.io"}
+      ]
+  jenkinsio-zh:
+    ad.datadoghq.com/jenkinsio.logs: |
+      [
+        {"source":"nginx","service":"zh.www.origin.jenkins.io"}
+      ]
