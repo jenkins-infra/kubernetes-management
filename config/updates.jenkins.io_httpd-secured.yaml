@@ -19,7 +19,7 @@ repository:
   subDir: ./redirections-secured/
 annotations:
   ad.datadoghq.com/httpd.logs: |
-    [{"source":"httpd","service":"updates.jenkins.io", "tags":["component:secured"]}]
+    [{"source":"apache","service":"updates.jenkins.io", "tags":["component:secured"]}]
 
 ingress:
   enabled: true

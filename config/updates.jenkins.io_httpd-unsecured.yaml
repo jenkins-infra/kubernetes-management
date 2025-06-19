@@ -19,7 +19,7 @@ repository:
   subDir: ./redirections-unsecured/
 annotations:
   ad.datadoghq.com/httpd.logs: |
-    [{"source":"httpd","service":"updates.jenkins.io", "tags":["unsecured"]}]
+    [{"source":"apache","service":"updates.jenkins.io", "tags":["unsecured"]}]
 
 httpdConf:
   # Specifying http scheme allow proper HTTP rewriting when the pattern is not an FQDN
