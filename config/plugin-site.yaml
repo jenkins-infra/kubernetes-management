@@ -17,8 +17,19 @@ ingress:
       hosts:
         - plugins.origin.jenkins.io
 restApiUrl: https://plugins.jenkins.io/api
+frontend:
+  podAnnotations:
+    ad.datadoghq.com/plugin-site-frontend.logs: |
+      [
+        {"source":"nginx","service":"plugins.jenkins.io"}
+      ]
 backend:
   replicaCount: 1
+  podAnnotations:
+    ad.datadoghq.com/plugin-site-backend.logs: |
+      [
+        {"source":"java","service":"plugins.jenkins.io"}
+      ]
 htmlVolume:
   azureFile:
     secretName: plugin-site
