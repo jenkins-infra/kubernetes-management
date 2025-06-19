@@ -35,3 +35,9 @@ affinity:
               values:
                 - uplink
         topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/uplink.logs: |
+    [
+      {"source":"nodejs","service":"uplink.jenkins.io"}
+    ]
