@@ -25,3 +25,9 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
+
+podAnnotations:
+  ad.datadoghq.com/plugin-site-frontend.logs: |
+    [
+      {"source":"nodejs","service":"plugin-site-issues.jenkins.io"}
+    ]
