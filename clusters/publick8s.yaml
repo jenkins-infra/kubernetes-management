@@ -115,8 +115,6 @@ releases:
     needs:
       - ldap/ldap
     secrets:
-      ## TODO: delete db.yaml once fully migrated
-      #- "../secrets/config/keycloak/db.yaml"
       - "../secrets/config/keycloak/public-db.yaml"
       - "../secrets/config/keycloak/http.yaml"
   - name: plugin-health-scoring

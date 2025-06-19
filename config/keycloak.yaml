@@ -82,3 +82,9 @@ extraEnvFrom: |
       name: '{{ include "keycloak.fullname" . }}-db'
   - secretRef:
       name: '{{ include "keycloak.fullname" . }}-http'
+
+podAnnotations:
+  ad.datadoghq.com/keycloak.logs: |
+    [
+      {"source":"keycloak","service":"admin.accounts.jenkins.io"}
+    ]
