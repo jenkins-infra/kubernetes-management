@@ -9,7 +9,8 @@ prometheus:
 webhook:
   # need to be between 1 and 30 for Digital Ocean see https://github.com/jenkins-infra/helpdesk/issues/3948#issuecomment-1948206377
   timeoutSeconds: 25
-featureGates:
-  # Disable the use of Exact PathType in Ingress resources, to work around a bug in ingress-nginx
-  # https://github.com/kubernetes/ingress-nginx/issues/11176
-  ACMEHTTP01IngressPathTypeExact: false
+config:
+  featureGates:
+    # Disable the use of Exact PathType in Ingress resources, to work around a bug in ingress-nginx
+    # https://github.com/kubernetes/ingress-nginx/issues/11176
+    ACMEHTTP01IngressPathTypeExact: false
