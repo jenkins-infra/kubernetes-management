@@ -282,6 +282,10 @@ controller:
                           operator: "Equal"
                           value: "true"
                           effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
                   - name: jnlp-linux-arm64
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
@@ -318,6 +322,10 @@ controller:
                         - key: "infra.ci.jenkins.io/agents"
                           operator: "Equal"
                           value: "true"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
                           effect: "NoSchedule"
                   - name: jnlp-webbuilder
                     nodeSelector: "kubernetes.io/arch=amd64"
@@ -357,6 +365,10 @@ controller:
                         - key: "infra.ci.jenkins.io/agents"
                           operator: "Equal"
                           value: "true"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
                           effect: "NoSchedule"
             - azureVM:
                 azureCredentialsId: "azure-jenkins-sponsorship-credentials"
