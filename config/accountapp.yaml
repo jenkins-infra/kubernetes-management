@@ -54,3 +54,9 @@ affinity:
               values:
                 - accountapp
         topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/accountapp.logs: |
+    [
+      {"source":"java","service":"accounts.jenkins.io"}
+    ]
