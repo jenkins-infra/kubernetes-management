@@ -241,6 +241,7 @@ controller:
                 containerCapStr: "100"
                 credentialsId: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
                 serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_2_CACRT}}"
+                # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
                 serverUrl: "https://infracijenkinsioagents2-3myobbwc.hcp.eastus2.azmk8s.io:443"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
