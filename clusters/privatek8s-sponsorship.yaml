@@ -103,7 +103,7 @@ releases:
   - name: jenkins-release-agents
     namespace: jenkins-release-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
-    version: 1.1.0
+    version: 1.1.1
     needs:
       - jenkins-release/jenkins-release
     values:
