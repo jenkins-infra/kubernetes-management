@@ -15,11 +15,10 @@ ingress:
         - plugin-health.jenkins.io
 
 podAnnotations:
-  ad.datadoghq.com/plugin-health-score.logs: |
+  ad.datadoghq.com/plugin-health-scoring.logs: |
     [
       {"source":"java","service":"plugin-health.jenkins.io"}
     ]
-
 
 database:
   username: plugin_health
