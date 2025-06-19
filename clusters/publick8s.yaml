@@ -86,8 +86,8 @@ releases:
       - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
   - name: javadoc
     namespace: javadoc
-    chart: jenkins-infra/javadoc
-    version: 0.5.2
+    chart: jenkins-infra/nginx-website
+    version: 0.4.0
     values:
       - "../config/javadoc.yaml"
     secrets:

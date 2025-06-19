@@ -1,3 +1,4 @@
+---
 ingress:
   enabled: true
   className: public-nginx
@@ -26,15 +27,13 @@ resources:
     memory: 128Mi
 htmlVolume:
   azureFile:
-    secretName: javadoc
+    secretName: javadoc-nginx-website
     shareName: javadoc-jenkins-io
     readOnly: true
 
 replicaCount: 2
 
-# Specify the "hard" scheduling constraints
 nodeSelector:
-  # Ensure ARM64 is used to decrease cloud bill (instead of using `amd64`
   kubernetes.io/arch: arm64
 
 # Tolerates to run on tainted `arm64` nodes
@@ -54,3 +53,22 @@ affinity:
               values:
                 - javadoc
         topologyKey: "kubernetes.io/hostname"
+
+nginx:
+  overrideLocations: |
+    # https://github.com/jenkins-infra/helpdesk/issues/4594
+    location /component/github-api {
+      return 308 https://hub4j.github.io/github-api/apidocs/org.kohsuke.github.api/module-summary.html;
+    }
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        autoindex on;
+    }
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"javadoc.jenkins.io"}
+    ]
