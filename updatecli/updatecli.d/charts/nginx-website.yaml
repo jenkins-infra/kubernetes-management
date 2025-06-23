@@ -43,3 +43,4 @@ actions:
         - contributors.jenkins.io
         - reports.jenkins.io
         - javadoc.jenkins.io
+        - builds.reports.jenkins.io

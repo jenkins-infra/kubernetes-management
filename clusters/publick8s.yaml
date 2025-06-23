@@ -159,6 +159,12 @@ releases:
       - "../config/reports.yaml"
     secrets:
       - "../secrets/config/reports/secrets.yaml"
+  - name: builds-reports-jenkins-io
+    namespace: builds-reports-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.4.0
+    values:
+      - "../config/builds.reports.jenkins.io.yaml"
   - name: accountapp
     namespace: accountapp
     chart: jenkins-infra/accountapp
