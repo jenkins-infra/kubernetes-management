@@ -119,12 +119,13 @@ controller:
           clouds:
             - kubernetes:
                 containerCapStr: "100"
-                credentialsId: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
-                serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_1_CACRT}}"
-                serverUrl: "https://infracijenkinsioagents1-ns1jeize.hcp.eastus2.azmk8s.io:443"
+                credentialsId: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
+                serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_2_CACRT}}"
+                # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+                serverUrl: "https://infracijenkinsioagents2-3myobbwc.hcp.eastus2.azmk8s.io:443"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
-                name: "kubernetes_infracijioagents1"
+                name: "kubernetes_infracijioagents2"
                 namespace: "jenkins-infra-agents"
                 podRetention: "Never"
                 templates:
@@ -160,6 +161,10 @@ controller:
                         - key: "infra.ci.jenkins.io/agents"
                           operator: "Equal"
                           value: "true"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
                           effect: "NoSchedule"
                   - name: jnlp-linux-arm64
                     nodeSelector: "kubernetes.io/arch=arm64"
@@ -198,6 +203,10 @@ controller:
                           operator: "Equal"
                           value: "true"
                           effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
                   - name: jnlp-webbuilder
                     nodeSelector: "kubernetes.io/arch=amd64"
                     containers:
@@ -223,135 +232,6 @@ controller:
                         resourceRequestMemory: "1G"
                         alwaysPullImage: true
                     label: "container kubernetes node ruby webbuilder"
-                    yamlMergeStrategy: "merge"
-                    yaml: |-
-                      apiVersion: v1
-                      kind: Pod
-                      spec:
-                        tolerations:
-                        - key: "jenkins"
-                          operator: "Equal"
-                          value: "infra.ci.jenkins.io"
-                          effect: "NoSchedule"
-                        - key: "infra.ci.jenkins.io/agents"
-                          operator: "Equal"
-                          value: "true"
-                          effect: "NoSchedule"
-            - kubernetes:
-                containerCapStr: "100"
-                credentialsId: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
-                serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_2_CACRT}}"
-                # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-                serverUrl: "https://infracijenkinsioagents2-3myobbwc.hcp.eastus2.azmk8s.io:443"
-                maxRequestsPerHostStr: "300"
-                webSocket: true
-                name: "kubernetes_infracijioagents2"
-                namespace: "jenkins-infra-agents"
-                podRetention: "Never"
-                templates:
-                  - name: jnlp-linux-amd64
-                    nodeSelector: "kubernetes.io/arch=amd64"
-                    containers:
-                      - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.50.0"
-                        command: "/usr/local/bin/jenkins-agent"
-                        args: ""
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk-21/bin/java"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "/opt/jdk-21"
-                        resourceLimitMemory: "2048Mi"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "512Mi"
-                        alwaysPullImage: true
-                    label: "linux_new jnlp-linux_new jnlp-linux-amd64_new"
-                    yamlMergeStrategy: "merge"
-                    yaml: |-
-                      apiVersion: v1
-                      kind: Pod
-                      spec:
-                        tolerations:
-                        - key: "jenkins"
-                          operator: "Equal"
-                          value: "infra.ci.jenkins.io"
-                          effect: "NoSchedule"
-                        - key: "infra.ci.jenkins.io/agents"
-                          operator: "Equal"
-                          value: "true"
-                          effect: "NoSchedule"
-                        - key: "kubernetes.azure.com/scalesetpriority"
-                          operator: "Equal"
-                          value: "spot"
-                          effect: "NoSchedule"
-                  - name: jnlp-linux-arm64
-                    nodeSelector: "kubernetes.io/arch=arm64"
-                    containers:
-                      - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.50.0"
-                        command: "/usr/local/bin/jenkins-agent"
-                        args: ""
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk-21/bin/java"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "/opt/jdk-21"
-                        resourceLimitMemory: "2048Mi"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "512Mi"
-                        alwaysPullImage: true
-                    label: "jnlp-linux-arm64_new"
-                    yamlMergeStrategy: "merge"
-                    yaml: |-
-                      apiVersion: v1
-                      kind: Pod
-                      spec:
-                        tolerations:
-                        - key: "jenkins"
-                          operator: "Equal"
-                          value: "infra.ci.jenkins.io"
-                          effect: "NoSchedule"
-                        - key: "kubernetes.io/arch"
-                          operator: "Equal"
-                          value: "arm64"
-                          effect: "NoSchedule"
-                        - key: "infra.ci.jenkins.io/agents"
-                          operator: "Equal"
-                          value: "true"
-                          effect: "NoSchedule"
-                        - key: "kubernetes.azure.com/scalesetpriority"
-                          operator: "Equal"
-                          value: "spot"
-                          effect: "NoSchedule"
-                  - name: jnlp-webbuilder
-                    nodeSelector: "kubernetes.io/arch=amd64"
-                    containers:
-                      - name: jnlp
-                        image: "jenkinsciinfra/builder@sha256:7150f769249c071fec7ee18338183193c36d489dc9a2fb2d211242fcc89350cd"
-                        command: "/usr/local/bin/jenkins-agent"
-                        args: ""
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_OPTS"
-                            value: "-XX:+PrintCommandLineFlags"
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk-21/bin/java"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "/opt/java/openjdk/bin/java"
-                        - envVar:
-                            key: "PATH"
-                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-                        resourceLimitMemory: "8G"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "1G"
-                        alwaysPullImage: true
-                    label: "container_new kubernetes_new node_new ruby_new webbuilder_new"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
