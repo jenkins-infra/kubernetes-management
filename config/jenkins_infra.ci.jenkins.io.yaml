@@ -147,7 +147,7 @@ controller:
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
-                    label: "linux_new jnlp-linux_new jnlp-linux-amd64_new"
+                    label: "linux jnlp-linux jnlp-linux-amd64"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
@@ -184,7 +184,7 @@ controller:
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
-                    label: "jnlp-linux-arm64_new"
+                    label: "jnlp-linux-arm64"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
@@ -231,7 +231,7 @@ controller:
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "1G"
                         alwaysPullImage: true
-                    label: "container_new kubernetes_new node_new ruby_new webbuilder_new"
+                    label: "container kubernetes node ruby webbuilder"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
