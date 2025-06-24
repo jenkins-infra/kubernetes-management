@@ -322,6 +322,8 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS x86_64 machine"
                   templateName: "ubuntu-22"
+                  enableUAMI: true
+                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
@@ -369,6 +371,8 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Windows 2019 machine"
                   templateName: "win-2019"
+                  enableUAMI: true
+                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
@@ -416,6 +420,8 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Windows 2022 machine"
                   templateName: "win-2022"
+                  enableUAMI: true
+                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
@@ -485,6 +491,8 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64"
+                  enableUAMI: true
+                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
@@ -554,6 +562,8 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-17 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64-maven-17"
+                  enableUAMI: true
+                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
@@ -623,6 +633,8 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64-maven-21"
+                  enableUAMI: true
+                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
