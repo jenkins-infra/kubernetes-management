@@ -148,6 +148,8 @@ controller:
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
                     label: "linux jnlp-linux jnlp-linux-amd64"
+                    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+                    serviceAccount: "jenkins-infra-agent"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
@@ -185,6 +187,8 @@ controller:
                         resourceRequestMemory: "512Mi"
                         alwaysPullImage: true
                     label: "jnlp-linux-arm64"
+                    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+                    serviceAccount: "jenkins-infra-agent"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
@@ -232,6 +236,8 @@ controller:
                         resourceRequestMemory: "1G"
                         alwaysPullImage: true
                     label: "container kubernetes node ruby webbuilder"
+                    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+                    serviceAccount: "jenkins-infra-agent"
                     yamlMergeStrategy: "merge"
                     yaml: |-
                       apiVersion: v1
