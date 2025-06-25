@@ -100,11 +100,6 @@ controller:
                     scope: SYSTEM
                     username: "${AZURE_LOGIN_VM_USER}"
                 - string:
-                    description: "Token of the Service Account account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-1'"
-                    id: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
-                    scope: SYSTEM
-                    secret: "${INFRACIJENKINSIO_AGENTS_1_TOKEN}"
-                - string:
                     description: "Token of the Service Account account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-2'"
                     id: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
                     scope: SYSTEM
