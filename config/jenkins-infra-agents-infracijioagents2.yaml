@@ -1,5 +1,2 @@
 quotas:
   pods: 150
-
-# TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-existingServiceAccount: jenkins-infra-agents:jenkins-infra-agent
