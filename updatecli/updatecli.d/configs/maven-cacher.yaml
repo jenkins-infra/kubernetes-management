@@ -18,7 +18,7 @@ sources:
     name: Retrieve the PVC name from the Terraform report
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: cijenkinsio_agents_1.maven_cache_pvcs.maven-cache
+      key: azure\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio_agents_1.maven_cache_pvcs.maven-cache
 
 targets:
   updatePVCNameInConfig:

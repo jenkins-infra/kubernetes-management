@@ -18,13 +18,13 @@ sources:
     name: get pods number for ci.jenkins.io-agents-1 in ci.jenkins.io, namespace 'jenkins-agents-bom'
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: cijenkinsio_agents_1.agent_namespaces.jenkins-agents.pods_quota
+      key: azure\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio_agents_1.agents_namespaces.jenkins-agents.pods_quota
   jenkins_agents_bom_maxcapacity:
     kind: json
     name: get pods number for ci.jenkins.io-agents-1 in ci.jenkins.io, namespace 'jenkins-agents-bom'
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: cijenkinsio_agents_1.agent_namespaces.jenkins-agents-bom.pods_quota
+      key: azure\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio_agents_1.agents_namespaces.jenkins-agents-bom.pods_quota
 
 targets:
   pod_quotas_jenkins_agents:
