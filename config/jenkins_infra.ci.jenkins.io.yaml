@@ -122,6 +122,11 @@ controller:
                 webSocket: true
                 name: "kubernetes_infracijioagents2"
                 namespace: "jenkins-infra-agents"
+                podLabels:
+                  - key: "jenkins"
+                    value: "agent"
+                  - key: "azure.workload.identity/use"
+                    value: "true"
                 podRetention: "Never"
                 templates:
                   - name: jnlp-linux-amd64
