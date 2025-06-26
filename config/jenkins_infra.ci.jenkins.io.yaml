@@ -1,9 +1,7 @@
 serviceAccount:
-  create: true
+  create: false
+  # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
   name: jenkins-infra-controller
-  annotations:
-    # TODO: track with updatecli from the 'client_id' ofthe 'azurerm_user_assigned_identity.infra_ci_jenkins_io' resource defined in https://github.com/jenkins-infra/azure/blob/63530e68836f813e4f256e44491e2cec93c8a6ab/infra.ci.jenkins.io.tf#L61
-    "azure.workload.identity/client-id": "dc2062e0-dd94-425f-abfb-5cb5988d2ed0"
 serviceAccountAgent:
   create: false
 rbac:
@@ -21,7 +19,7 @@ networkPolicy:
     namespaceLabels:
       name: "jenkins-infra"
 controller:
-  statefulSetLabels:
+  podLabels:
     "azure.workload.identity/use": "true"
   podSecurityContextOverride:
     runAsUser: 1000
