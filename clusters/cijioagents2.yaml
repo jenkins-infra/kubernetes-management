@@ -29,3 +29,12 @@ releases:
     version: 1.6.7
     values:
       - ../config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
+  - name: hub-mirror
+    namespace: hub-mirror
+    chart: jenkins-infra/docker-registry
+    # TODO: track with updatecli
+    version: 1.0.0
+    values:
+      - ../config/hub-mirror_cijioagents2.yaml
+    secrets:
+      - ../secrets/config/hub-mirror/secrets.yaml
