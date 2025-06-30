@@ -32,6 +32,7 @@ containerSecurityContext:
     drop:
       - ALL
 
+#TODO: track with updatecli
 cachePvc: ci-jenkins-io-maven-cache
 javaHome: /opt/jdk-21
 mavenMirror:
