@@ -52,3 +52,10 @@ releases:
     version: 1.1.0
     values:
       - ../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml
+  - name: maven-cacher
+    namespace: maven-cache
+    chart: jenkins-infra/maven-cacher
+    # TODO: track with updatecli
+    version: 0.0.2
+    values:
+      - ../config/cijioagents2-maven-cacher.yaml

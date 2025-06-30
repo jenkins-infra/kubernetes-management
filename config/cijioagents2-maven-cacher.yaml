@@ -1,0 +1,46 @@
+image:
+  # TODO: track with updatecli here or in the chart
+  tag: 2.51.0
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+  jenkins: ci.jenkins.io
+  role: applications
+
+tolerations:
+  - key: "ci.jenkins.io/applications"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+resources:
+  limits:
+    # No CPU limit to avoid throttling
+    memory: 1024Mi
+  requests:
+    cpu: 2
+    memory: 1024Mi
+
+podSecurityContext:
+  runAsUser: 1001 # User 'jenkins'
+  runAsGroup: 1001 # Group 'jenkins'
+  runAsNonRoot: true
+
+containerSecurityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+#TODO: track with updatecli
+cachePvc: ci-jenkins-io-maven-cache
+#TODO: track with updatecli
+javaHome: /opt/jdk-21
+mavenMirror:
+  enable: true
+  # TODO: track with updatecli
+  url: http://k8s-artifact-artifact-f340ad86c3-70787fedaeca6b4d.elb.us-east-2.amazonaws.com:8080/
+  # TODO: track with updatecli
+  mirrorOf: "external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven"
+  mirrorId: artifact-caching-proxy
