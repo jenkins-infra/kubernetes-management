@@ -26,6 +26,6 @@ releases:
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
     # TODO: track with updatecli
-    version: 1.6.5
+    version: 1.6.7
     values:
       - ../config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
