@@ -1,5 +1,4 @@
 image:
-  # TODO: track with updatecli here or in the chart
   tag: 2.51.0
 
 nodeSelector:
@@ -33,7 +32,6 @@ containerSecurityContext:
     drop:
       - ALL
 
-#TODO: track with updatecli
 cachePvc: ci-jenkins-io-maven-cache
 #TODO: track with updatecli
 javaHome: /opt/jdk-21

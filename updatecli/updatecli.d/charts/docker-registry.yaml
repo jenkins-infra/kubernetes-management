@@ -1,4 +1,4 @@
-name: "Bump `artifact-caching-proxy` helm chart version"
+name: "Bump `docker-registry` helm chart version"
 
 scms:
   default:
@@ -18,26 +18,25 @@ sources:
     name: get last chart version
     spec:
       url: https://jenkins-infra.github.io/helm-charts
-      name: artifact-caching-proxy
+      name: docker-registry
 
 targets:
   updateChartVersion:
-    name: "Update the chart version for artifact-caching-proxy"
+    name: "Update the chart version for docker-registry"
     kind: yaml
     spec:
       files:
-        - clusters/cijioagents1.yaml
         - clusters/cijioagents2.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'artifact-caching-proxy')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/docker-registry')].version
     scmid: default
 
 actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Bump `artifact-caching-proxy` helm chart version to {{ source `lastChartVersion` }}
+    title: Bump `docker-registry` helm chart version to {{ source `lastChartVersion` }}
     spec:
       labels:
         - dependencies
-        - artifact-caching-proxy
+        - docker-registry

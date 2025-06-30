@@ -31,8 +31,7 @@ targets:
         - clusters/publick8s.yaml
         - clusters/cijioagents1.yaml
         - clusters/infracijioagents2.yaml
-        ## TODO uncomment once cluster is managed
-        # - clusters/cijioagents2.yaml
+        - clusters/cijioagents2.yaml
       engine: yamlpath
       key: $.releases[?(@.name == 'datadog')].version
 

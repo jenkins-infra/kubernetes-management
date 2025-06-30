@@ -13,20 +13,40 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  getPVCName:
-    kind: json
-    name: Retrieve the PVC name from the Terraform report
+  getAzurePVCName:
+    kind: yaml
+    name: Retrieve the PVC name from the Azure Terraform report
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: azure\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio_agents_1.maven_cache_pvcs.maven-cache
+      key: $.'azure.ci.jenkins.io'.agents_kubernetes_clusters.cijenkinsio_agents_1.maven_cache_pvcs.maven-cache
+    transformers:
+      - trimprefix: '"'
+      - trimsuffix: '"'
+  getAwsPVCName:
+    kind: yaml
+    name: Retrieve the PVC name from the AWS Sponsored Terraform report
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: $.'aws.ci.jenkins.io'.cijenkinsio-agents-2.maven_cache_pvcs.maven-cache
+    transformers:
+      - trimprefix: '"'
+      - trimsuffix: '"'
 
 targets:
-  updatePVCNameInConfig:
+  updateAzurePVCNameInConfig:
     name: Update PVC name in the configuration
     kind: yaml
-    sourceid: getPVCName
+    sourceid: getAzurePVCName
     spec:
       file: ./config/cijioagents1-maven-cacher.yaml
+      key: $.cachePvc
+    scmid: default
+  updateAwsPVCNameInConfig:
+    name: Update PVC name in the configuration
+    kind: yaml
+    sourceid: getAwsPVCName
+    spec:
+      file: ./config/cijioagents2-maven-cacher.yaml
       key: $.cachePvc
     scmid: default
 

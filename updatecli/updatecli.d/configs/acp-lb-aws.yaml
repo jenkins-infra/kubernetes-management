@@ -1,0 +1,71 @@
+---
+name: Update Artifact Caching Proxy AWS Settings
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  acpAwsSubnets:
+    kind: json
+    name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.artifact_caching_proxy.subnet_ids
+    transformers:
+      - trimprefix: '['
+      - trimsuffix: ']'
+      - replacer:
+          from: ' '
+          to: ','
+  acpLbIps:
+    kind: json
+    name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.artifact_caching_proxy.ips
+    transformers:
+      - trimprefix: '['
+      - trimsuffix: ']'
+      - replacer:
+          from: ' '
+          to: ','
+targets:
+  updateAcpLbIps:
+    name: Update ACP LB IPv4
+    sourceid: acpLbIps
+    kind: yaml
+    transformers:
+      - addprefix: '"'
+      - addsuffix: '"'
+    spec:
+      file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
+      key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'
+    scmid: default
+  updateAcpLbSubnets:
+    name: Update ACP LB Subnets
+    disablesourceinput: true # We need to combine 2 sources
+    kind: yaml
+    spec:
+      file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
+      key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
+      value: '"{{ source `acpAwsSubnets` }}"'
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update configuration of the Artifact Caching Proxy for AWS
+    spec:
+      labels:
+        - artifact-caching-proxy
+        - aws
