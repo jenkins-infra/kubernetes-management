@@ -1,0 +1,61 @@
+persistence:
+  enabled: true
+  size: 100
+  # TODO: track with updatecli (from https://github.com/jenkins-infra/terraform-aws-sponsorship/blob/47a0758f6f414fa12a2e8be54bd66e921f8a942a/eks-cijenkinsio-agents-2.tf#L217)
+  storageClass: ebs-csi-premium-retain-us-east-2a
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+  jenkins: ci.jenkins.io
+  role: applications
+
+tolerations:
+  - key: "ci.jenkins.io/applications"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+# We should never have 2 ACP replicas in the same host
+# Keep this even with only 1 replica
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - artifact-caching-proxy
+        topologyKey: "kubernetes.io/hostname"
+
+service:
+  type: LoadBalancer
+  annotations:
+    # Internal LB, with fixed IP in private subnet where EC2 VM agents are running
+    # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/
+    service.beta.kubernetes.io/aws-load-balancer-type: "internal"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
+    # We want the LB to directly send requests to the Pod IPs (requires VPC-CNI)
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-003b868ae937f290a,subnet-00279b22fc0bb0997,subnet-0cbf5a4a8a81322f5"
+    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+    service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: "10.0.131.248,10.0.129.248,10.0.151.248"
+    service.beta.kubernetes.io/aws-load-balancer-ip-address-type: "ipv4"
+    # Misc.
+    service.beta.kubernetes.io/aws-load-balancer-alpn-policy: "HTTP2Preferred"
+
+resources:
+  limits:
+    # No CPU limit to avoid throttling
+    memory: 8192Mi
+  requests:
+    cpu: 1.5
+    memory: 8192Mi
+
+# Only 1 node - https://github.com/jenkins-infra/helpdesk/issues/4545
+replicaCount: 1
+
+proxy:
+  dnsResolver: "kube-dns.kube-system.svc.cluster.local 9.9.9.9"
+  proxySslServerNameEnabled: true # Pass SNI to upstreams
