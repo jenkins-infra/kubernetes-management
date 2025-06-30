@@ -40,7 +40,7 @@ javaHome: /opt/jdk-21
 mavenMirror:
   enable: true
   # TODO: track with updatecli
-  url: http://k8s-artifact-artifact-f340ad86c3-70787fedaeca6b4d.elb.us-east-2.amazonaws.com:8080/
+  url: http://k8s-artifact-artifact-3d1949c260-a3739c22ffe2d924.elb.us-east-2.amazonaws.com:8080/
   # TODO: track with updatecli
   mirrorOf: "external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven"
   mirrorId: artifact-caching-proxy
