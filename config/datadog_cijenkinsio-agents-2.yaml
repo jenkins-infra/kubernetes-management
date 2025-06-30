@@ -1,0 +1,44 @@
+datadog:
+  clusterName: cijenkinsio-agents-2
+  env:
+    - name: DD_HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+clusterAgent:
+  nodeSelector:
+    kubernetes.io/arch: arm64
+    jenkins: ci.jenkins.io
+    role: applications
+  tolerations:
+    - key: "ci.jenkins.io/applications"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+agents:
+  tolerations:
+    # These tolerations are needed to run the agents on the bom node pool
+    - key: "ci.jenkins.io/bom"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/applications"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/agents"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "CriticalAddonsOnly"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/windows-2019"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    - key: "ci.jenkins.io/windows-2022"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
