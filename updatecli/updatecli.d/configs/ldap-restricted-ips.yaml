@@ -63,6 +63,14 @@ sources:
           from: ' '
           to: ','
 
+  aws-ci-jenkins-io:
+    kind: json
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: .aws\.ci\.jenkins\.io.service_ips.ipv4
+    transformers:
+      - addsuffix: "/32"
+
   azure-ci-jenkins-io:
     kind: json
     spec:
@@ -105,6 +113,18 @@ targets:
     spec:
       file: config/ldap.yaml
       key: $.service.lbAllowSources.publick8s-out-lb
+    scmid: default
+
+  aws-ci-jenkins-io:
+    name: Update aws.ci.jenkins.io CIDR in the LDAP configuration
+    kind: yaml
+    sourceid: aws-ci-jenkins-io
+    transformers:
+      - addprefix: "'"
+      - addsuffix: "'"
+    spec:
+      file: config/ldap.yaml
+      key: $.service.lbAllowSources.'aws.ci.jenkins.io'
     scmid: default
 
   azure-ci-jenkins-io:

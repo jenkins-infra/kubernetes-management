@@ -25,9 +25,11 @@ targets:
     name: Update the chart version for maven-cacher
     kind: yaml
     spec:
-      file: clusters/cijioagents1.yaml
+      files:
+        - clusters/cijioagents1.yaml
+        - clusters/cijioagents2.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'maven-cacher')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/maven-cacher')].version
     scmid: default
 
 actions:

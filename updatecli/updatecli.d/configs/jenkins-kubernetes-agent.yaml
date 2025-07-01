@@ -1,0 +1,50 @@
+name: Update Jenkins Kubernetes Agents Configuration
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  getMainGroup:
+    kind: yaml
+    name: Retrieve the main kubernetes group
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: $.'aws.ci.jenkins.io'.cijenkinsio-agents-2.kubernetes_groups[0]
+    transformers:
+      - trimprefix: '"'
+      - trimsuffix: '"'
+
+targets:
+  updateGroupForAgents:
+    name: Update group in "normal" agents setup
+    kind: yaml
+    spec:
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml
+      key: $.groups[0]
+    scmid: default
+  updateGroupForBomAgents:
+    name: Update group in "BOM" agents setup
+    kind: yaml
+    spec:
+      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml
+      key: $.groups[0]
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update Jenkins Kubernetes Agents Configuration
+    spec:
+      labels:
+        - dependencies
+        - jenkins-kubernetes-agents

@@ -1,6 +1,5 @@
 quotas:
   pods: 150
 
-## TODO track with updatecli
 groups:
   - ci-jenkins-io
