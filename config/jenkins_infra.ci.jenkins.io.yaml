@@ -29,7 +29,7 @@ controller:
     # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
   image:
     repository: jenkinsciinfra/jenkins-infraci
-    tag: 3.5.1-2.516
+    tag: 3.6.1-2.517
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
