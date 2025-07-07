@@ -170,10 +170,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for publick8s"
             secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
-          kubeconfig-cijioagents1:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for cijioagents1"
-            secretBytes: "${base64:${KUBECONFIG_CIJIOAGENTS1}}"
           kubeconfig-cijioagents2:
             fileName: "kubeconfig"
             description: "Kubeconfig file for cijioagents2"
