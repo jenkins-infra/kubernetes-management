@@ -19,7 +19,7 @@ sources:
     name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.artifact_caching_proxy.subnet_ids
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.subnet_ids
     transformers:
       - trimprefix: '['
       - trimsuffix: ']'
@@ -31,13 +31,20 @@ sources:
     name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.artifact_caching_proxy.ips
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.ips
     transformers:
       - trimprefix: '['
       - trimsuffix: ']'
       - replacer:
           from: ' '
           to: ','
+  acpStorageClass:
+    kind: json
+    name: Retrieve the storage class to use for the ACP storage
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.storage_class
+
 targets:
   updateAcpLbIps:
     name: Update ACP LB IPv4
@@ -59,6 +66,14 @@ targets:
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
       value: '"{{ source `acpAwsSubnets` }}"'
     scmid: default
+  updateAcpStorageClass:
+    name: Update ACP Storage Class
+    sourceid: acpStorageClass
+    kind: yaml
+    spec:
+      file: config/hub-mirror_cijioagents2.yaml
+      key: $.persistence.storageClass
+    scmid: default
 
 actions:
   default:
@@ -68,4 +83,4 @@ actions:
     spec:
       labels:
         - artifact-caching-proxy
-        - aws
+        - cijenkinsioagents2

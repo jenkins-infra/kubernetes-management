@@ -1,7 +1,6 @@
 persistence:
   enabled: true
   size: 100
-  # TODO: track with updatecli (from https://github.com/jenkins-infra/terraform-aws-sponsorship/blob/47a0758f6f414fa12a2e8be54bd66e921f8a942a/eks-cijenkinsio-agents-2.tf#L217)
   storageClass: ebs-csi-premium-retain-us-east-2a
 
 nodeSelector:
