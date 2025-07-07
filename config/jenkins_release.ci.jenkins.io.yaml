@@ -194,14 +194,6 @@ controller:
                     privateKeySource:
                       directEntry:
                         privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-                - basicSSHUserPrivateKey:
-                    scope: SYSTEM
-                    id: "ec2-agents-privkey"
-                    username: "key"
-                    description: "SSH privkey used to connect to EC2 agents"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: "${EC2_AGENTS_PRIVKEY}"
                 - usernamePassword:
                     scope: GLOBAL
                     description: Docker hub credential for release.ci PULL
