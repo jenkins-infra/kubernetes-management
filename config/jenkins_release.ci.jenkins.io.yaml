@@ -89,17 +89,17 @@ controller:
                     scope: GLOBAL
                     id: "azure-vault-client-id"
                     secret: "${AZURE_VAULT_CLIENT_ID}"
-                    description: Azure Service Principale client id used to retrieve gpg key
+                    description: Azure Service Principal client id used to retrieve gpg key
                 - string:
                     scope: GLOBAL
                     id: "azure-vault-client-secret"
                     secret: "${AZURE_VAULT_CLIENT_SECRET}"
-                    description: Azure Service Principale client secret used to retrieve gpg key
+                    description: Azure Service Principal client secret used to retrieve gpg key
                 - string:
                     scope: GLOBAL
                     id: "azure-vault-tenant-id"
                     secret: "${AZURE_VAULT_TENANT_ID}"
-                    description: Azure Service Principale tenant id used to retrieve gpg key
+                    description: Azure Service Principal tenant id used to retrieve gpg key
                 - string:
                     scope: GLOBAL
                     id: "fastly-api-token"
@@ -112,24 +112,9 @@ controller:
                     description: Fastly pkgserver service id used for invalidating pkg.jenkins.io
                 - string:
                     scope: GLOBAL
-                    id: "release-gpg-passphrase"
-                    secret: "${RELEASE_GPG_PASSPHRASE}"
-                    description: Release GPG Key passphrase
-                - string:
-                    scope: GLOBAL
                     id: "release-gpg-passphrase-2023"
                     secret: "${RELEASE_GPG_PASSPHRASE_2023}"
                     description: Release GPG Key passphrase 2023 version
-                - string:
-                    scope: GLOBAL
-                    id: "release-storage-account-key"
-                    secret: "${RELEASE_STORAGE_ACCOUNT_KEY}"
-                    description: Password used by maven to upload war files
-                - string:
-                    scope: GLOBAL
-                    id: "gpg-storage-account-key"
-                    secret: "${GPG_STORAGE_ACCOUNT_KEY}"
-                    description: GPG storage account key
                 - string:
                     scope: GLOBAL
                     id: "maven-repository-username"
@@ -140,31 +125,6 @@ controller:
                     id: "maven-repository-password"
                     secret: "${MAVEN_REPOSITORY_PASSWORD}"
                     description: "PASSWORD used by maven release plugin to publish artifacts on a maven repository"
-                - string:
-                    scope: GLOBAL
-                    id: "maven-repository-username"
-                    secret: "${MAVEN_REPOSITORY_USERNAME}"
-                    description: GPG storage account key
-                - string:
-                    scope: GLOBAL
-                    id: "sops-client-id"
-                    secret: "${SOPS_CLIENT_ID}"
-                    description: Azure client ID used by sops to decrypt secrets
-                - string:
-                    scope: GLOBAL
-                    id: "sops-client-secret"
-                    secret: "${SOPS_CLIENT_SECRET}"
-                    description: Azure client secret used by sops to decrypt secrets
-                - string:
-                    scope: GLOBAL
-                    id: "sops-tenant-id"
-                    secret: "${SOPS_TENANT_ID}"
-                    description: Azure tenant id used by sops to decrypt secrets
-                - string:
-                    scope: GLOBAL
-                    id: "signing-cert-pass"
-                    secret: "${RELEASE_CERTIFICATE_PASSWORD}"
-                    description: Password used by maven signer plugin to unlock the signing certificate
                 - string:
                     scope: GLOBAL
                     id: "signing-cert-pass-2023"
@@ -186,14 +146,6 @@ controller:
                     privateKeySource:
                       directEntry:
                         privateKey: ${SSH_PKGSERVER_PRIVKEY}
-                - basicSSHUserPrivateKey:
-                    scope: GLOBAL
-                    id: "charts-secrets"
-                    username: ${SSH_CHARTS_SECRETS_USERNAME}
-                    description: "SSH privkey used to access jenkins-infra/charts-secret"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
                 - usernamePassword:
                     scope: GLOBAL
                     description: Docker hub credential for release.ci PULL
