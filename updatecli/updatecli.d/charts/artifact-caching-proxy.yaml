@@ -26,7 +26,6 @@ targets:
     kind: yaml
     spec:
       files:
-        - clusters/cijioagents1.yaml
         - clusters/cijioagents2.yaml
       engine: yamlpath
       key: $.releases[?(@.name == 'artifact-caching-proxy')].version
