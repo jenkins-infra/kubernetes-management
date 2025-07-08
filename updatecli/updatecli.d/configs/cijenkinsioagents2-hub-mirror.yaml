@@ -14,24 +14,31 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  acpAwsSubnets:
+  hubMirrorStorageClass:
     kind: json
-    name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
+    name: Retrieve the storage class to use for the "Docker Hub Registry Mirror" storage
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.docker_registry_mirror.subnet_ids
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.storage_class
+
+  hubMirrorAwsSubnets:
+    kind: json
+    name: Retrieve the list of subnet IDS for the "Docker Hub Registry Mirror" AWS LB
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.subnet_ids
     transformers:
       - trimprefix: '['
       - trimsuffix: ']'
       - replacer:
           from: ' '
           to: ','
-  acpLbIps:
+  hubMirrorLbIps:
     kind: json
-    name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
+    name: Retrieve the list of subnet IDS for the "Docker Hub Registry Mirror" AWS LB
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.cijenkinsio-agents-2.docker_registry_mirror.ips
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.ips
     transformers:
       - trimprefix: '['
       - trimsuffix: ']'
@@ -39,9 +46,9 @@ sources:
           from: ' '
           to: ','
 targets:
-  updateAcpLbIps:
-    name: Update ACP LB IPv4
-    sourceid: acpLbIps
+  updateHubMirrorLbIps:
+    name: Update the "Docker Hub Registry Mirror" LB IPv4
+    sourceid: hubMirrorLbIps
     kind: yaml
     transformers:
       - addprefix: '"'
@@ -50,14 +57,14 @@ targets:
       file: config/hub-mirror_cijioagents2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'
     scmid: default
-  updateAcpLbSubnets:
-    name: Update ACP LB Subnets
+  updateHubMirrorLbSubnets:
+    name: Update the "Docker Hub Registry Mirror" LB Subnets
     disablesourceinput: true # We need to combine 2 sources
     kind: yaml
     spec:
       file: config/hub-mirror_cijioagents2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
-      value: '"{{ source `acpAwsSubnets` }}"'
+      value: '"{{ source `hubMirrorAwsSubnets` }}"'
     scmid: default
 
 actions:
@@ -68,4 +75,5 @@ actions:
     spec:
       labels:
         - docker-registry
-        - aws
+        - hub-mirror
+        - cijenkinsioagents2
