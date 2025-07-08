@@ -33,12 +33,12 @@ containerSecurityContext:
       - ALL
 
 cachePvc: ci-jenkins-io-maven-cache
-#TODO: track with updatecli
+#TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/17784f9d822e974154515cddf589eb3beb3a7813/hieradata/common.yaml#L218
 javaHome: /opt/jdk-21
 mavenMirror:
   enable: true
-  # TODO: track with updatecli
+  # TODO: track with updatecli from jenkins)-infra/kubernetes-management (acp release)
   url: http://k8s-artifact-artifact-3d1949c260-a3739c22ffe2d924.elb.us-east-2.amazonaws.com:8080/
-  # TODO: track with updatecli
+  # TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/production/dist/profile/templates/jenkinscontroller/casc/artifact-caching-proxy.yaml.erb#L14
   mirrorOf: "external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven"
   mirrorId: artifact-caching-proxy
