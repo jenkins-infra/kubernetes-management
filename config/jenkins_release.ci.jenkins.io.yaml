@@ -26,7 +26,7 @@ networkPolicy:
 controller:
   image:
     repository: jenkinsciinfra/jenkins-lts
-    tag: 2.2.1-2.504.3
+    tag: 2.2.3-2.504.3
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -194,14 +194,6 @@ controller:
                     privateKeySource:
                       directEntry:
                         privateKey: ${SSH_CHARTS_SECRETS_PRIVKEY}
-                - basicSSHUserPrivateKey:
-                    scope: SYSTEM
-                    id: "ec2-agents-privkey"
-                    username: "key"
-                    description: "SSH privkey used to connect to EC2 agents"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: "${EC2_AGENTS_PRIVKEY}"
                 - usernamePassword:
                     scope: GLOBAL
                     description: Docker hub credential for release.ci PULL
