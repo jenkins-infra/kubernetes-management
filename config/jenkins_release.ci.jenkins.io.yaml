@@ -166,7 +166,7 @@ controller:
                 podRetention: "Never"
                 podLabels:
                   - key: "jenkins/jenkins-release-agent"
-                    value: "true""
+                    value: "true"
                   - key: "azure.workload.identity/use"
                     value: "true"
       jobs-settings: |
