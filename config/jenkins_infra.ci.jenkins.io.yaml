@@ -861,7 +861,7 @@ controller:
               - installSource:
                   installers:
                   - maven:
-                      id: "3.9.10"
+                      id: "3.9.11"
       custom-header: |
         appearance:
           customHeader:
