@@ -640,6 +640,10 @@ jobsDefinition:
         # See https://github.com/jenkins-infra/helpdesk/issues/4282
         allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
+        credentials:
+          fastly_api_token_purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
       plugin-site:
         name: Plugin Site
         # See https://github.com/jenkins-infra/helpdesk/issues/4282
@@ -666,6 +670,9 @@ jobsDefinition:
             description: "plugins.jenkins.io File Share Service Principal Writer"
             subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          fastly_api_token_purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
       jenkins-io-components:
         name: Jenkins.io Web Components
         # See https://github.com/jenkins-infra/helpdesk/issues/4282
@@ -712,6 +719,9 @@ jobsDefinition:
             description: "Contributors.jenkins.io File Share Service Principal Writer"
             subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          fastly_api_token_purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
       docs.jenkins.io:
         name: docs.jenkins.io
         description: "Versioned docs of jenkins.io"
@@ -726,6 +736,9 @@ jobsDefinition:
             description: "docs.jenkins.io File Share Service Principal Writer"
             subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          fastly_api_token_purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
         # See https://github.com/jenkins-infra/helpdesk/issues/4282
