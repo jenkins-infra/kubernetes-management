@@ -309,7 +309,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-21/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-amd64 linux-amd64-docker azure-vms-jenkins-sponsorship"
+                  labels: "linux-amd64 linux-amd64-docker"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "infracijenkinsioagents"
@@ -358,7 +358,7 @@ controller:
                     Restart-Service docker
                   javaPath: "C:/tools/jdk-21/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows azure-vms-jenkins-sponsorship"
+                  labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "infracijenkinsioagents"
@@ -407,7 +407,7 @@ controller:
                     Restart-Service docker
                   javaPath: "C:/tools/jdk-21/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "windows-2022 amd64 azure vm docker-windows docker-windows-2022 windows azure-vms-jenkins-sponsorship"
+                  labels: "windows-2022 amd64 azure vm docker-windows docker-windows-2022 windows"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "infracijenkinsioagents"
@@ -478,7 +478,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-21/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship arm64linux jdk11 maven-11 ubuntu-22-arm64 ubuntu-arm64"
+                  labels: "linux-arm64 linux-arm64-docker arm64linux jdk11 maven-11 ubuntu-22-arm64 ubuntu-arm64"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "infracijenkinsioagents"
