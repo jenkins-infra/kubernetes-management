@@ -82,15 +82,13 @@ controller:
                     id: "github-app-infra"
                     privateKey: "${GITHUB_APP_PRIVATE_KEY}"
                     scope: GLOBAL
-                - azure:
-                    azureEnvironmentName: "Azure"
-                    clientId: "${JENKINSINFRA_AZURE_CLIENT_ID}"
-                    clientSecret: "${JENKINSINFRA_AZURE_CLIENT_SECRET_VALUE}"
-                    description: "azure Service Principal"
-                    id: "azure-jenkins-sponsorship-credentials"
+                - azureImds:
+                    azureEnvName: "Azure"
+                    description: "infra.ci.jenkins.io's Azure Managed Identity used for spawning\
+                      \ agents in the CDF subscription"
+                    id: "azure-jenkins-cdf-managed-identity"
                     scope: SYSTEM
-                    subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
-                    tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+                    subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
                 - usernamePassword:
                     description: "Credentials to access the azure agents VMs"
                     id: "azure-login"
@@ -98,7 +96,7 @@ controller:
                     scope: SYSTEM
                     username: "${AZURE_LOGIN_VM_USER}"
                 - string:
-                    description: "Token of the Service Account account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-2'"
+                    description: "Token of the Service Account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-2'"
                     id: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
                     scope: SYSTEM
                     secret: "${INFRACIJENKINSIO_AGENTS_2_TOKEN}"
@@ -131,7 +129,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=amd64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.54.0"
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.55.0"
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
@@ -170,7 +168,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.54.0"
+                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.55.0"
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
@@ -255,8 +253,8 @@ controller:
                           value: "spot"
                           effect: "NoSchedule"
             - azureVM:
-                azureCredentialsId: "azure-jenkins-sponsorship-credentials"
-                name: "azure-vms-jenkins-sponsorship"
+                azureCredentialsId: "azure-jenkins-cdf-managed-identity"
+                name: "azure-vms-jenkins-cdf"
                 deploymentTimeout: 1200
                 existingResourceGroupName: "infra-ci-jenkins-io-ephemeral-agents"
                 maxVirtualMachinesLimit: 50
@@ -272,10 +270,10 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "2.54.0"
+                    galleryImageVersion: "2.55.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -314,25 +312,25 @@ controller:
                   labels: "linux-amd64 linux-amd64-docker azure-vms-jenkins-sponsorship"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "infracijenkinsioagents"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
+                  spotInstance: true
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  subnetName: "infra-ci-jenkins-io-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS x86_64 machine"
                   templateName: "ubuntu-22"
                   enableUAMI: true
-                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
+                  uamiID: "/subscriptions/dff2ec18-6a8e-405c-8e45-b7df7465acf0/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                  virtualNetworkName: "infra-ci-jenkins-io-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
                 - launcher: "ssh"
                   agentWorkspace: "C:/Jenkins"
                   credentialsId: "azure-login"
@@ -343,10 +341,10 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2019-amd64"
-                    galleryImageVersion: "2.54.0"
+                    galleryImageVersion: "2.55.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
@@ -363,25 +361,25 @@ controller:
                   labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows azure-vms-jenkins-sponsorship"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "infracijenkinsioagents"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Windows"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
+                  spotInstance: true
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  subnetName: "infra-ci-jenkins-io-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Windows 2019 machine"
                   templateName: "win-2019"
                   enableUAMI: true
-                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
+                  uamiID: "/subscriptions/dff2ec18-6a8e-405c-8e45-b7df7465acf0/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                  virtualNetworkName: "infra-ci-jenkins-io-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
                 - launcher: "ssh"
                   agentWorkspace: "C:/Jenkins"
                   credentialsId: "azure-login"
@@ -392,10 +390,10 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-windows-2022-amd64"
-                    galleryImageVersion: "2.54.0"
+                    galleryImageVersion: "2.55.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     (Get-Content C:\ProgramData\Datadog\datadog.yaml -Raw) -Replace 'api_key:', 'api_key: ${JENKINS_CI_DATADOG_API_KEY}' | Set-Content C:\ProgramData\Datadog\datadog.yaml
@@ -412,25 +410,25 @@ controller:
                   labels: "windows-2022 amd64 azure vm docker-windows docker-windows-2022 windows azure-vms-jenkins-sponsorship"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "infracijenkinsioagents"
                   noOfParallelJobs: 1
                   osDiskSize: 150
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Windows"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
+                  spotInstance: true
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  subnetName: "infra-ci-jenkins-io-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Windows 2022 machine"
                   templateName: "win-2022"
                   enableUAMI: true
-                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
+                  uamiID: "/subscriptions/dff2ec18-6a8e-405c-8e45-b7df7465acf0/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                  virtualNetworkName: "infra-ci-jenkins-io-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
                 - launcher: "ssh"
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
@@ -441,10 +439,10 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "2.54.0"
+                    galleryImageVersion: "2.55.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -483,25 +481,25 @@ controller:
                   labels: "linux-arm64 linux-arm64-docker azure-vms-jenkins-sponsorship arm64linux jdk11 maven-11 ubuntu-22-arm64 ubuntu-arm64"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "infracijenkinsioagents"
                   noOfParallelJobs: 1
                   osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
+                  spotInstance: true
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  subnetName: "infra-ci-jenkins-io-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64"
                   enableUAMI: true
-                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
+                  uamiID: "/subscriptions/dff2ec18-6a8e-405c-8e45-b7df7465acf0/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                  virtualNetworkName: "infra-ci-jenkins-io-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
                 - launcher: "ssh"
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
@@ -512,10 +510,10 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "2.54.0"
+                    galleryImageVersion: "2.55.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -554,25 +552,25 @@ controller:
                   labels: "linux-arm64-maven-17 jdk17 maven-17 ubuntu-22-arm64-maven-17 ubuntu-arm64-maven-17"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "infracijenkinsioagents"
                   noOfParallelJobs: 1
                   osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
+                  spotInstance: true
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  subnetName: "infra-ci-jenkins-io-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-17 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64-maven-17"
                   enableUAMI: true
-                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
+                  uamiID: "/subscriptions/dff2ec18-6a8e-405c-8e45-b7df7465acf0/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                  virtualNetworkName: "infra-ci-jenkins-io-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
                 - launcher: "ssh"
                   agentWorkspace: "/home/jenkins"
                   credentialsId: "azure-login"
@@ -583,10 +581,10 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "2.54.0"
+                    galleryImageVersion: "2.55.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
-                    gallerySubscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
                   imageTopLevelType: "advanced"
                   initScript: |-
                     #!/bin/bash
@@ -625,25 +623,25 @@ controller:
                   labels: "linux-arm64-maven-21 jdk21 maven-21 ubuntu-22-arm64-maven-21 ubuntu-arm64-maven-21"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
-                  existingStorageAccountName: "${AZURE_VM_AGENTS_STORAGE_ACCOUNT_SECONDARY_SUBSCRIPTION}"
+                  existingStorageAccountName: "infracijenkinsioagents"
                   noOfParallelJobs: 1
                   osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: false
+                  spotInstance: true
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
-                  subnetName: "infra-ci-jenkins-io-sponsorship-vnet-ephemeral-agents"
+                  subnetName: "infra-ci-jenkins-io-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64-maven-21"
                   enableUAMI: true
-                  uamiID: "/subscriptions/1311c09f-aee0-4d6c-99a4-392c2b543204/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents-sponsorship"
+                  uamiID: "/subscriptions/dff2ec18-6a8e-405c-8e45-b7df7465acf0/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
-                  virtualNetworkName: "infra-ci-jenkins-io-sponsorship-vnet"
-                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsorship"
+                  virtualNetworkName: "infra-ci-jenkins-io-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
       security: |
         security:
           scriptApproval:
