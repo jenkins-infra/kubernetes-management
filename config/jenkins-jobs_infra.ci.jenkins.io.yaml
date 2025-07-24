@@ -109,19 +109,12 @@ jobsDefinition:
           packer-aws-secret-access-key:
             description: AWS Secret key for the user packer
             secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
-          packer-azure-serviceprincipal-sponsorship:
-            azureEnvironmentName: "Azure"
-            clientId: "${PACKER_AZURE_CLIENT_ID}"
-            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by packer on secondary subscription"
-            subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
-            tenant: "${PACKER_AZURE_TENANT_ID}"
           packer-azure-serviceprincipal:
             azureEnvironmentName: "Azure"
             clientId: "${PACKER_AZURE_CLIENT_ID}"
             clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
             description: "Azure Service Principal credential used by packer on CDF subscription"
-            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${PACKER_AZURE_TENANT_ID}"
           jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
       jenkins-infra:
@@ -143,14 +136,7 @@ jobsDefinition:
             clientId: "${PACKER_AZURE_CLIENT_ID}"
             clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
             description: "Azure Service Principal credential used by packer on CDF subscription"
-            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
-            tenant: "${PACKER_AZURE_TENANT_ID}"
-          packer-azure-serviceprincipal-sponsorship:
-            azureEnvironmentName: "Azure"
-            clientId: "${PACKER_AZURE_CLIENT_ID}"
-            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by packer on secondary subscription"
-            subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${PACKER_AZURE_TENANT_ID}"
           packer-aws-access-key-id:
             description: AWS API key for the user packer
@@ -310,7 +296,7 @@ jobsDefinition:
             clientId: "${PACKER_AZURE_CLIENT_ID}"
             clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
             description: "Azure Service Principal credential used by updatecli"
-            subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${PACKER_AZURE_TENANT_ID}"
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
@@ -327,7 +313,7 @@ jobsDefinition:
             clientId: "${UPDATECLI_AZURE_CLIENT_ID}"
             clientSecret: "${UPDATECLI_AZURE_CLIENT_SECRET}"
             description: "Azure Service Principal credential used by updatecli"
-            subscriptionId: "${JENKINSINFRA_AZURE_SECONDARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${UPDATECLI_AZURE_TENANT_ID}"
       pipeline-library:
         name: Shared Pipeline Library
@@ -682,7 +668,7 @@ jobsDefinition:
             clientId: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
             clientSecret: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_PASSWORD}"
             description: "plugins.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           fastly-api-token-purge:
             secret: "${FASTLY_API_TOKEN_PURGE}"
@@ -731,7 +717,7 @@ jobsDefinition:
             clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
             clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
             description: "Contributors.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           fastly-api-token-purge:
             secret: "${FASTLY_API_TOKEN_PURGE}"
@@ -748,7 +734,7 @@ jobsDefinition:
             clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
             clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
             description: "docs.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           fastly-api-token-purge:
             secret: "${FASTLY_API_TOKEN_PURGE}"
@@ -779,5 +765,5 @@ jobsDefinition:
             clientId: "${STATS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
             clientSecret: "${STATS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
             description: "stats.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "${JENKINSINFRA_AZURE_PRIMARY_SUBSCRIPTION_ID}"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
