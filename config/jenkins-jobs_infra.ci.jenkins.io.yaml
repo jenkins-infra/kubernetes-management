@@ -162,6 +162,10 @@ jobsDefinition:
           sops-tenant-id:
             secret: "${SOPS_TENANT_ID}"
             description: Azure tenant id used by sops to decrypt secrets
+          kubeconfig-privatek8s:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for privatek8s"
+            secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
           kubeconfig-privatek8s-sponsorship:
             fileName: "kubeconfig"
             description: "Kubeconfig file for privatek8s_sponsorship"
