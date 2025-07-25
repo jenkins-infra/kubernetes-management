@@ -851,7 +851,7 @@ controller:
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk-21.0.7+6"
-                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.7_6.tar.gz"
+                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.8%2B9/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.8_9.tar.gz"
           maven:
             installations:
             - name: "mvn"
