@@ -794,16 +794,16 @@ controller:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk8u452-b09"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz"
+                      subdir: "jdk8u462-b08"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u462-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u462b08.tar.gz"
                   - zip:
                       label: "windows"
-                      subdir: "jdk8u452-b09"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_x64_windows_hotspot_8u452b09.zip"
+                      subdir: "jdk8u462-b08"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u462-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u462b08.zip"
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk8u452-b09"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u452b09.tar.gz"
+                      subdir: "jdk8u462-b08"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u462-b08/OpenJDK8U-jdk_aarch64_linux_hotspot_8u462b08.tar.gz"
             - name: "jdk11"
               properties:
               - installSource:
