@@ -37,7 +37,7 @@ controller:
       initialDelaySeconds: 60
   image:
     repository: jenkinsciinfra/jenkins-infraci
-    tag: 3.9.7-2.520
+    tag: 3.9.6-2.520
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
