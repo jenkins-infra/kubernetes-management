@@ -28,14 +28,13 @@ controller:
     supplementalGroups: [1000]
     # fsGroup: 1000 # Uncomment once for new volumes
     # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
-  # TODO: uncomment once bootstrapped
-  # probes:
-  #   startupProbe:
-  #     initialDelaySeconds: 60
-  #   livenessProbe:
-  #     initialDelaySeconds: 60
-  #   readinessProbe:
-  #     initialDelaySeconds: 60
+  probes:
+    startupProbe:
+      initialDelaySeconds: 60
+    livenessProbe:
+      initialDelaySeconds: 60
+    readinessProbe:
+      initialDelaySeconds: 60
   image:
     repository: jenkinsciinfra/jenkins-infraci
     tag: 3.9.7-2.520
