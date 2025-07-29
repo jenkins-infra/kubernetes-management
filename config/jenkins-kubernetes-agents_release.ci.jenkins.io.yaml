@@ -1,1 +1,2 @@
-existingServiceAccount: jenkins-release:jenkins-release-controller
+# TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+existingServiceAccount: release-ci-jenkins-io:release-ci-jenkins-io-controller
