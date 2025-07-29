@@ -70,22 +70,21 @@ releases:
     version: 2.3.0
     values:
       - ../config/jenkins-jobs_infra.ci.jenkins.io.yaml
-  # - name: infra-ci-jenkins-io
-  #   namespace: infra-ci-jenkins-io
-  #   chart: jenkins/jenkins
-  #   version: 5.8.72
-  #   timeout: 1200
-  #   needs:
-  #     # Required to generate the job definition in a configmap
-  #     - infra-ci-jenkins-io-jobs
-  #     # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
-  #     - public-nginx-ingress/public-nginx-ingress
-  #     # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
-  #     - private-nginx-ingress/private-nginx-ingress
-  #   values:
-  #     - ../config/jenkins_infra.ci.jenkins.io.yaml
-  #   secrets:
-  #     - ../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml
+  - name: infra-ci-jenkins-io
+    namespace: infra-ci-jenkins-io
+    chart: jenkins/jenkins
+    version: 5.8.72
+    needs:
+      # Required to generate the job definition in a configmap
+      - infra-ci-jenkins-io-jobs
+      # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
+      - public-nginx-ingress/public-nginx-ingress
+      # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
+      - private-nginx-ingress/private-nginx-ingress
+    values:
+      - ../config/jenkins_infra.ci.jenkins.io.yaml
+    secrets:
+      - ../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml
   - name: release-ci-jenkins-io-agents
     namespace: release-ci-jenkins-io-agents
     chart: jenkins-infra/jenkins-kubernetes-agents
