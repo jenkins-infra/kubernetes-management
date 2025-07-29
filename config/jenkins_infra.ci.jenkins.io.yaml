@@ -1,7 +1,7 @@
 serviceAccount:
   create: false
   # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-  name: jenkins-infra-controller
+  name: infra-ci-jenkins-io-controller
 serviceAccountAgent:
   create: false
 rbac:
@@ -9,7 +9,8 @@ rbac:
   readSecrets: true
 persistence:
   enabled: true
-  existingClaim: jenkins-infra-data
+  # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+  existingClaim: infra-ci-jenkins-io-data
 agent:
   componentName: "agent"
 networkPolicy:
@@ -17,7 +18,7 @@ networkPolicy:
   internalAgents:
     allowed: true
     namespaceLabels:
-      name: "jenkins-infra"
+      name: "infra-ci-jenkins-io"
 controller:
   podLabels:
     "azure.workload.identity/use": "true"
@@ -27,6 +28,14 @@ controller:
     supplementalGroups: [1000]
     # fsGroup: 1000 # Uncomment once for new volumes
     # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
+  # TODO: uncomment once bootstrapped
+  # probes:
+  #   startupProbe:
+  #     initialDelaySeconds: 60
+  #   livenessProbe:
+  #     initialDelaySeconds: 60
+  #   readinessProbe:
+  #     initialDelaySeconds: 60
   image:
     repository: jenkinsciinfra/jenkins-infraci
     tag: 3.9.6-2.520
@@ -55,13 +64,6 @@ controller:
     requests:
       cpu: "2"
       memory: "8Gi"
-  probes:
-    startupProbe:
-      initialDelaySeconds: 60
-    livenessProbe:
-      initialDelaySeconds: 60
-    readinessProbe:
-      initialDelaySeconds: 60
   testEnabled: false
   # This setting deletes the content of $ JENKINS_HOME/plugins on each pod restart to ensure only container image plugins are used
   overwritePlugins: true
