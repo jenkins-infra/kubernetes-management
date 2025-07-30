@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'jenkinsio')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/jenkinsio')].version
     scmid: default
 
 actions:

@@ -28,7 +28,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'accountapp')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/accountapp')].version
 
 actions:
   default:

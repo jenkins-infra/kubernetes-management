@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'plugin-health-scoring')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/plugin-health-scoring')].version
     scmid: default
 
 actions:
@@ -35,8 +35,8 @@ actions:
     kind: github/pullrequest
     scmid: default
     title: Bump `plugin-health-scoring` helm chart version to {{ source `lastChartVersion` }}
-    description: "cc @alecharp"
     spec:
+      description: "cc @alecharp"
       labels:
         - dependencies
         - plugin-health-scoring

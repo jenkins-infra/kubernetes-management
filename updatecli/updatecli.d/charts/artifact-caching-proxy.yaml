@@ -28,7 +28,7 @@ targets:
       files:
         - clusters/cijioagents2.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'artifact-caching-proxy')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/artifact-caching-proxy')].version
     scmid: default
 
 actions:

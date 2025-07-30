@@ -25,9 +25,9 @@ targets:
     name: "Update the chart version for rss2twitter"
     kind: yaml
     spec:
-      file: clusters/privatek8s-sponsorship.yaml
+      file: clusters/privatek8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'rss2twitter')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/rss2twitter')].version
     scmid: default
 
 actions:

@@ -29,7 +29,7 @@ targets:
       files:
        - clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'falco')].version
+      key: $.releases[?(@.chart == 'falco/falco')].version
 
 actions:
   default:

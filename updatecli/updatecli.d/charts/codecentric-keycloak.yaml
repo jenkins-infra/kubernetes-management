@@ -28,7 +28,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'keycloak')].version
+      key: $.releases[?(@.chart == 'codecentric/keycloak')].version
 
 actions:
   default:

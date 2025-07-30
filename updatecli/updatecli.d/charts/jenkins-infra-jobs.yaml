@@ -26,9 +26,9 @@ targets:
     kind: yaml
     spec:
       files:
-        - clusters/privatek8s-sponsorship.yaml
+        - clusters/privatek8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'jenkins-infra-jobs')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/jenkins-jobs')].version
     scmid: default
 
 actions:
