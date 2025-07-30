@@ -29,7 +29,7 @@ targets:
     kind: yaml
     spec:
       files:
-        - clusters/privatek8s-sponsorship.yaml
+        - clusters/privatek8s.yaml
         - clusters/publick8s.yaml
       engine: yamlpath
       key: $.releases[?(@.chart == 'ingress-nginx/ingress-nginx')].version

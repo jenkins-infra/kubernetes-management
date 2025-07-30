@@ -33,7 +33,7 @@ targets:
     sourceid: githubHooksIpV4
     scmid: default
     spec:
-      file: config/public-nginx-ingress_privatek8s_sponsorship.yaml
+      file: config/public-nginx-ingress_privatek8s.yaml
       key: controller.config.whitelist-source-range
   allowIPsLB:
     name: Update allowed IPs
@@ -42,7 +42,7 @@ targets:
     sourceid: githubHooksIpV4YamlArray
     scmid: default
     spec:
-      file: config/public-nginx-ingress_privatek8s_sponsorship.yaml
+      file: config/public-nginx-ingress_privatek8s.yaml
       matchpattern: 'loadBalancerSourceRanges(.*)'
       replacepattern: 'loadBalancerSourceRanges: ["{{ source `githubHooksIpV4YamlArray` }}"]'
 
@@ -50,9 +50,9 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update allowed GitHub hooks IPs in the public Nginx of privatek8s-sponsorship
+    title: Update allowed GitHub hooks IPs in the public Nginx of privatek8s
     spec:
       labels:
         - public-nginx
-        - privatek8s-sponsorship
+        - privatek8s
         - github-hooks-ips
