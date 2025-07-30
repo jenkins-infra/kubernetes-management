@@ -1,6 +1,7 @@
 serviceAccount:
-  create: true
-  name: jenkins-release-controller
+  create: false
+  # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+  name: release-ci-jenkins-io-controller
 serviceAccountAgent:
   create: false
 rbac:
@@ -8,7 +9,7 @@ rbac:
   readSecrets: true
 persistence:
   enabled: true
-  existingClaim: jenkins-release-data
+  existingClaim: release-ci-jenkins-io-data
 agent:
   componentName: "agent"
 networkPolicy:
@@ -22,7 +23,7 @@ networkPolicy:
   internalAgents:
     allowed: true
     namespaceLabels:
-      name: "jenkins-release"
+      name: "release-ci-jenkins-io"
 controller:
   image:
     repository: jenkinsciinfra/jenkins-lts
@@ -58,13 +59,14 @@ controller:
     supplementalGroups: [1000]
     # fsGroup: 1000 # Uncomment once for new volumes
     # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
-  probes:
-    startupProbe:
-      initialDelaySeconds: 120
-    livenessProbe:
-      initialDelaySeconds: 120
-    readinessProbe:
-      initialDelaySeconds: 120
+  # TODO: uncomment once bootstrapped
+  # probes:
+  #   startupProbe:
+  #     initialDelaySeconds: 120
+  #   livenessProbe:
+  #     initialDelaySeconds: 120
+  #   readinessProbe:
+  #     initialDelaySeconds: 120
   testEnabled: false
   overwritePlugins: true
   serviceType: "ClusterIP"
@@ -158,14 +160,14 @@ controller:
           clouds:
             - kubernetes:
                 containerCapStr: "100"
-                jenkinsUrl: "http://jenkins-release.jenkins-release.svc.cluster.local:8080"
+                jenkinsUrl: "http://release-ci-jenkins-io.release-ci-jenkins-io.svc.cluster.local:8080"
                 maxRequestsPerHostStr: "300"
                 webSocket: true
                 name: "kubernetes"
-                namespace: "jenkins-release-agents"
+                namespace: "release-ci-jenkins-io-agents"
                 podRetention: "Never"
                 podLabels:
-                  - key: "jenkins/jenkins-release-agent"
+                  - key: "jenkins/release-ci-jenkins-io-agent"
                     value: "true"
                   - key: "azure.workload.identity/use"
                     value: "true"
