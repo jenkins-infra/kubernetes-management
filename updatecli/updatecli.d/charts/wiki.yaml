@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'wiki')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/wiki')].version
     scmid: default
 
 actions:

@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'plugin-site-issues')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/plugin-site-issues')].version
     scmid: default
 
 actions:

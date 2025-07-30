@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'rating')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/rating')].version
     scmid: default
 
 actions:

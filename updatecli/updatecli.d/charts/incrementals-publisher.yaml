@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'incrementals-publisher')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/incrementals-publisher')].version
     scmid: default
 
 actions:

@@ -32,7 +32,7 @@ targets:
         - clusters/infracijioagents2.yaml
         - clusters/cijioagents2.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'datadog')].version
+      key: $.releases[?(@.chart == 'datadog/datadog')].version
 
 actions:
   default:

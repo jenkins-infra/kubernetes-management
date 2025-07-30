@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/privatek8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'github-comment-ops')].version
+      key: $.releases[?(@.chart == 'github-comment-ops/github-comment-ops')].version
     scmid: default
 
 actions:

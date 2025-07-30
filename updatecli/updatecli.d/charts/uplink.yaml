@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'uplink')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/uplink')].version
     scmid: default
 
 actions:

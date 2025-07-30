@@ -29,7 +29,7 @@ targets:
         - clusters/privatek8s.yaml
         - clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'cert-manager')].version
+      key: $.releases[?(@.chart == 'jetstack/cert-manager')].version
     scmid: default
 
 actions:

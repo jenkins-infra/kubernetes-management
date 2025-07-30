@@ -28,7 +28,7 @@ targets:
     spec:
       file: clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'ipv6-lb-service')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/ipv6-lb-service')].version
 
 actions:
   default:

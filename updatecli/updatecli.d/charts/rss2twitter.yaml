@@ -27,7 +27,7 @@ targets:
     spec:
       file: clusters/privatek8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'rss2twitter')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/rss2twitter')].version
     scmid: default
 
 actions:

@@ -29,7 +29,7 @@ targets:
         - clusters/privatek8s.yaml
         - clusters/publick8s.yaml
       engine: yamlpath
-      key: $.releases[?(@.name == 'acme')].version
+      key: $.releases[?(@.chart == 'jenkins-infra/acme')].version
     scmid: default
 
 actions:
