@@ -227,6 +227,9 @@ jobsDefinition:
       docker-geoipupdate:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      docker-infratools:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       docker-jenkins-infraci:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
