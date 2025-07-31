@@ -61,6 +61,8 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-geoipupdate:
         disableTagDiscovery: true
+      docker-infratools:
+        disableTagDiscovery: true
       docker-jenkins-lts:
         disableTagDiscovery: true
       docker-jenkins-weeklyci:
