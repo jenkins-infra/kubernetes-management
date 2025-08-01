@@ -15,10 +15,10 @@ tolerations:
 resources:
   limits:
     # No CPU limit to avoid throttling
-    memory: 1024Mi
+    memory: 4096Mi
   requests:
     cpu: 2
-    memory: 1024Mi
+    memory: 2048Mi
 
 podSecurityContext:
   runAsUser: 1001 # User 'jenkins'
