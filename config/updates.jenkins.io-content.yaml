@@ -66,7 +66,7 @@ cli:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
       service.beta.kubernetes.io/azure-pls-create: "true"
-      service.beta.kubernetes.io/azure-pls-name: "updates.jenkins.io-cli"
+      service.beta.kubernetes.io/azure-pls-name: "updates.jenkins.io"
       service.beta.kubernetes.io/azure-pls-ip-configuration-subnet: "public-vnet-data-tier"
       service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
       service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
