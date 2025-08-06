@@ -236,15 +236,6 @@ releases:
     version: 1.4.7
     values:
       - "../config/updates.jenkins.io-redirections.yaml"
-  # Service used to fill the shared Azure File PVC through rsync from trusted.ci
-  - name: updates-jenkins-io-rsyncd-data
-    namespace: updates-jenkins-io
-    chart: jenkins-infra/rsyncd
-    version: 3.1.28
-    values:
-      - "../config/updates.jenkins.io-rsyncd-data.yaml"
-    secrets:
-      - "../secrets/config/updates.jenkins.io/rsyncd-data-secrets.yaml"
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
