@@ -215,14 +215,14 @@ releases:
       - public-nginx-ingress/public-nginx-ingress
     values:
       - "../config/ipv6-lb-service.yaml"
-  - name: updates-jenkins-io-content-secured
+  - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
     version: 5.5.23
     values:
-      - "../config/updates.jenkins.io-content-secured.yaml"
+      - "../config/updates.jenkins.io-content.yaml"
     secrets:
-      - "../secrets/config/updates.jenkins.io/secrets-secured.yaml"
+      - "../secrets/config/updates.jenkins.io/secrets.yaml"
   # Can be removed once mirrorbits support scanning through s3
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
@@ -230,26 +230,12 @@ releases:
     version: 3.1.28
     values:
       - "../config/updates.jenkins.io-rsync.yaml"
-  - name: updates-jenkins-io-content-unsecured
-    namespace: updates-jenkins-io
-    chart: jenkins-infra/mirrorbits
-    version: 5.5.23
-    values:
-      - "../config/updates.jenkins.io-content-unsecured.yaml"
-    secrets:
-      - "../secrets/config/updates.jenkins.io/secrets-unsecured.yaml"
-  - name: updates-jenkins-io-httpd-secured
+  - name: updates-jenkins-io-redirections
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
     version: 1.4.7
     values:
-      - "../config/updates.jenkins.io_httpd-secured.yaml"
-  - name: updates-jenkins-io-httpd-unsecured
-    namespace: updates-jenkins-io
-    chart: jenkins-infra/httpd
-    version: 1.4.7
-    values:
-      - "../config/updates.jenkins.io_httpd-unsecured.yaml"
+      - "../config/updates.jenkins.io-redirections.yaml"
   # Service used to fill the shared Azure File PVC through rsync from trusted.ci
   - name: updates-jenkins-io-rsyncd-data
     namespace: updates-jenkins-io
