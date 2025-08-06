@@ -16,65 +16,35 @@ scms:
 sources:
   pvcName:
     kind: json
-    name: Retrieve the pvc name for updates-jenkins-io-redirects secured
+    name: Retrieve the pvc name for updates-jenkins-io-redirects
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .updates\.jenkins\.io.redirections-secured.pvc_name
+      key: .updates\.jenkins\.io.redirections.pvc_name
   subDir:
     kind: json
-    name: Retrieve the subDir name for updates-jenkins-io-redirects secured
+    name: Retrieve the subDir name for updates-jenkins-io-redirects
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .updates\.jenkins\.io.redirections-secured.share_uri
-  pvcNameUnsecured:
-    kind: json
-    name: Retrieve the pvc name for updates-jenkins-io-redirects unsecured
-    spec:
-      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .updates\.jenkins\.io.redirections-unsecured.pvc_name
-  subDirUnsecured:
-    kind: json
-    name: Retrieve the subDir name for updates-jenkins-io-redirects unsecured
-    spec:
-      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .updates\.jenkins\.io.redirections-unsecured.share_uri
+      key: .updates\.jenkins\.io.redirections.share_uri
+    transformers:
+      - addprefix: '.'
 
 targets:
   updatePvcName:
     sourceid: pvcName
-    name: Update httpd-secured PVC name
+    name: Update the PVC name for updates-jenkins-io-redirects
     kind: yaml
     spec:
-      file: config/updates.jenkins.io_httpd-secured.yaml
+      file: config/updates.jenkins.io-redirections.yaml
       key: $.repository.name
     scmid: default
   updateSubDir:
     sourceid: subDir
-    name: Update httpd-secured subDir
+    name: Update the PVC subDir for updates-jenkins-io-redirects
     kind: yaml
     spec:
-      file: config/updates.jenkins.io_httpd-secured.yaml
+      file: config/updates.jenkins.io-redirections.yaml
       key: $.repository.subDir
-    transformers:
-      - addprefix: '.'
-    scmid: default
-  updatePvcNameUnsecured:
-    sourceid: pvcNameUnsecured
-    name: Update httpd-unsecured PVC name
-    kind: yaml
-    spec:
-      file: config/updates.jenkins.io_httpd-unsecured.yaml
-      key: $.repository.name
-    scmid: default
-  updateSubDirUnsecured:
-    sourceid: subDirUnsecured
-    name: Update httpd-unsecured subDir
-    kind: yaml
-    spec:
-      file: config/updates.jenkins.io_httpd-unsecured.yaml
-      key: $.repository.subDir
-    transformers:
-      - addprefix: '.'
     scmid: default
 
 actions:
@@ -85,5 +55,4 @@ actions:
     spec:
       labels:
         - updates.jenkins.io
-        - geoip-data
         - updates.jenkins.io-redirects

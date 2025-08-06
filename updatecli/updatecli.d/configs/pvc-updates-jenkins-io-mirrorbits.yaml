@@ -16,10 +16,18 @@ scms:
 sources:
   pvcName:
     kind: json
-    name: Retrieve the pvc name for updates-jenkins-io
+    name: Retrieve the PVC name for updates-jenkins-io
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.content.pvc_name
+  contentPvcSubdir:
+    kind: json
+    name: Retrieve the subdir inside the PVC for service "content" in updates-jenkins-io
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .updates\.jenkins\.io.content.share_uri
+    transformers:
+      - addprefix: '.'
   pvcNameGeoipData:
     kind: json
     name: Retrieve the pvc name for geoip-data
@@ -28,36 +36,27 @@ sources:
       key: .updates\.jenkins\.io.geoip_data.pvc_name
 
 targets:
-  updatePvcNameSecured:
+  updatePvcName:
     sourceid: pvcName
-    name: Update updates-jenkins-io PVC name secured
+    name: Update updates-jenkins-io PVC name
     kind: yaml
     spec:
-      file: config/updates.jenkins.io-content-secured.yaml
+      file: config/updates.jenkins.io-content.yaml
       key: $.repository.name
     scmid: default
-  updatePvcNameUnsecured:
-    sourceid: pvcName
-    name: Update updates-jenkins-io PVC name unsecured
+  updateContentPvcSubdir:
+    sourceid: contentPvcSubdir
     kind: yaml
+    name: Update the subdir inside the PVC for service "content" in updates-jenkins-io
     spec:
-      file: config/updates.jenkins.io-content-unsecured.yaml
-      key: $.repository.name
-    scmid: default
-  updateGeoipPvcNameSecured:
+      file: config/updates.jenkins.io-content.yaml
+      key: $.repository.subDir
+  updateGeoipPvcName:
     sourceid: pvcNameGeoipData
-    name: Update geoip-data PVC name secured
+    name: Update geoip-data PVC name
     kind: yaml
     spec:
-      file: config/updates.jenkins.io-content-secured.yaml
-      key: $.geoipdata.existingPVCName
-    scmid: default
-  updateGeoipPvcNameUnsecured:
-    sourceid: pvcNameGeoipData
-    name: Update geoip-data PVC name unsecured
-    kind: yaml
-    spec:
-      file: config/updates.jenkins.io-content-unsecured.yaml
+      file: config/updates.jenkins.io-content.yaml
       key: $.geoipdata.existingPVCName
     scmid: default
 
@@ -70,3 +69,4 @@ actions:
       labels:
         - updates.jenkins.io
         - geoip-data
+        - updates.jenkins.io-content
