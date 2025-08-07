@@ -268,3 +268,11 @@ releases:
       - ../config/geoipdata.yaml
     secrets:
       - ../secrets/config/geoipdata/secrets.yaml
+  - name: redis
+    namespace: redis
+    chart: oci://registry-1.docker.io/bitnamicharts/redis
+    version: 21.2.14
+    values:
+      - ../config/publick8s-redis.yaml
+    secrets:
+      - ../secrets/config/redis/publick8s.yaml
