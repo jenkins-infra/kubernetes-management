@@ -178,7 +178,7 @@ releases:
   - name: get-jenkins-io
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits-parent
-    version: 7.1.0
+    version: 7.0.31
     values:
       - "../config/get-jenkins-io.yaml"
     secrets:
