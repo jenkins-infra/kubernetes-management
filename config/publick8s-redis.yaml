@@ -1,0 +1,21 @@
+auth:
+  # Mirrorbits does not support sentinel auth
+  sentinel: false
+sentinel:
+  enabled: true
+  masterSet: publick8s-master
+replica:
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4096Mi
+    requests:
+      cpu: 500m
+      memory: 2048Mi
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
