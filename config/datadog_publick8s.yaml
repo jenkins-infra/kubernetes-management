@@ -10,6 +10,16 @@ datadog:
           fieldPath: spec.nodeName
   ignoreAutoConfig:
     - apache # Our Apache instances do not expose any /server-status endpoint. Let's avoid unneeded requests
+  ### TODO: remove below once cluster is modernized - https://github.com/jenkins-infra/helpdesk/issues/4617
+  kubelet:
+    host:
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    hostCAPath: /etc/kubernetes/certs/kubeletserver.crt
+    # Required as of Agent 7.35 because Kubelet certificates in AKS do not have a Subject Alternative Name (SAN) set.
+    tlsVerify: false
+  ## end TODO: remove
 agents:
   tolerations:
     - key: "kubernetes.io/arch"
