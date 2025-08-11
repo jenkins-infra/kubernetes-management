@@ -35,7 +35,9 @@ config:
   # Do not answer mirrorbits API JSON content when accept header is set to application/json (behavior with default value "auto")
   outputMode: redirect
   redis:
-    address: public-redis.redis.cache.windows.net:6379
+    sentinelMasterName: publick8s-master
+    sentinels:
+      - redis.redis.svc.cluster.local:26379
     # password is stored in SOPS secrets
     ## RedisDB - Use 0 for staging and 1, get.jio production and 2 for update.jio production
     dbId: 2
