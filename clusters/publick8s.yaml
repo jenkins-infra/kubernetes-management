@@ -220,9 +220,9 @@ releases:
     chart: jenkins-infra/mirrorbits
     version: 5.8.2
     values:
-      - "../config/updates.jenkins.io-content.yaml"
+      - ../config/updates.jenkins.io-content.yaml
     secrets:
-      - "../secrets/config/updates.jenkins.io/secrets.yaml"
+      - ../secrets/config/updates.jenkins.io/secrets.yaml
   # Can be removed once mirrorbits support scanning through s3
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
