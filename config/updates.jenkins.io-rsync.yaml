@@ -4,8 +4,8 @@ configuration:
     - name: jenkins
       path: /rsyncd/data/jenkins
       comment: "Jenkins Read-Only Mirror"
-      volumeTpl: updates-jenkins-io-data
-      volumeSubDir: ./content/
+      volumeTpl: updates-jenkins-io
+      volumeSubDir: ./updates.jenkins.io/content/
       writeEnabled: false
 podSecurityContext:
   runAsUser: 1000  # User 'rsyncd'
