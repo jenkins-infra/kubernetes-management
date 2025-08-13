@@ -1,5 +1,5 @@
 ---
-name: Update PVC names for updates.jenkins.io mirrorbits
+name: Update PVC names for updates.jenkins.io "content" service (mirrorbits)
 
 scms:
   default:
@@ -14,7 +14,7 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  pvcName:
+  contentPvcName:
     kind: json
     name: Retrieve the PVC name for updates-jenkins-io
     spec:
@@ -22,23 +22,31 @@ sources:
       key: .updates\.jenkins\.io.content.pvc_name
   contentPvcSubdir:
     kind: json
-    name: Retrieve the subdir inside the PVC for service "content" in updates-jenkins-io
+    name: Retrieve the subdir inside the PVC for component "content" in updates-jenkins-io
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.content.share_uri
     transformers:
       - addprefix: '.'
-  pvcNameGeoipData:
+  geoipdataPvcName:
     kind: json
     name: Retrieve the pvc name for geoipdata
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.geoipdata.pvc_name
+  geoipdataPvcSubdir:
+    kind: json
+    name: Retrieve the subdir inside the PVC for component "geoipdata" in updates-jenkins-io
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .updates\.jenkins\.io.geoipdata.share_uri
+    transformers:
+      - addprefix: '.'
 
 targets:
-  updatePvcName:
-    sourceid: pvcName
-    name: Update updates-jenkins-io PVC name
+  updateContentPvcName:
+    sourceid: contentPvcName
+    name: Update updates-jenkins-io-content "repository" PVC name
     kind: yaml
     spec:
       file: config/updates.jenkins.io-content.yaml
@@ -47,24 +55,33 @@ targets:
   updateContentPvcSubdir:
     sourceid: contentPvcSubdir
     kind: yaml
-    name: Update the subdir inside the PVC for service "content" in updates-jenkins-io
+    name: Update updates-jenkins-io-content "repository" PVC subDir mount
     spec:
       file: config/updates.jenkins.io-content.yaml
       key: $.repository.subDir
-  updateGeoipPvcName:
-    sourceid: pvcNameGeoipData
-    name: Update geoipdata PVC name
+    scmid: default
+  updateGeoipdataPvcName:
+    sourceid: geoipdataPvcName
+    name: Update updates-jenkins-io-content "geoipdata" PVC name
     kind: yaml
     spec:
       file: config/updates.jenkins.io-content.yaml
       key: $.geoipdata.existingPVCName
+    scmid: default
+  updateGeoipdataPvcSubdir:
+    sourceid: geoipdataPvcSubdir
+    kind: yaml
+    name: Update updates-jenkins-io-content "geoipdata" PVC subDir mount
+    spec:
+      file: config/updates.jenkins.io-content.yaml
+      key: $.geoipdata.subDir
     scmid: default
 
 actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update PVC names for updates.jenkins.io mirrorbits
+    title: Update PVC names for updates.jenkins.io "content" service (mirrorbits)
     spec:
       labels:
         - updates.jenkins.io
