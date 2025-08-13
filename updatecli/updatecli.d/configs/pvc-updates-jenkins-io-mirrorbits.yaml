@@ -30,10 +30,10 @@ sources:
       - addprefix: '.'
   pvcNameGeoipData:
     kind: json
-    name: Retrieve the pvc name for geoip-data
+    name: Retrieve the pvc name for geoipdata
     spec:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .updates\.jenkins\.io.geoip_data.pvc_name
+      key: .updates\.jenkins\.io.geoipdata.pvc_name
 
 targets:
   updatePvcName:
@@ -53,7 +53,7 @@ targets:
       key: $.repository.subDir
   updateGeoipPvcName:
     sourceid: pvcNameGeoipData
-    name: Update geoip-data PVC name
+    name: Update geoipdata PVC name
     kind: yaml
     spec:
       file: config/updates.jenkins.io-content.yaml
@@ -68,5 +68,5 @@ actions:
     spec:
       labels:
         - updates.jenkins.io
-        - geoip-data
+        - geoipdata
         - updates.jenkins.io-content
