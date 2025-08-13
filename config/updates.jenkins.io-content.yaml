@@ -27,7 +27,7 @@ containerSecurityContext:
 repository:
   name: updates-jenkins-io
   existingPVC: true
-  subDir: ./content/
+  subDir: ./updates.jenkins.io/content/
 config:
   # Ingress already does gzip/brotli
   gzip: false
@@ -73,7 +73,10 @@ cli:
       service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
       service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
 geoipdata:
-  existingPVCName: updates-jenkins-io
+  existingPVCName: updates-jenkins-io-geoip-data
+  ## TODO: implement merging geoipdata and mirrorbits PVC in helm chart + subdir support for geoipdata
+  # existingPVCName: updates-jenkins-io
+  # subDir: ./updates.jenkins.io/geoipdata/
 annotations:
   ad.datadoghq.com/mirrorbits.logs: |
     [{"source":"mirrorbits","service":"updates.jenkins.io"}]

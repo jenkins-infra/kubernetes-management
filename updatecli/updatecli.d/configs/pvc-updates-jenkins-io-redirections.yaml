@@ -1,5 +1,5 @@
 ---
-name: Update PVC names for updates.jenkins.io HTTPD
+name: Update PVC names for updates.jenkins.io "redirections" service (httpd)
 
 scms:
   default:
@@ -51,7 +51,7 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update PVC names for updates.jenkins.io HTTPD
+    title: Update PVC names for updates.jenkins.io "redirections" service (httpd)
     spec:
       labels:
         - updates.jenkins.io
