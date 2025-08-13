@@ -14,7 +14,7 @@ tolerations:
     value: "arm64"
     effect: "NoSchedule"
 repository:
-  name: updates-jenkins-io-data
+  name: updates-jenkins-io
   reuseExistingPersistentVolumeClaim: true
   subDir: ./updates.jenkins.io/redirections/
 annotations:
