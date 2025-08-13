@@ -60,6 +60,22 @@ targets:
       file: config/updates.jenkins.io-content.yaml
       key: $.repository.subDir
     scmid: default
+  updateRsyncContentPvcName:
+    sourceid: contentPvcName
+    name: Update updates-jenkins-io-rsync PVC name
+    kind: yaml
+    spec:
+      file: config/updates.jenkins.io-rsync.yaml
+      key: $.configuration.components[0].volumeTpl
+    scmid: default
+  updateRsyncContentPvcSubdir:
+    sourceid: contentPvcSubdir
+    kind: yaml
+    name: Update updates-jenkins-io-rsync PVC subDir mount
+    spec:
+      file: config/updates.jenkins.io-rsync.yaml
+      key: $.configuration.components[0].volumeSubDir
+    scmid: default
   updateGeoipdataPvcName:
     sourceid: geoipdataPvcName
     name: Update updates-jenkins-io-content "geoipdata" PVC name

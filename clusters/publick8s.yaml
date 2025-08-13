@@ -229,13 +229,13 @@ releases:
     chart: jenkins-infra/rsyncd
     version: 3.1.29
     values:
-      - "../config/updates.jenkins.io-rsync.yaml"
+      - ../config/updates.jenkins.io-rsync.yaml
   - name: updates-jenkins-io-redirections
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
     version: 1.4.7
     values:
-      - "../config/updates.jenkins.io-redirections.yaml"
+      - ../config/updates.jenkins.io-redirections.yaml
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
