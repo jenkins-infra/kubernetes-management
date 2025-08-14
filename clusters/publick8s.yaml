@@ -218,7 +218,7 @@ releases:
   - name: staging-get-jenkins-io-mirrorbits
     namespace: get-jenkins-io # Same NS as the PVC
     chart: jenkins-infra/mirrorbits
-    version: 5.9.0
+    version: 5.9.1
     values:
       - ../config/staging.get.jenkins.io-mirrorbits.yaml
     secrets:
@@ -232,7 +232,7 @@ releases:
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.9.0
+    version: 5.9.1
     values:
       - ../config/updates.jenkins.io-content.yaml
     secrets:
