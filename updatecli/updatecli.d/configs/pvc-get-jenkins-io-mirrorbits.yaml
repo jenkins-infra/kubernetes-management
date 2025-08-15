@@ -1,0 +1,89 @@
+---
+name: Update PVC names for get.jenkins.io "mirrorbits" service
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  contentPvcName:
+    kind: json
+    name: Retrieve the PVC name for get-jenkins-io
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .get\.jenkins\.io.mirrorbits.pvc_name
+  contentPvcSubdir:
+    kind: json
+    name: Retrieve the subdir inside the PVC for component "mirrorbits" in get-jenkins-io
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .get\.jenkins\.io.mirrorbits.share_uri
+    transformers:
+      - addprefix: '.'
+  geoipdataPvcName:
+    kind: json
+    name: Retrieve the pvc name for geoipdata
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .get\.jenkins\.io.geoipdata.pvc_name
+  geoipdataPvcSubdir:
+    kind: json
+    name: Retrieve the subdir inside the PVC for component "geoipdata" in get-jenkins-io
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .get\.jenkins\.io.geoipdata.share_uri
+    transformers:
+      - addprefix: '.'
+
+targets:
+  updateContentPvcName:
+    sourceid: contentPvcName
+    name: Update get-jenkins-io-mirrorbits "repository" PVC name
+    kind: yaml
+    spec:
+      file: config/get-jenkins-io-mirrorbits.yaml
+      key: $.repository.name
+    scmid: default
+  updateContentPvcSubdir:
+    sourceid: contentPvcSubdir
+    kind: yaml
+    name: Update get-jenkins-io-mirrorbits "repository" PVC subDir mount
+    spec:
+      file: config/get-jenkins-io-mirrorbits.yaml
+      key: $.repository.subDir
+    scmid: default
+  updateGeoipdataPvcName:
+    sourceid: geoipdataPvcName
+    name: Update get-jenkins-io-mirrorbits "geoipdata" PVC name
+    kind: yaml
+    spec:
+      file: config/get-jenkins-io-mirrorbits.yaml
+      key: $.geoipdata.existingPVCName
+    scmid: default
+  updateGeoipdataPvcSubdir:
+    sourceid: geoipdataPvcSubdir
+    kind: yaml
+    name: Update get-jenkins-io-mirrorbits "geoipdata" PVC subDir mount
+    spec:
+      file: config/get-jenkins-io-mirrorbits.yaml
+      key: $.geoipdata.subDir
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update PVC names for get.jenkins.io "mirrorbits" service (mirrorbits)
+    spec:
+      labels:
+        - get.jenkins.io
+        - geoipdata
+        - mirrorbits

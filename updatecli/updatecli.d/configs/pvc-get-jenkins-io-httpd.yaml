@@ -1,0 +1,57 @@
+---
+name: Update PVC names for get.jenkins.io "httpd" service
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  pvcName:
+    kind: json
+    name: Retrieve the pvc name for get-jenkins-io-httpd
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .get\.jenkins\.io.httpd.pvc_name
+  subDir:
+    kind: json
+    name: Retrieve the subDir name for get-jenkins-io-httpd
+    spec:
+      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      key: .get\.jenkins\.io.httpd.share_uri
+    transformers:
+      - addprefix: '.'
+
+targets:
+  updatePvcName:
+    sourceid: pvcName
+    name: Update the PVC name for get-jenkins-io-httpd
+    kind: yaml
+    spec:
+      file: config/get-jenkins-io-httpd.yaml
+      key: $.repository.name
+    scmid: default
+  updateSubDir:
+    sourceid: subDir
+    name: Update the PVC subDir for get-jenkins-io-httpd
+    kind: yaml
+    spec:
+      file: config/get-jenkins-io-httpd.yaml
+      key: $.repository.subDir
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update PVC names for `get.jenkins.io` "httpd" service
+    spec:
+      labels:
+        - get.jenkins.io
