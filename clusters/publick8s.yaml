@@ -175,12 +175,20 @@ releases:
       - "../config/accountapp.yaml"
     secrets:
       - "../secrets/config/accountapp/secrets.yaml"
-  - name: get-jenkins-io
+  - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
-    chart: jenkins-infra/mirrorbits-parent
-    version: 7.1.6
+    chart: jenkins-infra/mirrorbits
+    version: 5.9.1
     values:
-      - ../config/get-jenkins-io.yaml
+      - ../config/get-jenkins-io-mirrorbits.yaml
+    secrets:
+      - ../secrets/config/get-jenkins-io/mirrorbits-secrets.yaml
+  - name: get-jenkins-io-httpd
+    namespace: get-jenkins-io
+    chart: jenkins-infra/httpd
+    version: 1.4.7
+    values:
+      - ../config/get-jenkins-io-httpd.yaml
     secrets:
       - ../secrets/config/get-jenkins-io/secrets.yaml
   - name: plugin-site-issues
