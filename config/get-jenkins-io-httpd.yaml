@@ -1,37 +1,36 @@
-httpd:
-  enabled: true
-  replicaCount: 2
-  resources:
-    limits:
-      cpu: 500m
-      memory: 1024Mi
-    requests:
-      cpu: 50m
-      memory: 500Mi
-  nodeSelector:
-    kubernetes.io/arch: arm64
-  tolerations:
-    - key: "kubernetes.io/arch"
-      operator: "Equal"
-      value: "arm64"
-      effect: "NoSchedule"
-  affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: "app.kubernetes.io/name"
-                operator: In
-                values:
-                  - mirrorbits-files
-          topologyKey: "kubernetes.io/hostname"
-  repository:
-    name: get-jenkins-io
-    reuseExistingPersistentVolumeClaim: true
-    subDir: ./get.jenkins.io/mirrorbits/
-  annotations:
-    ad.datadoghq.com/httpd.logs: |
-      [{"source":"apache","service":"get.jenkins.io"}]
+enabled: true
+replicaCount: 2
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 50m
+    memory: 500Mi
+nodeSelector:
+  kubernetes.io/arch: arm64
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - mirrorbits-files
+        topologyKey: "kubernetes.io/hostname"
+repository:
+  name: get-jenkins-io
+  reuseExistingPersistentVolumeClaim: true
+  subDir: ./get.jenkins.io/mirrorbits/
+annotations:
+  ad.datadoghq.com/httpd.logs: |
+    [{"source":"apache","service":"get.jenkins.io"}]
 
 ingress:
   enabled: true
