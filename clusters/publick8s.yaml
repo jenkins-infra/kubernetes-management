@@ -223,20 +223,6 @@ releases:
       - public-nginx-ingress/public-nginx-ingress
     values:
       - "../config/ipv6-lb-service.yaml"
-  - name: staging-get-jenkins-io-mirrorbits
-    namespace: get-jenkins-io # Same NS as the PVC
-    chart: jenkins-infra/mirrorbits
-    version: 5.9.1
-    values:
-      - ../config/staging.get.jenkins.io-mirrorbits.yaml
-    secrets:
-      - ../secrets/config/get-jenkins-io/staging-secrets.yaml
-  - name: staging-get-jenkins-io-httpd
-    namespace: get-jenkins-io # Same NS as the PVC
-    chart: jenkins-infra/httpd
-    version: 1.4.7
-    values:
-      - ../config/staging.get.jenkins.io-httpd.yaml
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
