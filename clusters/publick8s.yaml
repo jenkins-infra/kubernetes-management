@@ -189,8 +189,6 @@ releases:
     version: 1.4.7
     values:
       - ../config/get-jenkins-io-httpd.yaml
-    secrets:
-      - ../secrets/config/get-jenkins-io/secrets.yaml
   - name: plugin-site-issues
     namespace: plugin-site
     chart: jenkins-infra/plugin-site-issues
