@@ -40,28 +40,7 @@ global:
           - mirrors.jenkins-ci.org
           - fallback.get.jenkins.io
   storage:
-    enabled: true
-    claimNameTpl: '{{ include "mirrorbits-parent.pvc-name" $ }}'
-    storageClassName: azurefile-csi-premium
-    storageSize: 700Gi
-    accessModes:
-      - ReadOnlyMany
-    persistentVolume:
-      azureFile:
-        resourceGroup: get-jenkins-io
-        shareName: mirrorbits
-        readOnly: true
-      additionalSpec:
-        persistentVolumeReclaimPolicy: Retain
-        mountOptions:
-          - dir_mode=0755
-          - file_mode=0644
-          - uid=1000
-          - gid=1000
-          - mfsymlinks
-          - nobrl
-          - serverino
-          - cache=strict
+    enabled: false
 
 mirrorbits:
   enabled: true
@@ -103,6 +82,10 @@ mirrorbits:
                 values:
                   - mirrorbits
           topologyKey: "kubernetes.io/hostname"
+  repository:
+    name: get-jenkins-io
+    existingPVC: true
+    subDir: ./get.jenkins.io/mirrorbits/
   config:
     # Ingress already does gzip/brotli
     gzip: false
@@ -181,6 +164,10 @@ httpd:
                 values:
                   - mirrorbits-files
           topologyKey: "kubernetes.io/hostname"
+  repository:
+    name: get-jenkins-io
+    reuseExistingPersistentVolumeClaim: true
+    subDir: ./get.jenkins.io/mirrorbits/
   annotations:
     ad.datadoghq.com/httpd.logs: |
       [{"source":"apache","service":"get.jenkins.io"}]
