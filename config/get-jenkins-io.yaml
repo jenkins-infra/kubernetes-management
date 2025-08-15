@@ -47,7 +47,7 @@ mirrorbits:
   image:
     #repository: jenkinsciinfra/mirrorbits
     tag: 0.2.92 # mirrorbits v0.5.1 - https://github.com/jenkins-infra/helpdesk/issues/4764
-  replicaCount: 2
+  replicaCount: 1
   resources:
     limits:
       cpu: 2
@@ -127,7 +127,7 @@ mirrorbits:
 
 httpd:
   enabled: true
-  replicaCount: 2
+  replicaCount: 1
   resources:
     limits:
       cpu: 500m
