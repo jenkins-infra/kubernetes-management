@@ -119,20 +119,8 @@ mirrorbits:
         countryCode: DE
         continentCode: EU
   geoipdata:
-    persistentData:
-      enabled: true
-      capacity: 1Gi
-      storageClassName: statically-provisionned
-      csi:
-        driver: file.csi.azure.com
-        fsType: ext4
-        nodeStageSecretRef:
-          name: geoip-data
-          namespace: geoip-data
-        volumeAttributes:
-          resourceGroup: publick8s
-          shareName: geoip-data
-        volumeHandle: https://publick8spvdata.file.core.windows.net/geoip-data
+    existingPVCName: get-jenkins-io
+    subDir: ./get.jenkins.io/geoipdata/
   annotations:
     ad.datadoghq.com/mirrorbits.logs: |
       [{"source":"mirrorbits","service":"get.jenkins.io"}]
