@@ -26,8 +26,8 @@ networkPolicy:
       name: "release-ci-jenkins-io"
 controller:
   image:
-    repository: jenkinsciinfra/jenkins-lts
-    tag: 2.3.14-2.516.1
+    repository: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-lts
+    tag: 2.3.16-2.516.1
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux

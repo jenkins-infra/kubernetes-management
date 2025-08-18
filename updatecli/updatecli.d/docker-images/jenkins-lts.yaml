@@ -14,30 +14,31 @@ scms:
 
 sources:
   latestRelease:
-    name: "Get latest jenkins-lts version"
+    name: Get latest jenkins-lts version
     kind: githubrelease
     spec:
-      owner: "jenkins-infra"
-      repository: "docker-jenkins-lts"
+      owner: jenkins-infra
+      repository: docker-jenkins-lts
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 
 conditions:
   checkDockerImagePublished:
-    name: "Test jenkinsciinfra/jenkins-lts:<latest_version> docker image tag"
+    name: Test dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-lts:<latest_version> docker image tag
     kind: dockerimage
     spec:
-      image: "jenkinsciinfra/jenkins-lts"
+      image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-lts
       ## Tag from source
-      architecture: amd64
+      architectures:
+        - arm64
 
 targets:
   updateReleaseInConfig:
-    name: "Update jenkinsciinfra/jenkins-lts docker image tag"
+    name: Update jenkinsciinfra/jenkins-lts docker image tag
     kind: yaml
     spec:
-      file: "config/jenkins_release.ci.jenkins.io.yaml"
-      key: "$.controller.image.tag"
+      file: config/jenkins_release.ci.jenkins.io.yaml
+      key: $.controller.image.tag
     scmid: default
 
 actions:
