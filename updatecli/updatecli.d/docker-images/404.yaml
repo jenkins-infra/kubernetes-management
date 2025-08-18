@@ -24,7 +24,7 @@ sources:
 
 conditions:
   checkDockerImagePublished:
-    name: Test jenkinsciinfra/404:<latest_version> docker image tag
+    name: Test dockerhubmirror.azurecr.io/jenkinsciinfra/404:<latest_version> docker image tag
     kind: dockerimage
     spec:
       image: dockerhubmirror.azurecr.io/jenkinsciinfra/404
