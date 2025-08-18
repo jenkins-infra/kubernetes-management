@@ -85,6 +85,9 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-rsyncd:
         disableTagDiscovery: true
+      incrementals-publisher:
+        disableTagDiscovery: true
+        jenkinsfilePath: Jenkinsfile
       plugin-health-scoring:
         jenkinsfilePath: Jenkinsfile
         # Releases are triggered by the creation of a tag by maintainers.
@@ -268,6 +271,9 @@ jobsDefinition:
         description: Custom Helm Charts of the Jenkins Infra
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      incrementals-publisher:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       infra-reports:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -346,17 +352,6 @@ jobsDefinition:
           updatecli-aws-secret-access-key:
             description: AWS Secret key for the user updatecli
             secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
-  other-jobs:
-    name: Other Jobs
-    description: Folder hosting all the jobs not fitting any category
-    kind: folder
-    credentials:
-      jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
-      infracijenkinsio-dockerhub-pull: *infracijenkinsio-dockerhub-pull-def
-    children:
-      incrementals-publisher:
-        name: Incrementals Publisher
-        jenkinsfilePath: Jenkinsfile
   reports:
     name: Reports
     description: Folder hosting all the reporting tasks jobs
