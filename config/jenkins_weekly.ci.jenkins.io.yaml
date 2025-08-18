@@ -19,7 +19,8 @@ networkPolicy:
       name: "jenkins-weekly"
 controller:
   image:
-    repository: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-weeklyci
+    registry: dockerhubmirror.azurecr.io
+    repository: jenkinsciinfra/jenkins-weeklyci
     tag: 3.9.19-2.523
     pullPolicy: IfNotPresent
   nodeSelector:
