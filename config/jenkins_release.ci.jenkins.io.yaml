@@ -26,7 +26,8 @@ networkPolicy:
       name: "release-ci-jenkins-io"
 controller:
   image:
-    repository: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-lts
+    registry: dockerhubmirror.azurecr.io
+    repository: jenkinsciinfra/jenkins-lts
     tag: 2.3.16-2.516.1
     pullPolicy: IfNotPresent
   nodeSelector:
