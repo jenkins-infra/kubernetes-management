@@ -15,31 +15,32 @@ scms:
 sources:
   latestRelease:
     kind: githubrelease
-    name: "Get latest jenkins-infra/keycloak-theme release"
+    name: Get latest jenkins-infra/keycloak-theme release
     spec:
-      owner: "jenkins-infra"
-      repository: "keycloak-theme"
+      owner: jenkins-infra
+      repository: keycloak-theme
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
 
 conditions:
   checkDockerImagePublished:
-    name: "Test jenkinsciinfra/keycloak-theme:<latest_version> docker image tag"
+    name: Verify the dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:<latest_version> docker image is published
     kind: dockerimage
     spec:
-      image: "jenkinsciinfra/keycloak-theme"
+      image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme
       ## Tag from source
-      architecture: amd64
+      architectures:
+      - arm64
 
 targets:
   updateReleaseInConfig:
-    name: "Update keycloak-theme docker image tag"
+    name: Update keycloak-theme docker image tag
     kind: file
     spec:
       file: config/keycloak.yaml
-      matchpattern: "image: jenkinsciinfra/keycloak-theme:.*"
-      replacepattern: 'image: jenkinsciinfra/keycloak-theme:{{ source "latestRelease" }}'
-    scmid: default
+      matchpattern: "image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:.*"
+      replacepattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:{{ source "latestRelease" }}'
+    # scmid: default
 
 actions:
   default:

@@ -17,30 +17,24 @@ sources:
     kind: githubrelease
     name: get last packer-image release
     spec:
-      owner: "jenkins-infra"
-      repository: "packer-images"
+      owner: jenkins-infra
+      repository: packer-images
       token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
-
   getLatestInboundAllInOneContainerImageX86:
     kind: dockerdigest
     name: Get digest of the jenkinsciinfra/jenkins-agent-ubuntu-22.04 image
-    dependson:
-      - packerImageVersion
     spec:
-      image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04"
+      image: jenkinsciinfra/jenkins-agent-ubuntu-22.04
       tag: '{{ source "packerImageVersion"}}'
       architecture: linux/amd64
-
   getLatestInboundAllInOneContainerImageARM:
-      kind: dockerdigest
-      name: Get digest of the jenkinsciinfra/jenkins-agent-ubuntu-22.04 image
-      dependson:
-        - packerImageVersion
-      spec:
-        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04"
-        tag: '{{ source "packerImageVersion"}}'
-        architecture: linux/arm64
+    kind: dockerdigest
+    name: Get digest of the jenkinsciinfra/jenkins-agent-ubuntu-22.04 image
+    spec:
+      image: jenkinsciinfra/jenkins-agent-ubuntu-22.04
+      tag: '{{ source "packerImageVersion"}}'
+      architecture: linux/arm64
 
 conditions:
   checkAllInOneContainerImages:
@@ -54,28 +48,32 @@ conditions:
     kind: shell
     disablesourceinput: true
     spec:
-      environments:
-        - name: PATH
       command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-ubuntu-22.04-amd64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
   checkifazureimagejenkins-agent-windows-2019-amd64isavailable:
     kind: shell
     disablesourceinput: true
     spec:
-      environments:
-        - name: PATH
       command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-windows-2019-amd64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
   checkifazureimagejenkins-agent-ubuntu-22.04-arm64isavailable:
     kind: shell
     disablesourceinput: true
     spec:
-      environments:
-        - name: PATH
       command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-ubuntu-22.04-arm64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
+  checkDockerImagePublishedInAcr:
+    name: Check that the dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:<latest_version> Docker image is published
+    kind: dockerimage
+    sourceid: packerImageVersion
+    spec:
+      image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04
+      ## Tag from source
+      architectures:
+      - arm64
+      - amd64
 
 targets:
   setAzureGalleryImageVersion:
     sourceid: packerImageVersion
-    name: "Bump Azure Gallery Image Version for azureVM"
+    name: Bump Azure Gallery Image Version
     kind: file
     spec:
       file: config/jenkins_infra.ci.jenkins.io.yaml
@@ -84,12 +82,12 @@ targets:
     scmid: default
   setJnlpLinuxArm64Image:
     sourceid: packerImageVersion
-    name: "Bump docker image version for arm64"
+    name: Bump docker images version
     kind: file
     spec:
       file: config/jenkins_infra.ci.jenkins.io.yaml
-      matchpattern: 'image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:.*'
-      replacepattern: 'image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:{{ source `packerImageVersion` }}"'
+      matchpattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:.*'
+      replacepattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:{{ source `packerImageVersion` }}'
     scmid: default
 
 actions:
