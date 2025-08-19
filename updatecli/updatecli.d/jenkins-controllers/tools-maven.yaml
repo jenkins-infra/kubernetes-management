@@ -25,21 +25,14 @@ sources:
           pattern: 'galleryImageVersion:\s"(.*)"'
           captureindex: 1
   getMavenVersionFromPackerImages:
-    # Using a file with a transformer until https://github.com/updatecli/updatecli/issues/2275 is done
-    kind: file
+    kind: yaml
     name: Get the latest Maven version set in packer-images
-    dependson:
-      - getDeployedPackerImageVersion
     spec:
       file: https://raw.githubusercontent.com/jenkins-infra/packer-images/{{ source "getDeployedPackerImageVersion" }}/provisioning/tools-versions.yml
-      matchpattern: 'maven_version:\s(.*)'
-    transformers:
-      - findsubmatch:
-          pattern: 'maven_version:\s(.*)'
-          captureindex: 1
+      key: $.maven_version
 
 conditions:
-  checkIfReleaseIsAvailable:
+  checkIfMavenReleaseIsAvailable:
     kind: shell
     disablesourceinput: true
     spec:

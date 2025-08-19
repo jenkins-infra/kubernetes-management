@@ -14,7 +14,7 @@ scms:
 
 sources:
   latestRelease:
-    name: "Get latest jenkins-weekly version"
+    name: Get latest jenkins-weekly version
     kind: githubrelease
     spec:
       owner: jenkins-infra
@@ -24,17 +24,18 @@ sources:
 
 conditions:
   checkDockerImagePublished:
-    name: "Test jenkinsciinfra/jenkins-infraci:<latest_version> docker image tag"
+    name: Check that the jenkinsciinfra/jenkins-infraci:<latest_version> Docker image is published
     kind: dockerimage
     spec:
-      image: jenkinsciinfra/jenkins-infraci
+      image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-infraci
       ## Tag from source
-      architecture: amd64
+      architectures:
+      - arm64
 
 targets:
   updateReleaseInConfig:
     sourceid: latestRelease
-    name: "Update jenkinsciinfra/jenkins-weekly docker image tag on infra.ci.jenkins.io"
+    name: Update jenkinsciinfra/jenkins-weekly docker image tag on infra.ci.jenkins.io
     kind: yaml
     spec:
       file: config/jenkins_infra.ci.jenkins.io.yaml
