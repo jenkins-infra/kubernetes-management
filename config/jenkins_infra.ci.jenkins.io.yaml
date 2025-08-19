@@ -36,8 +36,9 @@ controller:
     readinessProbe:
       initialDelaySeconds: 60
   image:
+    registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-infraci
-    tag: 3.9.20-2.523
+    tag: 3.9.22-2.523
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -130,7 +131,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=amd64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.60.0"
+                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.60.0
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
@@ -169,7 +170,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.60.0"
+                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.60.0
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
@@ -212,7 +213,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=amd64"
                     containers:
                       - name: jnlp
-                        image: "jenkinsciinfra/builder@sha256:7150f769249c071fec7ee18338183193c36d489dc9a2fb2d211242fcc89350cd"
+                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/builder@sha256:7150f769249c071fec7ee18338183193c36d489dc9a2fb2d211242fcc89350cd
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
