@@ -57,8 +57,6 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-confluence-data:
         disableTagDiscovery: true
-      docker-crond:
-        disableTagDiscovery: true
       docker-geoipupdate:
         disableTagDiscovery: true
       docker-infratools:
@@ -222,9 +220,6 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-confluence-data:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-crond:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-geoipupdate:
