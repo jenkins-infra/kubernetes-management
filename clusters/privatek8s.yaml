@@ -67,7 +67,7 @@ releases:
   - name: infra-ci-jenkins-io-jobs
     namespace: infra-ci-jenkins-io
     chart: jenkins-infra/jenkins-jobs
-    version: 2.3.0
+    version: 3.0.0
     values:
       - ../config/jenkins-jobs_infra.ci.jenkins.io.yaml
   - name: infra-ci-jenkins-io
