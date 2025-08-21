@@ -266,14 +266,6 @@ releases:
       - "../config/stats.jenkins.io.yaml"
     secrets:
       - "../secrets/config/stats.jenkins.io/secrets.yaml"
-  - name: geoipdata
-    namespace: geoip-data
-    chart: jenkins-infra/geoipupdates
-    version: 2.29.0
-    values:
-      - ../config/geoipdata.yaml
-    secrets:
-      - ../secrets/config/geoipdata/secrets.yaml
   - name: redis
     namespace: redis
     chart: oci://registry-1.docker.io/bitnamicharts/redis
