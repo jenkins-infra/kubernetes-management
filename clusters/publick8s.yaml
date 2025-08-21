@@ -87,7 +87,7 @@ releases:
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/nginx-website
-    version: 0.4.0
+    version: 0.5.0
     values:
       - "../config/javadoc.yaml"
     secrets:
@@ -160,7 +160,7 @@ releases:
   - name: reports
     namespace: reports
     chart: jenkins-infra/nginx-website
-    version: 0.4.0
+    version: 0.5.0
     values:
       - "../config/reports.yaml"
     secrets:
@@ -168,7 +168,7 @@ releases:
   - name: builds-reports-jenkins-io
     namespace: builds-reports-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.4.0
+    version: 0.5.0
     values:
       - "../config/builds.reports.jenkins.io.yaml"
   - name: accountapp
@@ -251,7 +251,7 @@ releases:
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.4.0
+    version: 0.5.0
     values:
       - "../config/contributors.jenkins.io.yaml"
     secrets:
@@ -259,7 +259,7 @@ releases:
   - name: docs-jenkins-io
     namespace: docs-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.4.0
+    version: 0.5.0
     values:
       - "../config/docs.jenkins.io.yaml"
     secrets:
@@ -267,19 +267,11 @@ releases:
   - name: stats-jenkins-io
     namespace: stats-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.4.0
+    version: 0.5.0
     values:
       - "../config/stats.jenkins.io.yaml"
     secrets:
       - "../secrets/config/stats.jenkins.io/secrets.yaml"
-  - name: geoipdata
-    namespace: geoip-data
-    chart: jenkins-infra/geoipupdates
-    version: 2.29.0
-    values:
-      - ../config/geoipdata.yaml
-    secrets:
-      - ../secrets/config/geoipdata/secrets.yaml
   - name: redis
     namespace: redis
     chart: oci://registry-1.docker.io/bitnamicharts/redis
