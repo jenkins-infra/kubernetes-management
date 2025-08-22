@@ -42,7 +42,7 @@ persistence:
   enabled: true
   deleteEnabled: true
   size: "250Gi"
-  storageClass: "map[allow_volume_expansion:true allowed_topologies:[map[match_label_expressions:[map[key:topology.kubernetes.io/zone values:[us-east-2a]]]]] id:ebs-csi-premium-retain-us-east-2a metadata:[map[annotations:map[] generate_name: generation:0 labels:map[] name:ebs-csi-premium-retain-us-east-2a resource_version:913802 uid:76e1e563-3547-49b5-9619-a450d8068363]] mount_options:[] parameters:map[csi.storage.k8s.io/fstype:xfs type:gp3] reclaim_policy:Retain storage_provisioner:ebs.csi.aws.com volume_binding_mode:WaitForFirstConsumer]"
+  storageClass: ebs-csi-premium-retain-us-east-2a
 
 initContainers:
   - name: permission-fix
