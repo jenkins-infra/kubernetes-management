@@ -21,7 +21,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-weeklyci
-    tag: 3.9.25-2.525
+    tag: 3.9.26-2.525
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/arch: arm64
@@ -74,6 +74,11 @@ controller:
         jenkins:
           numExecutors: 0
           clouds: []
+      security: |
+        security:
+          contentSecurityPolicyConfiguration:
+            reportOnly: true
+            rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
       ldap-settings: |
         jenkins:
           securityRealm:
