@@ -708,23 +708,10 @@ controller:
               includeInChangesets: false
               retriever:
                 modernSCM:
-                  libraryPath: "."
                   scm:
-                    github:
-                      configuredByUrl: true
+                    git:
                       credentialsId: "github-app-infra"
-                      id: "8a6c1fca-d270-4bae-bfed-ca322a7052fe"
-                      repoOwner: "jenkins-infra"
-                      repository: "pipeline-library"
-                      repositoryUrl: "https://github.com/jenkins-infra/pipeline-library"
-                      traits:
-                      - gitHubBranchDiscovery:
-                          strategyId: 1
-                      - gitHubPullRequestDiscovery:
-                          strategyId: 2
-                      - gitHubForkDiscovery:
-                          strategyId: 2
-                          trust: "gitHubTrustPermissions"
+                      remote: "https://github.com/jenkins-infra/pipeline-library.git"
       matrix-settings: |
         jenkins:
           authorizationStrategy:
