@@ -84,6 +84,9 @@ controller:
                     id: "github-app-infra"
                     privateKey: "${GITHUB_APP_PRIVATE_KEY}"
                     scope: GLOBAL
+                    repositoryAccessStrategy:
+                      specificRepositories:
+                        owner: "jenkins-infra"
                 - azureImds:
                     azureEnvName: "Azure"
                     description: "infra.ci.jenkins.io's Azure Managed Identity used for spawning\
@@ -704,14 +707,20 @@ controller:
                 refreshTimeMinutes: 180
               defaultVersion: "master"
               implicit: true
-              name: "pipeline-library"
               includeInChangesets: false
+              name: "pipeline-library"
               retriever:
                 modernSCM:
+                  libraryPath: "./"
                   scm:
                     git:
-                      credentialsId: "github-app-infra"
-                      remote: "https://github.com/jenkins-infra/pipeline-library.git"
+                      remote: "https://github.com/jenkins-infra/pipeline-library"
+                      traits:
+                      - "gitBranchDiscovery"
+                      - discoverOtherRefs:
+                          ref: "pull/*"
+                      - headWildcardFilter:
+                          includes: "*"
       matrix-settings: |
         jenkins:
           authorizationStrategy:
