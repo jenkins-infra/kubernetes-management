@@ -84,6 +84,9 @@ controller:
                     id: "github-app-infra"
                     privateKey: "${GITHUB_APP_PRIVATE_KEY}"
                     scope: GLOBAL
+                    repositoryAccessStrategy:
+                      specificRepositories:
+                        owner: "jenkins-infra"
                 - azureImds:
                     azureEnvName: "Azure"
                     description: "infra.ci.jenkins.io's Azure Managed Identity used for spawning\
@@ -704,27 +707,20 @@ controller:
                 refreshTimeMinutes: 180
               defaultVersion: "master"
               implicit: true
-              name: "pipeline-library"
               includeInChangesets: false
+              name: "pipeline-library"
               retriever:
                 modernSCM:
-                  libraryPath: "."
+                  libraryPath: "./"
                   scm:
-                    github:
-                      configuredByUrl: true
-                      credentialsId: "github-app-infra"
-                      id: "8a6c1fca-d270-4bae-bfed-ca322a7052fe"
-                      repoOwner: "jenkins-infra"
-                      repository: "pipeline-library"
-                      repositoryUrl: "https://github.com/jenkins-infra/pipeline-library"
+                    git:
+                      remote: "https://github.com/jenkins-infra/pipeline-library"
                       traits:
-                      - gitHubBranchDiscovery:
-                          strategyId: 1
-                      - gitHubPullRequestDiscovery:
-                          strategyId: 2
-                      - gitHubForkDiscovery:
-                          strategyId: 2
-                          trust: "gitHubTrustPermissions"
+                      - "gitBranchDiscovery"
+                      - discoverOtherRefs:
+                          ref: "pull/*"
+                      - headWildcardFilter:
+                          includes: "*"
       matrix-settings: |
         jenkins:
           authorizationStrategy:
