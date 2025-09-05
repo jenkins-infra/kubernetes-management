@@ -28,7 +28,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-lts
-    tag: 2.3.20-2.516.2
+    tag: 2.3.21-2.516.2
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -430,6 +430,9 @@ controller:
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
         security:
+          contentSecurityPolicyConfiguration:
+            reportOnly: true
+            rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
           gitHostKeyVerificationConfiguration:
             sshHostKeyVerificationStrategy:
               manuallyProvidedKeyVerificationStrategy:
