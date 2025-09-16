@@ -17,7 +17,7 @@ service:
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     trusted.ci.jenkins.io: '104.209.128.236/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
-    private.vpn.jenkins.io: '172.176.126.194/32'
+    private.vpn.jenkins.io: '52.232.183.117/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     cert.ci.jenkins.io: '104.209.153.13/32'
     # Provided by LF
