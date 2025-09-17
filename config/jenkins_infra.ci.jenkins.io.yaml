@@ -38,7 +38,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-infraci
-    tag: 3.9.30-2.527
+    tag: 3.9.31-2.528
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
