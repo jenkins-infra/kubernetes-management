@@ -33,17 +33,17 @@ releases:
     version: 3.133.0
     values:
       - "../config/datadog.yaml.gotmpl"
-      - "../config/datadog_publick8s.yaml"
+      - "../config/datadog_publick8s-endless-ghoul.yaml"
       - "../config/datadog_confd_checksd.yaml"
     secrets:
-      - "../secrets/config/datadog/publick8s-secrets.yaml"
+      - "../secrets/config/datadog/publick8s-endless-ghoul.yaml"
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
     version: v1.18.2
     values:
       - "../config/cert-manager.yaml"
-      - "../config/cert-manager_publick8s.yaml"
+      - "../config/cert-manager_publick8s-endless-ghoul.yaml"
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
@@ -60,14 +60,14 @@ releases:
     version: 4.11.8
     values:
       - ../config/public-nginx-ingress__common.yaml
-      - ../config/public-nginx-ingress_publick8s.yaml
+      - ../config/public-nginx-ingress_publick8s-endless-ghoul.yaml
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
     version: 4.11.8
     values:
       - "../config/private-nginx-ingress__common.yaml"
-      - "../config/private-nginx-ingress_publick8s.yaml"
+      - "../config/private-nginx-ingress_publick8s-endless-ghoul.yaml"
   - name: falco
     namespace: falco
     chart: falco/falco
@@ -277,6 +277,6 @@ releases:
     chart: oci://registry-1.docker.io/bitnamicharts/redis
     version: 21.2.14
     values:
-      - ../config/publick8s-redis.yaml
+      - ../config/publick8s-endless-ghoul-redis.yaml
     secrets:
-      - ../secrets/config/redis/publick8s.yaml
+      - ../secrets/config/redis/publick8s-endless-ghoul.yaml
