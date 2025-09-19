@@ -37,3 +37,19 @@ releases:
       - ../config/datadog_confd_checksd.yaml
     secrets:
       - ../secrets/config/datadog/publick8s-secrets.yaml
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.18.2
+    values:
+      - ../config/cert-manager.yaml
+      - ../config/cert-manager_publick8s.yaml
+  # TODO: acme
+  # TODO: public-ingress
+  - name: private-nginx-ingress
+    namespace: private-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.11.8
+    values:
+      - ../config/private-nginx-ingress__common.yaml
+      - ../config/private-nginx-ingress_publick8s-endless-ghoul.yaml
