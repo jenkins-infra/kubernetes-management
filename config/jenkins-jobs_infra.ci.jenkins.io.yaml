@@ -169,6 +169,10 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for privatek8s"
             secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
+          kubeconfig-publick8s:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for publick8s"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
           kubeconfig-publick8s-endless-ghoul:
             fileName: "kubeconfig"
             description: "Kubeconfig file for publick8s-endless-ghoul"
