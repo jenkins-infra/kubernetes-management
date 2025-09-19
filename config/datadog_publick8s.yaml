@@ -1,0 +1,26 @@
+providers:
+  aks:
+    enabled: true
+datadog:
+  clusterName: 'publick8s'
+  env:
+    - name: DD_HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+  ignoreAutoConfig:
+    - apache # Our Apache instances do not expose any /server-status endpoint. Let's avoid unneeded requests
+agents:
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
+clusterAgent:
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
