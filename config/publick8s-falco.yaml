@@ -1,5 +1,3 @@
-driver:
-  kind: modern_ebpf
 tolerations:
   - key: "kubernetes.io/arch"
     operator: "Equal"
