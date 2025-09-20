@@ -5,7 +5,3 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
-  - key: "CriticalAddonsOnly"
-    operator: "Equal"
-    value: "true"
-    effect: "NoSchedule"
