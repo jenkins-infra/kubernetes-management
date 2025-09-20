@@ -1,26 +1,3 @@
-## TODO check if thoses rules need to be updated and applied
-# https://github.com/draios/sysdig/wiki/sysdig-user-guide#user-content-filtering
-# customRules:
-#   rules-jenkins-infra.yaml: |-
-#     - list: allowed_docker_image_repository
-#       items:
-#         - jenkins/jenkins
-#         - jenkins/inbound-agent
-#         - olblak/nexus
-#         - olblak/helmfile
-#         - olblak/packaging
-#         - nginx
-
-#     - list: monitored_namespaces
-#       items:
-#         - release
-
-#     - rule: Using unauthorized docker image
-#       desc: Track whenever we install an unofficial jenkins-infra docker image
-#       condition: not container.image.repository in (allowed_docker_image_repository) and k8s.ns.name in (monitored_namespaces)
-#       output: Unauthorized container %container.image.repository running in namespace %k8s.ns.name (command=%proc.cmdline pid=%proc.pid file=%fd.name %container.info image=%container.image registry=%container.image.repository)
-#       priority: ALERT
-## END TODO
 tolerations:
   - key: "kubernetes.io/arch"
     operator: "Equal"
