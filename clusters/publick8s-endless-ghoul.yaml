@@ -226,7 +226,7 @@ releases:
     needs:
       - public-nginx-ingress/public-nginx-ingress
     values:
-      - "../config/ipv6-lb-service.yaml"
+      - "../config/publick8s-endless-ghoul-ipv6-lb-service.yaml"
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
