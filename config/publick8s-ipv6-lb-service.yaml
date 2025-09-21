@@ -1,0 +1,7 @@
+# azurerm_public_ip.publick8s_ipv6.ip_address in https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
+ipv6PipName: publick8s-public-ipv6
+resourceGroup: prod-public-ips
+app:
+  name: "ingress-nginx"
+  component: "controller"
+  instance: "public-nginx-ingress"
