@@ -92,12 +92,6 @@ releases:
       - "../config/javadoc.yaml"
     secrets:
       - "../secrets/config/javadoc/secrets.yaml"
-  - name: javadoc-jenkins-io
-    namespace: javadoc-jenkins-io
-    chart: jenkins-infra/nginx-website
-    version: 0.5.0
-    values:
-      - ../config/javadoc-jenkins-io.yaml
   - name: wiki
     namespace: wiki
     chart: jenkins-infra/wiki

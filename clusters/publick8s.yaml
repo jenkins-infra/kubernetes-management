@@ -85,12 +85,12 @@ releases:
   #     - "../config/jenkins_weekly.ci.jenkins.io.yaml"
   #   secrets:
   #     - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
-  # - name: javadoc-jenkins-io
-  #   namespace: javadoc-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.5.0
-  #   values:
-  #     - ../config/javadoc-jenkins-io.yaml
+  - name: javadoc-jenkins-io
+    namespace: javadoc-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.5.0
+    values:
+      - ../config/javadoc-jenkins-io.yaml
   # - name: wiki
   #   namespace: wiki
   #   chart: jenkins-infra/wiki
@@ -150,14 +150,12 @@ releases:
   #     - "../config/uplink.yaml"
   #   secrets:
   #     - "../secrets/config/uplink/secrets.yaml"
-  # - name: reports
-  #   namespace: reports
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.5.0
-  #   values:
-  #     - ../config/reports.yaml
-  #   secrets:
-  #     - "../secrets/config/reports/secrets.yaml"
+  - name: reports-jenkins-io
+    namespace: reports-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.5.0
+    values:
+      - ../config/publick8s_reports-jenkins-io.yaml
   - name: builds-reports-jenkins-io
     namespace: builds-reports-jenkins-io
     chart: jenkins-infra/nginx-website
@@ -196,14 +194,14 @@ releases:
   #     - "../config/plugin-site-issues.yaml"
   #   secrets:
   #     - "../secrets/config/plugin-site-issues/secrets.yaml"
-  # - name: plugin-site
-  #   namespace: plugin-site
-  #   chart: jenkins-infra/plugin-site
-  #   version: 0.5.2
-  #   values:
-  #     - "../config/plugin-site.yaml"
-  #   secrets:
-  #     - "../secrets/config/plugin-site/secrets.yaml"
+  - name: plugins-jenkins-io
+    namespace: plugins-jenkins-io
+    chart: jenkins-infra/plugin-site
+    version: 0.5.2
+    values:
+      - ../config/publick8s_plugins-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/plugins-jenkins-io/secrets.yaml
   # - name: jenkinsio
   #   namespace: jenkinsio
   #   chart: jenkins-infra/jenkinsio
@@ -241,30 +239,24 @@ releases:
     version: 2.0.0
     values:
       - ../config/updates.jenkins.io-redirections.yaml
-  # - name: contributors-jenkins-io
-  #   namespace: contributors-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.5.0
-  #   values:
-  #     - "../config/contributors.jenkins.io.yaml"
-  #   secrets:
-  #     - "../secrets/config/contributors.jenkins.io/secrets.yaml"
-  # - name: docs-jenkins-io
-  #   namespace: docs-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.5.0
-  #   values:
-  #     - "../config/docs.jenkins.io.yaml"
-  #   secrets:
-  #     - "../secrets/config/docs.jenkins.io/secrets.yaml"
-  # - name: stats-jenkins-io
-  #   namespace: stats-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.5.0
-  #   values:
-  #     - "../config/stats.jenkins.io.yaml"
-  #   secrets:
-  #     - "../secrets/config/stats.jenkins.io/secrets.yaml"
+  - name: contributors-jenkins-io
+    namespace: contributors-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.5.0
+    values:
+      - ../config/publick8s_contributors.jenkins.io.yaml
+  - name: docs-jenkins-io
+    namespace: docs-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.5.0
+    values:
+      - ../config/publick8s_docs.jenkins.io.yaml
+  - name: stats-jenkins-io
+    namespace: stats-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.5.0
+    values:
+      - ../config/publick8s_stats.jenkins.io.yaml
   # - name: redis
   #   namespace: redis
   #   chart: oci://registry-1.docker.io/bitnamicharts/redis

@@ -6,17 +6,19 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: javadoc.jenkins.io
+    - host: contributors.jenkins.io
       paths:
         - path: /
-    - host: javadoc.jenkins-ci.org
+          serviceName: contributors-jenkins-io
+    - host: contributors.origin.jenkins.io
       paths:
         - path: /
+          serviceName: contributors-jenkins-io
+  # contributors.jenkins.io certificate is managed by Fastly
   tls:
-    - secretName: javadoc-tls
+    - secretName: contributors-jenkins-io-tls
       hosts:
-        - javadoc.jenkins.io
-        - javadoc.jenkins-ci.org
+        - contributors.origin.jenkins.io
 
 resources:
   limits:
@@ -24,17 +26,16 @@ resources:
     memory: 256Mi
   requests:
     cpu: 50m
-    memory: 128Mi
+    memory: 32Mi
 htmlVolume:
   persistentVolumeClaim:
-    claimName: javadoc-jenkins-io
+    claimName: contributors-jenkins-io
 
 replicaCount: 2
 
 nodeSelector:
   kubernetes.io/arch: arm64
 
-# Tolerates to run on tainted `arm64` nodes
 tolerations:
   - key: "kubernetes.io/arch"
     operator: "Equal"
@@ -49,24 +50,11 @@ affinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - javadoc
+                - contributors-jenkins-io
         topologyKey: "kubernetes.io/hostname"
-
-nginx:
-  overrideLocations: |
-    # https://github.com/jenkins-infra/helpdesk/issues/4594
-    location /component/github-api {
-      return 308 https://hub4j.github.io/github-api/apidocs/org.kohsuke.github.api/module-summary.html;
-    }
-
-    location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
-        autoindex on;
-    }
 
 podAnnotations:
   ad.datadoghq.com/nginx-website.logs: |
     [
-      {"source":"nginx","service":"javadoc.jenkins.io"}
+      {"source":"nginx","service":"contributors.jenkins.io"}
     ]

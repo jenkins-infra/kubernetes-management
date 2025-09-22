@@ -6,35 +6,30 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: javadoc.jenkins.io
-      paths:
-        - path: /
-    - host: javadoc.jenkins-ci.org
+    - host: reports.jenkins.io
       paths:
         - path: /
   tls:
-    - secretName: javadoc-tls
+    - secretName: reports-tls
       hosts:
-        - javadoc.jenkins.io
-        - javadoc.jenkins-ci.org
+        - reports.jenkins.io
 
 resources:
   limits:
     cpu: 200m
     memory: 256Mi
   requests:
-    cpu: 50m
-    memory: 128Mi
+    cpu: 20m
+    memory: 32Mi
 htmlVolume:
   persistentVolumeClaim:
-    claimName: javadoc-jenkins-io
+    claimName: reports-jenkins-io
 
 replicaCount: 2
 
 nodeSelector:
   kubernetes.io/arch: arm64
 
-# Tolerates to run on tainted `arm64` nodes
 tolerations:
   - key: "kubernetes.io/arch"
     operator: "Equal"
@@ -49,24 +44,26 @@ affinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - javadoc
+                - reports
         topologyKey: "kubernetes.io/hostname"
-
 nginx:
   overrideLocations: |
-    # https://github.com/jenkins-infra/helpdesk/issues/4594
-    location /component/github-api {
-      return 308 https://hub4j.github.io/github-api/apidocs/org.kohsuke.github.api/module-summary.html;
-    }
-
     location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
-        autoindex on;
+      root   /usr/share/nginx/html;
+      index  index.html index.htm;
+      autoindex on;
+
+      # Enable CORS from https://www.jenkins.io
+      #
+      add_header Access-Control-Allow-Origin      "https://www.jenkins.io";
+      add_header Vary                             "Origin";
+      add_header Access-Control-Allow-Credentials true;
+      add_header Access-Control-Allow-Headers     $http_access_control_request_headers;
+      add_header Access-Control-Allow-Methods     $http_access_control_request_method;
     }
 
 podAnnotations:
   ad.datadoghq.com/nginx-website.logs: |
     [
-      {"source":"nginx","service":"javadoc.jenkins.io"}
+      {"source":"nginx","service":"reports.jenkins.io"}
     ]
