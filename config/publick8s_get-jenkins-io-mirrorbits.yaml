@@ -47,7 +47,7 @@ config:
   redis:
     sentinelMasterName: mymaster
     sentinels:
-      - redis.redis.svc.cluster.local:26379
+      - redis-redis-ha.redis.svc.cluster.local:26379
     # password is stored in SOPS secrets
     ## RedisDB - Use 0 for staging and 1, get.jio production and 2 for update.jio production
     dbId: 1
