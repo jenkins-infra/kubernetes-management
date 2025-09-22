@@ -26,6 +26,8 @@ repositories:
   # https://github.com/codecentric/helm-charts/
   - name: codecentric
     url: https://codecentric.github.io/helm-charts
+  - name: dandydev
+    url: https://dandydeveloper.github.io/charts
 releases:
   - name: datadog
     namespace: datadog
@@ -172,14 +174,14 @@ releases:
   #     - "../config/accountapp.yaml"
   #   secrets:
   #     - "../secrets/config/accountapp/secrets.yaml"
-  # - name: get-jenkins-io-mirrorbits
-  #   namespace: get-jenkins-io
-  #   chart: jenkins-infra/mirrorbits
-  #   version: 5.10.0
-  #   values:
-  #     - ../config/get-jenkins-io-mirrorbits.yaml
-  #   secrets:
-  #     - ../secrets/config/get-jenkins-io/mirrorbits-secrets.yaml
+  - name: get-jenkins-io-mirrorbits
+    namespace: get-jenkins-io
+    chart: jenkins-infra/mirrorbits
+    version: 5.10.0
+    values:
+      - ../config/publick8s_get-jenkins-io-mirrorbits.yaml
+    secrets:
+      - ../secrets/config/get-jenkins-io/mirrorbits-secrets.yaml
   - name: get-jenkins-io-httpd
     namespace: get-jenkins-io
     chart: jenkins-infra/httpd
@@ -218,14 +220,14 @@ releases:
       - public-nginx-ingress/public-nginx-ingress
     values:
       - ../config/publick8s-ipv6-lb-service.yaml
-  # - name: updates-jenkins-io-content
-  #   namespace: updates-jenkins-io
-  #   chart: jenkins-infra/mirrorbits
-  #   version: 5.10.0
-  #   values:
-  #     - ../config/updates.jenkins.io-content.yaml
-  #   secrets:
-  #     - ../secrets/config/updates.jenkins.io/secrets.yaml
+  - name: updates-jenkins-io-content
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/mirrorbits
+    version: 5.10.0
+    values:
+      - ../config/publick8s_updates.jenkins.io-content.yaml
+    secrets:
+      - ../secrets/config/updates.jenkins.io/secrets.yaml
   # Can be removed once mirrorbits support scanning through s3 - https://github.com/etix/mirrorbits/issues/141
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
@@ -257,11 +259,11 @@ releases:
     version: 0.5.0
     values:
       - ../config/publick8s_stats.jenkins.io.yaml
-  # - name: redis
-  #   namespace: redis
-  #   chart: oci://registry-1.docker.io/bitnamicharts/redis
-  #   version: 21.2.14
-  #   values:
-  #     - ../config/publick8s-endless-ghoul-redis.yaml
-  #   secrets:
-  #     - ../secrets/config/redis/publick8s-endless-ghoul.yaml
+  - name: redis
+    namespace: redis
+    chart: dandydev/redis-ha
+    version: 4.34.13
+    values:
+      - ../config/publick8s_redis.yaml
+    secrets:
+      - ../secrets/config/redis/publick8s.yaml

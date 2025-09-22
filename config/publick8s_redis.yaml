@@ -1,0 +1,26 @@
+auth: enabled
+sentinel:
+  # Mirrorbits does not support sentinel auth
+  auth: false
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+redis:
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4096Mi
+    requests:
+      cpu: 150m
+      memory: 750Mi
+nodeSelector:
+  kubernetes.io/arch: arm64
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
