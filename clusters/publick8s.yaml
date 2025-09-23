@@ -77,8 +77,8 @@ releases:
     version: 6.3.0
     values:
       - ../config/publick8s-falco.yaml
-  - name: jenkins-weekly
-    namespace: jenkins-weekly
+  - name: weekly-ci-jenkins-io
+    namespace: weekly-ci-jenkins-io
     chart: jenkins/jenkins
     version: 5.8.90
     needs:

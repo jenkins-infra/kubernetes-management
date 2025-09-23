@@ -74,16 +74,6 @@ releases:
     version: 6.2.5
     values:
       - "../config/falco.yaml"
-  - name: jenkins-weekly
-    namespace: jenkins-weekly
-    chart: jenkins/jenkins
-    version: 5.8.90
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
-    values:
-      - "../config/jenkins_weekly.ci.jenkins.io.yaml"
-    secrets:
-      - "../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml"
   - name: javadoc
     namespace: javadoc
     chart: jenkins-infra/nginx-website
