@@ -1,45 +1,37 @@
 ingress:
-  enabled: false
-  # TODO
-  # enabled: true
-  # className: public-nginx
-  # annotations:
-  #   "cert-manager.io/cluster-issuer": "letsencrypt-prod"
-  #   "nginx.ingress.kubernetes.io/configuration-snippet": |
-  #     more_set_headers "X-Content-Type-Options: nosniff";
-  #     more_set_headers "X-Frame-Options: DENY";
-  # hosts:
-  #   - host: jenkins.io
-  #     paths:
-  #       - path: /
-  #         serviceName: jenkinsio
-  #   - host: www.jenkins.io
-  #     paths:
-  #       - path: /
-  #         serviceName: jenkinsio
-  #   - host: www.origin.jenkins.io
-  #     paths:
-  #       - path: /
-  #         serviceName: jenkinsio
-  #   - host: jenkins-ci.org
-  #     paths:
-  #       - path: /
-  #         serviceName: jenkinsio
-  #   - host: www.jenkins-ci.org
-  #     paths:
-  #       - path: /
-  #         serviceName: jenkinsio
-  # tls:
-  #   - secretName: jenkinsio-tls
-  #     hosts:
-  #       - jenkins-ci.org
-  #       - jenkins.io
-  #       - www.jenkins-ci.org
-  #       - www.origin.jenkins.io
-  #       #- www.jenkins.io # certificate is managed by Fastly
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/configuration-snippet": |
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-Frame-Options: DENY";
+  hosts:
+    - host: jenkins.io
+      paths:
+        - path: /
+    - host: www.jenkins.io
+      paths:
+        - path: /
+    - host: www.origin.jenkins.io
+      paths:
+        - path: /
+    - host: jenkins-ci.org
+      paths:
+        - path: /
+    - host: www.jenkins-ci.org
+      paths:
+        - path: /
+  # www.jenkins.io certificate is managed by Fastly
+  tls:
+    - secretName: jenkinsio-tls
+      hosts:
+        - jenkins-ci.org
+        - jenkins.io
+        - www.jenkins-ci.org
+        - www.origin.jenkins.io
 
-# TODO
-# replicaCount: 1
+replicaCount: 2
 
 resources:
   limits:
