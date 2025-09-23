@@ -1,22 +1,14 @@
 serviceAccount:
-  create: true
-  name: jenkins-controller
+  create: false
 serviceAccountAgent:
   create: false
 rbac:
-  create: true
-  readSecrets: true
+  create: false
 persistence:
   enabled: true
   existingClaim: jenkins-weekly-data
 agent:
   componentName: "agent"
-networkPolicy:
-  enabled: true
-  internalAgents:
-    allowed: true
-    namespaceLabels:
-      name: "jenkins-weekly"
 controller:
   image:
     registry: dockerhubmirror.azurecr.io
