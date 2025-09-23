@@ -1,9 +1,11 @@
 serviceAccount:
-  create: false
+  create: true
+  name: jenkins-controller
 serviceAccountAgent:
   create: false
 rbac:
-  create: false
+  create: true
+  readSecrets: true
 persistence:
   enabled: true
   existingClaim: jenkins-weekly-data
