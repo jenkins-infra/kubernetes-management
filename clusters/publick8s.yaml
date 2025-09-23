@@ -77,16 +77,16 @@ releases:
     version: 6.3.0
     values:
       - ../config/publick8s-falco.yaml
-  - name: weekly-ci-jenkins-io
-    namespace: weekly-ci-jenkins-io
-    chart: jenkins/jenkins
-    version: 5.8.90
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
-    values:
-      - ../config/jenkins_weekly.ci.jenkins.io.yaml
-    secrets:
-      - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
+  # - name: weekly-ci-jenkins-io
+  #   namespace: weekly-ci-jenkins-io
+  #   chart: jenkins/jenkins
+  #   version: 5.8.90
+  #   needs:
+  #     - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
+  #   values:
+  #     - ../config/jenkins_weekly.ci.jenkins.io.yaml
+  #   secrets:
+  #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
   - name: javadoc-jenkins-io
     namespace: javadoc-jenkins-io
     chart: jenkins-infra/nginx-website
@@ -99,8 +99,8 @@ releases:
     version: 0.8.0
     values:
       - ../config/wiki.yaml
-  # - name: ldap
-  #   namespace: ldap
+  # - name: ldap-jenkins-io
+  #   namespace: ldap-jenkins-io
   #   chart: jenkins-infra/ldap
   #   version: 4.2.0
   #   values:
@@ -108,7 +108,7 @@ releases:
   #   secrets:
   #     - "../secrets/config/ldap/secrets.yaml"
   # - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
-  #   namespace: keycloak
+  #   namespace: admin-accounts-jenkins-io
   #   chart: codecentric/keycloak
   #   version: 18.10.0
   #   values:
