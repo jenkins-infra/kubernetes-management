@@ -21,9 +21,6 @@ ingress:
         - accounts.jenkins.io
         - accounts.jenkins-ci.org
 
-ldap:
-  url: ldaps://ldap-jenkins-io.ldap-jenkins-io.svc.cluster.local:636/
-
 resources:
   limits:
     cpu: 2000m
