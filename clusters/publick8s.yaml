@@ -93,12 +93,12 @@ releases:
     version: 0.6.0
     values:
       - ../config/javadoc-jenkins-io.yaml
-  - name: wiki
-    namespace: wiki
+  - name: wiki-jenkins-io
+    namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
     version: 0.8.0
     values:
-      - ../config/wiki.yaml
+      - ../config/publick8s_wiki.yaml
   # - name: ldap-jenkins-io
   #   namespace: ldap-jenkins-io
   #   chart: jenkins-infra/ldap
