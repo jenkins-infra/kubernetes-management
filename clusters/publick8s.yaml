@@ -107,17 +107,17 @@ releases:
       - ../config/publick8s_ldap.yaml
     secrets:
       - ../secrets/config/ldap/secrets.yaml
-  # - name: keycloak
-  #   namespace: admin-accounts-jenkins-io
-  #   chart: codecentric/keycloak
-  #   version: 18.10.0
-  #   values:
-  #     - "../config/keycloak.yaml"
-  #   needs:
-  #     - ldap/ldap
-  #   secrets:
-  #     - "../secrets/config/keycloak/public-db.yaml"
-  #     - "../secrets/config/keycloak/http.yaml"
+  - name: admin-accounts-jenkins-io
+    namespace: admin-accounts-jenkins-io
+    chart: codecentric/keycloak
+    version: 18.10.0
+    values:
+      - ../config/publick8s_admin-accounts-jenkins-io.yaml
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    secrets:
+      - ../secrets/config/keycloak/public-db.yaml
+      - ../secrets/config/keycloak/http.yaml
   # - name: plugin-health-scoring
   #   namespace: plugin-health-scoring
   #   chart: jenkins-infra/plugin-health-scoring
