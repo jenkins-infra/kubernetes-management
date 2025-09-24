@@ -107,17 +107,17 @@ releases:
       - ../config/publick8s_ldap.yaml
     secrets:
       - ../secrets/config/ldap/secrets.yaml
-  # - name: keycloak
-  #   namespace: admin-accounts-jenkins-io
-  #   chart: codecentric/keycloak
-  #   version: 18.10.0
-  #   values:
-  #     - "../config/keycloak.yaml"
-  #   needs:
-  #     - ldap/ldap
-  #   secrets:
-  #     - "../secrets/config/keycloak/public-db.yaml"
-  #     - "../secrets/config/keycloak/http.yaml"
+  - name: admin-accounts-jenkins-io
+    namespace: admin-accounts-jenkins-io
+    chart: codecentric/keycloak
+    version: 18.10.0
+    values:
+      - ../config/publick8s_admin-accounts-jenkins-io.yaml
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    secrets:
+      - ../secrets/config/keycloak/public-db.yaml
+      - ../secrets/config/keycloak/http.yaml
   # - name: plugin-health-scoring
   #   namespace: plugin-health-scoring
   #   chart: jenkins-infra/plugin-health-scoring
@@ -164,16 +164,16 @@ releases:
     version: 0.6.0
     values:
       - ../config/publick8s_builds-reports-jenkins-io.yaml
-  # - name: accountapp
-  #   namespace: accountapp
-  #   chart: jenkins-infra/accountapp
-  #   version: 0.10.5
-  #   needs:
-  #     - ldap/ldap
-  #   values:
-  #     - "../config/accountapp.yaml"
-  #   secrets:
-  #     - "../secrets/config/accountapp/secrets.yaml"
+  - name: accounts-jenkins-io
+    namespace: accounts-jenkins-io
+    chart: jenkins-infra/accountapp
+    version: 0.10.5
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    values:
+      - ../config/publick8s_accounts-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/accountapp/secrets.yaml
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
