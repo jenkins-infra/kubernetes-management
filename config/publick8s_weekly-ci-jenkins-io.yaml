@@ -1,0 +1,266 @@
+serviceAccount:
+  create: true
+  name: jenkins-controller
+serviceAccountAgent:
+  create: false
+rbac:
+  create: true
+  readSecrets: true
+persistence:
+  enabled: true
+  existingClaim: weekly-ci-jenkins-io
+agent:
+  componentName: "agent"
+controller:
+  image:
+    registry: dockerhubmirror.azurecr.io
+    repository: jenkinsciinfra/jenkins-weeklyci
+    tag: 3.9.31-2.529
+    pullPolicy: IfNotPresent
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
+  resources:
+    limits:
+      cpu: 2
+      memory: 4Gi
+    requests:
+      cpu: 1
+      memory: 1Gi
+  probes:
+    startupProbe:
+      initialDelaySeconds: 120
+    livenessProbe:
+      initialDelaySeconds: 120
+    readinessProbe:
+      initialDelaySeconds: 120
+  testEnabled: false
+  podAnnotations:
+    ad.datadoghq.com/jenkins.logs: '[{"source":"jenkins", "service":"weekly.ci.jenkins.io"}]'
+  podSecurityContextOverride:
+    runAsNonRoot: true
+    runAsUser: 1000
+    supplementalGroups: [1000]
+  overwritePlugins: true
+  serviceType: "ClusterIP"
+  javaOpts: >-
+    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
+  JCasC:
+    enabled: true
+    defaultConfig: false
+    configScripts:
+      credentials: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                - gitHubApp:
+                    appID: "${GITHUB_APP_ID}"
+                    description: "GitHub App for weekly.ci.jenkins.io"
+                    id: "github-app-weekly"
+                    privateKey: "${GITHUB_APP_PRIVATE_KEY}"
+                    scope: GLOBAL
+      agent-settings: |
+        jenkins:
+          numExecutors: 0
+          clouds: []
+      security: |
+        security:
+          contentSecurityPolicyConfiguration:
+            reportOnly: true
+            rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
+      ldap-settings: |
+        jenkins:
+          securityRealm:
+            ldap:
+              configurations:
+                - server: "${LDAP_SERVER}"
+                  rootDN: "${LDAP_ROOT_DN}"
+                  managerDN: "${LDAP_MANAGER_DN}"
+                  managerPasswordSecret: "${LDAP_MANAGER_PASSWORD}"
+                  mailAddressAttributeName: "mail"
+                  userSearch: cn={0}
+                  userSearchBase: "ou=people"
+                  groupSearchBase: "ou=groups"
+              disableMailAddressResolver: false
+              groupIdStrategy: "caseInsensitive"
+              userIdStrategy: "caseInsensitive"
+              cache:
+                size: 100
+                ttl: 300
+      advisor-settings: |
+        jenkins:
+          disabledAdministrativeMonitors:
+            - com.cloudbees.jenkins.plugins.advisor.Reminder
+      pipeline-library: |
+        unclassified:
+          location:
+            url: "https://weekly.ci.jenkins.io"
+          globalLibraries:
+            libraries:
+            - defaultVersion: "master"
+              implicit: true
+              name: "pipeline-library"
+              retriever:
+                modernSCM:
+                  scm:
+                    git:
+                      credentialsId: "github-app-weekly"
+                      remote: "https://github.com/jenkins-infra/pipeline-library.git"
+      matrix-settings: |
+        jenkins:
+          authorizationStrategy:
+            globalMatrix:
+              entries:
+              - group:
+                  name: "admins"
+                  permissions:
+                  - "Overall/Administer"
+              - group:
+                  name: "authenticated"
+                  permissions:
+                  - "Job/Read"
+                  - "Overall/Read"
+              - group:
+                  name: "jenkins-admins"
+                  permissions:
+                  - "Overall/Administer"
+              - user:
+                  name: "anonymous"
+                  permissions:
+                  - "Job/Read"
+                  - "Overall/Read"
+      timestamper-settings: |
+        unclassified:
+          timestamper:
+            allPipelines: true
+      system-settings: |
+        unclassified:
+          defaultFolderConfiguration:
+            # Keep healthMetrics an empty list to ensure weather is disabled
+            healthMetrics: []
+        appearance:
+          pipelineGraphView:
+            showGraphOnBuildPage: true
+            showGraphOnJobPage: false # change to true if pipeline-stage-view is removed
+          themeManager:
+            disableUserThemes: false
+            theme: "darkSystem"
+          customHeader:
+            enabled: true
+            header:
+              context:
+                showFolderWeather: true
+                showJobWeather: true
+            headerColor:
+              backgroundColor: "#3B3B3B"
+              color: "white"
+            logo: "default"
+            logoText: "Jenkins"
+            title: "with the <a href=\"https://plugins.jenkins.io/customizable-header/\">customizable-header</a>\
+              \ plugin"
+        jenkins:
+          quietPeriod: 0 # No need to wait between build scheduling
+          disabledAdministrativeMonitors:
+            - "jenkins.security.QueueItemAuthenticatorMonitor"
+          views:
+            - all:
+                description: "<p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>"
+                name: "all"
+          markupFormatter:
+            rawHtml:
+              disableSyntaxHighlighting: false
+      tools-config: |
+        tool:
+          git:
+            installations:
+            - home: "git"
+              name: "git-native"
+            - name: "jgit"
+      jobs-settings: |
+        jobs:
+          - script: >
+              folder('folder') {
+                displayName('folder')
+                description('This is an example folder')
+              }
+          - script: >
+              freeStyleJob('folder/freestyle') {
+                displayName('Hello World')
+                steps {
+                  shell 'echo Hello World'
+                }
+              }
+          - script: >
+              pipelineJob('folder/failing-pipeline') {
+                definition {
+                  cps {
+                    sandbox()
+                    script("""\
+                      pipeline {
+                        agent any
+                        stages {
+                          stage ('Failure') {
+                            steps {
+                              echo "This build fails."
+                              sh 'false'
+                            }
+                          }
+                      }""".stripIndent())
+                  }
+                }
+              }
+          - script: >
+              pipelineJob('pipeline') {
+                definition {
+                  cps {
+                    sandbox()
+                    script("""\
+                      pipeline {
+                        agent any
+                        stages {
+                          stage ('Hello World') {
+                            steps {
+                              echo "Hello World"
+                            }
+                          }
+                          stage ('Hello World 2')
+                            steps {
+                              echo "Hello World 2"
+                            }
+                        }
+                      }""".stripIndent())
+                  }
+                }
+              }
+      default-notification-url: |
+        unclassified:
+          defaultDisplayUrlProvider:
+            providerId: "org.jenkinsci.plugins.displayurlapi.ClassicDisplayURLProvider"
+  sidecars:
+    configAutoReload:
+      env:
+        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+        - name: METHOD
+          # Polling mode (instead of watching kube API)
+          value: "SLEEP"
+        # https://github.com/kiwigrid/k8s-sidecar#configuration-environment-variables
+        - name: SLEEP_TIME
+          # Time in seconds between two polls
+          value: "60"
+  installPlugins: false
+  ingress:
+    enabled: true
+    hostName: weekly.ci.jenkins.io
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+    ingressClassName: public-nginx
+    tls:
+      - hosts:
+          - weekly.ci.jenkins.io
+        secretName: weekly.ci.jenkins.io-cert
