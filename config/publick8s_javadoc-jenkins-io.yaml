@@ -1,0 +1,72 @@
+---
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: javadoc.jenkins.io
+      paths:
+        - path: /
+    - host: javadoc.jenkins-ci.org
+      paths:
+        - path: /
+  tls:
+    - secretName: javadoc-tls
+      hosts:
+        - javadoc.jenkins.io
+        - javadoc.jenkins-ci.org
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: javadoc-jenkins-io
+
+replicaCount: 2
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+# Tolerates to run on tainted `arm64` nodes
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - javadoc
+        topologyKey: "kubernetes.io/hostname"
+
+nginx:
+  overrideLocations: |
+    # https://github.com/jenkins-infra/helpdesk/issues/4594
+    location /component/github-api {
+      return 308 https://hub4j.github.io/github-api/apidocs/org.kohsuke.github.api/module-summary.html;
+    }
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        autoindex on;
+    }
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"javadoc.jenkins.io"}
+    ]
