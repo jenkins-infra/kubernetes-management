@@ -1,0 +1,31 @@
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: incrementals.jenkins.io
+      paths:
+        - path: /
+  tls:
+    - secretName: incrementals-tls
+      hosts:
+        - incrementals.jenkins.io
+
+permissions_url: https://reports.jenkins.io/github.index.json
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+podAnnotations:
+  ad.datadoghq.com/incrementals-publisher.logs: |
+    [
+      {"source":"nodejs","service":"incrementals.jenkins.io"}
+    ]

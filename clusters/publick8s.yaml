@@ -128,12 +128,12 @@ releases:
   #     - ../config/plugin-health-scoring.yaml
   #   secrets:
   #     - ../secrets/config/plugin-health-scoring/secrets.yaml
-  - name: incrementals-publisher
-    namespace: incrementals-publisher
+  - name: incrementals-jenkins-io
+    namespace: incrementals-jenkins-io
     chart: jenkins-infra/incrementals-publisher
     version: 0.8.2
     values:
-      - ../config/incrementals-publisher.yaml
+      - ../config/publick8s_incrementals-jenkins-io.yaml
     secrets:
       - ../secrets/config/incrementals-publisher/secrets.yaml
   - name: rating-jenkins-io
