@@ -188,12 +188,12 @@ releases:
     version: 2.0.0
     values:
       - ../config/get-jenkins-io-httpd.yaml
-  - name: plugin-site-issues
-    namespace: plugin-site
+  - name: plugin-site-issues-jenkins-io
+    namespace: plugin-site-issues-jenkins-io
     chart: jenkins-infra/plugin-site-issues
     version: 0.4.1
     values:
-      - ../config/plugin-site-issues.yaml
+      - ../config/publick8s_plugin-site-issues-jenkins-io.yaml
     secrets:
       - ../secrets/config/plugin-site-issues/secrets.yaml
   - name: plugins-jenkins-io
