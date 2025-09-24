@@ -144,12 +144,12 @@ releases:
       - ../config/rating.yaml
     secrets:
       - ../secrets/config/rating/secrets.yaml
-  - name: uplink
-    namespace: uplink
+  - name: uplink-jenkins-io
+    namespace: uplink-jenkins-io
     chart: jenkins-infra/uplink
     version: 1.2.0
     values:
-      - ../config/uplink.yaml
+      - ../config/publick8s_uplink-jenkins-io.yaml
     secrets:
       - ../secrets/config/uplink/secrets.yaml
   - name: reports-jenkins-io
