@@ -134,7 +134,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=amd64"
                     containers:
                       - name: jnlp
-                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.61.0
+                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.63.0
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
@@ -173,7 +173,7 @@ controller:
                     nodeSelector: "kubernetes.io/arch=arm64"
                     containers:
                       - name: jnlp
-                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.61.0
+                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.63.0
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
