@@ -164,16 +164,16 @@ releases:
     version: 0.6.0
     values:
       - ../config/publick8s_builds-reports-jenkins-io.yaml
-  # - name: accountapp
-  #   namespace: accountapp
-  #   chart: jenkins-infra/accountapp
-  #   version: 0.10.5
-  #   needs:
-  #     - ldap/ldap
-  #   values:
-  #     - "../config/accountapp.yaml"
-  #   secrets:
-  #     - "../secrets/config/accountapp/secrets.yaml"
+  - name: accounts-jenkins-io
+    namespace: accounts-jenkins-io
+    chart: jenkins-infra/accountapp
+    version: 0.10.5
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    values:
+      - ../config/publick8s_accounts-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/accountapp/secrets.yaml
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits

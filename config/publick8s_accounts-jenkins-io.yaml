@@ -1,0 +1,65 @@
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-Content-Type-Options: nosniff";
+  hosts:
+    - host: accounts.jenkins.io
+      paths:
+        - path: /
+    - host: accounts.jenkins-ci.org
+      paths:
+        - path: /
+  tls:
+    - secretName: accounts-tls
+      hosts:
+        - accounts.jenkins.io
+        - accounts.jenkins-ci.org
+
+ldap:
+  url: ldaps://ldap-jenkins-io.ldap-jenkins-io.svc.cluster.local:636/
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+smtp:
+  server: smtp.mailgun.org
+  sender: accounts@jenkins.io
+  port: 587
+
+replicaCount: 2
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - accountapp
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/accountapp.logs: |
+    [
+      {"source":"java","service":"accounts.jenkins.io"}
+    ]
