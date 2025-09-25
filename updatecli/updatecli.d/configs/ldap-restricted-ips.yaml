@@ -35,8 +35,6 @@ sources:
           from: ' '
           to: '/32,'
       - addsuffix: '/32'
-      - addprefix: "'"
-      - addsuffix: "'"
 
   publick8s-pods:
     kind: json
