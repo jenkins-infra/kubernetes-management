@@ -98,14 +98,14 @@ releases:
     version: 0.8.0
     values:
       - "../config/wiki.yaml"
-  - name: ldap
-    namespace: ldap
-    chart: jenkins-infra/ldap
-    version: 4.2.0
-    values:
-      - "../config/ldap.yaml"
-    secrets:
-      - "../secrets/config/ldap/secrets.yaml"
+  # - name: ldap
+  #   namespace: ldap
+  #   chart: jenkins-infra/ldap
+  #   version: 4.2.0
+  #   values:
+  #     - "../config/ldap.yaml"
+  #   secrets:
+  #     - "../secrets/config/ldap/secrets.yaml"
   # - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
   #   namespace: keycloak
   #   chart: codecentric/keycloak
@@ -165,16 +165,16 @@ releases:
     version: 0.5.0
     values:
       - "../config/builds.reports.jenkins.io.yaml"
-  - name: accountapp
-    namespace: accountapp
-    chart: jenkins-infra/accountapp
-    version: 0.10.5
-    needs:
-      - ldap/ldap
-    values:
-      - "../config/accountapp.yaml"
-    secrets:
-      - "../secrets/config/accountapp/secrets.yaml"
+  # - name: accountapp
+  #   namespace: accountapp
+  #   chart: jenkins-infra/accountapp
+  #   version: 0.10.5
+  #   needs:
+  #     - ldap/ldap
+  #   values:
+  #     - "../config/accountapp.yaml"
+  #   secrets:
+  #     - "../secrets/config/accountapp/secrets.yaml"
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
