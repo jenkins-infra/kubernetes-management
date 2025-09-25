@@ -23,7 +23,7 @@ resources:
     memory: 32Mi
 htmlVolume:
   persistentVolumeClaim:
-    claimName: reports-jenkins-io
+    claimName: reports-jenkins-io-old
 
 replicaCount: 2
 
