@@ -173,10 +173,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for publick8s"
             secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
-          kubeconfig-publick8s-endless-ghoul:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for publick8s-endless-ghoul"
-            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_ENDLESS_GHOUL}}"
           kubeconfig-cijioagents2:
             fileName: "kubeconfig"
             description: "Kubeconfig file for cijioagents2"
