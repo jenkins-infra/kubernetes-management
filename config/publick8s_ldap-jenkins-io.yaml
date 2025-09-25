@@ -6,14 +6,9 @@ service:
     name: publick8s-ldap-ipv4
     resourceGroup: prod-public-ips
   lbAllowSources:
-    # TODO: Remove
-    publick8s-old-out-lb: '20.85.71.108/32,20.22.30.9/32,20.22.30.74/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     publick8s-new-out-lb: '20.15.16.178/32,20.10.211.149/32,52.167.80.175/32'
-    # TODO: Remove
-    publick8s-old-nat: '20.7.192.189/32'
-    # TODO: Remove
-    # publick8s-old-pods: '10.100.0.0/16'
+    publick8s-pods: '10.100.0.0/14'
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     puppet.jenkins.io: '20.12.27.65/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json

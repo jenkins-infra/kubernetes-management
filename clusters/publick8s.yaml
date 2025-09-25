@@ -104,7 +104,7 @@ releases:
     chart: jenkins-infra/ldap
     version: 4.2.0
     values:
-      - ../config/publick8s_ldap.yaml
+      - ../config/publick8s_ldap-jenkins-io.yaml
     secrets:
       - ../secrets/config/ldap/secrets.yaml
   - name: admin-accounts-jenkins-io
