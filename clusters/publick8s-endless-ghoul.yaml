@@ -106,27 +106,27 @@ releases:
       - "../config/ldap.yaml"
     secrets:
       - "../secrets/config/ldap/secrets.yaml"
-  - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
-    namespace: keycloak
-    chart: codecentric/keycloak
-    version: 18.10.0
-    values:
-      - "../config/keycloak.yaml"
-    needs:
-      - ldap/ldap
-    secrets:
-      - "../secrets/config/keycloak/public-db.yaml"
-      - "../secrets/config/keycloak/http.yaml"
-  - name: plugin-health-scoring
-    namespace: plugin-health-scoring
-    chart: jenkins-infra/plugin-health-scoring
-    version: 3.1.3
-    needs:
-      - public-nginx-ingress/public-nginx-ingress # Required to expose the service
-    values:
-      - "../config/plugin-health-scoring.yaml"
-    secrets:
-      - "../secrets/config/plugin-health-scoring/secrets.yaml"
+  # - name: keycloak # Admin: https://admin.accounts.jenkins.io/auth/admin
+  #   namespace: keycloak
+  #   chart: codecentric/keycloak
+  #   version: 18.10.0
+  #   values:
+  #     - "../config/keycloak.yaml"
+  #   needs:
+  #     - ldap/ldap
+  #   secrets:
+  #     - "../secrets/config/keycloak/public-db.yaml"
+  #     - "../secrets/config/keycloak/http.yaml"
+  # - name: plugin-health-scoring
+  #   namespace: plugin-health-scoring
+  #   chart: jenkins-infra/plugin-health-scoring
+  #   version: 3.1.3
+  #   needs:
+  #     - public-nginx-ingress/public-nginx-ingress # Required to expose the service
+  #   values:
+  #     - "../config/plugin-health-scoring.yaml"
+  #   secrets:
+  #     - "../secrets/config/plugin-health-scoring/secrets.yaml"
   - name: incrementals-publisher
     namespace: incrementals-publisher
     chart: jenkins-infra/incrementals-publisher
