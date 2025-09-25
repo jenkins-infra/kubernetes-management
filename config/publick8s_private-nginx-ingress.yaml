@@ -13,8 +13,8 @@ controller:
   ingressClass: private-ingress
   service:
     annotations:
-      # TODO: track with updatecli - azure-net:vnets.tf/public-vnet-data-tier - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
-      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: public-vnet-data-tier
+      # TODO: track with updatecli
+      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: publick8s
   nodeSelector:
     kubernetes.io/arch: arm64
   tolerations:
