@@ -35,7 +35,7 @@ targets:
     name: Update the PVC name for updates-jenkins-io-redirects
     kind: yaml
     spec:
-      file: config/updates.jenkins.io-redirections.yaml
+      file: config/publick8s_updates-jenkins-io-redirections.yaml
       key: $.repository.name
     scmid: default
   updateSubDir:
@@ -43,7 +43,7 @@ targets:
     name: Update the PVC subDir for updates-jenkins-io-redirects
     kind: yaml
     spec:
-      file: config/updates.jenkins.io-redirections.yaml
+      file: config/publick8s_updates-jenkins-io-redirections.yaml
       key: $.repository.subDir
     scmid: default
 

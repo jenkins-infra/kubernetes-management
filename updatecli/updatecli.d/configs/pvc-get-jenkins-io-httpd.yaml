@@ -35,7 +35,7 @@ targets:
     name: Update the PVC name for get-jenkins-io-httpd
     kind: yaml
     spec:
-      file: config/get-jenkins-io-httpd.yaml
+      file: config/publick8s_get-jenkins-io-httpd.yaml
       key: $.repository.name
     scmid: default
   updateSubDir:
@@ -43,7 +43,7 @@ targets:
     name: Update the PVC subDir for get-jenkins-io-httpd
     kind: yaml
     spec:
-      file: config/get-jenkins-io-httpd.yaml
+      file: config/publick8s_get-jenkins-io-httpd.yaml
       key: $.repository.subDir
     scmid: default
 

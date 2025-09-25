@@ -37,7 +37,7 @@ targets:
     name: Update keycloak-theme docker image tag
     kind: file
     spec:
-      file: config/keycloak.yaml
+      file: config/publick8s_admin-accounts-jenkins-io.yaml
       matchpattern: "image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:.*"
       replacepattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:{{ source "latestRelease" }}'
     # scmid: default

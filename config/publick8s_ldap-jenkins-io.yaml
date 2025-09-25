@@ -6,8 +6,7 @@ service:
     name: publick8s-ldap-ipv4
     resourceGroup: prod-public-ips
   lbAllowSources:
-    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
-    publick8s-new-out-lb: '20.15.16.178/32,20.10.211.149/32,52.167.80.175/32'
+    publick8s-out-lb: '20.15.16.178/32,20.10.211.149/32,52.167.80.175/32'
     publick8s-pods: '10.100.0.0/14'
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     puppet.jenkins.io: '20.12.27.65/32'

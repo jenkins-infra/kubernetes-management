@@ -77,7 +77,7 @@ targets:
     kind: yaml
     sourceid: puppet.jenkins.io
     spec:
-      file: config/ldap.yaml
+      file: config/publick8s_ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.'puppet.jenkins.io'
     scmid: default
 
@@ -86,7 +86,7 @@ targets:
     kind: yaml
     sourceid: publick8s-pods
     spec:
-      file: config/ldap.yaml
+      file: config/publick8s_ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.publick8s-pods
     scmid: default
 
@@ -95,7 +95,7 @@ targets:
     kind: yaml
     sourceid: publick8s-lb
     spec:
-      file: config/ldap.yaml
+      file: config/publick8s_ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.publick8s-out-lb
     scmid: default
 
@@ -107,7 +107,7 @@ targets:
       - addprefix: "'"
       - addsuffix: "'"
     spec:
-      file: config/ldap.yaml
+      file: config/publick8s_ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.'aws.ci.jenkins.io'
     scmid: default
 
@@ -116,7 +116,7 @@ targets:
     kind: yaml
     sourceid: jfrog
     spec:
-      file: config/ldap.yaml
+      file: config/publick8s_ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.jfrog-artifactory
     scmid: default
 

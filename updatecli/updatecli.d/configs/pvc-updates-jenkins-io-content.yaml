@@ -49,7 +49,7 @@ targets:
     name: Update updates-jenkins-io-content "repository" PVC name
     kind: yaml
     spec:
-      file: config/updates.jenkins.io-content.yaml
+      file: config/publick8s_updates-jenkins-io-content.yaml
       key: $.repository.name
     scmid: default
   updateContentPvcSubdir:
@@ -57,7 +57,7 @@ targets:
     kind: yaml
     name: Update updates-jenkins-io-content "repository" PVC subDir mount
     spec:
-      file: config/updates.jenkins.io-content.yaml
+      file: config/publick8s_updates-jenkins-io-content.yaml
       key: $.repository.subDir
     scmid: default
   updateRsyncContentPvcName:
@@ -65,7 +65,7 @@ targets:
     name: Update updates-jenkins-io-rsync PVC name
     kind: yaml
     spec:
-      file: config/updates.jenkins.io-rsync.yaml
+      file: config/publick8s_updates-jenkins-io-rsync.yaml
       key: $.configuration.components[0].volumeTpl
     scmid: default
   updateRsyncContentPvcSubdir:
@@ -73,7 +73,7 @@ targets:
     kind: yaml
     name: Update updates-jenkins-io-rsync PVC subDir mount
     spec:
-      file: config/updates.jenkins.io-rsync.yaml
+      file: config/publick8s_updates-jenkins-io-rsync.yaml
       key: $.configuration.components[0].volumeSubDir
     scmid: default
   updateGeoipdataPvcName:
@@ -81,7 +81,7 @@ targets:
     name: Update updates-jenkins-io-content "geoipdata" PVC name
     kind: yaml
     spec:
-      file: config/updates.jenkins.io-content.yaml
+      file: config/publick8s_updates-jenkins-io-content.yaml
       key: $.geoipdata.existingPVCName
     scmid: default
   updateGeoipdataPvcSubdir:
@@ -89,7 +89,7 @@ targets:
     kind: yaml
     name: Update updates-jenkins-io-content "geoipdata" PVC subDir mount
     spec:
-      file: config/updates.jenkins.io-content.yaml
+      file: config/publick8s_updates-jenkins-io-content.yaml
       key: $.geoipdata.subDir
     scmid: default
 
