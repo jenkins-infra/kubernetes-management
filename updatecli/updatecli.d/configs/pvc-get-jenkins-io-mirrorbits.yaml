@@ -49,7 +49,7 @@ targets:
     name: Update get-jenkins-io-mirrorbits "repository" PVC name
     kind: yaml
     spec:
-      file: config/get-jenkins-io-mirrorbits.yaml
+      file: config/publick8s_get-jenkins-io-mirrorbits.yaml
       key: $.repository.name
     scmid: default
   updateContentPvcSubdir:
@@ -57,7 +57,7 @@ targets:
     kind: yaml
     name: Update get-jenkins-io-mirrorbits "repository" PVC subDir mount
     spec:
-      file: config/get-jenkins-io-mirrorbits.yaml
+      file: config/publick8s_get-jenkins-io-mirrorbits.yaml
       key: $.repository.subDir
     scmid: default
   updateGeoipdataPvcName:
@@ -65,7 +65,7 @@ targets:
     name: Update get-jenkins-io-mirrorbits "geoipdata" PVC name
     kind: yaml
     spec:
-      file: config/get-jenkins-io-mirrorbits.yaml
+      file: config/publick8s_get-jenkins-io-mirrorbits.yaml
       key: $.geoipdata.existingPVCName
     scmid: default
   updateGeoipdataPvcSubdir:
@@ -73,7 +73,7 @@ targets:
     kind: yaml
     name: Update get-jenkins-io-mirrorbits "geoipdata" PVC subDir mount
     spec:
-      file: config/get-jenkins-io-mirrorbits.yaml
+      file: config/publick8s_get-jenkins-io-mirrorbits.yaml
       key: $.geoipdata.subDir
     scmid: default
 

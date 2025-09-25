@@ -33,7 +33,7 @@ targets:
     name: Set data PVC name in LDAP Helm configuration
     kind: yaml
     spec:
-      file: config/ldap.yaml
+      file: config/publick8s_ldap-jenkins-io.yaml
       key: $.persistence.customDataClaimName
     scmid: default
   updatePvcNameUnsecured:
@@ -41,7 +41,7 @@ targets:
     name: Set backup PVC name in LDAP Helm configuration
     kind: yaml
     spec:
-      file: config/ldap.yaml
+      file: config/publick8s_ldap-jenkins-io.yaml
       key: $.persistence.customBackupClaimName
     scmid: default
 
