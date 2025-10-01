@@ -24,7 +24,7 @@ releases:
   - name: artifact-caching-proxy
     namespace: artifact-caching-proxy
     chart: jenkins-infra/artifact-caching-proxy
-    version: 1.6.8
+    version: 1.6.9
     values:
       - ../config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
   - name: hub-mirror
