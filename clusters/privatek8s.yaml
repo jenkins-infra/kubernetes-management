@@ -73,7 +73,7 @@ releases:
   - name: infra-ci-jenkins-io
     namespace: infra-ci-jenkins-io
     chart: jenkins/jenkins
-    version: 5.8.97
+    version: 5.8.98
     needs:
       # Required to generate the job definition in a configmap
       - infra-ci-jenkins-io-jobs
@@ -94,7 +94,7 @@ releases:
   - name: release-ci-jenkins-io
     namespace: release-ci-jenkins-io
     chart: jenkins/jenkins
-    version: 5.8.97
+    version: 5.8.98
     timeout: 600
     needs:
       # Required to expose the webhooks endpoint (secondary ingress of the jenkins helm chart)
