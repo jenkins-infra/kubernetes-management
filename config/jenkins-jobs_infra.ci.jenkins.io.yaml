@@ -359,10 +359,6 @@ jobsDefinition:
         description: "reports.jenkins.io File Share Service Principal Writer"
         subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
         tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-      ## TODO: remove
-      azure-reports-access-key:
-        description: "Azure Storage Key used by infra-reports to publish to a storage bucket"
-        secret: "${AZURE_INFRA_REPORTS_STORAGE_KEY}"
     children:
       artifactory-users-report:
         name: "Artifactory Users Report"
@@ -434,9 +430,13 @@ jobsDefinition:
     description: Folder hosting all the Terraform-related jobs
     kind: folder
     credentials:
-      azure-reports-access-key:
-        description: "Azure Storage Key used by infra-reports to publish to a storage bucket"
-        secret: "${AZURE_INFRA_REPORTS_STORAGE_KEY}"
+      reports-jenkins-io-azurefile-serviceprincipal:
+        azureEnvironmentName: "Azure"
+        clientId: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+        clientSecret: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+        description: "reports.jenkins.io File Share Service Principal Writer"
+        subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+        tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
       github-app-infra.ci.jenkins.io-terraform-jobs:
         description: "Github App infra.ci.jenkins.io-terraform-jobs installed on jenkins-infra org"
         appId: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_ID}"
