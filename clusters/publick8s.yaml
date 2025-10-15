@@ -164,7 +164,7 @@ releases:
   - name: accounts-jenkins-io
     namespace: accounts-jenkins-io
     chart: jenkins-infra/accountapp
-    version: 0.10.8
+    version: 0.10.9
     needs:
       - ldap-jenkins-io/ldap-jenkins-io
     values:
