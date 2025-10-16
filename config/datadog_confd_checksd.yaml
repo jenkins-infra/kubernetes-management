@@ -251,18 +251,6 @@ datadog:
           tags:
             - production
             - jenkins.io
-        - name: status.jenkins.io
-          url: https://status.jenkins.io
-          timeout: 10
-          threshold: 3
-          window: 5
-          collect_response_time: true
-          check_certificate_expiration: true
-          days_warning: 30
-          days_critical: 10
-          tags:
-            - production
-            - jenkins.io
         - name: updates.jenkins.io
           url: https://updates.jenkins.io
           timeout: 10
@@ -402,18 +390,6 @@ datadog:
           days_warning: 10
           days_critical: 5
           url: https://ftp.yz.yamagata-u.ac.jp/pub/jenkins/TIME
-          method: get
-          collect_response_time: true
-          check_certificate_expiration: true
-          tags:
-            - mirror
-        - name: mirror.gruenehoelle.nl
-          timeout: 10
-          threshold: 3
-          window: 5
-          days_warning: 10
-          days_critical: 5
-          url: https://mirror.gruenehoelle.nl/jenkins/TIME
           method: get
           collect_response_time: true
           check_certificate_expiration: true

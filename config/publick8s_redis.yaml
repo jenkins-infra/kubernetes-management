@@ -17,6 +17,20 @@ redis:
     requests:
       cpu: 150m
       memory: 750Mi
+  podAnnotations:
+    ad.datadoghq.com/redis.checks: |
+      {
+        "redisdb": {
+          "init_config": {},
+          "instances": [
+            {
+              "host": "%%host%%",
+              "port":"6379",
+              "password":"%%env_AUTH%%"
+            }
+          ]
+        }
+      }
 nodeSelector:
   kubernetes.io/arch: arm64
 tolerations:
