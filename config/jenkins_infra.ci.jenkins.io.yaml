@@ -824,15 +824,15 @@ controller:
                   installers:
                   - zip:
                       label: "linux && amd64"
-                      subdir: "jdk-11.0.28+6"
+                      subdir: "jdk-11.0.29+7"
                       url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.29%2B7/OpenJDK11U-jdk_x64_linux_hotspot_11.0.29_7.tar.gz"
                   - zip:
                       label: "windows"
-                      subdir: "jdk-11.0.28+6"
+                      subdir: "jdk-11.0.29+7"
                       url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.28%2B6/OpenJDK11U-jdk_x64_windows_hotspot_11.0.28_6.zip"
                   - zip:
                       label: "linux && arm64"
-                      subdir: "jdk-11.0.28+6"
+                      subdir: "jdk-11.0.29+7"
                       url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.29%2B7/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.29_7.tar.gz"
             - name: "jdk17"
               properties:
