@@ -849,7 +849,7 @@ controller:
                   - zip:
                       label: "linux && arm64"
                       subdir: "jdk-17.0.16+8"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.16%2B8/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.16_8.tar.gz"
+                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.17%2B10/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.17_10.tar.gz"
             - name: "jdk21"
               properties:
               - installSource:
