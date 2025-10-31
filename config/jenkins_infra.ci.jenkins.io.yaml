@@ -809,7 +809,7 @@ controller:
                   - zip:
                       label: "linux && amd64"
                       subdir: "jdk8u472-b08"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u462-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u462b08.tar.gz"
+                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u472-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u472b08.tar.gz"
                   - zip:
                       label: "windows"
                       subdir: "jdk8u472-b08"
