@@ -802,70 +802,48 @@ controller:
             - name: "jgit"
           jdk:
             installations:
-            - name: "jdk8"
-              properties:
-              - installSource:
-                  installers:
-                  - zip:
-                      label: "linux && amd64"
-                      subdir: "jdk8u472-b08"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u472-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u472b08.tar.gz"
-                  - zip:
-                      label: "windows"
-                      subdir: "jdk8u472-b08"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u472-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u472b08.zip"
-                  - zip:
-                      label: "linux && arm64"
-                      subdir: "jdk8u472-b08"
-                      url: "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u472-b08/OpenJDK8U-jdk_aarch64_linux_hotspot_8u472b08.tar.gz"
-            - name: "jdk11"
-              properties:
-              - installSource:
-                  installers:
-                  - zip:
-                      label: "linux && amd64"
-                      subdir: "jdk-11.0.29+7"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.29%2B7/OpenJDK11U-jdk_x64_linux_hotspot_11.0.29_7.tar.gz"
-                  - zip:
-                      label: "windows"
-                      subdir: "jdk-11.0.29+7"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.29%2B7/OpenJDK11U-jdk_x64_windows_hotspot_11.0.29_7.zip"
-                  - zip:
-                      label: "linux && arm64"
-                      subdir: "jdk-11.0.29+7"
-                      url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.29%2B7/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.29_7.tar.gz"
-            - name: "jdk17"
-              properties:
-              - installSource:
-                  installers:
-                  - zip:
-                      label: "linux && amd64"
-                      subdir: "jdk-17.0.17+10"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.17%2B10/OpenJDK17U-jdk_x64_linux_hotspot_17.0.17_10.tar.gz"
-                  - zip:
-                      label: "windows"
-                      subdir: "jdk-17.0.17+10"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.17%2B10/OpenJDK17U-jdk_x64_windows_hotspot_17.0.17_10.zip"
-                  - zip:
-                      label: "linux && arm64"
-                      subdir: "jdk-17.0.17+10"
-                      url: "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.17%2B10/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.17_10.tar.gz"
             - name: "jdk21"
               properties:
               - installSource:
                   installers:
-                  - zip:
-                      label: "linux && amd64"
-                      subdir: "jdk-21.0.9+10"
-                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.9%2B10/OpenJDK21U-jdk_x64_linux_hotspot_21.0.9_10.tar.gz"
-                  - zip:
-                      label: "windows"
-                      subdir: "jdk-21.0.9+10"
-                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.9%2B10/OpenJDK21U-jdk_x64_windows_hotspot_21.0.9_10.zip"
-                  - zip:
-                      label: "linux && arm64"
-                      subdir: "jdk-21.0.9+10"
-                      url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.9%2B10/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.9_10.tar.gz"
+                  - command:
+                      command: "echo /opt/jdk-21"
+                      label: "(linux && amd64) || linux-amd64 || jdk21 || jdk-21 || maven-21"
+                      toolHome: "/opt/jdk-21"
+                  - batchFile:
+                      command: "echo C:/Tools/jdk-21"
+                      label: "(windows && amd64) || windows-amd64 || windows-2019 || windows-2022\
+                        \ || maven-21-windows"
+                      toolHome: "C:/Tools/jdk-21"
+                  - command:
+                      command: "echo /opt/jdk-21"
+                      label: "(linux && arm64) || linux-arm64"
+                      toolHome: "/opt/jdk-21"
+                  - command:
+                      command: "echo /opt/jdk-21"
+                      label: "s390x || s390xdocker"
+                      toolHome: "/opt/jdk-21"
+            - name: "jdk25"
+              properties:
+              - installSource:
+                  installers:
+                  - command:
+                      command: "echo /opt/jdk-25"
+                      label: "(linux && amd64) || linux-amd64 || jdk25 || jdk-25 || maven-25"
+                      toolHome: "/opt/jdk-25"
+                  - batchFile:
+                      command: "echo C:/Tools/jdk-25"
+                      label: "(windows && amd64) || windows-amd64 || windows-2019 || windows-2022\
+                        \ || maven-25-windows"
+                      toolHome: "C:/Tools/jdk-25"
+                  - command:
+                      command: "echo /opt/jdk-25"
+                      label: "(linux && arm64) || linux-arm64"
+                      toolHome: "/opt/jdk-25"
+                  - command:
+                      command: "echo /opt/jdk-25"
+                      label: "s390x || s390xdocker"
+                      toolHome: "/opt/jdk-25"
           maven:
             installations:
             - name: "mvn"
