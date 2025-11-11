@@ -169,7 +169,7 @@ controller:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
           views:
             - all:
-                description: "<p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p>"
+                description: "<center><p style=\"font-size: 18px;\">The <a href=\"/design-library/\" rel=\"nofollow\">Design Library</a> makes it easy for developers to build complex and consistent interfaces using Jenkins UI components.</p></center>"
                 name: "all"
           markupFormatter:
             rawHtml:
