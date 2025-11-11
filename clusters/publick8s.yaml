@@ -79,7 +79,7 @@ releases:
   - name: weekly-ci-jenkins-io
     namespace: weekly-ci-jenkins-io
     chart: jenkins/jenkins
-    version: 5.8.107
+    version: 5.8.108
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
