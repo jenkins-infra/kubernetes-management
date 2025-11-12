@@ -15,7 +15,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.142.0
+    version: 3.143.0
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/datadog_cijenkinsio-agents-2.yaml
