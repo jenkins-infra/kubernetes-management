@@ -108,7 +108,7 @@ controller:
               retriever:
                 modernSCM:
                   scm:
-                    git:
+                    gitSource:
                       credentialsId: "github-app-weekly"
                       remote: "https://github.com/jenkins-infra/pipeline-library.git"
       matrix-settings: |
