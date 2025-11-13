@@ -713,7 +713,7 @@ controller:
                 modernSCM:
                   libraryPath: "./"
                   scm:
-                    git:
+                    gitSource:
                       remote: "https://github.com/jenkins-infra/pipeline-library"
                       traits:
                       - "gitBranchDiscovery"
