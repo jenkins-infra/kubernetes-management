@@ -216,22 +216,16 @@ controller:
                     nodeSelector: "kubernetes.io/arch=amd64"
                     containers:
                       - name: jnlp
-                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/builder@sha256:7150f769249c071fec7ee18338183193c36d489dc9a2fb2d211242fcc89350cd
+                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.71.0
                         command: "/usr/local/bin/jenkins-agent"
                         args: ""
                         envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_OPTS"
-                            value: "-XX:+PrintCommandLineFlags"
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
                             value: "/opt/jdk-21/bin/java"
                         - envVar:
                             key: "JAVA_HOME"
-                            value: "/opt/java/openjdk/bin/java"
-                        - envVar:
-                            key: "PATH"
-                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+                            value: "/opt/jdk-21"
                         resourceLimitMemory: "8G"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "1G"
