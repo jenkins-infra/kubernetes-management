@@ -15,7 +15,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.145.0
+    version: 3.145.1
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/datadog_cijenkinsio-agents-2.yaml
@@ -50,6 +50,6 @@ releases:
   - name: maven-cacher
     namespace: maven-cache
     chart: jenkins-infra/maven-cacher
-    version: 0.0.3
+    version: 0.0.4
     values:
       - ../config/cijioagents2-maven-cacher.yaml
