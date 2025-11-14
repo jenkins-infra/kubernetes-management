@@ -144,11 +144,17 @@ controller:
                         - envVar:
                             key: "JAVA_HOME"
                             value: "/opt/jdk-21"
-                        resourceLimitMemory: "2048Mi"
+                        - envVar:
+                            key: "JENKINS_JAVA_OPTS"
+                            value: "-XX:+PrintCommandLineFlags"
+                        - envVar:
+                            key: "PATH"
+                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+                        resourceLimitMemory: "8G"
                         resourceRequestCpu: "500m"
-                        resourceRequestMemory: "512Mi"
+                        resourceRequestMemory: "1G"
                         alwaysPullImage: true
-                    label: "linux jnlp-linux jnlp-linux-amd64"
+                    label: "linux jnlp-linux jnlp-linux-amd64 container kubernetes node ruby webbuilder"
                     # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
                     serviceAccount: "jenkins-infra-agent"
                     yamlMergeStrategy: "merge"
@@ -203,51 +209,6 @@ controller:
                         - key: "kubernetes.io/arch"
                           operator: "Equal"
                           value: "arm64"
-                          effect: "NoSchedule"
-                        - key: "infra.ci.jenkins.io/agents"
-                          operator: "Equal"
-                          value: "true"
-                          effect: "NoSchedule"
-                        - key: "kubernetes.azure.com/scalesetpriority"
-                          operator: "Equal"
-                          value: "spot"
-                          effect: "NoSchedule"
-                  - name: jnlp-webbuilder
-                    nodeSelector: "kubernetes.io/arch=amd64"
-                    containers:
-                      - name: jnlp
-                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/builder@sha256:7150f769249c071fec7ee18338183193c36d489dc9a2fb2d211242fcc89350cd
-                        command: "/usr/local/bin/jenkins-agent"
-                        args: ""
-                        envVars:
-                        - envVar:
-                            key: "JENKINS_JAVA_OPTS"
-                            value: "-XX:+PrintCommandLineFlags"
-                        - envVar:
-                            key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk-21/bin/java"
-                        - envVar:
-                            key: "JAVA_HOME"
-                            value: "/opt/java/openjdk/bin/java"
-                        - envVar:
-                            key: "PATH"
-                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-                        resourceLimitMemory: "8G"
-                        resourceRequestCpu: "500m"
-                        resourceRequestMemory: "1G"
-                        alwaysPullImage: true
-                    label: "container kubernetes node ruby webbuilder"
-                    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-                    serviceAccount: "jenkins-infra-agent"
-                    yamlMergeStrategy: "merge"
-                    yaml: |-
-                      apiVersion: v1
-                      kind: Pod
-                      spec:
-                        tolerations:
-                        - key: "jenkins"
-                          operator: "Equal"
-                          value: "infra.ci.jenkins.io"
                           effect: "NoSchedule"
                         - key: "infra.ci.jenkins.io/agents"
                           operator: "Equal"
