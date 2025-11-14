@@ -53,8 +53,6 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-404:
         disableTagDiscovery: true
-      docker-builder:
-        disableTagDiscovery: true
       docker-confluence-data:
         disableTagDiscovery: true
       docker-geoipupdate:
@@ -214,9 +212,6 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-404:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-builder:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-confluence-data:
