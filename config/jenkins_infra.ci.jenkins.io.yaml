@@ -221,11 +221,17 @@ controller:
                         args: ""
                         envVars:
                         - envVar:
+                            key: "JENKINS_JAVA_OPTS"
+                            value: "-XX:+PrintCommandLineFlags"
+                        - envVar:
                             key: "JENKINS_JAVA_BIN"
                             value: "/opt/jdk-21/bin/java"
                         - envVar:
                             key: "JAVA_HOME"
                             value: "/opt/jdk-21"
+                        - envVar:
+                            key: "PATH"
+                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
                         resourceLimitMemory: "8G"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "1G"
