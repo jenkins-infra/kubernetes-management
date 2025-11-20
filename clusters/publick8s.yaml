@@ -115,8 +115,8 @@ releases:
     needs:
       - ldap-jenkins-io/ldap-jenkins-io
     secrets:
-      - ../secrets/config/keycloak/public-db.yaml
-      - ../secrets/config/keycloak/http.yaml
+      - ../secrets/config/keycloak/public-db-secrets.yaml
+      - ../secrets/config/keycloak/http-secrets.yaml
   - name: plugin-health-jenkins-io
     namespace: plugin-health-jenkins-io
     chart: jenkins-infra/plugin-health-scoring
