@@ -261,4 +261,4 @@ releases:
     values:
       - ../config/publick8s_redis.yaml
     secrets:
-      - ../secrets/config/redis/publick8s.yaml
+      - ../secrets/config/redis/publick8s-secrets.yaml
