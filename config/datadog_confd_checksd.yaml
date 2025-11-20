@@ -81,8 +81,7 @@ datadog:
 
               endpoints = {
                   'debian': f'https://{hostname}/debian/jenkins_{weekly_version}_all.deb',
-                  'redhat': f'https://{hostname}/redhat/jenkins-{weekly_version}-1.1.noarch.rpm',
-                  'opensuse': f'https://{hostname}/opensuse/jenkins-{weekly_version}-1.2.noarch.rpm',
+                  'rpm': f'https://{hostname}/rpm/jenkins-{weekly_version}-1.noarch.rpm',
                   'windows': f'https://{hostname}/windows/{weekly_version}/jenkins.msi',
                   'war': f'https://{hostname}/war/{weekly_version}/jenkins.war',
                   'debian-stable': f'https://{hostname}/debian-stable/jenkins_{stable_version}_all.deb',
@@ -135,11 +134,9 @@ datadog:
             min_collection_interval: 60
           - package: debian-stable
             min_collection_interval: 60
-          - package: opensuse
-            min_collection_interval: 60
           - package: opensuse-stable
             min_collection_interval: 60
-          - package: redhat
+          - package: rpm
             min_collection_interval: 60
           - package: redhat-stable
             min_collection_interval: 60
