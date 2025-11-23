@@ -1,0 +1,106 @@
+---
+ingress:
+  enabled: true
+  ingressClassName: private-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: staging.pkg.origin.jenkins.io
+      paths:
+        - path: /
+          serviceName: staging-pkg-origin-jenkins-io
+  tls:
+    - secretName: staging-pkg-origin-jenkins-io
+      hosts:
+        - staging.pkg.origin.jenkins.io
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 32Mi
+
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: staging-pkg-origin-jenkins-io
+htmlVolumeSubDir: ./pkg.jenkins.io/staging/
+
+replicaCount: 1
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - stats-jenkins-io
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"staging.pkg.origin.jenkins.io"}
+    ]
+
+nginx:
+  overrideLocations: |
+    add_header X-Content-Type-Options "nosniff";
+    add_header X-Frame-Options "DENY";
+
+    root   /usr/share/nginx/html;
+    autoindex on;
+
+    location / {
+      absolute_redirect off;
+      index  index.html index.htm;
+    }
+
+    error_page  404              /404/index.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    location ~* \/debian(.*)\/ {
+      # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
+      rewrite ^\/(debian.*)\/binary/(.*)\.deb$ https://staging.get.jenkins.io/$1/$2.deb redirect;
+    }
+
+    location /redhat/ {
+      rewrite ^\/redhat(.*)$ https://staging.pkg.origin.jenkins.io/rpm$1 permanent;
+    }
+
+    location /opensuse/ {
+      rewrite ^\/opensuse(.*)$ https://staging.pkg.origin.jenkins.io/rpm$1 permanent;
+    }
+
+    # TODO: uncomment after 2.528.3 Jenkins release
+    #location /redhat-stable/ {
+    #  rewrite ^\/redhat-stable(.*)$ https://staging.pkg.origin.jenkins.io/rpm-stable$1 permanent;
+    #}
+    #location /opensuse-stable/ {
+    #  rewrite ^\/opensuse-stable(.*)$ https://staging.pkg.origin.jenkins.io/rpm-stable$1 permanent;
+    #}
+
+    location ~* \/rpm(.*)\/ {
+      # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
+      rewrite ^\/(rpm.*)\/RPMS\/noarch\/(.*)\.rpm$ https://staging.get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(rpm.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$1/$2.rpm redirect;
+    }

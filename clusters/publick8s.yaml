@@ -262,3 +262,15 @@ releases:
       - ../config/publick8s_redis.yaml
     secrets:
       - ../secrets/config/redis/publick8s-secrets.yaml
+  - name: staging-pkg-origin-jenkins-io
+    namespace: staging-pkg-origin-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.6.0
+    values:
+      - ../config/publick8s_staging-pkg-origin-jenkins-io.yaml
+  - name: staging-get-jenkins-io
+    namespace: staging-get-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.6.0
+    values:
+      - ../config/publick8s_staging-get-jenkins-io.yaml
