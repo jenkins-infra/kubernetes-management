@@ -280,3 +280,9 @@ releases:
     version: 0.6.0
     values:
       - ../config/publick8s_staging-get-jenkins-io.yaml
+  - name: pkg-origin-jenkins-io
+    namespace: pkg-origin-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.6.0
+    values:
+      - ../config/publick8s_pkg-origin-jenkins-io.yaml
