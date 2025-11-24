@@ -163,6 +163,18 @@ controller:
                     id: releasecijenkinsio-dockerhub-pull
                     username: releasecijenkinsio
                     password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
+                - file:
+                    description: SSH Hostkey for archives.jenkins.io
+                    fileName: ssh-hostkey-archives.jenkins.io
+                    id: ssh-hostkey-archives.jenkins.io
+                    scope: GLOBAL
+                    secretBytes: "${base64:${SSH_ARCHIVES_HOSTKEY}}"
+                - file:
+                    description: SSH Hostkey for pkg.origin.jenkins.io
+                    fileName: ssh-hostkey-pkg.origin.jenkins.io
+                    id: ssh-hostkey-pkg.origin.jenkins.io
+                    scope: GLOBAL
+                    secretBytes: "${base64:${SSH_PKGSERVER_HOSTKEY}}"
       agent-settings: |
         jenkins:
           numExecutors: 0
