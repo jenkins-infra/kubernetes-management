@@ -149,6 +149,14 @@ controller:
                     privateKeySource:
                       directEntry:
                         privateKey: ${SSH_PKGSERVER_PRIVKEY}
+                - basicSSHUserPrivateKey:
+                    scope: GLOBAL
+                    id: "archives.jenkins.io"
+                    username: ${SSH_ARCHIVES_USERNAME}
+                    description: "SSH credential to access archives.jenkins.io VM"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: ${SSH_ARCHIVES_PRIVKEY}
                 - usernamePassword:
                     scope: GLOBAL
                     description: Docker hub credential for release.ci PULL
