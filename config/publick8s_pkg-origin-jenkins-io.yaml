@@ -1,19 +1,25 @@
 ---
 ingress:
   enabled: true
-  ingressClassName: private-nginx
+  ingressClassName: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: staging.pkg.origin.jenkins.io
+    - host: pkg.origin.jenkins.io
       paths:
         - path: /
-          serviceName: staging-pkg-origin-jenkins-io
+          serviceName: pkg-origin-jenkins-io
+    # For requests coming from Fastly
+    - host: pkg.jenkins.io
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
   tls:
-    - secretName: staging-pkg-origin-jenkins-io
+    - secretName: pkg-origin-jenkins-io
       hosts:
-        - staging.pkg.origin.jenkins.io
+        - pkg.origin.jenkins.io
+        - pkg.jenkins.io
 
 resources:
   limits:
@@ -25,10 +31,10 @@ resources:
 
 htmlVolume:
   persistentVolumeClaim:
-    claimName: staging-pkg-origin-jenkins-io
-htmlVolumeSubDir: ./pkg.jenkins.io/staging/
+    claimName: pkg-origin-jenkins-io
+htmlVolumeSubDir: ./pkg.jenkins.io/production/
 
-replicaCount: 1
+replicaCount: 2
 
 nodeSelector:
   kubernetes.io/arch: arm64
@@ -53,11 +59,16 @@ affinity:
 podAnnotations:
   ad.datadoghq.com/nginx-website.logs: |
     [
-      {"source":"nginx","service":"staging.pkg.origin.jenkins.io"}
+      {"source":"nginx","service":"pkg.origin.jenkins.io"}
     ]
 
 nginx:
   overrideLocations: |
+    # Recommended to redirect to  Fastly (unless a host header is present)
+    if ( $host != 'pkg.jenkins.io') {
+      return 301 https://pkg.jenkins.io$request_uri;
+    }
+
     add_header X-Content-Type-Options "nosniff";
     add_header X-Frame-Options "DENY";
 
@@ -80,27 +91,27 @@ nginx:
 
     location ~* \/debian(.*)\/ {
       # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
-      rewrite ^\/(debian.*)\/binary/(.*)\.deb$ https://staging.get.jenkins.io/$1/$2.deb redirect;
+      rewrite ^\/(debian.*)\/binary/(.*)\.deb$ https://get.jenkins.io/$1/$2.deb redirect;
     }
 
     location /redhat/ {
-      rewrite ^\/redhat(.*)$ https://staging.pkg.origin.jenkins.io/rpm$1 permanent;
+      rewrite ^\/redhat(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
     }
 
     location /opensuse/ {
-      rewrite ^\/opensuse(.*)$ https://staging.pkg.origin.jenkins.io/rpm$1 permanent;
+      rewrite ^\/opensuse(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
     }
 
     # TODO: uncomment when LTS line will feature unified RPM
     #location /redhat-stable/ {
-    #  rewrite ^\/redhat-stable(.*)$ https://staging.pkg.origin.jenkins.io/rpm-stable$1 permanent;
+    #  rewrite ^\/redhat-stable(.*)$ https://pkg.jenkins.io/rpm-stable$1 permanent;
     #}
     #location /opensuse-stable/ {
-    #  rewrite ^\/opensuse-stable(.*)$ https://staging.pkg.origin.jenkins.io/rpm-stable$1 permanent;
+    #  rewrite ^\/opensuse-stable(.*)$ https://pkg.jenkins.io/rpm-stable$1 permanent;
     #}
 
     location ~* \/rpm(.*)\/ {
       # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
-      rewrite ^\/(rpm.*)\/RPMS\/noarch\/(.*)\.rpm$ https://staging.get.jenkins.io/$1/$2.rpm redirect;
-      rewrite ^\/(rpm.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(rpm.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(rpm.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
     }
