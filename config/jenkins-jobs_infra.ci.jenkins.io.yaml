@@ -342,6 +342,11 @@ jobsDefinition:
           updatecli-aws-secret-access-key:
             description: AWS Secret key for the user updatecli
             secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
+  cronjobs:
+    name: Jenkins Infrastructure Cron Jobs
+    description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
+    kind: folder
+    children: {}
   reports:
     name: Reports
     description: Folder hosting all the reporting tasks jobs
