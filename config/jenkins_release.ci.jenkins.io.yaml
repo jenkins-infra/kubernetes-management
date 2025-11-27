@@ -28,7 +28,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-lts
-    tag: 2.3.33-2.528.2
+    tag: 2.3.36-2.528.2
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
@@ -149,12 +149,32 @@ controller:
                     privateKeySource:
                       directEntry:
                         privateKey: ${SSH_PKGSERVER_PRIVKEY}
+                - basicSSHUserPrivateKey:
+                    scope: GLOBAL
+                    id: "archives.jenkins.io"
+                    username: ${SSH_ARCHIVES_USERNAME}
+                    description: "SSH credential to access archives.jenkins.io VM"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: ${SSH_ARCHIVES_PRIVKEY}
                 - usernamePassword:
                     scope: GLOBAL
                     description: Docker hub credential for release.ci PULL
                     id: releasecijenkinsio-dockerhub-pull
                     username: releasecijenkinsio
                     password: "${DOCKER_HUB_TOKEN_RELEASECI_PULL}"
+                - file:
+                    description: SSH Hostkey for archives.jenkins.io
+                    fileName: ssh-hostkey-archives.jenkins.io
+                    id: ssh-hostkey-archives.jenkins.io
+                    scope: GLOBAL
+                    secretBytes: "${base64:${SSH_ARCHIVES_HOSTKEY}}"
+                - file:
+                    description: SSH Hostkey for pkg.origin.jenkins.io
+                    fileName: ssh-hostkey-pkg.origin.jenkins.io
+                    id: ssh-hostkey-pkg.origin.jenkins.io
+                    scope: GLOBAL
+                    secretBytes: "${base64:${SSH_PKGSERVER_HOSTKEY}}"
       agent-settings: |
         jenkins:
           numExecutors: 0
