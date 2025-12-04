@@ -1,0 +1,58 @@
+ingress:
+  enabled: true
+  className: public-nginx
+
+  image:
+    repository: dockerhubmirror.azurecr.io/jenkinsciinfra/issue-redirect
+    tag: 1 # ?
+    pullPolicy: IfNotPresent
+
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/configuration-snippet": |
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-Frame-Options: DENY";
+  hosts:
+    - host: issue-redirect.jenkins.io
+      paths:
+        - path: /
+  tls:
+    - secretName: issue-redirect-jenkinsio-tls
+      hosts:
+        - issue-redirect.jenkins.io
+
+replicaCount: 2
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - issueredirect
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/jenkinsio.logs: |
+    [
+      {"source":"nginx","service":"issue-redirect.jenkins.io"}
+    ]
