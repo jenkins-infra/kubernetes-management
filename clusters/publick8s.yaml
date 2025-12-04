@@ -208,7 +208,7 @@ releases:
     values:
       - ../config/publick8s_www-jenkins-io.yaml
   - name: issue-redirect-jenkins-io
-    namespace: issue-redirect
+    namespace: issue-redirect-jenkins-io
     chart: jenkins-infra/nginx-website
     version: 0.6.0
     values:
