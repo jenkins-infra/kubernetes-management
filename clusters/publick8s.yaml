@@ -174,7 +174,7 @@ releases:
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.2
+    version: 5.10.3
     values:
       - ../config/publick8s_get-jenkins-io-mirrorbits.yaml
     secrets:
@@ -224,7 +224,7 @@ releases:
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.2
+    version: 5.10.3
     values:
       - ../config/publick8s_updates-jenkins-io-content.yaml
     secrets:
