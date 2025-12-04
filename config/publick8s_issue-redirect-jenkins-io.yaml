@@ -51,6 +51,13 @@ affinity:
                 - issueredirect
         topologyKey: "kubernetes.io/hostname"
 
+nginx:
+  overrideLocations: |
+    root   /usr/share/nginx/html;
+
+    include includes/jira-to-github-redirects.conf;
+    rewrite ^/issue/(.+)          https://issues.jenkins.io/browse/JENKINS-$1 permanent;
+
 podAnnotations:
   ad.datadoghq.com/jenkinsio.logs: |
     [
