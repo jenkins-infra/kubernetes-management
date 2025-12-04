@@ -59,6 +59,8 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-infratools:
         disableTagDiscovery: true
+      docker-issue-redirect:
+        disableTagDiscovery: true
       docker-jenkins-lts:
         disableTagDiscovery: true
       docker-jenkins-weeklyci:
