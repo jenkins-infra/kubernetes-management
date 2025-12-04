@@ -38,7 +38,7 @@ targets:
     kind: yaml
     spec:
       file: config/publick8s_issue-redirect-jenkins-io.yaml
-      key: $.ingress.image.tag
+      key: $.image.tag
     scmid: default
 
 actions:
