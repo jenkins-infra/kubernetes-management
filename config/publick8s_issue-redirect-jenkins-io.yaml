@@ -53,7 +53,7 @@ affinity:
 
 nginx:
   overrideLocations: |
-    root   /usr/share/nginx/html;
+    root   /htdocs;
 
     include includes/jira-to-github-redirects.conf;
     rewrite ^/issue/(.+)          https://issues.jenkins.io/browse/JENKINS-$1 permanent;
