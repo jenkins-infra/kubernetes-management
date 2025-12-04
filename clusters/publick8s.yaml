@@ -207,6 +207,12 @@ releases:
     version: 0.6.0
     values:
       - ../config/publick8s_www-jenkins-io.yaml
+  - name: issue-redirect-jenkins-io
+    namespace: issue-redirect
+    chart: jenkins-infra/nginx-website
+    version: 0.6.0
+    values:
+      - ../config/publick8s_issue-redirect-jenkins-io.yaml
   - name: ipv6-lb-service
     namespace: public-nginx-ingress
     chart: jenkins-infra/ipv6-lb-service
