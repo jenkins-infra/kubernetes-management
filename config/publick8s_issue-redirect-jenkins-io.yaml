@@ -4,7 +4,7 @@ ingress:
 
   image:
     repository: dockerhubmirror.azurecr.io/jenkinsciinfra/issue-redirect
-    tag: 1 # ?
+    tag: 0.0.2
     pullPolicy: IfNotPresent
 
   annotations:
