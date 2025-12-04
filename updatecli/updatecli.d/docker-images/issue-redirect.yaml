@@ -1,0 +1,52 @@
+name: Bump `issue-redirect` docker image version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  latestRelease:
+    kind: githubrelease
+    name: Get latest jenkins-infra/docker-issue-redirect release
+    spec:
+      owner: jenkins-infra
+      repository: docker-issue-redirect
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+
+conditions:
+  checkDockerImagePublished:
+    name: Test dockerhubmirror.azurecr.io/jenkinsciinfra/issue-redirect:<latest_version> docker image tag
+    kind: dockerimage
+    spec:
+      image: dockerhubmirror.azurecr.io/jenkinsciinfra/issue-redirect
+      ## Tag from source
+      architectures:
+        - arm64
+
+targets:
+  updateImageTag:
+    name: Update issue-redirect docker image tag
+    kind: yaml
+    spec:
+      file: config/publick8s_issue-redirect-jenkins-io.yaml
+      key: $.ingress.image.tag
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump `issue-redirect` docker image version to {{ source "latestRelease" }}
+    spec:
+      labels:
+        - dependencies
+        - docker-issue-redirect
