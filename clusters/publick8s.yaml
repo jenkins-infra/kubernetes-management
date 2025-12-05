@@ -182,7 +182,7 @@ releases:
   - name: get-jenkins-io-httpd
     namespace: get-jenkins-io
     chart: jenkins-infra/httpd
-    version: 2.0.0
+    version: 2.0.1
     values:
       - ../config/publick8s_get-jenkins-io-httpd.yaml
   - name: plugin-site-issues-jenkins-io
@@ -239,7 +239,7 @@ releases:
   - name: updates-jenkins-io-redirections
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 2.0.0
+    version: 2.0.1
     values:
       - ../config/publick8s_updates-jenkins-io-redirections.yaml
   - name: contributors-jenkins-io
