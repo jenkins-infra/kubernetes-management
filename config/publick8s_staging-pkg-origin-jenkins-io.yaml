@@ -70,6 +70,15 @@ nginx:
     root   /usr/share/nginx/html/$subdomain;
     autoindex on;
 
+    ###############
+    # Only for staging: replace 'pkg.jenkins.io' by the current requested subdomain to ensure testing works
+    # Otherwise the HTML instructions won't be up to date and RPM/Redhat/Opensuse repo files will never redirect to the staging.get repository
+    # Do NOT enable this in production (performance is not good and will break fastly)
+    sub_filter 'pkg.jenkins.io' '$subdomain.staging.pkg.origin.jenkins.io';
+    sub_filter_types '*';
+    sub_filter_once off;
+    ###############
+
     location / {
       absolute_redirect off;
       index  index.html index.htm;
@@ -98,6 +107,18 @@ nginx:
       # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
       rewrite ^(.*)\/(rpm.*)\/RPMS\/noarch\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
       rewrite ^(.*)\/(rpm.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
+    }
+    ###############
+    # Redirect to staging.get for Redhat/OpenSuse LTS until RPM are unified in LTS line
+    location ~* (.*)\/redhat-stable\/ {
+      # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
+      rewrite ^(.*)\/(redhat.*)\/RPMS\/noarch\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
+      rewrite ^(.*)\/(redhat.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
+    }
+    location ~* (.*)\/opensuse-stable\/ {
+      # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
+      rewrite ^(.*)\/(opensuse.*)\/RPMS\/noarch\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
+      rewrite ^(.*)\/(opensuse.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
     }
     ###############
 
