@@ -610,9 +610,9 @@ controller:
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
       security: |
         security:
-          contentSecurityPolicyConfiguration:
-            reportOnly: true
-            rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
+          # contentSecurityPolicyConfiguration:
+          #   reportOnly: true
+          #   rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
           scriptApproval:
             approvedSignatures:
               - "method org.jenkinsci.plugins.workflow.steps.FlowInterruptedException getCauses"
