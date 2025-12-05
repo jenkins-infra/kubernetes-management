@@ -608,19 +608,19 @@ controller:
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
-      security: |
-        security:
-          contentSecurityPolicyConfiguration:
-            reportOnly: true
-            rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
-          scriptApproval:
-            approvedSignatures:
-              - "method org.jenkinsci.plugins.workflow.steps.FlowInterruptedException getCauses"
-              - "new java.lang.RuntimeException java.lang.Throwable"
-          gitHostKeyVerificationConfiguration:
-            sshHostKeyVerificationStrategy:
-              manuallyProvidedKeyVerificationStrategy:
-                approvedHostKeys: "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
+      # security: |
+      #   security:
+      #     contentSecurityPolicyConfiguration:
+      #       reportOnly: true
+      #       rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
+      #     scriptApproval:
+      #       approvedSignatures:
+      #         - "method org.jenkinsci.plugins.workflow.steps.FlowInterruptedException getCauses"
+      #         - "new java.lang.RuntimeException java.lang.Throwable"
+      #     gitHostKeyVerificationConfiguration:
+      #       sshHostKeyVerificationStrategy:
+      #         manuallyProvidedKeyVerificationStrategy:
+      #           approvedHostKeys: "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
       ldap-settings: |
         jenkins:
           securityRealm:
