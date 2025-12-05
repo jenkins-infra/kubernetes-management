@@ -70,7 +70,7 @@ controller:
           clouds: []
       security: |
         security:
-          contentSecurityPolicyConfiguration:
+          contentSecurityPolicy:
             enforce: true
       ldap-settings: |
         jenkins:
