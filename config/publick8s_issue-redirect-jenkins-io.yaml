@@ -18,7 +18,7 @@ ingress:
 
 image:
   repository: dockerhubmirror.azurecr.io/jenkinsciinfra/issue-redirect
-  tag: 0.1.12
+  tag: 0.1.14
   pullPolicy: IfNotPresent
 
 replicaCount: 2
