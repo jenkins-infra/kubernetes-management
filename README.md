@@ -11,7 +11,7 @@ more information in [CONTRIBUTING.md](https://github.com/jenkins-infra/kubernete
 
 ## Issues
 
-Any issues can be reported on our [help desk issue tracker](https://github.com/jenkins-infra/helpdesk/).
+Any issue can be reported on our [help desk issue tracker](https://github.com/jenkins-infra/helpdesk/).
 
 ## Repository Structure
 
