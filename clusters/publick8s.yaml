@@ -32,7 +32,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.149.2
+    version: 3.149.3
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/datadog_publick8s.yaml
