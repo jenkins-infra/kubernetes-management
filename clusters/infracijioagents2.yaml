@@ -15,7 +15,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.151.1
+    version: 3.151.2
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/datadog_infracijioagents2.yaml
