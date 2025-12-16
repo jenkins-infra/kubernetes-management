@@ -28,7 +28,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-lts
-    tag: 2.3.43-2.528.3
+    tag: 2.3.44-2.528.3
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
