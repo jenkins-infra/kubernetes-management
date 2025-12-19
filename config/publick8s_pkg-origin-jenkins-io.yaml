@@ -1,0 +1,133 @@
+---
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: pkg.origin.jenkins.io
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
+    # Legacy domain, should redirect to Fastly
+    - host: pkg.jenkins-ci.org
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
+    # For requests coming from Fastly
+    - host: pkg.jenkins.io
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
+  tls:
+    - secretName: pkg-origin-jenkins-io
+      hosts:
+        - pkg.origin.jenkins.io
+        - pkg.jenkins.io
+        - pkg.jenkins-ci.org
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 32Mi
+
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: pkg-origin-jenkins-io
+htmlVolumeSubDir: ./pkg.jenkins.io/production/
+
+replicaCount: 2
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - stats-jenkins-io
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"pkg.origin.jenkins.io"}
+    ]
+
+nginx:
+  overrideLocations: |
+    # Recommended to redirect to  Fastly (unless a host header is present)
+    if ( $host != 'pkg.jenkins.io') {
+      return 301 https://pkg.jenkins.io$request_uri;
+    }
+
+    add_header X-Content-Type-Options "nosniff";
+    add_header X-Frame-Options "DENY";
+
+    root   /usr/share/nginx/html;
+    autoindex on;
+
+    location / {
+      absolute_redirect off;
+      index  index.html index.htm;
+    }
+
+    error_page  404              /404/index.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    ###############
+    # Redirects requests for packages/binaries to the download service
+    location ~* \/debian(.*)\/ {
+      # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
+      rewrite ^\/(debian.*)\/binary/(.*)\.deb$ https://get.jenkins.io/$1/$2.deb redirect;
+    }
+    location ~* \/rpm(.*)\/ {
+      rewrite ^\/(rpm.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(rpm.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+    }
+
+    location ~* \/redhat-stable\/ {
+      rewrite ^\/(redhat.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(redhat.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+    }
+    location ~* \/opensuse-stable\/ {
+      rewrite ^\/(opensuse.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(opensuse.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+    }
+    ###############
+
+    ###############
+    # Redirect to unified RPM (weekly only)
+    location = /redhat {
+      rewrite ^\/redhat$ https://pkg.jenkins.io/redhat/ permanent;
+    }
+    location /redhat/ {
+      rewrite ^\/redhat(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
+    }
+    location = /opensuse {
+      rewrite ^\/opensuse$ https://pkg.jenkins.io/opensuse/ permanent;
+    }
+    location /opensuse/ {
+      rewrite ^\/opensuse(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
+    }
+    ###############
