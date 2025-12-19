@@ -24,7 +24,6 @@ ingress:
     - secretName: pkg-origin-jenkins-io
       hosts:
         - pkg.origin.jenkins.io
-        - pkg.jenkins.io
         - pkg.jenkins-ci.org
 
 resources:
