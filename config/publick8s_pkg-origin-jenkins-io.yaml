@@ -70,9 +70,9 @@ podAnnotations:
 nginx:
   overrideLocations: |
     # Recommended to redirect to  Fastly (unless a host header is present)
-    if ( $host != 'pkg.jenkins.io') {
-      return 301 https://pkg.jenkins.io$request_uri;
-    }
+    #if ( $host != 'pkg.jenkins.io') {
+    #  return 301 https://pkg.jenkins.io$request_uri;
+    #}
 
     add_header X-Content-Type-Options "nosniff";
     add_header X-Frame-Options "DENY";
