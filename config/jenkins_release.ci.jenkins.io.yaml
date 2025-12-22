@@ -120,6 +120,11 @@ controller:
                     description: Release GPG Key passphrase 2023 version
                 - string:
                     scope: GLOBAL
+                    id: "release-gpg-passphrase-2026"
+                    secret: "${RELEASE_GPG_PASSPHRASE_2026}"
+                    description: Release GPG Key passphrase 2026 version
+                - string:
+                    scope: GLOBAL
                     id: "maven-repository-username"
                     secret: "${MAVEN_REPOSITORY_USERNAME}"
                     description: "Username used by maven release plugin to publish artifacts on a maven repository"
