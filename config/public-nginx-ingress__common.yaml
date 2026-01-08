@@ -2,7 +2,7 @@ defaultBackend:
   enabled: true
   image:
     repository: dockerhubmirror.azurecr.io/jenkinsciinfra/404
-    tag: 0.4.104
+    tag: 0.4.105
     pullPolicy: IfNotPresent
   ## Unprivileged port as non root user and no escalation allowed
   port: 8080
