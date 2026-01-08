@@ -196,7 +196,7 @@ releases:
   - name: plugins-jenkins-io
     namespace: plugins-jenkins-io
     chart: jenkins-infra/plugin-site
-    version: 0.5.2
+    version: 0.5.3
     values:
       - ../config/publick8s_plugins-jenkins-io.yaml
     secrets:
