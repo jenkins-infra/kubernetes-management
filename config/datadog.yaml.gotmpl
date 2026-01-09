@@ -1,5 +1,7 @@
 datadog:
   clusterName: {{ .Values | get "datadog.clusterName" nil }}
+  operator:
+    enabled: false
   collectEvents: true
   leaderElection: true
   leaderLeaseDuration: 60
