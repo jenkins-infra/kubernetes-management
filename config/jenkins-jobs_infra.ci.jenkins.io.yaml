@@ -192,9 +192,6 @@ jobsDefinition:
         privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
     childrenGithubCredential: github-app-updatecli-on-jenkins-infra
     children:
-      aws:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       azure:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -446,29 +443,6 @@ jobsDefinition:
         privateKey: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_PRIVATE_KEY}"
     childrenGithubCredential: github-app-infra.ci.jenkins.io-terraform-jobs
     children:
-      aws:
-        name: Terraform AWS
-        description: AWS resources managed by Terraform
-        credentials:
-          staging-terraform-aws-access-key:
-            secret: "${STAGING_TERRAFORM_AWS_ACCESS_KEY_ID}"
-            description: "AWS access key id for the staging terraform account for jenkins-infra/aws"
-          staging-terraform-aws-secret-key:
-            secret: "${STAGING_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
-            description: "AWS secret key for the staging terraform account for jenkins-infra/aws"
-          staging-terraform-aws-backend-config:
-            fileName: backend-config
-            description: "Terraform backend configuration for the staging environment of jenkins-infra/aws"
-            secretBytes: "${base64:${STAGING_TERRAFORM_AWS_BACKEND_CONFIG}}"
-          production-terraform-aws-access-key:
-            secret: "${PRODUCTION_TERRAFORM_AWS_ACCESS_KEY_ID}"
-            description: "AWS access key id for the account production-terraform"
-          production-terraform-aws-secret-key:
-            secret: "${PRODUCTION_TERRAFORM_AWS_SECRET_ACCESS_KEY}"
-            description: "AWS secret key for the account production-terraform"
-          production-terraform-aws-backend-config:
-            fileName: "backend-config"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWS_BACKEND_CONFIG}}"
       terraform-aws-sponsorship:
         name: Terraform AWS Sponsorship
         description: AWS resources managed by Terraform on sponsorship account
