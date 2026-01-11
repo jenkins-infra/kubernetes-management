@@ -110,9 +110,9 @@ controller:
                     description: Fastly api token used to purge pkg.jenkins.io cache
                 - string:
                     scope: GLOBAL
-                    id: "fastly_pkgserver_service_id"
-                    secret: "${FASTLY_PKGSERVER_SERVICE_ID}"
-                    description: Fastly pkgserver service id used for invalidating pkg.jenkins.io
+                    id: "fastly_pkgjenkinsio_service_id"
+                    secret: "${FASTLY_PKGJENKINSIO_SERVICE_ID}"
+                    description: Fastly pkg.jenkins.io service id used for invalidating cache
                 - string:
                     scope: GLOBAL
                     id: "release-gpg-passphrase-2023"
@@ -148,14 +148,6 @@ controller:
                         privateKey: ${SSH_RELEASE_PRIVKEY}
                 - basicSSHUserPrivateKey:
                     scope: GLOBAL
-                    id: "pkgserver"
-                    username: ${SSH_PKGSERVER_USERNAME}
-                    description: "SSH private key used to upload artifacts on pkg.jenkins.io"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: ${SSH_PKGSERVER_PRIVKEY}
-                - basicSSHUserPrivateKey:
-                    scope: GLOBAL
                     id: "archives.jenkins.io"
                     username: ${SSH_ARCHIVES_USERNAME}
                     description: "SSH credential to access archives.jenkins.io VM"
@@ -174,12 +166,6 @@ controller:
                     id: ssh-hostkey-archives.jenkins.io
                     scope: GLOBAL
                     secretBytes: "${base64:${SSH_ARCHIVES_HOSTKEY}}"
-                - file:
-                    description: SSH Hostkey for pkg.origin.jenkins.io
-                    fileName: ssh-hostkey-pkg.origin.jenkins.io
-                    id: ssh-hostkey-pkg.origin.jenkins.io
-                    scope: GLOBAL
-                    secretBytes: "${base64:${SSH_PKGSERVER_HOSTKEY}}"
       agent-settings: |
         jenkins:
           numExecutors: 0
