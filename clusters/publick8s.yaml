@@ -188,7 +188,7 @@ releases:
   - name: plugin-site-issues-jenkins-io
     namespace: plugin-site-issues-jenkins-io
     chart: jenkins-infra/plugin-site-issues
-    version: 0.4.10
+    version: 0.4.11
     values:
       - ../config/publick8s_plugin-site-issues-jenkins-io.yaml
     secrets:
