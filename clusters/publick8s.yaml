@@ -101,7 +101,7 @@ releases:
   - name: ldap-jenkins-io
     namespace: ldap-jenkins-io
     chart: jenkins-infra/ldap
-    version: 4.2.6
+    version: 4.2.7
     values:
       - ../config/publick8s_ldap-jenkins-io.yaml
     secrets:
