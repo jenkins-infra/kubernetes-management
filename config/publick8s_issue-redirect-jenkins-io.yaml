@@ -55,8 +55,14 @@ nginx:
   overrideLocations: |
     root   /htdocs;
 
+    # Exact generated redirects
     include includes/jira-to-github-redirects.conf;
-    rewrite ^/issue/(.+)          https://issues.jenkins.io/browse/JENKINS-$1 permanent;
+
+    # Generic fallback rewrites
+    rewrite ^/issue/([0-9]+)$          https://issues.jenkins.io/browse/JENKINS-$1 permanent;
+    rewrite ^/issue/([A-Z]+-[0-9]+)$   https://issues.jenkins.io/browse/$1 permanent;
+    rewrite ^/([A-Z]+-[0-9]+)$         https://issues.jenkins.io/browse/$1 permanent;
+    rewrite ^/browse/([A-Z]+-[0-9]+)$  https://issues.jenkins.io/browse/$1 permanent;
 
 podAnnotations:
   ad.datadoghq.com/jenkinsio.logs: |
