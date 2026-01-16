@@ -372,6 +372,9 @@ jobsDefinition:
       backend-extension-indexer:
         name: "Backend Extension Indexer"
         jenkinsfilePath: Jenkinsfile
+      csp-compatibility:
+        name: "CSP Compatibility Report"
+        jenkinsfilePath: Jenkinsfile
       fork-report:
         name: "GitHub Forks Report"
         repository: "infra-reports"
