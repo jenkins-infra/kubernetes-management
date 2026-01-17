@@ -97,14 +97,8 @@ nginx:
     ###############
     # Redirect strict paths to their "trailing-slash" counterpart. Inherited from Apache in pkg.origin.jenkins.io VM.
     # Avoids depending on the presence of a directory in the docroot (with implicit redirect if having a directory)
-    location = /redhat-stable {
-      return 301 https://pkg.jenkins.io/redhat-stable/;
-    }
     location = /redhat-stable-legacy {
       return 301 https://pkg.jenkins.io/redhat-stable-legacy/;
-    }
-    location = /opensuse-stable {
-      return 301 https://pkg.jenkins.io/opensuse-stable/;
     }
     location = /opensuse-stable-legacy {
       return 301 https://pkg.jenkins.io/opensuse-stable-legacy/;
@@ -130,14 +124,6 @@ nginx:
       rewrite ^\/(rpm.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
       rewrite ^\/(rpm.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
     }
-    location ~* \/redhat-stable\/ {
-      rewrite ^\/(redhat.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-      rewrite ^\/(redhat.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-    }
-    location ~* \/opensuse-stable\/ {
-      rewrite ^\/(opensuse.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-      rewrite ^\/(opensuse.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-    }
     location ~* \/redhat(.*)-legacy\/ {
       rewrite ^\/(redhat.*)-legacy\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
       rewrite ^\/(redhat.*)-legacy\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
@@ -146,20 +132,33 @@ nginx:
       rewrite ^\/(opensuse.*)-legacy\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
       rewrite ^\/(opensuse.*)-legacy\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
     }
+
     ###############
 
     ###############
-    # Redirect to unified RPM (weekly only)
+    # Redirect to unified RPM
     location = /redhat {
       return 301 https://pkg.jenkins.io/rpm/;
     }
     location /redhat/ {
       rewrite ^\/redhat(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
     }
+    location = /redhat-stable {
+      return 301 https://pkg.jenkins.io/rpm-stable/;
+    }
+    location /redhat-stable/ {
+      rewrite ^\/redhat-stable(.*)$ https://pkg.jenkins.io/rpm-stable$1 permanent;
+    }
     location = /opensuse {
       return 301 https://pkg.jenkins.io/rpm/;
     }
     location /opensuse/ {
       rewrite ^\/opensuse(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
+    }
+    location = /opensuse-stable {
+      return 301 https://pkg.jenkins.io/rpm-stable/;
+    }
+    location /opensuse-stable/ {
+      rewrite ^\/opensuse-stable(.*)$ https://pkg.jenkins.io/rpm-stable$1 permanent;
     }
     ###############
