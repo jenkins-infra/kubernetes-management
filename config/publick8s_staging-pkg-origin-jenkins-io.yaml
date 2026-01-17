@@ -109,31 +109,3 @@ nginx:
       rewrite ^(.*)\/(rpm.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
     }
     ###############
-    # Redirect to staging.get for Redhat/OpenSuse LTS until RPM are unified in LTS line
-    location ~* (.*)\/redhat-stable\/ {
-      # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
-      rewrite ^(.*)\/(redhat.*)\/RPMS\/noarch\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
-      rewrite ^(.*)\/(redhat.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
-    }
-    location ~* (.*)\/opensuse-stable\/ {
-      # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
-      rewrite ^(.*)\/(opensuse.*)\/RPMS\/noarch\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
-      rewrite ^(.*)\/(opensuse.*)\/(.*)\.rpm$ https://staging.get.jenkins.io/$subdomain/$2/$3.rpm redirect;
-    }
-    ###############
-
-    ###############
-    # Redirect to unified RPM (weekly only)
-    location = /redhat {
-      rewrite ^\/redhat$ https://staging.pkg.origin.jenkins.io/rpm/ permanent;
-    }
-    location ~* (.*)\/redhat\/ {
-      rewrite ^\/redhat\/(.*)$ https://staging.pkg.origin.jenkins.io/rpm/$1 permanent;
-    }
-    location = /opensuse {
-      rewrite ^\/opensuse$ https://staging.pkg.origin.jenkins.io/rpm/ permanent;
-    }
-    location ~* (.*)\/opensuse\/ {
-      rewrite ^\/opensuse\/(.*)$ https://staging.pkg.origin.jenkins.io/rpm/$1 permanent;
-    }
-    ###############

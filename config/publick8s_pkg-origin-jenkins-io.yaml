@@ -105,28 +105,32 @@ nginx:
       rewrite ^\/(rpm.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
     }
 
-    location ~* \/redhat-stable\/ {
-      rewrite ^\/(redhat.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-      rewrite ^\/(redhat.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-    }
-    location ~* \/opensuse-stable\/ {
-      rewrite ^\/(opensuse.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-      rewrite ^\/(opensuse.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
-    }
     ###############
 
     ###############
-    # Redirect to unified RPM (weekly only)
+    # Redirect to unified RPM
     location = /redhat {
       rewrite ^\/redhat$ https://pkg.jenkins.io/redhat/ permanent;
     }
     location /redhat/ {
       rewrite ^\/redhat(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
     }
+    location = /redhat-stable {
+      rewrite ^\/redhat-stable$ https://pkg.jenkins.io/redhat-stable/ permanent;
+    }
+    location /redhat-stable/ {
+      rewrite ^\/redhat-stable(.*)$ https://pkg.jenkins.io/rpm-stable$1 permanent;
+    }
     location = /opensuse {
       rewrite ^\/opensuse$ https://pkg.jenkins.io/opensuse/ permanent;
     }
     location /opensuse/ {
       rewrite ^\/opensuse(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
+    }
+    location = /opensuse-stable {
+      rewrite ^\/opensuse-stable$ https://pkg.jenkins.io/opensuse-stable/ permanent;
+    }
+    location /opensuse-stable/ {
+      rewrite ^\/opensuse-stable(.*)$ https://pkg.jenkins.io/rpm-stable$1 permanent;
     }
     ###############
