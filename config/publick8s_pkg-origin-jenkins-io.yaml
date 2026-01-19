@@ -95,6 +95,32 @@ nginx:
     }
 
     ###############
+    # Redirect strict paths to their "trailing-slash" counterpart. Inherited from Apache in pkg.origin.jenkins.io VM.
+    # Avoids depending on the presence of a directory in the docroot (with implicit redirect if having a directory)
+    location = /redhat-stable {
+      return 301 https://pkg.jenkins.io/redhat-stable/;
+    }
+    location = /redhat-stable-legacy {
+      return 301 https://pkg.jenkins.io/redhat-stable-legacy/;
+    }
+    location = /opensuse-stable {
+      return 301 https://pkg.jenkins.io/opensuse-stable/;
+    }
+    location = /opensuse-stable-legacy {
+      return 301 https://pkg.jenkins.io/opensuse-stable-legacy/;
+    }
+    location = /debian {
+      return 301 https://pkg.jenkins.io/debian/;
+    }
+    location = /debian-stable {
+      return 301 https://pkg.jenkins.io/debian-stable/;
+    }
+    location = /rpm {
+      return 301 https://pkg.jenkins.io/rpm/;
+    }
+    ###############
+
+    ###############
     # Redirects requests for packages/binaries to the download service
     location ~* \/debian(.*)\/ {
       # Redirect requests for binaries/packages (e.g. heavy files consuming bandwidth) to mirrors
@@ -125,13 +151,13 @@ nginx:
     ###############
     # Redirect to unified RPM (weekly only)
     location = /redhat {
-      rewrite ^\/redhat$ https://pkg.jenkins.io/redhat/ permanent;
+      return 301 https://pkg.jenkins.io/rpm/;
     }
     location /redhat/ {
       rewrite ^\/redhat(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
     }
     location = /opensuse {
-      rewrite ^\/opensuse$ https://pkg.jenkins.io/opensuse/ permanent;
+      return 301 https://pkg.jenkins.io/rpm/;
     }
     location /opensuse/ {
       rewrite ^\/opensuse(.*)$ https://pkg.jenkins.io/rpm$1 permanent;
