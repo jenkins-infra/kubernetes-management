@@ -104,7 +104,6 @@ nginx:
       rewrite ^\/(rpm.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
       rewrite ^\/(rpm.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
     }
-
     location ~* \/redhat-stable\/ {
       rewrite ^\/(redhat.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
       rewrite ^\/(redhat.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
@@ -112,6 +111,14 @@ nginx:
     location ~* \/opensuse-stable\/ {
       rewrite ^\/(opensuse.*)\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
       rewrite ^\/(opensuse.*)\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+    }
+    location ~* \/redhat(.*)-legacy\/ {
+      rewrite ^\/(redhat.*)-legacy\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(redhat.*)-legacy\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+    }
+    location ~* \/opensuse(.*)-legacy\/ {
+      rewrite ^\/(opensuse.*)-legacy\/RPMS\/noarch\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
+      rewrite ^\/(opensuse.*)-legacy\/(.*)\.rpm$ https://get.jenkins.io/$1/$2.rpm redirect;
     }
     ###############
 
