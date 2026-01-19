@@ -119,8 +119,8 @@ nginx:
     }
 
     # compatibility with old package repository locations
-    rewrite ^/redhat/(.*) https://pkg.jenkins.io/redhat/$1 permanent;
-    rewrite ^/opensuse/(.*) https://pkg.jenkins.io/opensuse/$1 permanent;
+    rewrite ^/redhat/(.*) https://pkg.jenkins.io/rpm/$1 permanent;
+    rewrite ^/opensuse/(.*) https://pkg.jenkins.io/rpm/$1 permanent;
     rewrite ^/debian/(.*) https://pkg.jenkins.io/debian/$1 permanent;
 
     # convenient short URLs
