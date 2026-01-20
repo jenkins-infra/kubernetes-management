@@ -136,7 +136,7 @@ releases:
   - name: rating-jenkins-io
     namespace: rating-jenkins-io
     chart: jenkins-infra/rating
-    version: 0.5.2
+    version: 0.5.3
     values:
       - ../config/publick8s_rating-jenkins-io.yaml
     secrets:
