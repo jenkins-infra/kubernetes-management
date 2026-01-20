@@ -112,6 +112,9 @@ nginx:
     location = /rpm {
       return 301 https://pkg.jenkins.io/rpm/;
     }
+    location = /rpm-stable {
+      return 301 https://pkg.jenkins.io/rpm-stable/;
+    }
     ###############
 
     ###############
