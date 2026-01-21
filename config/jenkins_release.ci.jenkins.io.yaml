@@ -441,9 +441,6 @@ controller:
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
         security:
-          contentSecurityPolicyConfiguration:
-            reportOnly: true
-            rule: "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: avatars.githubusercontent.com; media-src 'self' data: ; script-src 'self' 'report-sample' usage.jenkins.io;"
           gitHostKeyVerificationConfiguration:
             sshHostKeyVerificationStrategy:
               manuallyProvidedKeyVerificationStrategy:
