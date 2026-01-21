@@ -85,9 +85,8 @@ datadog:
                   'windows': f'https://{hostname}/windows/{weekly_version}/jenkins.msi',
                   'war': f'https://{hostname}/war/{weekly_version}/jenkins.war',
                   'debian-stable': f'https://{hostname}/debian-stable/jenkins_{stable_version}_all.deb',
-                  'redhat-stable': f'https://{hostname}/redhat-stable/jenkins-{stable_version}-1.1.noarch.rpm',
+                  'rpm-stable': f'https://{hostname}/rpm-stable/jenkins-{stable_version}-1.noarch.rpm',
                   'windows-stable': f'https://{hostname}/windows-stable/{stable_version}/jenkins.msi',
-                  'opensuse-stable': f'https://{hostname}/opensuse-stable/jenkins-{stable_version}-1.2.noarch.rpm',
                   'war-stable': f'https://{hostname}/war-stable/{stable_version}/jenkins.war',
               }
               return endpoints
@@ -134,11 +133,9 @@ datadog:
             min_collection_interval: 60
           - package: debian-stable
             min_collection_interval: 60
-          - package: opensuse-stable
+          - package: rpm-stable
             min_collection_interval: 60
           - package: rpm
-            min_collection_interval: 60
-          - package: redhat-stable
             min_collection_interval: 60
           - package: war
             min_collection_interval: 60
