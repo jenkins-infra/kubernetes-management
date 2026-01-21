@@ -95,10 +95,14 @@ controller:
         jenkins:
           disabledAdministrativeMonitors:
             - com.cloudbees.jenkins.plugins.advisor.Reminder
-      pipeline-library: |
+      jenkins-url-and-resource-root: |
         unclassified:
           location:
             url: "https://weekly.ci.jenkins.io"
+        resourceRoot:
+          url: "https://assets.weekly.ci.jenkins.io/"
+      pipeline-library: |
+        unclassified:
           globalLibraries:
             libraries:
             - defaultVersion: "master"

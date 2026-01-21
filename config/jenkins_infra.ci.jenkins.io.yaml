@@ -656,10 +656,14 @@ controller:
             - "SlaveLogs"
             - "HeapUsageHistogram"
           nagDisabled: true
-      pipeline-library: |
+      jenkins-url-and-resource-root: |
         unclassified:
           location:
             url: "https://infra.ci.jenkins.io"
+        resourceRoot:
+          url: "https://assets.infra.ci.jenkins.io/"
+      pipeline-library: |
+        unclassified:
           globalLibraries:
             libraries:
             - cachingConfiguration:
