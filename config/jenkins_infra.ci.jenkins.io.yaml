@@ -660,8 +660,8 @@ controller:
         unclassified:
           location:
             url: "https://infra.ci.jenkins.io"
-        resourceRoot:
-          url: "https://assets.infra.ci.jenkins.io/"
+          resourceRoot:
+            url: "https://assets.infra.ci.jenkins.io/"
       pipeline-library: |
         unclassified:
           globalLibraries:

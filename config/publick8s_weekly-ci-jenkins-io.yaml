@@ -99,8 +99,8 @@ controller:
         unclassified:
           location:
             url: "https://weekly.ci.jenkins.io"
-        resourceRoot:
-          url: "https://assets.weekly.ci.jenkins.io/"
+          resourceRoot:
+            url: "https://assets.weekly.ci.jenkins.io/"
       pipeline-library: |
         unclassified:
           globalLibraries:
