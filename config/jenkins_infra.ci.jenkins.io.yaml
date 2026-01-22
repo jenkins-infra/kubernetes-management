@@ -656,10 +656,14 @@ controller:
             - "SlaveLogs"
             - "HeapUsageHistogram"
           nagDisabled: true
-      pipeline-library: |
+      jenkins-url-and-resource-root: |
         unclassified:
           location:
             url: "https://infra.ci.jenkins.io"
+          resourceRoot:
+            url: "https://assets.infra.ci.jenkins.io"
+      pipeline-library: |
+        unclassified:
           globalLibraries:
             libraries:
             - cachingConfiguration:
@@ -832,6 +836,7 @@ controller:
   ingress:
     enabled: true
     hostName: infra.ci.jenkins.io
+    resourceRootUrl: assets.infra.ci.jenkins.io
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/proxy-body-size": "500m"

@@ -95,10 +95,14 @@ controller:
         jenkins:
           disabledAdministrativeMonitors:
             - com.cloudbees.jenkins.plugins.advisor.Reminder
-      pipeline-library: |
+      jenkins-url-and-resource-root: |
         unclassified:
           location:
             url: "https://weekly.ci.jenkins.io"
+          resourceRoot:
+            url: "https://assets.weekly.ci.jenkins.io"
+      pipeline-library: |
+        unclassified:
           globalLibraries:
             libraries:
             - defaultVersion: "master"
@@ -255,6 +259,7 @@ controller:
   ingress:
     enabled: true
     hostName: weekly.ci.jenkins.io
+    resourceRootUrl: assets.weekly.ci.jenkins.io
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
