@@ -396,7 +396,7 @@ controller:
           location:
             url: "https://release.ci.jenkins.io"
           resourceRoot:
-            url: "https://assets.release.ci.jenkins.io/"
+            url: "https://assets.release.ci.jenkins.io"
       matrix-settings: |
         jenkins:
           authorizationStrategy:
