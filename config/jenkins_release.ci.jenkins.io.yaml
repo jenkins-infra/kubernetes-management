@@ -442,7 +442,10 @@ controller:
           quietPeriod: 0 # No need to wait between build scheduling
           disabledAdministrativeMonitors:
             - "jenkins.security.QueueItemAuthenticatorMonitor"
+      security: |
         security:
+          contentSecurityPolicy:
+            enforce: true
           gitHostKeyVerificationConfiguration:
             sshHostKeyVerificationStrategy:
               manuallyProvidedKeyVerificationStrategy:
