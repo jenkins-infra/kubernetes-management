@@ -259,6 +259,7 @@ controller:
   ingress:
     enabled: true
     hostName: weekly.ci.jenkins.io
+    resourceRootUrl: assets.weekly.ci.jenkins.io
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
       "nginx.ingress.kubernetes.io/proxy-body-size": "500m"

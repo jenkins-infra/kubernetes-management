@@ -482,6 +482,7 @@ controller:
   ingress:
     enabled: true
     hostName: release.ci.jenkins.io
+    resourceRootUrl: assets.release.ci.jenkins.io
     ingressClassName: private-nginx
     annotations:
       "cert-manager.io/cluster-issuer": "letsencrypt-prod"
