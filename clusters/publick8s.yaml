@@ -248,12 +248,12 @@ releases:
     version: 0.7.0
     values:
       - ../config/publick8s_contributors-jenkins-io.yaml
-  - name: docs-jenkins-io
-    namespace: docs-jenkins-io
+  - name: alpha-docs-jenkins-io
+    namespace: alpha-docs-jenkins-io
     chart: jenkins-infra/nginx-website
     version: 0.7.0
     values:
-      - ../config/publick8s_docs-jenkins-io.yaml
+      - ../config/publick8s_alpha-docs-jenkins-io.yaml
   - name: stats-jenkins-io
     namespace: stats-jenkins-io
     chart: jenkins-infra/nginx-website
