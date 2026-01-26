@@ -89,7 +89,7 @@ releases:
   - name: javadoc-jenkins-io
     namespace: javadoc-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_javadoc-jenkins-io.yaml
   - name: wiki-jenkins-io
@@ -152,13 +152,13 @@ releases:
   - name: reports-jenkins-io
     namespace: reports-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_reports-jenkins-io.yaml
   - name: builds-reports-jenkins-io
     namespace: builds-reports-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_builds-reports-jenkins-io.yaml
   - name: accounts-jenkins-io
@@ -204,13 +204,13 @@ releases:
   - name: www-jenkins-io
     namespace: www-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_www-jenkins-io.yaml
   - name: issue-redirect-jenkins-io
     namespace: issue-redirect-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_issue-redirect-jenkins-io.yaml
   - name: ipv6-lb-service
@@ -245,19 +245,19 @@ releases:
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_contributors-jenkins-io.yaml
   - name: docs-jenkins-io
     namespace: docs-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_docs-jenkins-io.yaml
   - name: stats-jenkins-io
     namespace: stats-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_stats-jenkins-io.yaml
   - name: redis
@@ -271,18 +271,18 @@ releases:
   - name: staging-pkg-origin-jenkins-io
     namespace: staging-pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_staging-pkg-origin-jenkins-io.yaml
   - name: staging-get-jenkins-io
     namespace: staging-get-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_staging-get-jenkins-io.yaml
   - name: pkg-origin-jenkins-io
     namespace: pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.6.1
+    version: 0.7.0
     values:
       - ../config/publick8s_pkg-origin-jenkins-io.yaml
