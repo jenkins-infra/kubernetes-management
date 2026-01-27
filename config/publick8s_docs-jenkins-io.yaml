@@ -6,14 +6,19 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: alpha.docs.jenkins.io
+    - host: docs.jenkins.io
       paths:
         - path: /
-          serviceName: alpha-docs-jenkins-io
+          serviceName: docs-jenkins-io
+    - host: docs.origin.jenkins.io
+      paths:
+        - path: /
+          serviceName: docs-jenkins-io
+  # docs.jenkins.io certificate is managed by Fastly
   tls:
-    - secretName: alpha-docs-jenkins-io-tls
+    - secretName: docs-jenkins-io-tls
       hosts:
-        - alpha.docs.jenkins.io
+        - docs.origin.jenkins.io
 
 resources:
   limits:
@@ -24,7 +29,7 @@ resources:
     memory: 64Mi
 htmlVolume:
   persistentVolumeClaim:
-    claimName: alpha-docs-jenkins-io
+    claimName: docs-jenkins-io
 
 replicaCount: 2
 
@@ -45,11 +50,11 @@ affinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - alpha-docs-jenkins-io
+                - docs-jenkins-io
         topologyKey: "kubernetes.io/hostname"
 
 podAnnotations:
   ad.datadoghq.com/nginx-website.logs: |
     [
-      {"source":"nginx","service":"alpha.docs.jenkins.io"}
+      {"source":"nginx","service":"docs.jenkins.io"}
     ]
