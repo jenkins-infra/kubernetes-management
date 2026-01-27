@@ -10,10 +10,18 @@ ingress:
       paths:
         - path: /
           serviceName: alpha-docs-jenkins-io
+    - host: docs.origin.jenkins.io
+      paths:
+        - path: /
+          serviceName: docs-jenkins-io
   tls:
     - secretName: alpha-docs-jenkins-io-tls
       hosts:
         - alpha.docs.jenkins.io
+    # docs.jenkins.io certificate is managed by Fastly
+    - secretName: docs-jenkins-io-tls
+      hosts:
+        - docs.origin.jenkins.io
 
 resources:
   limits:
