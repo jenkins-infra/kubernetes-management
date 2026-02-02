@@ -59,14 +59,14 @@ releases:
   - name: public-nginx-ingress
     namespace: public-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.11.8
+    version: 4.14.3
     values:
       - ../config/public-nginx-ingress__common.yaml
       - ../config/publick8s_public-nginx-ingress.yaml
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
-    version: 4.11.8
+    version: 4.14.3
     values:
       - ../config/private-nginx-ingress__common.yaml
       - ../config/publick8s_private-nginx-ingress.yaml
