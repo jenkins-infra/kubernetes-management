@@ -22,11 +22,6 @@ defaultBackend:
     - name: nginx-logs
       emptyDir: {}
 controller:
-  # TODO: remove when 1.14.3 is released
-  image:
-    tag: "v1.14.3"
-    digest: sha256:82917be97c0939f6ada1717bb39aa7e66c229d6cfb10dcfc8f1bd42f9efe0f81
-    digestChroot: sha256:ffdab64d0e0556f810d82d618a0fa97c4fc8dc2bc5717c51bfe83b5d4252c73e
   # Endpoint not needed. We have to be careful when using annotations in ingress though (check logs).
   admissionWebhooks:
     enabled: false
