@@ -427,6 +427,10 @@ jobsDefinition:
         name: "Plugin Health Scoring Report"
         repository: "infra-reports"
         jenkinsfilePath: "plugin-health-scoring/Jenkinsfile"
+      plugin-site-api:
+        name: "Plugin site data generation and publication"
+        repository: "plugin-site-api"
+        jenkinsfilePath: "Jenkinsfile_publish"
   terraform-jobs:
     name: Terraform Jobs
     description: Folder hosting all the Terraform-related jobs
