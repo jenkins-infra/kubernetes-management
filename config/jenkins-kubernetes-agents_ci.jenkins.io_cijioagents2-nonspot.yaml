@@ -1,0 +1,5 @@
+quotas:
+  pods: 150
+
+groups:
+  - ci-jenkins-io
