@@ -42,6 +42,3 @@ tolerations:
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
-
-# To be removed when https://github.com/jenkins-infra/helm-charts/pull/1872 is merged and deployed
-dataFileUrl: https://reports.jenkins.io/plugin-site-api/plugins.json.gzip
