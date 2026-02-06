@@ -461,7 +461,7 @@ controller:
               hoverColor: "#C11818"
             logo:
               image:
-                logoUrl: "https://release.ci.jenkins.io/userContent/logos/buttler_stay_safe.png"
+                logoUrl: "/userContent/logos/buttler_stay_safe.png"
             logoText: "Jenkins Release"
       tools-config: |
         tool:

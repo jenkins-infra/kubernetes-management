@@ -826,7 +826,7 @@ controller:
               color: "white"
             logo:
               image:
-                logoUrl: "https://infra.ci.jenkins.io/userContent/logos/beekeeper.png"
+                logoUrl: "/userContent/logos/beekeeper.png"
             logoText: "Jenkins Infra"
       default-notification-url: |
         unclassified:
