@@ -89,6 +89,14 @@ targets:
       matchpattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:.*'
       replacepattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:{{ source `packerImageVersion` }}'
     scmid: default
+  updateMavenCacherImage:
+    name: Update maven-cacher Docker image tag
+    kind: yaml
+    sourceid: packerImageVersion
+    spec:
+      file: ./config/cijioagents2-maven-cacher.yaml
+      key: $.image.tag
+    scmid: default
 
 actions:
   default:
@@ -99,3 +107,4 @@ actions:
       labels:
         - dependencies
         - agent-templates
+        - maven-cacher
