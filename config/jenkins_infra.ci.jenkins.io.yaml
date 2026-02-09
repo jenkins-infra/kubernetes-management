@@ -608,6 +608,77 @@ controller:
                   virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
+                - launcher: "ssh"
+                  agentWorkspace: "/home/jenkins"
+                  credentialsId: "azure-login"
+                  diskType: "managed"
+                  doNotUseMachineIfInitFails: false
+                  encryptionAtHost: true
+                  ephemeralOSDisk: true
+                  executeInitScriptAsRoot: true
+                  imageReference:
+                    galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+                    galleryImageVersion: "2.82.0"
+                    galleryName: "prod_packer_images"
+                    galleryResourceGroup: "prod-packer-images"
+                    gallerySubscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+                  imageTopLevelType: "advanced"
+                  initScript: |-
+                    #!/bin/bash
+                    set -eux
+                    echo "START CLOUDINIT"
+                    # Setup Datadog service
+                    (
+                      systemctl stop datadog-agent.service
+                      mkdir -p /var/log/datadog /etc/datadog-agent
+                      sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+                      chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+                      chmod 640 /etc/datadog-agent/datadog.yaml
+                      chown dd-agent:dd-agent /var/log/datadog
+                      chmod 770 /var/log/datadog
+                      systemctl daemon-reload
+                      systemctl enable datadog-agent.service
+                      systemctl start datadog-agent.service
+                    ) 2>&1 | tee /var/log/agent-init-datadog.log
+                    # Setup Docker Engine
+                    mkdir -p /etc/docker
+                    cat <<EOF >/etc/docker/daemon.json
+                    {
+                      "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+                    }
+                    EOF
+                    systemctl daemon-reload
+                    systemctl restart docker
+                    export DEFAULT_JDK=/opt/jdk-21
+                    update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
+                    echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+                    rm -f /etc/sudoers.d/90-cloud-init-users
+                    echo "END CLOUDINIT"
+                  javaPath: "/opt/jdk-21/bin/java"
+                  jvmOptions: "-XX:+PrintCommandLineFlags"
+                  labels: "linux-arm64-maven-21-nonspot"
+                  location: "East US 2"
+                  maxVirtualMachinesLimit: 50
+                  existingStorageAccountName: "infracijenkinsioagents"
+                  noOfParallelJobs: 1
+                  osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
+                  osDiskStorageAccountType: "Standard_LRS"
+                  osType: "Linux"
+                  retentionStrategy: "azureVMCloudOnce"
+                  spotInstance: false
+                  storageAccountNameReferenceType: "existing"
+                  storageAccountType: "Standard_LRS"
+                  subnetName: "infra-ci-jenkins-io-vnet-ephemeral-agents"
+                  templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS arm64 machine nonspot"
+                  templateName: "ubuntu-22-arm64-maven-21-nonspot"
+                  enableUAMI: true
+                  uamiID: "/subscriptions/dff2ec18-6a8e-405c-8e45-b7df7465acf0/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
+                  usageMode: NORMAL
+                  usePrivateIP: true
+                  virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualNetworkName: "infra-ci-jenkins-io-vnet"
+                  virtualNetworkResourceGroupName: "infra-ci-jenkins-io"
       security: |
         security:
           contentSecurityPolicy:
