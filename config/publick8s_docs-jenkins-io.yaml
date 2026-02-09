@@ -10,15 +10,10 @@ ingress:
       paths:
         - path: /
           serviceName: docs-jenkins-io
-    - host: docs.origin.jenkins.io
-      paths:
-        - path: /
-          serviceName: docs-jenkins-io
-  # docs.jenkins.io certificate is managed by Fastly
   tls:
     - secretName: docs-jenkins-io-tls
       hosts:
-        - docs.origin.jenkins.io
+        - docs.jenkins.io
 
 resources:
   limits:
