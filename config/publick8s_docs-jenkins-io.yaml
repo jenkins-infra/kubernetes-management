@@ -58,3 +58,9 @@ podAnnotations:
     [
       {"source":"nginx","service":"docs.jenkins.io"}
     ]
+
+nginx:
+  overrideLocations: |
+    # Redirect to alpha.docs.jenkins.io until finalized.
+    # Ref: https://github.com/jenkins-infra/helpdesk/issues/4935#issuecomment-3800342164
+    return 302 https://alpha.docs.jenkins.io$request_uri;
