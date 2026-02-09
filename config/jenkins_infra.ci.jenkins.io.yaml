@@ -657,7 +657,7 @@ controller:
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-21/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64-maven-21-nonspot"
+                  labels: "ubuntu-22-arm64-maven-21-nonspot linux-arm64-maven-21-nonspot linux-arm64-nonspot"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "infracijenkinsioagents"
