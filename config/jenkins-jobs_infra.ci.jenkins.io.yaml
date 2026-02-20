@@ -431,6 +431,8 @@ jobsDefinition:
         name: "Plugin site data generation and publication"
         repository: "plugin-site-api"
         jenkinsfilePath: "Jenkinsfile_publish"
+        disableTagDiscovery: true
+        disablePullRequests: true
   terraform-jobs:
     name: Terraform Jobs
     description: Folder hosting all the Terraform-related jobs
