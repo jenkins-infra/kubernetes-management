@@ -37,7 +37,7 @@ service:
     # We want the LB to directly send requests to the Pod IPs (requires VPC-CNI)
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
     # Tracked by updatecli (updatecli/updatecli.d/configs/acp-lb-aws.yaml)
-    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-003b868ae937f290a"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "\"subnet-003b868ae937f290a,subnet-0f76ffb1385bec3db,subnet-0cbf5a4a8a81322f5\""
     # Tracked by updatecli (updatecli/updatecli.d/configs/acp-lb-aws.yaml)
     service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: "\"10.0.131.248,10.0.137.248,10.0.151.248\""
     service.beta.kubernetes.io/aws-load-balancer-ip-address-type: "ipv4"
