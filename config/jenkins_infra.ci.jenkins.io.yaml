@@ -140,10 +140,10 @@ controller:
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk-21/bin/java"
+                            value: "/opt/jdk-25/bin/java"
                         - envVar:
                             key: "JAVA_HOME"
-                            value: "/opt/jdk-21"
+                            value: "/opt/jdk-25"
                         - envVar:
                             key: "JENKINS_JAVA_OPTS"
                             value: "-XX:+PrintCommandLineFlags"
@@ -185,10 +185,10 @@ controller:
                         envVars:
                         - envVar:
                             key: "JENKINS_JAVA_BIN"
-                            value: "/opt/jdk-21/bin/java"
+                            value: "/opt/jdk-25/bin/java"
                         - envVar:
                             key: "JAVA_HOME"
-                            value: "/opt/jdk-21"
+                            value: "/opt/jdk-25"
                         resourceLimitMemory: "2048Mi"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "512Mi"
@@ -273,7 +273,7 @@ controller:
                     echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-21/bin/java"
+                  javaPath: "/opt/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "linux-amd64 linux-amd64-docker"
                   location: "East US 2"
@@ -322,7 +322,7 @@ controller:
                     }
                     '@ | Set-Content C:\ProgramData\Docker\config\daemon.json
                     Restart-Service docker
-                  javaPath: "C:/tools/jdk-21/bin/java"
+                  javaPath: "C:/tools/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "windows-2019 amd64 azure vm docker-windows docker-windows-2019 windows"
                   location: "East US 2"
@@ -371,7 +371,7 @@ controller:
                     }
                     '@ | Set-Content C:\ProgramData\Docker\config\daemon.json
                     Restart-Service docker
-                  javaPath: "C:/tools/jdk-21/bin/java"
+                  javaPath: "C:/tools/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "windows-2022 windows-2025 amd64 azure vm docker-windows docker-windows-2022 docker-windows-2025 windows"
                   location: "East US 2"
@@ -442,7 +442,7 @@ controller:
                     echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-21/bin/java"
+                  javaPath: "/opt/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "linux-arm64 linux-arm64-docker arm64linux jdk11 maven-11 ubuntu-22-arm64 ubuntu-arm64"
                   location: "East US 2"
@@ -513,7 +513,7 @@ controller:
                     echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-21/bin/java"
+                  javaPath: "/opt/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "linux-arm64-maven-17 jdk17 maven-17 ubuntu-22-arm64-maven-17 ubuntu-arm64-maven-17"
                   location: "East US 2"
@@ -584,7 +584,7 @@ controller:
                     echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-21/bin/java"
+                  javaPath: "/opt/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "linux-arm64-maven-21 jdk21 maven-21 ubuntu-22-arm64-maven-21 ubuntu-arm64-maven-21"
                   location: "East US 2"
@@ -655,7 +655,7 @@ controller:
                     echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
-                  javaPath: "/opt/jdk-21/bin/java"
+                  javaPath: "/opt/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
                   labels: "ubuntu-22-arm64-maven-21-nonspot linux-arm64-maven-21-nonspot linux-arm64-nonspot"
                   location: "East US 2"
