@@ -394,6 +394,7 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Windows 2025 machine"
                   templateName: "win-2025"
+                  trustedLaunch: true  # Required for Windows 2025
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
