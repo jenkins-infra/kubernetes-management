@@ -290,7 +290,7 @@ controller:
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: true
+                  spotInstance: false
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
@@ -340,7 +340,7 @@ controller:
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Windows"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: true
+                  spotInstance: false
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
@@ -390,7 +390,7 @@ controller:
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Windows"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: true
+                  spotInstance: false
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
@@ -462,7 +462,7 @@ controller:
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: true
+                  spotInstance: false
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
@@ -534,7 +534,7 @@ controller:
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: true
+                  spotInstance: false
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
@@ -606,7 +606,7 @@ controller:
                   osDiskStorageAccountType: "Standard_LRS"
                   osType: "Linux"
                   retentionStrategy: "azureVMCloudOnce"
-                  spotInstance: true
+                  spotInstance: false
                   storageAccountNameReferenceType: "existing"
                   storageAccountType: "Standard_LRS"
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
