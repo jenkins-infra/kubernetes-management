@@ -473,7 +473,7 @@ controller:
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -545,7 +545,7 @@ controller:
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -617,7 +617,7 @@ controller:
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -689,7 +689,7 @@ controller:
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
       security: |
