@@ -296,11 +296,12 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS x86_64 machine"
                   templateName: "ubuntu-22"
+                  trustedLaunch: true
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
+                  virtualMachineSize: "Standard_D4ads_v7" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -345,11 +346,12 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Windows 2019 machine"
                   templateName: "win-2019"
+                  trustedLaunch: true
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
+                  virtualMachineSize: "Standard_D4ads_v7" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -394,11 +396,12 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Windows 2025 machine"
                   templateName: "win-2025"
+                  trustedLaunch: true
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4ads_v5" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
+                  virtualMachineSize: "Standard_D4ads_v7" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -465,11 +468,12 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64"
+                  trustedLaunch: true
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -536,11 +540,12 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-17 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64-maven-17"
+                  trustedLaunch: true
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -607,11 +612,12 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS arm64 machine"
                   templateName: "ubuntu-22-arm64-maven-21"
+                  trustedLaunch: true
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
                 - launcher: "ssh"
@@ -678,11 +684,12 @@ controller:
                   subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
                   templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS arm64 machine nonspot"
                   templateName: "ubuntu-22-arm64-maven-21-nonspot"
+                  trustedLaunch: true
                   enableUAMI: true
                   uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-controller/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-agents"
                   usageMode: NORMAL
                   usePrivateIP: true
-                  virtualMachineSize: "Standard_D4pds_v5" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+                  virtualMachineSize: "Standard_D4pds_v7" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
                   virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
                   virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
       security: |
