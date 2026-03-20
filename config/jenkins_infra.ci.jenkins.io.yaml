@@ -94,6 +94,12 @@ controller:
                     id: "azure-jenkins-cdf-managed-identity"
                     scope: SYSTEM
                     subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+                - azureImds:
+                    azureEnvName: "Azure"
+                    description: "infra.ci.jenkins.io's Azure Managed Identity used for spawning agents in Jenkins Sponsored subscription"
+                    id: "azure-jenkins-sponsored-managed-identity"
+                    scope: SYSTEM
+                    subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
                 - usernamePassword:
                     description: "Credentials to access the azure agents VMs"
                     id: "azure-login"
