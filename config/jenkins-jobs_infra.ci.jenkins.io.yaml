@@ -116,8 +116,8 @@ jobsDefinition:
             azureEnvironmentName: "Azure"
             clientId: "${PACKER_AZURE_CLIENT_ID}"
             clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by packer on CDF subscription"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            description: "Azure Service Principal credential used by packer on the sponsored subscription"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
             tenant: "${PACKER_AZURE_TENANT_ID}"
           jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
       jenkins-infra:
@@ -138,8 +138,8 @@ jobsDefinition:
             azureEnvironmentName: "Azure"
             clientId: "${PACKER_AZURE_CLIENT_ID}"
             clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by packer on CDF subscription"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            description: "Azure Service Principal credential used by packer on the sponsored subscription"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
             tenant: "${PACKER_AZURE_TENANT_ID}"
           packer-aws-access-key-id:
             description: AWS API key for the user packer
@@ -296,7 +296,7 @@ jobsDefinition:
             clientId: "${PACKER_AZURE_CLIENT_ID}"
             clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
             description: "Azure Service Principal credential used by updatecli"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
             tenant: "${PACKER_AZURE_TENANT_ID}"
       packer-images:
         jenkinsfilePath: Jenkinsfile_updatecli
@@ -313,7 +313,7 @@ jobsDefinition:
             clientId: "${UPDATECLI_AZURE_CLIENT_ID}"
             clientSecret: "${UPDATECLI_AZURE_CLIENT_SECRET}"
             description: "Azure Service Principal credential used by updatecli"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
             tenant: "${UPDATECLI_AZURE_TENANT_ID}"
       pipeline-library:
         name: Shared Pipeline Library
