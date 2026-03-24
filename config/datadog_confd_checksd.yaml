@@ -123,6 +123,111 @@ datadog:
                   print(f"Latest version for package {package} not available from {message}")
               else:
                   print(f"Latest version for package {package} available from {message}")
+    buildReportStalenessCheck.py: |-
+      #!/usr/bin/env python3
+      # Require Python 3.8
+
+      import json
+      from datetime import datetime, timezone
+      from urllib.request import urlopen
+      from urllib.error import URLError, HTTPError
+
+      from datadog_checks.base.checks import AgentCheck
+
+
+      class BuildReportStaleness(AgentCheck):
+          """
+              Checks build report staleness from builds.reports.jenkins.io.
+              Fetches status.json, computes age, and submits metrics.
+          """
+
+          def fetch_report(self, url):
+              '''
+                  fetch_report fetches and parses the status.json report
+              '''
+              try:
+                  resp = urlopen(url, timeout=10)
+                  if resp.code != 200:
+                      print(f'return code should be 200 but is {resp.code}')
+                      return None
+                  return json.loads(resp.read().decode('utf-8'))
+              except HTTPError as err:
+                  if err.code == 404:
+                      print(f'Report not found at {url}')
+                  else:
+                      print(f'Something went wrong with url {url}: {err}')
+                  return None
+              except URLError as err:
+                  self.warning(f"BuildReportStaleness: URL error for {url}: {err}")
+                  return None
+
+          def check(self, instance):
+              """
+                  Datadog custom check
+              """
+              url = instance['url']
+              controller = instance.get('controller', 'unknown')
+              base_tags = [f"controller:{controller}"]
+
+              self.warning(f"BuildReportStaleness: {controller}")
+
+              data = self.fetch_report(url)
+
+              if data is None:
+                  self.gauge('jenkins.build_report.reachable', 0, tags=base_tags)
+                  self.gauge('jenkins.build_report.build_ok', 0, tags=base_tags)
+                  return
+
+              job_name = data.get('job_name', 'unknown')
+              build_status = data.get('build_status', 'UNKNOWN')
+              tags = base_tags + [
+                  f"job:{job_name}",
+                  f"build_status:{build_status.lower()}",
+              ]
+
+              # Reachable
+              self.gauge('jenkins.build_report.reachable', 1, tags=tags)
+
+              # Build status
+              build_ok = 1 if build_status == 'SUCCESS' else 0
+              self.gauge('jenkins.build_report.build_ok', build_ok, tags=tags)
+
+              # Age (staleness)
+              try:
+                  ts = datetime.fromisoformat(data['report_timestamp'].replace('Z', '+00:00'))
+                  age_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
+                  self.gauge('jenkins.build_report.age_hours', round(age_hours, 2), tags=tags)
+              except (KeyError, ValueError) as err:
+                  self.warning(f"BuildReportStaleness: Bad timestamp in {url}: {err}")
+
+
+      if __name__ == "__main__":
+          '''
+              This exists only for testing purposes
+          '''
+          import sys
+
+          urls = [
+              'https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-404/main/status.json',
+          ]
+
+          for url in urls:
+              print(f"\nChecking: {url}")
+              try:
+                  resp = urlopen(url, timeout=10)
+                  data = json.loads(resp.read().decode('utf-8'))
+                  controller = data['controller_url'].replace('https://', '').rstrip('/')
+                  ts = datetime.fromisoformat(data['report_timestamp'].replace('Z', '+00:00'))
+                  age_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
+
+                  print(f"  Controller: {controller}")
+                  print(f"  Job: {data['job_name']}")
+                  print(f"  Build: #{data['build_number']} — {data['build_status']}")
+                  print(f"  Age: {round(age_hours, 2)}h")
+                  print(f"  Stale: {'YES' if age_hours > 24 else 'NO'}")
+              except Exception as e:
+                  print(f"  Error: {e}")
+                  sys.exit(1)
 
   confd:
     packageCanBeDownloaded.yaml: |-
@@ -401,3 +506,10 @@ datadog:
           check_certificate_expiration: true
           tags:
             - mirror
+    buildReportStalenessCheck.yaml: |-
+      init_config:
+
+      instances:
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-404/main/status.json
+          controller: infra.ci.jenkins.io
+          min_collection_interval: 300
