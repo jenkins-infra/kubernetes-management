@@ -107,6 +107,11 @@ controller:
                     scope: SYSTEM
                     username: "${AZURE_LOGIN_VM_USER}"
                 - string:
+                    description: "Token of the Service Account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-1'"
+                    id: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
+                    scope: SYSTEM
+                    secret: "${INFRACIJENKINSIO_AGENTS_1_TOKEN}"
+                - string:
                     description: "Token of the Service Account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-2'"
                     id: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
                     scope: SYSTEM
@@ -119,6 +124,68 @@ controller:
               - id: "default"
                 url: "https://azure.updates.jenkins.io/update-center.json"
           clouds:
+            - kubernetes:
+                containerCapStr: "100"
+                credentialsId: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
+                serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_1_CACRT}}"
+                # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+                serverUrl: "https://infracijenkinsioagents1-wzkg3k2f.hcp.eastus2.azmk8s.io:443"
+                maxRequestsPerHostStr: "300"
+                webSocket: true
+                name: "kubernetes_infracijioagents1"
+                namespace: "jenkins-infra-agents"
+                podLabels:
+                  - key: "jenkins"
+                    value: "agent"
+                  - key: "azure.workload.identity/use"
+                    value: "true"
+                podRetention: "Never"
+                templates:
+                  - name: jnlp-linux-amd64-test
+                    nodeSelector: "kubernetes.io/arch=amd64"
+                    containers:
+                      - name: jnlp
+                        image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.91.1
+                        command: "/usr/local/bin/jenkins-agent"
+                        args: ""
+                        envVars:
+                        - envVar:
+                            key: "JENKINS_JAVA_BIN"
+                            value: "/opt/jdk-25/bin/java"
+                        - envVar:
+                            key: "JAVA_HOME"
+                            value: "/opt/jdk-25"
+                        - envVar:
+                            key: "JENKINS_JAVA_OPTS"
+                            value: "-XX:+PrintCommandLineFlags"
+                        - envVar:
+                            key: "PATH"
+                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+                        resourceLimitMemory: "8G"
+                        resourceRequestCpu: "500m"
+                        resourceRequestMemory: "1G"
+                        alwaysPullImage: true
+                    label: "linux-test"
+                    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+                    serviceAccount: "jenkins-infra-agent"
+                    yamlMergeStrategy: "merge"
+                    yaml: |-
+                      apiVersion: v1
+                      kind: Pod
+                      spec:
+                        tolerations:
+                        - key: "jenkins"
+                          operator: "Equal"
+                          value: "infra.ci.jenkins.io"
+                          effect: "NoSchedule"
+                        - key: "infra.ci.jenkins.io/agents"
+                          operator: "Equal"
+                          value: "true"
+                          effect: "NoSchedule"
+                        - key: "kubernetes.azure.com/scalesetpriority"
+                          operator: "Equal"
+                          value: "spot"
+                          effect: "NoSchedule"
             - kubernetes:
                 containerCapStr: "100"
                 credentialsId: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
