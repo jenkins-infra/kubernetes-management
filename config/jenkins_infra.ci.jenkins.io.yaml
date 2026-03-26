@@ -341,7 +341,7 @@ controller:
                     EOF
                     systemctl daemon-reload
                     systemctl restart docker
-                    export DEFAULT_JDK=/opt/jdk-11
+                    export DEFAULT_JDK=/opt/jdk-21
                     update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
                     echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
                     rm -f /etc/sudoers.d/90-cloud-init-users
@@ -513,14 +513,14 @@ controller:
                     EOF
                     systemctl daemon-reload
                     systemctl restart docker
-                    export DEFAULT_JDK=/opt/jdk-11
+                    export DEFAULT_JDK=/opt/jdk-21
                     update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
                     echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
                     rm -f /etc/sudoers.d/90-cloud-init-users
                     echo "END CLOUDINIT"
                   javaPath: "/opt/jdk-25/bin/java"
                   jvmOptions: "-XX:+PrintCommandLineFlags"
-                  labels: "linux-arm64 linux-arm64-docker arm64linux jdk11 maven-11 ubuntu-22-arm64 ubuntu-arm64"
+                  labels: "linux-arm64 linux-arm64-docker arm64linux jdk21 maven-21 ubuntu-22-arm64 ubuntu-arm64"
                   location: "East US 2"
                   maxVirtualMachinesLimit: 50
                   existingStorageAccountName: "infraciagentssponso"
