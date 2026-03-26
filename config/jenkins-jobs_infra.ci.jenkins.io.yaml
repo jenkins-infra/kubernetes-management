@@ -1,6 +1,14 @@
 jenkinsName: infra-ci-jenkins-io
 jenkinsFqdn: infra.ci.jenkins.io
 jobsDefinition:
+  acceptance-tests:
+    name: Jenkins Infrastructure acceptance tests
+    kind: folder
+    children:
+      acceptance-tests:
+        jenkinsfilePath: infra.ci.jenkins.io/Jenkinsfile
+        branchIncludes: check-agent-availability
+        disableTagDiscovery: true
   cronjobs:
     name: Jenkins Infrastructure Cron Jobs
     description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
