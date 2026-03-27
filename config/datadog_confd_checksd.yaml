@@ -168,7 +168,7 @@ datadog:
               url = instance['url']
               controller = instance.get('controller', 'unknown')
               threshold_in_minutes = instance['threshold_in_minutes']
-              base_tags = [f"controller:{controller}", f"threshold_in_minutes:{threshold_in_minutes}"]
+              base_tags = [f"controller:{controller}"]
 
               self.warning(f"BuildReportStaleness: {controller}")
 
