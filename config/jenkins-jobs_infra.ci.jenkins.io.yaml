@@ -194,10 +194,6 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for infracijenkinsio-agents-1"
             secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS1}}"
-          kubeconfig-infracijioagents2:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for infracijioagents2"
-            secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS2}}"
   reports:
     name: Reports
     description: Folder hosting all the reporting tasks jobs

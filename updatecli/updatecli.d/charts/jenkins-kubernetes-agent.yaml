@@ -27,7 +27,6 @@ targets:
     spec:
       files:
         - clusters/privatek8s.yaml
-        - clusters/infracijioagents2.yaml
         - clusters/cijioagents2.yaml
       engine: yamlpath
       key: $.releases[?(@.chart == 'jenkins-infra/jenkins-kubernetes-agents')].version
