@@ -111,11 +111,6 @@ controller:
                     id: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
                     scope: SYSTEM
                     secret: "${INFRACIJENKINSIO_AGENTS_1_TOKEN}"
-                - string:
-                    description: "Token of the Service Account 'jenkins-agent' on the Kubernetes cluster 'infraci.jenkins.io-agents-2'"
-                    id: "infraci.jenkins.io-agents-2-jenkins-agent-sa-token"
-                    scope: SYSTEM
-                    secret: "${INFRACIJENKINSIO_AGENTS_2_TOKEN}"
       agent-settings: |
         jenkins:
           numExecutors: 0
