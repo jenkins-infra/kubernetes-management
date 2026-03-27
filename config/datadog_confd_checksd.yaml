@@ -167,7 +167,8 @@ datadog:
               """
               url = instance['url']
               controller = instance.get('controller', 'unknown')
-              base_tags = [f"controller:{controller}"]
+              threshold_in_minutes = instance['threshold_in_minutes']
+              base_tags = [f"controller:{controller}", f"threshold_in_minutes:{threshold_in_minutes}"]
 
               self.warning(f"BuildReportStaleness: {controller}")
 
@@ -195,8 +196,12 @@ datadog:
               # Age (staleness)
               try:
                   ts = datetime.fromisoformat(data['report_timestamp'].replace('Z', '+00:00'))
-                  age_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
-                  self.gauge('jenkins.build_report.age_hours', round(age_hours, 2), tags=tags)
+                  age_in_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
+                  threshold_in_hours = threshold_in_minutes / 60
+                  stale = age_in_hours > threshold_in_hours
+                  self.gauge('jenkins.build_report.age_in_hours', round(age_in_hours, 2), tags=tags)
+                  self.gauge('jenkins.build_report.threshold_in_hours', round(threshold_in_hours, 2), tags=tags)
+                  self.gauge('jenkins.build_report.stale', stale, tags=tags)
               except (KeyError, ValueError) as err:
                   self.warning(f"BuildReportStaleness: Bad timestamp in {url}: {err}")
 
@@ -483,4 +488,5 @@ datadog:
       instances:
         - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-404/main/status.json
           controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
           min_collection_interval: 300
