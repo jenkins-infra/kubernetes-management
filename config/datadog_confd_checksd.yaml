@@ -200,35 +200,6 @@ datadog:
               except (KeyError, ValueError) as err:
                   self.warning(f"BuildReportStaleness: Bad timestamp in {url}: {err}")
 
-
-      if __name__ == "__main__":
-          '''
-              This exists only for testing purposes
-          '''
-          import sys
-
-          urls = [
-              'https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-404/main/status.json',
-          ]
-
-          for url in urls:
-              print(f"\nChecking: {url}")
-              try:
-                  resp = urlopen(url, timeout=10)
-                  data = json.loads(resp.read().decode('utf-8'))
-                  controller = data['controller_url'].replace('https://', '').rstrip('/')
-                  ts = datetime.fromisoformat(data['report_timestamp'].replace('Z', '+00:00'))
-                  age_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
-
-                  print(f"  Controller: {controller}")
-                  print(f"  Job: {data['job_name']}")
-                  print(f"  Build: #{data['build_number']} — {data['build_status']}")
-                  print(f"  Age: {round(age_hours, 2)}h")
-                  print(f"  Stale: {'YES' if age_hours > 24 else 'NO'}")
-              except Exception as e:
-                  print(f"  Error: {e}")
-                  sys.exit(1)
-
   confd:
     packageCanBeDownloaded.yaml: |-
       init_config:
