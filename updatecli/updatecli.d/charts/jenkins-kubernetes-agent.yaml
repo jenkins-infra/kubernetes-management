@@ -27,6 +27,7 @@ targets:
     spec:
       files:
         - clusters/privatek8s.yaml
+        - clusters/infracijioagents1.yaml
         - clusters/infracijioagents2.yaml
         - clusters/cijioagents2.yaml
       engine: yamlpath
