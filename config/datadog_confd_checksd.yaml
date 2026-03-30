@@ -199,9 +199,10 @@ datadog:
                   age_in_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
                   threshold_in_hours = threshold_in_minutes / 60
                   stale = age_in_hours > threshold_in_hours
+                  staleness_tags = tags + [f"threshold_hours:{int(threshold_in_hours)}"]
                   self.gauge('jenkins.build_report.age_in_hours', round(age_in_hours, 2), tags=tags)
                   self.gauge('jenkins.build_report.threshold_in_hours', round(threshold_in_hours, 2), tags=tags)
-                  self.gauge('jenkins.build_report.stale', stale, tags=tags)
+                  self.gauge('jenkins.build_report.stale', stale, tags=staleness_tags)
               except (KeyError, ValueError) as err:
                   self.warning(f"BuildReportStaleness: Bad timestamp in {url}: {err}")
 
@@ -489,4 +490,4 @@ datadog:
         - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-404/main/status.json
           controller: infra.ci.jenkins.io
           threshold_in_minutes: 1440
-          min_collection_interval: 300
+          min_collection_interval: 60
