@@ -256,6 +256,7 @@ controller:
                       systemctl stop datadog-agent.service
                       mkdir -p /var/log/datadog /etc/datadog-agent
                       sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
                       sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                       chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
                       chmod 640 /etc/datadog-agent/datadog.yaml
@@ -428,6 +429,7 @@ controller:
                       systemctl stop datadog-agent.service
                       mkdir -p /var/log/datadog /etc/datadog-agent
                       sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
                       sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                       chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
                       chmod 640 /etc/datadog-agent/datadog.yaml
@@ -500,6 +502,7 @@ controller:
                       systemctl stop datadog-agent.service
                       mkdir -p /var/log/datadog /etc/datadog-agent
                       sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
                       sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                       chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
                       chmod 640 /etc/datadog-agent/datadog.yaml
@@ -572,6 +575,7 @@ controller:
                       systemctl stop datadog-agent.service
                       mkdir -p /var/log/datadog /etc/datadog-agent
                       sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
                       sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                       chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
                       chmod 640 /etc/datadog-agent/datadog.yaml
@@ -644,6 +648,7 @@ controller:
                       systemctl stop datadog-agent.service
                       mkdir -p /var/log/datadog /etc/datadog-agent
                       sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+                      echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
                       sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
                       chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
                       chmod 640 /etc/datadog-agent/datadog.yaml
