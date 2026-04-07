@@ -199,7 +199,7 @@ datadog:
                   age_in_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
                   threshold_in_hours = threshold_in_minutes / 60
                   stale = age_in_hours > threshold_in_hours
-                  staleness_tags = tags + [f"threshold_hours:{int(threshold_in_hours)}"]
+                  staleness_tags = tags + [f"threshold_in_hours:{int(threshold_in_hours)}"]
                   self.gauge('jenkins.build_report.age_in_hours', round(age_in_hours, 2), tags=tags)
                   self.gauge('jenkins.build_report.threshold_in_hours', round(threshold_in_hours, 2), tags=tags)
                   self.gauge('jenkins.build_report.stale', stale, tags=staleness_tags)
