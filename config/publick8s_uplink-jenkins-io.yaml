@@ -1,7 +1,3 @@
-image:
-  repository: dockerhubmirror.azurecr.io/jenkinsciinfra/uplink
-  tag: 1.0.7
-
 ingress:
   enabled: true
   className: public-nginx
