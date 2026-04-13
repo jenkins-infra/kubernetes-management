@@ -7,9 +7,9 @@ service:
     resourceGroup: prod-public-ips
   lbAllowSources:
     publick8s-out-lb: 52.167.80.175/32,20.15.16.178/32,20.10.211.149/32
-    publick8s-pods: '10.100.0.0/14'
+    publick8s-pods: "10.100.0.0/14"
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
-    puppet.jenkins.io: '20.12.27.65/32'
+    puppet.jenkins.io: "20.12.27.65/32"
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     trusted.ci.jenkins.io: '104.209.128.236/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
@@ -25,7 +25,7 @@ service:
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     jfrog-artifactory: 34.233.58.83/32,34.201.191.93/32,18.214.241.149/32,54.236.124.56/32,34.199.85.0/32,54.204.174.26/32,54.237.44.112/32,52.1.113.0/32,52.86.38.82/32,44.198.238.218/32,52.201.157.144/32,54.84.93.174/32,52.44.215.190/32,54.163.195.157/32,3.226.160.9/32,54.161.125.86/32,44.212.190.2/32,44.196.113.199/32,52.7.107.247/32
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
-    aws.ci.jenkins.io: '18.217.202.59/32'
+    aws.ci.jenkins.io: "18.217.202.59/32"
 
 resources:
   limits:
