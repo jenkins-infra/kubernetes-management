@@ -81,5 +81,16 @@ pipeline {
         } // stages
       } // matrix
     } // stage 'stage('Kubernetes Management Tasks')
+    stage('Publish Build Status Report') {
+      when {
+        branch 'main'
+      }
+      agent {
+        label 'jnlp-linux-arm64'
+      }
+      steps {
+        publishBuildStatusReport()
+      }
+    }
   } // stages
 }
