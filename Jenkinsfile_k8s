@@ -1,5 +1,3 @@
-@Library('pipeline-library@pull/1005/head') _
-
 def cronExpr = env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : ''
 
 pipeline {
