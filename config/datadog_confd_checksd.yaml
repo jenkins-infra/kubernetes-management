@@ -492,3 +492,7 @@ datadog:
           threshold_in_minutes: 1440
           # TODO: restore 5 mins after jenkins-infra/helpdesk#2843
           min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/ci.jenkins.io/acceptance-tests/check-agent-availability/status.json
+          controller: ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
