@@ -492,7 +492,79 @@ datadog:
           threshold_in_minutes: 1440
           # TODO: restore 5 mins after jenkins-infra/helpdesk#2843
           min_collection_interval: 60
-        - url: https://builds.reports.jenkins.io/build_status_reports/ci.jenkins.io/acceptance-tests/check-agent-availability/status.json
-          controller: ci.jenkins.io
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/acceptance-tests/acceptance-tests/check-agent-availability/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-confluence-data/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-geoipupdate/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-jenkins-infraci/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-jenkins-lts/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-jenkins-weeklyci/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-openvpn/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-packaging/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/plugin-health-scoring/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/rating/master/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/kubernetes-jobs/kubernetes-management/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/azure/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/azure-net/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/datadog/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/digitalocean/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/terraform-aws-sponsorship/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/update_center/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 10
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/acceptance-tests-check-agent-availability/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/release.ci.jenkins.io/infra-agents-health/status.json
+          controller: release.ci.jenkins.io
           threshold_in_minutes: 1440
           min_collection_interval: 60
