@@ -166,6 +166,27 @@ controller:
                     id: ssh-hostkey-archives.jenkins.io
                     scope: GLOBAL
                     secretBytes: "${base64:${SSH_ARCHIVES_HOSTKEY}}"
+                - string:
+                    scope: GLOBAL
+                    id: "lf-msi-sign-azure-tenant-id"
+                    secret: "${LF_MSI_SIGN_AZURE_TENANT_ID}"
+                    description: Tenant ID of the Linux Foundation Azure account used to sign the Jenkins MSI package. Ref. https://github.com/jenkins-infra/helpdesk/issues/4923.
+                - string:
+                    scope: GLOBAL
+                    id: "lf-msi-sign-azure-client-id"
+                    secret: "${LF_MSI_SIGN_AZURE_CLIENT_ID}"
+                    description: Client ID of the Linux Foundation Azure account used to sign the Jenkins MSI package. Ref. https://github.com/jenkins-infra/helpdesk/issues/4923.
+                - string:
+                    scope: GLOBAL
+                    id: "lf-msi-sign-azure-client-secret"
+                    secret: "${LF_MSI_SIGN_AZURE_CLIENT_SECRET}"
+                    description: Secret of the Linux Foundation Azure account used to sign the Jenkins MSI package. Ref. https://github.com/jenkins-infra/helpdesk/issues/4923.
+                - file:
+                    description: JSON metadata file used to sign the MSI Core package. Ref. https://github.com/jenkins-infra/helpdesk/issues/4923.
+                    fileName: metadata.json
+                    id: core-package-msi-signtool-metadata-json
+                    scope: GLOBAL
+                    secretBytes: "${base64:${CORE_PACKAGE_MSI_SIGNTOOL_METADATA_JSON}}"
       agent-settings: |
         jenkins:
           numExecutors: 0
