@@ -532,7 +532,3 @@ datadog:
           controller: release.ci.jenkins.io
           threshold_in_minutes: 1440
           min_collection_interval: 60
-        - url: https://builds.reports.jenkins.io/build_status_reports/cert.ci.jenkins.io/acceptance-tests/acceptance-tests/check-agent-availability/status.json
-          controller: infra.ci.jenkins.io
-          threshold_in_minutes: 1440
-          min_collection_interval: 60
