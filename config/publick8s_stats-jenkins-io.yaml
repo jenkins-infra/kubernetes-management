@@ -70,27 +70,27 @@ nginx:
         index  index.html index.htm;
         autoindex on;
     }
-    location = /statistics {
+    location /statistics {
         root   /usr/share/nginx/html;
         index index.html index.htm;
         try_files /index.html =404;
     }   
-    location = /plugin-trends {
+    location /plugin-trends {
         root   /usr/share/nginx/html;
         index index.html index.htm;
         try_files /index.html =404;
     }
-    location = /plugin-versions {
+    location /plugin-versions {
         root   /usr/share/nginx/html;
         index index.html index.htm;
         try_files /index.html =404;
     }
-    location = /dep-graph {
+    location /dep-graph {
         root   /usr/share/nginx/html;
         index index.html index.htm;
         try_files /index.html =404;
     }
-    location = / {
+    location / {
         root   /usr/share/nginx/html;
         index  index.html index.htm;
         autoindex on;
