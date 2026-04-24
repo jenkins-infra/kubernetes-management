@@ -19,9 +19,7 @@ sources:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .puppet\.jenkins\.io.outbound_ips
     transformers:
-      - addprefix: "'"
       - addsuffix: '/32'
-      - addsuffix: "'"
 
   publick8s-lb:
     kind: json
@@ -42,9 +40,6 @@ sources:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       # Ipv4 is always the first element
       key: .publick8s.pod_cidrs.[0]
-    transformers:
-      - addprefix: "'"
-      - addsuffix: "'"
 
   # https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/
   jfrog:
@@ -101,9 +96,6 @@ targets:
     name: Update aws.ci.jenkins.io CIDR in the LDAP configuration
     kind: yaml
     sourceid: aws-ci-jenkins-io
-    transformers:
-      - addprefix: "'"
-      - addsuffix: "'"
     spec:
       file: config/publick8s_ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.'aws.ci.jenkins.io'
