@@ -45,16 +45,13 @@ conditions:
     spec:
       command: test {{ source "getLatestInboundAllInOneContainerImageX86" }} != {{ source "getLatestInboundAllInOneContainerImageARM" }}
   checkifazureimagejenkins-agent-ubuntu-22.04-amd64isavailable:
+    name: Check that Ubuntu 22.04 Azure VM x86 image has been published
     kind: shell
     disablesourceinput: true
     spec:
       command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-ubuntu-22.04-amd64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
-  checkifazureimagejenkins-agent-windows-2019-amd64isavailable:
-    kind: shell
-    disablesourceinput: true
-    spec:
-      command: az sig image-version list --resource-group prod-packer-images --gallery-name prod_packer_images --gallery-image-definition jenkins-agent-windows-2019-amd64 --query "[?tags.version == '{{ source `packerImageVersion` }}']" --output tsv
   checkifazureimagejenkins-agent-ubuntu-22.04-arm64isavailable:
+    name: Check that Ubuntu 22.04 Azure VM arm64 image has been published
     kind: shell
     disablesourceinput: true
     spec:
