@@ -684,21 +684,6 @@ jobsDefinition:
             appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
-      gatsby-plugin-jenkins-layout:
-        name: Gatsby plugin for standard Jenkins.io layout
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main alpha beta PR-*"
-        credentials:
-          jenkinsci-npm-token:
-            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
-            description: "NPM automation token to publish jenkins.io Web Components"
-          jenkins-io-components-ghapp:
-            description: "Github App for semantic-release"
-            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
-            owner: "jenkins-infra"
-            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
       contributor-spotlight:
         name: Contributor Spotlight
         description: "Jenkins Contributor Spotlight Website"
@@ -747,6 +732,21 @@ jobsDefinition:
     description: "Folder hosting all the Website jobs dedicated to deployment in production"
     kind: folder
     children:
+      gatsby-plugin-jenkins-layout:
+        name: Gatsby plugin for standard Jenkins.io layout
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main alpha beta"
+        disableTagDiscovery: false
+        disablePullRequests: true
+        credentials:
+          jenkinsci-npm-token:
+            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+            description: "NPM automation token to publish jenkins.io Web Components"
+          jenkins-io-components-ghapp:
+            description: "Github App for semantic-release"
+            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+            owner: "jenkins-infra"
+            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
       stats.jenkins.io:
         name: stats.jenkins.io
         allowUntrustedChanges: false
