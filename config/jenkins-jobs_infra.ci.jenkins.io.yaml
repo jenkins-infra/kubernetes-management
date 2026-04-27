@@ -687,22 +687,9 @@ jobsDefinition:
       contributor-spotlight:
         name: Contributor Spotlight
         description: "Jenkins Contributor Spotlight Website"
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
-        credentials:
-          contributors-jenkins-io-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "Contributors.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
+        disableTagDiscovery: true
       docs.jenkins.io:
         name: docs.jenkins.io
         description: "Versioned docs of jenkins.io"
@@ -732,6 +719,25 @@ jobsDefinition:
     description: "Folder hosting all the Website jobs dedicated to deployment in production"
     kind: folder
     children:
+      contributor-spotlight:
+        name: Contributor Spotlight
+        description: "Jenkins Contributor Spotlight Website"
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main"
+        disableTagDiscovery: true
+        disablePullRequests: true
+        credentials:
+          contributors-jenkins-io-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "Contributors.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          fastly-api-token-purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
       gatsby-plugin-jenkins-layout:
         name: Gatsby plugin for standard Jenkins.io layout
         jenkinsfilePath: Jenkinsfile
