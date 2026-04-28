@@ -195,7 +195,7 @@ datadog:
 
               # Age (staleness)
               try:
-                  ts = datetime.fromisoformat(data['report_timestamp'].replace('Z', '+00:00'))
+                  ts = datetime.fromtimestamp(int(data['report_timestamp']), tz=timezone.utc)
                   age_in_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
                   threshold_in_hours = threshold_in_minutes / 60
                   stale = age_in_hours > threshold_in_hours
