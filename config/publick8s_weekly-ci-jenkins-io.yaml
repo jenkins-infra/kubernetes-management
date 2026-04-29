@@ -15,7 +15,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-weeklyci
-    tag: 3.10.41-2.562
+    tag: 3.10.43-2.562
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/arch: arm64
