@@ -1,0 +1,37 @@
+name: YAML Lint
+
+"on":
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'config/**'
+      - 'clusters/**'
+      - 'yamllint.config'
+  push:
+    branches:
+      - main
+    paths:
+      - 'config/**'
+      - 'clusters/**'
+      - 'yamllint.config'
+
+permissions:
+  contents: read
+
+jobs:
+  yamllint:
+    name: Lint YAML files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run yamllint on config files
+        run: yamllint --config-file yamllint.config config/
+
+      - name: Run yamllint on cluster files
+        run: yamllint --config-file yamllint.config clusters/
