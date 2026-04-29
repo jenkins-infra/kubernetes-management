@@ -399,6 +399,66 @@ datadog:
           tags:
             - production
             - jenkins.io
+        - name: accounts.jenkins.io
+          url: https://accounts.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: contributors.jenkins.io
+          url: https://contributors.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: stats.jenkins.io
+          url: https://stats.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: plugin-health.jenkins.io
+          url: https://plugin-health.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
+        - name: alpha.docs.jenkins.io
+          url: https://alpha.docs.jenkins.io
+          timeout: 10
+          threshold: 3
+          window: 5
+          collect_response_time: true
+          check_certificate_expiration: true
+          days_warning: 30
+          days_critical: 10
+          tags:
+            - production
+            - jenkins.io
         - name: ftp.belnet.be
           timeout: 10
           threshold: 3
