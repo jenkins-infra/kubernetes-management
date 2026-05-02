@@ -32,7 +32,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.202.1
+    version: 3.205.0
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/datadog_publick8s.yaml
@@ -73,7 +73,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 7.2.1
+    version: 8.0.2
     values:
       - ../config/publick8s_falco.yaml
   - name: weekly-ci-jenkins-io
@@ -95,13 +95,13 @@ releases:
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
-    version: 0.8.9
+    version: 0.8.10
     values:
       - ../config/publick8s_wiki.yaml
   - name: ldap-jenkins-io
     namespace: ldap-jenkins-io
     chart: jenkins-infra/ldap
-    version: 4.2.13
+    version: 4.2.14
     values:
       - ../config/publick8s_ldap-jenkins-io.yaml
     secrets:
@@ -136,7 +136,7 @@ releases:
   - name: rating-jenkins-io
     namespace: rating-jenkins-io
     chart: jenkins-infra/rating
-    version: 0.6.1
+    version: 0.6.2
     values:
       - ../config/publick8s_rating-jenkins-io.yaml
     secrets:
@@ -174,7 +174,7 @@ releases:
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.6
+    version: 5.10.11
     values:
       - ../config/publick8s_get-jenkins-io-mirrorbits.yaml
     secrets:
@@ -224,7 +224,7 @@ releases:
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.6
+    version: 5.10.11
     values:
       - ../config/publick8s_updates-jenkins-io-content.yaml
     secrets:
@@ -233,7 +233,7 @@ releases:
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.2.16
+    version: 3.2.17
     values:
       - ../config/publick8s_updates-jenkins-io-rsync.yaml
   - name: updates-jenkins-io-redirections
