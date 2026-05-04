@@ -10,8 +10,8 @@ service:
     publick8s-pods: "10.100.0.0/14"
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     puppet.jenkins.io: "20.12.27.65/32"
-    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-    trusted.ci.jenkins.io: '104.209.128.236/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
+    trusted.ci.jenkins.io: '20.110.255.213/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     private.vpn.jenkins.io: '52.232.183.117/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
