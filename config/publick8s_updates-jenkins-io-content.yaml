@@ -61,6 +61,10 @@ config:
     - url: https://archives.jenkins.io/update-center/
       countryCode: DE
       continentCode: EU
+  # As per https://github.com/jenkins-infra/helpdesk/issues/5077, the Yandex mirror for Russia/Bielorussia has an update interval of ~2 hours to 2.5 hours
+  allowOutdatedFiles:
+    - prefix: /
+      minutes: 160
 cli:
   enabled: true
   service:
