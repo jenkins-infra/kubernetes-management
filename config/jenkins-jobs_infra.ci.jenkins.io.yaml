@@ -635,32 +635,12 @@ jobsDefinition:
         disableBranchDiscovery: true
         allowUntrustedChanges: true
       plugin-site:
-        name: Plugin Site
+        name: Plugin Site PR previews
         jenkinsfilePath: Jenkinsfile
-        credentials:
-          PLUGINSITE_STORAGEACCOUNTKEY:
-            secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
-            description: "Azure storage account key for plugin site"
-          algolia-plugins-app-id:
-            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_APP_ID}"
-            description: "Algolia app id for plugin site"
-          algolia-plugins-search-key:
-            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_SEARCH_KEY}"
-            description: "Algolia credentials to read data for plugin site (runtime)"
-          algolia-plugins-write-key:
-            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
-            description: "Algolia credentials to write data for plugin site"
-          infraci-pluginsjenkinsio-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_PASSWORD}"
-            description: "plugins.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
       jenkins-io-components:
         name: Jenkins.io Web Components
         jenkinsfilePath: Jenkinsfile
@@ -745,6 +725,36 @@ jobsDefinition:
             appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+      plugin-site:
+        name: Plugin Site
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: main
+        disableTagDiscovery: true
+        disablePullRequests: true
+        credentials:
+          PLUGINSITE_STORAGEACCOUNTKEY:
+            secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
+            description: "Azure storage account key for plugin site"
+          algolia-plugins-app-id:
+            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_APP_ID}"
+            description: "Algolia app id for plugin site"
+          algolia-plugins-search-key:
+            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_SEARCH_KEY}"
+            description: "Algolia credentials to read data for plugin site (runtime)"
+          algolia-plugins-write-key:
+            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
+            description: "Algolia credentials to write data for plugin site"
+          infraci-pluginsjenkinsio-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_PASSWORD}"
+            description: "plugins.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          fastly-api-token-purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
       stats.jenkins.io:
         name: stats.jenkins.io
         jenkinsfilePath: Jenkinsfile
