@@ -703,10 +703,11 @@ jobsDefinition:
             description: "Fastly API token used for purging CDN pages"
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
         jenkinsfilePath: Jenkinsfile_previews
         enableGitHubChecks: true
         disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
   website-production-jobs:
     name: Website Production Jobs
     description: "Folder hosting all the Website jobs dedicated to deployment in production"
