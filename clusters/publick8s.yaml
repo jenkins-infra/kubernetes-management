@@ -32,7 +32,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.164.0
+    version: 3.213.2
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/datadog_publick8s.yaml
@@ -42,7 +42,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.19.2
+    version: v1.20.2
     values:
       - ../config/cert-manager.yaml
       - ../config/cert-manager_publick8s.yaml
@@ -73,13 +73,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 7.2.1
+    version: 8.0.4
     values:
       - ../config/publick8s_falco.yaml
   - name: weekly-ci-jenkins-io
     namespace: weekly-ci-jenkins-io
     chart: jenkins/jenkins
-    version: 5.9.14
+    version: 5.9.18
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -95,13 +95,13 @@ releases:
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
-    version: 0.8.9
+    version: 0.8.11
     values:
       - ../config/publick8s_wiki.yaml
   - name: ldap-jenkins-io
     namespace: ldap-jenkins-io
     chart: jenkins-infra/ldap
-    version: 4.2.10
+    version: 4.2.15
     values:
       - ../config/publick8s_ldap-jenkins-io.yaml
     secrets:
@@ -136,7 +136,7 @@ releases:
   - name: rating-jenkins-io
     namespace: rating-jenkins-io
     chart: jenkins-infra/rating
-    version: 0.6.1
+    version: 0.6.3
     values:
       - ../config/publick8s_rating-jenkins-io.yaml
     secrets:
@@ -174,7 +174,7 @@ releases:
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.6
+    version: 5.10.12
     values:
       - ../config/publick8s_get-jenkins-io-mirrorbits.yaml
     secrets:
@@ -182,7 +182,7 @@ releases:
   - name: get-jenkins-io-httpd
     namespace: get-jenkins-io
     chart: jenkins-infra/httpd
-    version: 2.0.1
+    version: 2.0.2
     values:
       - ../config/publick8s_get-jenkins-io-httpd.yaml
   - name: plugin-site-issues-jenkins-io
@@ -224,7 +224,7 @@ releases:
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.6
+    version: 5.10.12
     values:
       - ../config/publick8s_updates-jenkins-io-content.yaml
     secrets:
@@ -233,13 +233,13 @@ releases:
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.2.11
+    version: 3.2.18
     values:
       - ../config/publick8s_updates-jenkins-io-rsync.yaml
   - name: updates-jenkins-io-redirections
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 2.0.1
+    version: 2.0.2
     values:
       - ../config/publick8s_updates-jenkins-io-redirections.yaml
   - name: contributors-jenkins-io

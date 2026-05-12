@@ -144,7 +144,6 @@ jobsDefinition:
         repository: packer-images
         jenkinsfilePath: Jenkinsfile_gc
         disableTagDiscovery: true
-        enableGitHubChecks: false
         disableGitHubNotifications: true
         credentials:
           packer-azure-serviceprincipal:
@@ -617,34 +616,141 @@ jobsDefinition:
             description: AWS Secret key for the user updatecli
             secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
   website-jobs:
-    name: Website Jobs
-    description: "Folder hosting all the Website jobs"
+    name: Website Jobs PR previews
     kind: folder
     credentials:
       netlify-auth-token:
         description: "Auth token to communicate with netlify"
         secret: "${NETLIFY_AUTH_TOKEN}"
     children:
-      jenkins.io:
-        name: Jenkins.io
-        description: "Jenkins.io Website"
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
-      stories:
-        name: Jenkins User Stories
-        description: "Jenkins User Stories Website"
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
+      contributor-spotlight:
+        name: Contributor Spotlight PR previews
         jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      docs.jenkins.io:
+        name: docs.jenkins.io PR previews
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      jenkins.io:
+        name: www.jenkins.io Website PR previews
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      jenkins-io-components:
+        name: Jenkins.io Web Components PR previews
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      plugin-site:
+        name: Plugin Site PR previews
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      stats.jenkins.io:
+        name: stats.jenkins.io PR previews
+        jenkinsfilePath: Jenkinsfile_previews
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      stories:
+        name: Jenkins User Stories PR previews
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+  website-production-jobs:
+    name: Website Production Jobs
+    description: "Folder hosting all the Website jobs dedicated to deployment in production"
+    kind: folder
+    children:
+      contributor-spotlight:
+        name: Contributor Spotlight Production Deployment
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: main
+        disableTagDiscovery: true
+        disablePullRequests: true
         credentials:
+          contributors-jenkins-io-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "Contributors.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           fastly-api-token-purge:
             secret: "${FASTLY_API_TOKEN_PURGE}"
             description: "Fastly API token used for purging CDN pages"
-      plugin-site:
-        name: Plugin Site
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
+      docs.jenkins.io:
+        name: docs.jenkins.io Production Deployment
         jenkinsfilePath: Jenkinsfile
+        branchIncludes: main
+        disableTagDiscovery: true
+        disablePullRequests: true
+        credentials:
+          infraci-docs-jenkins-io-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "docs.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          fastly-api-token-purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
+      gatsby-plugin-jenkins-layout:
+        name: Gatsby plugin for standard Jenkins.io layout Production Deployment
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main alpha beta"
+        disableTagDiscovery: false
+        disablePullRequests: true
+        credentials:
+          jenkinsci-npm-token:
+            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+            description: "NPM automation token to publish jenkins.io Web Components"
+          jenkins-io-components-ghapp:
+            description: "Github App for semantic-release"
+            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+            owner: "jenkins-infra"
+            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+      jenkins-io-components:
+        name: Jenkins.io Web Components Production Deployment
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main alpha beta"
+        disableTagDiscovery: true
+        disablePullRequests: true
+        credentials:
+          netlify-auth-token:
+            description: "Auth token to communicate with netlify"
+            secret: "${NETLIFY_AUTH_TOKEN}"
+          jenkinsci-npm-token:
+            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+            description: "NPM automation token to publish jenkins.io Web Components"
+          jenkins-io-components-ghapp:
+            description: "Github App for semantic-release"
+            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+            owner: "jenkins-infra"
+            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+      plugin-site:
+        name: plugins.jenkins.io (Plugin Site) Production Deployment
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: main
+        disableTagDiscovery: true
+        disablePullRequests: true
         credentials:
           PLUGINSITE_STORAGEACCOUNTKEY:
             secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
@@ -669,91 +775,12 @@ jobsDefinition:
           fastly-api-token-purge:
             secret: "${FASTLY_API_TOKEN_PURGE}"
             description: "Fastly API token used for purging CDN pages"
-      jenkins-io-components:
-        name: Jenkins.io Web Components
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main alpha beta PR-*"
-        credentials:
-          jenkinsci-npm-token:
-            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
-            description: "NPM automation token to publish jenkins.io Web Components"
-          jenkins-io-components-ghapp:
-            description: "Github App for semantic-release"
-            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
-            owner: "jenkins-infra"
-            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
-      gatsby-plugin-jenkins-layout:
-        name: Gatsby plugin for standard Jenkins.io layout
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main alpha beta PR-*"
-        credentials:
-          jenkinsci-npm-token:
-            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
-            description: "NPM automation token to publish jenkins.io Web Components"
-          jenkins-io-components-ghapp:
-            description: "Github App for semantic-release"
-            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
-            owner: "jenkins-infra"
-            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
-      contributor-spotlight:
-        name: Contributor Spotlight
-        description: "Jenkins Contributor Spotlight Website"
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        credentials:
-          contributors-jenkins-io-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "Contributors.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
-      docs.jenkins.io:
-        name: docs.jenkins.io
-        description: "Versioned docs of jenkins.io"
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        credentials:
-          infraci-docs-jenkins-io-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "docs.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
       stats.jenkins.io:
-        name: stats.jenkins.io PR previews
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
-        jenkinsfilePath: Jenkinsfile_previews
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-  website-production-jobs:
-    name: Website Production Jobs
-    description: "Folder hosting all the Website jobs dedicated to deployment in production"
-    kind: folder
-    children:
-      stats.jenkins.io:
-        name: stats.jenkins.io
-        allowUntrustedChanges: false
+        name: stats.jenkins.io Production Deployment
         jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: false
         branchIncludes: main
         disableTagDiscovery: true
+        disablePullRequests: true
         credentials:
           infraci-stats-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
@@ -763,3 +790,16 @@ jobsDefinition:
             description: "stats.jenkins.io File Share Service Principal Writer"
             subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+      stories:
+        name: Jenkins User Stories Production Deployment
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: main
+        disableTagDiscovery: true
+        disablePullRequests: true
+        credentials:
+          fastly-api-token-purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
+          netlify-auth-token:
+            description: "Auth token to communicate with netlify"
+            secret: "${NETLIFY_AUTH_TOKEN}"

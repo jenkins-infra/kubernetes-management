@@ -195,7 +195,7 @@ datadog:
 
               # Age (staleness)
               try:
-                  ts = datetime.fromisoformat(data['report_timestamp'].replace('Z', '+00:00'))
+                  ts = datetime.fromtimestamp(int(data['report_timestamp']), tz=timezone.utc)
                   age_in_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
                   threshold_in_hours = threshold_in_minutes / 60
                   stale = age_in_hours > threshold_in_hours
@@ -491,4 +491,44 @@ datadog:
           controller: infra.ci.jenkins.io
           threshold_in_minutes: 1440
           # TODO: restore 5 mins after jenkins-infra/helpdesk#2843
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/acceptance-tests/acceptance-tests/check-agent-availability/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/kubernetes-jobs/kubernetes-management/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/azure/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/azure-net/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/datadog/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/digitalocean/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/terraform-aws-sponsorship/main/status.json
+          controller: infra.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/update_center/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 10
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/acceptance-tests-check-agent-availability/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/release.ci.jenkins.io/infra-agents-health/status.json
+          controller: release.ci.jenkins.io
+          threshold_in_minutes: 1440
           min_collection_interval: 60
