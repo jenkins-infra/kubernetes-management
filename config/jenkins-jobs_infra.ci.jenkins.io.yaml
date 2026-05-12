@@ -658,22 +658,12 @@ jobsDefinition:
         disableBranchDiscovery: true
         allowUntrustedChanges: true
       docs.jenkins.io:
-        name: docs.jenkins.io
-        description: "Versioned docs of jenkins.io"
+        name: docs.jenkins.io PR previews
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
-        credentials:
-          infraci-docs-jenkins-io-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "docs.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
         jenkinsfilePath: Jenkinsfile_previews
@@ -700,6 +690,24 @@ jobsDefinition:
             clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
             clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
             description: "Contributors.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          fastly-api-token-purge:
+            secret: "${FASTLY_API_TOKEN_PURGE}"
+            description: "Fastly API token used for purging CDN pages"
+      docs.jenkins.io:
+        name: docs.jenkins.io
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: main
+        disableTagDiscovery: true
+        disablePullRequests: true
+        credentials:
+          infraci-docs-jenkins-io-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "docs.jenkins.io File Share Service Principal Writer"
             subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           fastly-api-token-purge:
