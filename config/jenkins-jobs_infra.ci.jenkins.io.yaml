@@ -628,13 +628,9 @@ jobsDefinition:
       jenkins.io:
         name: Jenkins.io
         description: "Jenkins.io Website"
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
       stories:
         name: Jenkins User Stories
         description: "Jenkins User Stories Website"
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         credentials:
           fastly-api-token-purge:
@@ -642,8 +638,6 @@ jobsDefinition:
             description: "Fastly API token used for purging CDN pages"
       plugin-site:
         name: Plugin Site
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         credentials:
           PLUGINSITE_STORAGEACCOUNTKEY:
@@ -671,8 +665,6 @@ jobsDefinition:
             description: "Fastly API token used for purging CDN pages"
       jenkins-io-components:
         name: Jenkins.io Web Components
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "main alpha beta PR-*"
         credentials:
@@ -691,6 +683,7 @@ jobsDefinition:
         enableGitHubChecks: true
         disableTagDiscovery: true
         disableBranchDiscovery: true
+        allowUntrustedChanges: true
       docs.jenkins.io:
         name: docs.jenkins.io
         description: "Versioned docs of jenkins.io"
@@ -711,7 +704,6 @@ jobsDefinition:
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
         # See https://github.com/jenkins-infra/helpdesk/issues/4282
-        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile_previews
         enableGitHubChecks: true
         disableTagDiscovery: true
@@ -756,7 +748,6 @@ jobsDefinition:
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
       stats.jenkins.io:
         name: stats.jenkins.io
-        allowUntrustedChanges: false
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: false
         branchIncludes: main
