@@ -642,18 +642,13 @@ jobsDefinition:
         disableBranchDiscovery: true
         allowUntrustedChanges: true
       jenkins-io-components:
-        name: Jenkins.io Web Components
+        name: Jenkins.io Web Components PR previews
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "main alpha beta PR-*"
-        credentials:
-          jenkinsci-npm-token:
-            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
-            description: "NPM automation token to publish jenkins.io Web Components"
-          jenkins-io-components-ghapp:
-            description: "Github App for semantic-release"
-            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
-            owner: "jenkins-infra"
-            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
       contributor-spotlight:
         name: Contributor Spotlight
         description: "Jenkins Contributor Spotlight Website"
@@ -715,6 +710,21 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "main alpha beta"
         disableTagDiscovery: false
+        disablePullRequests: true
+        credentials:
+          jenkinsci-npm-token:
+            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+            description: "NPM automation token to publish jenkins.io Web Components"
+          jenkins-io-components-ghapp:
+            description: "Github App for semantic-release"
+            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+            owner: "jenkins-infra"
+            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+      jenkins-io-components:
+        name: Jenkins.io Web Components
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "main alpha beta"
+        disableTagDiscovery: true
         disablePullRequests: true
         credentials:
           jenkinsci-npm-token:
