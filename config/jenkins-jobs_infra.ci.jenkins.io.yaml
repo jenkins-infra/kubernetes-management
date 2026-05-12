@@ -716,7 +716,7 @@ jobsDefinition:
         name: Contributor Spotlight
         description: "Jenkins Contributor Spotlight Website"
         jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main"
+        branchIncludes: main
         disableTagDiscovery: true
         disablePullRequests: true
         credentials:
@@ -752,6 +752,7 @@ jobsDefinition:
         enableGitHubChecks: false
         branchIncludes: main
         disableTagDiscovery: true
+        disablePullRequests: true
         credentials:
           infraci-stats-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
