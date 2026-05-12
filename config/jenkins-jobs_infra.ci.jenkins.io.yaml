@@ -617,8 +617,7 @@ jobsDefinition:
             description: AWS Secret key for the user updatecli
             secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
   website-jobs:
-    name: Website Jobs
-    description: "Folder hosting all the Website jobs"
+    name: Website Jobs PR previews
     kind: folder
     credentials:
       netlify-auth-token:
@@ -629,8 +628,7 @@ jobsDefinition:
         name: Jenkins.io
         description: "Jenkins.io Website"
       stories:
-        name: Jenkins User Stories
-        description: "Jenkins User Stories Website"
+        name: Jenkins User Stories PR previews
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         disableTagDiscovery: true
@@ -764,8 +762,7 @@ jobsDefinition:
             subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
       stories:
-        name: Jenkins User Stories
-        description: "Jenkins User Stories Website"
+        name: Jenkins User Stories Production Deployment
         jenkinsfilePath: Jenkinsfile
         branchIncludes: main
         disableTagDiscovery: true
