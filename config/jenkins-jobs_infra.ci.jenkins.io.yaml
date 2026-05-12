@@ -703,10 +703,11 @@ jobsDefinition:
             description: "Fastly API token used for purging CDN pages"
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
-        # See https://github.com/jenkins-infra/helpdesk/issues/4282
         jenkinsfilePath: Jenkinsfile_previews
         enableGitHubChecks: true
         disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
   website-production-jobs:
     name: Website Production Jobs
     description: "Folder hosting all the Website jobs dedicated to deployment in production"
@@ -716,7 +717,7 @@ jobsDefinition:
         name: Contributor Spotlight
         description: "Jenkins Contributor Spotlight Website"
         jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main"
+        branchIncludes: main
         disableTagDiscovery: true
         disablePullRequests: true
         credentials:
@@ -752,6 +753,7 @@ jobsDefinition:
         enableGitHubChecks: false
         branchIncludes: main
         disableTagDiscovery: true
+        disablePullRequests: true
         credentials:
           infraci-stats-jenkins-io-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
