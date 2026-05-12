@@ -734,6 +734,9 @@ jobsDefinition:
         disableTagDiscovery: true
         disablePullRequests: true
         credentials:
+          netlify-auth-token:
+            description: "Auth token to communicate with netlify"
+            secret: "${NETLIFY_AUTH_TOKEN}"
           jenkinsci-npm-token:
             secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
             description: "NPM automation token to publish jenkins.io Web Components"
