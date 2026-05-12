@@ -144,7 +144,6 @@ jobsDefinition:
         repository: packer-images
         jenkinsfilePath: Jenkinsfile_gc
         disableTagDiscovery: true
-        enableGitHubChecks: false
         disableGitHubNotifications: true
         credentials:
           packer-azure-serviceprincipal:
@@ -624,34 +623,8 @@ jobsDefinition:
         description: "Auth token to communicate with netlify"
         secret: "${NETLIFY_AUTH_TOKEN}"
     children:
-      jenkins.io:
-        name: Jenkins.io
-        description: "Jenkins.io Website"
-      stories:
-        name: Jenkins User Stories PR previews
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      plugin-site:
-        name: Plugin Site PR previews
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      jenkins-io-components:
-        name: Jenkins.io Web Components PR previews
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main alpha beta PR-*"
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
       contributor-spotlight:
-        name: Contributor Spotlight
-        description: "Jenkins Contributor Spotlight Website"
+        name: Contributor Spotlight PR previews
         jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         disableTagDiscovery: true
@@ -664,9 +637,36 @@ jobsDefinition:
         disableTagDiscovery: true
         disableBranchDiscovery: true
         allowUntrustedChanges: true
+      jenkins.io:
+        name: www.jenkins.io Website PR previews
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      jenkins-io-components:
+        name: Jenkins.io Web Components PR previews
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      plugin-site:
+        name: Plugin Site PR previews
+        jenkinsfilePath: Jenkinsfile
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
         jenkinsfilePath: Jenkinsfile_previews
+        enableGitHubChecks: true
+        disableTagDiscovery: true
+        disableBranchDiscovery: true
+        allowUntrustedChanges: true
+      stories:
+        name: Jenkins User Stories PR previews
+        jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         disableTagDiscovery: true
         disableBranchDiscovery: true
@@ -677,8 +677,7 @@ jobsDefinition:
     kind: folder
     children:
       contributor-spotlight:
-        name: Contributor Spotlight
-        description: "Jenkins Contributor Spotlight Website"
+        name: Contributor Spotlight Production Deployment
         jenkinsfilePath: Jenkinsfile
         branchIncludes: main
         disableTagDiscovery: true
@@ -696,7 +695,7 @@ jobsDefinition:
             secret: "${FASTLY_API_TOKEN_PURGE}"
             description: "Fastly API token used for purging CDN pages"
       docs.jenkins.io:
-        name: docs.jenkins.io
+        name: docs.jenkins.io Production Deployment
         jenkinsfilePath: Jenkinsfile
         branchIncludes: main
         disableTagDiscovery: true
@@ -714,7 +713,7 @@ jobsDefinition:
             secret: "${FASTLY_API_TOKEN_PURGE}"
             description: "Fastly API token used for purging CDN pages"
       gatsby-plugin-jenkins-layout:
-        name: Gatsby plugin for standard Jenkins.io layout
+        name: Gatsby plugin for standard Jenkins.io layout Production Deployment
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "main alpha beta"
         disableTagDiscovery: false
@@ -729,7 +728,7 @@ jobsDefinition:
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
       jenkins-io-components:
-        name: Jenkins.io Web Components
+        name: Jenkins.io Web Components Production Deployment
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "main alpha beta"
         disableTagDiscovery: true
@@ -744,7 +743,7 @@ jobsDefinition:
             owner: "jenkins-infra"
             privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
       plugin-site:
-        name: Plugin Site
+        name: plugins.jenkins.io (Plugin Site) Production Deployment
         jenkinsfilePath: Jenkinsfile
         branchIncludes: main
         disableTagDiscovery: true
@@ -774,9 +773,8 @@ jobsDefinition:
             secret: "${FASTLY_API_TOKEN_PURGE}"
             description: "Fastly API token used for purging CDN pages"
       stats.jenkins.io:
-        name: stats.jenkins.io
+        name: stats.jenkins.io Production Deployment
         jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: false
         branchIncludes: main
         disableTagDiscovery: true
         disablePullRequests: true
