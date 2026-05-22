@@ -16,6 +16,11 @@ datadog:
     containerCollectAll: true
   networkMonitoring:
     enabled: true
+  env:
+    - name: DD_HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
 remoteConfiguration:
   # We don't want Datadog to be able to access agents through their UI
   enabled: false
