@@ -57,13 +57,13 @@ releases:
     values:
       - ../config/private-nginx-ingress__common.yaml
       - ../config/privatek8s-sponsored/private-nginx-ingress.yaml
-  # - name: public-nginx-ingress
-  #   namespace: public-nginx-ingress
-  #   chart: ingress-nginx/ingress-nginx
-  #   version: 4.11.8
-  #   values:
-  #     - ../config/public-nginx-ingress__common.yaml
-  #     - ../config/public-nginx-ingress_privatek8s.yaml
+  - name: public-nginx-ingress
+    namespace: public-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.11.8
+    values:
+      - ../config/public-nginx-ingress__common.yaml
+      - ../config/privatek8s-sponsored/public-nginx-ingress.yaml
   # - name: infra-ci-jenkins-io-jobs
   #   namespace: infra-ci-jenkins-io
   #   chart: jenkins-infra/jenkins-jobs
