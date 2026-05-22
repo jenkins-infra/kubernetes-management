@@ -1,5 +1,5 @@
 datadog:
-  clusterName: {{ .Values | get "datadog.clusterName" nil }}
+  clusterName: {{ .StateValues.clusterName }}
   operator:
     enabled: false
   collectEvents: true
