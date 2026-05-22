@@ -64,12 +64,12 @@ releases:
     values:
       - ../config/public-nginx-ingress__common.yaml
       - ../config/privatek8s-sponsored/public-nginx-ingress.yaml
-  # - name: infra-ci-jenkins-io-jobs
-  #   namespace: infra-ci-jenkins-io
-  #   chart: jenkins-infra/jenkins-jobs
-  #   version: 3.2.0
-  #   values:
-  #     - ../config/jenkins-jobs_infra.ci.jenkins.io.yaml
+  - name: infra-ci-jenkins-io-jobs
+    namespace: infra-ci-jenkins-io
+    chart: jenkins-infra/jenkins-jobs
+    version: 3.2.0
+    values:
+      - ../config/privatek8s-sponsored/infra-ci-jenkins-io-jobs.yaml
   # - name: infra-ci-jenkins-io
   #   namespace: infra-ci-jenkins-io
   #   chart: jenkins/jenkins
