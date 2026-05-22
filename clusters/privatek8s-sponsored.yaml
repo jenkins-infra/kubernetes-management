@@ -33,7 +33,7 @@ releases:
     version: 3.214.0
     values:
       - ../config/datadog.yaml.gotmpl
-      - ../config/{{ .StateValues.clusterName }}/datadog.yaml
+      - ../config/{{ .StateValues.clusterName }}/datadog.yaml.gotmpl
     secrets:
       - ../secrets/config/datadog/{{ .StateValues.clusterName }}-secrets.yaml
   - name: cert-manager
@@ -59,7 +59,7 @@ releases:
     version: 4.11.8
     values:
       - ../config/private-nginx-ingress__common.yaml
-      - ../config/{{ .StateValues.clusterName }}/private-nginx-ingress.yaml
+      - ../config/{{ .StateValues.clusterName }}/private-nginx-ingress.yaml.gotmpl
   # - name: public-nginx-ingress
   #   namespace: public-nginx-ingress
   #   chart: ingress-nginx/ingress-nginx
