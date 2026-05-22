@@ -32,7 +32,7 @@ releases:
       - ../config/datadog.yaml.gotmpl
       - ../config/privatek8s-sponsored/datadog.yaml
     secrets:
-      - ../secrets/config/datadog/privatek8s-secrets.yaml
+      - ../secrets/config/datadog/privatek8s-sponsored-secrets.yaml
   # - name: cert-manager
   #   namespace: cert-manager
   #   chart: jetstack/cert-manager
