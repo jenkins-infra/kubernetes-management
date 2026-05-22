@@ -39,17 +39,17 @@ releases:
     version: v1.20.2
     values:
       - ../config/cert-manager.yaml
-  # - name: acme
-  #   namespace: cert-manager
-  #   chart: jenkins-infra/acme
-  #   version: 0.1.4
-  #   needs:
-  #     # CRDs must be installed BEFORE any diff or apply operation
-  #     - cert-manager/cert-manager
-  #   values:
-  #     - ../config/acme.yaml
-  #   secrets:
-  #     - ../secrets/config/acme/jenkins.io-secrets.yaml
+  - name: acme
+    namespace: cert-manager
+    chart: jenkins-infra/acme
+    version: 0.1.4
+    needs:
+      # CRDs must be installed BEFORE any diff or apply operation
+      - cert-manager/cert-manager
+    values:
+      - ../config/acme.yaml
+    secrets:
+      - ../secrets/config/acme/jenkins.io-secrets.yaml
   # - name: private-nginx-ingress
   #   namespace: private-nginx-ingress
   #   chart: ingress-nginx/ingress-nginx
