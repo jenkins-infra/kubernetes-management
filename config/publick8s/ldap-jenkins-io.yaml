@@ -16,6 +16,10 @@ service:
     private.vpn.jenkins.io: '52.232.183.117/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     cert.ci.jenkins.io: '104.209.153.13/32'
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json (privatek8s-sponsored)
+    infra.ci.jenkins.io: 20.186.168.195/32,20.65.112.39/32
+    # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json (privatek8s-sponsored)
+    release.ci.jenkins.io: 20.186.168.195/32,20.65.112.39/32
     # Provided by LF
     linuxfoundation-staging: '34.211.101.61/32'
     # Provided by LF
