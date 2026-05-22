@@ -4,6 +4,9 @@ helmDefaults:
   force: false
   timeout: 300
   wait: true
+values:
+  - clusterName: privatek8s-sponsored
+    clusterLoadBalancerIp: 10.6.0.254
 repositories:
   # https://github.com/DataDog/helm-charts/
   - name: datadog
@@ -30,9 +33,9 @@ releases:
     version: 3.214.0
     values:
       - ../config/datadog.yaml.gotmpl
-      - ../config/privatek8s-sponsored/datadog.yaml
+      - ../config/{{ .StateValues.clusterName }}/datadog.yaml
     secrets:
-      - ../secrets/config/datadog/privatek8s-sponsored-secrets.yaml
+      - ../secrets/config/datadog/{{ .StateValues.clusterName }}-secrets.yaml
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
@@ -56,7 +59,7 @@ releases:
     version: 4.11.8
     values:
       - ../config/private-nginx-ingress__common.yaml
-      - ../config/privatek8s-sponsored/private-nginx-ingress.yaml
+      - ../config/{{ .StateValues.clusterName }}/private-nginx-ingress.yaml
   # - name: public-nginx-ingress
   #   namespace: public-nginx-ingress
   #   chart: ingress-nginx/ingress-nginx

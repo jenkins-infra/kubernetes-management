@@ -2,7 +2,7 @@ providers:
   aks:
     enabled: true
 datadog:
-  clusterName: 'privatek8s-sponsored'
+  clusterName: {{ .StateValues.clusterName }}
   env:
     - name: DD_HOSTNAME
       valueFrom:
