@@ -1,13 +1,3 @@
-providers:
-  aks:
-    enabled: true
-datadog:
-  clusterName: 'privatek8s-sponsored'
-  env:
-    - name: DD_HOSTNAME
-      valueFrom:
-        fieldRef:
-          fieldPath: spec.nodeName
 agents:
   tolerations:
     - key: "kubernetes.io/arch"

@@ -1,5 +1,10 @@
+{{- if or (not .StateValues.clusterProviderType) (eq .StateValues.clusterProviderType "aks") }}
+providers:
+  aks:
+    enabled: true
+{{- endif }}
 datadog:
-  clusterName: {{ .Values | get "datadog.clusterName" nil }}
+  clusterName: {{ .StateValues.clusterName }}
   operator:
     enabled: false
   collectEvents: true
@@ -16,18 +21,11 @@ datadog:
     containerCollectAll: true
   networkMonitoring:
     enabled: true
-  {{- if .Values }}
-  {{- if hasKey .Values.datadog "kubelet" }}
-  kubelet:
-    host:
+  env:
+    - name: DD_HOSTNAME
       valueFrom:
         fieldRef:
-          fieldPath: {{ .Values | get "datadog.kubelet.host.valueFrom.fieldRef.fieldPath" "status.hostIP" }}
-    {{- if hasKey .Values.datadog.kubelet "hostCAPath" }}
-    hostCAPath: {{ .Values | get "datadog.kubelet.hostCAPath" nil }}
-    {{- end }}
-  {{- end }}
-  {{- end }}
+          fieldPath: spec.nodeName
 remoteConfiguration:
   # We don't want Datadog to be able to access agents through their UI
   enabled: false

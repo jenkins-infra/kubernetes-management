@@ -4,6 +4,9 @@ helmDefaults:
   force: false
   timeout: 300
   wait: true
+values:
+  - clusterName: cijioagents2
+    clusterProviderType: eks
 repositories:
   # https://github.com/DataDog/helm-charts/
   - name: datadog
