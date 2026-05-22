@@ -16,18 +16,6 @@ datadog:
     containerCollectAll: true
   networkMonitoring:
     enabled: true
-  {{- if .Values }}
-  {{- if hasKey .Values.datadog "kubelet" }}
-  kubelet:
-    host:
-      valueFrom:
-        fieldRef:
-          fieldPath: {{ .Values | get "datadog.kubelet.host.valueFrom.fieldRef.fieldPath" "status.hostIP" }}
-    {{- if hasKey .Values.datadog.kubelet "hostCAPath" }}
-    hostCAPath: {{ .Values | get "datadog.kubelet.hostCAPath" nil }}
-    {{- end }}
-  {{- end }}
-  {{- end }}
 remoteConfiguration:
   # We don't want Datadog to be able to access agents through their UI
   enabled: false
