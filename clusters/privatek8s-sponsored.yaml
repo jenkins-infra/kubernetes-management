@@ -24,15 +24,15 @@ repositories:
   - name: jetstack
     url: https://charts.jetstack.io
 releases:
-  # - name: datadog
-  #   namespace: datadog
-  #   chart: datadog/datadog
-  #   version: 3.214.0
-  #   values:
-  #     - ../config/datadog.yaml.gotmpl
-  #     - ../config/datadog_privatek8s.yaml
-  #   secrets:
-  #     - ../secrets/config/datadog/privatek8s-secrets.yaml
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 3.214.0
+    values:
+      - ../config/datadog.yaml.gotmpl
+      - ../config/privatek8s-sponsored/datadog.yaml
+    secrets:
+      - ../secrets/config/datadog/privatek8s-secrets.yaml
   # - name: cert-manager
   #   namespace: cert-manager
   #   chart: jetstack/cert-manager
