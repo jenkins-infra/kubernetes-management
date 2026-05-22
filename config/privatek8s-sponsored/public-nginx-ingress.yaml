@@ -7,9 +7,9 @@ controller:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
       # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      service.beta.kubernetes.io/azure-pip-name: public-privatek8s-sponsored
+      service.beta.kubernetes.io/azure-pip-name: privatek8s-sponsored-public
       # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      service.beta.kubernetes.io/azure-load-balancer-resource-group: prod-public-ips
+      service.beta.kubernetes.io/azure-load-balancer-resource-group: prod-public-ips-sponsored
     externalTrafficPolicy: Local
     ## Public LB level
     # Only allow GitHub's webhooks requests - https://api.github.com/meta ("hooks", tracked by updatecli)
