@@ -1,0 +1,8 @@
+controller:
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: privatek8s-tier
+      # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+      service.beta.kubernetes.io/azure-load-balancer-ipv4: "10.249.255.254"
