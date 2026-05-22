@@ -9,801 +9,801 @@ jobsDefinition:
         jenkinsfilePath: infra.ci.jenkins.io/Jenkinsfile
         branchIncludes: check-agent-availability
         disableTagDiscovery: true
-  cronjobs:
-    name: Jenkins Infrastructure Cron Jobs
-    description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
-    kind: folder
-    children: {}
-  docker-jobs:
-    name: Docker Jobs
-    description: Folder hosting all the Docker jobs
-    kind: folder
-    credentials:
-      jenkins-dockerhub:
-        description: Docker hub credential for jenkinsinfra organisation
-        username: jenkinsinfraadmin
-        password: "${DOCKER_HUB_TOKEN_JENKINSINFRAADMIN_PUSH}"
-      jenkinsinfraadmin-dockerhub-push: &jenkinsinfraadmin-dockerhub-push-def
-        description: Docker hub credential for jenkinsinfra organisation PUSH
-        username: jenkinsinfraadmin
-        password: "${DOCKER_HUB_TOKEN_JENKINSINFRAADMIN_PUSH}"
-      infracijenkinsio-dockerhub-pull: &infracijenkinsio-dockerhub-pull-def
-        description: Docker hub credential for jenkinsinfra organisation PULL
-        username: infracijenkinsio
-        password: "${DOCKER_HUB_TOKEN_INFRACIJENKINSIO_PULL}"
-      github-app-infra.ci.jenkins.io-docker-jobs:
-        description: "Github App infra.ci.jenkins.io-docker-jobs installed on jenkins-infra org"
-        appId: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_ID}"
-        owner: "jenkins-infra"
-        privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_PRIVATE_KEY}"
-      github-app-infra.ci.jenkins.io-docker-deploy:
-        description: "Github App infra.ci.jenkins.io-docker-deploy (read and write permissions) installed on jenkins-infra org"
-        appId: "${GITHUB_APP_INFRA_CI_DOCKER_DEPLOY_ID}"
-        owner: "jenkins-infra"
-        privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_DEPLOY_PRIVATE_KEY}"
-      github-app-updatecli-on-jenkins-infra:
-        description: "GitHub App for updatecli tasks on jenkins-infra org"
-        appId: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_ID}"
-        owner: "jenkins-infra"
-        privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
-    childrenGithubCredential: github-app-infra.ci.jenkins.io-docker-jobs
-    children:
-      acceptance-test-harness:
-        name: "Jenkins CI Acceptance Test Harness (ATH) Docker Image"
-        githubCredentialsId: github-app-jenkinsci-ath
-        jenkinsfilePath: Jenkinsfile.infra.ci.jenkins.io
-        repoOwner: "jenkinsci"
-        credentials:
-          github-app-jenkinsci-ath:
-            description: "Github App installed on jenkinsci org for https://github.com/jenkinsci/acceptance-test-harness Docker Image build"
-            appId: "${GITHUB_APP_JENKINSCI_ID}"
-            owner: "jenkinsci"
-            privateKey: "${GITHUB_APP_JENKINSCI_PRIVATE_KEY}"
-        # Releases are triggered by the creation of a tag by maintainers.
-        disableTagDiscovery: false
-      account-app:
-        jenkinsfilePath: Jenkinsfile
-        disableTagDiscovery: true
-      docker-404:
-        disableTagDiscovery: true
-      docker-confluence-data:
-        disableTagDiscovery: true
-      docker-geoipupdate:
-        disableTagDiscovery: true
-      docker-infratools:
-        disableTagDiscovery: true
-      docker-issue-redirect:
-        disableTagDiscovery: true
-      docker-jenkins-lts:
-        disableTagDiscovery: true
-      docker-jenkins-weeklyci:
-        disableTagDiscovery: true
-      docker-jenkins-infraci:
-        disableTagDiscovery: true
-      docker-keycloak-theme:
-        disableTagDiscovery: true
-      docker-ldap:
-        disableTagDiscovery: true
-      docker-matomo:
-        disableTagDiscovery: true
-      docker-mirrorbits:
-        disableTagDiscovery: true
-      docker-openvpn:
-        disableTagDiscovery: true
-      docker-packaging:
-        disableTagDiscovery: true
-      docker-plugin-site-issues:
-        disableTagDiscovery: true
-      docker-rsyncd:
-        disableTagDiscovery: true
-      incrementals-publisher:
-        disableTagDiscovery: true
-        jenkinsfilePath: Jenkinsfile
-      plugin-health-scoring:
-        jenkinsfilePath: Jenkinsfile
-        # Releases are triggered by the creation of a tag by maintainers.
-        disableTagDiscovery: false
-      plugin-site-api:
-        jenkinsfilePath: Jenkinsfile
-        disableTagDiscovery: true
-      rating:
-        disableTagDiscovery: true
-      uplink:
-        jenkinsfilePath: Jenkinsfile
-        disableTagDiscovery: true
-  infra-tools:
-    name: Infrastructure Tooling Jobs
-    description: Folder hosting all the Infrastructure Tools jobs
-    kind: folder
-    children:
-      packer-images:
-        name: Packer Images
-        credentials:
-          packer-aws-access-key-id:
-            description: AWS API key for the user packer
-            secret: "${PACKER_AWS_ACCESS_KEY_ID}"
-          packer-aws-secret-access-key:
-            description: AWS Secret key for the user packer
-            secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
-          packer-azure-serviceprincipal:
-            azureEnvironmentName: "Azure"
-            clientId: "${PACKER_AZURE_CLIENT_ID}"
-            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by packer on the sponsored subscription"
-            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
-            tenant: "${PACKER_AZURE_TENANT_ID}"
-          jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
-      jenkins-infra:
-        name: Puppet (jenkins-infra)
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: "production staging updatecli_* PR-* main"
-      shared-tools:
-        name: Shared Tools
-      packer-images-gc:
-        name: Garbage collector for Packer Images
-        repository: packer-images
-        jenkinsfilePath: Jenkinsfile_gc
-        disableTagDiscovery: true
-        disableGitHubNotifications: true
-        credentials:
-          packer-azure-serviceprincipal:
-            azureEnvironmentName: "Azure"
-            clientId: "${PACKER_AZURE_CLIENT_ID}"
-            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by packer on the sponsored subscription"
-            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
-            tenant: "${PACKER_AZURE_TENANT_ID}"
-          packer-aws-access-key-id:
-            description: AWS API key for the user packer
-            secret: "${PACKER_AWS_ACCESS_KEY_ID}"
-          packer-aws-secret-access-key:
-            description: AWS Secret key for the user packer
-            secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
-  kubernetes-jobs:
-    name: Kubernetes Jobs
-    description: Folder hosting all the Kubernetes-related jobs
-    kind: folder
-    children:
-      kubernetes-management:
-        name: Kubernetes Management
-        description: Managing the Kubernetes-hosted applications
-        credentials:
-          sops-client-id:
-            secret: "${SOPS_CLIENT_ID}"
-            description: Azure client ID used by sops to decrypt secrets
-          sops-client-secret:
-            secret: "${SOPS_CLIENT_SECRET}"
-            description: Azure client secret used by sops to decrypt secrets
-          sops-tenant-id:
-            secret: "${SOPS_TENANT_ID}"
-            description: Azure tenant id used by sops to decrypt secrets
-          kubeconfig-privatek8s:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for privatek8s"
-            secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
-          kubeconfig-privatek8s-sponsored:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for privatek8s"
-            secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
-          kubeconfig-publick8s:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for publick8s"
-            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
-          kubeconfig-cijioagents2:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for cijioagents2"
-            secretBytes: "${base64:${KUBECONFIG_CIJIOAGENTS2}}"
-          kubeconfig-infracijioagents1:
-            fileName: "kubeconfig"
-            description: "Kubeconfig file for infracijenkinsio-agents-1"
-            secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS1}}"
-  reports:
-    name: Reports
-    description: Folder hosting all the reporting tasks jobs
-    kind: folder
-    credentials:
-      reports-jenkins-io-azurefile-serviceprincipal:
-        azureEnvironmentName: "Azure"
-        clientId: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-        clientSecret: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-        description: "reports.jenkins.io File Share Service Principal Writer"
-        subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-        tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-    children:
-      artifactory-users-report:
-        name: "Artifactory Users Report"
-        repository: "infra-reports"
-        jenkinsfilePath: "artifactory-users-report/Jenkinsfile"
-        credentials:
-          artifactoryAdmin:
-            description: "Artifactory API for updating permissions"
-            username: "${ARTIFACTORY_API_INFRA_REPORTS_USERNAME}"
-            usernameSecret: true
-            password: "${ARTIFACTORY_API_INFRA_REPORTS_PASSWORD}"
-      backend-extension-indexer:
-        name: "Backend Extension Indexer"
-        jenkinsfilePath: Jenkinsfile
-      csp-compatibility:
-        name: "CSP Compatibility Report"
-        jenkinsfilePath: Jenkinsfile
-      fork-report:
-        name: "GitHub Forks Report"
-        repository: "infra-reports"
-        jenkinsfilePath: "fork-report/Jenkinsfile"
-        credentials:
-          jenkins-infra-reports:
-            description: "Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
-            appId: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
-            owner: "jenkinsci"
-            privateKey: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY}"
-      jenkins-infra-data:
-        name: "Jenkins Infrastructure Public Data"
-        repository: "infra-reports"
-        jenkinsfilePath: "jenkins-infra-data/Jenkinsfile"
-      jira-users-report:
-        name: "Jira Users Report"
-        repository: "infra-reports"
-        jenkinsfilePath: "jira-users-report/Jenkinsfile"
-        credentials:
-          jiraAuth:
-            description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
-            username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
-            usernameSecret: true
-            password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
-      maintainers-info-report:
-        name: "Maintainers Jira Infos"
-        repository: "infra-reports"
-        jenkinsfilePath: "maintainers-info-report/Jenkinsfile"
-        credentials:
-          jiraAuth:
-            description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
-            username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
-            usernameSecret: true
-            password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
-      permissions-report:
-        name: "GitHub Permissions Report"
-        repository: "infra-reports"
-        jenkinsfilePath: "permissions-report/Jenkinsfile"
-        credentials:
-          githubapp-jenkins-infra-reports-private-key-b64:
-            description: "Base64 encoded private key of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
-            secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY_B64}"
-          githubapp-jenkins-infra-reports-app-identifier:
-            description: "Identifier (integer) of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
-            secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
-      pipeline-steps-doc-generator:
-        name: "Pipeline Steps Documentation Generator"
-        jenkinsfilePath: Jenkinsfile
-      plugin-health-scoring:
-        name: "Plugin Health Scoring Report"
-        repository: "infra-reports"
-        jenkinsfilePath: "plugin-health-scoring/Jenkinsfile"
-      plugin-site-api:
-        name: "Plugin site data generation and publication"
-        repository: "plugin-site-api"
-        jenkinsfilePath: "Jenkinsfile_publish"
-        disableTagDiscovery: true
-        disablePullRequests: true
-  terraform-jobs:
-    name: Terraform Jobs
-    description: Folder hosting all the Terraform-related jobs
-    kind: folder
-    credentials:
-      reports-jenkins-io-azurefile-serviceprincipal:
-        azureEnvironmentName: "Azure"
-        clientId: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-        clientSecret: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-        description: "reports.jenkins.io File Share Service Principal Writer"
-        subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-        tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-      github-app-infra.ci.jenkins.io-terraform-jobs:
-        description: "Github App infra.ci.jenkins.io-terraform-jobs installed on jenkins-infra org"
-        appId: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_ID}"
-        owner: "jenkins-infra"
-        privateKey: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_PRIVATE_KEY}"
-    childrenGithubCredential: github-app-infra.ci.jenkins.io-terraform-jobs
-    children:
-      terraform-aws-sponsorship:
-        name: Terraform AWS Sponsorship
-        description: AWS resources managed by Terraform on sponsorship account
-        credentials:
-          staging-terraform-aws-sponsorship-access-key:
-            secret: "${STAGING_TERRAFORM_AWSSPONSORED_ACCESS_KEY_ID}"
-            description: "AWS access key id for the staging terraform account for jenkins-infra/terraform-aws-sponsorship"
-          staging-terraform-aws-sponsorship-secret-key:
-            secret: "${STAGING_TERRAFORM_AWSSPONSORED_SECRET_ACCESS_KEY}"
-            description: "AWS secret key for the staging terraform account for jenkins-infra/terraform-aws-sponsorship"
-          staging-terraform-aws-sponsorship-backend-config:
-            fileName: backend-config
-            description: "Terraform backend configuration for the staging environment of jenkins-infra/terraform-aws-sponsorship"
-            secretBytes: "${base64:${STAGING_TERRAFORM_AWSSPONSORED_BACKEND_CONFIG}}"
-          production-terraform-aws-sponsorship-access-key:
-            secret: "${PRODUCTION_TERRAFORM_AWSSPONSORED_ACCESS_KEY_ID}"
-            description: "AWS access key id for the account production-terraform of jenkins-infra/terraform-aws-sponsorship"
-          production-terraform-aws-sponsorship-secret-key:
-            secret: "${PRODUCTION_TERRAFORM_AWSSPONSORED_SECRET_ACCESS_KEY}"
-            description: "AWS secret key for the account production-terraform of jenkins-infra/terraform-aws-sponsorship"
-          production-terraform-aws-sponsorship-backend-config:
-            fileName: "backend-config"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWSSPONSORED_BACKEND_CONFIG}}"
-      azure:
-        name: Terraform Azure
-        description: "Azure resources managed by Terraform"
-        credentials:
-          production-terraform-azure-serviceprincipal:
-            azureEnvironmentName: "Azure"
-            clientId: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_ID}"
-            clientSecret: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by terraform for azure production"
-            subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
-            tenant: "${PRODUCTION_TERRAFORM_AZURE_TENANT_ID}"
-          production-terraform-azure-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the production environment of jenkins-infra/azure"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AZURE_BACKEND_CONFIG}}"
-          staging-terraform-azure-serviceprincipal:
-            azureEnvironmentName: "Azure"
-            clientId: "${STAGING_TERRAFORM_AZURE_CLIENT_ID}"
-            clientSecret: "${STAGING_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by terraform for azure staging"
-            subscriptionId: "${STAGING_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
-            tenant: "${STAGING_TERRAFORM_AZURE_TENANT_ID}"
-          staging-terraform-azure-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the staging environment of jenkins-infra/azure"
-            secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG}}"
-      azure-net:
-        name: Terraform Azure-net
-        description: "Azure-net resources managed by Terraform"
-        credentials:
-          production-terraform-azure-net-serviceprincipal:
-            azureEnvironmentName: "Azure-net"
-            clientId: "${PRODUCTION_TERRAFORM_AZURE_NET_CLIENT_ID}"
-            clientSecret: "${PRODUCTION_TERRAFORM_AZURE_NET_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by terraform for azure-net production"
-            subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_NET_SUBSCRIPTION_ID}"
-            tenant: "${PRODUCTION_TERRAFORM_AZURE_NET_TENANT_ID}"
-          production-terraform-azure-net-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the production environment of jenkins-infra/azure-net"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
-          staging-terraform-azure-net-serviceprincipal:
-            azureEnvironmentName: "Azure-net"
-            clientId: "${STAGING_TERRAFORM_AZURE_NET_CLIENT_ID}"
-            clientSecret: "${STAGING_TERRAFORM_AZURE_NET_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by terraform for azure-net staging"
-            subscriptionId: "${STAGING_TERRAFORM_AZURE_NET_SUBSCRIPTION_ID}"
-            tenant: "${STAGING_TERRAFORM_AZURE_NET_TENANT_ID}"
-          staging-terraform-azure-net-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the staging environment of jenkins-infra/azure-net"
-            secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
-      cloudflare:
-        name: Terraform CloudFlare
-        description: "CloudFlare resources managed by Terraform"
-        credentials:
-          staging-cloudflare-api-token:
-            secret: "${STAGING_CLOUDFLARE_API_TOKEN}"
-            description: Staging CloudFlare API token for infra.ci
-          production-cloudflare-api-token:
-            secret: "${PRODUCTION_CLOUDFLARE_API_TOKEN}"
-            description: Production CloudFlare API token for infra.ci
-          production-terraform-cloudflare-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the production environment of jenkins-infra/cloudflare"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
-          staging-terraform-cloudflare-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the staging environment of jenkins-infra/cloudflare"
-            secretBytes: "${base64:${STAGING_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
-          cloudflare-datadog-api-key:
-            secret: "${DATADOG_CLOUDFLARE_API_KEY}"
-            description: "Datadog API key used by cloudflare to push logs, metrics and traces"
-      datadog:
-        name: Terraform Datadog
-        description: "Datadog resources managed by Terraform"
-        credentials:
-          production-datadog-api-key:
-            secret: "${PRODUCTION_DATADOG_API_KEY}"
-            description: Production Datadog API key for infra.ci
-          production-datadog-app-key:
-            secret: "${PRODUCTION_DATADOG_APP_KEY}"
-            description: Production Datadog application key for infra.ci
-          staging-datadog-api-key:
-            secret: "${STAGING_DATADOG_API_KEY}"
-            description: Production Datadog API key for infra.ci
-          staging-datadog-app-key:
-            secret: "${STAGING_DATADOG_APP_KEY}"
-            description: Production Datadog application key for infra.ci
-          datadog-jenkinsuser-password:
-            secret: "${DATADOG_JENKINSUSER_PASSWORD}"
-            description: datadog_monitoring Jenkins technical user password
-          production-terraform-datadog-backend-config:
-            fileName: "backend-config"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
-          staging-terraform-datadog-backend-config:
-            fileName: "backend-config"
-            secretBytes: "${base64:${STAGING_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
-      digitalocean:
-        name: Terraform Digital Ocean
-        description: "Digital Ocean resources managed by Terraform"
-        credentials:
-          staging-terraform-digitalocean-pat:
-            secret: "${STAGING_TERRAFORM_DIGITALOCEAN_PAT}"
-            description: "Digital Ocean PAT for the staging environment of jenkins-infra/digitalocean"
-          staging-terraform-digitalocean-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the staging environment of jenkins-infra/digitalocean"
-            secretBytes: "${base64:${STAGING_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
-          production-terraform-digitalocean-pat:
-            secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
-            description: "Digital Ocean PAT for production"
-          production-terraform-digitalocean-backend-config:
-            fileName: "backend-config"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
-      fastly:
-        name: Terraform Fastly
-        description: "Fastly resources managed by Terraform"
-        credentials:
-          staging-terraform-fastly-api-key:
-            secret: "${STAGING_TERRAFORM_FASTLY_API_KEY}"
-            description: Fastly API key for staging (read-only)
-          staging-terraform-fastly-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the staging environment of jenkins-infra/fastly"
-            secretBytes: "${base64:${STAGING_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
-          production-terraform-fastly-api-key:
-            secret: "${PRODUCTION_TERRAFORM_FASTLY_API_KEY}"
-            description: Fastly API key for production (full access)
-          production-terraform-fastly-backend-config:
-            fileName: "backend-config"
-            description: "Terraform backend configuration for the production environment of jenkins-infra/fastly"
-            secretBytes: "${base64:${PRODUCTION_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
-  updatecli:
-    name: Dependencies Management with Updatecli
-    kind: folder
-    credentials:
-      github-app-updatecli-on-jenkins-infra:
-        description: "GitHub App for updatecli tasks on jenkins-infra org"
-        appId: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_ID}"
-        owner: "jenkins-infra"
-        privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
-    childrenGithubCredential: github-app-updatecli-on-jenkins-infra
-    children:
-      azure:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      azure-net:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      contributor-spotlight:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      cloudflare:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      datadog:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      digitalocean:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-404:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-confluence-data:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-geoipupdate:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-infratools:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-jenkins-infraci:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-jenkins-lts:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-jenkins-weeklyci:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-keycloak-theme:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-ldap:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-matomo:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-mirrorbits:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-openvpn:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-packaging:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-rsyncd:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      fastly:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      helm-charts:
-        name: Helm Charts
-        description: Custom Helm Charts of the Jenkins Infra
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      incrementals-publisher:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      infra-reports:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      jenkins-contribution-stats:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      jenkins-infra:
-        name: Puppet (jenkins-infra)
-        jenkinsfilePath: Jenkinsfile_updatecli
-        branchIncludes: "production staging updatecli_* PR-* main"
-        disableTagDiscovery: true
-        credentials:
-          packer-aws-access-key-id:
-            description: AWS API key for the user packer
-            secret: "${PACKER_AWS_ACCESS_KEY_ID}"
-          packer-aws-secret-access-key:
-            description: AWS Secret key for the user packer
-            secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
-      jenkins-version:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      jenkins.io:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      kubernetes-management:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-        credentials:
-          updatecli-azure-serviceprincipal:
-            azureEnvironmentName: "Azure"
-            clientId: "${PACKER_AZURE_CLIENT_ID}"
-            clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
-            description: "Azure Service Principal credential used by updatecli"
-            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
-            tenant: "${PACKER_AZURE_TENANT_ID}"
-      packer-images:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-        credentials:
-          updatecli-aws-access-key-id:
-            description: AWS API key for the user updatecli
-            secret: "${UPDATECLI_AWS_ACCESS_KEY_ID}"
-          updatecli-aws-secret-access-key:
-            description: AWS Secret key for the user updatecli
-            secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
-          updatecli-azure-serviceprincipal:
-            azureEnvironmentName: "Azure"
-            clientId: "${UPDATECLI_AZURE_CLIENT_ID}"
-            clientSecret: "${UPDATECLI_AZURE_CLIENT_SECRET}"
-            description: "Azure Service Principal credential used by updatecli"
-            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
-            tenant: "${UPDATECLI_AZURE_TENANT_ID}"
-      pipeline-library:
-        name: Shared Pipeline Library
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      release:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      shared-tools:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      stats.jenkins.io:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      status:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      terraform-aws-sponsorship:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-        credentials:
-          updatecli-aws-access-key-id:
-            description: AWS API key for the user updatecli
-            secret: "${UPDATECLI_AWS_ACCESS_KEY_ID}"
-          updatecli-aws-secret-access-key:
-            description: AWS Secret key for the user updatecli
-            secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
-  website-jobs:
-    name: Website Jobs PR previews
-    kind: folder
-    credentials:
-      netlify-auth-token:
-        description: "Auth token to communicate with netlify"
-        secret: "${NETLIFY_AUTH_TOKEN}"
-    children:
-      contributor-spotlight:
-        name: Contributor Spotlight PR previews
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      docs.jenkins.io:
-        name: docs.jenkins.io PR previews
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      jenkins.io:
-        name: www.jenkins.io Website PR previews
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      jenkins-io-components:
-        name: Jenkins.io Web Components PR previews
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      plugin-site:
-        name: Plugin Site PR previews
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      stats.jenkins.io:
-        name: stats.jenkins.io PR previews
-        jenkinsfilePath: Jenkinsfile_previews
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-      stories:
-        name: Jenkins User Stories PR previews
-        jenkinsfilePath: Jenkinsfile
-        enableGitHubChecks: true
-        disableTagDiscovery: true
-        disableBranchDiscovery: true
-        allowUntrustedChanges: true
-  website-production-jobs:
-    name: Website Production Jobs
-    description: "Folder hosting all the Website jobs dedicated to deployment in production"
-    kind: folder
-    children:
-      contributor-spotlight:
-        name: Contributor Spotlight Production Deployment
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: main
-        disableTagDiscovery: true
-        disablePullRequests: true
-        credentials:
-          contributors-jenkins-io-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "Contributors.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
-      docs.jenkins.io:
-        name: docs.jenkins.io Production Deployment
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: main
-        disableTagDiscovery: true
-        disablePullRequests: true
-        credentials:
-          infraci-docs-jenkins-io-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "docs.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
-      gatsby-plugin-jenkins-layout:
-        name: Gatsby plugin for standard Jenkins.io layout Production Deployment
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main alpha beta"
-        disableTagDiscovery: false
-        disablePullRequests: true
-        credentials:
-          jenkinsci-npm-token:
-            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
-            description: "NPM automation token to publish jenkins.io Web Components"
-          jenkins-io-components-ghapp:
-            description: "Github App for semantic-release"
-            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
-            owner: "jenkins-infra"
-            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
-      jenkins-io-components:
-        name: Jenkins.io Web Components Production Deployment
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: "main alpha beta"
-        disableTagDiscovery: true
-        disablePullRequests: true
-        credentials:
-          netlify-auth-token:
-            description: "Auth token to communicate with netlify"
-            secret: "${NETLIFY_AUTH_TOKEN}"
-          jenkinsci-npm-token:
-            secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
-            description: "NPM automation token to publish jenkins.io Web Components"
-          jenkins-io-components-ghapp:
-            description: "Github App for semantic-release"
-            appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
-            owner: "jenkins-infra"
-            privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
-      plugin-site:
-        name: plugins.jenkins.io (Plugin Site) Production Deployment
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: main
-        disableTagDiscovery: true
-        disablePullRequests: true
-        credentials:
-          PLUGINSITE_STORAGEACCOUNTKEY:
-            secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
-            description: "Azure storage account key for plugin site"
-          algolia-plugins-app-id:
-            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_APP_ID}"
-            description: "Algolia app id for plugin site"
-          algolia-plugins-search-key:
-            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_SEARCH_KEY}"
-            description: "Algolia credentials to read data for plugin site (runtime)"
-          algolia-plugins-write-key:
-            secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
-            description: "Algolia credentials to write data for plugin site"
-          infraci-pluginsjenkinsio-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_PASSWORD}"
-            description: "plugins.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
-      stats.jenkins.io:
-        name: stats.jenkins.io Production Deployment
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: main
-        disableTagDiscovery: true
-        disablePullRequests: true
-        credentials:
-          infraci-stats-jenkins-io-fileshare-service-principal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${STATS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${STATS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "stats.jenkins.io File Share Service Principal Writer"
-            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-      stories:
-        name: Jenkins User Stories Production Deployment
-        jenkinsfilePath: Jenkinsfile
-        branchIncludes: main
-        disableTagDiscovery: true
-        disablePullRequests: true
-        credentials:
-          fastly-api-token-purge:
-            secret: "${FASTLY_API_TOKEN_PURGE}"
-            description: "Fastly API token used for purging CDN pages"
-          netlify-auth-token:
-            description: "Auth token to communicate with netlify"
-            secret: "${NETLIFY_AUTH_TOKEN}"
+  # cronjobs:
+  #   name: Jenkins Infrastructure Cron Jobs
+  #   description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
+  #   kind: folder
+  #   children: {}
+  # docker-jobs:
+  #   name: Docker Jobs
+  #   description: Folder hosting all the Docker jobs
+  #   kind: folder
+  #   credentials:
+  #     jenkins-dockerhub:
+  #       description: Docker hub credential for jenkinsinfra organisation
+  #       username: jenkinsinfraadmin
+  #       password: "${DOCKER_HUB_TOKEN_JENKINSINFRAADMIN_PUSH}"
+  #     jenkinsinfraadmin-dockerhub-push: &jenkinsinfraadmin-dockerhub-push-def
+  #       description: Docker hub credential for jenkinsinfra organisation PUSH
+  #       username: jenkinsinfraadmin
+  #       password: "${DOCKER_HUB_TOKEN_JENKINSINFRAADMIN_PUSH}"
+  #     infracijenkinsio-dockerhub-pull: &infracijenkinsio-dockerhub-pull-def
+  #       description: Docker hub credential for jenkinsinfra organisation PULL
+  #       username: infracijenkinsio
+  #       password: "${DOCKER_HUB_TOKEN_INFRACIJENKINSIO_PULL}"
+  #     github-app-infra.ci.jenkins.io-docker-jobs:
+  #       description: "Github App infra.ci.jenkins.io-docker-jobs installed on jenkins-infra org"
+  #       appId: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_ID}"
+  #       owner: "jenkins-infra"
+  #       privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_PRIVATE_KEY}"
+  #     github-app-infra.ci.jenkins.io-docker-deploy:
+  #       description: "Github App infra.ci.jenkins.io-docker-deploy (read and write permissions) installed on jenkins-infra org"
+  #       appId: "${GITHUB_APP_INFRA_CI_DOCKER_DEPLOY_ID}"
+  #       owner: "jenkins-infra"
+  #       privateKey: "${GITHUB_APP_INFRA_CI_DOCKER_DEPLOY_PRIVATE_KEY}"
+  #     github-app-updatecli-on-jenkins-infra:
+  #       description: "GitHub App for updatecli tasks on jenkins-infra org"
+  #       appId: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_ID}"
+  #       owner: "jenkins-infra"
+  #       privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
+  #   childrenGithubCredential: github-app-infra.ci.jenkins.io-docker-jobs
+  #   children:
+  #     acceptance-test-harness:
+  #       name: "Jenkins CI Acceptance Test Harness (ATH) Docker Image"
+  #       githubCredentialsId: github-app-jenkinsci-ath
+  #       jenkinsfilePath: Jenkinsfile.infra.ci.jenkins.io
+  #       repoOwner: "jenkinsci"
+  #       credentials:
+  #         github-app-jenkinsci-ath:
+  #           description: "Github App installed on jenkinsci org for https://github.com/jenkinsci/acceptance-test-harness Docker Image build"
+  #           appId: "${GITHUB_APP_JENKINSCI_ID}"
+  #           owner: "jenkinsci"
+  #           privateKey: "${GITHUB_APP_JENKINSCI_PRIVATE_KEY}"
+  #       # Releases are triggered by the creation of a tag by maintainers.
+  #       disableTagDiscovery: false
+  #     account-app:
+  #       jenkinsfilePath: Jenkinsfile
+  #       disableTagDiscovery: true
+  #     docker-404:
+  #       disableTagDiscovery: true
+  #     docker-confluence-data:
+  #       disableTagDiscovery: true
+  #     docker-geoipupdate:
+  #       disableTagDiscovery: true
+  #     docker-infratools:
+  #       disableTagDiscovery: true
+  #     docker-issue-redirect:
+  #       disableTagDiscovery: true
+  #     docker-jenkins-lts:
+  #       disableTagDiscovery: true
+  #     docker-jenkins-weeklyci:
+  #       disableTagDiscovery: true
+  #     docker-jenkins-infraci:
+  #       disableTagDiscovery: true
+  #     docker-keycloak-theme:
+  #       disableTagDiscovery: true
+  #     docker-ldap:
+  #       disableTagDiscovery: true
+  #     docker-matomo:
+  #       disableTagDiscovery: true
+  #     docker-mirrorbits:
+  #       disableTagDiscovery: true
+  #     docker-openvpn:
+  #       disableTagDiscovery: true
+  #     docker-packaging:
+  #       disableTagDiscovery: true
+  #     docker-plugin-site-issues:
+  #       disableTagDiscovery: true
+  #     docker-rsyncd:
+  #       disableTagDiscovery: true
+  #     incrementals-publisher:
+  #       disableTagDiscovery: true
+  #       jenkinsfilePath: Jenkinsfile
+  #     plugin-health-scoring:
+  #       jenkinsfilePath: Jenkinsfile
+  #       # Releases are triggered by the creation of a tag by maintainers.
+  #       disableTagDiscovery: false
+  #     plugin-site-api:
+  #       jenkinsfilePath: Jenkinsfile
+  #       disableTagDiscovery: true
+  #     rating:
+  #       disableTagDiscovery: true
+  #     uplink:
+  #       jenkinsfilePath: Jenkinsfile
+  #       disableTagDiscovery: true
+  # infra-tools:
+  #   name: Infrastructure Tooling Jobs
+  #   description: Folder hosting all the Infrastructure Tools jobs
+  #   kind: folder
+  #   children:
+  #     packer-images:
+  #       name: Packer Images
+  #       credentials:
+  #         packer-aws-access-key-id:
+  #           description: AWS API key for the user packer
+  #           secret: "${PACKER_AWS_ACCESS_KEY_ID}"
+  #         packer-aws-secret-access-key:
+  #           description: AWS Secret key for the user packer
+  #           secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
+  #         packer-azure-serviceprincipal:
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${PACKER_AZURE_CLIENT_ID}"
+  #           clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+  #           description: "Azure Service Principal credential used by packer on the sponsored subscription"
+  #           subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+  #           tenant: "${PACKER_AZURE_TENANT_ID}"
+  #         jenkinsinfraadmin-dockerhub-push: *jenkinsinfraadmin-dockerhub-push-def
+  #     jenkins-infra:
+  #       name: Puppet (jenkins-infra)
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: "production staging updatecli_* PR-* main"
+  #     shared-tools:
+  #       name: Shared Tools
+  #     packer-images-gc:
+  #       name: Garbage collector for Packer Images
+  #       repository: packer-images
+  #       jenkinsfilePath: Jenkinsfile_gc
+  #       disableTagDiscovery: true
+  #       disableGitHubNotifications: true
+  #       credentials:
+  #         packer-azure-serviceprincipal:
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${PACKER_AZURE_CLIENT_ID}"
+  #           clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+  #           description: "Azure Service Principal credential used by packer on the sponsored subscription"
+  #           subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+  #           tenant: "${PACKER_AZURE_TENANT_ID}"
+  #         packer-aws-access-key-id:
+  #           description: AWS API key for the user packer
+  #           secret: "${PACKER_AWS_ACCESS_KEY_ID}"
+  #         packer-aws-secret-access-key:
+  #           description: AWS Secret key for the user packer
+  #           secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
+  # kubernetes-jobs:
+  #   name: Kubernetes Jobs
+  #   description: Folder hosting all the Kubernetes-related jobs
+  #   kind: folder
+  #   children:
+  #     kubernetes-management:
+  #       name: Kubernetes Management
+  #       description: Managing the Kubernetes-hosted applications
+  #       credentials:
+  #         sops-client-id:
+  #           secret: "${SOPS_CLIENT_ID}"
+  #           description: Azure client ID used by sops to decrypt secrets
+  #         sops-client-secret:
+  #           secret: "${SOPS_CLIENT_SECRET}"
+  #           description: Azure client secret used by sops to decrypt secrets
+  #         sops-tenant-id:
+  #           secret: "${SOPS_TENANT_ID}"
+  #           description: Azure tenant id used by sops to decrypt secrets
+  #         kubeconfig-privatek8s:
+  #           fileName: "kubeconfig"
+  #           description: "Kubeconfig file for privatek8s"
+  #           secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
+  #         kubeconfig-privatek8s-sponsored:
+  #           fileName: "kubeconfig"
+  #           description: "Kubeconfig file for privatek8s"
+  #           secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
+  #         kubeconfig-publick8s:
+  #           fileName: "kubeconfig"
+  #           description: "Kubeconfig file for publick8s"
+  #           secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
+  #         kubeconfig-cijioagents2:
+  #           fileName: "kubeconfig"
+  #           description: "Kubeconfig file for cijioagents2"
+  #           secretBytes: "${base64:${KUBECONFIG_CIJIOAGENTS2}}"
+  #         kubeconfig-infracijioagents1:
+  #           fileName: "kubeconfig"
+  #           description: "Kubeconfig file for infracijenkinsio-agents-1"
+  #           secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS1}}"
+  # reports:
+  #   name: Reports
+  #   description: Folder hosting all the reporting tasks jobs
+  #   kind: folder
+  #   credentials:
+  #     reports-jenkins-io-azurefile-serviceprincipal:
+  #       azureEnvironmentName: "Azure"
+  #       clientId: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+  #       clientSecret: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+  #       description: "reports.jenkins.io File Share Service Principal Writer"
+  #       subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+  #       tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+  #   children:
+  #     artifactory-users-report:
+  #       name: "Artifactory Users Report"
+  #       repository: "infra-reports"
+  #       jenkinsfilePath: "artifactory-users-report/Jenkinsfile"
+  #       credentials:
+  #         artifactoryAdmin:
+  #           description: "Artifactory API for updating permissions"
+  #           username: "${ARTIFACTORY_API_INFRA_REPORTS_USERNAME}"
+  #           usernameSecret: true
+  #           password: "${ARTIFACTORY_API_INFRA_REPORTS_PASSWORD}"
+  #     backend-extension-indexer:
+  #       name: "Backend Extension Indexer"
+  #       jenkinsfilePath: Jenkinsfile
+  #     csp-compatibility:
+  #       name: "CSP Compatibility Report"
+  #       jenkinsfilePath: Jenkinsfile
+  #     fork-report:
+  #       name: "GitHub Forks Report"
+  #       repository: "infra-reports"
+  #       jenkinsfilePath: "fork-report/Jenkinsfile"
+  #       credentials:
+  #         jenkins-infra-reports:
+  #           description: "Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+  #           appId: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
+  #           owner: "jenkinsci"
+  #           privateKey: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY}"
+  #     jenkins-infra-data:
+  #       name: "Jenkins Infrastructure Public Data"
+  #       repository: "infra-reports"
+  #       jenkinsfilePath: "jenkins-infra-data/Jenkinsfile"
+  #     jira-users-report:
+  #       name: "Jira Users Report"
+  #       repository: "infra-reports"
+  #       jenkinsfilePath: "jira-users-report/Jenkinsfile"
+  #       credentials:
+  #         jiraAuth:
+  #           description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
+  #           username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
+  #           usernameSecret: true
+  #           password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
+  #     maintainers-info-report:
+  #       name: "Maintainers Jira Infos"
+  #       repository: "infra-reports"
+  #       jenkinsfilePath: "maintainers-info-report/Jenkinsfile"
+  #       credentials:
+  #         jiraAuth:
+  #           description: "Credentials (curl <user>:<password>) for the infra-reports LDAP user to access Jira"
+  #           username: "${JIRA_API_INFRA_REPORTS_USERNAME}"
+  #           usernameSecret: true
+  #           password: "${JIRA_API_INFRA_REPORTS_PASSWORD}"
+  #     permissions-report:
+  #       name: "GitHub Permissions Report"
+  #       repository: "infra-reports"
+  #       jenkinsfilePath: "permissions-report/Jenkinsfile"
+  #       credentials:
+  #         githubapp-jenkins-infra-reports-private-key-b64:
+  #           description: "Base64 encoded private key of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+  #           secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_PRIVATE_KEY_B64}"
+  #         githubapp-jenkins-infra-reports-app-identifier:
+  #           description: "Identifier (integer) of the Github App installed on jenkinsci org for https://github.com/jenkins-infra/infra-reports scripts"
+  #           secret: "${GITHUB_APP_JENKINSCI_INFRA_REPORTS_ID}"
+  #     pipeline-steps-doc-generator:
+  #       name: "Pipeline Steps Documentation Generator"
+  #       jenkinsfilePath: Jenkinsfile
+  #     plugin-health-scoring:
+  #       name: "Plugin Health Scoring Report"
+  #       repository: "infra-reports"
+  #       jenkinsfilePath: "plugin-health-scoring/Jenkinsfile"
+  #     plugin-site-api:
+  #       name: "Plugin site data generation and publication"
+  #       repository: "plugin-site-api"
+  #       jenkinsfilePath: "Jenkinsfile_publish"
+  #       disableTagDiscovery: true
+  #       disablePullRequests: true
+  # terraform-jobs:
+  #   name: Terraform Jobs
+  #   description: Folder hosting all the Terraform-related jobs
+  #   kind: folder
+  #   credentials:
+  #     reports-jenkins-io-azurefile-serviceprincipal:
+  #       azureEnvironmentName: "Azure"
+  #       clientId: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+  #       clientSecret: "${REPORTS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+  #       description: "reports.jenkins.io File Share Service Principal Writer"
+  #       subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+  #       tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+  #     github-app-infra.ci.jenkins.io-terraform-jobs:
+  #       description: "Github App infra.ci.jenkins.io-terraform-jobs installed on jenkins-infra org"
+  #       appId: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_ID}"
+  #       owner: "jenkins-infra"
+  #       privateKey: "${GITHUB_APP_INFRA_CI_TERRAFORM_JOBS_PRIVATE_KEY}"
+  #   childrenGithubCredential: github-app-infra.ci.jenkins.io-terraform-jobs
+  #   children:
+  #     terraform-aws-sponsorship:
+  #       name: Terraform AWS Sponsorship
+  #       description: AWS resources managed by Terraform on sponsorship account
+  #       credentials:
+  #         staging-terraform-aws-sponsorship-access-key:
+  #           secret: "${STAGING_TERRAFORM_AWSSPONSORED_ACCESS_KEY_ID}"
+  #           description: "AWS access key id for the staging terraform account for jenkins-infra/terraform-aws-sponsorship"
+  #         staging-terraform-aws-sponsorship-secret-key:
+  #           secret: "${STAGING_TERRAFORM_AWSSPONSORED_SECRET_ACCESS_KEY}"
+  #           description: "AWS secret key for the staging terraform account for jenkins-infra/terraform-aws-sponsorship"
+  #         staging-terraform-aws-sponsorship-backend-config:
+  #           fileName: backend-config
+  #           description: "Terraform backend configuration for the staging environment of jenkins-infra/terraform-aws-sponsorship"
+  #           secretBytes: "${base64:${STAGING_TERRAFORM_AWSSPONSORED_BACKEND_CONFIG}}"
+  #         production-terraform-aws-sponsorship-access-key:
+  #           secret: "${PRODUCTION_TERRAFORM_AWSSPONSORED_ACCESS_KEY_ID}"
+  #           description: "AWS access key id for the account production-terraform of jenkins-infra/terraform-aws-sponsorship"
+  #         production-terraform-aws-sponsorship-secret-key:
+  #           secret: "${PRODUCTION_TERRAFORM_AWSSPONSORED_SECRET_ACCESS_KEY}"
+  #           description: "AWS secret key for the account production-terraform of jenkins-infra/terraform-aws-sponsorship"
+  #         production-terraform-aws-sponsorship-backend-config:
+  #           fileName: "backend-config"
+  #           secretBytes: "${base64:${PRODUCTION_TERRAFORM_AWSSPONSORED_BACKEND_CONFIG}}"
+  #     azure:
+  #       name: Terraform Azure
+  #       description: "Azure resources managed by Terraform"
+  #       credentials:
+  #         production-terraform-azure-serviceprincipal:
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_ID}"
+  #           clientSecret: "${PRODUCTION_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
+  #           description: "Azure Service Principal credential used by terraform for azure production"
+  #           subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
+  #           tenant: "${PRODUCTION_TERRAFORM_AZURE_TENANT_ID}"
+  #         production-terraform-azure-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the production environment of jenkins-infra/azure"
+  #           secretBytes: "${base64:${PRODUCTION_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+  #         staging-terraform-azure-serviceprincipal:
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${STAGING_TERRAFORM_AZURE_CLIENT_ID}"
+  #           clientSecret: "${STAGING_TERRAFORM_AZURE_CLIENT_SECRET_VALUE}"
+  #           description: "Azure Service Principal credential used by terraform for azure staging"
+  #           subscriptionId: "${STAGING_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
+  #           tenant: "${STAGING_TERRAFORM_AZURE_TENANT_ID}"
+  #         staging-terraform-azure-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the staging environment of jenkins-infra/azure"
+  #           secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG}}"
+  #     azure-net:
+  #       name: Terraform Azure-net
+  #       description: "Azure-net resources managed by Terraform"
+  #       credentials:
+  #         production-terraform-azure-net-serviceprincipal:
+  #           azureEnvironmentName: "Azure-net"
+  #           clientId: "${PRODUCTION_TERRAFORM_AZURE_NET_CLIENT_ID}"
+  #           clientSecret: "${PRODUCTION_TERRAFORM_AZURE_NET_CLIENT_SECRET_VALUE}"
+  #           description: "Azure Service Principal credential used by terraform for azure-net production"
+  #           subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_NET_SUBSCRIPTION_ID}"
+  #           tenant: "${PRODUCTION_TERRAFORM_AZURE_NET_TENANT_ID}"
+  #         production-terraform-azure-net-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the production environment of jenkins-infra/azure-net"
+  #           secretBytes: "${base64:${PRODUCTION_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
+  #         staging-terraform-azure-net-serviceprincipal:
+  #           azureEnvironmentName: "Azure-net"
+  #           clientId: "${STAGING_TERRAFORM_AZURE_NET_CLIENT_ID}"
+  #           clientSecret: "${STAGING_TERRAFORM_AZURE_NET_CLIENT_SECRET_VALUE}"
+  #           description: "Azure Service Principal credential used by terraform for azure-net staging"
+  #           subscriptionId: "${STAGING_TERRAFORM_AZURE_NET_SUBSCRIPTION_ID}"
+  #           tenant: "${STAGING_TERRAFORM_AZURE_NET_TENANT_ID}"
+  #         staging-terraform-azure-net-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the staging environment of jenkins-infra/azure-net"
+  #           secretBytes: "${base64:${STAGING_TERRAFORM_AZURE_NET_BACKEND_CONFIG}}"
+  #     cloudflare:
+  #       name: Terraform CloudFlare
+  #       description: "CloudFlare resources managed by Terraform"
+  #       credentials:
+  #         staging-cloudflare-api-token:
+  #           secret: "${STAGING_CLOUDFLARE_API_TOKEN}"
+  #           description: Staging CloudFlare API token for infra.ci
+  #         production-cloudflare-api-token:
+  #           secret: "${PRODUCTION_CLOUDFLARE_API_TOKEN}"
+  #           description: Production CloudFlare API token for infra.ci
+  #         production-terraform-cloudflare-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the production environment of jenkins-infra/cloudflare"
+  #           secretBytes: "${base64:${PRODUCTION_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
+  #         staging-terraform-cloudflare-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the staging environment of jenkins-infra/cloudflare"
+  #           secretBytes: "${base64:${STAGING_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG}}"
+  #         cloudflare-datadog-api-key:
+  #           secret: "${DATADOG_CLOUDFLARE_API_KEY}"
+  #           description: "Datadog API key used by cloudflare to push logs, metrics and traces"
+  #     datadog:
+  #       name: Terraform Datadog
+  #       description: "Datadog resources managed by Terraform"
+  #       credentials:
+  #         production-datadog-api-key:
+  #           secret: "${PRODUCTION_DATADOG_API_KEY}"
+  #           description: Production Datadog API key for infra.ci
+  #         production-datadog-app-key:
+  #           secret: "${PRODUCTION_DATADOG_APP_KEY}"
+  #           description: Production Datadog application key for infra.ci
+  #         staging-datadog-api-key:
+  #           secret: "${STAGING_DATADOG_API_KEY}"
+  #           description: Production Datadog API key for infra.ci
+  #         staging-datadog-app-key:
+  #           secret: "${STAGING_DATADOG_APP_KEY}"
+  #           description: Production Datadog application key for infra.ci
+  #         datadog-jenkinsuser-password:
+  #           secret: "${DATADOG_JENKINSUSER_PASSWORD}"
+  #           description: datadog_monitoring Jenkins technical user password
+  #         production-terraform-datadog-backend-config:
+  #           fileName: "backend-config"
+  #           secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
+  #         staging-terraform-datadog-backend-config:
+  #           fileName: "backend-config"
+  #           secretBytes: "${base64:${STAGING_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
+  #     digitalocean:
+  #       name: Terraform Digital Ocean
+  #       description: "Digital Ocean resources managed by Terraform"
+  #       credentials:
+  #         staging-terraform-digitalocean-pat:
+  #           secret: "${STAGING_TERRAFORM_DIGITALOCEAN_PAT}"
+  #           description: "Digital Ocean PAT for the staging environment of jenkins-infra/digitalocean"
+  #         staging-terraform-digitalocean-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the staging environment of jenkins-infra/digitalocean"
+  #           secretBytes: "${base64:${STAGING_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
+  #         production-terraform-digitalocean-pat:
+  #           secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_PAT}"
+  #           description: "Digital Ocean PAT for production"
+  #         production-terraform-digitalocean-backend-config:
+  #           fileName: "backend-config"
+  #           secretBytes: "${base64:${PRODUCTION_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG}}"
+  #     fastly:
+  #       name: Terraform Fastly
+  #       description: "Fastly resources managed by Terraform"
+  #       credentials:
+  #         staging-terraform-fastly-api-key:
+  #           secret: "${STAGING_TERRAFORM_FASTLY_API_KEY}"
+  #           description: Fastly API key for staging (read-only)
+  #         staging-terraform-fastly-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the staging environment of jenkins-infra/fastly"
+  #           secretBytes: "${base64:${STAGING_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
+  #         production-terraform-fastly-api-key:
+  #           secret: "${PRODUCTION_TERRAFORM_FASTLY_API_KEY}"
+  #           description: Fastly API key for production (full access)
+  #         production-terraform-fastly-backend-config:
+  #           fileName: "backend-config"
+  #           description: "Terraform backend configuration for the production environment of jenkins-infra/fastly"
+  #           secretBytes: "${base64:${PRODUCTION_TERRAFORM_FASTLY_BACKEND_CONFIG}}"
+  # updatecli:
+  #   name: Dependencies Management with Updatecli
+  #   kind: folder
+  #   credentials:
+  #     github-app-updatecli-on-jenkins-infra:
+  #       description: "GitHub App for updatecli tasks on jenkins-infra org"
+  #       appId: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_ID}"
+  #       owner: "jenkins-infra"
+  #       privateKey: "${GITHUB_APP_JENKINS_INFRA_UPDATECLI_PRIVATE_KEY}"
+  #   childrenGithubCredential: github-app-updatecli-on-jenkins-infra
+  #   children:
+  #     azure:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     azure-net:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     contributor-spotlight:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     cloudflare:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     datadog:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     digitalocean:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-404:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-confluence-data:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-geoipupdate:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-infratools:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-jenkins-infraci:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-jenkins-lts:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-jenkins-weeklyci:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-keycloak-theme:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-ldap:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-matomo:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-mirrorbits:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-openvpn:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-packaging:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     docker-rsyncd:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     fastly:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     helm-charts:
+  #       name: Helm Charts
+  #       description: Custom Helm Charts of the Jenkins Infra
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     incrementals-publisher:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     infra-reports:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     jenkins-contribution-stats:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     jenkins-infra:
+  #       name: Puppet (jenkins-infra)
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       branchIncludes: "production staging updatecli_* PR-* main"
+  #       disableTagDiscovery: true
+  #       credentials:
+  #         packer-aws-access-key-id:
+  #           description: AWS API key for the user packer
+  #           secret: "${PACKER_AWS_ACCESS_KEY_ID}"
+  #         packer-aws-secret-access-key:
+  #           description: AWS Secret key for the user packer
+  #           secret: "${PACKER_AWS_SECRET_ACCESS_KEY}"
+  #     jenkins-version:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     jenkins.io:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     kubernetes-management:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #       credentials:
+  #         updatecli-azure-serviceprincipal:
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${PACKER_AZURE_CLIENT_ID}"
+  #           clientSecret: "${PACKER_AZURE_CLIENT_SECRET_VALUE}"
+  #           description: "Azure Service Principal credential used by updatecli"
+  #           subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+  #           tenant: "${PACKER_AZURE_TENANT_ID}"
+  #     packer-images:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #       credentials:
+  #         updatecli-aws-access-key-id:
+  #           description: AWS API key for the user updatecli
+  #           secret: "${UPDATECLI_AWS_ACCESS_KEY_ID}"
+  #         updatecli-aws-secret-access-key:
+  #           description: AWS Secret key for the user updatecli
+  #           secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
+  #         updatecli-azure-serviceprincipal:
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${UPDATECLI_AZURE_CLIENT_ID}"
+  #           clientSecret: "${UPDATECLI_AZURE_CLIENT_SECRET}"
+  #           description: "Azure Service Principal credential used by updatecli"
+  #           subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+  #           tenant: "${UPDATECLI_AZURE_TENANT_ID}"
+  #     pipeline-library:
+  #       name: Shared Pipeline Library
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     release:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     shared-tools:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     stats.jenkins.io:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     status:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #     terraform-aws-sponsorship:
+  #       jenkinsfilePath: Jenkinsfile_updatecli
+  #       disableTagDiscovery: true
+  #       credentials:
+  #         updatecli-aws-access-key-id:
+  #           description: AWS API key for the user updatecli
+  #           secret: "${UPDATECLI_AWS_ACCESS_KEY_ID}"
+  #         updatecli-aws-secret-access-key:
+  #           description: AWS Secret key for the user updatecli
+  #           secret: "${UPDATECLI_AWS_SECRET_ACCESS_KEY}"
+  # website-jobs:
+  #   name: Website Jobs PR previews
+  #   kind: folder
+  #   credentials:
+  #     netlify-auth-token:
+  #       description: "Auth token to communicate with netlify"
+  #       secret: "${NETLIFY_AUTH_TOKEN}"
+  #   children:
+  #     contributor-spotlight:
+  #       name: Contributor Spotlight PR previews
+  #       jenkinsfilePath: Jenkinsfile
+  #       enableGitHubChecks: true
+  #       disableTagDiscovery: true
+  #       disableBranchDiscovery: true
+  #       allowUntrustedChanges: true
+  #     docs.jenkins.io:
+  #       name: docs.jenkins.io PR previews
+  #       jenkinsfilePath: Jenkinsfile
+  #       enableGitHubChecks: true
+  #       disableTagDiscovery: true
+  #       disableBranchDiscovery: true
+  #       allowUntrustedChanges: true
+  #     jenkins.io:
+  #       name: www.jenkins.io Website PR previews
+  #       enableGitHubChecks: true
+  #       disableTagDiscovery: true
+  #       disableBranchDiscovery: true
+  #       allowUntrustedChanges: true
+  #     jenkins-io-components:
+  #       name: Jenkins.io Web Components PR previews
+  #       jenkinsfilePath: Jenkinsfile
+  #       enableGitHubChecks: true
+  #       disableTagDiscovery: true
+  #       disableBranchDiscovery: true
+  #       allowUntrustedChanges: true
+  #     plugin-site:
+  #       name: Plugin Site PR previews
+  #       jenkinsfilePath: Jenkinsfile
+  #       enableGitHubChecks: true
+  #       disableTagDiscovery: true
+  #       disableBranchDiscovery: true
+  #       allowUntrustedChanges: true
+  #     stats.jenkins.io:
+  #       name: stats.jenkins.io PR previews
+  #       jenkinsfilePath: Jenkinsfile_previews
+  #       enableGitHubChecks: true
+  #       disableTagDiscovery: true
+  #       disableBranchDiscovery: true
+  #       allowUntrustedChanges: true
+  #     stories:
+  #       name: Jenkins User Stories PR previews
+  #       jenkinsfilePath: Jenkinsfile
+  #       enableGitHubChecks: true
+  #       disableTagDiscovery: true
+  #       disableBranchDiscovery: true
+  #       allowUntrustedChanges: true
+  # website-production-jobs:
+  #   name: Website Production Jobs
+  #   description: "Folder hosting all the Website jobs dedicated to deployment in production"
+  #   kind: folder
+  #   children:
+  #     contributor-spotlight:
+  #       name: Contributor Spotlight Production Deployment
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: main
+  #       disableTagDiscovery: true
+  #       disablePullRequests: true
+  #       credentials:
+  #         contributors-jenkins-io-fileshare-service-principal-writer:
+  #           kind: azure-serviceprincipal
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+  #           clientSecret: "${CONTRIBUTORS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+  #           description: "Contributors.jenkins.io File Share Service Principal Writer"
+  #           subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+  #           tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+  #         fastly-api-token-purge:
+  #           secret: "${FASTLY_API_TOKEN_PURGE}"
+  #           description: "Fastly API token used for purging CDN pages"
+  #     docs.jenkins.io:
+  #       name: docs.jenkins.io Production Deployment
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: main
+  #       disableTagDiscovery: true
+  #       disablePullRequests: true
+  #       credentials:
+  #         infraci-docs-jenkins-io-fileshare-service-principal-writer:
+  #           kind: azure-serviceprincipal
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+  #           clientSecret: "${DOCS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+  #           description: "docs.jenkins.io File Share Service Principal Writer"
+  #           subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+  #           tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+  #         fastly-api-token-purge:
+  #           secret: "${FASTLY_API_TOKEN_PURGE}"
+  #           description: "Fastly API token used for purging CDN pages"
+  #     gatsby-plugin-jenkins-layout:
+  #       name: Gatsby plugin for standard Jenkins.io layout Production Deployment
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: "main alpha beta"
+  #       disableTagDiscovery: false
+  #       disablePullRequests: true
+  #       credentials:
+  #         jenkinsci-npm-token:
+  #           secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+  #           description: "NPM automation token to publish jenkins.io Web Components"
+  #         jenkins-io-components-ghapp:
+  #           description: "Github App for semantic-release"
+  #           appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+  #           owner: "jenkins-infra"
+  #           privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+  #     jenkins-io-components:
+  #       name: Jenkins.io Web Components Production Deployment
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: "main alpha beta"
+  #       disableTagDiscovery: true
+  #       disablePullRequests: true
+  #       credentials:
+  #         netlify-auth-token:
+  #           description: "Auth token to communicate with netlify"
+  #           secret: "${NETLIFY_AUTH_TOKEN}"
+  #         jenkinsci-npm-token:
+  #           secret: "${JENKINSCI_NPM_AUTOMATION_TOKEN}"
+  #           description: "NPM automation token to publish jenkins.io Web Components"
+  #         jenkins-io-components-ghapp:
+  #           description: "Github App for semantic-release"
+  #           appId: "${GITHUB_APP_JENKINS_IO_COMPONENTS_ID}"
+  #           owner: "jenkins-infra"
+  #           privateKey: "${GITHUB_APP_JENKINS_IO_COMPONENTS_PRIVATE_KEY}"
+  #     plugin-site:
+  #       name: plugins.jenkins.io (Plugin Site) Production Deployment
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: main
+  #       disableTagDiscovery: true
+  #       disablePullRequests: true
+  #       credentials:
+  #         PLUGINSITE_STORAGEACCOUNTKEY:
+  #           secret: "${PLUGINSITE_STORAGEACCOUNTKEY}"
+  #           description: "Azure storage account key for plugin site"
+  #         algolia-plugins-app-id:
+  #           secret: "${ALGOLIA_PLUGINS_JENKINS_IO_APP_ID}"
+  #           description: "Algolia app id for plugin site"
+  #         algolia-plugins-search-key:
+  #           secret: "${ALGOLIA_PLUGINS_JENKINS_IO_SEARCH_KEY}"
+  #           description: "Algolia credentials to read data for plugin site (runtime)"
+  #         algolia-plugins-write-key:
+  #           secret: "${ALGOLIA_PLUGINS_JENKINS_IO_WRITE_KEY}"
+  #           description: "Algolia credentials to write data for plugin site"
+  #         infraci-pluginsjenkinsio-fileshare-service-principal-writer:
+  #           kind: azure-serviceprincipal
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+  #           clientSecret: "${INFRACI_PLUGINSJENKINSIO_FILESHARE_SERVICE_PRINCIPAL_WRITER_PASSWORD}"
+  #           description: "plugins.jenkins.io File Share Service Principal Writer"
+  #           subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+  #           tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+  #         fastly-api-token-purge:
+  #           secret: "${FASTLY_API_TOKEN_PURGE}"
+  #           description: "Fastly API token used for purging CDN pages"
+  #     stats.jenkins.io:
+  #       name: stats.jenkins.io Production Deployment
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: main
+  #       disableTagDiscovery: true
+  #       disablePullRequests: true
+  #       credentials:
+  #         infraci-stats-jenkins-io-fileshare-service-principal-writer:
+  #           kind: azure-serviceprincipal
+  #           azureEnvironmentName: "Azure"
+  #           clientId: "${STATS_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+  #           clientSecret: "${STATS_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+  #           description: "stats.jenkins.io File Share Service Principal Writer"
+  #           subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+  #           tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+  #     stories:
+  #       name: Jenkins User Stories Production Deployment
+  #       jenkinsfilePath: Jenkinsfile
+  #       branchIncludes: main
+  #       disableTagDiscovery: true
+  #       disablePullRequests: true
+  #       credentials:
+  #         fastly-api-token-purge:
+  #           secret: "${FASTLY_API_TOKEN_PURGE}"
+  #           description: "Fastly API token used for purging CDN pages"
+  #         netlify-auth-token:
+  #           description: "Auth token to communicate with netlify"
+  #           secret: "${NETLIFY_AUTH_TOKEN}"
