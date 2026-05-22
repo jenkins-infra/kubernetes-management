@@ -33,12 +33,12 @@ releases:
       - ../config/privatek8s-sponsored/datadog.yaml
     secrets:
       - ../secrets/config/datadog/privatek8s-sponsored-secrets.yaml
-  # - name: cert-manager
-  #   namespace: cert-manager
-  #   chart: jetstack/cert-manager
-  #   version: v1.20.2
-  #   values:
-  #     - ../config/cert-manager.yaml
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.20.2
+    values:
+      - ../config/cert-manager.yaml
   # - name: acme
   #   namespace: cert-manager
   #   chart: jenkins-infra/acme
