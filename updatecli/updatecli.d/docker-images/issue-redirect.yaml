@@ -37,7 +37,7 @@ targets:
     name: Update issue-redirect docker image tag
     kind: yaml
     spec:
-      file: config/publick8s_issue-redirect-jenkins-io.yaml
+      file: config/publick8s/issue-redirect-jenkins-io.yaml
       key: $.image.tag
     scmid: default
 
