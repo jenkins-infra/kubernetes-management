@@ -1,3 +1,8 @@
+{{- if or (not .StateValues.clusterProviderType) (eq .StateValues.clusterProviderType "aks") }}
+providers:
+  aks:
+    enabled: true
+{{- endif }}
 datadog:
   clusterName: {{ .StateValues.clusterName }}
   operator:
