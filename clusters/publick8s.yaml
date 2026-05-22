@@ -4,6 +4,8 @@ helmDefaults:
   force: false
   timeout: 600
   wait: true
+values:
+  - clusterName: publick8s
 repositories:
   # https://github.com/DataDog/helm-charts/
   - name: datadog
