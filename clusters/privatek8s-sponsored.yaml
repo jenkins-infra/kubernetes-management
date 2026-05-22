@@ -33,7 +33,7 @@ releases:
     version: 3.214.0
     values:
       - ../config/datadog.yaml.gotmpl
-      - ../config/{{ .StateValues.clusterName }}/datadog.yaml.gotmpl
+      - ../config/{{ .StateValues.clusterName }}/datadog.yaml
     secrets:
       - ../secrets/config/datadog/{{ .StateValues.clusterName }}-secrets.yaml
   - name: cert-manager
