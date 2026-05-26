@@ -1,14 +1,17 @@
 serviceAccount:
+  # Managed by Terraform to allow enabling Federated Identities
   create: false
   # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
   name: release-ci-jenkins-io-controller
 serviceAccountAgent:
+  # Managed by Terraform to allow enabling Federated Identities
   create: false
 rbac:
   create: true
   readSecrets: true
 persistence:
   enabled: true
+  # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
   existingClaim: release-ci-jenkins-io-data
 agent:
   componentName: "agent"
@@ -23,6 +26,7 @@ networkPolicy:
   internalAgents:
     allowed: true
     namespaceLabels:
+      # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       name: "release-ci-jenkins-io"
 controller:
   image:
@@ -32,6 +36,7 @@ controller:
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
+    # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     kubernetes.azure.com/agentpool: releacictrl
     kubernetes.io/arch: arm64
   tolerations:
