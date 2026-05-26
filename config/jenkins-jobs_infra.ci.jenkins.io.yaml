@@ -30,6 +30,8 @@ jobsDefinition:
         jenkinsfilePath: infra.ci.jenkins.io/Jenkinsfile
         branchIncludes: check-agent-availability
         disableTagDiscovery: true
+        disableGitHubNotifications: true
+        disablePullRequests: true
         credentials:
           <<: *kubeconfigCredentials
   cronjobs:
