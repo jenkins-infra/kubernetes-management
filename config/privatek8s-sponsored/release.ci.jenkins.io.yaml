@@ -63,8 +63,9 @@ controller:
     runAsUser: 1000
     runAsNonRoot: true
     supplementalGroups: [1000]
-    fsGroup: 1000 # Uncomment once for new volumes
-    fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
+    ## Commented out after initial installation
+    # fsGroup: 1000 # Uncomment once for new volumes
+    # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
   # TODO: uncomment once bootstrapped
   # probes:
   #   startupProbe:
