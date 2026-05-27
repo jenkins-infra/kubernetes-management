@@ -1,5 +1,26 @@
 jenkinsName: infra-ci-jenkins-io
 jenkinsFqdn: infra.ci.jenkins.io
+x-kubeconfigCredentials: &kubeconfigCredentials
+  kubeconfig-privatek8s:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for privatek8s"
+    secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
+  kubeconfig-privatek8s-sponsored:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for privatek8s"
+    secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
+  kubeconfig-publick8s:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for publick8s"
+    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
+  kubeconfig-cijioagents2:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for cijioagents2"
+    secretBytes: "${base64:${KUBECONFIG_CIJIOAGENTS2}}"
+  kubeconfig-infracijioagents1:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for infracijenkinsio-agents-1"
+    secretBytes: "${base64:${KUBECONFIG_INFRACIJIOAGENTS1}}"
 jobsDefinition:
   acceptance-tests:
     name: Jenkins Infrastructure acceptance tests
@@ -9,6 +30,10 @@ jobsDefinition:
         jenkinsfilePath: infra.ci.jenkins.io/Jenkinsfile
         branchIncludes: check-agent-availability
         disableTagDiscovery: true
+        disableGitHubNotifications: true
+        disablePullRequests: true
+        credentials:
+          <<: *kubeconfigCredentials
   # cronjobs:
   #   name: Jenkins Infrastructure Cron Jobs
   #   description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
