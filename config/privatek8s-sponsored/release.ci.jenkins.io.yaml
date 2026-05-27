@@ -197,8 +197,6 @@ controller:
         jobs:
           - script: >
               multibranchPipelineJob('infra-agents-health') {
-                description('ddu-6')
-
                 triggers {
                   periodicFolderTrigger {
                     interval('@daily')
