@@ -28,15 +28,16 @@ controller:
     runAsUser: 1000
     runAsNonRoot: true
     supplementalGroups: [1000]
-    fsGroup: 1000 # Uncomment once for new volumes
-    fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
-  # probes:
-  #   startupProbe:
-  #     initialDelaySeconds: 60
-  #   livenessProbe:
-  #     initialDelaySeconds: 60
-  #   readinessProbe:
-  #     initialDelaySeconds: 60
+    ## Commented out after initial installation
+    # fsGroup: 1000 # Uncomment once for new volumes
+    # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
+  probes:
+    startupProbe:
+      initialDelaySeconds: 60
+    livenessProbe:
+      initialDelaySeconds: 60
+    readinessProbe:
+      initialDelaySeconds: 60
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-infraci
