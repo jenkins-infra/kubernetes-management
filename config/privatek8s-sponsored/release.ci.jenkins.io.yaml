@@ -212,7 +212,7 @@ controller:
                         traits {
                           gitBranchDiscovery()
                           headWildcardFilter {
-                            includes('chore/helpdesk-5091')
+                            includes('master')
                             excludes('')
                           }
                         }
