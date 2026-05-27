@@ -1,5 +1,5 @@
 serviceAccount:
-# Managed by Terraform to allow enabling Federated Identities
+  # Managed by Terraform to allow enabling Federated Identities
   create: false
   # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
   name: infra-ci-jenkins-io-controller
@@ -41,7 +41,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-infraci
-    tag: 3.10.56-2.566
+    tag: 3.10.57-2.566
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/os: linux
