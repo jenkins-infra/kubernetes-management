@@ -105,14 +105,3 @@ releases:
       - ../config/jenkins_release.ci.jenkins.io.yaml
     secrets:
       - ../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml
-  - name: github-comment-ops
-    namespace: github-comment-ops
-    chart: github-comment-ops/github-comment-ops
-    version: 1.5.2
-    needs:
-      # Required to expose the webhooks endpoint
-      - public-nginx-ingress/public-nginx-ingress
-    values:
-      - ../config/github-comment-ops.yaml
-    secrets:
-      - ../secrets/config/github-comment-ops/secrets.yaml
