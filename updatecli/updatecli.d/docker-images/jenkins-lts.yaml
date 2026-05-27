@@ -37,7 +37,7 @@ targets:
     name: Update jenkinsciinfra/jenkins-lts docker image tag
     kind: yaml
     spec:
-      file: config/jenkins_release.ci.jenkins.io.yaml
+      file: config/privatek8s-sponsored/release.ci.jenkins.io.yaml
       key: $.controller.image.tag
     scmid: default
 

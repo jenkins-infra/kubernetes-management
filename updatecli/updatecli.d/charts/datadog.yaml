@@ -27,7 +27,7 @@ targets:
     scmid: default
     spec:
       files:
-        - clusters/privatek8s.yaml
+        - clusters/privatek8s-sponsored.yaml
         - clusters/publick8s.yaml
         - clusters/infracijioagents1.yaml
         - clusters/cijioagents2.yaml
