@@ -105,15 +105,15 @@ releases:
       - ../config/privatek8s-sponsored/release.ci.jenkins.io.yaml
     secrets:
       - ../secrets/config/release.ci.jenkins.io/jenkins-secrets.yaml
-  # - name: rss2twitter
-  #   namespace: rss2twitter
-  #   chart: jenkins-infra/rss2twitter
-  #   version: 0.1.0
-  #   values:
-  #     - ../config/rss2twitter.yaml
-  #   secrets:
-  #     # @jenkins_release Twitter dev account credentials
-  #     - ../secrets/config/rss2twitter/secrets.yaml
+  - name: rss2twitter
+    namespace: rss2twitter
+    chart: jenkins-infra/rss2twitter
+    version: 0.1.0
+    values:
+      - ../config/privatek8s-sponsored/rss2twitter.yaml
+    secrets:
+      # @jenkins_release Twitter dev account credentials
+      - ../secrets/config/rss2twitter/secrets.yaml
   - name: github-comment-ops
     namespace: github-comment-ops
     chart: github-comment-ops/github-comment-ops
