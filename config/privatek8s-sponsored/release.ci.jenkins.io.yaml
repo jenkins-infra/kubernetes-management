@@ -193,8 +193,76 @@ controller:
                     value: "true"
                   - key: "azure.workload.identity/use"
                     value: "true"
-      # jobs-settings: |
-      #   jobs:
+      jobs-settings: |
+        jobs:
+          - script: >
+              multibranchPipelineJob('infra-agents-health') {
+                triggers {
+                  periodicFolderTrigger {
+                    interval('@daily')
+                  }
+                }
+
+                branchSources {
+                  branchSource {
+                    source {
+                      github {
+                        id('infra-agents-health')
+                        configuredByUrl(true)
+                        repositoryUrl('https://github.com/jenkins-infra/release')
+                        repoOwner('jenkins-infra')
+                        repository('release')
+                        traits {
+                          gitHubSCMSourceStatusChecksTrait {
+                            // Note: changing this name might have impact on github branch protections if they specify status names
+                            name('jenkins')
+                            skip(true)
+                            skipProgressUpdates(true)
+                            // If this option is checked, the notifications sent by the GitHub Branch Source Plugin will be disabled.
+                            skipNotifications(true)
+                            // Default value: false. Warning: risk of secret leak in console if the build fails
+                            // Please note that it only disable the detailed logs. If you really want no logs, then use "skip(false)' instead
+                            suppressLogs(true)
+                            unstableBuildNeutral(false)
+                          }
+                          gitHubBranchDiscovery {
+                            strategyId(1) // 1-only branches that are not pull requests
+                          }
+                          pruneStaleBranchTrait()
+                          // Select branches and tags to build based on these filters
+                          headWildcardFilterWithPR {
+                            includes('chore/helpdesk-5091') // only branches listed here
+                            excludes('')
+                            tagIncludes('*')
+                            tagExcludes('')
+                          }
+                        }
+                      }
+                      buildStrategies {
+                        buildAnyBranches {
+                          strategies {
+                            skipInitialBuildOnFirstBranchIndexing()
+                            buildRegularBranches()
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                factory {
+                  workflowBranchProjectFactory {
+                    scriptPath('Jenkinsfile.d/infra-agents-health')
+                  }
+                }
+                orphanedItemStrategy {
+                  defaultOrphanedItemStrategy {
+                    pruneDeadBranches(true)
+                    daysToKeepStr("")
+                    numToKeepStr("")
+                    abortBuilds(true)
+                  }
+                }
+              }
       #     - script: >
       #         folder('core') {
       #           displayName('Core')
