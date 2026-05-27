@@ -28,15 +28,16 @@ controller:
     runAsUser: 1000
     runAsNonRoot: true
     supplementalGroups: [1000]
-    fsGroup: 1000 # Uncomment once for new volumes
-    fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
-  # probes:
-  #   startupProbe:
-  #     initialDelaySeconds: 60
-  #   livenessProbe:
-  #     initialDelaySeconds: 60
-  #   readinessProbe:
-  #     initialDelaySeconds: 60
+    ## Commented out after initial installation
+    # fsGroup: 1000 # Uncomment once for new volumes
+    # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
+  probes:
+    startupProbe:
+      initialDelaySeconds: 60
+    livenessProbe:
+      initialDelaySeconds: 60
+    readinessProbe:
+      initialDelaySeconds: 60
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-infraci
@@ -116,10 +117,6 @@ controller:
       agent-settings: |
         jenkins:
           numExecutors: 0
-          updateCenter:
-            sites:
-              - id: "default"
-                url: "https://azure.updates.jenkins.io/update-center.json"
           clouds:
             - kubernetes:
                 containerCapStr: "100"
@@ -132,6 +129,8 @@ controller:
                 name: "kubernetes_infracijioagents1"
                 namespace: "jenkins-infra-agents"
                 podLabels:
+                  - key: "jenkins/infra-ci-jenkins-io-agent"
+                    value: "true"
                   - key: "jenkins"
                     value: "agent"
                   - key: "azure.workload.identity/use"
@@ -705,38 +704,6 @@ controller:
             shell: "/bin/bash"
       system-settings: |
         unclassified:
-          gitHubConfiguration:
-            apiRateLimitChecker: NoThrottle
-          lockableResourcesManager:
-            declaredResources:
-            - description: "first entry for packer image builder dev"
-              labels: "dev-packerimage"
-              name: "dev-1"
-              reservedBy: "PackerImages"
-            - description: "second entry for packer image builder dev"
-              labels: "dev-packerimage"
-              name: "dev-2"
-              reservedBy: "PackerImages"
-            - description: "third entry for packer image builder dev"
-              labels: "dev-packerimage"
-              name: "dev-3"
-              reservedBy: "PackerImages"
-            - description: "fourth entry for packer image builder dev"
-              labels: "dev-packerimage"
-              name: "dev-4"
-              reservedBy: "PackerImages"
-            - description: "fifh entry for packer image builder dev"
-              labels: "dev-packerimage"
-              name: "dev-5"
-              reservedBy: "PackerImages"
-            - description: "first entry for packer image builder staging"
-              labels: "staging-packerimage"
-              name: "staging-1"
-              reservedBy: "PackerImages"
-            - description: "first entry for packer image builder prod"
-              labels: "prod-packerimage"
-              name: "prod-1"
-              reservedBy: "PackerImages"
           defaultFolderConfiguration:
             # Keep healthMetrics an empty list to ensure weather is disabled
             healthMetrics: []
