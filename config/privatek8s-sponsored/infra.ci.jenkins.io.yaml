@@ -1,8 +1,10 @@
 serviceAccount:
+# Managed by Terraform to allow enabling Federated Identities
   create: false
   # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
   name: infra-ci-jenkins-io-controller
 serviceAccountAgent:
+  # Managed by Terraform to allow enabling Federated Identities
   create: false
 rbac:
   create: true
@@ -26,15 +28,15 @@ controller:
     runAsUser: 1000
     runAsNonRoot: true
     supplementalGroups: [1000]
-    # fsGroup: 1000 # Uncomment once for new volumes
-    # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
-  probes:
-    startupProbe:
-      initialDelaySeconds: 60
-    livenessProbe:
-      initialDelaySeconds: 60
-    readinessProbe:
-      initialDelaySeconds: 60
+    fsGroup: 1000 # Uncomment once for new volumes
+    fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
+  # probes:
+  #   startupProbe:
+  #     initialDelaySeconds: 60
+  #   livenessProbe:
+  #     initialDelaySeconds: 60
+  #   readinessProbe:
+  #     initialDelaySeconds: 60
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-infraci
