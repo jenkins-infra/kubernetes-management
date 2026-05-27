@@ -114,14 +114,3 @@ releases:
     secrets:
       # @jenkins_release Twitter dev account credentials
       - ../secrets/config/rss2twitter/secrets.yaml
-  - name: github-comment-ops
-    namespace: github-comment-ops
-    chart: github-comment-ops/github-comment-ops
-    version: 1.5.2
-    needs:
-      # Required to expose the webhooks endpoint
-      - public-nginx-ingress/public-nginx-ingress
-    values:
-      - ../config/github-comment-ops.yaml
-    secrets:
-      - ../secrets/config/github-comment-ops/secrets.yaml
