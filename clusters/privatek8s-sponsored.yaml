@@ -122,6 +122,6 @@ releases:
       # Required to expose the webhooks endpoint
       - public-nginx-ingress/public-nginx-ingress
     values:
-      - ../config/github-comment-ops.yaml
+      - ../config/privatek8s-sponsored/github-comment-ops.yaml
     secrets:
       - ../secrets/config/github-comment-ops/secrets.yaml
