@@ -73,7 +73,7 @@ targets:
     name: Bump Azure Gallery Image Version
     kind: file
     spec:
-      file: config/jenkins_infra.ci.jenkins.io.yaml
+      file: config/privatek8s-sponsored/infra.ci.jenkins.io.yaml
       matchpattern: 'galleryImageVersion: ".*"'
       replacepattern: 'galleryImageVersion: "{{ source `packerImageVersion` }}"'
     scmid: default
@@ -82,7 +82,7 @@ targets:
     name: Bump docker images version
     kind: file
     spec:
-      file: config/jenkins_infra.ci.jenkins.io.yaml
+      file: config/privatek8s-sponsored/infra.ci.jenkins.io.yaml
       matchpattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:.*'
       replacepattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:{{ source `packerImageVersion` }}'
     scmid: default

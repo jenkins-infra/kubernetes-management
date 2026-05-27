@@ -1,13 +1,9 @@
 jenkinsName: infra-ci-jenkins-io
 jenkinsFqdn: infra.ci.jenkins.io
 x-kubeconfigCredentials: &kubeconfigCredentials
-  kubeconfig-privatek8s:
-    fileName: "kubeconfig"
-    description: "Kubeconfig file for privatek8s"
-    secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S}}"
   kubeconfig-privatek8s-sponsored:
     fileName: "kubeconfig"
-    description: "Kubeconfig file for privatek8s"
+    description: "Kubeconfig file for privatek8s-sponsored"
     secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
   kubeconfig-publick8s:
     fileName: "kubeconfig"

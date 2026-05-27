@@ -38,7 +38,7 @@ targets:
     name: Update jenkinsciinfra/jenkins-weekly docker image tag on infra.ci.jenkins.io
     kind: yaml
     spec:
-      file: config/jenkins_infra.ci.jenkins.io.yaml
+      file: config/privatek8s-sponsored/infra.ci.jenkins.io.yaml
       key: $.controller.image.tag
     scmid: default
 
