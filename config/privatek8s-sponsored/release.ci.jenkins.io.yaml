@@ -197,12 +197,6 @@ controller:
         jobs:
           - script: >
               multibranchPipelineJob('infra-agents-health') {
-                triggers {
-                  periodicFolderTrigger {
-                    interval('@daily')
-                  }
-                }
-
                 branchSources {
                   branchSource {
                     source {
