@@ -487,6 +487,7 @@ datadog:
       init_config:
 
       instances:
+        ## infra.ci.jenkins.io jobs
         - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-404/main/status.json
           controller: infra.ci.jenkins.io
           threshold_in_minutes: 1440
@@ -520,15 +521,17 @@ datadog:
           controller: infra.ci.jenkins.io
           threshold_in_minutes: 1440
           min_collection_interval: 60
+        ## release.ci.jenkins.io jobs
+        - url: https://builds.reports.jenkins.io/build_status_reports/release.ci.jenkins.io/infra-agents-health/master/status.json
+          controller: release.ci.jenkins.io
+          threshold_in_minutes: 1440
+          min_collection_interval: 60
+        ## trusted.ci.jenkins.io jobs
         - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/update_center/status.json
           controller: trusted.ci.jenkins.io
           threshold_in_minutes: 10
           min_collection_interval: 60
         - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/acceptance-tests-check-agent-availability/status.json
           controller: trusted.ci.jenkins.io
-          threshold_in_minutes: 1440
-          min_collection_interval: 60
-        - url: https://builds.reports.jenkins.io/build_status_reports/release.ci.jenkins.io/infra-agents-health/status.json
-          controller: release.ci.jenkins.io
           threshold_in_minutes: 1440
           min_collection_interval: 60
