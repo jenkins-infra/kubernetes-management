@@ -527,11 +527,31 @@ datadog:
           threshold_in_minutes: 1440
           min_collection_interval: 60
         ## trusted.ci.jenkins.io jobs
-        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/update_center/status.json
-          controller: trusted.ci.jenkins.io
-          threshold_in_minutes: 10
-          min_collection_interval: 60
         - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/acceptance-tests-check-agent-availability/status.json
           controller: trusted.ci.jenkins.io
           threshold_in_minutes: 1440
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/core-taglibs-report-generator/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 10080  # 1 week (1 build)
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/crawler/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 240  # 4 hours (1 build)
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/javadoc/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 10080  # 1 week (1 build)
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/jenkins.io/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 60  # (2 builds)
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/repository-permissions-updater/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 360  # (2 builds)
+          min_collection_interval: 60
+        - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/update_center/status.json
+          controller: trusted.ci.jenkins.io
+          threshold_in_minutes: 20  # (2 builds)
           min_collection_interval: 60
