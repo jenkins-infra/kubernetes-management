@@ -1,5 +1,5 @@
 image:
-  tag: 2.105.0
+  tag: 2.106.0
 
 nodeSelector:
   kubernetes.io/arch: arm64
