@@ -1,0 +1,14 @@
+datadog:
+  checksd:
+    packageCanBeDownloaded.py: |-
+{{ readFile "./datadog_confd_checksd/packageCanBeDownloaded.py" | indent 6 }}
+    buildReportStalenessCheck.py: |-
+{{ readFile "./datadog_confd_checksd/buildReportStalenessCheck.py" | indent 6 }}
+
+  confd:
+    packageCanBeDownloaded.yaml: |-
+{{ readFile "./datadog_confd_checksd/packageCanBeDownloaded.yaml" | indent 6 }}
+    http_check.yaml: |-
+{{ readFile "./datadog_confd_checksd/http_check.yaml" | indent 6 }}
+    buildReportStalenessCheck.yaml: |-
+{{ readFile "./datadog_confd_checksd/buildReportStalenessCheck.yaml" | indent 6 }}

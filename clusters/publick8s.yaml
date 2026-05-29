@@ -36,7 +36,7 @@ releases:
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/publick8s/datadog.yaml
-      - ../config/publick8s/datadog_confd_checksd.yaml
+      - ../config/publick8s/datadog_confd_checksd.yaml.gotmpl
     secrets:
       - ../secrets/config/datadog/publick8s-secrets.yaml
   - name: cert-manager
