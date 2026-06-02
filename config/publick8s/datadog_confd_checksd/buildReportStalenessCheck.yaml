@@ -3,14 +3,10 @@ init_config:
 instances:
   ## infra.ci.jenkins.io jobs
   - controller: infra.ci.jenkins.io
-    job: docker-jobs/docker-404/main
-    threshold_minutes: 1440
-    # TODO: restore 5 mins after jenkins-infra/helpdesk#2843
-    min_collection_interval: 60
-  - controller: infra.ci.jenkins.io
     job: acceptance-tests/acceptance-tests/check-agent-availability
     threshold_minutes: 1440
     min_collection_interval: 60
+  # TODO: restore 5 mins after jenkins-infra/helpdesk#2843
   - controller: infra.ci.jenkins.io
     job: kubernetes-jobs/kubernetes-management/main
     threshold_minutes: 1440
