@@ -39,9 +39,11 @@ class BuildReportStaleness(AgentCheck):
         """
             Datadog custom check
         """
-        url = instance['url']
-        controller = instance.get('controller', 'unknown')
-        threshold_in_minutes = instance['threshold_in_minutes']
+        controller = instance['controller']
+        job = instance['job']
+        threshold_in_minutes = instance['threshold_minutes']
+        url = f"https://builds.reports.jenkins.io/build_status_reports/{controller}/{job}/status.json"
+
         base_tags = [f"controller:{controller}"]
 
         self.warning(f"BuildReportStaleness: {controller}")
