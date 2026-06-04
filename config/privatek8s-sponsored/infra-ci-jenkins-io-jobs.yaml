@@ -315,6 +315,12 @@ jobsDefinition:
           staging-terraform-aws-sponsorship-secret-key:
             secret: "${STAGING_TERRAFORM_AWSSPONSORED_SECRET_ACCESS_KEY}"
             description: "AWS secret key for the staging terraform account for jenkins-infra/terraform-aws-sponsorship"
+          staging-terraform-aws-sponsorship-backend-config-arm-secret:
+            secret: "${STAGING_TERRAFORM_AWSSPONSORED_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the staging environment of jenkins-infra/terraform-aws-sponsorship"
+          production-terraform-aws-sponsorship-backend-config-arm-secret:
+            secret: "${PRODUCTION_TERRAFORM_AWSSPONSORED_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the production environment of jenkins-infra/terraform-aws-sponsorship"
           staging-terraform-aws-sponsorship-backend-config:
             fileName: backend-config
             description: "Terraform backend configuration for the staging environment of jenkins-infra/terraform-aws-sponsorship"
@@ -339,6 +345,12 @@ jobsDefinition:
             description: "Azure Service Principal credential used by terraform for azure production"
             subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_SUBSCRIPTION_ID}"
             tenant: "${PRODUCTION_TERRAFORM_AZURE_TENANT_ID}"
+          staging-terraform-azure-backend-config-arm-secret:
+            secret: "${STAGING_TERRAFORM_AZURE_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the staging environment of jenkins-infra/azure"
+          production-terraform-azure-backend-config-arm-secret:
+            secret: "${PRODUCTION_TERRAFORM_AZURE_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the production environment of jenkins-infra/azure"
           production-terraform-azure-backend-config:
             fileName: "backend-config"
             description: "Terraform backend configuration for the production environment of jenkins-infra/azure"
@@ -365,6 +377,12 @@ jobsDefinition:
             description: "Azure Service Principal credential used by terraform for azure-net production"
             subscriptionId: "${PRODUCTION_TERRAFORM_AZURE_NET_SUBSCRIPTION_ID}"
             tenant: "${PRODUCTION_TERRAFORM_AZURE_NET_TENANT_ID}"
+          staging-terraform-azure-net-backend-config-arm-secret:
+            secret: "${STAGING_TERRAFORM_AZURE_NET_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the staging environment of jenkins-infra/azure-net"
+          production-terraform-azure-net-backend-config-arm-secret:
+            secret: "${PRODUCTION_TERRAFORM_AZURE_NET_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the production environment of jenkins-infra/azure-net"
           production-terraform-azure-net-backend-config:
             fileName: "backend-config"
             description: "Terraform backend configuration for the production environment of jenkins-infra/azure-net"
@@ -390,6 +408,12 @@ jobsDefinition:
           production-cloudflare-api-token:
             secret: "${PRODUCTION_CLOUDFLARE_API_TOKEN}"
             description: Production CloudFlare API token for infra.ci
+          staging-terraform-cloudflare-backend-config-arm-secret:
+            secret: "${STAGING_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the staging environment of jenkins-infra/cloudflare"
+          production-terraform-cloudflare-backend-config-arm-secret:
+            secret: "${PRODUCTION_TERRAFORM_CLOUDFLARE_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the production environment of jenkins-infra/cloudflare"
           production-terraform-cloudflare-backend-config:
             fileName: "backend-config"
             description: "Terraform backend configuration for the production environment of jenkins-infra/cloudflare"
@@ -420,6 +444,12 @@ jobsDefinition:
           datadog-jenkinsuser-password:
             secret: "${DATADOG_JENKINSUSER_PASSWORD}"
             description: datadog_monitoring Jenkins technical user password
+          staging-terraform-datadog-backend-config-arm-secret:
+            secret: "${STAGING_TERRAFORM_DATADOG_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the staging environment of jenkins-infra/datadog"
+          production-terraform-datadog-backend-config-arm-secret:
+            secret: "${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the production environment of jenkins-infra/datadog"
           production-terraform-datadog-backend-config:
             fileName: "backend-config"
             secretBytes: "${base64:${PRODUCTION_TERRAFORM_DATADOG_BACKEND_CONFIG}}"
@@ -433,6 +463,12 @@ jobsDefinition:
           staging-terraform-digitalocean-pat:
             secret: "${STAGING_TERRAFORM_DIGITALOCEAN_PAT}"
             description: "Digital Ocean PAT for the staging environment of jenkins-infra/digitalocean"
+          staging-terraform-digitalocean-backend-config-arm-secret:
+            secret: "${STAGING_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the staging environment of jenkins-infra/digitalocean"
+          production-terraform-digitalocean-backend-config-arm-secret:
+            secret: "${PRODUCTION_TERRAFORM_DIGITALOCEAN_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the production environment of jenkins-infra/digitalocean"
           staging-terraform-digitalocean-backend-config:
             fileName: "backend-config"
             description: "Terraform backend configuration for the staging environment of jenkins-infra/digitalocean"
@@ -450,6 +486,12 @@ jobsDefinition:
           staging-terraform-fastly-api-key:
             secret: "${STAGING_TERRAFORM_FASTLY_API_KEY}"
             description: Fastly API key for staging (read-only)
+          staging-terraform-fastly-backend-config-arm-secret:
+            secret: "${STAGING_TERRAFORM_FASTLY_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the staging environment of jenkins-infra/fastly"
+          production-terraform-fastly-backend-config-arm-secret:
+            secret: "${PRODUCTION_TERRAFORM_FASTLY_BACKEND_CONFIG_ARM_SECRET}"
+            description: "Terraform Azure RM backend Service Principal secret for the production environment of jenkins-infra/fastly"
           staging-terraform-fastly-backend-config:
             fileName: "backend-config"
             description: "Terraform backend configuration for the staging environment of jenkins-infra/fastly"
