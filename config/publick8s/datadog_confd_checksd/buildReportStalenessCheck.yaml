@@ -71,5 +71,5 @@ instances:
     min_collection_interval: 60
   - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/website-production-jobs/docs.jenkins.io/main/status.json
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 10
+    threshold_in_minutes: 1440
     min_collection_interval: 60
