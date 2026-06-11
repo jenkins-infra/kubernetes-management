@@ -73,7 +73,7 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 9.0.0
+    version: 9.1.0
     values:
       - ../config/publick8s/falco.yaml
   - name: weekly-ci-jenkins-io
