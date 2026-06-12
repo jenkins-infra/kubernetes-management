@@ -32,7 +32,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.221.0
+    version: 3.223.0
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/publick8s/datadog.yaml
@@ -73,13 +73,13 @@ releases:
   - name: falco
     namespace: falco
     chart: falco/falco
-    version: 9.0.0
+    version: 9.1.0
     values:
       - ../config/publick8s/falco.yaml
   - name: weekly-ci-jenkins-io
     namespace: weekly-ci-jenkins-io
     chart: jenkins/jenkins
-    version: 5.9.22
+    version: 5.9.25
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -128,7 +128,7 @@ releases:
   - name: incrementals-jenkins-io
     namespace: incrementals-jenkins-io
     chart: jenkins-infra/incrementals-publisher
-    version: 0.8.4
+    version: 0.8.5
     values:
       - ../config/publick8s/incrementals-jenkins-io.yaml
     secrets:
@@ -144,7 +144,7 @@ releases:
   - name: uplink-jenkins-io
     namespace: uplink-jenkins-io
     chart: jenkins-infra/uplink
-    version: 1.2.2
+    version: 1.2.4
     values:
       - ../config/publick8s/uplink-jenkins-io.yaml
     secrets:
