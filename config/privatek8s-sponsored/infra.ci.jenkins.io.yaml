@@ -156,7 +156,8 @@ controller:
                             value: "-XX:+PrintCommandLineFlags"
                         - envVar:
                             key: "PATH"
-                            value: "~/.asdf/shims:~/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+                            # TODO: track with updatecli
+                            value: "/opt/nodejs/bin:/home/jenkins/.asdf/shims:/home/jenkins/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/local/go/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
                         resourceLimitMemory: "8G"
                         resourceRequestCpu: "500m"
                         resourceRequestMemory: "1G"
