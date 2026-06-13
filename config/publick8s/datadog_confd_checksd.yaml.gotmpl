@@ -11,4 +11,12 @@ datadog:
     http_check.yaml: |-
 {{ readFile "./datadog_confd_checksd/http_check.yaml" | indent 6 }}
     buildReportStalenessCheck.yaml: |-
-{{ readFile "./datadog_confd_checksd/buildReportStalenessCheck.yaml" | indent 6 }}
+      init_config:
+
+      instances:
+{{- $cfg := readFile "./datadog_confd_checksd/buildReportStalenessCheck.yaml" | fromYaml }}
+{{- range $name, $job := $cfg.build_report_jobs }}
+        - controller: {{ $job.controller }}
+          job: {{ $job.job }}
+          threshold_minutes: {{ $job.threshold_minutes }}
+{{- end }}

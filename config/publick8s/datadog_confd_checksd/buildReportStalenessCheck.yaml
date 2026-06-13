@@ -1,75 +1,68 @@
-init_config:
-
-instances:
+build_report_jobs:
   ## infra.ci.jenkins.io jobs
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/docker-jobs/docker-404/main/status.json
+  acceptance-tests-infra-ci:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    # TODO: restore 5 mins after jenkins-infra/helpdesk#2843
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/acceptance-tests/acceptance-tests/check-agent-availability/status.json
+    job: acceptance-tests/acceptance-tests/check-agent-availability
+    threshold_minutes: 1440
+  kubernetes-management:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/kubernetes-jobs/kubernetes-management/main/status.json
+    job: kubernetes-jobs/kubernetes-management/main
+    threshold_minutes: 1440
+  terraform-azure:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/azure/main/status.json
+    job: terraform-jobs/azure/main
+    threshold_minutes: 1440
+  terraform-azure-net:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/azure-net/main/status.json
+    job: terraform-jobs/azure-net/main
+    threshold_minutes: 1440
+  terraform-datadog:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/datadog/main/status.json
+    job: terraform-jobs/datadog/main
+    threshold_minutes: 1440
+  terraform-digitalocean:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/digitalocean/main/status.json
+    job: terraform-jobs/digitalocean/main
+    threshold_minutes: 1440
+  terraform-aws-sponsorship:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/terraform-jobs/terraform-aws-sponsorship/main/status.json
+    job: terraform-jobs/terraform-aws-sponsorship/main
+    threshold_minutes: 1440
+  docs-jenkins-io:
     controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
+    job: website-production-jobs/docs.jenkins.io/main
+    threshold_minutes: 1440
   ## release.ci.jenkins.io jobs
-  - url: https://builds.reports.jenkins.io/build_status_reports/release.ci.jenkins.io/infra-agents-health/master/status.json
+  acceptance-tests-release-ci:
     controller: release.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
+    job: infra-agents-health/master
+    threshold_minutes: 1440  # 1 day (1 build)
   ## trusted.ci.jenkins.io jobs
-  - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/acceptance-tests-check-agent-availability/status.json
+  acceptance-tests-trusted-ci:
     controller: trusted.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/core-taglibs-report-generator/status.json
+    job: acceptance-tests-check-agent-availability
+    threshold_minutes: 1440
+  core-taglibs-report-generator:
     controller: trusted.ci.jenkins.io
-    threshold_in_minutes: 10080  # 1 week (1 build)
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/crawler/status.json
+    job: core-taglibs-report-generator
+    threshold_minutes: 10080  # 1 week (1 build)
+  crawler:
     controller: trusted.ci.jenkins.io
-    threshold_in_minutes: 240  # 4 hours (1 build)
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/javadoc/status.json
+    job: crawler
+    threshold_minutes: 240  # 4 hours (1 build)
+  javadoc:
     controller: trusted.ci.jenkins.io
-    threshold_in_minutes: 10080  # 1 week (1 build)
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/jenkins.io/status.json
+    job: javadoc
+    threshold_minutes: 10080  # 1 week (1 build)
+  jenkins-io:
     controller: trusted.ci.jenkins.io
-    threshold_in_minutes: 60  # (2 builds)
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/repository-permissions-updater/status.json
+    job: jenkins.io
+    threshold_minutes: 60  # (2 builds)
+  repository-permissions-updater:
     controller: trusted.ci.jenkins.io
-    threshold_in_minutes: 360  # (2 builds)
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/trusted.ci.jenkins.io/update_center/status.json
+    job: repository-permissions-updater
+    threshold_minutes: 360  # (2 builds)
+  update-center:
     controller: trusted.ci.jenkins.io
-    threshold_in_minutes: 20  # (2 builds)
-    min_collection_interval: 60
-  - url: https://builds.reports.jenkins.io/build_status_reports/infra.ci.jenkins.io/website-production-jobs/docs.jenkins.io/main/status.json
-    controller: infra.ci.jenkins.io
-    threshold_in_minutes: 1440
-    min_collection_interval: 60
+    job: update_center
+    threshold_minutes: 20  # (2 builds)
