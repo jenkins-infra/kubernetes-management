@@ -8,6 +8,7 @@ from urllib.error import URLError, HTTPError
 
 from datadog_checks.base.checks import AgentCheck
 
+BUILD_REPORTS_BASE = 'https://builds.reports.jenkins.io/build_status_reports'
 
 class BuildReportStaleness(AgentCheck):
     """
@@ -39,9 +40,10 @@ class BuildReportStaleness(AgentCheck):
         """
             Datadog custom check
         """
-        url = instance['url']
-        controller = instance.get('controller', 'unknown')
-        threshold_in_minutes = instance['threshold_in_minutes']
+        controller = instance['controller']
+        job = instance['job']
+        url = f"{BUILD_REPORTS_BASE}/{controller}/{job}/status.json"
+        threshold_in_minutes = instance['threshold_minutes']
         base_tags = [f"controller:{controller}"]
 
         self.warning(f"BuildReportStaleness: {controller}")
