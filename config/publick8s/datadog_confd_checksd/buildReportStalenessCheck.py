@@ -43,7 +43,7 @@ class BuildReportStaleness(AgentCheck):
         controller = instance['controller']
         job = instance['job']
         url = f"{BUILD_REPORTS_BASE}/{controller}/{job}/status.json"
-        threshold_in_minutes = instance['threshold_in_minutes']
+        threshold_minutes = instance['threshold_minutes']
         base_tags = [f"controller:{controller}"]
 
         self.warning(f"BuildReportStaleness: {controller}")
@@ -73,7 +73,7 @@ class BuildReportStaleness(AgentCheck):
         try:
             ts = datetime.fromtimestamp(int(data['report_timestamp']), tz=timezone.utc)
             age_in_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
-            threshold_in_hours = threshold_in_minutes / 60
+            threshold_in_hours = threshold_minutes / 60
             stale = age_in_hours > threshold_in_hours
             staleness_tags = tags + [f"threshold_in_hours:{int(threshold_in_hours)}"]
             self.gauge('jenkins.build_report.age_in_hours', round(age_in_hours, 2), tags=staleness_tags)
