@@ -95,21 +95,6 @@ controller:
                     scope: GLOBAL
                 - string:
                     scope: GLOBAL
-                    id: "azure-vault-client-id"
-                    secret: "${AZURE_VAULT_CLIENT_ID}"
-                    description: Azure Service Principal client id used to retrieve gpg key
-                - string:
-                    scope: GLOBAL
-                    id: "azure-vault-client-secret"
-                    secret: "${AZURE_VAULT_CLIENT_SECRET}"
-                    description: Azure Service Principal client secret used to retrieve gpg key
-                - string:
-                    scope: GLOBAL
-                    id: "azure-vault-tenant-id"
-                    secret: "${AZURE_VAULT_TENANT_ID}"
-                    description: Azure Service Principal tenant id used to retrieve gpg key
-                - string:
-                    scope: GLOBAL
                     id: "fastly-api-token"
                     secret: "${FASTLY_API_TOKEN}"
                     description: Fastly api token used to purge pkg.jenkins.io cache
