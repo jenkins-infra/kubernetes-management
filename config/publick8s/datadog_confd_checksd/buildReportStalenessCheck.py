@@ -8,6 +8,7 @@ from urllib.error import URLError, HTTPError
 
 from datadog_checks.base.checks import AgentCheck
 
+BUILD_REPORTS_BASE = 'https://builds.reports.jenkins.io/build_status_reports'
 
 class BuildReportStaleness(AgentCheck):
     """
@@ -39,9 +40,10 @@ class BuildReportStaleness(AgentCheck):
         """
             Datadog custom check
         """
-        url = instance['url']
-        controller = instance.get('controller', 'unknown')
-        threshold_in_minutes = instance['threshold_in_minutes']
+        controller = instance['controller']
+        job = instance['job']
+        url = f"{BUILD_REPORTS_BASE}/{controller}/{job}/status.json"
+        threshold_minutes = instance['threshold_minutes']
         base_tags = [f"controller:{controller}"]
 
         self.warning(f"BuildReportStaleness: {controller}")
@@ -71,7 +73,7 @@ class BuildReportStaleness(AgentCheck):
         try:
             ts = datetime.fromtimestamp(int(data['report_timestamp']), tz=timezone.utc)
             age_in_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
-            threshold_in_hours = threshold_in_minutes / 60
+            threshold_in_hours = threshold_minutes / 60
             stale = age_in_hours > threshold_in_hours
             staleness_tags = tags + [f"threshold_in_hours:{int(threshold_in_hours)}"]
             self.gauge('jenkins.build_report.age_in_hours', round(age_in_hours, 2), tags=staleness_tags)
