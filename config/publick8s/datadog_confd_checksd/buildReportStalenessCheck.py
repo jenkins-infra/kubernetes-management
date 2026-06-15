@@ -43,7 +43,7 @@ class BuildReportStaleness(AgentCheck):
         controller = instance['controller']
         job = instance['job']
         url = f"{BUILD_REPORTS_BASE}/{controller}/{job}/status.json"
-        threshold_in_minutes = instance['threshold_minutes']
+        threshold_in_minutes = instance['threshold_in_minutes']
         base_tags = [f"controller:{controller}"]
 
         self.warning(f"BuildReportStaleness: {controller}")
