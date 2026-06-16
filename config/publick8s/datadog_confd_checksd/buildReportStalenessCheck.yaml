@@ -1,4 +1,5 @@
 instances:
+  ## Build report jobs to monitor for staleness
   ## infra.ci.jenkins.io jobs
   - controller: infra.ci.jenkins.io
     job: acceptance-tests/acceptance-tests/check-agent-availability
