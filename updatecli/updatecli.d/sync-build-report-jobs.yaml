@@ -1,0 +1,39 @@
+---
+name: Sync build report jobs from kubernetes-management
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: datadog
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  buildReportJobs:
+    name: Read the build report jobs file from kubernetes-management
+    kind: file
+    spec:
+      file: https://raw.githubusercontent.com/jenkins-infra/kubernetes-management/main/config/publick8s/datadog_confd_checksd/buildReportStalenessCheck.yaml
+
+targets:
+  syncBuildReportJobs:
+    name: Sync build report jobs into build-report-jobs.yaml
+    kind: file
+    sourceid: buildReportJobs
+    scmid: default
+    spec:
+      file: build-report-jobs.yaml
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Sync build report jobs from kubernetes-management
+    spec:
+      labels:
+        - datadog
