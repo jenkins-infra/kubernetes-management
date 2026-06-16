@@ -1,3 +1,5 @@
+## Build report jobs to monitor for staleness
+# Automatically sync from jenkins-infra/kubernetes-management to jenkins-infra/datadog via https://github.com/jenkins-infra/kubernetes-management/blob/main/updatecli/updatecli.d/sync-build-report-jobs.yaml
 instances:
   ## infra.ci.jenkins.io jobs
   - controller: infra.ci.jenkins.io
@@ -23,6 +25,24 @@ instances:
     threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/docs.jenkins.io/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/contributor-spotlight/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/gatsby-plugin-jenkins-layout/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/jenkins-io-components/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/plugin-site/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/stats.jenkins.io/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/stories/main
     threshold_in_minutes: 1440
   ## release.ci.jenkins.io jobs
   - controller: release.ci.jenkins.io
