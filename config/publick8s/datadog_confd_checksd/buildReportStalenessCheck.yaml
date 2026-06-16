@@ -1,4 +1,5 @@
 ## Build report jobs to monitor for staleness
+# Automatically sync from jenkins-infra/kubernetes-management to jenkins-infra/datadog via https://github.com/jenkins-infra/kubernetes-management/blob/main/updatecli/updatecli.d/sync-build-report-jobs.yaml
 instances:
   ## infra.ci.jenkins.io jobs
   - controller: infra.ci.jenkins.io
