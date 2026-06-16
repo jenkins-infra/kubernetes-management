@@ -2,51 +2,51 @@ instances:
   ## infra.ci.jenkins.io jobs
   - controller: infra.ci.jenkins.io
     job: acceptance-tests/acceptance-tests/check-agent-availability
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: kubernetes-jobs/kubernetes-management/main
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: terraform-jobs/azure/main
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: terraform-jobs/azure-net/main
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: terraform-jobs/datadog/main
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: terraform-jobs/digitalocean/main
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: terraform-jobs/terraform-aws-sponsorship/main
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/docs.jenkins.io/main
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   ## release.ci.jenkins.io jobs
   - controller: release.ci.jenkins.io
     job: infra-agents-health/master
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   ## trusted.ci.jenkins.io jobs
   - controller: trusted.ci.jenkins.io
     job: acceptance-tests-check-agent-availability
-    threshold_minutes: 1440
+    threshold_in_minutes: 1440
   - controller: trusted.ci.jenkins.io
     job: core-taglibs-report-generator
-    threshold_minutes: 10080  # 1 week (1 build)
+    threshold_in_minutes: 10080  # 1 week (1 build)
   - controller: trusted.ci.jenkins.io
     job: crawler
-    threshold_minutes: 240  # 4 hours (1 build)
+    threshold_in_minutes: 240  # 4 hours (1 build)
   - controller: trusted.ci.jenkins.io
     job: javadoc
-    threshold_minutes: 10080  # 1 week (1 build)
+    threshold_in_minutes: 10080  # 1 week (1 build)
   - controller: trusted.ci.jenkins.io
     job: jenkins.io
-    threshold_minutes: 60  # (2 builds)
+    threshold_in_minutes: 60  # (2 builds)
   - controller: trusted.ci.jenkins.io
     job: repository-permissions-updater
-    threshold_minutes: 360  # (2 builds)
+    threshold_in_minutes: 360  # (2 builds)
   - controller: trusted.ci.jenkins.io
     job: update_center
-    threshold_minutes: 20  # (2 builds)
+    threshold_in_minutes: 20  # (2 builds)
