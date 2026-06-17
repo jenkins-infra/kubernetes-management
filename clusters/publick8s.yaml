@@ -128,7 +128,7 @@ releases:
   - name: incrementals-jenkins-io
     namespace: incrementals-jenkins-io
     chart: jenkins-infra/incrementals-publisher
-    version: 0.8.5
+    version: 0.8.6
     values:
       - ../config/publick8s/incrementals-jenkins-io.yaml
     secrets:
