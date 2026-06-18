@@ -44,6 +44,40 @@ instances:
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/stories/main
     threshold_in_minutes: 1440
+  ## infra.ci.jenkins.io reports jobs
+  - controller: infra.ci.jenkins.io
+    job: reports/artifactory-users-report/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/fork-report/main
+    threshold_in_minutes: 2880  # @daily
+  - controller: infra.ci.jenkins.io
+    job: reports/jenkins-infra-data/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/jira-users-report/main
+    threshold_in_minutes: 360  # every 2h
+  - controller: infra.ci.jenkins.io
+    job: reports/maintainers-info-report/main
+    threshold_in_minutes: 2880  # @daily
+  - controller: infra.ci.jenkins.io
+    job: reports/permissions-report/main
+    threshold_in_minutes: 2880  # @daily
+  - controller: infra.ci.jenkins.io
+    job: reports/plugin-health-scoring/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/backend-extension-indexer/master
+    threshold_in_minutes: 11520  # weekly (Sundays)
+  - controller: infra.ci.jenkins.io
+    job: reports/csp-compatibility/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/pipeline-steps-doc-generator/master
+    threshold_in_minutes: 11520  # weekly (Sundays)
+  - controller: infra.ci.jenkins.io
+    job: reports/plugin-site-api/master
+    threshold_in_minutes: 60  # every 10 min
   ## release.ci.jenkins.io jobs
   - controller: release.ci.jenkins.io
     job: infra-agents-health/master
