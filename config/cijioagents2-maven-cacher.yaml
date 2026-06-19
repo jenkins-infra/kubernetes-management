@@ -40,5 +40,7 @@ mavenMirror:
   # TODO: track with updatecli from jenkins)-infra/kubernetes-management (acp release)
   url: http://k8s-artifact-artifact-3d1949c260-a3739c22ffe2d924.elb.us-east-2.amazonaws.com:8080/
   # TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/production/dist/profile/templates/jenkinscontroller/casc/artifact-caching-proxy.yaml.erb#L14
-  mirrorOf: "external:*,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven"
+  mirrorOf: 'external:*,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven'
   mirrorId: artifact-caching-proxy
+# TODO: track with updatecli from jenkinsci/bom with 'echo "weekly $(grep -F '.x</bom>' sample-plugin/pom.xml | sed -E 's, *<bom>(.+)</bom>,\1,g' | sort -rn | xargs)"'
+releaseLines: 'weekly 2.555.x 2.541.x 2.528.x'

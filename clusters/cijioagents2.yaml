@@ -56,6 +56,6 @@ releases:
   - name: maven-cacher
     namespace: maven-cache
     chart: jenkins-infra/maven-cacher
-    version: 0.0.4
+    version: 1.0.0
     values:
       - ../config/cijioagents2-maven-cacher.yaml
