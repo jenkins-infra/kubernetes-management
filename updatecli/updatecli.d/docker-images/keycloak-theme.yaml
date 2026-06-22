@@ -40,7 +40,7 @@ targets:
       file: config/publick8s/admin-accounts-jenkins-io.yaml
       matchpattern: "image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:.*"
       replacepattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:{{ source "latestRelease" }}'
-    # scmid: default
+    scmid: default
 
 actions:
   default:
