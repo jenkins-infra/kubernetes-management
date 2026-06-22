@@ -22,36 +22,25 @@ sources:
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.storage_class
 
-  hubMirrorAwsSubnets:
+  hubMirrorAwsSubnet:
     kind: json
-    name: Retrieve the list of subnet IDS for the "Docker Hub Registry Mirror" AWS LB
+    name: Retrieve the subnet ID for the "Docker Hub Registry Mirror" AWS LB
     spec:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.subnet_ids
-    transformers:
-      - trimprefix: '['
-      - trimsuffix: ']'
-      - replacer:
-          from: ' '
-          to: ','
-  hubMirrorLbIps:
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.subnet_id
+  hubMirrorLbIp:
     kind: json
-    name: Retrieve the list of subnet IDS for the "Docker Hub Registry Mirror" AWS LB
+    name: Retrieve the private IP for the "Docker Hub Registry Mirror" AWS LB
     spec:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.ips
-    transformers:
-      - trimprefix: '['
-      - trimsuffix: ']'
-      - replacer:
-          from: ' '
-          to: ','
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.private_ip
+
 targets:
   updateHubMirrorLbIps:
     name: Update the "Docker Hub Registry Mirror" LB IPv4
-    sourceid: hubMirrorLbIps
+    sourceid: hubMirrorLbIp
     kind: yaml
     spec:
       file: config/hub-mirror_cijioagents2.yaml
@@ -59,12 +48,11 @@ targets:
     scmid: default
   updateHubMirrorLbSubnets:
     name: Update the "Docker Hub Registry Mirror" LB Subnets
-    disablesourceinput: true # We need to combine 2 sources
+    sourceid: hubMirrorAwsSubnet
     kind: yaml
     spec:
       file: config/hub-mirror_cijioagents2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
-      value: '"{{ source `hubMirrorAwsSubnets` }}"'
     scmid: default
 
 actions:
