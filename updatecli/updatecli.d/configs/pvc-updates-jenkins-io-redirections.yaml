@@ -18,12 +18,14 @@ sources:
     kind: json
     name: Retrieve the pvc name for updates-jenkins-io-redirects
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.redirections.pvc_name
   subDir:
     kind: json
     name: Retrieve the subDir name for updates-jenkins-io-redirects
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.redirections.share_uri
     transformers:

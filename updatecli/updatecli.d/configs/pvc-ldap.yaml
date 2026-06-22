@@ -18,12 +18,14 @@ sources:
     kind: json
     name: Retrieve LDAP data PVC name
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .ldap\.jenkins\.io.data.pvc_name
   getBackupPvcName:
     kind: json
     name: Retrieve LDAP backup PVC name
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .ldap\.jenkins\.io.backup.pvc_name
 

@@ -18,12 +18,14 @@ sources:
     kind: json
     name: Retrieve the PVC name for get-jenkins-io
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .get\.jenkins\.io.mirrorbits.pvc_name
   contentPvcSubdir:
     kind: json
     name: Retrieve the subdir inside the PVC for component "mirrorbits" in get-jenkins-io
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .get\.jenkins\.io.mirrorbits.share_uri
     transformers:
@@ -32,12 +34,14 @@ sources:
     kind: json
     name: Retrieve the pvc name for geoipdata
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .get\.jenkins\.io.geoipdata.pvc_name
   geoipdataPvcSubdir:
     kind: json
     name: Retrieve the subdir inside the PVC for component "geoipdata" in get-jenkins-io
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .get\.jenkins\.io.geoipdata.share_uri
     transformers:

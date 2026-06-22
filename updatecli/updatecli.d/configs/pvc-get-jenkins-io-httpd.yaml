@@ -18,12 +18,14 @@ sources:
     kind: json
     name: Retrieve the pvc name for get-jenkins-io-httpd
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .get\.jenkins\.io.httpd.pvc_name
   subDir:
     kind: json
     name: Retrieve the subDir name for get-jenkins-io-httpd
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .get\.jenkins\.io.httpd.share_uri
     transformers:

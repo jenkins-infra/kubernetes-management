@@ -15,15 +15,19 @@ scms:
 sources:
   puppet.jenkins.io:
     kind: json
+    name: Retrieve the puppet master outbound IPs
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .puppet\.jenkins\.io.outbound_ips
     transformers:
       - addsuffix: '/32'
 
   publick8s-lb:
+    name: Retrieve the publick8s outbound IPs
     kind: json
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .publick8s.lb_outbound_ips.ipv4
     transformers:
@@ -35,19 +39,22 @@ sources:
       - addsuffix: '/32'
 
   publick8s-pods:
+    name: Retrieve the publick8s pod CNI CIDR
     kind: json
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       # Ipv4 is always the first element
       key: .publick8s.pod_cidrs.[0]
 
   # https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/
   jfrog:
+    name: Retrieve the Jfrog (repo.jenkins-cio.org) outbound IPs
     kind: json
     spec:
+      engine: dasel/v2
       file: https://my.jfrog.com/api/jmis/v1/ip-ranges
-      # Dasel v1 query
-      key: .(cloud=aws)(region=us-east-1)(service=jfrog_cloud_cidr).cidr
+      key: all().filter(equal(cloud,aws)).filter(equal(region,us-east-1)).filter(equal(service,jfrog_cloud_cidr)).cidr.all().merge()
     # Change the json list to a comma-separated list into a single string
     transformers:
       - trimprefix: '['
@@ -57,8 +64,10 @@ sources:
           to: ','
 
   aws-ci-jenkins-io:
+    name: Retrieve the ci.jenkins.io outbound IPs from AWS
     kind: json
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: .aws\.ci\.jenkins\.io.service_ips.ipv4
     transformers:

@@ -18,12 +18,14 @@ sources:
     kind: json
     name: Retrieve the PVC name for updates-jenkins-io
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.content.pvc_name
   contentPvcSubdir:
     kind: json
     name: Retrieve the subdir inside the PVC for component "content" in updates-jenkins-io
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.content.share_uri
     transformers:
@@ -32,12 +34,14 @@ sources:
     kind: json
     name: Retrieve the pvc name for geoipdata
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.geoipdata.pvc_name
   geoipdataPvcSubdir:
     kind: json
     name: Retrieve the subdir inside the PVC for component "geoipdata" in updates-jenkins-io
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .updates\.jenkins\.io.geoipdata.share_uri
     transformers:
