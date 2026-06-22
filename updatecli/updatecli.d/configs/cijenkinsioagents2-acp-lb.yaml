@@ -18,6 +18,7 @@ sources:
     kind: json
     name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.subnet_ids
     transformers:
@@ -30,6 +31,7 @@ sources:
     kind: json
     name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.ips
     transformers:
@@ -42,6 +44,7 @@ sources:
     kind: json
     name: Retrieve the storage class to use for the ACP storage
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.storage_class
 
@@ -50,9 +53,6 @@ targets:
     name: Update ACP LB IPv4
     sourceid: acpLbIps
     kind: yaml
-    transformers:
-      - addprefix: '"'
-      - addsuffix: '"'
     spec:
       file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'

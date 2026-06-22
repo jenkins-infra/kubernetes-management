@@ -34,7 +34,7 @@ targets:
     scmid: default
     spec:
       file: config/privatek8s-sponsored/public-nginx-ingress.yaml
-      key: controller.config.whitelist-source-range
+      key: $.controller.config.whitelist-source-range
   allowIPsLB:
     name: Update allowed IPs
     # It does not seem possible to split a string to a YAML array so using regexp in file mode instead

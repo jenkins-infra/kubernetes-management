@@ -18,6 +18,7 @@ sources:
     kind: json
     name: Retrieve the storage class to use for the "Docker Hub Registry Mirror" storage
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.storage_class
 
@@ -25,6 +26,7 @@ sources:
     kind: json
     name: Retrieve the list of subnet IDS for the "Docker Hub Registry Mirror" AWS LB
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.subnet_ids
     transformers:
@@ -37,6 +39,7 @@ sources:
     kind: json
     name: Retrieve the list of subnet IDS for the "Docker Hub Registry Mirror" AWS LB
     spec:
+      engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.hub-mirror.ips
     transformers:
@@ -50,9 +53,6 @@ targets:
     name: Update the "Docker Hub Registry Mirror" LB IPv4
     sourceid: hubMirrorLbIps
     kind: yaml
-    transformers:
-      - addprefix: '"'
-      - addsuffix: '"'
     spec:
       file: config/hub-mirror_cijioagents2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'
