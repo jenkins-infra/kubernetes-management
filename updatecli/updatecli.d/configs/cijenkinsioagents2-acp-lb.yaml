@@ -14,32 +14,20 @@ scms:
       branch: "{{ .github.branch }}"
 
 sources:
-  acpAwsSubnets:
+  acpAwsSubnet:
     kind: json
-    name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
+    name: Retrieve the subnet ID for the ACP AWS LB from infra report
     spec:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.subnet_ids
-    transformers:
-      - trimprefix: '['
-      - trimsuffix: ']'
-      - replacer:
-          from: ' '
-          to: ','
-  acpLbIps:
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.subnet_id
+  acpLbIp:
     kind: json
-    name: Retrieve the list of subnet IDS for the ACP AWS LB from infra report
+    name: Retrieve the LB private IP for the ACP AWS LB from infra report
     spec:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/aws-sponsorship.json
-      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.ips
-    transformers:
-      - trimprefix: '['
-      - trimsuffix: ']'
-      - replacer:
-          from: ' '
-          to: ','
+      key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.private_ip
   acpStorageClass:
     kind: json
     name: Retrieve the storage class to use for the ACP storage
@@ -49,22 +37,21 @@ sources:
       key: aws\.ci\.jenkins\.io.agents_kubernetes_clusters.cijenkinsio-agents-2.services.artifact-caching-proxy.storage_class
 
 targets:
-  updateAcpLbIps:
+  updateAcpLbIp:
     name: Update ACP LB IPv4
-    sourceid: acpLbIps
+    sourceid: acpLbIp
     kind: yaml
     spec:
       file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'
     scmid: default
-  updateAcpLbSubnets:
-    name: Update ACP LB Subnets
-    disablesourceinput: true # We need to combine 2 sources
+  updateAcpLbSubnet:
+    name: Update ACP LB Subnet
+    sourceid: acpAwsSubnet
     kind: yaml
     spec:
       file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
-      value: '"{{ source `acpAwsSubnets` }}"'
     scmid: default
   updateAcpStorageClass:
     name: Update ACP Storage Class
