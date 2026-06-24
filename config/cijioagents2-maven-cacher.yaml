@@ -42,5 +42,5 @@ mavenMirror:
   # TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/production/dist/profile/templates/jenkinscontroller/casc/artifact-caching-proxy.yaml.erb#L14
   mirrorOf: 'external:*,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven'
   mirrorId: artifact-caching-proxy
-# TODO: track with updatecli from jenkinsci/bom with 'echo "weekly $(grep -F '.x</bom>' sample-plugin/pom.xml | sed -E 's, *<bom>(.+)</bom>,\1,g' | sort -rn | xargs)"'
+# Tracked by updatecli/updatecli.d/configs/cijenkinsioagents2-maven-cacher-bom-release-lines.yaml
 releaseLines: 'weekly 2.555.x 2.541.x 2.528.x'
