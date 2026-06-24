@@ -1,0 +1,44 @@
+name: Update BOM release lines in `maven-cacher` configuration
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  getBomReleaseLines:
+    kind: shell
+    name: Get BOM release lines
+    spec:
+      command: |
+        git clone https://github.com/jenkinsci/bom
+        cd bom
+        echo "weekly $(grep -F '.x</bom>' sample-plugin/pom.xml | sed -E 's, *<bom>(.+)</bom>,\1,g' | sort -rn | xargs)"
+
+targets:
+  updateBomReleaseLinesInConfig:
+    name: Update BOM release lines in the configuration
+    kind: yaml
+    sourceid: getBomReleaseLines
+    spec:
+      file: ./config/cijioagents2-maven-cacher.yaml
+      key: $.releaseLines
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Update BOM release lines in `maven-cacher` configuration
+    spec:
+      labels:
+        - maven-cacher
+        - cijioagents2
+        - bom-release-lines
