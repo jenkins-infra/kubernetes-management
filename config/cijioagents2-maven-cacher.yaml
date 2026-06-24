@@ -43,4 +43,4 @@ mavenMirror:
   mirrorOf: 'external:*,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven'
   mirrorId: artifact-caching-proxy
 # Tracked by updatecli/updatecli.d/configs/cijenkinsioagents2-maven-cacher-bom-release-lines.yaml
-releaseLines: 'weekly 2.555.x 2.541.x 2.528.x'
+releaseLines: weekly 2.568.x 2.555.x 2.541.x
