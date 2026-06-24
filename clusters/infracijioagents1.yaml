@@ -18,7 +18,7 @@ releases:
     version: 3.227.0
     values:
       - ../config/datadog.yaml.gotmpl
-      - ../config/datadog_infracijioagents1.yaml
+      - ../config/infracijioagents1/datadog_.yaml
     secrets:
       - ../secrets/config/datadog/infracijioagents1-secrets.yaml
   - name: jenkins-infra-agents
@@ -26,4 +26,4 @@ releases:
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 1.1.1
     values:
-      - ../config/jenkins-infra-agents-infracijioagents1.yaml
+      - ../config/infracijioagents1/jenkins-infra-agents.yaml
