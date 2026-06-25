@@ -18,7 +18,7 @@ releases:
     version: 3.227.0
     values:
       - ../config/datadog.yaml.gotmpl
-      - ../config/datadog_cijenkinsio-agents-2.yaml
+      - ../config/cijioagents2/datadog.yaml
     secrets:
       - ../secrets/config/datadog/cijenkinsio-agents-2-secrets.yaml
   - name: artifact-caching-proxy
@@ -26,13 +26,13 @@ releases:
     chart: jenkins-infra/artifact-caching-proxy
     version: 2.0.3
     values:
-      - ../config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
+      - ../config/cijioagents2/artifact-caching-proxy.yaml
   - name: hub-mirror
     namespace: hub-mirror
     chart: jenkins-infra/docker-registry
     version: 1.0.0
     values:
-      - ../config/hub-mirror_cijioagents2.yaml
+      - ../config/cijioagents2/hub-mirror.yaml
     secrets:
       - ../secrets/config/hub-mirror/secrets.yaml
   - name: jenkins-agents
@@ -40,22 +40,22 @@ releases:
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 1.1.1
     values:
-      - ../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml
+      - ../config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io.yaml
   - name: jenkins-agents-nonspot
     namespace: jenkins-agents-nonspot
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 1.1.1
     values:
-      - ../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-nonspot.yaml
+      - ../config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io-nonspot.yaml
   - name: jenkins-agents-bom
     namespace: jenkins-agents-bom
     chart: jenkins-infra/jenkins-kubernetes-agents
     version: 1.1.1
     values:
-      - ../config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml
+      - ../config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io-bom.yaml
   - name: maven-cacher
     namespace: maven-cache
     chart: jenkins-infra/maven-cacher
     version: 1.1.0
     values:
-      - ../config/cijioagents2-maven-cacher.yaml
+      - ../config/cijioagents2/maven-cacher.yaml
