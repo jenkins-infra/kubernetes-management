@@ -28,7 +28,7 @@ targets:
     kind: yaml
     sourceid: getBomReleaseLines
     spec:
-      file: ./config/cijioagents2-maven-cacher.yaml
+      file: ./config/cijioagents2/maven-cacher.yaml
       key: $.releaseLines
     scmid: default
 

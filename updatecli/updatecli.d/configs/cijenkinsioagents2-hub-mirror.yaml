@@ -43,7 +43,7 @@ targets:
     sourceid: hubMirrorLbIp
     kind: yaml
     spec:
-      file: config/hub-mirror_cijioagents2.yaml
+      file: config/cijioagents2/hub-mirror.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'
     scmid: default
   updateHubMirrorLbSubnets:
@@ -51,7 +51,7 @@ targets:
     sourceid: hubMirrorAwsSubnet
     kind: yaml
     spec:
-      file: config/hub-mirror_cijioagents2.yaml
+      file: config/cijioagents2/hub-mirror.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
     scmid: default
 
@@ -64,4 +64,4 @@ actions:
       labels:
         - docker-registry
         - hub-mirror
-        - cijenkinsioagents2
+        - cijioagents2

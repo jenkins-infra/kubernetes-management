@@ -47,7 +47,7 @@ targets:
     name: Update group in "normal" agents setup
     kind: yaml
     spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml
+      file: config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io.yaml
       key: $.groups[0]
     scmid: default
   updateGroupForBomAgents:
@@ -55,7 +55,7 @@ targets:
     name: Update group in "BOM" agents setup
     kind: yaml
     spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml
+      file: config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io-bom.yaml
       key: $.groups[0]
     scmid: default
   pod_quotas_ci.jenkins.io-agents-2:
@@ -63,7 +63,7 @@ targets:
     kind: yaml
     sourceid: ci.jenkins.io-agents-2_maxcapacity
     spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2.yaml
+      file: config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io.yaml
       key: $.quotas.pods
     scmid: default
   pod_quotas_ci.jenkins.io-agents-2_nonspot:
@@ -71,7 +71,7 @@ targets:
     kind: yaml
     sourceid: ci.jenkins.io-agents-2_nonspot_maxcapacity
     spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-nonspot.yaml
+      file: config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io-nonspot.yaml
       key: $.quotas.pods
     scmid: default
   pod_quotas_ci.jenkins.io-agents-2_bom:
@@ -79,7 +79,7 @@ targets:
     kind: yaml
     sourceid: ci.jenkins.io-agents-2_bom_maxcapacity
     spec:
-      file: config/jenkins-kubernetes-agents_ci.jenkins.io_cijioagents2-bom.yaml
+      file: config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io-bom.yaml
       key: $.quotas.pods
     scmid: default
 
@@ -87,9 +87,9 @@ actions:
   default:
     kind: github/pullrequest
     scmid: default
-    title: Update Jenkins Kubernetes Agents Configuration for cijenkinsioagents-2
+    title: Update Jenkins Kubernetes Agents Configuration for cijioagents2
     spec:
       labels:
         - dependencies
         - jenkins-kubernetes-agents
-        - cijenkinsioagents2
+        - cijioagents2
