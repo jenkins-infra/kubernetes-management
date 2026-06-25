@@ -42,7 +42,7 @@ targets:
     sourceid: acpLbIp
     kind: yaml
     spec:
-      file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
+      file: config/cijioagents2/artifact-caching-proxy.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses'
     scmid: default
   updateAcpLbSubnet:
@@ -50,7 +50,7 @@ targets:
     sourceid: acpAwsSubnet
     kind: yaml
     spec:
-      file: config/artifact-caching-proxy_aws-cijenkinsio-agents-2.yaml
+      file: config/cijioagents2/artifact-caching-proxy.yaml
       key: $.service.annotations.'service.beta.kubernetes.io/aws-load-balancer-subnets'
     scmid: default
   updateAcpStorageClass:
@@ -58,7 +58,7 @@ targets:
     sourceid: acpStorageClass
     kind: yaml
     spec:
-      file: config/hub-mirror_cijioagents2.yaml
+      file: config/cijioagents2/hub-mirror.yaml
       key: $.persistence.storageClass
     scmid: default
 
@@ -70,4 +70,4 @@ actions:
     spec:
       labels:
         - artifact-caching-proxy
-        - cijenkinsioagents2
+        - cijioagents2

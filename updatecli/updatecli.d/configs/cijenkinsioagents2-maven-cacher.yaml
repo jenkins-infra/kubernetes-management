@@ -29,7 +29,7 @@ targets:
     kind: yaml
     sourceid: getPVCName
     spec:
-      file: ./config/cijioagents2-maven-cacher.yaml
+      file: ./config/cijioagents2/maven-cacher.yaml
       key: $.cachePvc
     scmid: default
 
@@ -41,4 +41,4 @@ actions:
     spec:
       labels:
         - maven-cacher
-        - cijenkinsioagents2
+        - cijioagents2
