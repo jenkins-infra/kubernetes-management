@@ -327,6 +327,9 @@ jobsDefinition:
           production-terraform-aws-sponsorship-secret-key:
             secret: "${PRODUCTION_TERRAFORM_AWSSPONSORED_SECRET_ACCESS_KEY}"
             description: "AWS secret key for the account production-terraform of jenkins-infra/terraform-aws-sponsorship"
+          ci-jenkins-io-ephemeral-agents-datadog-api-key:
+            secret: "${CI_JENKINS_IO_EPHEMERAL_AGENTS_DATADOG}"
+            description: "Datadog API key used by ci.jenkins.io to report metrics - (cijenkinsio_ephemeral_agents in https://github.com/jenkins-infra/datadog/blob/409b9c2f7ecad8042f4eff16a700631161a1bf43/keys.tf)"
       azure:
         name: Terraform Azure
         description: "Azure resources managed by Terraform"
