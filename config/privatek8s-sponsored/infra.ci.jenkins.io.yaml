@@ -244,7 +244,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
-                    galleryImageVersion: "2.115.0"
+                    galleryImageVersion: "2.116.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
@@ -317,7 +317,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "2.115.0"
+                    galleryImageVersion: "2.116.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
@@ -390,7 +390,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "2.115.0"
+                    galleryImageVersion: "2.116.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
@@ -463,7 +463,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "2.115.0"
+                    galleryImageVersion: "2.116.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
@@ -536,7 +536,7 @@ controller:
                   executeInitScriptAsRoot: true
                   imageReference:
                     galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
-                    galleryImageVersion: "2.115.0"
+                    galleryImageVersion: "2.116.0"
                     galleryName: "prod_packer_images"
                     galleryResourceGroup: "prod-packer-images"
                     gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
