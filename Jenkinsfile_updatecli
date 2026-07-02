@@ -19,6 +19,11 @@ node('jnlp-linux-arm64') {
                     cronTriggerExpression: env.BRANCH_IS_PRIMARY ? 'H/30 * * * *' : '',
                 )
             }
+            stage('verify jq') {
+                sh 'hostname; which jq; jq --version; cat /etc/os-release | head -2'
+            }
+
+
         }
     }
 }
