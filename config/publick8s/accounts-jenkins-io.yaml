@@ -60,3 +60,8 @@ podAnnotations:
     [
       {"source":"java","service":"accounts.jenkins.io"}
     ]
+
+image:
+  repository: dockerhubmirror.azurecr.io/jenkinsciinfra/account-app
+  tag: 0.7.0-hotfix
+  pullPolicy: IfNotPresent
