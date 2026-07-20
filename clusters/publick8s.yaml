@@ -95,7 +95,7 @@ releases:
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
-    version: 0.8.16
+    version: 0.8.17
     values:
       - ../config/publick8s/wiki.yaml
   - name: ldap-jenkins-io
