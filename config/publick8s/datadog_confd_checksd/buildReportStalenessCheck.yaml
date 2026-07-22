@@ -100,7 +100,7 @@ instances:
     threshold_in_minutes: 60  # (2 builds)
   - controller: trusted.ci.jenkins.io
     job: repository-permissions-updater
-    threshold_in_minutes: 360  # (2 builds)
+    threshold_in_minutes: 240  # (2 builds)
   - controller: trusted.ci.jenkins.io
     job: update_center
     threshold_in_minutes: 20  # (2 builds)
