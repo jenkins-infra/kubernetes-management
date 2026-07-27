@@ -82,6 +82,10 @@ instances:
   - controller: release.ci.jenkins.io
     job: infra-agents-health/master
     threshold_in_minutes: 1440
+  ## cert.ci.jenkins.io jobs
+  - controller: cert.ci.jenkins.io
+    job: acceptance-tests-check-agent-availability
+    threshold_in_minutes: 1440
   ## trusted.ci.jenkins.io jobs
   - controller: trusted.ci.jenkins.io
     job: acceptance-tests-check-agent-availability
