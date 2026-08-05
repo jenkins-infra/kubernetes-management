@@ -629,6 +629,7 @@ jobsDefinition:
         disableTagDiscovery: true
         disableBranchDiscovery: true
         allowUntrustedChanges: true
+        branchIncludes: main gsoc-2026-revamps
       docs.jenkins.io:
         name: docs.jenkins.io PR previews
         jenkinsfilePath: Jenkinsfile
@@ -670,6 +671,7 @@ jobsDefinition:
         disableTagDiscovery: true
         disableBranchDiscovery: true
         allowUntrustedChanges: true
+        branchIncludes: main gsoc-2026-revamps
   website-production-jobs:
     name: Website Production Jobs
     description: "Folder hosting all the Website jobs dedicated to deployment in production"
