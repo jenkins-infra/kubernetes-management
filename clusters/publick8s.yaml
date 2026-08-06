@@ -32,7 +32,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.229.0
+    version: 3.235.0
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/publick8s/datadog.yaml
@@ -79,7 +79,7 @@ releases:
   - name: weekly-ci-jenkins-io
     namespace: weekly-ci-jenkins-io
     chart: jenkins/jenkins
-    version: 5.9.32
+    version: 5.9.49
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -89,19 +89,19 @@ releases:
   - name: javadoc-jenkins-io
     namespace: javadoc-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/javadoc-jenkins-io.yaml
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
-    version: 0.8.16
+    version: 0.8.20
     values:
       - ../config/publick8s/wiki.yaml
   - name: ldap-jenkins-io
     namespace: ldap-jenkins-io
     chart: jenkins-infra/ldap
-    version: 4.2.19
+    version: 4.2.23
     values:
       - ../config/publick8s/ldap-jenkins-io.yaml
     secrets:
@@ -128,7 +128,7 @@ releases:
   - name: incrementals-jenkins-io
     namespace: incrementals-jenkins-io
     chart: jenkins-infra/incrementals-publisher
-    version: 0.8.8
+    version: 0.8.11
     values:
       - ../config/publick8s/incrementals-jenkins-io.yaml
     secrets:
@@ -136,7 +136,7 @@ releases:
   - name: rating-jenkins-io
     namespace: rating-jenkins-io
     chart: jenkins-infra/rating
-    version: 0.6.7
+    version: 0.6.9
     values:
       - ../config/publick8s/rating-jenkins-io.yaml
     secrets:
@@ -152,19 +152,19 @@ releases:
   - name: reports-jenkins-io
     namespace: reports-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/reports-jenkins-io.yaml
   - name: builds-reports-jenkins-io
     namespace: builds-reports-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/builds-reports-jenkins-io.yaml
   - name: accounts-jenkins-io
     namespace: accounts-jenkins-io
     chart: jenkins-infra/accountapp
-    version: 0.10.25
+    version: 0.11.3
     needs:
       - ldap-jenkins-io/ldap-jenkins-io
     values:
@@ -174,7 +174,7 @@ releases:
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.15
+    version: 5.10.19
     values:
       - ../config/publick8s/get-jenkins-io-mirrorbits.yaml
     secrets:
@@ -182,13 +182,13 @@ releases:
   - name: get-jenkins-io-httpd
     namespace: get-jenkins-io
     chart: jenkins-infra/httpd
-    version: 2.0.3
+    version: 2.1.0
     values:
       - ../config/publick8s/get-jenkins-io-httpd.yaml
   - name: plugin-site-issues-jenkins-io
     namespace: plugin-site-issues-jenkins-io
     chart: jenkins-infra/plugin-site-issues
-    version: 0.4.22
+    version: 0.4.23
     values:
       - ../config/publick8s/plugin-site-issues-jenkins-io.yaml
     secrets:
@@ -196,7 +196,7 @@ releases:
   - name: plugins-jenkins-io
     namespace: plugins-jenkins-io
     chart: jenkins-infra/plugin-site
-    version: 0.6.6
+    version: 0.6.7
     values:
       - ../config/publick8s/plugins-jenkins-io.yaml
     secrets:
@@ -204,13 +204,13 @@ releases:
   - name: www-jenkins-io
     namespace: www-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/www-jenkins-io.yaml
   - name: issue-redirect-jenkins-io
     namespace: issue-redirect-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/issue-redirect-jenkins-io.yaml
   - name: ipv6-lb-service
@@ -224,7 +224,7 @@ releases:
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.15
+    version: 5.10.19
     values:
       - ../config/publick8s/updates-jenkins-io-content.yaml
     secrets:
@@ -233,37 +233,37 @@ releases:
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.2.23
+    version: 3.2.28
     values:
       - ../config/publick8s/updates-jenkins-io-rsync.yaml
   - name: updates-jenkins-io-redirections
     namespace: updates-jenkins-io
     chart: jenkins-infra/httpd
-    version: 2.0.3
+    version: 2.1.0
     values:
       - ../config/publick8s/updates-jenkins-io-redirections.yaml
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/contributors-jenkins-io.yaml
   - name: docs-jenkins-io
     namespace: docs-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/docs-jenkins-io.yaml
   - name: alpha-docs-jenkins-io
     namespace: alpha-docs-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/alpha-docs-jenkins-io.yaml
   - name: stats-jenkins-io
     namespace: stats-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/stats-jenkins-io.yaml
   - name: redis
@@ -277,18 +277,18 @@ releases:
   - name: staging-pkg-origin-jenkins-io
     namespace: staging-pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/staging-pkg-origin-jenkins-io.yaml
   - name: staging-get-jenkins-io
     namespace: staging-get-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/staging-get-jenkins-io.yaml
   - name: pkg-origin-jenkins-io
     namespace: pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.6
+    version: 0.7.7
     values:
       - ../config/publick8s/pkg-origin-jenkins-io.yaml
