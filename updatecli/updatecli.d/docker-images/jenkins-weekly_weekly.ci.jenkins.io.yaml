@@ -30,7 +30,7 @@ conditions:
       image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-weeklyci
       ## Tag from source
       architectures:
-      - arm64
+        - arm64
 
 targets:
   updateReleaseInConfig:

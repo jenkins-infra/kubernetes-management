@@ -30,7 +30,7 @@ conditions:
       image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme
       ## Tag from source
       architectures:
-      - arm64
+        - arm64
 
 targets:
   updateReleaseInConfig:

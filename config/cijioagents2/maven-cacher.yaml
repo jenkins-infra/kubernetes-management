@@ -21,8 +21,8 @@ resources:
     memory: 2048Mi
 
 podSecurityContext:
-  runAsUser: 1001 # User 'jenkins'
-  runAsGroup: 1001 # Group 'jenkins'
+  runAsUser: 1001  # User 'jenkins'
+  runAsGroup: 1001  # Group 'jenkins'
   runAsNonRoot: true
 
 containerSecurityContext:
@@ -33,7 +33,7 @@ containerSecurityContext:
       - ALL
 
 cachePvc: ci-jenkins-io-maven-cache
-#TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/17784f9d822e974154515cddf589eb3beb3a7813/hieradata/common.yaml#L218
+# TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/17784f9d822e974154515cddf589eb3beb3a7813/hieradata/common.yaml#L218
 javaHome: /opt/jdk-21
 mavenMirror:
   enable: true

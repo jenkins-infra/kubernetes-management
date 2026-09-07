@@ -19,7 +19,7 @@ pipeline {
         label 'jnlp-linux-arm64'
       }
       steps {
-        sh 'yamllint --config-file yamllint.config config'
+        sh 'yamllint --config-file yamllint.config config clusters updatecli'
       }
     } // stage 'Yaml Lint'
     stage('Kubernetes Management Tasks') {
