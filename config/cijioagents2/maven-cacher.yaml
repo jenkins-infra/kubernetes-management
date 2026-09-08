@@ -21,8 +21,8 @@ resources:
     memory: 2048Mi
 
 podSecurityContext:
-  runAsUser: 1001  # User 'jenkins'
-  runAsGroup: 1001  # Group 'jenkins'
+  runAsUser: 1001 # User 'jenkins'
+  runAsGroup: 1001 # Group 'jenkins'
   runAsNonRoot: true
 
 containerSecurityContext:
@@ -43,4 +43,4 @@ mavenMirror:
   mirrorOf: 'external:*,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven'
   mirrorId: artifact-caching-proxy
 # Tracked by updatecli/updatecli.d/configs/cijenkinsioagents2-maven-cacher-bom-release-lines.yaml
-releaseLines: weekly 2.568.x 2.555.x 2.541.x
+releaseLines: weekly 2.580.x 2.568.x 2.555.x
