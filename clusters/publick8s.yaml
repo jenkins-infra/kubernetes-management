@@ -224,7 +224,7 @@ releases:
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.10.19
+    version: 5.11.0
     values:
       - ../config/publick8s/updates-jenkins-io-content.yaml
     secrets:
