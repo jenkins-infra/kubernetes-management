@@ -1,14 +1,16 @@
 jenkinsName: infra-ci-jenkins-io
 jenkinsFqdn: infra.ci.jenkins.io
+x-kubeconfig-publick8s: &kubeconfigPublick8sCredential
+  kubeconfig-publick8s:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for publick8s"
+    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
 x-kubeconfigCredentials: &kubeconfigCredentials
   kubeconfig-privatek8s-sponsored:
     fileName: "kubeconfig"
     description: "Kubeconfig file for privatek8s-sponsored"
     secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
-  kubeconfig-publick8s:
-    fileName: "kubeconfig"
-    description: "Kubeconfig file for publick8s"
-    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
+  <<: *kubeconfigPublick8sCredential
   kubeconfig-cijioagents2:
     fileName: "kubeconfig"
     description: "Kubeconfig file for cijioagents2"
@@ -34,7 +36,30 @@ jobsDefinition:
     name: Jenkins Infrastructure Cron Jobs
     description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
     kind: folder
-    children: {}
+    children:
+      geoipupdates:
+        name: "Cron routine to update the GeoIP database of the mirrorbits services"
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "geoipupdates"
+        disablePullRequests: true
+        disableGitHubNotifications: true
+        disableTagDiscovery: true
+        credentials:
+          cronjob-datastorage-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${DATASTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${DATASTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "data-storage.jenkins.io File Share Service Principal Writer"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          geoipupdate_account_id:
+            description: "Account ID used to retrieve the GeoIP database from MaxMind"
+            value: "${GEOIPUPDATE_ACCOUNT_ID}"
+          geoipupdate_license_key:
+            description: "License Key used to retrieve the GeoIP database from MaxMind"
+            value: "${GEOIPUPDATE_LICENSE_KEY}"
+          <<: *kubeconfigPublick8sCredential
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
