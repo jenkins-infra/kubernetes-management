@@ -1,0 +1,8 @@
+## plugin-health-scoring engines to monitor for staleness
+# Both engines are components of a single actuator response, so one instance covers them.
+instances:
+  - engines:
+      - probeEngine
+      - scoringEngine
+    threshold_in_minutes: 360
+    min_collection_interval: 300
