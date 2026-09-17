@@ -684,7 +684,7 @@ jobsDefinition:
         allowUntrustedChanges: true
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
-        jenkinsfilePath: Jenkinsfile_previews
+        jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         disableTagDiscovery: true
         disableBranchDiscovery: true
