@@ -496,9 +496,6 @@ jobsDefinition:
       azure-net:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-      contributor-spotlight:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       cloudflare:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -621,9 +618,6 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       shared-tools:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      stats.jenkins.io:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       status:
