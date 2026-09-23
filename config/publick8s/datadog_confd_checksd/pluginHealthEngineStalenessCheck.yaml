@@ -5,4 +5,4 @@ instances:
       - probeEngine
       - scoringEngine
     threshold_in_minutes: 360
-    min_collection_interval: 300
+    min_collection_interval: 3600
