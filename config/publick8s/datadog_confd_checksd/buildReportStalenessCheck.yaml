@@ -95,7 +95,7 @@ instances:
     threshold_in_minutes: 10080  # 1 week (1 build)
   - controller: trusted.ci.jenkins.io
     job: crawler
-    threshold_in_minutes: 240  # 4 hours (1 build)
+    threshold_in_minutes: 1440  # 24 hours (6 builds)
   - controller: trusted.ci.jenkins.io
     job: javadoc
     threshold_in_minutes: 10080  # 1 week (1 build)
