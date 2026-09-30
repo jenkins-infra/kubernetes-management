@@ -39,6 +39,7 @@ jobsDefinition:
     children:
       geoipupdates:
         name: "Cron routine to update the GeoIP database of the mirrorbits services"
+        repository: infra-cronjobs
         jenkinsfilePath: Jenkinsfile
         branchIncludes: "geoipupdates"
         disablePullRequests: true
