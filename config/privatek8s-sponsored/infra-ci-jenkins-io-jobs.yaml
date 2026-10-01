@@ -1,16 +1,14 @@
 jenkinsName: infra-ci-jenkins-io
 jenkinsFqdn: infra.ci.jenkins.io
-x-kubeconfig-publick8s: &kubeconfigPublick8sCredential
-  kubeconfig-publick8s:
-    fileName: "kubeconfig"
-    description: "Kubeconfig file for publick8s"
-    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
 x-kubeconfigCredentials: &kubeconfigCredentials
   kubeconfig-privatek8s-sponsored:
     fileName: "kubeconfig"
     description: "Kubeconfig file for privatek8s-sponsored"
     secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
-  <<: *kubeconfigPublick8sCredential
+  kubeconfig-publick8s:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for publick8s"
+    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
   kubeconfig-cijioagents2:
     fileName: "kubeconfig"
     description: "Kubeconfig file for cijioagents2"
@@ -60,7 +58,14 @@ jobsDefinition:
           geoipupdate_license_key:
             description: "License Key used to retrieve the GeoIP database from MaxMind"
             value: "${GEOIPUPDATE_LICENSE_KEY}"
-          <<: *kubeconfigPublick8sCredential
+          kubeconfig-publick8s-getjenkinsio-restarter:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for getjenkinsio-restarter@publick8s"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_GETJENKINSIO_RESTARTER}}"
+          kubeconfig-publick8s-updatesjenkinsio-restarter:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for updatesjenkinsio-restarter@publick8s"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_UPDATESJENKINSIO_RESTARTER}}"
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
