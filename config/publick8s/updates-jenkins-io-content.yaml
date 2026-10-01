@@ -83,6 +83,8 @@ annotations:
   ad.datadoghq.com/mirrorbits.logs: |
     [{"source":"mirrorbits","service":"updates.jenkins.io"}]
 
+serviceAccountRestarter: true
+
 ingress:
   enabled: true
   className: public-nginx
