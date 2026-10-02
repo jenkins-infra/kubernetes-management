@@ -54,10 +54,10 @@ jobsDefinition:
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           geoipupdate_account_id:
             description: "Account ID used to retrieve the GeoIP database from MaxMind"
-            value: "${GEOIPUPDATE_ACCOUNT_ID}"
+            secret: "${GEOIPUPDATE_ACCOUNT_ID}"
           geoipupdate_license_key:
             description: "License Key used to retrieve the GeoIP database from MaxMind"
-            value: "${GEOIPUPDATE_LICENSE_KEY}"
+            secret: "${GEOIPUPDATE_LICENSE_KEY}"
           kubeconfig-publick8s-getjenkinsio-restarter:
             fileName: "kubeconfig"
             description: "Kubeconfig file for getjenkinsio-restarter@publick8s"
