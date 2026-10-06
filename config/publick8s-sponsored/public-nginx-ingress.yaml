@@ -1,0 +1,41 @@
+controller:
+  # Disable (default since 4.8.0) when https://github.com/kubernetes/ingress-nginx/issues/7811 is fixed
+  # and replace custom headers (only reason for user snippets - search for `more_set_headers` in ./config) by the replacement.
+  allowSnippetAnnotations: true
+  replicaCount: 2
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/instance"
+                operator: In
+                values:
+                  - public-nginx-ingress
+          topologyKey: "kubernetes.io/hostname"
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: false
+      # TODO: track with updatecli from https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
+      service.beta.kubernetes.io/azure-load-balancer-resource-group: prod-public-ips
+      # TODO: track with updatecli from https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
+      service.beta.kubernetes.io/azure-pip-name: publick8s-public-ipv4
+    externalTrafficPolicy: Local
+    ipFamilies:
+      - IPv4
+    ipFamilyPolicy: SingleStack
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
+defaultBackend:
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
