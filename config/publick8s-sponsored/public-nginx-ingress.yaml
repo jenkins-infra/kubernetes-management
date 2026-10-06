@@ -32,6 +32,9 @@ controller:
       value: "arm64"
       effect: "NoSchedule"
 defaultBackend:
+  # TODO: revert, should be dockerhubmirror.azurecr.io/jenkinsciinfra/404 (from common values)
+  image:
+    repository: jenkinsciinfra/404
   nodeSelector:
     kubernetes.io/arch: arm64
   tolerations:
