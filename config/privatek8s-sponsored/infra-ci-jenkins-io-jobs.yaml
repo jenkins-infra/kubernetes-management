@@ -9,6 +9,10 @@ x-kubeconfigCredentials: &kubeconfigCredentials
     fileName: "kubeconfig"
     description: "Kubeconfig file for publick8s"
     secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
+  kubeconfig-publick8s-sponsored:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for publick8s-sponsored"
+    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED}}"
   kubeconfig-cijioagents2:
     fileName: "kubeconfig"
     description: "Kubeconfig file for cijioagents2"
