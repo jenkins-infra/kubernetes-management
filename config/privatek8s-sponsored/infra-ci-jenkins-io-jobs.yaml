@@ -44,12 +44,12 @@ jobsDefinition:
         disableGitHubNotifications: true
         disableTagDiscovery: true
         credentials:
-          cronjob-datastorage-fileshare-service-principal-writer:
+          cronjob-geoipdbstorage-fileshare-service-principal-writer:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
-            clientId: "${DATASTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${DATASTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "data-storage.jenkins.io File Share Service Principal Writer"
+            clientId: "${GEOIPDBSTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${GEOIPDBSTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "Azure Service Principal used to access the GeoIP DB File Share in Read/Write"
             subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           geoipupdate_account_id:
