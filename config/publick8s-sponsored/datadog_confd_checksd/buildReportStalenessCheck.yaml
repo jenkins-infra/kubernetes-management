@@ -1,0 +1,110 @@
+## Build report jobs to monitor for staleness
+# Automatically sync from jenkins-infra/kubernetes-management to jenkins-infra/datadog via https://github.com/jenkins-infra/kubernetes-management/blob/main/updatecli/updatecli.d/sync-build-report-jobs.yaml
+instances:
+  ## infra.ci.jenkins.io jobs
+  - controller: infra.ci.jenkins.io
+    job: acceptance-tests/acceptance-tests/check-agent-availability
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: kubernetes-jobs/kubernetes-management/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: terraform-jobs/azure/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: terraform-jobs/azure-net/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: terraform-jobs/datadog/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: terraform-jobs/digitalocean/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: terraform-jobs/terraform-aws-sponsorship/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/docs.jenkins.io/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/contributor-spotlight/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/gatsby-plugin-jenkins-layout/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/jenkins-io-components/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/plugin-site/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/stats.jenkins.io/main
+    threshold_in_minutes: 1440
+  - controller: infra.ci.jenkins.io
+    job: website-production-jobs/stories/main
+    threshold_in_minutes: 1440
+  ## infra.ci.jenkins.io reports jobs
+  - controller: infra.ci.jenkins.io
+    job: reports/artifactory-users-report/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/fork-report/main
+    threshold_in_minutes: 2880  # @daily
+  - controller: infra.ci.jenkins.io
+    job: reports/jenkins-infra-data/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/jira-users-report/main
+    threshold_in_minutes: 360  # every 2h
+  - controller: infra.ci.jenkins.io
+    job: reports/maintainers-info-report/main
+    threshold_in_minutes: 2880  # @daily
+  - controller: infra.ci.jenkins.io
+    job: reports/permissions-report/main
+    threshold_in_minutes: 2880  # @daily
+  - controller: infra.ci.jenkins.io
+    job: reports/plugin-health-scoring/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/backend-extension-indexer/master
+    threshold_in_minutes: 11520  # weekly (Sundays)
+  - controller: infra.ci.jenkins.io
+    job: reports/csp-compatibility/main
+    threshold_in_minutes: 180  # @hourly
+  - controller: infra.ci.jenkins.io
+    job: reports/pipeline-steps-doc-generator/master
+    threshold_in_minutes: 11520  # weekly (Sundays)
+  - controller: infra.ci.jenkins.io
+    job: reports/plugin-site-api/master
+    threshold_in_minutes: 60  # every 10 min
+  ## release.ci.jenkins.io jobs
+  - controller: release.ci.jenkins.io
+    job: infra-agents-health/master
+    threshold_in_minutes: 1440
+  ## cert.ci.jenkins.io jobs
+  - controller: cert.ci.jenkins.io
+    job: acceptance-tests-check-agent-availability
+    threshold_in_minutes: 1440
+  ## trusted.ci.jenkins.io jobs
+  - controller: trusted.ci.jenkins.io
+    job: acceptance-tests-check-agent-availability
+    threshold_in_minutes: 1440
+  - controller: trusted.ci.jenkins.io
+    job: core-taglibs-report-generator
+    threshold_in_minutes: 10080  # 1 week (1 build)
+  - controller: trusted.ci.jenkins.io
+    job: crawler
+    threshold_in_minutes: 1440  # 24 hours (6 builds)
+  - controller: trusted.ci.jenkins.io
+    job: javadoc
+    threshold_in_minutes: 10080  # 1 week (1 build)
+  - controller: trusted.ci.jenkins.io
+    job: jenkins.io
+    threshold_in_minutes: 60  # (2 builds)
+  - controller: trusted.ci.jenkins.io
+    job: repository-permissions-updater
+    threshold_in_minutes: 240  # (2 builds)
+  - controller: trusted.ci.jenkins.io
+    job: update_center
+    threshold_in_minutes: 20  # (2 builds)
