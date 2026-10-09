@@ -20,7 +20,7 @@ controller:
       service.beta.kubernetes.io/azure-load-balancer-resource-group: prod-public-ips
       # TODO: track with updatecli from https://github.com/jenkins-infra/azure/blob/main/publick8s.tf
       # TODO: replace with final IP, see https://github.com/jenkins-infra/helpdesk/issues/5215
-      service.beta.kubernetes.io/azure-pip-name: temp-publick8s-sponsored-public-ipv4
+      service.beta.kubernetes.io/azure-pip-name: temp-publick8s-public-ipv4
     externalTrafficPolicy: Local
     ipFamilies:
       - IPv4
