@@ -764,7 +764,7 @@ controller:
               - installSource:
                   installers:
                   - maven:
-                      id: "3.9.16"
+                      id: "3.10.0"
       custom-header: |
         appearance:
           customHeader:
