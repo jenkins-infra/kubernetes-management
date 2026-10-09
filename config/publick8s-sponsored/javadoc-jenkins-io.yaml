@@ -1,7 +1,6 @@
 ---
 ingress:
-  # TODO: enable on migration day
-  enabled: false
+  enabled: true
   className: public-nginx
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
