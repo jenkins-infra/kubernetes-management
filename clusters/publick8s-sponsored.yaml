@@ -86,12 +86,12 @@ releases:
   #     - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
   #   secrets:
   #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
-  # - name: javadoc-jenkins-io
-  #   namespace: javadoc-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
+  - name: javadoc-jenkins-io
+    namespace: javadoc-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
