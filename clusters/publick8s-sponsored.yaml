@@ -179,20 +179,20 @@ releases:
   #     - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
   #   secrets:
   #     - ../secrets/config/accountapp/secrets.yaml
-  # - name: get-jenkins-io-mirrorbits
-  #   namespace: get-jenkins-io
-  #   chart: jenkins-infra/mirrorbits
-  #   version: 5.12.1
-  #   values:
-  #     - ../config/publick8s-sponsored/get-jenkins-io-mirrorbits.yaml
-  #   secrets:
-  #     - ../secrets/config/get-jenkins-io/mirrorbits-secrets.yaml
-  # - name: get-jenkins-io-httpd
-  #   namespace: get-jenkins-io
-  #   chart: jenkins-infra/httpd
-  #   version: 2.1.1
-  #   values:
-  #     - ../config/publick8s-sponsored/get-jenkins-io-httpd.yaml
+  - name: get-jenkins-io-mirrorbits
+    namespace: get-jenkins-io
+    chart: jenkins-infra/mirrorbits
+    version: 5.12.1
+    values:
+      - ../config/publick8s-sponsored/get-jenkins-io-mirrorbits.yaml
+    secrets:
+      - ../secrets/config/get-jenkins-io/publick8s-sponsored-mirrorbits-secrets.yaml
+  - name: get-jenkins-io-httpd
+    namespace: get-jenkins-io
+    chart: jenkins-infra/httpd
+    version: 2.1.1
+    values:
+      - ../config/publick8s-sponsored/get-jenkins-io-httpd.yaml
   # - name: plugin-site-issues-jenkins-io
   #   namespace: plugin-site-issues-jenkins-io
   #   chart: jenkins-infra/plugin-site-issues
@@ -280,12 +280,12 @@ releases:
   #   version: 0.7.8
   #   values:
   #     - ../config/publick8s-sponsored/staging-pkg-origin-jenkins-io.yaml
-  # - name: staging-get-jenkins-io
-  #   namespace: staging-get-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/staging-get-jenkins-io.yaml
+  - name: staging-get-jenkins-io
+    namespace: staging-get-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/staging-get-jenkins-io.yaml
   # - name: pkg-origin-jenkins-io
   #   namespace: pkg-origin-jenkins-io
   #   chart: jenkins-infra/nginx-website
