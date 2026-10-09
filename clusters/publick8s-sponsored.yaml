@@ -86,12 +86,12 @@ releases:
   #     - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
   #   secrets:
   #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
-  - name: javadoc-jenkins-io
-    namespace: javadoc-jenkins-io
-    chart: jenkins-infra/nginx-website
-    version: 0.7.8
-    values:
-      - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
+  # - name: javadoc-jenkins-io
+  #   namespace: javadoc-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
@@ -141,14 +141,14 @@ releases:
       - ../config/publick8s-sponsored/rating-jenkins-io.yaml
     secrets:
       - ../secrets/config/rating/secrets.yaml
-  - name: uplink-jenkins-io
-    namespace: uplink-jenkins-io
-    chart: jenkins-infra/uplink
-    version: 1.2.4
-    values:
-      - ../config/publick8s-sponsored/uplink-jenkins-io.yaml
-    secrets:
-      - ../secrets/config/uplink/secrets.yaml
+  # - name: uplink-jenkins-io
+  #   namespace: uplink-jenkins-io
+  #   chart: jenkins-infra/uplink
+  #   version: 1.2.4
+  #   values:
+  #     - ../config/publick8s-sponsored/uplink-jenkins-io.yaml
+  #   secrets:
+  #     - ../secrets/config/uplink/secrets.yaml
   # - name: reports-jenkins-io
   #   namespace: reports-jenkins-io
   #   chart: jenkins-infra/nginx-website
