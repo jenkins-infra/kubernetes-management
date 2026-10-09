@@ -63,6 +63,14 @@ releases:
     values:
       - ../config/public-nginx-ingress__common.yaml
       - ../config/publick8s-sponsored/public-nginx-ingress.yaml
+  - name: public-nginx-ingress-ipv6-lb-service
+    namespace: public-nginx-ingress
+    chart: jenkins-infra/ipv6-lb-service
+    version: 1.0.1
+    needs:
+      - public-nginx-ingress/public-nginx-ingress
+    values:
+      - ../config/publick8s-sponsored/public-nginx-ingress-ipv6-lb-service.yaml
   - name: private-nginx-ingress
     namespace: private-nginx-ingress
     chart: ingress-nginx/ingress-nginx
@@ -86,12 +94,12 @@ releases:
   #     - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
   #   secrets:
   #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
-  # - name: javadoc-jenkins-io
-  #   namespace: javadoc-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
+  - name: javadoc-jenkins-io
+    namespace: javadoc-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
@@ -213,14 +221,6 @@ releases:
   #   version: 0.7.8
   #   values:
   #     - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml
-  # - name: ipv6-lb-service
-  #   namespace: public-nginx-ingress
-  #   chart: jenkins-infra/ipv6-lb-service
-  #   version: 1.0.1
-  #   needs:
-  #     - public-nginx-ingress/public-nginx-ingress
-  #   values:
-  #     - ../config/publick8s-sponsored/ipv6-lb-service.yaml
   # - name: updates-jenkins-io-content
   #   namespace: updates-jenkins-io
   #   chart: jenkins-infra/mirrorbits
