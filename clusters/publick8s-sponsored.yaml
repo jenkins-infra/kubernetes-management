@@ -266,14 +266,14 @@ releases:
   #   version: 0.7.8
   #   values:
   #     - ../config/publick8s-sponsored/stats-jenkins-io.yaml
-  # - name: redis
-  #   namespace: redis
-  #   chart: dandydev/redis-ha
-  #   version: 4.34.13
-  #   values:
-  #     - ../config/publick8s-sponsored/redis.yaml
-  #   secrets:
-  #     - ../secrets/config/redis/publick8s-sponsored-secrets.yaml
+  - name: redis
+    namespace: redis
+    chart: dandydev/redis-ha
+    version: 4.34.13
+    values:
+      - ../config/publick8s-sponsored/redis.yaml
+    secrets:
+      - ../secrets/config/redis/publick8s-sponsored-secrets.yaml
   # - name: staging-pkg-origin-jenkins-io
   #   namespace: staging-pkg-origin-jenkins-io
   #   chart: jenkins-infra/nginx-website
