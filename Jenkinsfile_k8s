@@ -19,7 +19,7 @@ pipeline {
         label 'jnlp-linux-arm64'
       }
       steps {
-        sh 'yamllint --config-file yamllint.config config'
+        sh 'yamllint --config-file yamllint.config config clusters updatecli'
       }
     } // stage 'Yaml Lint'
     stage('Kubernetes Management Tasks') {
@@ -27,7 +27,7 @@ pipeline {
         axes {
           axis {
             name 'K8S_CLUSTER'
-            values 'publick8s', 'privatek8s-sponsored', 'cijioagents2', 'infracijioagents1'
+            values 'publick8s', 'publick8s-sponsored', 'privatek8s-sponsored', 'cijioagents2', 'infracijioagents1'
           }
         } // axes
         agent {

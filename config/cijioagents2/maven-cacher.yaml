@@ -1,5 +1,5 @@
 image:
-  tag: 2.121.0
+  tag: 2.135.0
 
 nodeSelector:
   kubernetes.io/arch: arm64
@@ -33,7 +33,7 @@ containerSecurityContext:
       - ALL
 
 cachePvc: ci-jenkins-io-maven-cache
-#TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/17784f9d822e974154515cddf589eb3beb3a7813/hieradata/common.yaml#L218
+# TODO: track with updatecli from https://github.com/jenkins-infra/jenkins-infra/blob/17784f9d822e974154515cddf589eb3beb3a7813/hieradata/common.yaml#L218
 javaHome: /opt/jdk-21
 mavenMirror:
   enable: true
@@ -43,4 +43,4 @@ mavenMirror:
   mirrorOf: 'external:*,!incrementals,!chimera-releases,!chimera-snapshots,!atlassian-public,!org.zowe.sdk,!jitpack.io,!space-maven'
   mirrorId: artifact-caching-proxy
 # Tracked by updatecli/updatecli.d/configs/cijenkinsioagents2-maven-cacher-bom-release-lines.yaml
-releaseLines: weekly 2.568.x 2.555.x 2.541.x
+releaseLines: weekly 2.580.x 2.568.x 2.555.x

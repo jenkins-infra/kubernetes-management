@@ -1,0 +1,294 @@
+---
+helmDefaults:
+  atomic: true
+  force: false
+  timeout: 600
+  wait: true
+repositories:
+  # https://github.com/DataDog/helm-charts/
+  - name: datadog
+    url: https://helm.datadoghq.com
+  # https://github.com/falcosecurity/charts/
+  - name: falco
+    url: https://falcosecurity.github.io/charts
+  # https://github.com/kubernetes/ingress-nginx/
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  # https://github.com/jenkinsci/helm-charts/
+  - name: jenkins
+    url: https://charts.jenkins.io
+  # https://github.com/jenkins-infra/helm-charts/
+  - name: jenkins-infra
+    url: https://jenkins-infra.github.io/helm-charts
+  # https://github.com/cert-manager/cert-manager/
+  - name: jetstack
+    url: https://charts.jetstack.io
+  # https://github.com/codecentric/helm-charts/
+  - name: codecentric
+    url: https://codecentric.github.io/helm-charts
+  - name: dandydev
+    url: https://dandydeveloper.github.io/charts
+releases:
+  - name: datadog
+    namespace: datadog
+    chart: datadog/datadog
+    version: 3.253.1
+    values:
+      - ../config/datadog.yaml.gotmpl
+      - ../config/publick8s-sponsored/datadog.yaml
+      - ../config/publick8s-sponsored/datadog_confd_checksd.yaml.gotmpl
+    secrets:
+      - ../secrets/config/datadog/publick8s-sponsored-secrets.yaml
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.20.4
+    values:
+      - ../config/cert-manager.yaml
+      - ../config/publick8s-sponsored/cert-manager.yaml
+  - name: acme
+    namespace: cert-manager
+    chart: jenkins-infra/acme
+    version: 0.1.4
+    needs:
+      - cert-manager
+    values:
+      - ../config/acme.yaml
+    secrets:
+      - ../secrets/config/acme/secrets.yaml
+  - name: public-nginx-ingress
+    namespace: public-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.11.8
+    values:
+      - ../config/public-nginx-ingress__common.yaml
+      - ../config/publick8s-sponsored/public-nginx-ingress.yaml
+  - name: public-nginx-ingress-ipv6-lb-service
+    namespace: public-nginx-ingress
+    chart: jenkins-infra/ipv6-lb-service
+    version: 1.0.1
+    needs:
+      - public-nginx-ingress/public-nginx-ingress
+    values:
+      - ../config/publick8s-sponsored/public-nginx-ingress-ipv6-lb-service.yaml
+  - name: private-nginx-ingress
+    namespace: private-nginx-ingress
+    chart: ingress-nginx/ingress-nginx
+    version: 4.11.8
+    values:
+      - ../config/private-nginx-ingress__common.yaml
+      - ../config/publick8s-sponsored/private-nginx-ingress.yaml
+  - name: falco
+    namespace: falco
+    chart: falco/falco
+    version: 9.2.0
+    values:
+      - ../config/publick8s-sponsored/falco.yaml
+  # - name: weekly-ci-jenkins-io
+  #   namespace: weekly-ci-jenkins-io
+  #   chart: jenkins/jenkins
+  #   version: 5.9.67
+  #   needs:
+  #     - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
+  #   values:
+  #     - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
+  #   secrets:
+  #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
+  - name: javadoc-jenkins-io
+    namespace: javadoc-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
+  - name: wiki-jenkins-io
+    namespace: wiki-jenkins-io
+    chart: jenkins-infra/wiki
+    version: 0.8.21
+    values:
+      - ../config/publick8s-sponsored/wiki.yaml
+  # - name: ldap-jenkins-io
+  #   namespace: ldap-jenkins-io
+  #   chart: jenkins-infra/ldap
+  #   version: 4.2.28
+  #   values:
+  #     - ../config/publick8s-sponsored/ldap-jenkins-io.yaml
+  #   secrets:
+  #     - ../secrets/config/ldap/secrets.yaml
+  # - name: admin-accounts-jenkins-io
+  #   namespace: admin-accounts-jenkins-io
+  #   chart: codecentric/keycloak
+  #   version: 18.10.0
+  #   values:
+  #     - ../config/publick8s-sponsored/admin-accounts-jenkins-io.yaml
+  #   needs:
+  #     - ldap-jenkins-io/ldap-jenkins-io
+  #   secrets:
+  #     - ../secrets/config/keycloak/public-db-secrets.yaml
+  #     - ../secrets/config/keycloak/http-secrets.yaml
+  # - name: plugin-health-jenkins-io
+  #   namespace: plugin-health-jenkins-io
+  #   chart: jenkins-infra/plugin-health-scoring
+  #   version: 3.1.9
+  #   values:
+  #     - ../config/publick8s-sponsored/plugin-health-jenkins-io.yaml
+  #   secrets:
+  #     - ../secrets/config/plugin-health-scoring/secrets.yaml
+  - name: incrementals-jenkins-io
+    namespace: incrementals-jenkins-io
+    chart: jenkins-infra/incrementals-publisher
+    version: 0.8.14
+    values:
+      - ../config/publick8s-sponsored/incrementals-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/incrementals-publisher/secrets.yaml
+  - name: rating-jenkins-io
+    namespace: rating-jenkins-io
+    chart: jenkins-infra/rating
+    version: 0.6.10
+    values:
+      - ../config/publick8s-sponsored/rating-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/rating/secrets.yaml
+  - name: uplink-jenkins-io
+    namespace: uplink-jenkins-io
+    chart: jenkins-infra/uplink
+    version: 1.2.4
+    values:
+      - ../config/publick8s-sponsored/uplink-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/uplink/secrets.yaml
+  # - name: reports-jenkins-io
+  #   namespace: reports-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/reports-jenkins-io.yaml
+  # - name: builds-reports-jenkins-io
+  #   namespace: builds-reports-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/builds-reports-jenkins-io.yaml
+  # - name: accounts-jenkins-io
+  #   namespace: accounts-jenkins-io
+  #   chart: jenkins-infra/accountapp
+  #   version: 0.11.9
+  #   needs:
+  #     - ldap-jenkins-io/ldap-jenkins-io
+  #   values:
+  #     - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
+  #   secrets:
+  #     - ../secrets/config/accountapp/secrets.yaml
+  - name: get-jenkins-io-mirrorbits
+    namespace: get-jenkins-io
+    chart: jenkins-infra/mirrorbits
+    version: 5.12.1
+    values:
+      - ../config/publick8s-sponsored/get-jenkins-io-mirrorbits.yaml
+    secrets:
+      - ../secrets/config/get-jenkins-io/publick8s-sponsored-mirrorbits-secrets.yaml
+  - name: get-jenkins-io-httpd
+    namespace: get-jenkins-io
+    chart: jenkins-infra/httpd
+    version: 2.1.1
+    values:
+      - ../config/publick8s-sponsored/get-jenkins-io-httpd.yaml
+  # - name: plugin-site-issues-jenkins-io
+  #   namespace: plugin-site-issues-jenkins-io
+  #   chart: jenkins-infra/plugin-site-issues
+  #   version: 0.4.26
+  #   values:
+  #     - ../config/publick8s-sponsored/plugin-site-issues-jenkins-io.yaml
+  #   secrets:
+  #     - ../secrets/config/plugin-site-issues/secrets.yaml
+  # - name: plugins-jenkins-io
+  #   namespace: plugins-jenkins-io
+  #   chart: jenkins-infra/plugin-site
+  #   version: 0.6.8
+  #   values:
+  #     - ../config/publick8s-sponsored/plugins-jenkins-io.yaml
+  #   secrets:
+  #     - ../secrets/config/plugins-jenkins-io/secrets.yaml
+  # - name: www-jenkins-io
+  #   namespace: www-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/www-jenkins-io.yaml
+  # - name: issue-redirect-jenkins-io
+  #   namespace: issue-redirect-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml
+  # - name: updates-jenkins-io-content
+  #   namespace: updates-jenkins-io
+  #   chart: jenkins-infra/mirrorbits
+  #   version: 5.12.1
+  #   values:
+  #     - ../config/publick8s-sponsored/updates-jenkins-io-content.yaml
+  #   secrets:
+  #     - ../secrets/config/updates.jenkins.io/secrets.yaml
+  # # Can be removed once mirrorbits support scanning through s3 - https://github.com/etix/mirrorbits/issues/141
+  # - name: updates-jenkins-io-rsync
+  #   namespace: updates-jenkins-io
+  #   chart: jenkins-infra/rsyncd
+  #   version: 3.2.31
+  #   values:
+  #     - ../config/publick8s-sponsored/updates-jenkins-io-rsync.yaml
+  # - name: updates-jenkins-io-redirections
+  #   namespace: updates-jenkins-io
+  #   chart: jenkins-infra/httpd
+  #   version: 2.1.1
+  #   values:
+  #     - ../config/publick8s-sponsored/updates-jenkins-io-redirections.yaml
+  # - name: contributors-jenkins-io
+  #   namespace: contributors-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/contributors-jenkins-io.yaml
+  # - name: docs-jenkins-io
+  #   namespace: docs-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/docs-jenkins-io.yaml
+  # - name: alpha-docs-jenkins-io
+  #   namespace: alpha-docs-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/alpha-docs-jenkins-io.yaml
+  # - name: stats-jenkins-io
+  #   namespace: stats-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/stats-jenkins-io.yaml
+  - name: redis
+    namespace: redis
+    chart: dandydev/redis-ha
+    version: 4.34.13
+    values:
+      - ../config/publick8s-sponsored/redis.yaml
+    secrets:
+      - ../secrets/config/redis/publick8s-sponsored-secrets.yaml
+  # - name: staging-pkg-origin-jenkins-io
+  #   namespace: staging-pkg-origin-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/staging-pkg-origin-jenkins-io.yaml
+  - name: staging-get-jenkins-io
+    namespace: staging-get-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/staging-get-jenkins-io.yaml
+  # - name: pkg-origin-jenkins-io
+  #   namespace: pkg-origin-jenkins-io
+  #   chart: jenkins-infra/nginx-website
+  #   version: 0.7.8
+  #   values:
+  #     - ../config/publick8s-sponsored/pkg-origin-jenkins-io.yaml

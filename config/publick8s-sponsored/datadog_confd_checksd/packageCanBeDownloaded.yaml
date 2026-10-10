@@ -1,0 +1,19 @@
+init_config:
+
+instances:
+  - package: debian
+    min_collection_interval: 60
+  - package: debian-stable
+    min_collection_interval: 60
+  - package: rpm-stable
+    min_collection_interval: 60
+  - package: rpm
+    min_collection_interval: 60
+  - package: war
+    min_collection_interval: 60
+  - package: war-stable
+    min_collection_interval: 60
+  - package: windows
+    min_collection_interval: 60
+  - package: windows-stable
+    min_collection_interval: 60

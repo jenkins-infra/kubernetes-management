@@ -27,7 +27,7 @@ targets:
     scmid: default
     spec:
       files:
-       - clusters/publick8s.yaml
+        - clusters/publick8s.yaml
       engine: yamlpath
       key: $.releases[?(@.chart == 'falco/falco')].version
 

@@ -9,6 +9,10 @@ x-kubeconfigCredentials: &kubeconfigCredentials
     fileName: "kubeconfig"
     description: "Kubeconfig file for publick8s"
     secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
+  kubeconfig-publick8s-sponsored:
+    fileName: "kubeconfig"
+    description: "Kubeconfig file for publick8s-sponsored"
+    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED}}"
   kubeconfig-cijioagents2:
     fileName: "kubeconfig"
     description: "Kubeconfig file for cijioagents2"
@@ -34,7 +38,38 @@ jobsDefinition:
     name: Jenkins Infrastructure Cron Jobs
     description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
     kind: folder
-    children: {}
+    children:
+      geoipupdates:
+        name: "Cron routine to update the GeoIP database of the mirrorbits services"
+        repository: infra-cronjobs
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "geoipupdates"
+        disablePullRequests: true
+        disableGitHubNotifications: true
+        disableTagDiscovery: true
+        credentials:
+          cronjob-geoipdbstorage-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${GEOIPDBSTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${GEOIPDBSTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "Azure Service Principal used to access the GeoIP DB File Share in Read/Write"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          geoipupdate_account_id:
+            description: "Account ID used to retrieve the GeoIP database from MaxMind"
+            secret: "${GEOIPUPDATE_ACCOUNT_ID}"
+          geoipupdate_license_key:
+            description: "License Key used to retrieve the GeoIP database from MaxMind"
+            secret: "${GEOIPUPDATE_LICENSE_KEY}"
+          kubeconfig-publick8s-getjenkinsio-restarter:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for getjenkinsio-restarter@publick8s"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_GETJENKINSIO_RESTARTER}}"
+          kubeconfig-publick8s-updatesjenkinsio-restarter:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for updatesjenkinsio-restarter@publick8s"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_UPDATESJENKINSIO_RESTARTER}}"
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
@@ -471,9 +506,6 @@ jobsDefinition:
       azure-net:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-      contributor-spotlight:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       cloudflare:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -598,9 +630,6 @@ jobsDefinition:
       shared-tools:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-      stats.jenkins.io:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       status:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -629,6 +658,7 @@ jobsDefinition:
         disableTagDiscovery: true
         disableBranchDiscovery: true
         allowUntrustedChanges: true
+        branchIncludes: main gsoc-2026-revamp
       docs.jenkins.io:
         name: docs.jenkins.io PR previews
         jenkinsfilePath: Jenkinsfile
@@ -658,7 +688,7 @@ jobsDefinition:
         allowUntrustedChanges: true
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
-        jenkinsfilePath: Jenkinsfile_previews
+        jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         disableTagDiscovery: true
         disableBranchDiscovery: true
@@ -670,6 +700,7 @@ jobsDefinition:
         disableTagDiscovery: true
         disableBranchDiscovery: true
         allowUntrustedChanges: true
+        branchIncludes: main gsoc-2026-revamp
   website-production-jobs:
     name: Website Production Jobs
     description: "Folder hosting all the Website jobs dedicated to deployment in production"

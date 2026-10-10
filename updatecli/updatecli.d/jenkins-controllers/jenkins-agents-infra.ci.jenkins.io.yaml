@@ -64,8 +64,8 @@ conditions:
       image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04
       ## Tag from source
       architectures:
-      - arm64
-      - amd64
+        - arm64
+        - amd64
 
 targets:
   setAzureGalleryImageVersion:
