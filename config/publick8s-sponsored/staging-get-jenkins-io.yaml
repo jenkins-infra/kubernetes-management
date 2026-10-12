@@ -1,0 +1,57 @@
+---
+ingress:
+  enabled: true
+  ingressClassName: private-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: staging.get.jenkins.io
+      paths:
+        - path: /
+          serviceName: staging-get-jenkins-io
+  tls:
+    - secretName: staging-get-jenkins-io
+      hosts:
+        - staging.get.jenkins.io
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 32Mi
+
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: staging-get-jenkins-io
+htmlVolumeSubDir: ./get.jenkins.io/mirrorbits-staging/
+
+replicaCount: 1
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - stats-jenkins-io
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"staging.get.jenkins.io"}
+    ]
