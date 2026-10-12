@@ -106,14 +106,14 @@ releases:
     version: 0.8.21
     values:
       - ../config/publick8s-sponsored/wiki.yaml
-  # - name: ldap-jenkins-io
-  #   namespace: ldap-jenkins-io
-  #   chart: jenkins-infra/ldap
-  #   version: 4.2.28
-  #   values:
-  #     - ../config/publick8s-sponsored/ldap-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/ldap/secrets.yaml
+  - name: ldap-jenkins-io
+    namespace: ldap-jenkins-io
+    chart: jenkins-infra/ldap
+    version: 4.2.28
+    values:
+      - ../config/publick8s-sponsored/ldap-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/ldap/secrets.yaml
   # - name: admin-accounts-jenkins-io
   #   namespace: admin-accounts-jenkins-io
   #   chart: codecentric/keycloak
