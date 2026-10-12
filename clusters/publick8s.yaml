@@ -32,7 +32,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.253.2
+    version: 3.254.1
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/publick8s/datadog.yaml
@@ -164,7 +164,7 @@ releases:
   - name: accounts-jenkins-io
     namespace: accounts-jenkins-io
     chart: jenkins-infra/accountapp
-    version: 0.11.9
+    version: 0.11.10
     needs:
       - ldap-jenkins-io/ldap-jenkins-io
     values:

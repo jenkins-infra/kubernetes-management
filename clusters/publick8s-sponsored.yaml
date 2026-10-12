@@ -179,12 +179,12 @@ releases:
   #     - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
   #   secrets:
   #     - ../secrets/config/accountapp/secrets.yaml
-  - name: get-jenkins-io-mirrorbits
+  - name: get-jenkins-io-content
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
     version: 5.12.1
     values:
-      - ../config/publick8s-sponsored/get-jenkins-io-mirrorbits.yaml
+      - ../config/publick8s-sponsored/get-jenkins-io-content.yaml
     secrets:
       - ../secrets/config/get-jenkins-io/publick8s-sponsored-mirrorbits-secrets.yaml
   - name: get-jenkins-io-httpd
