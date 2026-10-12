@@ -50,9 +50,9 @@ tolerations:
 
 persistence:
   # Tracked by updatecli - updatecli/updatecli.d/configs/pvc-ldap.yaml
-  customDataClaimName: ldap-jenkins-io-sponsored-data
+  customDataClaimName: ldap-jenkins-io-data
   # Tracked by updatecli - updatecli/updatecli.d/configs/pvc-ldap.yaml
-  customBackupClaimName: ldap-jenkins-io-sponsored-backup
+  customBackupClaimName: ldap-jenkins-io-backup
 
 podAnnotations:
   ad.datadoghq.com/slapd.logs: |
