@@ -7,7 +7,6 @@ service:
     name: temp-publick8s-ldap-ipv4
     resourceGroup: prod-public-ips
   lbAllowSources:
-    # TODO: which services need that? weekly.ci? Can it do without it using .svc intra k8s host instead of ldap.jenkins.io?
     # TODO: track with updatecli from azure: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
     publick8s-sponsored-out-lb: 172.175.200.191/32,57.162.102.216/32,172.175.115.113/32
     publick8s-sponsored-pods: "10.100.0.0/14"
