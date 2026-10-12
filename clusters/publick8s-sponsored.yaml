@@ -187,12 +187,12 @@ releases:
       - ../config/publick8s-sponsored/get-jenkins-io-content.yaml
     secrets:
       - ../secrets/config/get-jenkins-io/publick8s-sponsored-mirrorbits-secrets.yaml
-  - name: get-jenkins-io-httpd
+  - name: get-jenkins-io-website
     namespace: get-jenkins-io
     chart: jenkins-infra/httpd
     version: 2.1.1
     values:
-      - ../config/publick8s-sponsored/get-jenkins-io-httpd.yaml
+      - ../config/publick8s-sponsored/get-jenkins-io-website.yaml
   # - name: plugin-site-issues-jenkins-io
   #   namespace: plugin-site-issues-jenkins-io
   #   chart: jenkins-infra/plugin-site-issues
