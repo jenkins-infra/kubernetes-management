@@ -219,24 +219,54 @@ releases:
   #   version: 0.7.8
   #   values:
   #     - ../config/publick8s-sponsored/pkg-origin-jenkins-io.yaml
-  # - name: reports-jenkins-io
-  #   namespace: reports-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/reports-jenkins-io.yaml
-  # - name: builds-reports-jenkins-io
-  #   namespace: builds-reports-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/builds-reports-jenkins-io.yaml
-  # - name: issue-redirect-jenkins-io
-  #   namespace: issue-redirect-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml
+  - name: reports-jenkins-io
+    namespace: reports-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/reports-jenkins-io.yaml
+  - name: builds-reports-jenkins-io
+    namespace: builds-reports-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/builds-reports-jenkins-io.yaml
+  - name: issue-redirect-jenkins-io
+    namespace: issue-redirect-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml
+  - name: www-jenkins-io
+    namespace: www-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/www-jenkins-io.yaml
+  - name: contributors-jenkins-io
+    namespace: contributors-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/contributors-jenkins-io.yaml
+  - name: docs-jenkins-io
+    namespace: docs-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/docs-jenkins-io.yaml
+  - name: alpha-docs-jenkins-io
+    namespace: alpha-docs-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/alpha-docs-jenkins-io.yaml
+  - name: stats-jenkins-io
+    namespace: stats-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/stats-jenkins-io.yaml
   # - name: plugin-site-issues-jenkins-io
   #   namespace: plugin-site-issues-jenkins-io
   #   chart: jenkins-infra/plugin-site-issues
@@ -253,36 +283,6 @@ releases:
   #     - ../config/publick8s-sponsored/plugins-jenkins-io.yaml
   #   secrets:
   #     - ../secrets/config/plugins-jenkins-io/secrets.yaml
-  # - name: www-jenkins-io
-  #   namespace: www-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/www-jenkins-io.yaml
-  # - name: contributors-jenkins-io
-  #   namespace: contributors-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/contributors-jenkins-io.yaml
-  # - name: docs-jenkins-io
-  #   namespace: docs-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/docs-jenkins-io.yaml
-  # - name: alpha-docs-jenkins-io
-  #   namespace: alpha-docs-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/alpha-docs-jenkins-io.yaml
-  # - name: stats-jenkins-io
-  #   namespace: stats-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/stats-jenkins-io.yaml
   # - name: plugin-health-jenkins-io
   #   namespace: plugin-health-jenkins-io
   #   chart: jenkins-infra/plugin-health-scoring
