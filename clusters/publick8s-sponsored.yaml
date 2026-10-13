@@ -213,12 +213,12 @@ releases:
     version: 0.7.8
     values:
       - ../config/publick8s-sponsored/pkg-origin-jenkins-io.yaml
-  - name: pkg-origin-jenkins-io-staging
-    namespace: pkg-origin-jenkins-io-staging
+  - name: staging-pkg-origin-jenkins-io
+    namespace: staging-pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
     version: 0.7.8
     values:
-      - ../config/publick8s-sponsored/pkg-origin-jenkins-io-staging.yaml
+      - ../config/publick8s-sponsored/staging-pkg-origin-jenkins-io.yaml
   # - name: reports-jenkins-io
   #   namespace: reports-jenkins-io
   #   chart: jenkins-infra/nginx-website
