@@ -186,16 +186,16 @@ releases:
   #     - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
   #   secrets:
   #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
-  # - name: accounts-jenkins-io
-  #   namespace: accounts-jenkins-io
-  #   chart: jenkins-infra/accountapp
-  #   version: 0.11.9
-  #   needs:
-  #     - ldap-jenkins-io/ldap-jenkins-io
-  #   values:
-  #     - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/accountapp/secrets.yaml
+  - name: accounts-jenkins-io
+    namespace: accounts-jenkins-io
+    chart: jenkins-infra/accountapp
+    version: 0.11.9
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    values:
+      - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/accountapp/secrets.yaml
   # - name: admin-accounts-jenkins-io
   #   namespace: admin-accounts-jenkins-io
   #   chart: codecentric/keycloak
