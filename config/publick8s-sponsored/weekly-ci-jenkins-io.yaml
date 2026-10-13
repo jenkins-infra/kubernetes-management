@@ -45,6 +45,9 @@ controller:
     runAsNonRoot: true
     runAsUser: 1000
     supplementalGroups: [1000]
+    ## Commented out after initial installation
+    # fsGroup: 1000  # Uncomment once for new volumes
+    # fsGroupChangePolicy: OnRootMismatch  # Uncomment once for new volumes
   overwritePlugins: true
   serviceType: "ClusterIP"
   javaOpts: >-
