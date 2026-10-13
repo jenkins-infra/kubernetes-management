@@ -283,11 +283,11 @@ releases:
   #   version: 0.7.8
   #   values:
   #     - ../config/publick8s-sponsored/stats-jenkins-io.yaml
-  # - name: plugin-health-jenkins-io
-  #   namespace: plugin-health-jenkins-io
-  #   chart: jenkins-infra/plugin-health-scoring
-  #   version: 3.1.9
-  #   values:
-  #     - ../config/publick8s-sponsored/plugin-health-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/plugin-health-scoring/secrets.yaml
+  - name: plugin-health-jenkins-io
+    namespace: plugin-health-jenkins-io
+    chart: jenkins-infra/plugin-health-scoring
+    version: 3.1.9
+    values:
+      - ../config/publick8s-sponsored/plugin-health-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/plugin-health-scoring/secrets.yaml

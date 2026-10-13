@@ -1,0 +1,44 @@
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: plugin-health.jenkins.io
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: plugin-health-scoring-tls
+      hosts:
+        - plugin-health.jenkins.io
+
+podAnnotations:
+  ad.datadoghq.com/plugin-health-scoring.logs: |
+    [
+      {"source":"java","service":"plugin-health.jenkins.io"}
+    ]
+
+database:
+  username: plugin_health
+  server: public-db.postgres.database.azure.com
+  name: plugin_health
+config:
+  github:
+    # https://github.com/apps/plugins-health-scoring
+    appId: 281243
+    # org or username where the app is installed
+    appInstallationName: jenkinsci
+
+# Specify the "hard" scheduling constraints
+nodeSelector:
+  # Ensure ARM64 is used to decrease cloud bill (instead of using `amd64`
+  kubernetes.io/arch: arm64
+
+# Tolerates to run on tainted `arm64` nodes
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
