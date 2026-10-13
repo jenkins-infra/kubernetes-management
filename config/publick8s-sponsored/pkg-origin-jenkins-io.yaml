@@ -69,4 +69,4 @@ podAnnotations:
 
 nginx:
   overrideLocations: |
-{{ readFile "./includes/pkg-origin-jenkins-io-locations-override.conf" | indent 4 }}
+{{ readFile "./nginx-website-confd/pkg-origin-jenkins-io.conf" | indent 4 }}
