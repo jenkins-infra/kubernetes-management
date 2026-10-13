@@ -224,25 +224,25 @@ releases:
     chart: jenkins-infra/nginx-website
     version: 0.7.8
     values:
-      - ../config/publick8s-sponsored/reports-jenkins-io.yaml
+      - ../config/publick8s-sponsored/reports-jenkins-io.yaml.gotmpl
   - name: builds-reports-jenkins-io
     namespace: builds-reports-jenkins-io
     chart: jenkins-infra/nginx-website
     version: 0.7.8
     values:
-      - ../config/publick8s-sponsored/builds-reports-jenkins-io.yaml
+      - ../config/publick8s-sponsored/builds-reports-jenkins-io.yaml.gotmpl
   - name: issue-redirect-jenkins-io
     namespace: issue-redirect-jenkins-io
     chart: jenkins-infra/nginx-website
     version: 0.7.8
     values:
-      - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml
+      - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml.gotmpl
   - name: www-jenkins-io
     namespace: www-jenkins-io
     chart: jenkins-infra/nginx-website
     version: 0.7.8
     values:
-      - ../config/publick8s-sponsored/www-jenkins-io.yaml
+      - ../config/publick8s-sponsored/www-jenkins-io.yaml.gotmpl
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
@@ -254,7 +254,7 @@ releases:
     chart: jenkins-infra/nginx-website
     version: 0.7.8
     values:
-      - ../config/publick8s-sponsored/docs-jenkins-io.yaml
+      - ../config/publick8s-sponsored/docs-jenkins-io.yaml.gotmpl
   - name: alpha-docs-jenkins-io
     namespace: alpha-docs-jenkins-io
     chart: jenkins-infra/nginx-website
@@ -266,7 +266,7 @@ releases:
     chart: jenkins-infra/nginx-website
     version: 0.7.8
     values:
-      - ../config/publick8s-sponsored/stats-jenkins-io.yaml
+      - ../config/publick8s-sponsored/stats-jenkins-io.yaml.gotmpl
   # - name: plugin-site-issues-jenkins-io
   #   namespace: plugin-site-issues-jenkins-io
   #   chart: jenkins-infra/plugin-site-issues
