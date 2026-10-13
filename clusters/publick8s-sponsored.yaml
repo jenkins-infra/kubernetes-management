@@ -176,16 +176,16 @@ releases:
       - ../config/publick8s-sponsored/ldap-jenkins-io.yaml
     secrets:
       - ../secrets/config/ldap/secrets.yaml
-  # - name: weekly-ci-jenkins-io
-  #   namespace: weekly-ci-jenkins-io
-  #   chart: jenkins/jenkins
-  #   version: 5.9.67
-  #   needs:
-  #     - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
-  #   values:
-  #     - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
+  - name: weekly-ci-jenkins-io
+    namespace: weekly-ci-jenkins-io
+    chart: jenkins/jenkins
+    version: 5.9.67
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
+    values:
+      - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
   # - name: accounts-jenkins-io
   #   namespace: accounts-jenkins-io
   #   chart: jenkins-infra/accountapp
