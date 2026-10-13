@@ -221,27 +221,26 @@ releases:
   #   version: 0.7.8
   #   values:
   #     - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml
-  # - name: updates-jenkins-io-content
-  #   namespace: updates-jenkins-io
-  #   chart: jenkins-infra/mirrorbits
-  #   version: 5.12.1
-  #   values:
-  #     - ../config/publick8s-sponsored/updates-jenkins-io-content.yaml
-  #   secrets:
-  #     - ../secrets/config/updates.jenkins.io/secrets.yaml
-  # # Can be removed once mirrorbits support scanning through s3 - https://github.com/etix/mirrorbits/issues/141
-  # - name: updates-jenkins-io-rsync
-  #   namespace: updates-jenkins-io
-  #   chart: jenkins-infra/rsyncd
-  #   version: 3.2.31
-  #   values:
-  #     - ../config/publick8s-sponsored/updates-jenkins-io-rsync.yaml
-  # - name: updates-jenkins-io-redirections
-  #   namespace: updates-jenkins-io
-  #   chart: jenkins-infra/httpd
-  #   version: 2.1.1
-  #   values:
-  #     - ../config/publick8s-sponsored/updates-jenkins-io-redirections.yaml
+  - name: updates-jenkins-io-content
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/mirrorbits
+    version: 5.12.1
+    values:
+      - ../config/publick8s-sponsored/updates-jenkins-io-content.yaml
+    secrets:
+      - ../secrets/config/updates.jenkins.io/publick8s-sponsored-mirrorbits-secrets.yaml
+  - name: updates-jenkins-io-rsync
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/rsyncd
+    version: 3.2.31
+    values:
+      - ../config/publick8s-sponsored/updates-jenkins-io-rsync.yaml
+  - name: updates-jenkins-io-redirections
+    namespace: updates-jenkins-io
+    chart: jenkins-infra/httpd
+    version: 2.1.1
+    values:
+      - ../config/publick8s-sponsored/updates-jenkins-io-redirections.yaml
   # - name: contributors-jenkins-io
   #   namespace: contributors-jenkins-io
   #   chart: jenkins-infra/nginx-website

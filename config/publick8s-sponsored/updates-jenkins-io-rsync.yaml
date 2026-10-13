@@ -1,0 +1,33 @@
+enabled: true
+configuration:
+  components:
+    - name: jenkins
+      path: /rsyncd/data/jenkins
+      comment: "Jenkins Read-Only Mirror"
+      volumeTpl: updates-jenkins-io
+      volumeSubDir: ./updates.jenkins.io/content/
+      writeEnabled: false
+podSecurityContext:
+  runAsUser: 1000  # User 'rsyncd'
+  runAsGroup: 1000  # Group 'rsyncd'
+  runAsNonRoot: true
+containerSecurityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+nodeSelector:
+  kubernetes.io/arch: arm64
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
