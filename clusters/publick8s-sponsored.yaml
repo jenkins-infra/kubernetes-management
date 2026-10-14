@@ -267,22 +267,22 @@ releases:
     version: 0.7.8
     values:
       - ../config/publick8s-sponsored/stats-jenkins-io.yaml.gotmpl
-  # - name: plugin-site-issues-jenkins-io
-  #   namespace: plugin-site-issues-jenkins-io
-  #   chart: jenkins-infra/plugin-site-issues
-  #   version: 0.4.26
-  #   values:
-  #     - ../config/publick8s-sponsored/plugin-site-issues-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/plugin-site-issues/secrets.yaml
-  # - name: plugins-jenkins-io
-  #   namespace: plugins-jenkins-io
-  #   chart: jenkins-infra/plugin-site
-  #   version: 0.6.8
-  #   values:
-  #     - ../config/publick8s-sponsored/plugins-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/plugins-jenkins-io/secrets.yaml
+  - name: plugin-site-issues-jenkins-io
+    namespace: plugin-site-issues-jenkins-io
+    chart: jenkins-infra/plugin-site-issues
+    version: 0.4.29
+    values:
+      - ../config/publick8s-sponsored/plugin-site-issues-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/plugin-site-issues/secrets.yaml
+  - name: plugins-jenkins-io
+    namespace: plugins-jenkins-io
+    chart: jenkins-infra/plugin-site
+    version: 0.6.8
+    values:
+      - ../config/publick8s-sponsored/plugins-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/plugins-jenkins-io/secrets.yaml
   # - name: plugin-health-jenkins-io
   #   namespace: plugin-health-jenkins-io
   #   chart: jenkins-infra/plugin-health-scoring
