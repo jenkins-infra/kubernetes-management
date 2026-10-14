@@ -196,17 +196,17 @@ releases:
       - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
     secrets:
       - ../secrets/config/accountapp/secrets.yaml
-  # - name: admin-accounts-jenkins-io
-  #   namespace: admin-accounts-jenkins-io
-  #   chart: codecentric/keycloak
-  #   version: 18.10.0
-  #   values:
-  #     - ../config/publick8s-sponsored/admin-accounts-jenkins-io.yaml
-  #   needs:
-  #     - ldap-jenkins-io/ldap-jenkins-io
-  #   secrets:
-  #     - ../secrets/config/keycloak/public-db-secrets.yaml
-  #     - ../secrets/config/keycloak/http-secrets.yaml
+  - name: admin-accounts-jenkins-io
+    namespace: admin-accounts-jenkins-io
+    chart: codecentric/keycloak
+    version: 18.10.0
+    values:
+      - ../config/publick8s-sponsored/admin-accounts-jenkins-io.yaml
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    secrets:
+      - ../secrets/config/keycloak/public-db-secrets.yaml
+      - ../secrets/config/keycloak/http-secrets.yaml
   # - name: staging-pkg-origin-jenkins-io
   #   namespace: staging-pkg-origin-jenkins-io
   #   chart: jenkins-infra/nginx-website
