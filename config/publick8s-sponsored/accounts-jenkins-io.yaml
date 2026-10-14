@@ -30,7 +30,7 @@ resources:
     memory: 256Mi
 
 ldap:
-  url: ldaps://ldap.ldap-jenkins-io.svc.cluster.local:636/
+  url: ldaps://ldap-jenkins-io.ldap-jenkins-io.svc.cluster.local:636/
 
 smtp:
   server: smtp.mailgun.org
