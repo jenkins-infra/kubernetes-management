@@ -176,37 +176,37 @@ releases:
       - ../config/publick8s-sponsored/ldap-jenkins-io.yaml
     secrets:
       - ../secrets/config/ldap/secrets.yaml
-  # - name: weekly-ci-jenkins-io
-  #   namespace: weekly-ci-jenkins-io
-  #   chart: jenkins/jenkins
-  #   version: 5.9.67
-  #   needs:
-  #     - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
-  #   values:
-  #     - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
-  # - name: accounts-jenkins-io
-  #   namespace: accounts-jenkins-io
-  #   chart: jenkins-infra/accountapp
-  #   version: 0.11.9
-  #   needs:
-  #     - ldap-jenkins-io/ldap-jenkins-io
-  #   values:
-  #     - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
-  #   secrets:
-  #     - ../secrets/config/accountapp/secrets.yaml
-  # - name: admin-accounts-jenkins-io
-  #   namespace: admin-accounts-jenkins-io
-  #   chart: codecentric/keycloak
-  #   version: 18.10.0
-  #   values:
-  #     - ../config/publick8s-sponsored/admin-accounts-jenkins-io.yaml
-  #   needs:
-  #     - ldap-jenkins-io/ldap-jenkins-io
-  #   secrets:
-  #     - ../secrets/config/keycloak/public-db-secrets.yaml
-  #     - ../secrets/config/keycloak/http-secrets.yaml
+  - name: weekly-ci-jenkins-io
+    namespace: weekly-ci-jenkins-io
+    chart: jenkins/jenkins
+    version: 5.9.67
+    needs:
+      - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
+    values:
+      - ../config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/weekly.ci.jenkins.io/jenkins-secrets.yaml
+  - name: accounts-jenkins-io
+    namespace: accounts-jenkins-io
+    chart: jenkins-infra/accountapp
+    version: 0.11.9
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    values:
+      - ../config/publick8s-sponsored/accounts-jenkins-io.yaml
+    secrets:
+      - ../secrets/config/accountapp/secrets.yaml
+  - name: admin-accounts-jenkins-io
+    namespace: admin-accounts-jenkins-io
+    chart: codecentric/keycloak
+    version: 18.10.0
+    values:
+      - ../config/publick8s-sponsored/admin-accounts-jenkins-io.yaml
+    needs:
+      - ldap-jenkins-io/ldap-jenkins-io
+    secrets:
+      - ../secrets/config/keycloak/public-db-secrets.yaml
+      - ../secrets/config/keycloak/http-secrets.yaml
   - name: pkg-origin-jenkins-io
     namespace: pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
