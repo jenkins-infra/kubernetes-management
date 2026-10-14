@@ -79,7 +79,7 @@ releases:
   - name: weekly-ci-jenkins-io
     namespace: weekly-ci-jenkins-io
     chart: jenkins/jenkins
-    version: 5.9.67
+    version: 5.9.68
     needs:
       - public-nginx-ingress/public-nginx-ingress # Required to expose both the UI and the webhooks endpoint
     values:
@@ -95,7 +95,7 @@ releases:
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
-    version: 0.8.22
+    version: 0.8.23
     values:
       - ../config/publick8s/wiki.yaml
   - name: ldap-jenkins-io
@@ -164,7 +164,7 @@ releases:
   - name: accounts-jenkins-io
     namespace: accounts-jenkins-io
     chart: jenkins-infra/accountapp
-    version: 0.11.10
+    version: 0.11.11
     needs:
       - ldap-jenkins-io/ldap-jenkins-io
     values:
@@ -174,7 +174,7 @@ releases:
   - name: get-jenkins-io-mirrorbits
     namespace: get-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.12.1
+    version: 5.12.2
     values:
       - ../config/publick8s/get-jenkins-io-mirrorbits.yaml
     secrets:
@@ -224,7 +224,7 @@ releases:
   - name: updates-jenkins-io-content
     namespace: updates-jenkins-io
     chart: jenkins-infra/mirrorbits
-    version: 5.12.1
+    version: 5.12.2
     values:
       - ../config/publick8s/updates-jenkins-io-content.yaml
     secrets:
