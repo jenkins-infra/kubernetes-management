@@ -1,0 +1,72 @@
+---
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: pkg.origin.jenkins.io
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
+    # Legacy domain, should redirect to Fastly
+    - host: pkg.jenkins-ci.org
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
+    # For requests coming from Fastly
+    - host: pkg.jenkins.io
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
+  tls:
+    - secretName: pkg-origin-jenkins-io
+      hosts:
+        - pkg.origin.jenkins.io
+        - pkg.jenkins-ci.org
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 32Mi
+
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: pkg-origin-jenkins-io
+htmlVolumeSubDir: ./pkg.jenkins.io/production/
+
+replicaCount: 2
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - stats-jenkins-io
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"pkg.origin.jenkins.io"}
+    ]
+
+nginx:
+  overrideLocations: |
+{{ readFile "./nginx-website-confd/pkg-origin-jenkins-io.conf" | indent 4 }}
