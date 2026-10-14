@@ -207,18 +207,18 @@ releases:
     secrets:
       - ../secrets/config/keycloak/public-db-secrets.yaml
       - ../secrets/config/keycloak/http-secrets.yaml
-  # - name: staging-pkg-origin-jenkins-io
-  #   namespace: staging-pkg-origin-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/staging-pkg-origin-jenkins-io.yaml
-  # - name: pkg-origin-jenkins-io
-  #   namespace: pkg-origin-jenkins-io
-  #   chart: jenkins-infra/nginx-website
-  #   version: 0.7.8
-  #   values:
-  #     - ../config/publick8s-sponsored/pkg-origin-jenkins-io.yaml
+  - name: pkg-origin-jenkins-io
+    namespace: pkg-origin-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/pkg-origin-jenkins-io.yaml.gotmpl
+  - name: staging-pkg-origin-jenkins-io
+    namespace: staging-pkg-origin-jenkins-io
+    chart: jenkins-infra/nginx-website
+    version: 0.7.8
+    values:
+      - ../config/publick8s-sponsored/staging-pkg-origin-jenkins-io.yaml.gotmpl
   # - name: reports-jenkins-io
   #   namespace: reports-jenkins-io
   #   chart: jenkins-infra/nginx-website
