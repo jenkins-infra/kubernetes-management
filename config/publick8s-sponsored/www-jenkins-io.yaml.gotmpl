@@ -1,0 +1,82 @@
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/configuration-snippet": |
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-Frame-Options: DENY";
+  hosts:
+    - host: jenkins.io
+      paths:
+        - path: /
+    - host: www.jenkins.io
+      paths:
+        - path: /
+    - host: www.origin.jenkins.io
+      paths:
+        - path: /
+    - host: jenkins-ci.org
+      paths:
+        - path: /
+    - host: www.jenkins-ci.org
+      paths:
+        - path: /
+  # www.jenkins.io certificate is managed by Fastly
+  tls:
+    - secretName: jenkinsio-tls
+      hosts:
+        - jenkins-ci.org
+        - jenkins.io
+        - www.jenkins-ci.org
+        - www.origin.jenkins.io
+
+replicaCount: 2
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi
+
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: www-jenkins-io
+htmlVolumeSubDir: ./www.jenkins.io/
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - jenkinsio
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/jenkinsio.logs: |
+    [
+      {"source":"nginx","service":"www.origin.jenkins.io"}
+    ]
+
+nginx:
+  httpDirectives: |
+    map $http_accept_language $lang {
+      default '';
+      ~^zh zh;
+    }
+  overrideLocations: |
+{{ readFile "./nginx-website-confd/www-jenkins-io.conf" | indent 4 }}

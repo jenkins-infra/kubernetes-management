@@ -1,0 +1,68 @@
+---
+ingress:
+  enabled: true
+  ingressClassName: private-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: staging.pkg.origin.jenkins.io
+      paths:
+        - path: /
+          serviceName: staging-pkg-origin-jenkins-io
+    # All dots in branch name must be replaced by an underscore (nested subdomains are not possible)
+    - host: "*.staging.pkg.origin.jenkins.io"
+      paths:
+        - path: /
+          serviceName: staging-pkg-origin-jenkins-io
+  tls:
+    - secretName: staging-pkg-origin-jenkins-io
+      hosts:
+        - staging.pkg.origin.jenkins.io
+        # All dots in branch name must be replaced by an underscore (nested subdomains are not possible)
+        - "*.staging.pkg.origin.jenkins.io"
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 32Mi
+
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: staging-pkg-origin-jenkins-io
+htmlVolumeSubDir: ./pkg.jenkins.io/staging/
+
+replicaCount: 1
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - stats-jenkins-io
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"staging.pkg.origin.jenkins.io"}
+    ]
+
+nginx:
+  overrideLocations: |
+{{ readFile "./nginx-website-confd/staging-pkg-origin-jenkins-io.conf" | indent 4 }}
