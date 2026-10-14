@@ -77,8 +77,7 @@ cli:
       service.beta.kubernetes.io/azure-pls-visibility: "dff2ec18-6a8e-405c-8e45-b7df7465acf0 1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
       service.beta.kubernetes.io/azure-pls-auto-approval: "dff2ec18-6a8e-405c-8e45-b7df7465acf0 1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
 geoipdata:
-  existingPVCName: updates-jenkins-io
-  subDir: ./updates.jenkins.io/geoipdata/
+  existingPVCName: geoipdb-updates-jenkins-io
 annotations:
   ad.datadoghq.com/mirrorbits.logs: |
     [{"source":"mirrorbits","service":"updates.jenkins.io"}]
