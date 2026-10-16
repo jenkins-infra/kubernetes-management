@@ -1,6 +1,6 @@
 ---
 helmDefaults:
-  atomic: true
+  rollbackOnFailure: true
   force: false
   timeout: 300
   wait: true
