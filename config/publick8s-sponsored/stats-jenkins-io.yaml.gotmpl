@@ -1,0 +1,64 @@
+---
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: stats.jenkins.io
+      paths:
+        - path: /
+          serviceName: stats-jenkins-io
+    - host: new.stats.jenkins.io
+      paths:
+        - path: /
+          serviceName: stats-jenkins-io
+  tls:
+    - secretName: stats-jenkins-io-tls
+      hosts:
+        - stats.jenkins.io
+        - new.stats.jenkins.io
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 32Mi
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: stats-jenkins-io
+
+replicaCount: 2
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - stats-jenkins-io
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"stats.jenkins.io"}
+    ]
+
+nginx:
+  overrideLocations: |
+{{ readFile "./nginx-website-confd/stats-jenkins-io.conf" | indent 4 }}

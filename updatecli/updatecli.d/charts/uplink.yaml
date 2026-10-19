@@ -25,7 +25,7 @@ targets:
     name: "Update the chart version for uplink"
     kind: yaml
     spec:
-      file: clusters/publick8s.yaml
+      file: clusters/publick8s-sponsored.yaml
       engine: yamlpath
       key: $.releases[?(@.chart == 'jenkins-infra/uplink')].version
     scmid: default

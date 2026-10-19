@@ -1,0 +1,59 @@
+---
+ingress:
+  enabled: true
+  className: public-nginx
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+  hosts:
+    - host: docs.jenkins.io
+      paths:
+        - path: /
+          serviceName: docs-jenkins-io
+  tls:
+    - secretName: docs-jenkins-io-tls
+      hosts:
+        - docs.jenkins.io
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: docs-jenkins-io
+
+replicaCount: 2
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: "kubernetes.io/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+                - docs-jenkins-io
+        topologyKey: "kubernetes.io/hostname"
+
+podAnnotations:
+  ad.datadoghq.com/nginx-website.logs: |
+    [
+      {"source":"nginx","service":"docs.jenkins.io"}
+    ]
+
+nginx:
+  overrideLocations: |
+{{ readFile "./nginx-website-confd/docs-jenkins-io.conf" | indent 4 }}

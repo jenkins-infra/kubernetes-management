@@ -124,10 +124,6 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-confluence-data:
         disableTagDiscovery: true
-      docker-geoipupdate:
-        disableTagDiscovery: true
-      docker-infratools:
-        disableTagDiscovery: true
       docker-issue-redirect:
         disableTagDiscovery: true
       docker-jenkins-lts:
@@ -139,8 +135,6 @@ jobsDefinition:
       docker-keycloak-theme:
         disableTagDiscovery: true
       docker-ldap:
-        disableTagDiscovery: true
-      docker-matomo:
         disableTagDiscovery: true
       docker-mirrorbits:
         disableTagDiscovery: true
@@ -521,12 +515,6 @@ jobsDefinition:
       docker-confluence-data:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-      docker-geoipupdate:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-infratools:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       docker-jenkins-infraci:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -540,9 +528,6 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-ldap:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-matomo:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-mirrorbits:

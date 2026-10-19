@@ -7,6 +7,8 @@ service:
     resourceGroup: prod-public-ips
   lbAllowSources:
     publick8s-out-lb: 52.167.80.175/32,20.15.16.178/32,20.10.211.149/32
+    # Allow incoming requests from publick8s-sponsored to check its service before LDAP migration
+    publick8s-sponsored-out-lb: 172.175.200.191/32,57.162.102.216/32,172.175.115.113/32
     publick8s-pods: "10.100.0.0/14"
     # Tracked by updatecli - updatecli/updatecli.d/configs/ldap-restricted-ips.yaml
     puppet.jenkins.io: "20.12.27.65/32"
@@ -15,7 +17,7 @@ service:
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     private.vpn.jenkins.io: '52.232.183.117/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
-    cert.ci.jenkins.io: '4.223.174.131/32,20.91.220.227/32'
+    cert.ci.jenkins.io: '4.223.174.131/32,20.91.220.227/32,20.91.137.70/32,20.240.244.137/32'
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
     infra.ci.jenkins.io: 20.186.168.195/32,20.65.112.39/32
     # TODO: track with updatecli - https://reports.jenkins.io/jenkins-infra-data-reports/azure-net.json
