@@ -3,8 +3,7 @@ service:
   # Public IPv4 defined as code in https://github.com/jenkins-infra/azure/blob/main/ldap.jenkins.io.tf instead of requesting a random new public IP, useful for DNS setup and changes
   # TODO: track with updatecli from reports
   azurePip:
-    # TODO: update with final IP
-    name: temp-publick8s-ldap-ipv4
+    name: publick8s-ldap-ipv4
     resourceGroup: prod-public-ips
   lbAllowSources:
     # TODO: track with updatecli from azure: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
