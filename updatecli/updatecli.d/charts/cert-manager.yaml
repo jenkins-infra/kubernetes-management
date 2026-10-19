@@ -27,7 +27,7 @@ targets:
     spec:
       files:
         - clusters/privatek8s-sponsored.yaml
-        - clusters/publick8s.yaml
+        - clusters/publick8s-sponsored.yaml
       engine: yamlpath
       key: $.releases[?(@.chart == 'jetstack/cert-manager')].version
     scmid: default
