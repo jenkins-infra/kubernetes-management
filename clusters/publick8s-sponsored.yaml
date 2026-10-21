@@ -32,7 +32,7 @@ releases:
   - name: datadog
     namespace: datadog
     chart: datadog/datadog
-    version: 3.258.0
+    version: 3.258.1
     values:
       - ../config/datadog.yaml.gotmpl
       - ../config/publick8s-sponsored/datadog.yaml
@@ -107,7 +107,7 @@ releases:
   - name: rating-jenkins-io
     namespace: rating-jenkins-io
     chart: jenkins-infra/rating
-    version: 0.6.11
+    version: 0.6.12
     values:
       - ../config/publick8s-sponsored/rating-jenkins-io.yaml
     secrets:
@@ -171,7 +171,7 @@ releases:
   - name: ldap-jenkins-io
     namespace: ldap-jenkins-io
     chart: jenkins-infra/ldap
-    version: 4.2.29
+    version: 4.2.30
     values:
       - ../config/publick8s-sponsored/ldap-jenkins-io.yaml
     secrets:
