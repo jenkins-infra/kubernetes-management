@@ -159,7 +159,7 @@ releases:
   - name: updates-jenkins-io-rsync
     namespace: updates-jenkins-io
     chart: jenkins-infra/rsyncd
-    version: 3.2.32
+    version: 3.2.33
     values:
       - ../config/publick8s-sponsored/updates-jenkins-io-rsync.yaml
   - name: updates-jenkins-io-redirections
