@@ -18,7 +18,7 @@ sources:
     name: Read the build report jobs file from kubernetes-management
     kind: file
     spec:
-      file: https://raw.githubusercontent.com/jenkins-infra/kubernetes-management/main/config/publick8s/datadog_confd_checksd/buildReportStalenessCheck.yaml
+      file: https://raw.githubusercontent.com/jenkins-infra/kubernetes-management/main/config/publick8s-sponsored/datadog_confd_checksd/buildReportStalenessCheck.yaml
 
 targets:
   syncBuildReportJobs:
