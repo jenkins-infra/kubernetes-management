@@ -35,10 +35,11 @@ conditions:
 targets:
   updateImageTag:
     name: Update issue-redirect docker image tag
-    kind: yaml
+    kind: file
     spec:
-      file: config/publick8s/issue-redirect-jenkins-io.yaml
-      key: $.image.tag
+      file: config/publick8s-sponsored/issue-redirect-jenkins-io.yaml.gotmpl
+      matchpattern: "tag: .*"
+      replacepattern: 'tag: {{ source "latestRelease" }}'
     scmid: default
 
 actions:
