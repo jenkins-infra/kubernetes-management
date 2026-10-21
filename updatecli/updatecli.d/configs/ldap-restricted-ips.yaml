@@ -29,7 +29,7 @@ sources:
     spec:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .publick8s.lb_outbound_ips.ipv4
+      key: .publick8s-sponsored.lb_outbound_ips.ipv4
     transformers:
       - trimprefix: '['
       - trimsuffix: ']'
@@ -45,7 +45,7 @@ sources:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       # Ipv4 is always the first element
-      key: .publick8s.pod_cidrs.[0]
+      key: .publick8s-sponsored.pod_cidrs.[0]
 
   # https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/
   jfrog:
@@ -79,7 +79,7 @@ targets:
     kind: yaml
     sourceid: puppet.jenkins.io
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.'puppet.jenkins.io'
     scmid: default
 
@@ -88,8 +88,8 @@ targets:
     kind: yaml
     sourceid: publick8s-pods
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
-      key: $.service.lbAllowSources.publick8s-pods
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
+      key: $.service.lbAllowSources.publick8s-sponsored-pods
     scmid: default
 
   publick8s-lb:
@@ -97,8 +97,8 @@ targets:
     kind: yaml
     sourceid: publick8s-lb
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
-      key: $.service.lbAllowSources.publick8s-out-lb
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
+      key: $.service.lbAllowSources.publick8s-sponsored-out-lb
     scmid: default
 
   aws-ci-jenkins-io:
@@ -106,7 +106,7 @@ targets:
     kind: yaml
     sourceid: aws-ci-jenkins-io
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.'aws.ci.jenkins.io'
     scmid: default
 
@@ -115,7 +115,7 @@ targets:
     kind: yaml
     sourceid: jfrog
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.jfrog-artifactory
     scmid: default
 
