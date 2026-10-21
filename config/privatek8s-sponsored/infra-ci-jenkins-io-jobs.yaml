@@ -5,10 +5,6 @@ x-kubeconfigCredentials: &kubeconfigCredentials
     fileName: "kubeconfig"
     description: "Kubeconfig file for privatek8s-sponsored"
     secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
-  kubeconfig-publick8s:
-    fileName: "kubeconfig"
-    description: "Kubeconfig file for publick8s"
-    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
   kubeconfig-publick8s-sponsored:
     fileName: "kubeconfig"
     description: "Kubeconfig file for publick8s-sponsored"
