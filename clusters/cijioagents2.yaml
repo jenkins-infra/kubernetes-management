@@ -53,9 +53,3 @@ releases:
     version: 1.1.1
     values:
       - ../config/cijioagents2/jenkins-kubernetes-agents_ci.jenkins.io-bom.yaml
-  - name: maven-cacher
-    namespace: maven-cache
-    chart: jenkins-infra/maven-cacher
-    version: 1.1.1
-    values:
-      - ../config/cijioagents2/maven-cacher.yaml
