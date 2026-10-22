@@ -58,14 +58,14 @@ jobsDefinition:
           geoipupdate_license_key:
             description: "License Key used to retrieve the GeoIP database from MaxMind"
             secret: "${GEOIPUPDATE_LICENSE_KEY}"
-          kubeconfig-publick8s-getjenkinsio-restarter:
+          kubeconfig-publick8s-sponsored-getjenkinsio-restarter:
             fileName: "kubeconfig"
-            description: "Kubeconfig file for getjenkinsio-restarter@publick8s"
-            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_GETJENKINSIO_RESTARTER}}"
-          kubeconfig-publick8s-updatesjenkinsio-restarter:
+            description: "Kubeconfig file for getjenkinsio-restarter@publick8s-sponsored"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED_GETJENKINSIO_RESTARTER}}"
+          kubeconfig-publick8s-sponsored-updatesjenkinsio-restarter:
             fileName: "kubeconfig"
-            description: "Kubeconfig file for updatesjenkinsio-restarter@publick8s"
-            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_UPDATESJENKINSIO_RESTARTER}}"
+            description: "Kubeconfig file for updatesjenkinsio-restarter@publick8s-sponsored"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED_UPDATESJENKINSIO_RESTARTER}}"
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
