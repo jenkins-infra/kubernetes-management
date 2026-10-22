@@ -25,7 +25,7 @@ instances:
     threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/docs.jenkins.io/main
-    threshold_in_minutes: 1440
+    threshold_in_minutes: 2880  # @daily
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/contributor-spotlight/main
     threshold_in_minutes: 1440
