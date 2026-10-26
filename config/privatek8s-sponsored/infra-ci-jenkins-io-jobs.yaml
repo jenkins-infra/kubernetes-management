@@ -66,6 +66,23 @@ jobsDefinition:
             fileName: "kubeconfig"
             description: "Kubeconfig file for updatesjenkinsio-restarter@publick8s-sponsored"
             secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED_UPDATESJENKINSIO_RESTARTER}}"
+      maven-cacher:
+        name: "Cron routine to update the Maven cacher archive"
+        repository: infra-cronjobs
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: maven-cacher
+        disablePullRequests: true
+        disableGitHubNotifications: true
+        disableTagDiscovery: true
+        credentials:
+          infraci-certcijenkinsio-fileshare-serviceprincipal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_PASSWORD}"
+            description: "Azure Service Principal used to access cert.ci Maven cacher File Share in Read/Write"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
