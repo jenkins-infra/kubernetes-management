@@ -99,7 +99,7 @@ releases:
   - name: incrementals-jenkins-io
     namespace: incrementals-jenkins-io
     chart: jenkins-infra/incrementals-publisher
-    version: 0.8.15
+    version: 0.8.16
     values:
       - ../config/publick8s-sponsored/incrementals-jenkins-io.yaml
     secrets:
