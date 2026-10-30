@@ -30,14 +30,14 @@ conditions:
       image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme
       ## Tag from source
       architectures:
-      - arm64
+        - arm64
 
 targets:
   updateReleaseInConfig:
     name: Update keycloak-theme docker image tag
     kind: file
     spec:
-      file: config/publick8s/admin-accounts-jenkins-io.yaml
+      file: config/publick8s-sponsored/admin-accounts-jenkins-io.yaml
       matchpattern: "image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:.*"
       replacepattern: 'image: dockerhubmirror.azurecr.io/jenkinsciinfra/keycloak-theme:{{ source "latestRelease" }}'
     scmid: default

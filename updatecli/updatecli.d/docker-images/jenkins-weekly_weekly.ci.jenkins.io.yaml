@@ -30,7 +30,7 @@ conditions:
       image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-weeklyci
       ## Tag from source
       architectures:
-      - arm64
+        - arm64
 
 targets:
   updateReleaseInConfig:
@@ -38,7 +38,7 @@ targets:
     name: Update jenkinsciinfra/jenkins-weekly docker image tag on weekly.ci.jenkins.io
     kind: yaml
     spec:
-      file: config/publick8s/weekly-ci-jenkins-io.yaml
+      file: config/publick8s-sponsored/weekly-ci-jenkins-io.yaml
       key: $.controller.image.tag
     scmid: default
 

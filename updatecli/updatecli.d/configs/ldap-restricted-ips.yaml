@@ -23,13 +23,13 @@ sources:
     transformers:
       - addsuffix: '/32'
 
-  publick8s-lb:
-    name: Retrieve the publick8s outbound IPs
+  publick8s-sponsored-lb:
+    name: Retrieve the publick8s-sponsored outbound IPs
     kind: json
     spec:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .publick8s.lb_outbound_ips.ipv4
+      key: .publick8s-sponsored.lb_outbound_ips.ipv4
     transformers:
       - trimprefix: '['
       - trimsuffix: ']'
@@ -38,14 +38,14 @@ sources:
           to: '/32,'
       - addsuffix: '/32'
 
-  publick8s-pods:
-    name: Retrieve the publick8s pod CNI CIDR
+  publick8s-sponsored-pods:
+    name: Retrieve the publick8s-sponsored pod CNI CIDR
     kind: json
     spec:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       # Ipv4 is always the first element
-      key: .publick8s.pod_cidrs.[0]
+      key: .publick8s-sponsored.pod_cidrs.[0]
 
   # https://jfrog.com/knowledge-base/what-are-artifactory-cloud-nated-ips/
   jfrog:
@@ -79,26 +79,26 @@ targets:
     kind: yaml
     sourceid: puppet.jenkins.io
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.'puppet.jenkins.io'
     scmid: default
 
-  publick8s-pods:
-    name: Update publick8s pod CIDRs in the LDAP configuration
+  publick8s-sponsored-pods:
+    name: Update publick8s-sponsored pod CIDRs in the LDAP configuration
     kind: yaml
-    sourceid: publick8s-pods
+    sourceid: publick8s-sponsored-pods
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
-      key: $.service.lbAllowSources.publick8s-pods
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
+      key: $.service.lbAllowSources.publick8s-sponsored-pods
     scmid: default
 
-  publick8s-lb:
-    name: Update publick8s outbound LB CIDRs in the LDAP configuration
+  publick8s-sponsored-lb:
+    name: Update publick8s-sponsored outbound LB CIDRs in the LDAP configuration
     kind: yaml
-    sourceid: publick8s-lb
+    sourceid: publick8s-sponsored-lb
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
-      key: $.service.lbAllowSources.publick8s-out-lb
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
+      key: $.service.lbAllowSources.publick8s-sponsored-out-lb
     scmid: default
 
   aws-ci-jenkins-io:
@@ -106,7 +106,7 @@ targets:
     kind: yaml
     sourceid: aws-ci-jenkins-io
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.'aws.ci.jenkins.io'
     scmid: default
 
@@ -115,7 +115,7 @@ targets:
     kind: yaml
     sourceid: jfrog
     spec:
-      file: config/publick8s/ldap-jenkins-io.yaml
+      file: config/publick8s-sponsored/ldap-jenkins-io.yaml
       key: $.service.lbAllowSources.jfrog-artifactory
     scmid: default
 

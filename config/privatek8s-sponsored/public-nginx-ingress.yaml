@@ -2,7 +2,7 @@ controller:
   config:
     ## Ingress controller level
     # Only allow GitHub's webhooks requests - https://api.github.com/meta ("hooks", tracked by updatecli)
-    whitelist-source-range: 140.82.112.0/20,143.55.64.0/20,185.199.108.0/22,192.30.252.0/22
+    whitelist-source-range: 140.82.112.0/20,143.55.64.0/20,185.199.108.0/22,192.30.252.0/22,9.234.106.48/28,9.234.98.160/28,9.234.98.176/28
   service:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: false
@@ -13,4 +13,4 @@ controller:
     externalTrafficPolicy: Local
     ## Public LB level
     # Only allow GitHub's webhooks requests - https://api.github.com/meta ("hooks", tracked by updatecli)
-    loadBalancerSourceRanges: ["140.82.112.0/20", "143.55.64.0/20", "185.199.108.0/22", "192.30.252.0/22"]
+    loadBalancerSourceRanges: ["140.82.112.0/20", "143.55.64.0/20", "185.199.108.0/22", "192.30.252.0/22", "9.234.106.48/28", "9.234.98.160/28", "9.234.98.176/28"]

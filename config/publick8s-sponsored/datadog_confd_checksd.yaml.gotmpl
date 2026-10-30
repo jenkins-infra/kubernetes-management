@@ -4,6 +4,8 @@ datadog:
 {{ readFile "./datadog_confd_checksd/packageCanBeDownloaded.py" | indent 6 }}
     buildReportStalenessCheck.py: |-
 {{ readFile "./datadog_confd_checksd/buildReportStalenessCheck.py" | indent 6 }}
+    pluginHealthEngineStalenessCheck.py: |-
+{{ readFile "./datadog_confd_checksd/pluginHealthEngineStalenessCheck.py" | indent 6 }}
 
   confd:
     packageCanBeDownloaded.yaml: |-
@@ -12,3 +14,5 @@ datadog:
 {{ readFile "./datadog_confd_checksd/http_check.yaml" | indent 6 }}
     buildReportStalenessCheck.yaml: |-
 {{ readFile "./datadog_confd_checksd/buildReportStalenessCheck.yaml" | indent 6 }}
+    pluginHealthEngineStalenessCheck.yaml: |-
+{{ readFile "./datadog_confd_checksd/pluginHealthEngineStalenessCheck.yaml" | indent 6 }}

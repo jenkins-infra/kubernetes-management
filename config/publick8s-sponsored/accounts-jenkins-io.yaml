@@ -28,6 +28,7 @@ resources:
   requests:
     cpu: 100m
     memory: 256Mi
+
 smtp:
   server: smtp.mailgun.org
   sender: accounts@jenkins.io

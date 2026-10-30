@@ -5,10 +5,10 @@ x-kubeconfigCredentials: &kubeconfigCredentials
     fileName: "kubeconfig"
     description: "Kubeconfig file for privatek8s-sponsored"
     secretBytes: "${base64:${KUBECONFIG_PRIVATEK8S_SPONSORED}}"
-  kubeconfig-publick8s:
+  kubeconfig-publick8s-sponsored:
     fileName: "kubeconfig"
-    description: "Kubeconfig file for publick8s"
-    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S}}"
+    description: "Kubeconfig file for publick8s-sponsored"
+    secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED}}"
   kubeconfig-cijioagents2:
     fileName: "kubeconfig"
     description: "Kubeconfig file for cijioagents2"
@@ -34,7 +34,55 @@ jobsDefinition:
     name: Jenkins Infrastructure Cron Jobs
     description: Each branch of this repository hosts an infra.ci.jenkins.io pipeline to run repetitive ("cron-like") task for the Jenkins infrastructure.
     kind: folder
-    children: {}
+    children:
+      geoipupdates:
+        name: "Cron routine to update the GeoIP database of the mirrorbits services"
+        repository: infra-cronjobs
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: "geoipupdates"
+        disablePullRequests: true
+        disableGitHubNotifications: true
+        disableTagDiscovery: true
+        credentials:
+          cronjob-geoipdbstorage-fileshare-service-principal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${GEOIPDBSTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${GEOIPDBSTORAGE_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            description: "Azure Service Principal used to access the GeoIP DB File Share in Read/Write"
+            subscriptionId: "dff2ec18-6a8e-405c-8e45-b7df7465acf0"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+          geoipupdate_account_id:
+            description: "Account ID used to retrieve the GeoIP database from MaxMind"
+            secret: "${GEOIPUPDATE_ACCOUNT_ID}"
+          geoipupdate_license_key:
+            description: "License Key used to retrieve the GeoIP database from MaxMind"
+            secret: "${GEOIPUPDATE_LICENSE_KEY}"
+          kubeconfig-publick8s-sponsored-getjenkinsio-restarter:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for getjenkinsio-restarter@publick8s-sponsored"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED_GETJENKINSIO_RESTARTER}}"
+          kubeconfig-publick8s-sponsored-updatesjenkinsio-restarter:
+            fileName: "kubeconfig"
+            description: "Kubeconfig file for updatesjenkinsio-restarter@publick8s-sponsored"
+            secretBytes: "${base64:${KUBECONFIG_PUBLICK8S_SPONSORED_UPDATESJENKINSIO_RESTARTER}}"
+      maven-cacher:
+        name: "Cron routine to update the Maven cacher archive"
+        repository: infra-cronjobs
+        jenkinsfilePath: Jenkinsfile
+        branchIncludes: maven-cacher
+        disablePullRequests: true
+        disableGitHubNotifications: true
+        disableTagDiscovery: true
+        credentials:
+          infraci-certcijenkinsio-fileshare-serviceprincipal-writer:
+            kind: azure-serviceprincipal
+            azureEnvironmentName: "Azure"
+            clientId: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_PASSWORD}"
+            description: "Azure Service Principal used to access cert.ci Maven cacher File Share in Read/Write"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
@@ -89,10 +137,6 @@ jobsDefinition:
         disableTagDiscovery: true
       docker-confluence-data:
         disableTagDiscovery: true
-      docker-geoipupdate:
-        disableTagDiscovery: true
-      docker-infratools:
-        disableTagDiscovery: true
       docker-issue-redirect:
         disableTagDiscovery: true
       docker-jenkins-lts:
@@ -104,8 +148,6 @@ jobsDefinition:
       docker-keycloak-theme:
         disableTagDiscovery: true
       docker-ldap:
-        disableTagDiscovery: true
-      docker-matomo:
         disableTagDiscovery: true
       docker-mirrorbits:
         disableTagDiscovery: true
@@ -471,9 +513,6 @@ jobsDefinition:
       azure-net:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-      contributor-spotlight:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       cloudflare:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -489,12 +528,6 @@ jobsDefinition:
       docker-confluence-data:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-      docker-geoipupdate:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-infratools:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       docker-jenkins-infraci:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -508,9 +541,6 @@ jobsDefinition:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-ldap:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
-      docker-matomo:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
       docker-mirrorbits:
@@ -598,9 +628,6 @@ jobsDefinition:
       shared-tools:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
-      stats.jenkins.io:
-        jenkinsfilePath: Jenkinsfile_updatecli
-        disableTagDiscovery: true
       status:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
@@ -659,7 +686,7 @@ jobsDefinition:
         allowUntrustedChanges: true
       stats.jenkins.io:
         name: stats.jenkins.io PR previews
-        jenkinsfilePath: Jenkinsfile_previews
+        jenkinsfilePath: Jenkinsfile
         enableGitHubChecks: true
         disableTagDiscovery: true
         disableBranchDiscovery: true

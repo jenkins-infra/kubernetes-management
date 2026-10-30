@@ -2,7 +2,7 @@ providers:
   aks:
     enabled: true
 datadog:
-  clusterName: 'publick8s'
+  clusterName: 'publick8s-sponsored'
   env:
     - name: DD_HOSTNAME
       valueFrom:

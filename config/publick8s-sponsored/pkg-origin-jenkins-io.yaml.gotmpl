@@ -6,13 +6,25 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: builds.reports.jenkins.io
+    - host: pkg.origin.jenkins.io
       paths:
         - path: /
+          serviceName: pkg-origin-jenkins-io
+    # Legacy domain, should redirect to Fastly
+    - host: pkg.jenkins-ci.org
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
+    # For requests coming from Fastly
+    - host: pkg.jenkins.io
+      paths:
+        - path: /
+          serviceName: pkg-origin-jenkins-io
   tls:
-    - secretName: reports-tls
+    - secretName: pkg-origin-jenkins-io
       hosts:
-        - builds.reports.jenkins.io
+        - pkg.origin.jenkins.io
+        - pkg.jenkins-ci.org
 
 resources:
   limits:
@@ -21,12 +33,13 @@ resources:
   requests:
     cpu: 20m
     memory: 32Mi
+
 htmlVolume:
   persistentVolumeClaim:
-    claimName: builds-reports-jenkins-io
+    claimName: pkg-origin-jenkins-io
+htmlVolumeSubDir: ./pkg.jenkins.io/production/
 
-# No HA needed
-replicaCount: 1
+replicaCount: 2
 
 nodeSelector:
   kubernetes.io/arch: arm64
@@ -45,27 +58,15 @@ affinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - reports
+                - stats-jenkins-io
         topologyKey: "kubernetes.io/hostname"
-
-nginx:
-  overrideLocations: |
-    location / {
-      root   /usr/share/nginx/html;
-      index  index.html index.htm;
-      autoindex on;
-
-      # Enable CORS from https://www.jenkins.io
-      #
-      add_header Access-Control-Allow-Origin      "https://www.jenkins.io";
-      add_header Vary                             "Origin";
-      add_header Access-Control-Allow-Credentials true;
-      add_header Access-Control-Allow-Headers     $http_access_control_request_headers;
-      add_header Access-Control-Allow-Methods     $http_access_control_request_method;
-    }
 
 podAnnotations:
   ad.datadoghq.com/nginx-website.logs: |
     [
-      {"source":"nginx","service":"builds.reports.jenkins.io"}
+      {"source":"nginx","service":"pkg.origin.jenkins.io"}
     ]
+
+nginx:
+  overrideLocations: |
+{{ readFile "./nginx-website-confd/pkg-origin-jenkins-io.conf" | indent 4 }}

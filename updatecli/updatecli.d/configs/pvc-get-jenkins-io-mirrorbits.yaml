@@ -37,15 +37,6 @@ sources:
       engine: dasel/v2
       file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
       key: .get\.jenkins\.io.geoipdata.pvc_name
-  geoipdataPvcSubdir:
-    kind: json
-    name: Retrieve the subdir inside the PVC for component "geoipdata" in get-jenkins-io
-    spec:
-      engine: dasel/v2
-      file: https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
-      key: .get\.jenkins\.io.geoipdata.share_uri
-    transformers:
-      - addprefix: '.'
 
 targets:
   updateContentPvcName:
@@ -53,7 +44,7 @@ targets:
     name: Update get-jenkins-io-mirrorbits "repository" PVC name
     kind: yaml
     spec:
-      file: config/publick8s/get-jenkins-io-mirrorbits.yaml
+      file: config/publick8s-sponsored/get-jenkins-io-content.yaml
       key: $.repository.name
     scmid: default
   updateContentPvcSubdir:
@@ -61,7 +52,7 @@ targets:
     kind: yaml
     name: Update get-jenkins-io-mirrorbits "repository" PVC subDir mount
     spec:
-      file: config/publick8s/get-jenkins-io-mirrorbits.yaml
+      file: config/publick8s-sponsored/get-jenkins-io-content.yaml
       key: $.repository.subDir
     scmid: default
   updateGeoipdataPvcName:
@@ -69,16 +60,8 @@ targets:
     name: Update get-jenkins-io-mirrorbits "geoipdata" PVC name
     kind: yaml
     spec:
-      file: config/publick8s/get-jenkins-io-mirrorbits.yaml
+      file: config/publick8s-sponsored/get-jenkins-io-content.yaml
       key: $.geoipdata.existingPVCName
-    scmid: default
-  updateGeoipdataPvcSubdir:
-    sourceid: geoipdataPvcSubdir
-    kind: yaml
-    name: Update get-jenkins-io-mirrorbits "geoipdata" PVC subDir mount
-    spec:
-      file: config/publick8s/get-jenkins-io-mirrorbits.yaml
-      key: $.geoipdata.subDir
     scmid: default
 
 actions:

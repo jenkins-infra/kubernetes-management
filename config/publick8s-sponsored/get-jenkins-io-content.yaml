@@ -71,11 +71,12 @@ config:
       countryCode: DE
       continentCode: EU
 geoipdata:
-  existingPVCName: get-jenkins-io
-  subDir: ./get.jenkins.io/geoipdata/
+  existingPVCName: geoipdb-get-jenkins-io
 annotations:
   ad.datadoghq.com/mirrorbits.logs: |
     [{"source":"mirrorbits","service":"get.jenkins.io"}]
+
+serviceAccountRestarter: true
 
 ingress:
   enabled: true

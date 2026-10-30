@@ -25,7 +25,7 @@ instances:
     threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/docs.jenkins.io/main
-    threshold_in_minutes: 1440
+    threshold_in_minutes: 2880  # @daily
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/contributor-spotlight/main
     threshold_in_minutes: 1440
@@ -34,7 +34,7 @@ instances:
     threshold_in_minutes: 1440
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/jenkins-io-components/main
-    threshold_in_minutes: 1440
+    threshold_in_minutes: 2880  # @daily
   - controller: infra.ci.jenkins.io
     job: website-production-jobs/plugin-site/main
     threshold_in_minutes: 1440
@@ -95,7 +95,7 @@ instances:
     threshold_in_minutes: 10080  # 1 week (1 build)
   - controller: trusted.ci.jenkins.io
     job: crawler
-    threshold_in_minutes: 240  # 4 hours (1 build)
+    threshold_in_minutes: 1440  # 24 hours (6 builds)
   - controller: trusted.ci.jenkins.io
     job: javadoc
     threshold_in_minutes: 10080  # 1 week (1 build)

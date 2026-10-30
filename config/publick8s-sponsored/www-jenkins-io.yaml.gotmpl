@@ -1,25 +1,35 @@
 ingress:
   enabled: true
   className: public-nginx
-
   annotations:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/configuration-snippet": |
       more_set_headers "X-Content-Type-Options: nosniff";
       more_set_headers "X-Frame-Options: DENY";
   hosts:
-    - host: issue-redirect.jenkins.io
+    - host: jenkins.io
       paths:
         - path: /
+    - host: www.jenkins.io
+      paths:
+        - path: /
+    - host: www.origin.jenkins.io
+      paths:
+        - path: /
+    - host: jenkins-ci.org
+      paths:
+        - path: /
+    - host: www.jenkins-ci.org
+      paths:
+        - path: /
+  # www.jenkins.io certificate is managed by Fastly
   tls:
-    - secretName: issue-redirect-jenkinsio-tls
+    - secretName: jenkinsio-tls
       hosts:
-        - issue-redirect.jenkins.io
-
-image:
-  repository: dockerhubmirror.azurecr.io/jenkinsciinfra/issue-redirect
-  tag: 0.3.37
-  pullPolicy: IfNotPresent
+        - jenkins-ci.org
+        - jenkins.io
+        - www.jenkins-ci.org
+        - www.origin.jenkins.io
 
 replicaCount: 2
 
@@ -30,6 +40,11 @@ resources:
   requests:
     cpu: 50m
     memory: 128Mi
+
+htmlVolume:
+  persistentVolumeClaim:
+    claimName: www-jenkins-io
+htmlVolumeSubDir: ./www.jenkins.io/
 
 nodeSelector:
   kubernetes.io/arch: arm64
@@ -48,24 +63,20 @@ affinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - issueredirect
+                - jenkinsio
         topologyKey: "kubernetes.io/hostname"
-
-nginx:
-  overrideLocations: |
-    root   /htdocs;
-
-    # Exact generated redirects
-    include includes/jira-to-github-redirects.conf;
-
-    # Generic fallback rewrites
-    rewrite ^/issue/([0-9]+)$          https://issues.jenkins.io/browse/JENKINS-$1 permanent;
-    rewrite ^/issue/([A-Z]+-[0-9]+)$   https://issues.jenkins.io/browse/$1 permanent;
-    rewrite ^/([A-Z]+-[0-9]+)$         https://issues.jenkins.io/browse/$1 permanent;
-    rewrite ^/browse/([A-Z]+-[0-9]+)$  https://issues.jenkins.io/browse/$1 permanent;
 
 podAnnotations:
   ad.datadoghq.com/jenkinsio.logs: |
     [
-      {"source":"nginx","service":"issue-redirect.jenkins.io"}
+      {"source":"nginx","service":"www.origin.jenkins.io"}
     ]
+
+nginx:
+  httpDirectives: |
+    map $http_accept_language $lang {
+      default '';
+      ~^zh zh;
+    }
+  overrideLocations: |
+{{ readFile "./nginx-website-confd/www-jenkins-io.conf" | indent 4 }}

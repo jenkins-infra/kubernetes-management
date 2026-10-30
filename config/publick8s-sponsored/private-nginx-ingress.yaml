@@ -14,7 +14,7 @@ controller:
   service:
     annotations:
       # TODO: track with updatecli
-      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: publick8s
+      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: publick8s-sponsored
   nodeSelector:
     kubernetes.io/arch: arm64
   tolerations:

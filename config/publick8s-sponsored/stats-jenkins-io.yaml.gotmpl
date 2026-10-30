@@ -6,25 +6,30 @@ ingress:
     "cert-manager.io/cluster-issuer": "letsencrypt-prod"
     "nginx.ingress.kubernetes.io/ssl-redirect": "true"
   hosts:
-    - host: docs.jenkins.io
+    - host: stats.jenkins.io
       paths:
         - path: /
-          serviceName: docs-jenkins-io
+          serviceName: stats-jenkins-io
+    - host: new.stats.jenkins.io
+      paths:
+        - path: /
+          serviceName: stats-jenkins-io
   tls:
-    - secretName: docs-jenkins-io-tls
+    - secretName: stats-jenkins-io-tls
       hosts:
-        - docs.jenkins.io
+        - stats.jenkins.io
+        - new.stats.jenkins.io
 
 resources:
   limits:
     cpu: 200m
     memory: 256Mi
   requests:
-    cpu: 50m
-    memory: 64Mi
+    cpu: 20m
+    memory: 32Mi
 htmlVolume:
   persistentVolumeClaim:
-    claimName: docs-jenkins-io
+    claimName: stats-jenkins-io
 
 replicaCount: 2
 
@@ -45,17 +50,15 @@ affinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - docs-jenkins-io
+                - stats-jenkins-io
         topologyKey: "kubernetes.io/hostname"
 
 podAnnotations:
   ad.datadoghq.com/nginx-website.logs: |
     [
-      {"source":"nginx","service":"docs.jenkins.io"}
+      {"source":"nginx","service":"stats.jenkins.io"}
     ]
 
 nginx:
   overrideLocations: |
-    # Redirect to alpha.docs.jenkins.io until finalized.
-    # Ref: https://github.com/jenkins-infra/helpdesk/issues/4935#issuecomment-3800342164
-    return 302 https://alpha.docs.jenkins.io$request_uri;
+{{ readFile "./nginx-website-confd/stats-jenkins-io.conf" | indent 4 }}
