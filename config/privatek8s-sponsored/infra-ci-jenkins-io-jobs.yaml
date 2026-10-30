@@ -79,7 +79,7 @@ jobsDefinition:
             kind: azure-serviceprincipal
             azureEnvironmentName: "Azure"
             clientId: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_PASSWORD}"
+            clientSecret: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
             description: "Azure Service Principal used to access cert.ci Maven cacher File Share in Read/Write"
             subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
