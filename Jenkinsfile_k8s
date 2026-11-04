@@ -27,9 +27,7 @@ pipeline {
         axes {
           axis {
             name 'K8S_CLUSTER'
-            // Kubernetes 1.35 upgrade of 'privatek8s-sponsored', cf https://github.com/jenkins-infra/helpdesk/issues/5168#issuecomment-6632327013
-            // values 'publick8s-sponsored', 'privatek8s-sponsored', 'cijioagents2', 'infracijioagents1'
-            values 'publick8s-sponsored', 'cijioagents2', 'infracijioagents1'
+            values 'publick8s-sponsored', 'privatek8s-sponsored', 'cijioagents2', 'infracijioagents1'
           }
         } // axes
         agent {
