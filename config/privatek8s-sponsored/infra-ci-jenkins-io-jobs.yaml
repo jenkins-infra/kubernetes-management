@@ -83,12 +83,10 @@ jobsDefinition:
             description: "Azure Service Principal used to access cert.ci Maven cacher File Share in Read/Write"
             subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
             tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
-          infra-ci-maven-cacher-aws-access-key-id:
-            secret: "${INFRA_CI_MAVEN_CACHER_AWS_ACCESS_KEY_ID}"
-            description: "AWS access key id for the infra-ci-maven-cacher IAM role allowing write in ci-jenkins-io-maven-cache S3 bucket"
-          infra-ci-maven-cacher-secret-key:
-            secret: "${INFRA_CI_MAVEN_CACHER_AWS_SECRET_ACCESS_KEY}"
-            description: "AWS secret key for the infra-ci-maven-cacher IAM role allowing write in ci-jenkins-io-maven-cache S3 bucket"
+          infra-ci-maven-cacher:
+            accessKey: "${INFRA_CI_MAVEN_CACHER_AWS_ACCESS_KEY_ID}"
+            secretKey: "${INFRA_CI_MAVEN_CACHER_AWS_SECRET_ACCESS_KEY}"
+            description: "AWS credentials for the infra-ci-maven-cacher IAM role allowing write in ci-jenkins-io-maven-cache S3 bucket"
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
