@@ -75,18 +75,24 @@ jobsDefinition:
         disableGitHubNotifications: true
         disableTagDiscovery: true
         credentials:
-          infraci-certcijenkinsio-fileshare-serviceprincipal-writer:
-            kind: azure-serviceprincipal
-            azureEnvironmentName: "Azure"
-            clientId: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
-            clientSecret: "${CERTCI_MAVEN_CACHER_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
-            description: "Azure Service Principal used to access cert.ci Maven cacher File Share in Read/Write"
-            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
-            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
           infra-ci-maven-cacher:
+            description: "AWS credentials for the infra-ci-maven-cacher IAM role allowing write in ci-jenkins-io-maven-cache S3 bucket"
             accessKey: "${INFRA_CI_MAVEN_CACHER_AWS_ACCESS_KEY_ID}"
             secretKey: "${INFRA_CI_MAVEN_CACHER_AWS_SECRET_ACCESS_KEY}"
-            description: "AWS credentials for the infra-ci-maven-cacher IAM role allowing write in ci-jenkins-io-maven-cache S3 bucket"
+          cache-east-us-2-fileshare-serviceprincipal-writer:
+            description: "Azure Service Principal allowing to write in cache-east-us-2 fileshare"
+            clientId: "${CACHE_EAST_US_2_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${CACHE_EAST_US_2_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+            azureEnvironmentName: "Azure"
+          cache-sweden-central-fileshare-serviceprincipal-writer:
+            description: "Azure Service Principal allowing to write in cache-sweden-central fileshare"
+            clientId: "${CACHE_SWEDEN_CENTRAL_SERVICE_PRINCIPAL_WRITER_CLIENT_ID}"
+            clientSecret: "${CACHE_SWEDEN_CENTRAL_SERVICE_PRINCIPAL_WRITER_CLIENT_SECRET}"
+            subscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+            tenant: "${JENKINSINFRA_AZURE_TENANT_ID}"
+            azureEnvironmentName: "Azure"
   docker-jobs:
     name: Docker Jobs
     description: Folder hosting all the Docker jobs
