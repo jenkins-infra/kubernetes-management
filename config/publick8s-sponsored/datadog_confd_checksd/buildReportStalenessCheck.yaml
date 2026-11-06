@@ -68,16 +68,19 @@ instances:
     threshold_in_minutes: 180  # @hourly
   - controller: infra.ci.jenkins.io
     job: reports/backend-extension-indexer/master
-    threshold_in_minutes: 11520  # weekly (Sundays)
+    threshold_in_minutes: 11520  # weekly (so 8 days threshold)
   - controller: infra.ci.jenkins.io
     job: reports/csp-compatibility/main
     threshold_in_minutes: 180  # @hourly
   - controller: infra.ci.jenkins.io
     job: reports/pipeline-steps-doc-generator/master
-    threshold_in_minutes: 11520  # weekly (Sundays)
+    threshold_in_minutes: 11520  # weekly (so 8 days threshold)
   - controller: infra.ci.jenkins.io
     job: reports/plugin-site-api/master
     threshold_in_minutes: 60  # every 10 min
+  - controller: infra.ci.jenkins.io
+    job: cronjobs/geoipupdates/geoipupdates
+    threshold_in_minutes: 11520  # weekly (so 8 days threshold)
   ## release.ci.jenkins.io jobs
   - controller: release.ci.jenkins.io
     job: infra-agents-health/master
