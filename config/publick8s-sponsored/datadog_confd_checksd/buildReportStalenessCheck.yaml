@@ -81,6 +81,9 @@ instances:
   - controller: infra.ci.jenkins.io
     job: cronjobs/geoipupdates/geoipupdates
     threshold_in_minutes: 11520  # weekly (so 8 days threshold)
+  - controller: infra.ci.jenkins.io
+    job: cronjobs/maven-cacher/maven-cacher
+    threshold_in_minutes: 11520  # weekly (so 8 days threshold)
   ## release.ci.jenkins.io jobs
   - controller: release.ci.jenkins.io
     job: infra-agents-health/master
