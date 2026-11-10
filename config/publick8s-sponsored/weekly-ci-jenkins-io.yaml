@@ -53,7 +53,7 @@ controller:
   # Feature previews enabled, see https://github.com/jenkins-infra/helpdesk/issues/5364
   javaOpts: >-
     -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
-    -Dnew-build-page.flag=true -Dnew-dashboard-page.flag=true -Dnew-job-page.flag=true
+    -Dnew-build-page.flag.defaultValue=true -Dnew-dashboard-page.flag.defaultValue=true -Dnew-job-page.flag.defaultValue=true
   JCasC:
     enabled: true
     defaultConfig: false
