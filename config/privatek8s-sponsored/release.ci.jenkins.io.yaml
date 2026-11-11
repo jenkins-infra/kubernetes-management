@@ -178,6 +178,7 @@ controller:
                     value: "true"
                   - key: "azure.workload.identity/use"
                     value: "true"
+                waitForPodSec: 1200 # With Windows pods, the initial bootstrap takes 12 to 18 min (node startup + image pull + container startup) so the default 600s is too low
       jobs-settings: |
         jobs:
           - script: >
