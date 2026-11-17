@@ -39,14 +39,13 @@ releases:
       - ../config/publick8s-sponsored/datadog_confd_checksd.yaml.gotmpl
     secrets:
       - ../secrets/config/datadog/publick8s-sponsored-secrets.yaml
-  # TODO: restore
-  # - name: cert-manager
-  #   namespace: cert-manager
-  #   chart: jetstack/cert-manager
-  #   version: v1.20.4
-  #   values:
-  #     - ../config/cert-manager.yaml
-  #     - ../config/publick8s-sponsored/cert-manager.yaml
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.21.3
+    values:
+      - ../config/cert-manager.yaml
+      - ../config/publick8s-sponsored/cert-manager.yaml
   - name: acme
     namespace: cert-manager
     chart: jenkins-infra/acme
