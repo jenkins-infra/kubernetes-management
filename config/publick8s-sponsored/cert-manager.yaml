@@ -17,6 +17,17 @@ webhook:
       value: "arm64"
       effect: "NoSchedule"
 
+  validatingWebhookConfiguration:
+    namespaceSelector:
+      matchExpressions:
+        # Default value from the chart
+        - key: "cert-manager.io/disable-validation"
+          operator: "NotIn"
+          values:
+            - "true"
+        - key: control-plane
+          operator: DoesNotExist
+
 cainjector:
   nodeSelector:
     kubernetes.io/arch: arm64
