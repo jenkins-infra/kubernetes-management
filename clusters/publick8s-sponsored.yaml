@@ -50,9 +50,8 @@ releases:
     namespace: cert-manager
     chart: jenkins-infra/acme
     version: 0.1.4
-    # TODO: restore
-    # needs:
-    #   - cert-manager
+    needs:
+      - cert-manager
     values:
       - ../config/acme.yaml
     secrets:
