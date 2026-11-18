@@ -117,7 +117,7 @@ releases:
   - name: uplink-jenkins-io
     namespace: uplink-jenkins-io
     chart: jenkins-infra/uplink
-    version: 1.2.7
+    version: 1.2.5
     values:
       - ../config/publick8s-sponsored/uplink-jenkins-io.yaml
     secrets:
