@@ -32,8 +32,6 @@ controller:
       operator: "Equal"
       value: "arm64"
       effect: "NoSchedule"
-  config:
-    use-http2: false
 defaultBackend:
   nodeSelector:
     kubernetes.io/arch: arm64
