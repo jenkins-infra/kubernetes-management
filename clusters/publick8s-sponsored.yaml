@@ -93,7 +93,7 @@ releases:
   - name: wiki-jenkins-io
     namespace: wiki-jenkins-io
     chart: jenkins-infra/wiki
-    version: 0.8.26
+    version: 0.8.27
     values:
       - ../config/publick8s-sponsored/wiki.yaml
   - name: incrementals-jenkins-io
