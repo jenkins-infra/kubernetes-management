@@ -25,6 +25,14 @@ webhook:
           operator: "NotIn"
           values:
             - "true"
+        # Exclude AKS internal namespaces. Ref. https://learn.microsoft.com/en-us/azure/aks/faq#can-i-use-admission-controller-webhooks-on-aks-
+        - key: control-plane
+          operator: DoesNotExist
+
+  mutatingWebhookConfiguration:
+    namespaceSelector:
+      matchExpressions:
+        # Exclude AKS internal namespaces. Ref. https://learn.microsoft.com/en-us/azure/aks/faq#can-i-use-admission-controller-webhooks-on-aks-
         - key: control-plane
           operator: DoesNotExist
 
