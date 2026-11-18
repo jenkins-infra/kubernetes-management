@@ -31,7 +31,7 @@ webhook:
         - key: kubernetes.azure.com/managedby
           operator: NotIn
           values:
-          - aks
+            - aks
 
   mutatingWebhookConfiguration:
     namespaceSelector:
@@ -42,7 +42,7 @@ webhook:
         - key: kubernetes.azure.com/managedby
           operator: NotIn
           values:
-          - aks
+            - aks
 
 cainjector:
   nodeSelector:
