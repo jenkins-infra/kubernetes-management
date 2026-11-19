@@ -632,6 +632,9 @@ jobsDefinition:
         name: Shared Pipeline Library
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
+      rating:
+        jenkinsfilePath: Jenkinsfile_updatecli
+        disableTagDiscovery: true
       release:
         jenkinsfilePath: Jenkinsfile_updatecli
         disableTagDiscovery: true
