@@ -87,7 +87,7 @@ releases:
   - name: javadoc-jenkins-io
     namespace: javadoc-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/javadoc-jenkins-io.yaml
   - name: wiki-jenkins-io
@@ -145,7 +145,7 @@ releases:
   - name: staging-get-jenkins-io
     namespace: staging-get-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/staging-get-jenkins-io.yaml
   - name: updates-jenkins-io-content
@@ -210,61 +210,61 @@ releases:
   - name: pkg-origin-jenkins-io
     namespace: pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/pkg-origin-jenkins-io.yaml.gotmpl
   - name: staging-pkg-origin-jenkins-io
     namespace: staging-pkg-origin-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/staging-pkg-origin-jenkins-io.yaml.gotmpl
   - name: reports-jenkins-io
     namespace: reports-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/reports-jenkins-io.yaml.gotmpl
   - name: builds-reports-jenkins-io
     namespace: builds-reports-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/builds-reports-jenkins-io.yaml.gotmpl
   - name: issue-redirect-jenkins-io
     namespace: issue-redirect-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/issue-redirect-jenkins-io.yaml.gotmpl
   - name: www-jenkins-io
     namespace: www-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/www-jenkins-io.yaml.gotmpl
   - name: contributors-jenkins-io
     namespace: contributors-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/contributors-jenkins-io.yaml
   - name: docs-jenkins-io
     namespace: docs-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/docs-jenkins-io.yaml.gotmpl
   - name: alpha-docs-jenkins-io
     namespace: alpha-docs-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/alpha-docs-jenkins-io.yaml
   - name: stats-jenkins-io
     namespace: stats-jenkins-io
     chart: jenkins-infra/nginx-website
-    version: 0.7.10
+    version: 0.7.11
     values:
       - ../config/publick8s-sponsored/stats-jenkins-io.yaml.gotmpl
   - name: plugin-site-issues-jenkins-io
