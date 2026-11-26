@@ -1,0 +1,11 @@
+appearance:
+  customHeader:
+    enabled: true
+    header: "logo"
+    headerColor:
+      backgroundColor: "linear-gradient(90deg, rgba(239,192,92,1) 0%, rgba(171,28,28,1) 100%);"
+      color: "white"
+    logo:
+      image:
+        logoUrl: "/userContent/logos/beekeeper.png"
+    logoText: "Jenkins Infra"

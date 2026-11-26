@@ -1,0 +1,484 @@
+jenkins:
+  numExecutors: 0
+  clouds:
+    - kubernetes:
+        containerCapStr: "100"
+        credentialsId: "infraci.jenkins.io-agents-1-jenkins-agent-sa-token"
+        serverCertificate: "${decodeBase64:${INFRACIJENKINSIO_AGENTS_1_CACRT}}"
+        # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+        serverUrl: "https://infracijenkinsioagents1-wzkg3k2f.hcp.eastus2.azmk8s.io:443"
+        maxRequestsPerHostStr: "300"
+        webSocket: true
+        name: "kubernetes_infracijioagents1"
+        namespace: "jenkins-infra-agents"
+        podLabels:
+          - key: "jenkins/infra-ci-jenkins-io-agent"
+            value: "true"
+          - key: "jenkins"
+            value: "agent"
+          - key: "azure.workload.identity/use"
+            value: "true"
+        podRetention: "Never"
+        templates:
+          - name: jnlp-linux-amd64
+            nodeSelector: "kubernetes.io/arch=amd64"
+            containers:
+              - name: jnlp
+                image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.154.0
+                command: "/usr/local/bin/jenkins-agent"
+                args: ""
+                envVars:
+                - envVar:
+                    key: "JENKINS_JAVA_BIN"
+                    value: "/opt/jdk-25/bin/java"
+                - envVar:
+                    key: "JAVA_HOME"
+                    value: "/opt/jdk-25"
+                - envVar:
+                    key: "JENKINS_JAVA_OPTS"
+                    value: "-XX:+PrintCommandLineFlags"
+                - envVar:
+                    key: "PATH"
+                    # TODO: track with updatecli
+                    value: "/opt/nodejs/bin:/home/jenkins/.asdf/shims:/home/jenkins/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/local/go/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+                resourceLimitMemory: "8G"
+                resourceRequestCpu: "500m"
+                resourceRequestMemory: "1G"
+                alwaysPullImage: true
+            label: "linux jnlp-linux jnlp-linux-amd64 container kubernetes node ruby webbuilder"
+            # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+            serviceAccount: "jenkins-infra-agent"
+            yamlMergeStrategy: "merge"
+            yaml: |-
+              apiVersion: v1
+              kind: Pod
+              spec:
+                tolerations:
+                - key: "jenkins"
+                  operator: "Equal"
+                  value: "infra.ci.jenkins.io"
+                  effect: "NoSchedule"
+                - key: "infra.ci.jenkins.io/agents"
+                  operator: "Equal"
+                  value: "true"
+                  effect: "NoSchedule"
+                - key: "kubernetes.azure.com/scalesetpriority"
+                  operator: "Equal"
+                  value: "spot"
+                  effect: "NoSchedule"
+          - name: jnlp-linux-arm64
+            nodeSelector: "kubernetes.io/arch=arm64"
+            containers:
+              - name: jnlp
+                image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.154.0
+                command: "/usr/local/bin/jenkins-agent"
+                args: ""
+                envVars:
+                - envVar:
+                    key: "JENKINS_JAVA_BIN"
+                    value: "/opt/jdk-25/bin/java"
+                - envVar:
+                    key: "JAVA_HOME"
+                    value: "/opt/jdk-25"
+                resourceLimitMemory: "2048Mi"
+                resourceRequestCpu: "500m"
+                resourceRequestMemory: "512Mi"
+                alwaysPullImage: true
+            label: "jnlp-linux-arm64"
+            # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+            serviceAccount: "jenkins-infra-agent"
+            yamlMergeStrategy: "merge"
+            yaml: |-
+              apiVersion: v1
+              kind: Pod
+              spec:
+                tolerations:
+                - key: "jenkins"
+                  operator: "Equal"
+                  value: "infra.ci.jenkins.io"
+                  effect: "NoSchedule"
+                - key: "kubernetes.io/arch"
+                  operator: "Equal"
+                  value: "arm64"
+                  effect: "NoSchedule"
+                - key: "infra.ci.jenkins.io/agents"
+                  operator: "Equal"
+                  value: "true"
+                  effect: "NoSchedule"
+                - key: "kubernetes.azure.com/scalesetpriority"
+                  operator: "Equal"
+                  value: "spot"
+                  effect: "NoSchedule"
+    - azureVM:
+        azureCredentialsId: "azure-jenkins-sponsored-managed-identity"
+        name: "azure-vms-jenkins-sponsored"
+        deploymentTimeout: 1200
+        existingResourceGroupName: "infra-ci-jenkins-io-ephemeral-agents"
+        maxVirtualMachinesLimit: 50
+        resourceGroupReferenceType: "existing"
+        vmTemplates:
+        - launcher: "ssh"
+          agentWorkspace: "/home/jenkins"
+          credentialsId: "azure-login"
+          diskType: "managed"
+          doNotUseMachineIfInitFails: false
+          encryptionAtHost: true
+          ephemeralOSDisk: true
+          executeInitScriptAsRoot: true
+          imageReference:
+            galleryImageDefinition: "jenkins-agent-ubuntu-22.04-amd64"
+            galleryImageVersion: "2.154.0"
+            galleryName: "prod_packer_images"
+            galleryResourceGroup: "prod-packer-images"
+            gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+          imageTopLevelType: "advanced"
+          initScript: |-
+            #!/bin/bash
+            set -eux
+            echo "START CLOUDINIT"
+            # Setup Datadog service
+            (
+              systemctl stop datadog-agent.service
+              mkdir -p /var/log/datadog /etc/datadog-agent
+              sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+              echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
+              sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+              chmod 640 /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /var/log/datadog
+              chmod 770 /var/log/datadog
+              systemctl daemon-reload
+              systemctl enable datadog-agent.service
+              systemctl start datadog-agent.service
+            ) 2>&1 | tee /var/log/agent-init-datadog.log
+            # Setup Docker Engine
+            mkdir -p /etc/docker
+            cat <<EOF >/etc/docker/daemon.json
+            {
+              "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+            }
+            EOF
+            systemctl daemon-reload
+            systemctl restart docker
+            export DEFAULT_JDK=/opt/jdk-21
+            update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
+            echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+            rm -f /etc/sudoers.d/90-cloud-init-users
+            echo "END CLOUDINIT"
+          javaPath: "/opt/jdk-25/bin/java"
+          jvmOptions: "-XX:+PrintCommandLineFlags"
+          labels: "linux-amd64 linux-amd64-docker"
+          location: "East US 2"
+          maxVirtualMachinesLimit: 50
+          existingStorageAccountName: "infraciagentssponso"
+          noOfParallelJobs: 1
+          osDiskSize: 150
+          osDiskStorageAccountType: "Standard_LRS"
+          osType: "Linux"
+          retentionStrategy: "azureVMCloudOnce"
+          spotInstance: false
+          storageAccountNameReferenceType: "existing"
+          storageAccountType: "Standard_LRS"
+          subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
+          templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS x86_64 machine"
+          templateName: "ubuntu-22"
+          trustedLaunch: true
+          enableUAMI: true
+          uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-sponsored-commons/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-sponsored-agents"
+          usageMode: NORMAL
+          usePrivateIP: true
+          virtualMachineSize: "Standard_D4ads_v7" # 4 vCPUS / 16 Gb / Max 150 Gb local storage
+          virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
+          virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
+        - launcher: "ssh"
+          agentWorkspace: "/home/jenkins"
+          credentialsId: "azure-login"
+          diskType: "managed"
+          doNotUseMachineIfInitFails: false
+          encryptionAtHost: true
+          ephemeralOSDisk: true
+          executeInitScriptAsRoot: true
+          imageReference:
+            galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+            galleryImageVersion: "2.154.0"
+            galleryName: "prod_packer_images"
+            galleryResourceGroup: "prod-packer-images"
+            gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+          imageTopLevelType: "advanced"
+          initScript: |-
+            #!/bin/bash
+            set -eux
+            echo "START CLOUDINIT"
+            # Setup Datadog service
+            (
+              systemctl stop datadog-agent.service
+              mkdir -p /var/log/datadog /etc/datadog-agent
+              sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+              echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
+              sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+              chmod 640 /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /var/log/datadog
+              chmod 770 /var/log/datadog
+              systemctl daemon-reload
+              systemctl enable datadog-agent.service
+              systemctl start datadog-agent.service
+            ) 2>&1 | tee /var/log/agent-init-datadog.log
+            # Setup Docker Engine
+            mkdir -p /etc/docker
+            cat <<EOF >/etc/docker/daemon.json
+            {
+              "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+            }
+            EOF
+            systemctl daemon-reload
+            systemctl restart docker
+            export DEFAULT_JDK=/opt/jdk-21
+            update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
+            echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+            rm -f /etc/sudoers.d/90-cloud-init-users
+            echo "END CLOUDINIT"
+          javaPath: "/opt/jdk-25/bin/java"
+          jvmOptions: "-XX:+PrintCommandLineFlags"
+          labels: "linux-arm64 linux-arm64-docker arm64linux jdk21 maven-21 ubuntu-22-arm64 ubuntu-arm64"
+          location: "East US 2"
+          maxVirtualMachinesLimit: 50
+          existingStorageAccountName: "infraciagentssponso"
+          noOfParallelJobs: 1
+          osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
+          osDiskStorageAccountType: "Standard_LRS"
+          osType: "Linux"
+          retentionStrategy: "azureVMCloudOnce"
+          spotInstance: false
+          storageAccountNameReferenceType: "existing"
+          storageAccountType: "Standard_LRS"
+          subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
+          templateDesc: "Dynamically provisioned Ubuntu 22.04 LTS arm64 machine"
+          templateName: "ubuntu-22-arm64"
+          trustedLaunch: true
+          enableUAMI: true
+          uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-sponsored-commons/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-sponsored-agents"
+          usageMode: NORMAL
+          usePrivateIP: true
+          virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+          virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
+          virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
+        - launcher: "ssh"
+          agentWorkspace: "/home/jenkins"
+          credentialsId: "azure-login"
+          diskType: "managed"
+          doNotUseMachineIfInitFails: false
+          encryptionAtHost: true
+          ephemeralOSDisk: true
+          executeInitScriptAsRoot: true
+          imageReference:
+            galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+            galleryImageVersion: "2.154.0"
+            galleryName: "prod_packer_images"
+            galleryResourceGroup: "prod-packer-images"
+            gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+          imageTopLevelType: "advanced"
+          initScript: |-
+            #!/bin/bash
+            set -eux
+            echo "START CLOUDINIT"
+            # Setup Datadog service
+            (
+              systemctl stop datadog-agent.service
+              mkdir -p /var/log/datadog /etc/datadog-agent
+              sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+              echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
+              sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+              chmod 640 /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /var/log/datadog
+              chmod 770 /var/log/datadog
+              systemctl daemon-reload
+              systemctl enable datadog-agent.service
+              systemctl start datadog-agent.service
+            ) 2>&1 | tee /var/log/agent-init-datadog.log
+            # Setup Docker Engine
+            mkdir -p /etc/docker
+            cat <<EOF >/etc/docker/daemon.json
+            {
+              "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+            }
+            EOF
+            systemctl daemon-reload
+            systemctl restart docker
+            export DEFAULT_JDK=/opt/jdk-17
+            update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
+            echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+            rm -f /etc/sudoers.d/90-cloud-init-users
+            echo "END CLOUDINIT"
+          javaPath: "/opt/jdk-25/bin/java"
+          jvmOptions: "-XX:+PrintCommandLineFlags"
+          labels: "linux-arm64-maven-17 jdk17 maven-17 ubuntu-22-arm64-maven-17 ubuntu-arm64-maven-17"
+          location: "East US 2"
+          maxVirtualMachinesLimit: 50
+          existingStorageAccountName: "infraciagentssponso"
+          noOfParallelJobs: 1
+          osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
+          osDiskStorageAccountType: "Standard_LRS"
+          osType: "Linux"
+          retentionStrategy: "azureVMCloudOnce"
+          spotInstance: false
+          storageAccountNameReferenceType: "existing"
+          storageAccountType: "Standard_LRS"
+          subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
+          templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-17 LTS arm64 machine"
+          templateName: "ubuntu-22-arm64-maven-17"
+          trustedLaunch: true
+          enableUAMI: true
+          uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-sponsored-commons/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-sponsored-agents"
+          usageMode: NORMAL
+          usePrivateIP: true
+          virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+          virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
+          virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
+        - launcher: "ssh"
+          agentWorkspace: "/home/jenkins"
+          credentialsId: "azure-login"
+          diskType: "managed"
+          doNotUseMachineIfInitFails: false
+          encryptionAtHost: true
+          ephemeralOSDisk: true
+          executeInitScriptAsRoot: true
+          imageReference:
+            galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+            galleryImageVersion: "2.154.0"
+            galleryName: "prod_packer_images"
+            galleryResourceGroup: "prod-packer-images"
+            gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+          imageTopLevelType: "advanced"
+          initScript: |-
+            #!/bin/bash
+            set -eux
+            echo "START CLOUDINIT"
+            # Setup Datadog service
+            (
+              systemctl stop datadog-agent.service
+              mkdir -p /var/log/datadog /etc/datadog-agent
+              sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+              echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
+              sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+              chmod 640 /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /var/log/datadog
+              chmod 770 /var/log/datadog
+              systemctl daemon-reload
+              systemctl enable datadog-agent.service
+              systemctl start datadog-agent.service
+            ) 2>&1 | tee /var/log/agent-init-datadog.log
+            # Setup Docker Engine
+            mkdir -p /etc/docker
+            cat <<EOF >/etc/docker/daemon.json
+            {
+              "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+            }
+            EOF
+            systemctl daemon-reload
+            systemctl restart docker
+            export DEFAULT_JDK=/opt/jdk-21
+            update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
+            echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+            rm -f /etc/sudoers.d/90-cloud-init-users
+            echo "END CLOUDINIT"
+          javaPath: "/opt/jdk-25/bin/java"
+          jvmOptions: "-XX:+PrintCommandLineFlags"
+          labels: "linux-arm64-maven-21 jdk21 maven-21 ubuntu-22-arm64-maven-21 ubuntu-arm64-maven-21"
+          location: "East US 2"
+          maxVirtualMachinesLimit: 50
+          existingStorageAccountName: "infraciagentssponso"
+          noOfParallelJobs: 1
+          osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
+          osDiskStorageAccountType: "Standard_LRS"
+          osType: "Linux"
+          retentionStrategy: "azureVMCloudOnce"
+          spotInstance: false
+          storageAccountNameReferenceType: "existing"
+          storageAccountType: "Standard_LRS"
+          subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
+          templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS arm64 machine"
+          templateName: "ubuntu-22-arm64-maven-21"
+          trustedLaunch: true
+          enableUAMI: true
+          uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-sponsored-commons/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-sponsored-agents"
+          usageMode: NORMAL
+          usePrivateIP: true
+          virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+          virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
+          virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"
+        - launcher: "ssh"
+          agentWorkspace: "/home/jenkins"
+          credentialsId: "azure-login"
+          diskType: "managed"
+          doNotUseMachineIfInitFails: false
+          encryptionAtHost: true
+          ephemeralOSDisk: true
+          executeInitScriptAsRoot: true
+          imageReference:
+            galleryImageDefinition: "jenkins-agent-ubuntu-22.04-arm64"
+            galleryImageVersion: "2.154.0"
+            galleryName: "prod_packer_images"
+            galleryResourceGroup: "prod-packer-images"
+            gallerySubscriptionId: "1e7d5219-acbc-4495-8629-bdbb22e9b3ed"
+          imageTopLevelType: "advanced"
+          initScript: |-
+            #!/bin/bash
+            set -eux
+            echo "START CLOUDINIT"
+            # Setup Datadog service
+            (
+              systemctl stop datadog-agent.service
+              mkdir -p /var/log/datadog /etc/datadog-agent
+              sed 's/api_key:.*/api_key: ${JENKINS_CI_DATADOG_API_KEY}/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml
+              echo "tags: [\"jenkins_controller:infra.ci.jenkins.io\", \"jenkins_agent_type:ephemeral_azurevm\"]" >> /etc/datadog-agent/datadog.yaml
+              sed -i 's/# site:.*/site: datadoghq.com/' /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /etc/datadog-agent/datadog.yaml
+              chmod 640 /etc/datadog-agent/datadog.yaml
+              chown dd-agent:dd-agent /var/log/datadog
+              chmod 770 /var/log/datadog
+              systemctl daemon-reload
+              systemctl enable datadog-agent.service
+              systemctl start datadog-agent.service
+            ) 2>&1 | tee /var/log/agent-init-datadog.log
+            # Setup Docker Engine
+            mkdir -p /etc/docker
+            cat <<EOF >/etc/docker/daemon.json
+            {
+              "registry-mirrors": ["https://dockerhubmirror.azurecr.io"]
+            }
+            EOF
+            systemctl daemon-reload
+            systemctl restart docker
+            export DEFAULT_JDK=/opt/jdk-21
+            update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
+            echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+            rm -f /etc/sudoers.d/90-cloud-init-users
+            echo "END CLOUDINIT"
+          javaPath: "/opt/jdk-25/bin/java"
+          jvmOptions: "-XX:+PrintCommandLineFlags"
+          labels: "ubuntu-22-arm64-maven-21-nonspot linux-arm64-maven-21-nonspot linux-arm64-nonspot"
+          location: "East US 2"
+          maxVirtualMachinesLimit: 50
+          existingStorageAccountName: "infraciagentssponso"
+          noOfParallelJobs: 1
+          osDiskSize: 100 # https://github.com/jenkins-infra/helpdesk/issues/3812
+          osDiskStorageAccountType: "Standard_LRS"
+          osType: "Linux"
+          retentionStrategy: "azureVMCloudOnce"
+          spotInstance: false
+          storageAccountNameReferenceType: "existing"
+          storageAccountType: "Standard_LRS"
+          subnetName: "infra-ci-jenkins-io-sponsored-vnet-ephemeral-agents"
+          templateDesc: "Dynamically provisioned Ubuntu 22.04 maven-21 LTS arm64 machine nonspot"
+          templateName: "ubuntu-22-arm64-maven-21-nonspot"
+          trustedLaunch: true
+          enableUAMI: true
+          uamiID: "/subscriptions/1e7d5219-acbc-4495-8629-bdbb22e9b3ed/resourceGroups/infra-ci-jenkins-io-sponsored-commons/providers/Microsoft.ManagedIdentity/userAssignedIdentities/infra-ci-jenkins-io-sponsored-agents"
+          usageMode: NORMAL
+          usePrivateIP: true
+          virtualMachineSize: "Standard_D4pds_v6" # 4 vCPUS / 16 Gb / Max 100 Gb OsCacheDisk local storage (150 temp)
+          virtualNetworkName: "infra-ci-jenkins-io-sponsored-vnet"
+          virtualNetworkResourceGroupName: "infra-ci-jenkins-io-sponsored"

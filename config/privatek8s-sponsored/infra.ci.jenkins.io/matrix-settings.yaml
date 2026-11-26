@@ -1,0 +1,20 @@
+jenkins:
+  authorizationStrategy:
+    globalMatrix:
+      entries:
+      - group:
+          name: "admins"
+          permissions:
+          - "Overall/Administer"
+      - group:
+          name: "authenticated"
+          permissions:
+          - "Job/Build"
+          - "Job/ExtendedRead"
+          - "Job/Read"
+          - "Overall/Read"
+          - "Overall/SystemRead"
+      - group:
+          name: "jenkins-admins"
+          permissions:
+          - "Overall/Administer"
