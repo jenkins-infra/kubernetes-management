@@ -82,7 +82,7 @@ releases:
       # Required to expose the Web UI to the VPN (primary ingress of the jenkins helm chart)
       - private-nginx-ingress/private-nginx-ingress
     values:
-      - ../config/privatek8s-sponsored/infra.ci.jenkins.io.yaml
+      - ../config/privatek8s-sponsored/infra.ci.jenkins.io.yaml.gotmpl
     secrets:
       - ../secrets/config/infra.ci.jenkins.io/jenkins-secrets.yaml
   - name: release-ci-jenkins-io-agents
