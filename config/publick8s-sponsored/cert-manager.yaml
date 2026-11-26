@@ -17,6 +17,33 @@ webhook:
       value: "arm64"
       effect: "NoSchedule"
 
+  validatingWebhookConfiguration:
+    namespaceSelector:
+      matchExpressions:
+        # Default value from the chart
+        - key: "cert-manager.io/disable-validation"
+          operator: "NotIn"
+          values:
+            - "true"
+        # Exclude AKS internal namespaces. Ref. https://learn.microsoft.com/en-us/azure/aks/faq#can-i-use-admission-controller-webhooks-on-aks-
+        - key: control-plane
+          operator: DoesNotExist
+        - key: kubernetes.azure.com/managedby
+          operator: NotIn
+          values:
+            - aks
+
+  mutatingWebhookConfiguration:
+    namespaceSelector:
+      matchExpressions:
+        # Exclude AKS internal namespaces. Ref. https://learn.microsoft.com/en-us/azure/aks/faq#can-i-use-admission-controller-webhooks-on-aks-
+        - key: control-plane
+          operator: DoesNotExist
+        - key: kubernetes.azure.com/managedby
+          operator: NotIn
+          values:
+            - aks
+
 cainjector:
   nodeSelector:
     kubernetes.io/arch: arm64

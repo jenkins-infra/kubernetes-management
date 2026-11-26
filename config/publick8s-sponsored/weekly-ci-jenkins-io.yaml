@@ -15,7 +15,7 @@ controller:
   image:
     registry: dockerhubmirror.azurecr.io
     repository: jenkinsciinfra/jenkins-weeklyci
-    tag: 3.10.91-2.588
+    tag: 3.10.98-2.592
     pullPolicy: IfNotPresent
   nodeSelector:
     kubernetes.io/arch: arm64
@@ -50,8 +50,10 @@ controller:
     # fsGroupChangePolicy: OnRootMismatch  # Uncomment once for new volumes
   overwritePlugins: true
   serviceType: "ClusterIP"
+  # Feature previews enabled, see https://github.com/jenkins-infra/helpdesk/issues/5364
   javaOpts: >-
     -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
+    -Dnew-build-page.flag.defaultValue=true -Dnew-dashboard-page.flag.defaultValue=true -Dnew-job-page.flag.defaultValue=true
   JCasC:
     enabled: true
     defaultConfig: false
