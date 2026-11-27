@@ -77,6 +77,11 @@ jenkins:
                     volumeMounts:
                       - name: maven-cache
                         mountPath: /home/jenkins/.m2
+                containers:
+                  - name: jnlp
+                    volumeMounts:
+                      - name: maven-cache
+                        mountPath: /home/jenkins/.m2
                 volumes:
                   - name: maven-cache
                     emptyDir: {}
@@ -140,6 +145,11 @@ jenkins:
                         archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
                         time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
                         time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+                    volumeMounts:
+                      - name: maven-cache
+                        mountPath: /home/jenkins/.m2
+                containers:
+                  - name: jnlp
                     volumeMounts:
                       - name: maven-cache
                         mountPath: /home/jenkins/.m2
