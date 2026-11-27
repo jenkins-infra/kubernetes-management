@@ -53,19 +53,51 @@ jenkins:
               apiVersion: v1
               kind: Pod
               spec:
+                initContainers:
+                  - name: restore-maven-cache
+                    image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.154.0
+                    command:
+                      - /bin/bash
+                      - -c
+                    args:
+                      - |
+                        set -euxo pipefail
+
+                        # Retrieve and restore Maven cache from the regional Azure Fileshare
+                        export AZCOPY_AUTO_LOGIN_TYPE=WORKLOAD
+                        azcopy login --identity
+                        fileshare_url=https://cacheeastus2.file.core.windows.net/cache-east-us-2
+                        mvn_local_repo=/home/jenkins/.m2/repository
+                        mkdir -p "^${mvn_local_repo}"
+                        # Marker file containing the archive name created in https://github.com/jenkins-infra/infra-cronjobs/blob/maven-cacher/create-archive.sh
+                        azcopy copy "^${fileshare_url}/maven_cache_archive_name" "^${mvn_local_repo}"
+                        archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
+                        time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
+                        time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+                    volumeMounts:
+                      - name: maven-cache
+                        mountPath: /home/jenkins/.m2
+                containers:
+                  - name: jnlp
+                    volumeMounts:
+                      - name: maven-cache
+                        mountPath: /home/jenkins/.m2
+                volumes:
+                  - name: maven-cache
+                    emptyDir: {}
                 tolerations:
-                - key: "jenkins"
-                  operator: "Equal"
-                  value: "infra.ci.jenkins.io"
-                  effect: "NoSchedule"
-                - key: "infra.ci.jenkins.io/agents"
-                  operator: "Equal"
-                  value: "true"
-                  effect: "NoSchedule"
-                - key: "kubernetes.azure.com/scalesetpriority"
-                  operator: "Equal"
-                  value: "spot"
-                  effect: "NoSchedule"
+                  - key: "jenkins"
+                    operator: "Equal"
+                    value: "infra.ci.jenkins.io"
+                    effect: "NoSchedule"
+                  - key: "infra.ci.jenkins.io/agents"
+                    operator: "Equal"
+                    value: "true"
+                    effect: "NoSchedule"
+                  - key: "kubernetes.azure.com/scalesetpriority"
+                    operator: "Equal"
+                    value: "spot"
+                    effect: "NoSchedule"
           - name: jnlp-linux-arm64
             nodeSelector: "kubernetes.io/arch=arm64"
             containers:
@@ -92,23 +124,55 @@ jenkins:
               apiVersion: v1
               kind: Pod
               spec:
+                initContainers:
+                  - name: restore-maven-cache
+                    image: dockerhubmirror.azurecr.io/jenkinsciinfra/jenkins-agent-ubuntu-22.04:2.154.0
+                    command:
+                      - /bin/bash
+                      - -c
+                    args:
+                      - |
+                        set -euxo pipefail
+
+                        # Retrieve and restore Maven cache from the regional Azure Fileshare
+                        export AZCOPY_AUTO_LOGIN_TYPE=WORKLOAD
+                        azcopy login --identity
+                        fileshare_url=https://cacheeastus2.file.core.windows.net/cache-east-us-2
+                        mvn_local_repo=/home/jenkins/.m2/repository
+                        mkdir -p "^${mvn_local_repo}"
+                        # Marker file containing the archive name created in https://github.com/jenkins-infra/infra-cronjobs/blob/maven-cacher/create-archive.sh
+                        azcopy copy "^${fileshare_url}/maven_cache_archive_name" "^${mvn_local_repo}"
+                        archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
+                        time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
+                        time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+                    volumeMounts:
+                      - name: maven-cache
+                        mountPath: /home/jenkins/.m2
+                containers:
+                  - name: jnlp
+                    volumeMounts:
+                      - name: maven-cache
+                        mountPath: /home/jenkins/.m2
+                volumes:
+                  - name: maven-cache
+                    emptyDir: {}
                 tolerations:
-                - key: "jenkins"
-                  operator: "Equal"
-                  value: "infra.ci.jenkins.io"
-                  effect: "NoSchedule"
-                - key: "kubernetes.io/arch"
-                  operator: "Equal"
-                  value: "arm64"
-                  effect: "NoSchedule"
-                - key: "infra.ci.jenkins.io/agents"
-                  operator: "Equal"
-                  value: "true"
-                  effect: "NoSchedule"
-                - key: "kubernetes.azure.com/scalesetpriority"
-                  operator: "Equal"
-                  value: "spot"
-                  effect: "NoSchedule"
+                  - key: "jenkins"
+                    operator: "Equal"
+                    value: "infra.ci.jenkins.io"
+                    effect: "NoSchedule"
+                  - key: "kubernetes.io/arch"
+                    operator: "Equal"
+                    value: "arm64"
+                    effect: "NoSchedule"
+                  - key: "infra.ci.jenkins.io/agents"
+                    operator: "Equal"
+                    value: "true"
+                    effect: "NoSchedule"
+                  - key: "kubernetes.azure.com/scalesetpriority"
+                    operator: "Equal"
+                    value: "spot"
+                    effect: "NoSchedule"
     - azureVM:
         azureCredentialsId: "azure-jenkins-sponsored-managed-identity"
         name: "azure-vms-jenkins-sponsored"
@@ -163,6 +227,19 @@ jenkins:
               export DEFAULT_JDK=/opt/jdk-21
               update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
               echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+
+              # Retrieve and restore Maven cache from the regional Azure Fileshare
+              fileshare_url=https://cacheeastus2.file.core.windows.net/cache-east-us-2
+              mvn_local_repo=/home/jenkins/.m2/repository
+              mkdir -p "^${mvn_local_repo}"
+              chown -R jenkins:jenkins /home/jenkins
+              azcopy login --identity
+              # Marker file containing the archive name created in https://github.com/jenkins-infra/infra-cronjobs/blob/maven-cacher/create-archive.sh
+              azcopy copy "^${fileshare_url}/maven_cache_archive_name" "^${mvn_local_repo}"
+              archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
+              time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
+              time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+
               rm -f /etc/sudoers.d/90-cloud-init-users
               echo "END CLOUDINIT"
             javaPath: "/opt/jdk-25/bin/java"
@@ -236,6 +313,19 @@ jenkins:
               export DEFAULT_JDK=/opt/jdk-21
               update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
               echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+
+              # Retrieve and restore Maven cache from the regional Azure Fileshare
+              fileshare_url=https://cacheeastus2.file.core.windows.net/cache-east-us-2
+              mvn_local_repo=/home/jenkins/.m2/repository
+              mkdir -p "^${mvn_local_repo}"
+              chown -R jenkins:jenkins /home/jenkins
+              azcopy login --identity
+              # Marker file containing the archive name created in https://github.com/jenkins-infra/infra-cronjobs/blob/maven-cacher/create-archive.sh
+              azcopy copy "^${fileshare_url}/maven_cache_archive_name" "^${mvn_local_repo}"
+              archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
+              time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
+              time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+
               rm -f /etc/sudoers.d/90-cloud-init-users
               echo "END CLOUDINIT"
             javaPath: "/opt/jdk-25/bin/java"
@@ -309,6 +399,19 @@ jenkins:
               export DEFAULT_JDK=/opt/jdk-17
               update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
               echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+
+              # Retrieve and restore Maven cache from the regional Azure Fileshare
+              fileshare_url=https://cacheeastus2.file.core.windows.net/cache-east-us-2
+              mvn_local_repo=/home/jenkins/.m2/repository
+              mkdir -p "^${mvn_local_repo}"
+              chown -R jenkins:jenkins /home/jenkins
+              azcopy login --identity
+              # Marker file containing the archive name created in https://github.com/jenkins-infra/infra-cronjobs/blob/maven-cacher/create-archive.sh
+              azcopy copy "^${fileshare_url}/maven_cache_archive_name" "^${mvn_local_repo}"
+              archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
+              time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
+              time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+
               rm -f /etc/sudoers.d/90-cloud-init-users
               echo "END CLOUDINIT"
             javaPath: "/opt/jdk-25/bin/java"
@@ -382,6 +485,19 @@ jenkins:
               export DEFAULT_JDK=/opt/jdk-21
               update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
               echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+
+              # Retrieve and restore Maven cache from the regional Azure Fileshare
+              fileshare_url=https://cacheeastus2.file.core.windows.net/cache-east-us-2
+              mvn_local_repo=/home/jenkins/.m2/repository
+              mkdir -p "^${mvn_local_repo}"
+              chown -R jenkins:jenkins /home/jenkins
+              azcopy login --identity
+              # Marker file containing the archive name created in https://github.com/jenkins-infra/infra-cronjobs/blob/maven-cacher/create-archive.sh
+              azcopy copy "^${fileshare_url}/maven_cache_archive_name" "^${mvn_local_repo}"
+              archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
+              time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
+              time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+
               rm -f /etc/sudoers.d/90-cloud-init-users
               echo "END CLOUDINIT"
             javaPath: "/opt/jdk-25/bin/java"
@@ -455,6 +571,19 @@ jenkins:
               export DEFAULT_JDK=/opt/jdk-21
               update-alternatives --install /usr/bin/java java "^${DEFAULT_JDK}/bin/java" 2000
               echo "JAVA_HOME=^${DEFAULT_JDK}" >> /etc/environment
+
+              # Retrieve and restore Maven cache from the regional Azure Fileshare
+              fileshare_url=https://cacheeastus2.file.core.windows.net/cache-east-us-2
+              mvn_local_repo=/home/jenkins/.m2/repository
+              mkdir -p "^${mvn_local_repo}"
+              chown -R jenkins:jenkins /home/jenkins
+              azcopy login --identity
+              # Marker file containing the archive name created in https://github.com/jenkins-infra/infra-cronjobs/blob/maven-cacher/create-archive.sh
+              azcopy copy "^${fileshare_url}/maven_cache_archive_name" "^${mvn_local_repo}"
+              archive_name="$(cat "^${mvn_local_repo}/maven_cache_archive_name")"
+              time azcopy copy "^${fileshare_url}/^${archive_name}" "^${mvn_local_repo}"
+              time tar xf "^${mvn_local_repo}/^${archive_name}" --owner=jenkins --group=jenkins -C "^${mvn_local_repo}"
+
               rm -f /etc/sudoers.d/90-cloud-init-users
               echo "END CLOUDINIT"
             javaPath: "/opt/jdk-25/bin/java"
