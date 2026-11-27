@@ -1,22 +1,22 @@
 unclassified:
   globalLibraries:
     libraries:
-    - cachingConfiguration:
-        excludedVersionsStr: "pull/"
-        refreshTimeMinutes: 180
-      defaultVersion: "master"
-      implicit: true
-      includeInChangesets: false
-      name: "pipeline-library"
-      retriever:
-        modernSCM:
-          libraryPath: "./"
-          scm:
-            gitSource:
-              remote: "https://github.com/jenkins-infra/pipeline-library"
-              traits:
-              - "gitBranchDiscovery"
-              - discoverOtherRefs:
-                  ref: "pull/*"
-              - headWildcardFilter:
-                  includes: "*"
+      - cachingConfiguration:
+          excludedVersionsStr: "pull/"
+          refreshTimeMinutes: 180
+        defaultVersion: "master"
+        implicit: true
+        includeInChangesets: false
+        name: "pipeline-library"
+        retriever:
+          modernSCM:
+            libraryPath: "./"
+            scm:
+              gitSource:
+                remote: "https://github.com/jenkins-infra/pipeline-library"
+                traits:
+                  - "gitBranchDiscovery"
+                  - discoverOtherRefs:
+                      ref: "pull/*"
+                  - headWildcardFilter:
+                      includes: "*"

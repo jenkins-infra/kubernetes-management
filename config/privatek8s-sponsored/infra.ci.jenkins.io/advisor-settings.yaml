@@ -4,7 +4,7 @@ jenkins:
 advisor:
   acceptToS: true
   ccs:
-  - "damien.duportal@gmail.com"
+    - "damien.duportal@gmail.com"
   email: "jenkins-infra-team@googlegroups.com"
   excludedComponents:
     - "ItemsContent"
