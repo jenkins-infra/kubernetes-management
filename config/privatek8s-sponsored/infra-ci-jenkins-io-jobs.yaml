@@ -106,10 +106,6 @@ jobsDefinition:
         description: Docker hub credential for jenkinsinfra organisation PUSH
         username: jenkinsinfraadmin
         password: "${DOCKER_HUB_TOKEN_JENKINSINFRAADMIN_PUSH}"
-      infracijenkinsio-dockerhub-pull: &infracijenkinsio-dockerhub-pull-def
-        description: Docker hub credential for jenkinsinfra organisation PULL
-        username: infracijenkinsio
-        password: "${DOCKER_HUB_TOKEN_INFRACIJENKINSIO_PULL}"
       github-app-infra.ci.jenkins.io-docker-jobs:
         description: "Github App infra.ci.jenkins.io-docker-jobs installed on jenkins-infra org"
         appId: "${GITHUB_APP_INFRA_CI_DOCKER_JOBS_ID}"
