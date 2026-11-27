@@ -18,7 +18,7 @@ sources:
     kind: file
     name: Retrieve the current version of the Packer images used in production
     spec:
-      file: config/privatek8s-sponsored/infra.ci.jenkins.io.yaml
+      file: config/privatek8s-sponsored/infra.ci.jenkins.io/agent-settings.yaml
       matchpattern: 'galleryImageVersion:\s"(.*)"'
     transformers:
       - findsubmatch:
@@ -45,7 +45,7 @@ targets:
     kind: file
     sourceid: getMavenVersionFromPackerImages
     spec:
-      file: config/privatek8s-sponsored/infra.ci.jenkins.io.yaml
+      file: config/privatek8s-sponsored/infra.ci.jenkins.io/tools-config.yaml
       matchpattern: '- maven:((\r\n|\r|\n)(\s+))id: .*'
       replacepattern: '- maven:${1}id: "{{ source "getMavenVersionFromPackerImages" }}"'
     scmid: default
