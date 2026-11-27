@@ -1,0 +1,5 @@
+unclassified:
+  timestamper:
+    allPipelines: true
+  shell:
+    shell: "/bin/bash"

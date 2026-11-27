@@ -1,0 +1,130 @@
+serviceAccount:
+  # Managed by Terraform to allow enabling Federated Identities
+  create: false
+  # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+  name: infra-ci-jenkins-io-controller
+serviceAccountAgent:
+  # Managed by Terraform to allow enabling Federated Identities
+  create: false
+rbac:
+  create: true
+  readSecrets: true
+persistence:
+  enabled: true
+  # TODO: track with updatecli from https://reports.jenkins.io/jenkins-infra-data-reports/azure.json
+  existingClaim: infra-ci-jenkins-io-data
+agent:
+  componentName: "agent"
+networkPolicy:
+  enabled: true
+  internalAgents:
+    allowed: true
+    namespaceLabels:
+      name: "infra-ci-jenkins-io"
+controller:
+  podLabels:
+    "azure.workload.identity/use": "true"
+  podSecurityContextOverride:
+    runAsUser: 1000
+    runAsNonRoot: true
+    supplementalGroups: [1000]
+    ## Commented out after initial installation
+    # fsGroup: 1000 # Uncomment once for new volumes
+    # fsGroupChangePolicy: OnRootMismatch # Uncomment once for new volumes
+  probes:
+    startupProbe:
+      initialDelaySeconds: 60
+    livenessProbe:
+      initialDelaySeconds: 60
+    readinessProbe:
+      initialDelaySeconds: 60
+  image:
+    registry: dockerhubmirror.azurecr.io
+    repository: jenkinsciinfra/jenkins-infraci
+    tag: 3.10.103-2.592
+    pullPolicy: IfNotPresent
+  nodeSelector:
+    kubernetes.io/os: linux
+    kubernetes.azure.com/agentpool: infracictrl
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
+    - key: "jenkins"
+      operator: "Equal"
+      value: "infra.ci.jenkins.io"
+      effect: "NoSchedule"
+    - key: "jenkins-component"
+      operator: "Equal"
+      value: "controller"
+      effect: "NoSchedule"
+  resources:
+    limits:
+      cpu: "2"
+      memory: "8Gi"
+    requests:
+      cpu: "2"
+      memory: "8Gi"
+  testEnabled: false
+  # This setting deletes the content of $ JENKINS_HOME/plugins on each pod restart to ensure only container image plugins are used
+  overwritePlugins: true
+  javaOpts: >-
+    -XshowSettings:vm -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:+UseG1GC -Djava.net.preferIPv4Stack=true
+  JCasC:
+    enabled: true
+    defaultConfig: false
+    configScripts:
+      credentials: |
+{{ readFile "./infra.ci.jenkins.io/credentials.yaml" | indent 8 }}
+      agent-settings: |
+{{ readFile "./infra.ci.jenkins.io/agent-settings.yaml" | indent 8 }}
+      security: |
+{{ readFile "./infra.ci.jenkins.io/security.yaml" | indent 8 }}
+      ldap-settings: |
+{{ readFile "./infra.ci.jenkins.io/ldap-settings.yaml" | indent 8 }}
+      advisor-settings: |
+{{ readFile "./infra.ci.jenkins.io/advisor-settings.yaml" | indent 8 }}
+      jenkins-url-and-resource-root: |
+{{ readFile "./infra.ci.jenkins.io/jenkins-url-and-resource-root.yaml" | indent 8 }}
+      pipeline-library: |
+{{ readFile "./infra.ci.jenkins.io/pipeline-library.yaml" | indent 8 }}
+      matrix-settings: |
+{{ readFile "./infra.ci.jenkins.io/matrix-settings.yaml" | indent 8 }}
+      pipeline-settings: |
+{{ readFile "./infra.ci.jenkins.io/pipeline-settings.yaml" | indent 8 }}
+      system-settings: |
+{{ readFile "./infra.ci.jenkins.io/system-settings.yaml" | indent 8 }}
+      tools-config: |
+{{ readFile "./infra.ci.jenkins.io/tools-config.yaml" | indent 8 }}
+      custom-header: |
+{{ readFile "./infra.ci.jenkins.io/custom-header.yaml" | indent 8 }}
+      default-notification-url: |
+{{ readFile "./infra.ci.jenkins.io/default-notification-url.yaml" | indent 8 }}
+  installPlugins: false
+  ingress:
+    enabled: true
+    hostName: infra.ci.jenkins.io
+    resourceRootUrl: assets.infra.ci.jenkins.io
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/proxy-body-size": "500m"
+    ingressClassName: private-nginx
+    tls:
+      - hosts:
+          - infra.ci.jenkins.io
+        secretName: infra.ci.jenkins.io-cert
+  secondaryingress:
+    enabled: true
+    paths:
+      - /github-webhook
+    hostName: infra-webhooks.ci.jenkins.io
+    ingressClassName: public-nginx
+    annotations:
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/ssl-redirect": "true"
+    tls:
+      - hosts:
+          - infra-webhooks.ci.jenkins.io
+        secretName: infra-webhooks.ci.jenkins.io-cert

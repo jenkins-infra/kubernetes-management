@@ -1,0 +1,48 @@
+tool:
+  git:
+    installations:
+      - home: "git"
+        name: "git-native"
+      - name: "jgit"
+  jdk:
+    installations:
+      - name: "jdk21"
+        properties:
+          - installSource:
+              installers:
+                - command:
+                    command: "echo /opt/jdk-21"
+                    label: "(linux && amd64) || linux-amd64 || jdk21 || jdk-21 || maven-21"
+                    toolHome: "/opt/jdk-21"
+                - command:
+                    command: "echo /opt/jdk-21"
+                    label: "(linux && arm64) || linux-arm64"
+                    toolHome: "/opt/jdk-21"
+                - command:
+                    command: "echo /opt/jdk-21"
+                    label: "s390x || s390xdocker"
+                    toolHome: "/opt/jdk-21"
+      - name: "jdk25"
+        properties:
+          - installSource:
+              installers:
+                - command:
+                    command: "echo /opt/jdk-25"
+                    label: "(linux && amd64) || linux-amd64 || jdk25 || jdk-25 || maven-25"
+                    toolHome: "/opt/jdk-25"
+                - command:
+                    command: "echo /opt/jdk-25"
+                    label: "(linux && arm64) || linux-arm64"
+                    toolHome: "/opt/jdk-25"
+                - command:
+                    command: "echo /opt/jdk-25"
+                    label: "s390x || s390xdocker"
+                    toolHome: "/opt/jdk-25"
+  maven:
+    installations:
+      - name: "mvn"
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.10.2"

@@ -1,0 +1,3 @@
+unclassified:
+  defaultDisplayUrlProvider:
+    providerId: "org.jenkinsci.plugins.displayurlapi.ClassicDisplayURLProvider"
